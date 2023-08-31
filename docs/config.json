@@ -2,7 +2,7 @@
   "docSearch": {
     "appId": "",
     "apiKey": "",
-    "indexName": "tanstack-form"
+    "indexName": "tanstack-store"
   },
   "menu": [
     {
@@ -15,23 +15,6 @@
         {
           "label": "Installation",
           "to": "installation"
-        },
-        {
-          "label": "Comparison",
-          "to": "comparison"
-        },
-        {
-          "label": "TypeScript",
-          "to": "typescript"
-        }
-      ]
-    },
-    {
-      "label": "Guides",
-      "children": [
-        {
-          "label": "Important Defaults",
-          "to": "guides/important-defaults"
         }
       ]
     },
@@ -64,15 +47,6 @@
             {
               "label": "useStore",
               "to": "framework/react/reference/useStore"
-            }
-          ]
-        },
-        {
-          "label": "Examples",
-          "children": [
-            {
-              "label": "Simple",
-              "to": "framework/react/examples/simple"
             }
           ]
         }
