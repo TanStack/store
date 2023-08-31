@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "types": ["vitest/globals"],
+    "noUnusedLocals": false
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", ".eslintrc.cjs", "tsup.config.js"]
+}
