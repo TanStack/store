@@ -5,13 +5,15 @@
   "license": "MIT",
   "repository": "tanstack/store",
   "homepage": "https://tanstack.com/store",
-  "type": "module",
   "description": "",
   "scripts": {
-    "build": "rollup --config rollup.config.js",
-    "test": "vitest",
-    "test:dev": "vitest --watch",
-    "test:eslint": "eslint --ext .ts,.tsx ./src"
+    "clean": "rimraf ./build && rimraf ./coverage",
+    "test:eslint": "eslint --ext .ts,.tsx ./src",
+    "test:types": "tsc",
+    "test:lib": "vitest run --coverage",
+    "test:lib:dev": "pnpm run test:lib --watch",
+    "test:build": "publint --strict",
+    "build": "tsup"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,16 +26,26 @@
     "type": "github",
     "url": "https://github.com/sponsors/tannerlinsley"
   },
-  "module": "build/esm/index.js",
-  "main": "build/cjs/index.js",
-  "browser": "build/umd/index.production.js",
-  "types": "build/types/index.d.ts",
-  "engines": {
-    "node": ">=12"
+  "type": "module",
+  "types": "build/legacy/index.d.ts",
+  "main": "build/legacy/index.cjs",
+  "module": "build/legacy/index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./build/modern/index.d.ts",
+        "default": "./build/modern/index.js"
+      },
+      "require": {
+        "types": "./build/modern/index.d.cts",
+        "default": "./build/modern/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
   },
+  "sideEffects": false,
   "files": [
-    "build/**",
+    "build",
     "src"
-  ],
-  "sideEffects": false
+  ]
 }
