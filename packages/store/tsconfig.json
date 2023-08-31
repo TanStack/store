@@ -1,9 +1,7 @@
 {
-  "composite": true,
-  "extends": "../../tsconfig.base.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./build/types"
+    "types": ["vitest/globals"]
   },
-  "files": ["src/index.ts"],
-  "include": ["src"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", ".eslintrc.cjs", "tsup.config.js"]
 }

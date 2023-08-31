@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { AnyUpdater, Store } from '@tanstack/store'
+import type { AnyUpdater, Store } from '@tanstack/store'
 import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/with-selector'
 
 export * from '@tanstack/store'

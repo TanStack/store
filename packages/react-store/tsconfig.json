@@ -1,13 +1,8 @@
 {
-  "composite": true,
-  "extends": "../../tsconfig.base.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./build/types",
+    "jsx": "react",
     "types": ["vitest/globals"]
   },
-  "files": ["src/index.tsx"],
-  "include": [
-    "src"
-    //  "__tests__/**/*.test.*"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx", ".eslintrc.cjs", "tsup.config.js"]
 }

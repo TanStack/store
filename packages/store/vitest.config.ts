@@ -3,10 +3,9 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     name: 'store',
+    dir: './src',
     watch: false,
-    // deps: {
-    //   interopDefault: true,
-    //   inline: true,
-    // },
+    globals: true,
+    coverage: { provider: 'istanbul' },
   },
 })

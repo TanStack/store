@@ -1,3 +1,5 @@
+import type { RollupOptions } from 'rollup'
+
 export type Commit = {
   commit: CommitOrTree
   tree: CommitOrTree
@@ -20,16 +22,16 @@ export type AuthorOrCommitter = {
 }
 
 export type Parsed = {
-  type: string
+  type: string | null
   scope?: string | null
   subject: string
   merge?: null
   header: string
   body?: null
   footer?: null
-  notes?: null[] | null
-  references?: null[] | null
-  mentions?: null[] | null
+  notes?: Array<null> | null
+  references?: Array<null> | null
+  mentions?: Array<null> | null
   revert?: null
   raw: string
 }
@@ -37,22 +39,9 @@ export type Parsed = {
 export type Package = {
   name: string
   packageDir: string
-  srcDir: string
-  builds: Build[]
-}
-
-export type Build = {
-  jsName: string
-  entryFile: string
-  external?: (d: string) => any
-  globals?: Record<string, string>
-  esm?: boolean
-  cjs?: boolean
-  umd?: boolean
-  externals?: any[]
+  entries: Array<'main' | 'module' | 'svelte' | 'types'>
 }
 
 export type BranchConfig = {
   prerelease: boolean
-  ghRelease: boolean
 }
