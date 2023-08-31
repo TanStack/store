@@ -51,6 +51,29 @@
           ]
         }
       ]
+    },
+    {
+      "framework": "vue",
+      "menuItems": [
+        {
+          "label": "Getting Started",
+          "children": [
+            {
+              "label": "Quick Start",
+              "to": "framework/vue/quick-start"
+            }
+          ]
+        },
+        {
+          "label": "API Reference",
+          "children": [
+            {
+              "label": "useStore",
+              "to": "framework/vue/reference/useStore"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
