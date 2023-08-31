@@ -1,5 +1,5 @@
-import { AnyUpdater, Store } from '@tanstack/store'
-import { readonly, Ref, ref, toRaw, toValue, watch } from 'vue-demi'
+import type { AnyUpdater, Store } from '@tanstack/store'
+import { readonly, type Ref, ref, toRaw, toValue, watch } from 'vue-demi'
 
 export * from '@tanstack/store'
 

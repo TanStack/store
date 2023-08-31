@@ -1,5 +1,5 @@
 {
-  "name": "@tanstack/vue-query",
+  "name": "@tanstack/vue-store",
   "version": "0.0.1",
   "author": "Tanner Linsley",
   "license": "MIT",
