@@ -2,8 +2,7 @@
   "files": [],
   "references": [
     { "path": "packages/store" },
-    { "path": "packages/react-store" },
-    { "path": "packages/solid-store" }
+    { "path": "packages/react-store" }
   ]
   // "include": ["examples/*"]
   // "exclude": ["node_modules"]

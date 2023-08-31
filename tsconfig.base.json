@@ -18,8 +18,7 @@
     "allowUnreachableCode": true,
     "paths": {
       "@tanstack/store": ["packages/store"],
-      "@tanstack/react-store": ["packages/react-store"],
-      "@tanstack/solid-store": ["packages/solid-store"],
+      "@tanstack/react-store": ["packages/react-store"]
     }
   },
   "ts-node": {
