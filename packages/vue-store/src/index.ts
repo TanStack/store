@@ -1,5 +1,5 @@
 import type { AnyUpdater, Store } from '@tanstack/store'
-import { readonly, type Ref, ref, toRaw, toValue, watch } from 'vue-demi'
+import { readonly, type Ref, ref, toRaw, watch } from 'vue-demi'
 
 export * from '@tanstack/store'
 
@@ -12,14 +12,14 @@ export function useStore<
 >(
   store: Store<TState, TUpdater>,
   selector: (state: NoInfer<TState>) => TSelected = (d) => d as any,
-) {
+): Readonly<Ref<TSelected>> {
   const slice = ref(selector(store.state)) as Ref<TSelected>
 
   watch(
-    () => toValue(store),
+    () => store,
     (value, _oldValue, onCleanup) => {
       const unsub = value.subscribe(() => {
-        const data = selector(store.state)
+        const data = selector(value.state)
         if (shallow(toRaw(slice.value), data)) {
           return
         }
@@ -33,7 +33,7 @@ export function useStore<
     { immediate: true },
   )
 
-  return readonly(slice)
+  return readonly(slice) as never
 }
 
 export function shallow<T>(objA: T, objB: T) {
