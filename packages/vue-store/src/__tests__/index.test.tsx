@@ -1,4 +1,4 @@
-import { h, defineComponent } from 'vue'
+import { h, defineComponent, watch } from 'vue-demi'
 import { render, waitFor } from '@testing-library/vue'
 import '@testing-library/jest-dom'
 import { Store } from '@tanstack/store'
@@ -20,7 +20,7 @@ describe('useStore', () => {
       return () => <p>Store: {storeVal.value}</p>
     })
 
-    const { getByText } = render(<Comp />)
+    const { getByText } = render(Comp)
     expect(getByText('Store: 0')).toBeInTheDocument()
   })
 
@@ -66,7 +66,7 @@ describe('useStore', () => {
       }
     })
 
-    const { getByText } = render(<Comp />)
+    const { getByText } = render(Comp)
     expect(getByText('Store: 0')).toBeInTheDocument()
     expect(getByText('Number rendered: 1')).toBeInTheDocument()
 
