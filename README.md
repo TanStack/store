@@ -1,6 +1,8 @@
 <img src="https://static.scarf.sh/a.png?x-pxid=d988eb79-b0fc-4a2b-8514-6a1ab932d188" />
 
-![TanStack Store Header](https://github.com/tanstack/store/raw/beta/media/header.png)
+# TanStack Store
+
+<!-- ![TanStack Store Header](https://github.com/tanstack/store/raw/beta/media/header.png) -->
 
 🤖 Type-safe store w/ framework agnostic reactive adapters.
 
