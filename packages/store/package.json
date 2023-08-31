@@ -10,7 +10,8 @@
   "scripts": {
     "build": "rollup --config rollup.config.js",
     "test": "vitest",
-    "test:dev": "vitest --watch"
+    "test:dev": "vitest --watch",
+    "test:eslint": "eslint --ext .ts,.tsx ./src"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
