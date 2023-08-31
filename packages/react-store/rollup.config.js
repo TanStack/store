@@ -1,11 +1,12 @@
-require('ts-node').register({
-  compilerOptions: {
-    esModuleInterop: true,
-  },
-})
+// @ts-check
 
-process.chdir('../..')
+import { defineConfig } from 'rollup'
+import { buildConfigs } from '../../scripts/getRollupConfig.js'
 
-module.exports = require('../../rollup.config.ts').createRollupConfig(
-  '@tanstack/react-store',
+export default defineConfig(
+  buildConfigs({
+    name: 'react-store',
+    outputFile: 'index',
+    entryFile: './src/index.tsx',
+  }),
 )

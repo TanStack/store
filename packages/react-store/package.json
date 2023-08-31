@@ -5,6 +5,7 @@
   "license": "MIT",
   "repository": "tanstack/react-store",
   "homepage": "https://tanstack.com/",
+  "type": "module",
   "description": "",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

@@ -5,6 +5,7 @@
   "license": "MIT",
   "repository": "tanstack/store",
   "homepage": "https://tanstack.com/store",
+  "type": "module",
   "description": "",
   "scripts": {
     "build": "rollup --config rollup.config.js",
