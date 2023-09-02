@@ -90,3 +90,7 @@ export class Store<
     this._flush()
   }
 }
+
+// Force a manual release of the package
+// @ts-ignore
+const manualRelease = 1;
