@@ -53,3 +53,7 @@ export function shallow<T>(objA: T, objB: T) {
   }
   return true
 }
+
+// Force a manual release of the package
+// @ts-ignore
+const manualRelease = 1;
