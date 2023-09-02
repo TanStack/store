@@ -1,5 +1,5 @@
 import type { AnyUpdater, Store } from '@tanstack/store'
-import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/with-selector'
+import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/with-selector.js'
 
 export * from '@tanstack/store'
 
@@ -53,7 +53,3 @@ export function shallow<T>(objA: T, objB: T) {
   }
   return true
 }
-
-// Force a manual release of the package
-// @ts-ignore
-const manualRelease = 1;
