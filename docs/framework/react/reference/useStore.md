@@ -15,20 +15,14 @@ export function useStore<
 )
 ```
 
-useStore is a custom hook that returns the updated store given the intial store and the selector.
+useStore is a custom hook that returns the updated store given the intial store and the selector. React can use this to keep your component subscribed to the store and re-render it on changes.
 
 
-These are generic type parameters for the useStore function:
-`<TState, TSelected = NoInfer<TState>, TUpdater extends AnyUpdater = AnyUpdater>`
 
-- `TState`: This parameter represents the type of your application's state. You are expected to provide the specific state type when you call the useStore function.
-
-- `TSelected = NoInfer<TState>`: This parameter represents the selected portion of the state. By default, it is set to NoInfer<TState>, which means it will infer the type from TState. You can override this default by explicitly specifying TSelected when calling the function.
-
-- `TUpdater extends AnyUpdater = AnyUpdater`: This parameter represents the type of updater functions or actions used to modify the state. It extends a type called AnyUpdater, and AnyUpdater is set as the default. Like TSelected, you can override this default by specifying TUpdater explicitly when calling the function
-
-#### Properties
+#### Parameters
 - `store: Store<TState, TUpdater>`
-  - This parameter represents the state management store itself. It expects an instance of a store that manages state of type TState and supports updates through functions or actions of type `TUpdater`.
+  - This parameter represents the external store itself which holds the entire state of your application. It expects an instance of a `@tanstack/store` that manages state and supports updates through a callback.
 - `selector: (state: NoInfer<TState>) => TSelected = (d) => d as any`
-  - This parameter is a selector function that takes the current state (of type TState or a subtype inferred from it) and returns the selected portion of the state (of type TSelected). The default behavior of this selector function is to return its input unchanged ((d) => d as any). You can provide a custom selector function to extract specific data from your state..
+  - This parameter is a callback function that takes the state of the store and expects you to return a sub-state of the store. This selected sub-state is subsequently utilized as the state displayed by the useStore hook. It triggers a re-render of the component only when there are changes in this data, ensuring that updates to the displayed state trigger the necessary re-renders
+
+
