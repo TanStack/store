@@ -1,6 +1,6 @@
 {
   "name": "@tanstack/vue-store",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Tanner Linsley",
   "license": "MIT",
   "repository": "tanstack/react-store",
