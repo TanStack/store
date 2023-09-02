@@ -1,5 +1,5 @@
 import type { AnyUpdater, Store } from '@tanstack/store'
-import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/with-selector'
+import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/with-selector.js'
 
 export * from '@tanstack/store'
 
