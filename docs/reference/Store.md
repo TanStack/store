@@ -44,7 +44,7 @@ const store = new Store(initialState: TState, options?: StoreOptions<TState, TUp
   - `updater: TUpdater`: a function to update the store's state.
   - `opts?`: An options object containing the update priority. Priority can be either `high` or `low`.
 
-- `batch`: Accepts a callback function and executes a batch of operations and triggers a flush when the batch is complete
+- `batch`: Allows you to call `setState` multiple times in the callback while only notifying `listener`s of changes once per batched execution. 
   
   ```tsx
   batch = (cb: () => void)
