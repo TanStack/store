@@ -1,5 +1,6 @@
 import type { AnyUpdater, Store } from '@tanstack/store'
-import { Accessor, onCleanup } from 'solid-js'
+import type { Accessor} from 'solid-js';
+import { onCleanup } from 'solid-js'
 import { createStore, reconcile } from 'solid-js/store'
 
 export * from '@tanstack/store'
