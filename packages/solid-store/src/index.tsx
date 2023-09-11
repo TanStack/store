@@ -20,6 +20,7 @@ export function useStore<
   })
 
   const unsub = store.subscribe(() => {
+    console.log('hello there', slice)
     const newValue = selector(store.state)
     setSlice('value', reconcile(newValue))
   })
