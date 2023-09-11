@@ -54,8 +54,5 @@
   },
   "dependencies": {
     "@tanstack/store": "workspace:*"
-  },
-  "devDependencies": {
-    "solid-js": "^1.7.11"
   }
 }
