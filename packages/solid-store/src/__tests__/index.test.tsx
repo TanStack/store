@@ -1,8 +1,25 @@
-import { renderHook } from '@solidjs/testing-library'
+import { render, renderHook } from '@solidjs/testing-library'
+import '@testing-library/jest-dom'
 import { Store } from '@tanstack/store'
 import { useStore } from '../index'
 
 describe('useStore', () => {
+  it.todo('allows us to select state using a selector', async () => {
+    const store = new Store({
+      select: 0,
+      ignored: 1,
+    })
+
+    function Comp() {
+      const storeVal = useStore(store, (state) => state.select)
+
+      return <p>Store: {storeVal()}</p>
+    }
+
+    const { getByText } = render(() => <Comp />)
+    expect(getByText('Store: 0')).toBeInTheDocument()
+  })
+
   it('allows us to select state using a selector', async () => {
     const store = new Store({
       select: 0,
