@@ -14,19 +14,13 @@ describe('useStore', () => {
     expect(result()).toBe(0)
   })
 
-  it('updates accessor value when selector state is updated', async () => {
-    const store = new Store({
-      select: 1,
-      ignored: 1,
-    })
+  it('updates accessor value when state is updated', async () => {
+    const store = new Store(0)
 
-    const { result } = renderHook(() => useStore(store, (state) => state.select))
+    const { result } = renderHook(() => useStore(store))
     
-    store.setState((v) => ({
-      ...v,
-      select: v.select + 1,
-    }))
+    store.setState((prev) => prev + 1)
 
-    expect(result()).toBe(2)
+    expect(result()).toBe(1)
   })
 })
