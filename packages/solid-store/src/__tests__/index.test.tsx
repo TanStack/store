@@ -20,7 +20,7 @@ describe('useStore', () => {
     expect(getByText('Store: 0')).toBeInTheDocument()
   })
 
-  it('allows us to select state using a selector', async () => {
+  it('allows us to select state using a selector', () => {
     const store = new Store({
       select: 0,
       ignored: 1,
@@ -31,7 +31,7 @@ describe('useStore', () => {
     expect(result()).toBe(0)
   })
 
-  it('updates accessor value when state is updated', async () => {
+  it('updates accessor value when state is updated', () => {
     const store = new Store(0)
 
     const { result } = renderHook(() => useStore(store))
