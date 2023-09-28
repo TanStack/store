@@ -6,6 +6,7 @@ settings:
 
 overrides:
   '@tanstack/store': workspace:*
+  '@tanstack/shallow': workspace:*
   '@tanstack/react-store': workspace:*
 
 patchedDependencies:
@@ -182,6 +183,9 @@ importers:
 
   packages/react-store:
     dependencies:
+      '@tanstack/shallow':
+        specifier: workspace:*
+        version: link:../shallow
       '@tanstack/store':
         specifier: workspace:*
         version: link:../store
@@ -199,10 +203,15 @@ importers:
         specifier: ^0.0.3
         version: 0.0.3
 
+  packages/shallow: {}
+
   packages/store: {}
 
   packages/vue-store:
     dependencies:
+      '@tanstack/shallow':
+        specifier: workspace:*
+        version: link:../shallow
       '@tanstack/store':
         specifier: workspace:*
         version: link:../store

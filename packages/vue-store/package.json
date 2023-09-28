@@ -58,6 +58,7 @@
     "src"
   ],
   "dependencies": {
+    "@tanstack/shallow": "workspace:^0.1.3",
     "@tanstack/store": "workspace:*",
     "vue-demi": "^0.14.6"
   },

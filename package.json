@@ -32,6 +32,7 @@
   "pnpm": {
     "overrides": {
       "@tanstack/store": "workspace:*",
+      "@tanstack/shallow": "workspace:*",
       "@tanstack/react-store": "workspace:*"
     },
     "patchedDependencies": {
