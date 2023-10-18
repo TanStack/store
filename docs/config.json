@@ -74,6 +74,29 @@
           ]
         }
       ]
+    },
+    {
+      "framework": "solid",
+      "menuItems": [
+        {
+          "label": "Getting Started",
+          "children": [
+            {
+              "label": "Quick Start",
+              "to": "framework/solid/quick-start"
+            }
+          ]
+        },
+        {
+          "label": "API Reference",
+          "children": [
+            {
+              "label": "useStore",
+              "to": "framework/solid/reference/useStore"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

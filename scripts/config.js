@@ -23,11 +23,11 @@ export const packages = [
     packageDir: 'packages/vue-store',
     entries: ['main', 'module', 'types'],
   },
-  // {
-  //   name: '@tanstack/solid-store',
-  //   packageDir: 'packages/solid-store',
-  //   entries: ['main', 'module', 'types'],
-  // },
+  {
+    name: '@tanstack/solid-store',
+    packageDir: 'packages/solid-store',
+    entries: ['main', 'module', 'types'],
+  },
   // {
   //   name: '@tanstack/svelte-store',
   //   packageDir: 'packages/svelte-store',
