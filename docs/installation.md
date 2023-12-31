@@ -20,3 +20,12 @@ npm install @tanstack/vue-store
 ```
 
 TanStack Store is compatible with Vue 2 and 3.
+
+
+## Svelte
+
+```sh
+npm install @tanstack/svelte-store
+```
+
+TanStack Store is compatible with Svelte 4

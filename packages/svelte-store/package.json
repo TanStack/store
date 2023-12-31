@@ -1,0 +1,67 @@
+{
+  "name": "@tanstack/svelte-store",
+  "version": "0.2.0",
+  "author": "Tanner Linsley",
+  "license": "MIT",
+  "repository": "tanstack/react-store",
+  "homepage": "https://tanstack.com/",
+  "description": "",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/tannerlinsley"
+  },
+  "type": "module",
+  "types": "build/index.d.ts",
+  "module": "build/index.js",
+  "svelte": "./build/index.js",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "svelte": "./build/index.js",
+      "import": "./build/index.js",
+      "default": "./build/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "clean": "rimraf ./build && rimraf ./coverage",
+    "test:types": "svelte-check --tsconfig ./tsconfig.json",
+    "test:eslint": "eslint --ext .svelte,.ts ./src",
+    "test:lib": "vitest run --coverage",
+    "test:lib:dev": "pnpm run test:lib --watch",
+    "test:build": "publint --strict",
+    "build": "svelte-package --input ./src --output ./build"
+  },
+  "nx": {
+    "targets": {
+      "test:lib": {
+        "dependsOn": [
+          "test:types"
+        ]
+      }
+    }
+  },
+  "files": [
+    "build",
+    "src"
+  ],
+  "dependencies": {
+    "@tanstack/store": "workspace:*"
+  },
+  "devDependencies": {
+    "@sveltejs/package": "^2.2.2",
+    "@sveltejs/vite-plugin-svelte": "^2.4.6",
+    "@testing-library/svelte": "^4.0.4",
+    "eslint-plugin-svelte": "^2.32.0",
+    "svelte": "^4.0.0",
+    "svelte-check": "^3.4.4"
+  },
+  "peerDependencies": {},
+  "peerDependenciesMeta": {
+    "svelte": ">=3 <5"
+  }
+}

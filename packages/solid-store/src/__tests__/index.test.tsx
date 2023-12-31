@@ -26,8 +26,10 @@ describe('useStore', () => {
       ignored: 1,
     })
 
-    const { result } = renderHook(() => useStore(store, (state) => state.select))
-    
+    const { result } = renderHook(() =>
+      useStore(store, (state) => state.select),
+    )
+
     expect(result()).toBe(0)
   })
 
@@ -35,7 +37,7 @@ describe('useStore', () => {
     const store = new Store(0)
 
     const { result } = renderHook(() => useStore(store))
-    
+
     store.setState((prev) => prev + 1)
 
     expect(result()).toBe(1)

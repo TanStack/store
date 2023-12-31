@@ -97,6 +97,29 @@
           ]
         }
       ]
+    },
+    {
+      "framework": "svelte",
+      "menuItems": [
+        {
+          "label": "Getting Started",
+          "children": [
+            {
+              "label": "Quick Start",
+              "to": "framework/svelte/quick-start"
+            }
+          ]
+        },
+        {
+          "label": "API Reference",
+          "children": [
+            {
+              "label": "useStore",
+              "to": "framework/svelte/reference/useStore"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

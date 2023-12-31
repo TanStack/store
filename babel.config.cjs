@@ -36,6 +36,7 @@ module.exports = {
         './packages/solid-store/**',
         './packages/svelte-store/**',
         './packages/vue-store/**',
+        './packages/svelte-store/**',
       ],
       presets: ['@babel/react'],
     },

@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": ["vitest/globals"],
+    "allowJs": true,
+    "checkJs": true
+  },
+  "include": [
+    "src/**/*.js",
+    "src/**/*.ts",
+    "src/**/*.svelte",
+    ".eslintrc.cjs",
+    "test-setup.ts",
+    "tsup.config.js",
+    "svelte.config.ts",
+    "test-setup.js",
+    "vite.config.ts"
+  ]
+}
