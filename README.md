@@ -2,7 +2,7 @@
 
 # TanStack Store
 
-<!-- ![TanStack Store Header](https://github.com/tanstack/store/raw/beta/media/header.png) -->
+![TanStack Store Header](https://github.com/tanstack/store/raw/main/media/repo-header.png)
 
 🤖 Type-safe store w/ framework agnostic reactive adapters.
 

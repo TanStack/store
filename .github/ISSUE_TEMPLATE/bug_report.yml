@@ -23,20 +23,6 @@ body:
       description: Provide a clear and concise description of the challenge you are running into.
     validations:
       required: true
-  - type: input
-    id: link
-    attributes:
-      label: Your Example Website or App
-      description: |
-        Which website or app were you using when the bug happened?
-        Note:
-        - Please provide a link via our pre-configured [Stackblitz project](https://stackblitz.com/github/tanstack/store/tree/beta/examples/react/quickstart?file=src%2Fmain.tsx) or a link to a repo that can reproduce the issue.
-        - Your bug will may get fixed much faster if we can run your code and it doesn't have dependencies other than the `store` npm package / dependency.
-        - To create a shareable code example you can use Stackblitz. Please no localhost URLs.
-        - Please read these tips for providing a minimal example: https://stackoverflow.com/help/mcve.
-      placeholder: reproduction URL
-    validations:
-      required: true
   - type: textarea
     id: steps
     attributes:
