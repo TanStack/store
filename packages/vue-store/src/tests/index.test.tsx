@@ -1,4 +1,6 @@
-import { h, defineComponent, watch } from 'vue-demi'
+// We need to import `h` as it's part of Vue's JSX transform
+// @ts-expect-error
+import { h, defineComponent } from 'vue-demi'
 import { render, waitFor } from '@testing-library/vue'
 import '@testing-library/jest-dom'
 import { Store } from '@tanstack/store'
