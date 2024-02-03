@@ -32,20 +32,9 @@
     ]
   },
   "namespace": "@tanstack",
-  "workspaces": [
-    "./packages/*",
-    "./examples/react/*",
-    "./examples/solid/*"
-  ],
-  "pnpm": {
-    "overrides": {
-      "@tanstack/store": "workspace:*",
-      "@tanstack/react-store": "workspace:*"
-    }
-  },
   "devDependencies": {
     "@solidjs/testing-library": "^0.8.5",
-    "@tanstack/config": "^0.3.2",
+    "@tanstack/config": "^0.4.2",
     "@testing-library/jest-dom": "^6.1.5",
     "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^14.4.3",

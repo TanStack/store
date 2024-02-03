@@ -4,10 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  '@tanstack/store': workspace:*
-  '@tanstack/react-store': workspace:*
-
 importers:
 
   .:
@@ -16,8 +12,8 @@ importers:
         specifier: ^0.8.5
         version: 0.8.5(@solidjs/router@0.8.3)(solid-js@1.7.11)
       '@tanstack/config':
-        specifier: ^0.3.2
-        version: 0.3.2(@types/node@18.19.5)(esbuild@0.19.11)(rollup@4.9.4)(typescript@5.2.2)(vite@5.0.11)
+        specifier: ^0.4.2
+        version: 0.4.2(@types/node@18.19.5)(esbuild@0.19.11)(rollup@4.9.4)(typescript@5.2.2)(vite@5.0.11)
       '@testing-library/jest-dom':
         specifier: ^6.1.5
         version: 6.2.0(@types/jest@26.0.24)(vitest@1.1.3)
@@ -1440,8 +1436,8 @@ packages:
       solid-js: 1.7.11
     dev: true
 
-  /@tanstack/config@0.3.2(@types/node@18.19.5)(esbuild@0.19.11)(rollup@4.9.4)(typescript@5.2.2)(vite@5.0.11):
-    resolution: {integrity: sha512-40sqRwPX2sxq4dUOha8PdFgwKiVSjuS5ZXOwDaBKdhBHrjAvRDc+jA7bwFK1f6O9BuFqpKDbBnfPBHS25Tu3YQ==}
+  /@tanstack/config@0.4.2(@types/node@18.19.5)(esbuild@0.19.11)(rollup@4.9.4)(typescript@5.2.2)(vite@5.0.11):
+    resolution: {integrity: sha512-PHlybqEA/4cJmu5aB9Yw4/OmdBqQY8pMW9Q1f3IJymAj0hRcTTfVRHMeI9yvEEP9lO74FN2EhIAwsKiXQb+FkQ==}
     engines: {node: '>=18'}
     hasBin: true
     dependencies:
