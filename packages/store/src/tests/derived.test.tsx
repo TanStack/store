@@ -32,4 +32,10 @@ test("Pyramid dep problem", () => {
   expect(halfCountFn).toHaveBeenNthCalledWith(1, 10)
   expect(doubleCountFn).toHaveBeenNthCalledWith(1, 40)
   expect(sumDoubleHalfCountFn).toHaveBeenNthCalledWith(1, 50)
+
+  count.setState(() => 30)
+
+  expect(halfCountFn).toHaveBeenNthCalledWith(2, 15)
+  expect(doubleCountFn).toHaveBeenNthCalledWith(2, 60)
+  expect(sumDoubleHalfCountFn).toHaveBeenNthCalledWith(2, 75)
 })

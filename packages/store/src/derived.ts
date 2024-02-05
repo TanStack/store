@@ -98,6 +98,8 @@ export class Derived<
         if (!relatedLinkedDerivedVals || this.__depsThatHaveWrittenThisTick.length === relatedLinkedDerivedVals.length) {
           // Yay! All deps are resolved - write the value of this derived
           this._setState(fn())
+          // Cleanup the deps that have written this tick
+          this.__depsThatHaveWrittenThisTick = [];
           return;
         }
       })
