@@ -10,8 +10,6 @@ interface DerivedOptions<
     derived: Derived<TState>,
   ) => () => void
   onUpdate?: () => void
-  // TODO: Temporary for Corbin to debug
-  debug?: boolean
 }
 
 type Deps = Array<Derived<any> | Store<any>>;
@@ -62,6 +60,9 @@ export class Derived<
   // Functions representing the subscriptions. Call a function to cleanup
   _subscriptions: Array<() => void> = [];
 
+  // Seriously, users of Store, don't mess with this whatever you do
+  __depsThatHaveWrittenThisTick: Deps = [];
+
   constructor(deps: Deps, fn: () => TState, options?: DerivedOptions<TState>) {
     this.options = options;
     this.deps = deps;
@@ -75,22 +76,6 @@ export class Derived<
           this.linkedDeps.set(store, prevLinkedDeps)
         })
       }
-
-      const unsub = dep.subscribe(() => {
-        // Check to see if `dep` is typeof "Derived", if it is go find it in the linkedDeps tree and wait for the other value to be written
-        // Otherwise, if `dep` is typeof "Store", let's see if there are any derived values that it relies on and do the same
-        this.linkedDeps.forEach((derivedVals, store) => {
-          if (
-            (dep instanceof Derived && derivedVals.includes(dep)) ||
-            // TODO: is this edgecase correct? The assumption is that we want to handle: `Derived(a, b)` type deal where a is the signal that b depends on as well
-            // (dep instanceof Store && store === dep)
-          ) {
-
-          }
-        })
-      })
-
-      this._subscriptions.push(unsub)
     })
 
     this.linkedDeps.forEach((derivedValues, key) => {
@@ -98,9 +83,27 @@ export class Derived<
       this.linkedDeps.delete(key)
     })
 
-    if (options?.debug) {
-      console.log(this.linkedDeps)
-    }
+    deps.forEach(dep => {
+      let relatedLinkedDerivedVals: null | Derived<unknown>[] = null;
+      this.linkedDeps.forEach((derivedVals) => {
+        if (
+          (dep instanceof Derived && derivedVals.includes(dep))
+        ) {
+          relatedLinkedDerivedVals = derivedVals;
+        }
+      })
+
+      const unsub = dep.subscribe(() => {
+        this.__depsThatHaveWrittenThisTick.push(dep);
+        if (!relatedLinkedDerivedVals || this.__depsThatHaveWrittenThisTick.length === relatedLinkedDerivedVals.length) {
+          // Yay! All deps are resolved - write the value of this derived
+          this._setState(fn())
+          return;
+        }
+      })
+
+      this._subscriptions.push(unsub)
+    })
   }
 
   cleanup = () => {

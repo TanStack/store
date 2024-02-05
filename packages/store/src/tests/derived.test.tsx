@@ -1,5 +1,12 @@
 import {Store} from "../store";
 import {Derived} from "../derived";
+import {expect, vi} from "vitest";
+
+function viFnSubscribe(subscribable: Store<any> | Derived<any>) {
+  const fn = vi.fn();
+  subscribable.subscribe(() => fn(subscribable.state));
+  return fn;
+}
 
 test("Pyramid dep problem", () => {
   const count = new Store(10);
@@ -14,12 +21,15 @@ test("Pyramid dep problem", () => {
 
   const sumDoubleHalfCount = new Derived([halfCount, doubleCount], () => {
     return halfCount.state + doubleCount.state;
-  }, {debug: true})
-
-  sumDoubleHalfCount.subscribe(() => {
-    // This console should only run once
-    console.warn(sumDoubleHalfCount)
   })
 
+  const halfCountFn = viFnSubscribe(halfCount);
+  const doubleCountFn = viFnSubscribe(doubleCount);
+  const sumDoubleHalfCountFn = viFnSubscribe(sumDoubleHalfCount);
+
   count.setState(() => 20)
+
+  expect(halfCountFn).toHaveBeenNthCalledWith(1, 10)
+  expect(doubleCountFn).toHaveBeenNthCalledWith(1, 40)
+  expect(sumDoubleHalfCountFn).toHaveBeenNthCalledWith(1, 50)
 })
