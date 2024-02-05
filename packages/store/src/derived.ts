@@ -75,6 +75,10 @@ export class Derived<
           prevLinkedDeps.push(dep);
           this.linkedDeps.set(store, prevLinkedDeps)
         })
+      } else if (dep instanceof Store) {
+        const prevLinkedDeps = this.linkedDeps.get(dep) || [];
+        prevLinkedDeps.push(this as Derived<any>);
+        this.linkedDeps.set(dep, prevLinkedDeps)
       }
     })
 
@@ -85,9 +89,10 @@ export class Derived<
 
     deps.forEach(dep => {
       let relatedLinkedDerivedVals: null | Derived<unknown>[] = null;
-      this.linkedDeps.forEach((derivedVals) => {
+      this.linkedDeps.forEach((derivedVals, store) => {
         if (
-          (dep instanceof Derived && derivedVals.includes(dep))
+          (dep instanceof Derived && derivedVals.includes(dep)) ||
+          (dep instanceof Store && dep === store)
         ) {
           relatedLinkedDerivedVals = derivedVals;
         }
