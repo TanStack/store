@@ -45,12 +45,21 @@ export class Derived<
      *
      * This is a record of stores, because derived stores are not able to write values to, but stores are
      */
-    const linkedDeps: Map<Store<unknown>, Array<Derived<unknown>>> = new Map();
+    const linkedDeps: Map<Store<unknown>, Set<Derived<unknown>>> = new Map();
+    const derivedToDerived: Map<Derived<unknown>, Set<Derived<unknown>>> = new Map();
 
     const setLinkedDeps = (store: Store<unknown>, dep: Derived<unknown>) => {
-      const prevLinkedDeps = linkedDeps.get(store) || [];
-      prevLinkedDeps.push(dep);
+      const prevLinkedDeps = linkedDeps.get(store) || new Set();
+      prevLinkedDeps.add(dep);
       linkedDeps.set(store, prevLinkedDeps)
+
+      // Update the derivedToDerived mapping
+      dep.rootStores.forEach(rootStore => {
+        const relatedDerived = linkedDeps.get(rootStore);
+        if (relatedDerived) {
+          derivedToDerived.set(dep, relatedDerived);
+        }
+      });
     }
     deps.forEach(dep => {
       if (dep instanceof Derived) {
@@ -66,20 +75,16 @@ export class Derived<
     let __depsThatHaveWrittenThisTick: Deps = [];
 
     deps.forEach(dep => {
-      let relatedLinkedDerivedVals: null | Derived<unknown>[] = null;
-      linkedDeps.forEach((derivedVals, store) => {
-        if (derivedVals.length < 2) return;
-        if (
-          (dep instanceof Derived && derivedVals.includes(dep)) ||
-          (dep instanceof Store && dep === store)
-        ) {
-          relatedLinkedDerivedVals = derivedVals;
-        }
-      })
+      let relatedLinkedDerivedVals: null | Set<Derived<unknown>> = null;
+      if (dep instanceof Derived) {
+        relatedLinkedDerivedVals = derivedToDerived.get(dep) || null
+      } else if (dep instanceof Store) {
+        relatedLinkedDerivedVals = linkedDeps.get(dep) || null;
+      }
 
       const unsub = dep.subscribe(() => {
         __depsThatHaveWrittenThisTick.push(dep);
-        if (!relatedLinkedDerivedVals || __depsThatHaveWrittenThisTick.length === relatedLinkedDerivedVals.length) {
+        if (!relatedLinkedDerivedVals || __depsThatHaveWrittenThisTick.length === relatedLinkedDerivedVals.size) {
           // Yay! All deps are resolved - write the value of this derived
           this._setState(fn())
           // Cleanup the deps that have written this tick
