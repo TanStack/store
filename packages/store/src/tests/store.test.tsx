@@ -58,7 +58,7 @@ describe('store', () => {
 
     const listener = vi.fn()
 
-    store.subscribe(listener)
+    const unsub = store.subscribe(listener)
 
     store.batch(() => {
       store.setState(() => 1)
@@ -79,5 +79,6 @@ describe('store', () => {
     expect(store.state).toEqual(4)
     // Listener is called 4 times because of a lack of batching
     expect(listener).toHaveBeenCalledTimes(5)
+    unsub();
   })
 })

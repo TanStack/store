@@ -20,7 +20,7 @@ export class Derived<
   state: TState
   options?: DerivedOptions<TState>
 
-  rootStores: Array<Store<unknown>> = [];
+  rootStores: Set<Store<unknown>> = new Set();
   deps: Deps;
 
   // Functions representing the subscriptions. Call a function to cleanup
@@ -45,29 +45,23 @@ export class Derived<
      *
      * This is a record of stores, because derived stores are not able to write values to, but stores are
      */
-    const linkedDeps: Map<Store<unknown>, Set<Derived<unknown>>> = new Map();
-    const derivedToDerived: Map<Derived<unknown>, Set<Derived<unknown>>> = new Map();
+    const storeToDerived: Map<Store<unknown>, Set<Derived<unknown>>> = new Map();
+    const derivedToStore: Map<Derived<unknown>, Set<Store<unknown>>> = new Map();
 
     const setLinkedDeps = (store: Store<unknown>, dep: Derived<unknown>) => {
-      const prevLinkedDeps = linkedDeps.get(store) || new Set();
+      const prevLinkedDeps = storeToDerived.get(store) || new Set();
       prevLinkedDeps.add(dep);
-      linkedDeps.set(store, prevLinkedDeps)
-
-      // Update the derivedToDerived mapping
-      dep.rootStores.forEach(rootStore => {
-        const relatedDerived = linkedDeps.get(rootStore);
-        if (relatedDerived) {
-          derivedToDerived.set(dep, relatedDerived);
-        }
-      });
+      storeToDerived.set(store, prevLinkedDeps)
     }
     deps.forEach(dep => {
       if (dep instanceof Derived) {
+        derivedToStore.set(dep, dep.rootStores)
         dep.rootStores.forEach(store => {
+          this.rootStores.add(store);
           setLinkedDeps(store, dep)
         })
       } else if (dep instanceof Store) {
-        this.rootStores.push(dep);
+        this.rootStores.add(dep);
         setLinkedDeps(dep, this as Derived<unknown>)
       }
     })
@@ -76,11 +70,14 @@ export class Derived<
 
     deps.forEach(dep => {
       let relatedLinkedDerivedVals: null | Set<Derived<unknown>> = null;
-      if (dep instanceof Derived) {
-        relatedLinkedDerivedVals = derivedToDerived.get(dep) || null
-      } else if (dep instanceof Store) {
-        relatedLinkedDerivedVals = linkedDeps.get(dep) || null;
-      }
+      const stores = (dep instanceof Derived ? derivedToStore.get(dep) : new Set([dep])) ?? new Set();
+      stores.forEach(store => {
+        // Only runs on first loop through the store
+        if (!relatedLinkedDerivedVals) relatedLinkedDerivedVals = new Set();
+        storeToDerived.get(store)?.forEach(derived => {
+          relatedLinkedDerivedVals!.add(derived)
+        })
+      })
 
       const unsub = dep.subscribe(() => {
         __depsThatHaveWrittenThisTick.push(dep);
