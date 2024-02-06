@@ -1,6 +1,4 @@
-export type AnyUpdater = (...args: any[]) => any
-
-export type Listener = () => void
+import {AnyUpdater, Listener} from "./types";
 
 interface StoreOptions<
   TState,

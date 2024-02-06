@@ -9,7 +9,7 @@ function viFnSubscribe(subscribable: Store<any> | Derived<any>) {
 }
 
 describe('Derived', () => {
-  test("Pyramid dep problem", () => {
+  test("Diamond dep problem", () => {
     const count = new Store(10);
 
     const halfCount = new Derived([count], () => {
