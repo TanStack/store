@@ -3,7 +3,9 @@ import { Derived } from '../derived'
 import { describe, bench } from 'vitest'
 import { computed as vueComputed, ref, watch } from 'vue'
 import { createEffect, createMemo, createSignal } from 'solid-js'
-import { signal, computed as preactComputed, effect } from '@preact/signals'
+import { signal as preactSignal, computed as preactComputed, effect as preactEffect } from '@preact/signals'
+import { signal as angularSignal, computed as angularComputed  } from '@angular/core'
+import { createWatch } from '@angular/core/primitives/signals'
 
 function noop(val: any) {
   val
@@ -67,7 +69,7 @@ describe('Derived', () => {
   })
 
   bench('Preact', () => {
-    const a = signal(1)
+    const a = preactSignal(1)
     const b = preactComputed(() => a.value)
     const c = preactComputed(() => a.value)
     const d = preactComputed(() => b.value)
@@ -75,10 +77,26 @@ describe('Derived', () => {
     const f = preactComputed(() => c.value)
     const g = preactComputed(() => d.value + e.value + f.value)
 
-    effect(() => {
+    preactEffect(() => {
       noop(g.value)
     })
 
     a.value = 2
+  })
+
+  bench("Angular", () => {
+    const a = angularSignal(1);
+    const b = angularComputed(() => a())
+    const c = angularComputed(() => a())
+    const d = angularComputed(() => b())
+    const e = angularComputed(() => b())
+    const f = angularComputed(() => c())
+    const g = angularComputed(() => d() + e() + f());
+
+    createWatch(() => {
+      console.log(g());
+    }, () => {}, false)
+
+    a.set(2)
   })
 })
