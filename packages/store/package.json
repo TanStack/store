@@ -15,6 +15,7 @@
     "test:types:versions52": "tsc",
     "test:types": "pnpm run \"/^test:types:versions.*/\"",
     "test:lib": "vitest",
+    "test:bench": "vitest bench",
     "test:lib:dev": "pnpm run test:lib --watch",
     "test:build": "publint --strict",
     "build": "vite build"
@@ -51,5 +52,12 @@
   "files": [
     "dist",
     "src"
-  ]
+  ],
+  "devDependencies": {
+    "@angular/core": "^17.1.2",
+    "preact": "^10.19.3",
+    "solid-js": "^1.7.8",
+    "@preact/signals": "^1.2.2",
+    "vue": "^3.3.4"
+  }
 }
