@@ -55,9 +55,8 @@
   ],
   "devDependencies": {
     "@angular/core": "^17.1.2",
-    "preact": "^10.19.3",
-    "solid-js": "^1.7.8",
+    "solid-js": "^1.8.14",
     "@preact/signals": "^1.2.2",
-    "vue": "^3.3.4"
+    "vue": "^3.4.15"
   }
 }
