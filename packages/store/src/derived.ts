@@ -48,21 +48,21 @@ export class Derived<
     const storeToDerived: Map<Store<unknown>, Set<Derived<unknown>>> = new Map();
     const derivedToStore: Map<Derived<unknown>, Set<Store<unknown>>> = new Map();
 
-    const setLinkedDeps = (store: Store<unknown>, dep: Derived<unknown>) => {
-      const prevLinkedDeps = storeToDerived.get(store) || new Set();
-      prevLinkedDeps.add(dep);
-      storeToDerived.set(store, prevLinkedDeps)
+    const updateStoreToDerived = (store: Store<unknown>, dep: Derived<unknown>) => {
+      const prevDerivesForStore = storeToDerived.get(store) || new Set();
+      prevDerivesForStore.add(dep);
+      storeToDerived.set(store, prevDerivesForStore)
     }
     deps.forEach(dep => {
       if (dep instanceof Derived) {
         derivedToStore.set(dep, dep.rootStores)
         dep.rootStores.forEach(store => {
           this.rootStores.add(store);
-          setLinkedDeps(store, dep)
+          updateStoreToDerived(store, dep)
         })
       } else if (dep instanceof Store) {
         this.rootStores.add(dep);
-        setLinkedDeps(dep, this as Derived<unknown>)
+        updateStoreToDerived(dep, this as Derived<unknown>)
       }
     })
 

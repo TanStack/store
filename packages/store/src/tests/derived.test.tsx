@@ -44,7 +44,6 @@ describe('Derived', () => {
     expect(sumDoubleHalfCountFn).toHaveBeenNthCalledWith(2, 75)
   })
 
-
   /**
    *         A
    *        / \
