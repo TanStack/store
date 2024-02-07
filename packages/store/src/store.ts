@@ -1,4 +1,4 @@
-import {AnyUpdater, Listener} from "./types";
+import type { AnyUpdater, Listener } from './types'
 
 interface StoreOptions<
   TState,

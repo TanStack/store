@@ -1,35 +1,28 @@
-import {Store} from "./store";
-import {Listener} from "./types";
+import { Store } from './store'
+import type { Listener } from './types'
 
-interface DerivedOptions<
-  TState
-> {
-  onSubscribe?: (
-    listener: Listener,
-    derived: Derived<TState>,
-  ) => () => void
+interface DerivedOptions<TState> {
+  onSubscribe?: (listener: Listener, derived: Derived<TState>) => () => void
   onUpdate?: () => void
 }
 
-type Deps = Array<Derived<any> | Store<any>>;
+type Deps = Array<Derived<any> | Store<any>>
 
-export class Derived<
-  TState
-> {
+export class Derived<TState> {
   listeners = new Set<Listener>()
   state: TState
   options?: DerivedOptions<TState>
 
-  rootStores: Set<Store<unknown>> = new Set();
-  deps: Deps;
+  rootStores: Set<Store<unknown>> = new Set()
+  deps: Deps
 
   // Functions representing the subscriptions. Call a function to cleanup
-  _subscriptions: Array<() => void> = [];
+  _subscriptions: Array<() => void> = []
 
   constructor(deps: Deps, fn: () => TState, options?: DerivedOptions<TState>) {
-    this.options = options;
-    this.deps = deps;
-    this.state = fn();
+    this.options = options
+    this.deps = deps
+    this.state = fn()
     /**
      * This is here to solve the pyramid dependency problem where:
      *       A
@@ -45,48 +38,56 @@ export class Derived<
      *
      * This is a record of stores, because derived stores are not able to write values to, but stores are
      */
-    const storeToDerived: Map<Store<unknown>, Set<Derived<unknown>>> = new Map();
-    const derivedToStore: Map<Derived<unknown>, Set<Store<unknown>>> = new Map();
+    const storeToDerived: Map<Store<unknown>, Set<Derived<unknown>>> = new Map()
+    const derivedToStore: Map<Derived<unknown>, Set<Store<unknown>>> = new Map()
 
-    const updateStoreToDerived = (store: Store<unknown>, dep: Derived<unknown>) => {
-      const prevDerivesForStore = storeToDerived.get(store) || new Set();
-      prevDerivesForStore.add(dep);
+    const updateStoreToDerived = (
+      store: Store<unknown>,
+      dep: Derived<unknown>,
+    ) => {
+      const prevDerivesForStore = storeToDerived.get(store) || new Set()
+      prevDerivesForStore.add(dep)
       storeToDerived.set(store, prevDerivesForStore)
     }
-    deps.forEach(dep => {
+    deps.forEach((dep) => {
       if (dep instanceof Derived) {
         derivedToStore.set(dep, dep.rootStores)
-        dep.rootStores.forEach(store => {
-          this.rootStores.add(store);
+        dep.rootStores.forEach((store) => {
+          this.rootStores.add(store)
           updateStoreToDerived(store, dep)
         })
       } else if (dep instanceof Store) {
-        this.rootStores.add(dep);
+        this.rootStores.add(dep)
         updateStoreToDerived(dep, this as Derived<unknown>)
       }
     })
 
-    let __depsThatHaveWrittenThisTick: Deps = [];
+    let __depsThatHaveWrittenThisTick: Deps = []
 
-    deps.forEach(dep => {
-      let relatedLinkedDerivedVals: null | Set<Derived<unknown>> = null;
-      const stores = (dep instanceof Derived ? derivedToStore.get(dep) : new Set([dep])) ?? new Set();
-      stores.forEach(store => {
+    deps.forEach((dep) => {
+      let relatedLinkedDerivedVals: null | Set<Derived<unknown>> = null
+      const stores =
+        (dep instanceof Derived ? derivedToStore.get(dep) : new Set([dep])) ??
+        new Set()
+      stores.forEach((store) => {
         // Only runs on first loop through the store
-        if (!relatedLinkedDerivedVals) relatedLinkedDerivedVals = new Set();
-        storeToDerived.get(store)?.forEach(derived => {
+        if (!relatedLinkedDerivedVals) relatedLinkedDerivedVals = new Set()
+        storeToDerived.get(store)?.forEach((derived) => {
           relatedLinkedDerivedVals!.add(derived)
         })
       })
 
       const unsub = dep.subscribe(() => {
-        __depsThatHaveWrittenThisTick.push(dep);
-        if (!relatedLinkedDerivedVals || __depsThatHaveWrittenThisTick.length === relatedLinkedDerivedVals.size) {
+        __depsThatHaveWrittenThisTick.push(dep)
+        if (
+          !relatedLinkedDerivedVals ||
+          __depsThatHaveWrittenThisTick.length === relatedLinkedDerivedVals.size
+        ) {
           // Yay! All deps are resolved - write the value of this derived
           this._setState(fn())
           // Cleanup the deps that have written this tick
-          __depsThatHaveWrittenThisTick = [];
-          return;
+          __depsThatHaveWrittenThisTick = []
+          return
         }
       })
 
@@ -95,11 +96,11 @@ export class Derived<
   }
 
   cleanup = () => {
-    this._subscriptions.forEach(cleanup => cleanup())
-  }
+    this._subscriptions.forEach((cleanup) => cleanup())
+  };
 
   [Symbol.dispose]() {
-    this.cleanup();
+    this.cleanup()
   }
 
   subscribe = (listener: Listener) => {
@@ -112,7 +113,7 @@ export class Derived<
   }
 
   _setState = (val: TState) => {
-    this.state = val;
+    this.state = val
     this.options?.onUpdate?.()
     this._flush()
   }
