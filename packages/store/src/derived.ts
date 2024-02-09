@@ -16,6 +16,9 @@ export class Derived<TState> {
   // Functions representing the subscriptions. Call a function to cleanup
   _subscriptions: Array<() => void> = []
 
+  // What store called the current update, if any
+  _whatStoreIsCurrentlyInUse: Store<unknown> | null = null;
+
   constructor(deps: Deps, fn: () => TState, options?: DerivedOptions<TState>) {
     this.deps = deps
     this._store = new Store(fn(), {
@@ -64,19 +67,16 @@ export class Derived<TState> {
     let __depsThatHaveWrittenThisTick: Deps = []
 
     deps.forEach((dep) => {
+      const isDepAStore = dep instanceof Store;
       let relatedLinkedDerivedVals: null | Set<Derived<unknown>> = null
-      const stores =
-        (dep instanceof Derived ? derivedToStore.get(dep) : new Set([dep])) ??
-        new Set()
-      stores.forEach((store) => {
-        // Only runs on first loop through the store
-        if (!relatedLinkedDerivedVals) relatedLinkedDerivedVals = new Set()
-        storeToDerived.get(store)?.forEach((derived) => {
-          relatedLinkedDerivedVals!.add(derived)
-        })
-      })
 
       const unsub = dep.subscribe(() => {
+        const store = isDepAStore ? dep : dep._whatStoreIsCurrentlyInUse;
+        this._whatStoreIsCurrentlyInUse = store;
+        if (store) {
+          relatedLinkedDerivedVals = storeToDerived.get(store) ?? null
+        }
+
         __depsThatHaveWrittenThisTick.push(dep)
         if (
           !relatedLinkedDerivedVals ||
@@ -86,6 +86,7 @@ export class Derived<TState> {
           this._store.setState(fn)
           // Cleanup the deps that have written this tick
           __depsThatHaveWrittenThisTick = []
+          this._whatStoreIsCurrentlyInUse = null;
           return
         }
       })
