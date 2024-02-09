@@ -98,6 +98,29 @@
           ]
         }
       ]
+    },
+    {
+      "framework": "angular",
+      "menuItems": [
+        {
+          "label": "Getting Started",
+          "children": [
+            {
+              "label": "Quick Start",
+              "to": "framework/angular/quick-start"
+            }
+          ]
+        },
+        {
+          "label": "API Reference",
+          "children": [
+            {
+              "label": "injectStore",
+              "to": "framework/angular/reference/injectStore"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
