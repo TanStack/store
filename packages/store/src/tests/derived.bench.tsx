@@ -1,3 +1,4 @@
+/* istanbul ignore file -- @preserve */
 import { Store } from '../store'
 import { Derived } from '../derived'
 import { describe, bench } from 'vitest'
