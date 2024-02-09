@@ -9,10 +9,7 @@ interface DerivedOptions<TState> {
 type Deps = Array<Derived<any> | Store<any>>
 
 export class Derived<TState> {
-  listeners = new Set<Listener>()
-  state: TState
-  options?: DerivedOptions<TState>
-
+  _store!: Store<TState>
   rootStores: Set<Store<unknown>> = new Set()
   deps: Deps
 
@@ -20,9 +17,11 @@ export class Derived<TState> {
   _subscriptions: Array<() => void> = []
 
   constructor(deps: Deps, fn: () => TState, options?: DerivedOptions<TState>) {
-    this.options = options
     this.deps = deps
-    this.state = fn()
+    this._store = new Store(fn(), {
+      onSubscribe: options?.onSubscribe?.bind(this) as never,
+      onUpdate: options?.onUpdate
+    })
     /**
      * This is here to solve the pyramid dependency problem where:
      *       A
@@ -84,7 +83,7 @@ export class Derived<TState> {
           __depsThatHaveWrittenThisTick.length === relatedLinkedDerivedVals.size
         ) {
           // Yay! All deps are resolved - write the value of this derived
-          this._setState(fn())
+          this._store.setState(fn)
           // Cleanup the deps that have written this tick
           __depsThatHaveWrittenThisTick = []
           return
@@ -93,6 +92,10 @@ export class Derived<TState> {
 
       this._subscriptions.push(unsub)
     })
+  }
+
+  get state() {
+    return this._store.state;
   }
 
   cleanup = () => {
@@ -104,23 +107,6 @@ export class Derived<TState> {
   }
 
   subscribe = (listener: Listener) => {
-    this.listeners.add(listener)
-    const unsub = this.options?.onSubscribe?.(listener, this)
-    return () => {
-      this.listeners.delete(listener)
-      unsub?.()
-    }
-  }
-
-  _setState = (val: TState) => {
-    this.state = val
-    this.options?.onUpdate?.()
-    this._flush()
-  }
-
-  _flush = () => {
-    this.listeners.forEach((listener) => {
-      listener()
-    })
+    return this._store.subscribe(listener);
   }
 }
