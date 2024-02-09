@@ -20,3 +20,11 @@ npm install @tanstack/vue-store
 ```
 
 TanStack Store is compatible with Vue 2 and 3.
+
+## Angular
+
+```sh
+npm install @tanstack/angular-store
+```
+
+TanStack Store is compatible with Angular 16+
