@@ -6,7 +6,7 @@ interface DerivedOptions<TState> {
   onUpdate?: () => void
 }
 
-type Deps = Array<Derived<any> | Store<any>>
+export type Deps = Array<Derived<any> | Store<any>>
 
 export class Derived<TState> {
   _store!: Store<TState>
