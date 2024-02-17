@@ -1,13 +1,13 @@
 import {
-  effect,
-  signal,
-  type CreateSignalOptions,
   Injector,
   assertInInjectionContext,
+  effect,
   inject,
   runInInjectionContext,
+  signal,
 } from '@angular/core'
 import type { AnyUpdater, Store } from '@tanstack/store'
+import type { CreateSignalOptions } from '@angular/core'
 
 type NoInfer<T> = [T][T extends any ? 0 : never]
 

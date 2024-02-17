@@ -2,9 +2,9 @@ import { render, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import * as React from 'react'
 import { Store } from '@tanstack/store'
-import { useStore, shallow } from '../index'
 import { useState } from 'react'
 import userEvent from '@testing-library/user-event'
+import { shallow, useStore } from '../index'
 
 const user = userEvent.setup()
 

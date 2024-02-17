@@ -1,5 +1,6 @@
+import { readonly, ref, toRaw, watch } from 'vue-demi'
 import type { AnyUpdater, Store } from '@tanstack/store'
-import { readonly, type Ref, ref, toRaw, watch } from 'vue-demi'
+import type { Ref } from 'vue-demi'
 
 export * from '@tanstack/store'
 
