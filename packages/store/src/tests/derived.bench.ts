@@ -1,19 +1,19 @@
 /* istanbul ignore file -- @preserve */
-import { Store } from '../store'
-import { Derived } from '../derived'
-import { describe, bench } from 'vitest'
-import { computed as vueComputed, ref, watch } from 'vue'
+import { bench, describe } from 'vitest'
+import { ref, computed as vueComputed, watch } from 'vue'
 import { createEffect, createMemo, createSignal } from 'solid-js'
 import {
-  signal as preactSignal,
   computed as preactComputed,
   effect as preactEffect,
+  signal as preactSignal,
 } from '@preact/signals'
 import {
-  signal as angularSignal,
   computed as angularComputed,
+  signal as angularSignal,
 } from '@angular/core'
 import { createWatch } from '@angular/core/primitives/signals'
+import { Store } from '../store'
+import { Derived } from '../derived'
 
 function noop(val: any) {
   val

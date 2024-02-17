@@ -1,14 +1,15 @@
-import {Deps, Derived} from "./derived";
+import { Derived } from './derived'
+import type { Deps } from './derived'
 
 export class Effect {
-  _derived: Derived<void>;
+  _derived: Derived<void>
 
   constructor(items: Deps, effectFn: () => void) {
     this._derived = new Derived(items, () => {}, {
       onUpdate() {
-        effectFn();
+        effectFn()
       },
-    });
+    })
   }
 
   cleanup() {

@@ -1,6 +1,6 @@
+import { afterEach, expect, vi } from 'vitest'
 import { Store } from '../store'
 import { Derived } from '../derived'
-import { afterEach, expect, vi } from 'vitest'
 
 function viFnSubscribe(subscribable: Store<any> | Derived<any>) {
   const fn = vi.fn()

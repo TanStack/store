@@ -1,7 +1,7 @@
+import { expect, vi } from 'vitest'
 import { Store } from '../store'
 import { Derived } from '../derived'
-import { expect, vi } from 'vitest'
-import {Effect} from "../effect";
+import { Effect } from '../effect'
 
 describe('Effect', () => {
   test('Side effect free', () => {
@@ -19,8 +19,8 @@ describe('Effect', () => {
       return halfCount.state + doubleCount.state
     })
 
-    const fn = vi.fn();
-    new Effect([sumDoubleHalfCount], () => fn(sumDoubleHalfCount.state));
+    const fn = vi.fn()
+    new Effect([sumDoubleHalfCount], () => fn(sumDoubleHalfCount.state))
 
     count.setState(() => 20)
 
@@ -50,8 +50,8 @@ describe('Effect', () => {
     const f = new Derived([c], () => c.state)
     const g = new Derived([d, e, f], () => d.state + e.state + f.state)
 
-    const fn = vi.fn();
-    new Effect([g], () => fn(g.state));
+    const fn = vi.fn()
+    new Effect([g], () => fn(g.state))
 
     a.setState(() => 2)
 

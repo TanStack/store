@@ -60,7 +60,7 @@
     "@tanstack/store": "workspace:*"
   },
   "devDependencies": {
-    "solid-js": "^1.7.8",
+    "solid-js": "^1.8.14",
     "vite-plugin-solid": "^2.8.0"
   }
 }

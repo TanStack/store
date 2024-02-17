@@ -10,20 +10,20 @@ export type Deps = Array<Derived<any> | Store<any>>
 
 export class Derived<TState> {
   _store!: Store<TState>
-  rootStores: Set<Store<unknown>> = new Set()
+  rootStores = new Set<Store<unknown>>()
   deps: Deps
 
   // Functions representing the subscriptions. Call a function to cleanup
   _subscriptions: Array<() => void> = []
 
   // What store called the current update, if any
-  _whatStoreIsCurrentlyInUse: Store<unknown> | null = null;
+  _whatStoreIsCurrentlyInUse: Store<unknown> | null = null
 
   constructor(deps: Deps, fn: () => TState, options?: DerivedOptions<TState>) {
     this.deps = deps
     this._store = new Store(fn(), {
       onSubscribe: options?.onSubscribe?.bind(this) as never,
-      onUpdate: options?.onUpdate
+      onUpdate: options?.onUpdate,
     })
     /**
      * This is here to solve the pyramid dependency problem where:
@@ -40,8 +40,8 @@ export class Derived<TState> {
      *
      * This is a record of stores, because derived stores are not able to write values to, but stores are
      */
-    const storeToDerived: Map<Store<unknown>, Set<Derived<unknown>>> = new Map()
-    const derivedToStore: Map<Derived<unknown>, Set<Store<unknown>>> = new Map()
+    const storeToDerived = new Map<Store<unknown>, Set<Derived<unknown>>>()
+    const derivedToStore = new Map<Derived<unknown>, Set<Store<unknown>>>()
 
     const updateStoreToDerived = (
       store: Store<unknown>,
@@ -67,12 +67,12 @@ export class Derived<TState> {
     let __depsThatHaveWrittenThisTick: Deps = []
 
     deps.forEach((dep) => {
-      const isDepAStore = dep instanceof Store;
+      const isDepAStore = dep instanceof Store
       let relatedLinkedDerivedVals: null | Set<Derived<unknown>> = null
 
       const unsub = dep.subscribe(() => {
-        const store = isDepAStore ? dep : dep._whatStoreIsCurrentlyInUse;
-        this._whatStoreIsCurrentlyInUse = store;
+        const store = isDepAStore ? dep : dep._whatStoreIsCurrentlyInUse
+        this._whatStoreIsCurrentlyInUse = store
         if (store) {
           relatedLinkedDerivedVals = storeToDerived.get(store) ?? null
         }
@@ -86,7 +86,7 @@ export class Derived<TState> {
           this._store.setState(fn)
           // Cleanup the deps that have written this tick
           __depsThatHaveWrittenThisTick = []
-          this._whatStoreIsCurrentlyInUse = null;
+          this._whatStoreIsCurrentlyInUse = null
           return
         }
       })
@@ -96,7 +96,7 @@ export class Derived<TState> {
   }
 
   get state() {
-    return this._store.state;
+    return this._store.state
   }
 
   cleanup = () => {
@@ -108,6 +108,6 @@ export class Derived<TState> {
   }
 
   subscribe = (listener: Listener) => {
-    return this._store.subscribe(listener);
+    return this._store.subscribe(listener)
   }
 }
