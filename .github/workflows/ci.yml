@@ -41,7 +41,7 @@ jobs:
         run: pnpm install --frozen-lockfile --prefer-offline
       - name: Run Tests
         run: pnpm run test:ci --parallel=3
-      - name: Stop Agents
+      - name: Stop Nx Agents
         if: ${{ always() }}
         run: npx nx-cloud stop-all-agents
       - name: Publish
