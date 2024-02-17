@@ -24,6 +24,10 @@ export const packages = [
     name: '@tanstack/solid-store',
     packageDir: 'packages/solid-store',
   },
+  {
+    name: '@tanstack/angular-store',
+    packageDir: 'packages/angular-store',
+  },
   // {
   //   name: '@tanstack/svelte-store',
   //   packageDir: 'packages/svelte-store',
