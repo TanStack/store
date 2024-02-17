@@ -13,10 +13,12 @@
     "test:ci": "nx run-many --targets=test:format,test:eslint,test:lib,test:types,test:build,build",
     "test:eslint": "nx affected --target=test:eslint",
     "test:format": "pnpm run prettier --check",
+    "test:sherif": "sherif",
     "test:lib": "nx affected --target=test:lib --exclude=examples/**",
     "test:lib:dev": "pnpm run test:lib && nx watch --all -- pnpm run test:lib",
     "test:build": "nx affected --target=test:build --exclude=examples/**",
     "test:types": "nx affected --target=test:types --exclude=examples/**",
+    "test:knip": "knip",
     "build": "nx affected --target=build --exclude=examples/**",
     "build:all": "nx run-many --target=build --exclude=examples/**",
     "watch": "pnpm run build:all && nx watch --all -- pnpm run build:all",
@@ -28,7 +30,9 @@
   },
   "nx": {
     "includedScripts": [
-      "test:format"
+      "test:format",
+      "test:knip",
+      "test:sherif"
     ]
   },
   "namespace": "@tanstack",
@@ -54,12 +58,14 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "jsdom": "^23.0.1",
+    "knip": "^4.6.0",
     "nx": "^17.2.8",
     "prettier": "^4.0.0-alpha.8",
     "publint": "^0.2.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^5.0.5",
+    "sherif": "^0.7.0",
     "solid-js": "^1.7.8",
     "typescript": "^5.2.2",
     "typescript49": "npm:typescript@4.9",
