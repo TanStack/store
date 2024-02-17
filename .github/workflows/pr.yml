@@ -42,6 +42,8 @@ jobs:
           main-branch-name: 'main'
       - name: Run Checks
         run: pnpm run test:pr --parallel=3
+      - name: Test if dist files present in github
+        run: cat ./packages/react-store/dist/esm/index.js
       - name: Stop Nx Agents
         if: ${{ always() }}
         run: npx nx-cloud stop-all-agents
