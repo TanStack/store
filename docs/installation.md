@@ -29,7 +29,7 @@ npm install @tanstack/angular-store
 
 TanStack Store is compatible with Angular 16+
 
-## Solid
+## SolidJS
 
 ```sh
 npm install @tanstack/solid-store
