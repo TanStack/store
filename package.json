@@ -66,13 +66,13 @@
     "react-dom": "^18.2.0",
     "rimraf": "^5.0.5",
     "sherif": "^0.7.0",
-    "solid-js": "^1.7.8",
+    "solid-js": "^1.8.14",
     "typescript": "^5.2.2",
     "typescript49": "npm:typescript@4.9",
     "typescript50": "npm:typescript@5.0",
     "typescript51": "npm:typescript@5.1",
     "vite": "^5.1.0",
     "vitest": "^1.2.2",
-    "vue": "^3.3.4"
+    "vue": "^3.4.15"
   }
 }
