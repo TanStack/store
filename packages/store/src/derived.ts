@@ -51,22 +51,22 @@ export class Derived<TState> {
       prevDerivesForStore.add(dep)
       storeToDerived.set(store, prevDerivesForStore)
     }
-    deps.forEach((dep) => {
+    for (const dep of deps) {
       if (dep instanceof Derived) {
         derivedToStore.set(dep, dep.rootStores)
-        dep.rootStores.forEach((store) => {
+        for (const store of dep.rootStores) {
           this.rootStores.add(store)
           updateStoreToDerived(store, dep)
-        })
+        }
       } else if (dep instanceof Store) {
         this.rootStores.add(dep)
         updateStoreToDerived(dep, this as Derived<unknown>)
       }
-    })
+    }
 
     let __depsThatHaveWrittenThisTick: Deps = []
 
-    deps.forEach((dep) => {
+    for (const dep of deps) {
       const isDepAStore = dep instanceof Store
       let relatedLinkedDerivedVals: null | Set<Derived<unknown>> = null
 
@@ -92,7 +92,7 @@ export class Derived<TState> {
       })
 
       this._subscriptions.push(unsub)
-    })
+    }
   }
 
   get state() {
@@ -100,7 +100,9 @@ export class Derived<TState> {
   }
 
   cleanup = () => {
-    this._subscriptions.forEach((cleanup) => cleanup())
+    for (const cleanup of this._subscriptions) {
+      cleanup()
+    }
   };
 
   [Symbol.dispose]() {

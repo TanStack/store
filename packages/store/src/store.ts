@@ -52,10 +52,10 @@ export class Store<
   _flush = () => {
     if (this._batching) return
     const flushId = ++this._flushing
-    this.listeners.forEach((listener) => {
-      if (this._flushing !== flushId) return
+    for (const listener of this.listeners) {
+      if (this._flushing !== flushId) continue
       listener()
-    })
+    }
   }
 
   batch = (cb: () => void) => {
