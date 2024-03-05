@@ -58,11 +58,9 @@
     "react-dom": "^17.0.0 || ^18.0.0"
   },
   "dependencies": {
-    "@tanstack/store": "workspace:*",
-    "use-sync-external-store": "^1.2.0"
+    "@tanstack/store": "workspace:*"
   },
   "devDependencies": {
-    "@types/use-sync-external-store": "^0.0.3",
     "@vitejs/plugin-react": "^4.2.1"
   }
 }

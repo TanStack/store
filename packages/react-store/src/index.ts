@@ -1,9 +1,33 @@
-import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/with-selector.js'
+import { useMemo, useSyncExternalStore } from 'react'
 import type { AnyUpdater, Store } from '@tanstack/store'
 
 export * from '@tanstack/store'
 
 export type NoInfer<T> = [T][T extends any ? 0 : never]
+
+/*
+This modification is totally inspired by the work carried out in version 5 of zustand
+
+https://github.com/pmndrs/zustand/commit/6c9944b2c8d10c89e04024cd14999c85648fc310#diff-ca56e63fa839455c920562a44ebc44594f47957bbd3e9873c8a9e64104af2c41R22
+*/
+const useMemoSelector = <TState, TSelected = NoInfer<TState>>(
+  getState: () => TState,
+  selector: (state: NoInfer<TState>) => TSelected = (d) => d as any,
+) =>
+  useMemo(() => {
+    let lastSelection: TSelected
+    let lastState: TState
+    return () => {
+      const state = getState()
+
+      if (!shallow(lastState, state)) {
+        lastSelection = selector(state)
+        lastState = state
+      }
+
+      return lastSelection
+    }
+  }, [getState, selector])
 
 export function useStore<
   TState,
@@ -13,12 +37,10 @@ export function useStore<
   store: Store<TState, TUpdater>,
   selector: (state: NoInfer<TState>) => TSelected = (d) => d as any,
 ) {
-  const slice = useSyncExternalStoreWithSelector(
+  const slice = useSyncExternalStore(
     store.subscribe,
-    () => store.state,
-    () => store.state,
-    selector,
-    shallow,
+    useMemoSelector(() => store.state, selector),
+    useMemoSelector(() => store.state, selector),
   )
 
   return slice

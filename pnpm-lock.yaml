@@ -162,13 +162,7 @@ importers:
       react-dom:
         specifier: ^17.0.0 || ^18.0.0
         version: 18.2.0(react@18.2.0)
-      use-sync-external-store:
-        specifier: ^1.2.0
-        version: 1.2.0(react@18.2.0)
     devDependencies:
-      '@types/use-sync-external-store':
-        specifier: ^0.0.3
-        version: 0.0.3
       '@vitejs/plugin-react':
         specifier: ^4.2.1
         version: 4.2.1(vite@5.1.0)
@@ -3258,10 +3252,6 @@ packages:
       '@types/node': 18.19.5
     dev: true
 
-  /@types/use-sync-external-store@0.0.3:
-    resolution: {integrity: sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA==}
-    dev: true
-
   /@types/ws@8.5.10:
     resolution: {integrity: sha512-vmQSUcfalpIq0R9q7uTo2lXs6eGIpt9wtnLdMv9LVpIjCA/+ufZRozlVoVelIYixx1ugCBKDhn89vnsEGOCx9A==}
     dependencies:
@@ -4814,7 +4804,7 @@ packages:
       postcss-modules-scope: 3.1.1(postcss@8.4.35)
       postcss-modules-values: 4.0.0(postcss@8.4.35)
       postcss-value-parser: 4.2.0
-      semver: 7.5.4
+      semver: 7.6.0
       webpack: 5.89.0(esbuild@0.19.11)
     dev: true
 
@@ -8699,7 +8689,7 @@ packages:
       cosmiconfig: 8.3.6(typescript@5.3.3)
       jiti: 1.21.0
       postcss: 8.4.33
-      semver: 7.5.4
+      semver: 7.6.0
       webpack: 5.89.0(esbuild@0.19.11)
     transitivePeerDependencies:
       - typescript
@@ -10549,14 +10539,6 @@ packages:
       querystringify: 2.2.0
       requires-port: 1.0.0
     dev: true
-
-  /use-sync-external-store@1.2.0(react@18.2.0):
-    resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      react: 18.2.0
-    dev: false
 
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
