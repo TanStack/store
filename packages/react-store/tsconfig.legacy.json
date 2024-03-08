@@ -2,7 +2,10 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "jsx": "react",
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "paths": {
+      "@tanstack/store": ["../store/src"]
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["src/tests/**"]

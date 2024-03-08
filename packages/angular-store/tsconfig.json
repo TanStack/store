@@ -3,7 +3,10 @@
   "compilerOptions": {
     "moduleResolution": "Bundler",
     "experimentalDecorators": true,
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals"],
+    "paths": {
+      "@tanstack/store": ["../store/src"]
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", ".eslintrc.cjs", "vite.config.ts"]
 }

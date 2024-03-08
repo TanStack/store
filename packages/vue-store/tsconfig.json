@@ -4,7 +4,10 @@
     "jsx": "preserve",
     "jsxImportSource": "vue",
     "moduleResolution": "Bundler",
-    "types": ["vitest/globals", "vue/jsx"]
+    "types": ["vitest/globals", "vue/jsx"],
+    "paths": {
+      "@tanstack/store": ["../store/src"]
+    }
   },
   "include": [
     "src/**/*.ts",
