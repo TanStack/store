@@ -3,7 +3,7 @@
   "compilerOptions": {
     "moduleResolution": "Node",
     "paths": {
-      "@tanstack/form-core": ["../form-core/src"]
+      "@tanstack/store": ["../store/src"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
