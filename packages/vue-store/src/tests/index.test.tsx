@@ -1,10 +1,9 @@
-// We need to import `h` as it's part of Vue's JSX transform
-// @ts-expect-error
+import { describe, expect, it, test, vi } from 'vitest'
+// @ts-expect-error We need to import `h` as it's part of Vue's JSX transform
 import { defineComponent, h } from 'vue-demi'
 import { render, waitFor } from '@testing-library/vue'
-import '@testing-library/jest-dom'
 import { Store } from '@tanstack/store'
-import userEvent from '@testing-library/user-event'
+import { userEvent } from '@testing-library/user-event'
 import { shallow, useStore } from '../index'
 
 const user = userEvent.setup()

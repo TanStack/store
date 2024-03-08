@@ -8,9 +8,9 @@ const config = defineConfig({
     watch: false,
     environment: 'jsdom',
     setupFiles: ['src/tests/test-setup.ts'],
-    globals: true,
     coverage: { enabled: true, provider: 'istanbul', include: ['src/**/*'] },
     typecheck: { enabled: true },
+    globals: true,
   },
 })
 
