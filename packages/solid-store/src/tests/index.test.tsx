@@ -1,5 +1,5 @@
+import { describe, expect, it } from 'vitest'
 import { render, renderHook } from '@solidjs/testing-library'
-import '@testing-library/jest-dom'
 import { Store } from '@tanstack/store'
 import { useStore } from '../index'
 

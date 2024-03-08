@@ -1,9 +1,9 @@
+import { describe, expect, it, test, vi } from 'vitest'
 import { render, waitFor } from '@testing-library/react'
-import '@testing-library/jest-dom'
 import * as React from 'react'
 import { Store } from '@tanstack/store'
 import { useState } from 'react'
-import userEvent from '@testing-library/user-event'
+import { userEvent } from '@testing-library/user-event'
 import { shallow, useStore } from '../index'
 
 const user = userEvent.setup()
