@@ -12,8 +12,8 @@ importers:
         specifier: ^0.8.5
         version: 0.8.5(@solidjs/router@0.8.3)(solid-js@1.7.11)
       '@tanstack/config':
-        specifier: ^0.4.2
-        version: 0.4.2(@types/node@18.19.5)(esbuild@0.19.11)(rollup@4.9.4)(typescript@5.2.2)(vite@5.1.0)
+        specifier: ^0.6.0
+        version: 0.6.0(@types/node@18.19.5)(esbuild@0.19.11)(rollup@4.9.4)(typescript@5.2.2)(vite@5.1.0)
       '@testing-library/jest-dom':
         specifier: ^6.1.5
         version: 6.2.0(@types/jest@26.0.24)(vitest@1.2.2)
@@ -1885,17 +1885,17 @@ packages:
       to-fast-properties: 2.0.0
     dev: true
 
-  /@commitlint/parse@18.4.4:
-    resolution: {integrity: sha512-99G7dyn/OoyNWXJni0Ki0K3aJd01pEb/Im/Id6y4X7PN+kGOahjz2z/cXYYHn7xDdooqFVdiVrVLeChfgpWZ2g==}
+  /@commitlint/parse@18.6.1:
+    resolution: {integrity: sha512-eS/3GREtvVJqGZrwAGRwR9Gdno3YcZ6Xvuaa+vUF8j++wsmxrA2En3n0ccfVO2qVOLJC41ni7jSZhQiJpMPGOQ==}
     engines: {node: '>=v18'}
     dependencies:
-      '@commitlint/types': 18.4.4
+      '@commitlint/types': 18.6.1
       conventional-changelog-angular: 7.0.0
       conventional-commits-parser: 5.0.0
     dev: true
 
-  /@commitlint/types@18.4.4:
-    resolution: {integrity: sha512-/FykLtodD8gKs3+VNkAUwofu4LBHankclj+I8fB2jTRvG6PV7k/OUt4P+VbM7ip853qS4F0g7Z6hLNa6JeMcAQ==}
+  /@commitlint/types@18.6.1:
+    resolution: {integrity: sha512-gwRLBLra/Dozj2OywopeuHj2ac26gjGkz2cZ+86cTJOdtWfiRRr4+e77ZDAGc6MDWxaWheI+mAV5TLWWRwqrFg==}
     engines: {node: '>=v18'}
     dependencies:
       chalk: 4.1.2
@@ -2906,14 +2906,15 @@ packages:
       solid-js: 1.7.11
     dev: true
 
-  /@tanstack/config@0.4.2(@types/node@18.19.5)(esbuild@0.19.11)(rollup@4.9.4)(typescript@5.2.2)(vite@5.1.0):
-    resolution: {integrity: sha512-PHlybqEA/4cJmu5aB9Yw4/OmdBqQY8pMW9Q1f3IJymAj0hRcTTfVRHMeI9yvEEP9lO74FN2EhIAwsKiXQb+FkQ==}
+  /@tanstack/config@0.6.0(@types/node@18.19.5)(esbuild@0.19.11)(rollup@4.9.4)(typescript@5.2.2)(vite@5.1.0):
+    resolution: {integrity: sha512-ndVPsyXWZFz3RcpRF7q5L4Ol5zY+m1H2lAiufw+J4BrV09042PETU2OZAREYz88ZcLtu6p+LZAHKltmqrL8gDg==}
     engines: {node: '>=18'}
     hasBin: true
+    requiresBuild: true
     dependencies:
-      '@commitlint/parse': 18.4.4
+      '@commitlint/parse': 18.6.1
       chalk: 5.3.0
-      commander: 11.1.0
+      commander: 12.0.0
       current-git-branch: 1.1.0
       esbuild-register: 3.5.0(esbuild@0.19.11)
       git-log-parser: 1.2.0
@@ -2922,12 +2923,13 @@ packages:
       liftoff: 4.0.0
       luxon: 3.4.4
       minimist: 1.2.8
-      rollup-plugin-preserve-directives: 0.3.1(rollup@4.9.4)
-      semver: 7.5.4
+      rollup-plugin-preserve-directives: 0.4.0(rollup@4.9.4)
+      semver: 7.6.0
       stream-to-array: 2.3.0
       v8flags: 4.0.1
       vite-plugin-dts: 3.7.2(@types/node@18.19.5)(rollup@4.9.4)(typescript@5.2.2)(vite@5.1.0)
       vite-plugin-externalize-deps: 0.8.0(vite@5.1.0)
+      vite-tsconfig-paths: 4.3.1(typescript@5.2.2)(vite@5.1.0)
     transitivePeerDependencies:
       - '@types/node'
       - esbuild
@@ -4593,9 +4595,9 @@ packages:
     engines: {node: '>=14'}
     dev: true
 
-  /commander@11.1.0:
-    resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
-    engines: {node: '>=16'}
+  /commander@12.0.0:
+    resolution: {integrity: sha512-MwVNWlYjDTtOjX5PiD7o5pK0UrFU/OYgcJfjjK4RaHZETNtjJqrZa9Y9ds88+A+f+d5lv+561eZ+yCKoS3gbAA==}
+    engines: {node: '>=18'}
     dev: true
 
   /commander@2.20.3:
@@ -4814,7 +4816,7 @@ packages:
       postcss-modules-scope: 3.1.1(postcss@8.4.35)
       postcss-modules-values: 4.0.0(postcss@8.4.35)
       postcss-value-parser: 4.2.0
-      semver: 7.5.4
+      semver: 7.6.0
       webpack: 5.89.0(esbuild@0.19.11)
     dev: true
 
@@ -6335,6 +6337,10 @@ packages:
       ignore: 5.2.4
       merge2: 1.4.1
       slash: 4.0.0
+    dev: true
+
+  /globrex@0.1.2:
+    resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
     dev: true
 
   /gopd@1.0.1:
@@ -8699,7 +8705,7 @@ packages:
       cosmiconfig: 8.3.6(typescript@5.3.3)
       jiti: 1.21.0
       postcss: 8.4.33
-      semver: 7.5.4
+      semver: 7.6.0
       webpack: 5.89.0(esbuild@0.19.11)
     transitivePeerDependencies:
       - typescript
@@ -9244,11 +9250,12 @@ packages:
       glob: 10.3.10
     dev: true
 
-  /rollup-plugin-preserve-directives@0.3.1(rollup@4.9.4):
-    resolution: {integrity: sha512-Jn1gWU7G55A1sU6eFpXmwknfBasF0XbBzRqsE6nqrb/gun+mGV7nx++CwOSGPJQpFzFqvKm5U4XNKo3LTLi4Hg==}
+  /rollup-plugin-preserve-directives@0.4.0(rollup@4.9.4):
+    resolution: {integrity: sha512-gx4nBxYm5BysmEQS+e2tAMrtFxrGvk+Pe5ppafRibQi0zlW7VYAbEGk6IKDw9sJGPdFWgVTE0o4BU4cdG0Fylg==}
     peerDependencies:
       rollup: 2.x || 3.x || 4.x
     dependencies:
+      '@rollup/pluginutils': 5.1.0(rollup@4.9.4)
       magic-string: 0.30.5
       rollup: 4.9.4
     dev: true
@@ -10312,6 +10319,19 @@ packages:
       code-block-writer: 12.0.0
     dev: true
 
+  /tsconfck@3.0.3(typescript@5.2.2):
+    resolution: {integrity: sha512-4t0noZX9t6GcPTfBAbIbbIU4pfpCwh0ueq3S4O/5qXI1VwK1outmxhe9dOiEWqMz3MW2LKgDTpqWV+37IWuVbA==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
+    peerDependencies:
+      typescript: ^5.0.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      typescript: 5.2.2
+    dev: true
+
   /tsconfig-paths@3.15.0:
     resolution: {integrity: sha512-2Ac2RgzDe/cn48GvOe3M+o82pEFewD3UPbyoUHHdKasHwJKjds4fLXWf/Ux5kATBKN20oaFGu+jbElp1pos0mg==}
     dependencies:
@@ -10691,6 +10711,23 @@ packages:
       - supports-color
     dev: true
 
+  /vite-tsconfig-paths@4.3.1(typescript@5.2.2)(vite@5.1.0):
+    resolution: {integrity: sha512-cfgJwcGOsIxXOLU/nELPny2/LUD/lcf1IbfyeKTv2bsupVbTH/xpFtdQlBmIP1GEK2CjjLxYhFfB+QODFAx5aw==}
+    peerDependencies:
+      vite: '*'
+    peerDependenciesMeta:
+      vite:
+        optional: true
+    dependencies:
+      debug: 4.3.4
+      globrex: 0.1.2
+      tsconfck: 3.0.3(typescript@5.2.2)
+      vite: 5.1.0(@types/node@18.19.5)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+    dev: true
+
   /vite@5.0.12(@types/node@18.19.5)(less@4.2.0)(sass@1.69.7)(terser@5.26.0):
     resolution: {integrity: sha512-4hsnEkG3q0N4Tzf1+t6NdN9dg/L3BM+q8SWgbSPnJvrgH2kgdyzfVJwbR1ic69/4uMJJ/3dqDZZE5/WwqW8U1w==}
     engines: {node: ^18.0.0 || >=20.0.0}
@@ -10874,7 +10911,7 @@ packages:
     dependencies:
       '@volar/typescript': 1.11.1
       '@vue/language-core': 1.8.27(typescript@5.2.2)
-      semver: 7.5.4
+      semver: 7.6.0
       typescript: 5.2.2
     dev: true
 

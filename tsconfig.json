@@ -5,7 +5,6 @@
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
-    "baseUrl": ".",
     "checkJs": true,
     "declaration": true,
     "declarationMap": true,
