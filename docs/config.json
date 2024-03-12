@@ -5,7 +5,7 @@
     "apiKey": "",
     "indexName": "tanstack-store"
   },
-  "menu": [
+  "sections": [
     {
       "label": "Getting Started",
       "children": [
@@ -17,6 +17,44 @@
           "label": "Installation",
           "to": "installation"
         }
+      ],
+      "frameworks": [
+        {
+          "label": "react",
+          "children": [
+            {
+              "label": "Quick Start",
+              "to": "framework/react/quick-start"
+            }
+          ]
+        },
+        {
+          "label": "vue",
+          "children": [
+            {
+              "label": "Quick Start",
+              "to": "framework/vue/quick-start"
+            }
+          ]
+        },
+        {
+          "label": "solid",
+          "children": [
+            {
+              "label": "Quick Start",
+              "to": "framework/solid/quick-start"
+            }
+          ]
+        },
+        {
+          "label": "angular",
+          "children": [
+            {
+              "label": "Quick Start",
+              "to": "framework/angular/quick-start"
+            }
+          ]
+        }
       ]
     },
     {
@@ -26,93 +64,37 @@
           "label": "Store",
           "to": "reference/Store"
         }
-      ]
-    }
-  ],
-  "frameworkMenus": [
-    {
-      "framework": "react",
-      "menuItems": [
+      ],
+      "frameworks": [
         {
-          "label": "Getting Started",
-          "children": [
-            {
-              "label": "Quick Start",
-              "to": "framework/react/quick-start"
-            }
-          ]
-        },
-        {
-          "label": "API Reference",
+          "label": "react",
           "children": [
             {
               "label": "useStore",
               "to": "framework/react/reference/useStore"
             }
           ]
-        }
-      ]
-    },
-    {
-      "framework": "vue",
-      "menuItems": [
-        {
-          "label": "Getting Started",
-          "children": [
-            {
-              "label": "Quick Start",
-              "to": "framework/vue/quick-start"
-            }
-          ]
         },
         {
-          "label": "API Reference",
+          "label": "vue",
           "children": [
             {
               "label": "useStore",
               "to": "framework/vue/reference/useStore"
             }
           ]
-        }
-      ]
-    },
-    {
-      "framework": "solid",
-      "menuItems": [
-        {
-          "label": "Getting Started",
-          "children": [
-            {
-              "label": "Quick Start",
-              "to": "framework/solid/quick-start"
-            }
-          ]
         },
         {
-          "label": "API Reference",
+          "label": "solid",
           "children": [
             {
               "label": "useStore",
               "to": "framework/solid/reference/useStore"
             }
           ]
-        }
-      ]
-    },
-    {
-      "framework": "angular",
-      "menuItems": [
-        {
-          "label": "Getting Started",
-          "children": [
-            {
-              "label": "Quick Start",
-              "to": "framework/angular/quick-start"
-            }
-          ]
         },
         {
-          "label": "API Reference",
+          "label": "angular",
           "children": [
             {
               "label": "injectStore",
