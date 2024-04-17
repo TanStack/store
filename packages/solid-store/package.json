@@ -3,7 +3,7 @@
   "author": "Tanner Linsley",
   "version": "0.3.1",
   "license": "MIT",
-  "repository": "tanstack/solid-store",
+  "repository": "tanstack/store",
   "homepage": "https://tanstack.com/",
   "description": "",
   "publishConfig": {
