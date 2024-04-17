@@ -3,7 +3,7 @@
   "version": "0.3.1",
   "author": "Tanner Linsley",
   "license": "MIT",
-  "repository": "tanstack/react-store",
+  "repository": "tanstack/store",
   "homepage": "https://tanstack.com/",
   "description": "",
   "publishConfig": {
