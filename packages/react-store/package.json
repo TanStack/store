@@ -63,6 +63,7 @@
   },
   "devDependencies": {
     "@types/use-sync-external-store": "^0.0.3",
-    "@vitejs/plugin-react": "^4.2.1"
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.1.5"
   }
 }
