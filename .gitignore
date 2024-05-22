@@ -39,3 +39,5 @@ stats.html
 
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+.svelte-kit

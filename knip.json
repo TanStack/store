@@ -7,5 +7,6 @@
     "packages/vue-store": {
       "ignoreDependencies": ["vue2", "vue2.7"]
     }
-  }
+  },
+  "ignoreWorkspaces": ["packages/svelte-store"]
 }
