@@ -54,6 +54,15 @@
               "to": "framework/angular/quick-start"
             }
           ]
+        },
+        {
+          "label": "svelte",
+          "children": [
+            {
+              "label": "Quick Start",
+              "to": "framework/svelte/quick-start"
+            }
+          ]
         }
       ]
     },
@@ -99,6 +108,15 @@
             {
               "label": "injectStore",
               "to": "framework/angular/reference/injectStore"
+            }
+          ]
+        },
+        {
+          "label": "svelte",
+          "children": [
+            {
+              "label": "useStore",
+              "to": "framework/svelte/reference/useStore"
             }
           ]
         }
