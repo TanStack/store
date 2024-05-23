@@ -14,7 +14,9 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['test-setup.ts'],
     coverage: {
-      enabled: true,
+      // there seems to be some svelte-5 incompatibility so this is disabled for now
+      // e.g. https://cloud.nx.app/runs/q2YUKafLGK
+      enabled: false,
       provider: 'istanbul',
       include: ['src/**/*']
     },

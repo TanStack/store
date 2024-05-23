@@ -1,13 +1,12 @@
 import { describe, expect, it, test } from 'vitest'
-import { render, waitFor } from '@testing-library/svelte'
+import { waitFor, render } from '@testing-library/svelte'
 import { userEvent } from '@testing-library/user-event'
-import { shallow } from '../index.svelte.js'
+import { shallow } from '../lib/index.svelte.js'
 
 const user = userEvent.setup()
 
-
-import TestBaseStore from './TestBaseStore.svelte'
-import TestRerender from './TestRerender.svelte'
+import TestBaseStore from './BaseStore.test.svelte'
+import TestRerender from './Render.test.svelte'
 
 describe('useStore', () => {
   it('allows us to select state using a selector', async () => {
@@ -16,7 +15,6 @@ describe('useStore', () => {
   })
 
   it('only triggers a re-render when selector state is updated', async () => {
-
     const { getByText } = render(TestRerender)
     expect(getByText('Store: 0')).toBeInTheDocument()
     expect(getByText('Number rendered: 1')).toBeInTheDocument()
@@ -47,7 +45,7 @@ describe('shallow', () => {
   test('should return false for objects with different keys', () => {
     const objA = { a: 1, b: 'hello' }
     const objB = { a: 1, c: 'world' }
-    // @ts-expect-error testing invalid input 
+    // @ts-expect-error testing invalid input
     expect(shallow(objA, objB)).toBe(false)
   })
 

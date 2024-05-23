@@ -13,8 +13,7 @@ export function useStore<
   store: Store<TState, TUpdater>,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selector: (state: NoInfer<TState>) => TSelected = (d) => d as any,
-): Readonly<{value: TSelected}> {
-  
+): Readonly<{ value: TSelected }> {
   let slice = $state(selector(store.state)) as TSelected
 
   $effect(() => {
@@ -26,14 +25,14 @@ export function useStore<
       slice = data
     })
 
-    return unsub;
-  });
+    return unsub
+  })
 
   return {
     get value() {
       return slice
-    }
-  };
+    },
+  }
 }
 
 export function shallow<T>(objA: T, objB: T) {
