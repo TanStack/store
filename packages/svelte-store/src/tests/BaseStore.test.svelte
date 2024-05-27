@@ -11,4 +11,4 @@
 </script>
 
 
-<p>Store: {storeVal.value}</p>
+<p>Store: {storeVal.current}</p>

@@ -13,7 +13,7 @@ export function useStore<
   store: Store<TState, TUpdater>,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selector: (state: NoInfer<TState>) => TSelected = (d) => d as any,
-): Readonly<{ value: TSelected }> {
+) {
   let slice = $state(selector(store.state)) as TSelected
 
   $effect(() => {
@@ -29,7 +29,7 @@ export function useStore<
   })
 
   return {
-    get value() {
+    get current() {
       return slice
     },
   }
