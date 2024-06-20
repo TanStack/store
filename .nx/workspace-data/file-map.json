@@ -1,0 +1,441 @@
+{
+  "version": "6.0",
+  "nxVersion": "19.3.0",
+  "deps": {
+    "@solidjs/testing-library": "^0.8.6",
+    "@tanstack/config": "^0.7.11",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@testing-library/vue": "^8.0.2",
+    "@types/eslint": "^8.56.2",
+    "@types/node": "^18.19.3",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.0.5",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "@vitest/coverage-istanbul": "^1.3.1",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "jsdom": "^24.0.0",
+    "knip": "^4.6.0",
+    "nx": "^19.3.0",
+    "prettier": "^4.0.0-alpha.8",
+    "publint": "^0.2.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rimraf": "^5.0.5",
+    "sherif": "^0.8.4",
+    "solid-js": "^1.7.8",
+    "typescript": "^5.2.2",
+    "typescript49": "npm:typescript@4.9",
+    "typescript50": "npm:typescript@5.0",
+    "typescript51": "npm:typescript@5.1",
+    "vite": "^5.1.5",
+    "vitest": "^1.3.1",
+    "vue": "^3.3.4"
+  },
+  "pathMappings": {},
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "projectFileMap": {
+      "@tanstack/react-store": [
+        {
+          "file": "packages/react-store/.eslintrc.cjs",
+          "hash": "8685351753610560360"
+        },
+        {
+          "file": "packages/react-store/package.json",
+          "hash": "3868068000157617959",
+          "deps": [
+            "npm:react",
+            "npm:react-dom",
+            "npm:@types/use-sync-external-store",
+            "npm:@vitejs/plugin-react",
+            "@tanstack/store",
+            "npm:use-sync-external-store"
+          ]
+        },
+        {
+          "file": "packages/react-store/src/index.ts",
+          "hash": "10874248506246337552"
+        },
+        {
+          "file": "packages/react-store/src/tests/index.test.tsx",
+          "hash": "1149182092999971698"
+        },
+        {
+          "file": "packages/react-store/test-setup.ts",
+          "hash": "11869747493067147108"
+        },
+        {
+          "file": "packages/react-store/tsconfig.json",
+          "hash": "12475214345054368462"
+        },
+        {
+          "file": "packages/react-store/tsconfig.legacy.json",
+          "hash": "7592470611821607161"
+        },
+        {
+          "file": "packages/react-store/vite.config.ts",
+          "hash": "9291500400861402334"
+        }
+      ],
+      "store": [
+        {
+          "file": ".browserslistrc",
+          "hash": "2076145329913364904"
+        },
+        {
+          "file": ".eslintrc.cjs",
+          "hash": "15856843104570770478"
+        },
+        {
+          "file": ".gitattributes",
+          "hash": "11849325337616641890"
+        },
+        {
+          "file": ".github/FUNDING.yml",
+          "hash": "6004428841872814899"
+        },
+        {
+          "file": ".github/ISSUE_TEMPLATE/bug_report.yml",
+          "hash": "16448271992143549742"
+        },
+        {
+          "file": ".github/ISSUE_TEMPLATE/config.yml",
+          "hash": "9798484120355366066"
+        },
+        {
+          "file": ".github/workflows/ci.yml",
+          "hash": "18393617145018395319"
+        },
+        {
+          "file": ".github/workflows/pr.yml",
+          "hash": "14825203133421878503"
+        },
+        {
+          "file": ".gitignore",
+          "hash": "871597187134718545"
+        },
+        {
+          "file": ".npmrc",
+          "hash": "13081587961236811062"
+        },
+        {
+          "file": ".nvmrc",
+          "hash": "15287351054846237550"
+        },
+        {
+          "file": ".nx/workflows/dynamic-changesets.yaml",
+          "hash": "5173079077115211573"
+        },
+        {
+          "file": ".prettierignore",
+          "hash": "5731911150889159389"
+        },
+        {
+          "file": ".prettierrc",
+          "hash": "10768980415398947524"
+        },
+        {
+          "file": "CONTRIBUTING.md",
+          "hash": "12212716610162825009"
+        },
+        {
+          "file": "LICENSE",
+          "hash": "8383708917263886549"
+        },
+        {
+          "file": "README.md",
+          "hash": "424384832079887164"
+        },
+        {
+          "file": "docs/config.json",
+          "hash": "6620483726249193879"
+        },
+        {
+          "file": "docs/framework/angular/quick-start.md",
+          "hash": "801317814570352676"
+        },
+        {
+          "file": "docs/framework/angular/reference/injectStore.md",
+          "hash": "370656847589929901"
+        },
+        {
+          "file": "docs/framework/react/quick-start.md",
+          "hash": "13001085870528486292"
+        },
+        {
+          "file": "docs/framework/react/reference/useStore.md",
+          "hash": "8328845574449454706"
+        },
+        {
+          "file": "docs/framework/solid/quick-start.md",
+          "hash": "6540037259327993997"
+        },
+        {
+          "file": "docs/framework/solid/reference/useStore.md",
+          "hash": "15862161288964404936"
+        },
+        {
+          "file": "docs/framework/vue/quick-start.md",
+          "hash": "16258754602935683232"
+        },
+        {
+          "file": "docs/framework/vue/reference/useStore.md",
+          "hash": "14154989640905244034"
+        },
+        {
+          "file": "docs/installation.md",
+          "hash": "18275552147385046305"
+        },
+        {
+          "file": "docs/overview.md",
+          "hash": "9640288832776519644"
+        },
+        {
+          "file": "docs/reference/Store.md",
+          "hash": "8035421662503965996"
+        },
+        {
+          "file": "knip.json",
+          "hash": "13781557238013727135"
+        },
+        {
+          "file": "media/repo-header.png",
+          "hash": "4215790199297729467"
+        },
+        {
+          "file": "nx.json",
+          "hash": "17771939124132609781"
+        },
+        {
+          "file": "package.json",
+          "hash": "5671382697383321785",
+          "deps": [
+            "npm:@solidjs/testing-library",
+            "npm:@testing-library/jest-dom",
+            "npm:@testing-library/react",
+            "npm:@testing-library/user-event",
+            "npm:@testing-library/vue",
+            "npm:@types/eslint",
+            "npm:@types/node",
+            "npm:@types/react",
+            "npm:@types/react-dom",
+            "npm:@typescript-eslint/eslint-plugin",
+            "npm:@typescript-eslint/parser",
+            "npm:@vitest/coverage-istanbul",
+            "npm:eslint",
+            "npm:eslint-config-prettier",
+            "npm:eslint-import-resolver-typescript",
+            "npm:eslint-plugin-import",
+            "npm:eslint-plugin-react",
+            "npm:eslint-plugin-react-hooks",
+            "npm:jsdom",
+            "npm:knip",
+            "npm:prettier",
+            "npm:react",
+            "npm:react-dom",
+            "npm:rimraf",
+            "npm:solid-js",
+            "npm:typescript",
+            "npm:vite",
+            "npm:vitest",
+            "npm:vue"
+          ]
+        },
+        {
+          "file": "pnpm-lock.yaml",
+          "hash": "8089702680022205974"
+        },
+        {
+          "file": "pnpm-workspace.yaml",
+          "hash": "14023553245924207147"
+        },
+        {
+          "file": "scripts/config.js",
+          "hash": "5123164539597158402"
+        },
+        {
+          "file": "scripts/publish.js",
+          "hash": "8177359168224963049"
+        },
+        {
+          "file": "scripts/tsconfig.json",
+          "hash": "6402589045885639469"
+        },
+        {
+          "file": "scripts/types.d.ts",
+          "hash": "2233220230940993993"
+        },
+        {
+          "file": "tsconfig.json",
+          "hash": "14157117933390065500"
+        }
+      ],
+      "@tanstack/solid-store": [
+        {
+          "file": "packages/solid-store/.eslintrc.cjs",
+          "hash": "5298354932446762428"
+        },
+        {
+          "file": "packages/solid-store/package.json",
+          "hash": "3521155885552679218",
+          "deps": [
+            "npm:solid-js",
+            "npm:vite-plugin-solid",
+            "@tanstack/store"
+          ]
+        },
+        {
+          "file": "packages/solid-store/src/index.ts",
+          "hash": "9183579466183859433"
+        },
+        {
+          "file": "packages/solid-store/src/tests/index.test.tsx",
+          "hash": "5036411159811185144"
+        },
+        {
+          "file": "packages/solid-store/test-setup.ts",
+          "hash": "10300547935827094864"
+        },
+        {
+          "file": "packages/solid-store/tsconfig.json",
+          "hash": "9957212079403834772"
+        },
+        {
+          "file": "packages/solid-store/tsconfig.legacy.json",
+          "hash": "11357171078631674141"
+        },
+        {
+          "file": "packages/solid-store/vite.config.ts",
+          "hash": "10336953106662296737"
+        }
+      ],
+      "@tanstack/vue-store": [
+        {
+          "file": "packages/vue-store/.eslintrc.cjs",
+          "hash": "5298354932446762428"
+        },
+        {
+          "file": "packages/vue-store/package.json",
+          "hash": "6159415445750376006",
+          "deps": [
+            "npm:@vue/composition-api",
+            "npm:vue",
+            "npm:vue@2.6.14",
+            "npm:vue@2.7.14",
+            "npm:@vitejs/plugin-vue",
+            "@tanstack/store",
+            "npm:vue-demi"
+          ]
+        },
+        {
+          "file": "packages/vue-store/src/index.ts",
+          "hash": "7927139604660173493"
+        },
+        {
+          "file": "packages/vue-store/src/tests/index.test.tsx",
+          "hash": "14449294186120511729"
+        },
+        {
+          "file": "packages/vue-store/test-setup.ts",
+          "hash": "2873124390406101341"
+        },
+        {
+          "file": "packages/vue-store/tsconfig.json",
+          "hash": "11396066328384829635"
+        },
+        {
+          "file": "packages/vue-store/tsconfig.legacy.json",
+          "hash": "15462251561042393493"
+        },
+        {
+          "file": "packages/vue-store/vite.config.ts",
+          "hash": "14878660763602320352"
+        }
+      ],
+      "@tanstack/store": [
+        {
+          "file": "packages/store/.eslintrc.cjs",
+          "hash": "5298354932446762428"
+        },
+        {
+          "file": "packages/store/package.json",
+          "hash": "2952923775212884279"
+        },
+        {
+          "file": "packages/store/src/index.ts",
+          "hash": "7790208412374034482"
+        },
+        {
+          "file": "packages/store/src/tests/index.test.tsx",
+          "hash": "7351266563044217"
+        },
+        {
+          "file": "packages/store/tsconfig.json",
+          "hash": "13321639006669797021"
+        },
+        {
+          "file": "packages/store/tsconfig.legacy.json",
+          "hash": "5879497857390693390"
+        },
+        {
+          "file": "packages/store/vite.config.ts",
+          "hash": "15208083409976465213"
+        }
+      ],
+      "@tanstack/angular-store": [
+        {
+          "file": "packages/angular-store/.eslintrc.cjs",
+          "hash": "5298354932446762428"
+        },
+        {
+          "file": "packages/angular-store/package.json",
+          "hash": "18158255803056980483",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/common",
+            "npm:@analogjs/vite-plugin-angular",
+            "npm:@angular/compiler",
+            "npm:@angular/compiler-cli",
+            "npm:@angular/platform-browser",
+            "npm:@angular/platform-browser-dynamic",
+            "npm:zone.js",
+            "@tanstack/store"
+          ]
+        },
+        {
+          "file": "packages/angular-store/src/index.ts",
+          "hash": "7026928923118692370"
+        },
+        {
+          "file": "packages/angular-store/src/tests/index.test.tsx",
+          "hash": "903032673570530517"
+        },
+        {
+          "file": "packages/angular-store/src/tests/test-setup.ts",
+          "hash": "4312167201983234488"
+        },
+        {
+          "file": "packages/angular-store/tsconfig.json",
+          "hash": "10071344840136832430"
+        },
+        {
+          "file": "packages/angular-store/tsconfig.legacy.json",
+          "hash": "8123153967601491325"
+        },
+        {
+          "file": "packages/angular-store/vite.config.ts",
+          "hash": "17810771985681013342"
+        }
+      ]
+    },
+    "nonProjectFiles": []
+  }
+}
