@@ -13,7 +13,7 @@
     "test:lib": "vitest",
     "test:lib:dev": "pnpm run test:lib --watch",
     "test:build": "publint --strict",
-    "build": "vite build"
+    "build": "ng-packagr -p ng-package.json -c tsconfig.build.json && rimraf ./dist/package.json"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,21 +28,18 @@
     "url": "https://github.com/sponsors/tannerlinsley"
   },
   "type": "module",
-  "types": "dist/esm/index.d.ts",
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/fesm2022/tanstack-angular-store.mjs",
   "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/esm/index.d.ts",
-        "default": "./dist/esm/index.js"
-      },
-      "require": {
-        "types": "./dist/cjs/index.d.cts",
-        "default": "./dist/cjs/index.cjs"
-      }
+    "./package.json": {
+      "default": "./package.json"
     },
-    "./package.json": "./package.json"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "esm2022": "./dist/esm2022/tanstack-angular-store.mjs",
+      "esm": "./dist/esm2022/tanstack-angular-store.mjs",
+      "default": "./dist/fesm2022/tanstack-angular-store.mjs"
+    }
   },
   "sideEffects": false,
   "files": [
@@ -50,16 +47,18 @@
     "src"
   ],
   "dependencies": {
-    "@tanstack/store": "workspace:*"
+    "@tanstack/store": "workspace:*",
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@analogjs/vite-plugin-angular": "^1.5.0",
-    "@angular/common": "^17.1.2",
-    "@angular/compiler": "^17.1.2",
-    "@angular/compiler-cli": "^17.1.2",
-    "@angular/core": "^17.1.2",
-    "@angular/platform-browser": "^17.1.2",
-    "@angular/platform-browser-dynamic": "^17.1.2",
+    "@angular/common": "^17.3.0",
+    "@angular/compiler": "^17.3.0",
+    "@angular/compiler-cli": "^17.3.0",
+    "@angular/core": "^17.3.0",
+    "@angular/platform-browser": "^17.3.0",
+    "@angular/platform-browser-dynamic": "^17.3.0",
+    "ng-packagr": "^17.3.0",
     "zone.js": "^0.14.3"
   },
   "peerDependencies": {
