@@ -1,7 +1,7 @@
 {
   "name": "@tanstack/angular-store",
   "author": "Tanner Linsley",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "license": "MIT",
   "repository": "tanstack/store",
   "homepage": "https://tanstack.com/store",
