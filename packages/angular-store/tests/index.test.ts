@@ -3,7 +3,7 @@ import { Component, effect } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
 import { Store } from '@tanstack/store'
-import { injectStore } from '../index'
+import { injectStore } from '../src/index'
 
 describe('injectStore', () => {
   test(`allows us to select state using a selector`, () => {
