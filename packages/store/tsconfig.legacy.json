@@ -1,11 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "experimentalDecorators": true,
-    "moduleResolution": "Node",
-    "paths": {
-      "@tanstack/store": ["../store/src"]
-    }
+    "moduleResolution": "Node"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["src/tests/**"]

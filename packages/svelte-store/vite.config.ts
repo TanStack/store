@@ -1,8 +1,9 @@
+import { svelte } from '@sveltejs/vite-plugin-svelte'
 import { defineConfig } from 'vitest/config'
 import { svelteTesting } from '@testing-library/svelte/vite'
 
 export default defineConfig({
-  plugins: [svelteTesting()],
+  plugins: [svelte(), svelteTesting()],
   test: {
     alias: {
       // This is needed for svelte-5 support
@@ -10,10 +11,10 @@ export default defineConfig({
       '@testing-library/svelte': '@testing-library/svelte/svelte5',
     },
     name: 'svelte-store',
-    dir: './src',
+    dir: './tests',
     watch: false,
     environment: 'jsdom',
-    setupFiles: ['./src/vitest.setup.ts'],
+    setupFiles: ['test-setup.ts'],
     coverage: {
       // There seems to be some svelte-5 incompatibility so this is disabled for now
       // e.g. https://cloud.nx.app/runs/q2YUKafLGK
@@ -22,6 +23,5 @@ export default defineConfig({
       include: ['src/**/*'],
     },
     typecheck: { enabled: true },
-    globals: true,
   },
 })

@@ -1,7 +1,7 @@
 import { describe, expect, it, test } from 'vitest'
 import { waitFor, render } from '@testing-library/svelte'
 import { userEvent } from '@testing-library/user-event'
-import { shallow } from '../lib/index.svelte.js'
+import { shallow } from '../src/index.svelte.js'
 
 const user = userEvent.setup()
 

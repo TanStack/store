@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Store } from '@tanstack/store'
-    import { useStore } from "../lib/index.svelte.js"
+    import { useStore } from "../src/index.svelte.js"
     
     const store = new Store({
       select: 0,
