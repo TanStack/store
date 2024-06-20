@@ -28,10 +28,10 @@ export const packages = [
     name: '@tanstack/angular-store',
     packageDir: 'packages/angular-store',
   },
-  // {
-  //   name: '@tanstack/svelte-store',
-  //   packageDir: 'packages/svelte-store',
-  // },
+  {
+    name: '@tanstack/svelte-store',
+    packageDir: 'packages/svelte-store',
+  },
 ]
 
 /**

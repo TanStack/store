@@ -36,3 +36,11 @@ npm install @tanstack/solid-store
 ```
 
 TanStack Store is compatible with Solid and SolidStart.
+
+## Svelte
+
+```sh
+npm install @tanstack/svelte-store
+```
+
+TanStack Store is compatible with Svelte 5.
