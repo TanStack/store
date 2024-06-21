@@ -99,7 +99,7 @@ importers:
         specifier: ^1.7.8
         version: 1.7.11
       typescript:
-        specifier: ^5.2.2
+        specifier: 5.4.2
         version: 5.4.2
       typescript49:
         specifier: npm:typescript@4.9
@@ -110,6 +110,12 @@ importers:
       typescript51:
         specifier: npm:typescript@5.1
         version: typescript@5.1.6
+      typescript52:
+        specifier: npm:typescript@5.2
+        version: typescript@5.2.2
+      typescript53:
+        specifier: npm:typescript@5.3
+        version: typescript@5.3.3
       vite:
         specifier: ^5.3.1
         version: 5.3.1(@types/node@18.19.5)(less@4.2.0)(sass@1.69.7)(terser@5.26.0)
@@ -5909,6 +5915,16 @@ packages:
 
   typescript@5.1.6:
     resolution: {integrity: sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+  typescript@5.2.2:
+    resolution: {integrity: sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+  typescript@5.3.3:
+    resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -12725,6 +12741,10 @@ snapshots:
   typescript@5.0.4: {}
 
   typescript@5.1.6: {}
+
+  typescript@5.2.2: {}
+
+  typescript@5.3.3: {}
 
   typescript@5.4.2: {}
 
