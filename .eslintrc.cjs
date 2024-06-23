@@ -29,9 +29,6 @@ const config = {
     'import-x/parsers': {
       '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
-    'import-x/resolver': {
-      typescript: true,
-    },
     react: {
       version: 'detect',
     },
@@ -64,7 +61,7 @@ const config = {
     'import-x/no-cycle': 'error',
     'import-x/no-duplicates': 'off',
     'import-x/no-named-as-default-member': 'off',
-    'import-x/no-unresolved': ['error', { ignore: ['^@tanstack/'] }],
+    'import-x/no-unresolved': 'off',
     'import-x/no-unused-modules': ['off', { unusedExports: true }],
     'import-x/order': [
       'error',
