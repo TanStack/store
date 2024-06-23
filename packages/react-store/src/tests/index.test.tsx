@@ -41,6 +41,7 @@ describe('useStore', () => {
           <p>Number rendered: {fn.mock.calls.length}</p>
           <p>Store: {storeVal}</p>
           <button
+            type="button"
             onClick={() =>
               store.setState((v) => ({
                 ...v,
@@ -51,6 +52,7 @@ describe('useStore', () => {
             Update select
           </button>
           <button
+            type="button"
             onClick={() =>
               store.setState((v) => ({
                 ...v,
