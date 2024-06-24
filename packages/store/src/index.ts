@@ -2,7 +2,7 @@ export type AnyUpdater = (...args: any[]) => any
 
 export type Listener = () => void
 
-interface StoreOptions<
+export interface StoreOptions<
   TState,
   TUpdater extends AnyUpdater = (cb: TState) => TState,
 > {
