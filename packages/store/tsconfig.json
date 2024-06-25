@@ -3,10 +3,5 @@
   "compilerOptions": {
     "moduleResolution": "Bundler"
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "eslint.config.js",
-    "vite.config.ts"
-  ]
+  "include": ["src", "eslint.config.js", "vite.config.ts"]
 }

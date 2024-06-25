@@ -7,11 +7,5 @@
       "@tanstack/store": ["../store/src"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "eslint.config.js",
-    "test-setup.ts",
-    "vite.config.ts"
-  ]
+  "include": ["src", "eslint.config.js", "test-setup.ts", "vite.config.ts"]
 }
