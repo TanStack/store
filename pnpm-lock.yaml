@@ -32,9 +32,6 @@ importers:
       '@testing-library/vue':
         specifier: ^8.1.0
         version: 8.1.0(@vue/compiler-sfc@3.3.4)(@vue/server-renderer@3.3.4(vue@3.3.4))(vue@3.3.4)
-      '@types/eslint':
-        specifier: ^8.56.10
-        version: 8.56.10
       '@types/node':
         specifier: ^18.19.3
         version: 18.19.5
