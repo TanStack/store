@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "experimentalDecorators": true,
+    "module": "ESNext",
     "moduleResolution": "Bundler",
     "paths": {
       "@tanstack/store": ["../store/src"]

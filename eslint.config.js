@@ -3,12 +3,10 @@
 import { fileURLToPath } from 'node:url'
 // @ts-expect-error
 import eslint from '@eslint/js'
-// @ts-expect-error
 import tseslint from 'typescript-eslint'
-// @ts-expect-error
 import pluginImport from 'eslint-plugin-import-x'
-// @ts-expect-error
 import globals from 'globals'
+// import configPrettier from 'eslint-config-prettier'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
