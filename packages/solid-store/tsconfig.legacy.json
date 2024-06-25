@@ -3,11 +3,10 @@
   "compilerOptions": {
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
-    "moduleResolution": "Node",
     "paths": {
       "@tanstack/store": ["../store/src"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src"],
   "exclude": ["src/tests/**"]
 }
