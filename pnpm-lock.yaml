@@ -11,9 +11,6 @@ importers:
       '@eslint-react/eslint-plugin':
         specifier: ^1.5.16
         version: 1.5.16(eslint@9.5.0)(typescript@5.4.2)
-      '@eslint/eslintrc':
-        specifier: ^3.1.0
-        version: 3.1.0
       '@eslint/js':
         specifier: ^9.5.0
         version: 9.5.0
@@ -227,9 +224,6 @@ importers:
       svelte-check:
         specifier: ^3.8.1
         version: 3.8.1(@babel/core@7.24.7)(less@4.2.0)(postcss-load-config@3.1.4(postcss@8.4.38))(postcss@8.4.38)(sass@1.69.7)(svelte@5.0.0-next.160)
-      svelte-eslint-parser:
-        specifier: ^0.39.1
-        version: 0.39.1(svelte@5.0.0-next.160)
 
   packages/vue-store:
     dependencies:
