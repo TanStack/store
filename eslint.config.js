@@ -58,9 +58,6 @@ export default [
   {
     name: 'tanstack/custom',
     ignores: ['**/build', '**/coverage', '**/dist'],
-    plugins: {
-      '@typescript-eslint': tseslint.plugin,
-    },
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -72,13 +69,8 @@ export default [
         tsconfigRootDir: __dirname,
       },
     },
-    linterOptions: {
-      reportUnusedDisableDirectives: true,
-    },
-    settings: {
-      react: {
-        version: 'detect',
-      },
+    plugins: {
+      '@typescript-eslint': tseslint.plugin,
     },
     rules: {
       '@typescript-eslint/array-type': 'off',
