@@ -95,4 +95,10 @@ export default [
       ],
     },
   },
+  {
+    name: 'tanstack/temp',
+    rules: {
+      '@typescript-eslint/prefer-for-of': 'off',
+    },
+  },
 ]
