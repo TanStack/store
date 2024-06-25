@@ -2,7 +2,6 @@ import type { AnyUpdater, Store } from '@tanstack/store'
 
 export * from '@tanstack/store'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type NoInfer<T> = [T][T extends any ? 0 : never]
 
 export function useStore<
@@ -11,7 +10,6 @@ export function useStore<
   TUpdater extends AnyUpdater = AnyUpdater,
 >(
   store: Store<TState, TUpdater>,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selector: (state: NoInfer<TState>) => TSelected = (d) => d as any,
 ) {
   let slice = $state(selector(store.state)) as TSelected

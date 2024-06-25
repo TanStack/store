@@ -1,9 +1,13 @@
 // @ts-check
 
 import { fileURLToPath } from 'node:url'
+// @ts-expect-error
 import eslint from '@eslint/js'
+// @ts-expect-error
 import tseslint from 'typescript-eslint'
-import importX from 'eslint-plugin-import-x'
+// @ts-expect-error
+import pluginImport from 'eslint-plugin-import-x'
+// @ts-expect-error
 import globals from 'globals'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
@@ -14,8 +18,10 @@ export default tseslint.config(
   ...tseslint.configs.stylistic,
   {
     ignores: ['**/build', '**/coverage', '**/dist'],
-  },
-  {
+    plugins: {
+      '@typescript-eslint': tseslint.plugin,
+      'import-x': pluginImport,
+    },
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -26,10 +32,6 @@ export default tseslint.config(
         projectService: true,
         tsconfigRootDir: __dirname,
       },
-    },
-    plugins: {
-      '@typescript-eslint': tseslint.plugin,
-      'import-x': importX,
     },
     linterOptions: {
       reportUnusedDisableDirectives: true,
@@ -49,9 +51,7 @@ export default tseslint.config(
       '@typescript-eslint/consistent-type-definitions': 'off',
       '@typescript-eslint/consistent-type-imports': [
         'error',
-        {
-          prefer: 'type-imports',
-        },
+        { prefer: 'type-imports' },
       ],
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/method-signature-style': 'error',
@@ -59,12 +59,11 @@ export default tseslint.config(
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
       '@typescript-eslint/no-unnecessary-condition': 'error',
+      '@typescript-eslint/no-unused-expressions': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-inferrable-types': [
         'error',
-        {
-          ignoreParameters: true,
-        },
+        { ignoreParameters: true },
       ],
       '@typescript-eslint/prefer-for-of': 'off',
       'import-x/default': 'off',
@@ -75,12 +74,7 @@ export default tseslint.config(
       'import-x/no-duplicates': 'off',
       'import-x/no-named-as-default-member': 'off',
       'import-x/no-unresolved': 'off',
-      'import-x/no-unused-modules': [
-        'off',
-        {
-          unusedExports: true,
-        },
-      ],
+      'import-x/no-unused-modules': ['off', { unusedExports: true }],
       'import-x/order': [
         'error',
         {
@@ -101,12 +95,7 @@ export default tseslint.config(
       'no-redeclare': 'off',
       'no-shadow': 'error',
       'no-undef': 'off',
-      'sort-imports': [
-        'error',
-        {
-          ignoreDeclarationSort: true,
-        },
-      ],
+      'sort-imports': ['error', { ignoreDeclarationSort: true }],
     },
   },
 )

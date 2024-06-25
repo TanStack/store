@@ -67,7 +67,7 @@
     "sherif": "^0.8.4",
     "solid-js": "^1.7.8",
     "typescript": "5.4.2",
-    "typescript-eslint": "^8.0.0-alpha.30",
+    "typescript-eslint": "^8.0.0-alpha.32",
     "typescript49": "npm:typescript@4.9",
     "typescript50": "npm:typescript@5.0",
     "typescript51": "npm:typescript@5.1",
