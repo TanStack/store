@@ -11,16 +11,55 @@ import configPrettier from 'eslint-config-prettier'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
-export default tseslint.config(
-  eslint.configs.recommended,
+export default [
+  {
+    name: 'eslint/rules',
+    rules: {
+      ...eslint.configs.recommended.rules,
+      'no-async-promise-executor': 'off',
+      'no-empty': 'off',
+      'no-redeclare': 'off',
+      'no-shadow': 'error',
+      'no-undef': 'off',
+      'sort-imports': ['error', { ignoreDeclarationSort: true }],
+    },
+  },
+  {
+    name: 'prettier/rules',
+    ...configPrettier,
+  },
   ...tseslint.configs.recommended,
   ...tseslint.configs.stylistic,
-  configPrettier,
   {
+    name: 'import/rules',
+    plugins: {
+      import: pluginImport,
+    },
+    rules: {
+      'import/newline-after-import': 'error',
+      'import/no-cycle': 'error',
+      'import/order': [
+        'error',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            'parent',
+            'sibling',
+            'index',
+            'object',
+            'type',
+          ],
+        },
+      ],
+    },
+  },
+  {
+    name: 'tanstack/custom',
     ignores: ['**/build', '**/coverage', '**/dist'],
     plugins: {
       '@typescript-eslint': tseslint.plugin,
-      'import-x': pluginImport,
     },
     languageOptions: {
       globals: {
@@ -37,9 +76,6 @@ export default tseslint.config(
       reportUnusedDisableDirectives: true,
     },
     settings: {
-      'import-x/parsers': {
-        '@typescript-eslint/parser': ['.ts', '.tsx'],
-      },
       react: {
         version: 'detect',
       },
@@ -65,37 +101,6 @@ export default tseslint.config(
         'error',
         { ignoreParameters: true },
       ],
-      '@typescript-eslint/prefer-for-of': 'off',
-      'import-x/default': 'off',
-      'import-x/export': 'off',
-      'import-x/namespace': 'off',
-      'import-x/newline-after-import': 'error',
-      'import-x/no-cycle': 'error',
-      'import-x/no-duplicates': 'off',
-      'import-x/no-named-as-default-member': 'off',
-      'import-x/no-unresolved': 'off',
-      'import-x/no-unused-modules': ['off', { unusedExports: true }],
-      'import-x/order': [
-        'error',
-        {
-          groups: [
-            'builtin',
-            'external',
-            'internal',
-            'parent',
-            'sibling',
-            'index',
-            'object',
-            'type',
-          ],
-        },
-      ],
-      'no-async-promise-executor': 'off',
-      'no-empty': 'off',
-      'no-redeclare': 'off',
-      'no-shadow': 'error',
-      'no-undef': 'off',
-      'sort-imports': ['error', { ignoreDeclarationSort: true }],
     },
   },
-)
+]
