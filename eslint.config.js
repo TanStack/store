@@ -86,6 +86,19 @@ export default [
       ],
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/method-signature-style': ['error', 'property'],
+      '@typescript-eslint/naming-convention': [
+        'error',
+        {
+          selector: 'typeParameter',
+          format: ['PascalCase'],
+          leadingUnderscore: 'forbid',
+          trailingUnderscore: 'forbid',
+          custom: {
+            regex: '^(T|T[A-Z][A-Za-z]+)$',
+            match: true,
+          },
+        },
+      ],
       '@typescript-eslint/no-empty-interface': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
