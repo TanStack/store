@@ -83,6 +83,9 @@ importers:
       typescript:
         specifier: 5.4.2
         version: 5.4.2
+      typescript-eslint:
+        specifier: ^8.0.0-alpha.32
+        version: 8.0.0-alpha.32(eslint@9.5.0)(typescript@5.4.2)
       typescript49:
         specifier: npm:typescript@4.9
         version: typescript@4.9.5
@@ -8374,7 +8377,7 @@ snapshots:
       '@typescript-eslint/types': 8.0.0-alpha.32
       '@typescript-eslint/typescript-estree': 8.0.0-alpha.32(typescript@5.4.2)
       '@typescript-eslint/visitor-keys': 8.0.0-alpha.32
-      debug: 4.3.4
+      debug: 4.3.5
       eslint: 9.5.0
     optionalDependencies:
       typescript: 5.4.2
@@ -8407,7 +8410,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/typescript-estree': 8.0.0-alpha.32(typescript@5.4.2)
       '@typescript-eslint/utils': 8.0.0-alpha.32(eslint@9.5.0)(typescript@5.4.2)
-      debug: 4.3.4
+      debug: 4.3.5
       ts-api-utils: 1.3.0(typescript@5.4.2)
     optionalDependencies:
       typescript: 5.4.2
@@ -8438,7 +8441,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.0.0-alpha.32
       '@typescript-eslint/visitor-keys': 8.0.0-alpha.32
-      debug: 4.3.4
+      debug: 4.3.5
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.4
