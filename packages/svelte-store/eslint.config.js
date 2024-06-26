@@ -11,13 +11,16 @@ export default [
     files: ['**/*.svelte'],
     languageOptions: {
       parserOptions: {
+        extraFileExtensions: ['.svelte'],
         parser: tseslint.parser,
       },
     },
   },
   {
     rules: {
+      'svelte/block-lang': ['error', { script: ['ts'] }],
       'svelte/no-svelte-internal': 'error',
+      'svelte/valid-compile': 'off',
     },
   },
 ]
