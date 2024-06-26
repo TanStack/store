@@ -12,7 +12,7 @@ export function useStore<
   store: Store<TState, TUpdater>,
   selector: (state: NoInfer<TState>) => TSelected = (d) => d as any,
 ) {
-  let slice = $state(selector(store.state)) as TSelected
+  let slice = $state(selector(store.state))
 
   $effect(() => {
     const unsub = store.subscribe(() => {
