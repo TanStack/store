@@ -54,7 +54,7 @@ export default [
   },
   {
     name: 'tanstack/custom',
-    ignores: ['**/build', '**/coverage', '**/dist'],
+    ignores: ['**/build', '**/coverage', '**/dist', '**/snap'],
     languageOptions: {
       globals: {
         ...globals.browser,
