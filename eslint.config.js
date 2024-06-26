@@ -1,6 +1,5 @@
 // @ts-check
 
-import { fileURLToPath } from 'node:url'
 // @ts-expect-error
 import eslint from '@eslint/js'
 import tseslint from 'typescript-eslint'
@@ -8,8 +7,6 @@ import pluginImport from 'eslint-plugin-import-x'
 import globals from 'globals'
 // @ts-expect-error
 import configPrettier from 'eslint-config-prettier'
-
-const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 export default [
   {
@@ -66,7 +63,6 @@ export default [
       sourceType: 'module',
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: __dirname,
       },
     },
     plugins: {
