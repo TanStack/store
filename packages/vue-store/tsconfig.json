@@ -9,5 +9,5 @@
       "@tanstack/store": ["../store/src"]
     }
   },
-  "include": ["src", ".eslintrc.cjs", "test-setup.ts", "vite.config.ts"]
+  "include": ["src", "eslint.config.js", "test-setup.ts", "vite.config.ts"]
 }
