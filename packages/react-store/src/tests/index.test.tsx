@@ -131,4 +131,28 @@ describe('shallow', () => {
     // @ts-ignore
     expect(shallow(objA, objB)).toBe(false)
   })
+
+  test('should return true for shallowly equal maps', () => {
+    const objA = new Map([['1', 'hello']])
+    const objB = new Map([['1', 'hello']])
+    expect(shallow(objA, objB)).toBe(true)
+  })
+
+  test('should return false for maps with different values', () => {
+    const objA = new Map([['1', 'hello']])
+    const objB = new Map([['1', 'world']])
+    expect(shallow(objA, objB)).toBe(false)
+  })
+
+  test('should return true for shallowly equal sets', () => {
+    const objA = new Set([1])
+    const objB = new Set([1])
+    expect(shallow(objA, objB)).toBe(true)
+  })
+
+  test('should return false for sets with different values', () => {
+    const objA = new Set([1])
+    const objB = new Set([2])
+    expect(shallow(objA, objB)).toBe(false)
+  })
 })
