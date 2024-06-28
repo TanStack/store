@@ -26,7 +26,7 @@
   "scripts": {
     "clean": "rimraf ./dist && rimraf ./coverage",
     "test:types": "svelte-check --tsconfig ./tsconfig.json",
-    "test:eslint": "eslint ./src",
+    "test:eslint": "eslint ./src ./tests",
     "test:lib": "vitest",
     "test:lib:dev": "pnpm run test:lib --watch",
     "test:build": "publint --strict",

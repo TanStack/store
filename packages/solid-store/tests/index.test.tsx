@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { render, renderHook } from '@solidjs/testing-library'
 import { Store } from '@tanstack/store'
-import { useStore } from '../index'
+import { useStore } from '../src/index'
 
 describe('useStore', () => {
   it.todo('allows us to select state using a selector', () => {

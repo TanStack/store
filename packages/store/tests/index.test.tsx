@@ -1,5 +1,5 @@
 import { describe, expect, test, vi } from 'vitest'
-import { Store } from '../index'
+import { Store } from '../src/index'
 
 describe('store', () => {
   test(`should set the initial value`, () => {

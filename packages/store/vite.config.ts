@@ -1,9 +1,10 @@
 import { defineConfig, mergeConfig } from 'vitest/config'
 import { tanstackViteConfig } from '@tanstack/config/vite'
+import packageJson from './package.json'
 
 const config = defineConfig({
   test: {
-    name: 'store',
+    name: packageJson.name,
     dir: './src',
     watch: false,
     environment: 'jsdom',
@@ -17,6 +18,5 @@ export default mergeConfig(
   tanstackViteConfig({
     entry: './src/index.ts',
     srcDir: './src',
-    exclude: ['./src/tests'],
   }),
 )

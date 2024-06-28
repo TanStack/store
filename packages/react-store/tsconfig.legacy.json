@@ -6,6 +6,5 @@
       "@tanstack/store": ["../store/src"]
     }
   },
-  "include": ["src"],
-  "exclude": ["src/tests/**"]
+  "include": ["src"]
 }
