@@ -1,7 +1,7 @@
 {
   "name": "@tanstack/react-store",
   "author": "Tanner Linsley",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "license": "MIT",
   "repository": "tanstack/store",
   "homepage": "https://tanstack.com/",
