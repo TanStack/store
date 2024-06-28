@@ -4,7 +4,7 @@ import { defineComponent, h } from 'vue-demi'
 import { render, waitFor } from '@testing-library/vue'
 import { Store } from '@tanstack/store'
 import { userEvent } from '@testing-library/user-event'
-import { shallow, useStore } from '../index'
+import { shallow, useStore } from '../src/index'
 
 const user = userEvent.setup()
 

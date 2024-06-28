@@ -4,9 +4,14 @@
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "moduleResolution": "Bundler",
+    "rootDir": "src",
+    "outDir": "dist",
+    "noEmit": false,
+    "declaration": true,
+    "sourceMap": true,
     "paths": {
-      "@tanstack/store": ["../store/src"]
+      "@tanstack/store": ["../../store/src"]
     }
   },
-  "include": ["src", "tests", "eslint.config.js", "vite.config.ts"]
+  "include": ["src"]
 }

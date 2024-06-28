@@ -4,7 +4,7 @@ import * as React from 'react'
 import { Store } from '@tanstack/store'
 import { useState } from 'react'
 import { userEvent } from '@testing-library/user-event'
-import { shallow, useStore } from '../index'
+import { shallow, useStore } from '../src/index'
 
 const user = userEvent.setup()
 

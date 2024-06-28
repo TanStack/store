@@ -1,15 +1,14 @@
 import { describe, expect, it, test } from 'vitest'
-import { waitFor, render } from '@testing-library/svelte'
+import { render, waitFor } from '@testing-library/svelte'
 import { userEvent } from '@testing-library/user-event'
 import { shallow } from '../src/index.svelte.js'
-
-const user = userEvent.setup()
-
 import TestBaseStore from './BaseStore.test.svelte'
 import TestRerender from './Render.test.svelte'
 
+const user = userEvent.setup()
+
 describe('useStore', () => {
-  it('allows us to select state using a selector', async () => {
+  it('allows us to select state using a selector', () => {
     const { getByText } = render(TestBaseStore)
     expect(getByText('Store: 0')).toBeInTheDocument()
   })

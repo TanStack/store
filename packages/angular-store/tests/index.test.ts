@@ -24,7 +24,7 @@ describe('injectStore', () => {
     expect(element.textContent).toContain('Store: 0')
   })
 
-  test('only triggers a re-render when selector state is updated', async () => {
+  test('only triggers a re-render when selector state is updated', () => {
     const store = new Store({ select: 0, ignored: 1 })
     let count = 0
 
