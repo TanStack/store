@@ -80,4 +80,52 @@ describe('store', () => {
     // Listener is called 4 times because of a lack of batching
     expect(listener).toHaveBeenCalledTimes(5)
   })
+
+  test('should allow us to pass a flush a value to listeners if we want to', () => {
+    const store = new Store<
+      number,
+      (cb: number) => number,
+      (val: number) => void
+    >(0)
+
+    const listener = vi.fn()
+
+    store.subscribe(listener)
+
+    store._flush(123)
+
+    expect(listener).toHaveBeenCalledWith(123)
+  })
+
+  test('should allow us to pass a batch a value to listeners if we want to', () => {
+    const store = new Store<
+      number,
+      (cb: number) => number,
+      (val: number) => void
+    >(0)
+
+    const listener = vi.fn()
+
+    store.subscribe(listener)
+
+    store.batch(() => {}, 123)
+
+    expect(listener).toHaveBeenCalledWith(123)
+  })
+
+  test('should allow us to pass a setState a value to listeners if we want to', () => {
+    const store = new Store<
+      number,
+      (cb: number) => number,
+      (val: number) => void
+    >(0)
+
+    const listener = vi.fn()
+
+    store.subscribe(listener)
+
+    store.setState(() => 234, 123)
+
+    expect(listener).toHaveBeenCalledWith(123)
+  })
 })
