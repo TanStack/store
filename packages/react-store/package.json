@@ -1,23 +1,24 @@
 {
   "name": "@tanstack/react-store",
-  "author": "Tanner Linsley",
   "version": "0.5.3",
+  "description": "Framework agnostic type-safe store w/ reactive framework adapters",
+  "author": "Tanner Linsley",
   "license": "MIT",
-  "repository": "tanstack/store",
-  "homepage": "https://tanstack.com/",
-  "description": "",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TanStack/store.git",
+    "directory": "packages/react-store"
+  },
+  "homepage": "https://tanstack.com/store",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/tannerlinsley"
   },
   "keywords": [
     "store",
     "react",
     "typescript"
   ],
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/tannerlinsley"
-  },
   "scripts": {
     "clean": "rimraf ./dist && rimraf ./coverage",
     "test:eslint": "eslint ./src ./tests",
@@ -33,10 +34,6 @@
     "test:build": "publint --strict",
     "build": "vite build"
   },
-  "files": [
-    "dist",
-    "src"
-  ],
   "type": "module",
   "types": "dist/esm/index.d.ts",
   "main": "dist/cjs/index.cjs",
@@ -55,10 +52,10 @@
     "./package.json": "./package.json"
   },
   "sideEffects": false,
-  "peerDependencies": {
-    "react": "^17.0.0 || ^18.0.0",
-    "react-dom": "^17.0.0 || ^18.0.0"
-  },
+  "files": [
+    "dist",
+    "src"
+  ],
   "dependencies": {
     "@tanstack/store": "workspace:*",
     "use-sync-external-store": "^1.2.0"
@@ -66,5 +63,9 @@
   "devDependencies": {
     "@types/use-sync-external-store": "^0.0.3",
     "@vitejs/plugin-react": "^4.3.1"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0"
   }
 }
