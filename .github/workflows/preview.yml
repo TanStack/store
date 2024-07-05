@@ -27,7 +27,7 @@ jobs:
         uses: nrwl/nx-set-shas@v4
         with:
           main-branch-name: 'main'
-      - name: Build Affected Packages
-        run: pnpm run build
+      - name: Build Packages
+        run: pnpm run build:all
       - name: Publish Previews
         run: pnpx pkg-pr-new publish --no-template --compact ./packages/*
