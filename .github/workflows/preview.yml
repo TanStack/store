@@ -23,10 +23,6 @@ jobs:
           fetch-depth: 0
       - name: Setup Tools
         uses: tanstack/config/.github/setup@main
-      - name: Get base and head commits for `nx affected`
-        uses: nrwl/nx-set-shas@v4
-        with:
-          main-branch-name: 'main'
       - name: Build Packages
         run: pnpm run build:all
       - name: Publish Previews
