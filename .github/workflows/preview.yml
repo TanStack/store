@@ -14,6 +14,7 @@ env:
 jobs:
   preview:
     name: Preview
+    if: github.event.review.state == 'APPROVED'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,7 +26,7 @@ jobs:
       - name: Get base and head commits for `nx affected`
         uses: nrwl/nx-set-shas@v4
         with:
-          main-branch-name: main
+          main-branch-name: 'main'
       - name: Build Affected Packages
         run: pnpm run build
       - name: Publish Previews
