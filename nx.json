@@ -7,7 +7,6 @@
   "namedInputs": {
     "sharedGlobals": [
       "{workspaceRoot}/.nvmrc",
-      "{workspaceRoot}/eslint.config.js",
       "{workspaceRoot}/package.json",
       "{workspaceRoot}/tsconfig.json"
     ],
@@ -16,10 +15,9 @@
       "{projectRoot}/**/*",
       "!{projectRoot}/**/*.md"
     ],
-    "public": [
+    "production": [
       "default",
-      "{projectRoot}/build",
-      "{projectRoot}/dist",
+      "!{projectRoot}/tests/**/*",
       "!{projectRoot}/eslint.config.js"
     ]
   },
@@ -27,7 +25,7 @@
     "test:lib": {
       "cache": true,
       "dependsOn": ["^build"],
-      "inputs": ["default", "^public"],
+      "inputs": ["default", "^production"],
       "outputs": ["{projectRoot}/coverage"]
     },
     "test:eslint": {
@@ -35,7 +33,7 @@
       "dependsOn": ["^build"],
       "inputs": [
         "default",
-        "^public",
+        "^production",
         "{workspaceRoot}/eslint.config.js",
         "{projectRoot}/eslint.config.js"
       ]
@@ -43,18 +41,18 @@
     "test:types": {
       "cache": true,
       "dependsOn": ["^build"],
-      "inputs": ["default", "^public"]
+      "inputs": ["default", "^production"]
     },
     "build": {
       "cache": true,
       "dependsOn": ["^build"],
-      "inputs": ["default", "^public"],
+      "inputs": ["production", "^production"],
       "outputs": ["{projectRoot}/build", "{projectRoot}/dist"]
     },
     "test:build": {
       "cache": true,
       "dependsOn": ["build"],
-      "inputs": ["^public"]
+      "inputs": ["production"]
     },
     "test:knip": {
       "cache": true,
