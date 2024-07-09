@@ -9,6 +9,7 @@
   ],
   "labels": ["dependencies"],
   "rangeStrategy": "bump",
+  "postUpdateOptions": ["pnpmDedupe"],
   "semanticCommits": "enabled",
   "packageRules": [
     {
