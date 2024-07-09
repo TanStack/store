@@ -3,6 +3,7 @@
   "extends": [
     "config:recommended",
     "schedule:weekly",
+    ":approveMajorUpdates",
     ":disablePeerDependencies",
     ":semanticCommitTypeAll(chore)"
   ],
