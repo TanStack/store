@@ -55,7 +55,7 @@
     },
     "test:knip": {
       "cache": true,
-      "inputs": ["{workspaceRoot}/**/*"]
+      "inputs": ["{workspaceRoot}/**/*.!(md)"]
     },
     "test:format": {
       "cache": true,
