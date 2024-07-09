@@ -6,7 +6,6 @@
   "parallel": 5,
   "namedInputs": {
     "sharedGlobals": [
-      "{workspaceRoot}/.nvmrc",
       "{workspaceRoot}/package.json",
       "{workspaceRoot}/tsconfig.json"
     ],
