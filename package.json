@@ -57,7 +57,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^5.0.9",
-    "sherif": "^0.8.4",
+    "sherif": "^0.10.0",
     "solid-js": "^1.8.18",
     "typescript": "5.4.2",
     "typescript49": "npm:typescript@4.9",
