@@ -30,12 +30,7 @@
     "test:eslint": {
       "cache": true,
       "dependsOn": ["^build"],
-      "inputs": [
-        "default",
-        "^production",
-        "{workspaceRoot}/eslint.config.js",
-        "{projectRoot}/eslint.config.js"
-      ]
+      "inputs": ["default", "^production", "{workspaceRoot}/eslint.config.js"]
     },
     "test:types": {
       "cache": true,
