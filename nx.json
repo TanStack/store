@@ -26,13 +26,13 @@
       "cache": true,
       "inputs": ["{workspaceRoot}/**/*"]
     },
+    "test:knip": {
+      "cache": true,
+      "inputs": ["{workspaceRoot}/**/*"]
+    },
     "test:sherif": {
       "cache": true,
       "inputs": ["{workspaceRoot}/**/package.json"]
-    },
-    "test:knip": {
-      "cache": true,
-      "inputs": ["{workspaceRoot}/**/*.!(md)"]
     },
     "test:eslint": {
       "cache": true,
