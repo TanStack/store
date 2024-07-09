@@ -25,31 +25,36 @@
   },
   "targetDefaults": {
     "test:lib": {
+      "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["default", "^public"],
-      "outputs": ["{projectRoot}/coverage"],
-      "cache": true
+      "outputs": ["{projectRoot}/coverage"]
     },
     "test:eslint": {
+      "cache": true,
       "dependsOn": ["^build"],
-      "inputs": ["default", "^public"],
-      "cache": true
+      "inputs": [
+        "default",
+        "^public",
+        "{workspaceRoot}/eslint.config.js",
+        "{projectRoot}/eslint.config.js"
+      ]
     },
     "test:types": {
+      "cache": true,
       "dependsOn": ["^build"],
-      "inputs": ["default", "^public"],
-      "cache": true
+      "inputs": ["default", "^public"]
     },
     "build": {
+      "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["default", "^public"],
-      "outputs": ["{projectRoot}/build", "{projectRoot}/dist"],
-      "cache": true
+      "outputs": ["{projectRoot}/build", "{projectRoot}/dist"]
     },
     "test:build": {
+      "cache": true,
       "dependsOn": ["build"],
-      "inputs": ["^public"],
-      "cache": true
+      "inputs": ["^public"]
     },
     "test:knip": {
       "cache": true,
@@ -61,7 +66,7 @@
     },
     "test:sherif": {
       "cache": true,
-      "inputs": ["{workspaceRoot}/**/*"]
+      "inputs": ["{workspaceRoot}/**/package.json"]
     }
   }
 }
