@@ -213,8 +213,8 @@ importers:
         specifier: workspace:*
         version: link:../store
       vue-demi:
-        specifier: ^0.14.6
-        version: 0.14.6(@vue/composition-api@1.7.2(vue@3.4.31(typescript@5.4.2)))(vue@3.4.31(typescript@5.4.2))
+        specifier: ^0.14.8
+        version: 0.14.8(@vue/composition-api@1.7.2(vue@3.4.31(typescript@5.4.2)))(vue@3.4.31(typescript@5.4.2))
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.0.5
@@ -6087,8 +6087,8 @@ packages:
   vue-component-type-helpers@1.8.4:
     resolution: {integrity: sha512-6bnLkn8O0JJyiFSIF0EfCogzeqNXpnjJ0vW/SZzNHfe6sPx30lTtTXlE5TFs2qhJlAtDFybStVNpL73cPe3OMQ==}
 
-  vue-demi@0.14.6:
-    resolution: {integrity: sha512-8QA7wrYSHKaYgUxDA5ZC24w+eHm3sYCbp0EzcDwKqN3p6HqtTCGR/GVsPyZW92unff4UlcSh++lmqDWN3ZIq4w==}
+  vue-demi@0.14.8:
+    resolution: {integrity: sha512-Uuqnk9YE9SsWeReYqK2alDI5YzciATE0r2SkA6iMAtuXvNTMNACJLJEXNXaEy94ECuBe4Sk6RzRU80kjdbIo1Q==}
     engines: {node: '>=12'}
     hasBin: true
     peerDependencies:
@@ -12813,7 +12813,7 @@ snapshots:
 
   vue-component-type-helpers@1.8.4: {}
 
-  vue-demi@0.14.6(@vue/composition-api@1.7.2(vue@3.4.31(typescript@5.4.2)))(vue@3.4.31(typescript@5.4.2)):
+  vue-demi@0.14.8(@vue/composition-api@1.7.2(vue@3.4.31(typescript@5.4.2)))(vue@3.4.31(typescript@5.4.2)):
     dependencies:
       vue: 3.4.31(typescript@5.4.2)
     optionalDependencies:

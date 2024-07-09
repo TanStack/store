@@ -62,7 +62,7 @@
   ],
   "dependencies": {
     "@tanstack/store": "workspace:*",
-    "vue-demi": "^0.14.6"
+    "vue-demi": "^0.14.8"
   },
   "devDependencies": {
     "@vue/composition-api": "^1.7.2",
