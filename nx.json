@@ -6,6 +6,7 @@
   "parallel": 5,
   "namedInputs": {
     "sharedGlobals": [
+      "{workspaceRoot}/.nvmrc",
       "{workspaceRoot}/package.json",
       "{workspaceRoot}/tsconfig.json"
     ],
@@ -21,16 +22,28 @@
     ]
   },
   "targetDefaults": {
-    "test:lib": {
+    "test:format": {
       "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["default", "^production"],
-      "outputs": ["{projectRoot}/coverage"]
+      "inputs": ["{workspaceRoot}/**/*"]
+    },
+    "test:sherif": {
+      "cache": true,
+      "inputs": ["{workspaceRoot}/**/package.json"]
+    },
+    "test:knip": {
+      "cache": true,
+      "inputs": ["{workspaceRoot}/**/*.!(md)"]
     },
     "test:eslint": {
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["default", "^production", "{workspaceRoot}/eslint.config.js"]
+    },
+    "test:lib": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["default", "^production"],
+      "outputs": ["{projectRoot}/coverage"]
     },
     "test:types": {
       "cache": true,
@@ -47,18 +60,6 @@
       "cache": true,
       "dependsOn": ["build"],
       "inputs": ["production"]
-    },
-    "test:knip": {
-      "cache": true,
-      "inputs": ["{workspaceRoot}/**/*.!(md)"]
-    },
-    "test:format": {
-      "cache": true,
-      "inputs": ["{workspaceRoot}/**/*"]
-    },
-    "test:sherif": {
-      "cache": true,
-      "inputs": ["{workspaceRoot}/**/package.json"]
     }
   }
 }
