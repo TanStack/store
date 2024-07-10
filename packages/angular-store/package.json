@@ -1,31 +1,32 @@
 {
   "name": "@tanstack/angular-store",
+  "version": "0.5.4",
+  "description": "Framework agnostic type-safe store w/ reactive framework adapters",
   "author": "Tanner Linsley",
-  "version": "0.5.2",
   "license": "MIT",
-  "repository": "tanstack/store",
-  "homepage": "https://tanstack.com/store",
-  "description": "",
-  "scripts": {
-    "clean": "rimraf ./dist && rimraf ./coverage",
-    "test:eslint": "eslint ./src",
-    "test:types": "tsc",
-    "test:lib": "vitest",
-    "test:lib:dev": "pnpm run test:lib --watch",
-    "test:build": "publint --strict",
-    "build": "ng-packagr -p ng-package.json -c tsconfig.build.json && rimraf ./dist/package.json"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TanStack/store.git",
+    "directory": "packages/angular-store"
   },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+  "homepage": "https://tanstack.com/store",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/tannerlinsley"
   },
   "keywords": [
     "store",
     "typescript",
     "angular"
   ],
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/tannerlinsley"
+  "scripts": {
+    "clean": "rimraf ./dist && rimraf ./coverage",
+    "test:eslint": "eslint ./src ./tests",
+    "test:types": "tsc",
+    "test:lib": "vitest",
+    "test:lib:dev": "pnpm run test:lib --watch",
+    "test:build": "publint --strict",
+    "build": "ng-packagr -p ng-package.json -c tsconfig.build.json && rimraf ./dist/package.json"
   },
   "type": "module",
   "types": "dist/index.d.ts",
@@ -48,16 +49,16 @@
   ],
   "dependencies": {
     "@tanstack/store": "workspace:*",
-    "tslib": "^2.3.0"
+    "tslib": "^2.6.3"
   },
   "devDependencies": {
-    "@analogjs/vite-plugin-angular": "^1.5.0",
-    "@angular/common": "^17.3.0",
-    "@angular/compiler": "^17.3.0",
-    "@angular/compiler-cli": "^17.3.0",
-    "@angular/core": "^17.3.0",
-    "@angular/platform-browser": "^17.3.0",
-    "@angular/platform-browser-dynamic": "^17.3.0",
+    "@analogjs/vite-plugin-angular": "^1.6.1",
+    "@angular/common": "^17.3.11",
+    "@angular/compiler": "^17.3.11",
+    "@angular/compiler-cli": "^17.3.11",
+    "@angular/core": "^17.3.11",
+    "@angular/platform-browser": "^17.3.11",
+    "@angular/platform-browser-dynamic": "^17.3.11",
     "ng-packagr": "^17.3.0",
     "zone.js": "^0.14.3"
   },

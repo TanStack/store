@@ -1,14 +1,26 @@
 {
   "name": "@tanstack/store",
+  "version": "0.5.4",
+  "description": "Framework agnostic type-safe store w/ reactive framework adapters",
   "author": "Tanner Linsley",
-  "version": "0.5.2",
   "license": "MIT",
-  "repository": "tanstack/store",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TanStack/store.git",
+    "directory": "packages/store"
+  },
   "homepage": "https://tanstack.com/store",
-  "description": "",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/tannerlinsley"
+  },
+  "keywords": [
+    "store",
+    "typescript"
+  ],
   "scripts": {
     "clean": "rimraf ./dist && rimraf ./coverage",
-    "test:eslint": "eslint ./src",
+    "test:eslint": "eslint ./src ./tests",
     "test:types": "pnpm run \"/^test:types:ts[0-9]{2}$/\"",
     "test:types:ts49": "node ../../node_modules/typescript49/lib/tsc.js -p tsconfig.legacy.json",
     "test:types:ts50": "node ../../node_modules/typescript50/lib/tsc.js",
@@ -20,17 +32,6 @@
     "test:lib:dev": "pnpm run test:lib --watch",
     "test:build": "publint --strict",
     "build": "vite build"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "keywords": [
-    "store",
-    "typescript"
-  ],
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/tannerlinsley"
   },
   "type": "module",
   "types": "dist/esm/index.d.ts",

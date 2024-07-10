@@ -4,12 +4,12 @@ import { defineComponent, h } from 'vue-demi'
 import { render, waitFor } from '@testing-library/vue'
 import { Store } from '@tanstack/store'
 import { userEvent } from '@testing-library/user-event'
-import { shallow, useStore } from '../index'
+import { shallow, useStore } from '../src/index'
 
 const user = userEvent.setup()
 
 describe('useStore', () => {
-  it('allows us to select state using a selector', async () => {
+  it('allows us to select state using a selector', () => {
     const store = new Store({
       select: 0,
       ignored: 1,
@@ -97,14 +97,14 @@ describe('shallow', () => {
   test('should return false for objects with different keys', () => {
     const objA = { a: 1, b: 'hello' }
     const objB = { a: 1, c: 'world' }
-    // @ts-ignore
+    // @ts-expect-error
     expect(shallow(objA, objB)).toBe(false)
   })
 
   test('should return false for objects with different structures', () => {
     const objA = { a: 1, b: 'hello' }
     const objB = [1, 'hello']
-    // @ts-ignore
+    // @ts-expect-error
     expect(shallow(objA, objB)).toBe(false)
   })
 
@@ -129,7 +129,7 @@ describe('shallow', () => {
   test('should return false for objects with different types', () => {
     const objA = { a: 1, b: 'hello' }
     const objB = { a: '1', b: 'hello' }
-    // @ts-ignore
+    // @ts-expect-error
     expect(shallow(objA, objB)).toBe(false)
   })
 

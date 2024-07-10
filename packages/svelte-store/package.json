@@ -1,11 +1,32 @@
 {
   "name": "@tanstack/svelte-store",
-  "version": "0.5.2",
+  "version": "0.5.4",
+  "description": "Framework agnostic type-safe store w/ reactive framework adapters",
+  "author": "Tanner Linsley",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/TanStack/store.git",
     "directory": "packages/svelte-store"
+  },
+  "homepage": "https://tanstack.com/store",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/tannerlinsley"
+  },
+  "keywords": [
+    "store",
+    "typescript",
+    "svelte"
+  ],
+  "scripts": {
+    "clean": "rimraf ./dist && rimraf ./coverage",
+    "test:types": "svelte-check --tsconfig ./tsconfig.json",
+    "test:eslint": "eslint ./src ./tests",
+    "test:lib": "vitest",
+    "test:lib:dev": "pnpm run test:lib --watch",
+    "test:build": "publint --strict",
+    "build": "svelte-package --input ./src --output ./dist"
   },
   "type": "module",
   "types": "dist/index.d.ts",
@@ -19,29 +40,21 @@
     },
     "./package.json": "./package.json"
   },
+  "sideEffects": false,
   "files": [
     "dist",
     "src"
   ],
-  "scripts": {
-    "clean": "rimraf ./dist && rimraf ./coverage",
-    "test:types": "svelte-check --tsconfig ./tsconfig.json",
-    "test:eslint": "eslint ./src",
-    "test:lib": "vitest",
-    "test:lib:dev": "pnpm run test:lib --watch",
-    "test:build": "publint --strict",
-    "build": "svelte-package --input ./src --output ./dist"
-  },
   "dependencies": {
     "@tanstack/store": "workspace:*"
   },
   "devDependencies": {
     "@sveltejs/package": "^2.3.2",
     "@sveltejs/vite-plugin-svelte": "^4.0.0-next.3",
-    "@testing-library/svelte": "^5.1.0",
-    "eslint-plugin-svelte": "^2.40.0",
+    "@testing-library/svelte": "^5.2.0",
+    "eslint-plugin-svelte": "^2.41.0",
     "svelte": "^5.0.0-next.138",
-    "svelte-check": "^3.8.1"
+    "svelte-check": "^3.8.4"
   },
   "peerDependencies": {
     "svelte": "^5.0.0-next.138"
