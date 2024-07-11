@@ -41,6 +41,8 @@ jobs:
         run: npx nx-cloud stop-all-agents
       - name: Publish
         run: |
+          git config --global user.name 'Tanner Linsley'
+          git config --global user.email 'tannerlinsley@users.noreply.github.com'
           npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
           pnpm run cipublish
         env:
