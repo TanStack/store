@@ -22,7 +22,7 @@
     "build:all": "nx run-many --target=build --exclude=examples/**",
     "watch": "pnpm run build:all && nx watch --all -- pnpm run build:all",
     "dev": "pnpm run watch",
-    "prettier": "prettier --ignore-unknown .",
+    "prettier": "prettier --ignore-unknown '**/*'",
     "prettier:write": "pnpm run prettier --write",
     "cipublish": "node scripts/publish.js",
     "cipublishforce": "CI=true pnpm cipublish"
@@ -51,7 +51,7 @@
     "jsdom": "^24.1.0",
     "knip": "^5.25.1",
     "nx": "^19.4.2",
-    "prettier": "^4.0.0-alpha.8",
+    "prettier": "^3.3.3",
     "prettier-plugin-svelte": "^3.2.5",
     "publint": "^0.2.8",
     "react": "^18.2.0",
