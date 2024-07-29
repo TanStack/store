@@ -52,15 +52,15 @@
     "tslib": "^2.6.3"
   },
   "devDependencies": {
-    "@analogjs/vite-plugin-angular": "^1.6.1",
-    "@angular/common": "^17.3.11",
-    "@angular/compiler": "^17.3.11",
-    "@angular/compiler-cli": "^17.3.11",
-    "@angular/core": "^17.3.11",
-    "@angular/platform-browser": "^17.3.11",
-    "@angular/platform-browser-dynamic": "^17.3.11",
+    "@analogjs/vite-plugin-angular": "^1.6.4",
+    "@angular/common": "^17.3.12",
+    "@angular/compiler": "^17.3.12",
+    "@angular/compiler-cli": "^17.3.12",
+    "@angular/core": "^17.3.12",
+    "@angular/platform-browser": "^17.3.12",
+    "@angular/platform-browser-dynamic": "^17.3.12",
     "ng-packagr": "^17.3.0",
-    "zone.js": "^0.14.7"
+    "zone.js": "^0.14.8"
   },
   "peerDependencies": {
     "@angular/core": ">=16 < 18",
