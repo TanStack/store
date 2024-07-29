@@ -2,10 +2,8 @@ name: pr
 
 on:
   pull_request:
-    paths-ignore:
-      - 'docs/**'
-      - 'media/**'
-      - '**/*.md'
+  push:
+    branches-ignore: [main, alpha, beta]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
