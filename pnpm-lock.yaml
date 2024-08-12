@@ -72,11 +72,11 @@ importers:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
       rimraf:
-        specifier: ^5.0.10
+        specifier: ^5.0.5
         version: 5.0.10
       sherif:
-        specifier: ^0.11.0
-        version: 0.11.0
+        specifier: ^0.7.0
+        version: 0.7.0
       solid-js:
         specifier: ^1.8.20
         version: 1.8.20
@@ -99,7 +99,7 @@ importers:
         specifier: npm:typescript@5.3
         version: typescript@5.3.3
       vite:
-        specifier: ^5.4.0
+        specifier: ^5.1.0
         version: 5.4.0(@types/node@18.19.42)(less@4.2.0)(sass@1.77.8)(terser@5.29.2)
       vitest:
         specifier: ^2.0.5
@@ -180,7 +180,20 @@ importers:
         specifier: ^2.10.2
         version: 2.10.2(@testing-library/jest-dom@6.4.8)(solid-js@1.8.20)(vite@5.4.0(@types/node@20.14.13)(less@4.2.0)(sass@1.77.8)(terser@5.29.2))
 
-  packages/store: {}
+  packages/store:
+    devDependencies:
+      '@angular/core':
+        specifier: ^17.3.12
+        version: 17.3.12(rxjs@7.8.1)(zone.js@0.14.10)
+      '@preact/signals':
+        specifier: ^1.3.0
+        version: 1.3.0(preact@10.23.2)
+      solid-js:
+        specifier: ^1.8.20
+        version: 1.8.20
+      vue:
+        specifier: ^3.4.37
+        version: 3.4.37(typescript@5.4.2)
 
   packages/svelte-store:
     dependencies:
@@ -1602,6 +1615,14 @@ packages:
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
+
+  '@preact/signals-core@1.8.0':
+    resolution: {integrity: sha512-OBvUsRZqNmjzCZXWLxkZfhcgT+Fk8DDcT/8vD6a1xhDemodyy87UJRJfASMuSD8FaAIeGgGm85ydXhm7lr4fyA==}
+
+  '@preact/signals@1.3.0':
+    resolution: {integrity: sha512-EOMeg42SlLS72dhoq6Vjq08havnLseWmPQ8A0YsgIAqMgWgx7V1a39+Pxo6i7SY5NwJtH4849JogFq3M67AzWg==}
+    peerDependencies:
+      preact: 10.x
 
   '@rollup/plugin-json@6.1.0':
     resolution: {integrity: sha512-EGI2te5ENk1coGeADSIwZ7G2Q8CJS2sF120T7jLw4xFw9n7wIOXHo+kIYRAoVpJAN+kmqZSoO3Fp4JtoNF4ReA==}
@@ -4969,6 +4990,9 @@ packages:
     resolution: {integrity: sha512-YF2kKIUzAofPMpfH6hOi2cGnv/HrUlfucspc7pDyvv7kGdqXrfj8SCl/t8owkEgKEuu8ZcRjSOxFxVLqwChZ2Q==}
     engines: {node: ^10 || ^12 || >=14}
 
+  preact@10.23.2:
+    resolution: {integrity: sha512-kKYfePf9rzKnxOAKDpsWhg/ysrHPqT+yQ7UW4JjdnqjFIeNUnNcEJvhuA8fDenxAGWzUqtd51DfVg7xp/8T9NA==}
+
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
@@ -5370,38 +5394,38 @@ packages:
   shell-quote@1.8.1:
     resolution: {integrity: sha512-6j1W9l1iAs/4xYBI1SYOVZyFcCis9b4KCLQ8fgAGG07QvzaRLVVRQvAy85yNmmZSjYjg4MWh4gNvlPujU/5LpA==}
 
-  sherif-darwin-arm64@0.11.0:
-    resolution: {integrity: sha512-wLFHYuTg0wibBXZ2QxnwFRhvORrQLwVWgv22aw/FLsTIldbquf7rjIDpcAUDA0qjtMJaol19ZbJDnm+EdY78Dg==}
+  sherif-darwin-arm64@0.7.0:
+    resolution: {integrity: sha512-rzWV13FwPA3h7UcO2B1o3s5lBhB4h7p1wXPB7Z0NMR/xweiTpT+hn3kls3YLdAeIL460Gc46ieJCnPFkI/rC0A==}
     cpu: [arm64]
     os: [darwin]
 
-  sherif-darwin-x64@0.11.0:
-    resolution: {integrity: sha512-BlcA4++fyIY2dF1gCoSgp8tLHmeRi98HIRfbVqI1ErA2TfM8BfHALP2SNitotda5S9EtGfZvKS9racz6jT/+wA==}
+  sherif-darwin-x64@0.7.0:
+    resolution: {integrity: sha512-6y3cp/ZdhrbHS9e1J70POZyPJdJ1eDYc43Xck9FcRL7GTsH5JbinIqyihdNVu1ctG7ewMA2Ii1nzuQe/rt9Gig==}
     cpu: [x64]
     os: [darwin]
 
-  sherif-linux-arm64@0.11.0:
-    resolution: {integrity: sha512-2JxPkpOrNuknB7NsOHifnJro/gsOuD/lwFMbPToBwMDnp8OtH2Hv8rKXcY+fGcmFgRtS5Au+I7vn/1kYyIFzPw==}
+  sherif-linux-arm64@0.7.0:
+    resolution: {integrity: sha512-DRfXTJuQ3CkF41+vDtCsptKjcvZg+PM9C+btJbZnAhbLSP8kSDWNmOIyH5/LQOBpntbEe6obqPFsBTjpkATkQw==}
     cpu: [arm64]
     os: [linux]
 
-  sherif-linux-x64@0.11.0:
-    resolution: {integrity: sha512-eE/nNbhUrpB6UkwvabVFEpMGJtoP7dhtYL8TwNjfGx/K6LJX7EkCQYt3tFntiglqHBwHhaILD/u6p+vCDJnPXw==}
+  sherif-linux-x64@0.7.0:
+    resolution: {integrity: sha512-4KM7P/V1jy8WKuGax8hOaRNWLTkwY10+MzVeof4UbTfcZxKibAHpSKtNmmzYFHKlFxOLXRGqDgXYmj5iuXB4bQ==}
     cpu: [x64]
     os: [linux]
 
-  sherif-windows-arm64@0.11.0:
-    resolution: {integrity: sha512-ptnQWgJ7BiCvW0xGl3kWvTXSnXdSWh6Fe/UbD77Yw53gNkq4HdxGlHvXPhlQEqylPi/uEdPWunmWh8B9Vp3sxQ==}
+  sherif-windows-arm64@0.7.0:
+    resolution: {integrity: sha512-WZ62t+YQ39XO6TuMTSWZJwiJTtKaoverhAk0F1MwlCkTZu2xZvlMMWKIN9wtMJvvrNYqTsjrv2xEH1EQNUDfhg==}
     cpu: [arm64]
     os: [win32]
 
-  sherif-windows-x64@0.11.0:
-    resolution: {integrity: sha512-HhqZqCL7N+tbMeZlw2WwxH3yuxb3CUJri+j/pmSfaz/QbyEhCzME+A2xX7DXFqo0gH1fkBMs/atCgopK8iZ9YQ==}
+  sherif-windows-x64@0.7.0:
+    resolution: {integrity: sha512-x5464tDL2VhuLgddbVL33ekMYoTxTDkIsI018o0VaD2V675Bw6RiFrmpzd/HqjXdVRCOh0LCBfH43G3C0NN0Uw==}
     cpu: [x64]
     os: [win32]
 
-  sherif@0.11.0:
-    resolution: {integrity: sha512-R6aHBquTiQlD4NzJHTaaJDAwsMzVuZa0RR8y3UpqH4muPX2694HvVtcKAIYpnuxQSrvx2CRdyGGa9+577eJxUQ==}
+  sherif@0.7.0:
+    resolution: {integrity: sha512-2ofYRtx6L4O1EFzUIxD4aSs4tqbE6/oes5/UTjjADHhLIBoq0SbxstPbpxLfz18EKdSDCDr5ZBQBinfm8k8bSQ==}
     hasBin: true
 
   shiki@1.12.0:
@@ -7970,6 +7994,13 @@ snapshots:
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
+
+  '@preact/signals-core@1.8.0': {}
+
+  '@preact/signals@1.3.0(preact@10.23.2)':
+    dependencies:
+      '@preact/signals-core': 1.8.0
+      preact: 10.23.2
 
   '@rollup/plugin-json@6.1.0(rollup@4.19.1)':
     dependencies:
@@ -11748,6 +11779,8 @@ snapshots:
       picocolors: 1.0.1
       source-map-js: 1.2.0
 
+  preact@10.23.2: {}
+
   prelude-ls@1.2.1: {}
 
   prettier-plugin-svelte@3.2.6(prettier@3.3.3)(svelte@5.0.0-next.216):
@@ -12187,32 +12220,32 @@ snapshots:
 
   shell-quote@1.8.1: {}
 
-  sherif-darwin-arm64@0.11.0:
+  sherif-darwin-arm64@0.7.0:
     optional: true
 
-  sherif-darwin-x64@0.11.0:
+  sherif-darwin-x64@0.7.0:
     optional: true
 
-  sherif-linux-arm64@0.11.0:
+  sherif-linux-arm64@0.7.0:
     optional: true
 
-  sherif-linux-x64@0.11.0:
+  sherif-linux-x64@0.7.0:
     optional: true
 
-  sherif-windows-arm64@0.11.0:
+  sherif-windows-arm64@0.7.0:
     optional: true
 
-  sherif-windows-x64@0.11.0:
+  sherif-windows-x64@0.7.0:
     optional: true
 
-  sherif@0.11.0:
+  sherif@0.7.0:
     optionalDependencies:
-      sherif-darwin-arm64: 0.11.0
-      sherif-darwin-x64: 0.11.0
-      sherif-linux-arm64: 0.11.0
-      sherif-linux-x64: 0.11.0
-      sherif-windows-arm64: 0.11.0
-      sherif-windows-x64: 0.11.0
+      sherif-darwin-arm64: 0.7.0
+      sherif-darwin-x64: 0.7.0
+      sherif-linux-arm64: 0.7.0
+      sherif-linux-x64: 0.7.0
+      sherif-windows-arm64: 0.7.0
+      sherif-windows-x64: 0.7.0
 
   shiki@1.12.0:
     dependencies:
