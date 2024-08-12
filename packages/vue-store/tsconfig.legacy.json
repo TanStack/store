@@ -3,9 +3,10 @@
   "compilerOptions": {
     "jsx": "preserve",
     "jsxImportSource": "vue",
-    "moduleResolution": "Node",
-    "types": ["vue/jsx"]
+    "types": ["vue/jsx"],
+    "paths": {
+      "@tanstack/store": ["../store/src"]
+    }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["src/tests/**"]
+  "include": ["src"]
 }

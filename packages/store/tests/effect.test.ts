@@ -1,7 +1,7 @@
-import { expect, vi } from 'vitest'
-import { Store } from '../store'
-import { Derived } from '../derived'
-import { Effect } from '../effect'
+import { describe, expect, test, vi } from 'vitest'
+import { Store } from '../src/store'
+import { Derived } from '../src/derived'
+import { Effect } from '../src/effect'
 
 describe('Effect', () => {
   test('Side effect free', () => {

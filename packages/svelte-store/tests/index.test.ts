@@ -1,74 +1,20 @@
-// We need to import `h` as it's part of Vue's JSX transform
-// @ts-expect-error
-import { defineComponent, h } from 'vue-demi'
-import { render, waitFor } from '@testing-library/vue'
-import '@testing-library/jest-dom'
-import { Store } from '@tanstack/store'
-import userEvent from '@testing-library/user-event'
-import { shallow, useStore } from '../index'
+import { describe, expect, it, test } from 'vitest'
+import { render, waitFor } from '@testing-library/svelte'
+import { userEvent } from '@testing-library/user-event'
+import { shallow } from '../src/index.svelte.js'
+import TestBaseStore from './BaseStore.test.svelte'
+import TestRerender from './Render.test.svelte'
 
 const user = userEvent.setup()
 
 describe('useStore', () => {
-  it('allows us to select state using a selector', async () => {
-    const store = new Store({
-      select: 0,
-      ignored: 1,
-    })
-
-    const Comp = defineComponent(() => {
-      const storeVal = useStore(store, (state) => state.select)
-
-      return () => <p>Store: {storeVal.value}</p>
-    })
-
-    const { getByText } = render(Comp)
+  it('allows us to select state using a selector', () => {
+    const { getByText } = render(TestBaseStore)
     expect(getByText('Store: 0')).toBeInTheDocument()
   })
 
   it('only triggers a re-render when selector state is updated', async () => {
-    const store = new Store({
-      select: 0,
-      ignored: 1,
-    })
-
-    const Comp = defineComponent(() => {
-      const storeVal = useStore(store, (state) => state.select)
-
-      const fn = vi.fn()
-
-      return () => {
-        fn()
-        return (
-          <div>
-            <p>Number rendered: {fn.mock.calls.length}</p>
-            <p>Store: {storeVal.value}</p>
-            <button
-              onClick={() =>
-                store.setState((v) => ({
-                  ...v,
-                  select: 10,
-                }))
-              }
-            >
-              Update select
-            </button>
-            <button
-              onClick={() =>
-                store.setState((v) => ({
-                  ...v,
-                  ignored: 10,
-                }))
-              }
-            >
-              Update ignored
-            </button>
-          </div>
-        )
-      }
-    })
-
-    const { getByText } = render(Comp)
+    const { getByText } = render(TestRerender)
     expect(getByText('Store: 0')).toBeInTheDocument()
     expect(getByText('Number rendered: 1')).toBeInTheDocument()
 
@@ -98,14 +44,14 @@ describe('shallow', () => {
   test('should return false for objects with different keys', () => {
     const objA = { a: 1, b: 'hello' }
     const objB = { a: 1, c: 'world' }
-    // @ts-ignore
+    // @ts-expect-error testing invalid input
     expect(shallow(objA, objB)).toBe(false)
   })
 
   test('should return false for objects with different structures', () => {
     const objA = { a: 1, b: 'hello' }
     const objB = [1, 'hello']
-    // @ts-ignore
+    // @ts-expect-error testing invalid input
     expect(shallow(objA, objB)).toBe(false)
   })
 
@@ -130,7 +76,7 @@ describe('shallow', () => {
   test('should return false for objects with different types', () => {
     const objA = { a: 1, b: 'hello' }
     const objB = { a: '1', b: 'hello' }
-    // @ts-ignore
+    // @ts-expect-error testing invalid input
     expect(shallow(objA, objB)).toBe(false)
   })
 })

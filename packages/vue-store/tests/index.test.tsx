@@ -1,27 +1,27 @@
-import { render, waitFor } from '@testing-library/react'
-import '@testing-library/jest-dom'
-import * as React from 'react'
+import { describe, expect, it, test, vi } from 'vitest'
+// @ts-expect-error We need to import `h` as it's part of Vue's JSX transform
+import { defineComponent, h } from 'vue-demi'
+import { render, waitFor } from '@testing-library/vue'
 import { Store } from '@tanstack/store'
-import { useState } from 'react'
-import userEvent from '@testing-library/user-event'
-import { shallow, useStore } from '../index'
+import { userEvent } from '@testing-library/user-event'
+import { shallow, useStore } from '../src/index'
 
 const user = userEvent.setup()
 
 describe('useStore', () => {
-  it('allows us to select state using a selector', async () => {
+  it('allows us to select state using a selector', () => {
     const store = new Store({
       select: 0,
       ignored: 1,
     })
 
-    function Comp() {
+    const Comp = defineComponent(() => {
       const storeVal = useStore(store, (state) => state.select)
 
-      return <p>Store: {storeVal}</p>
-    }
+      return () => <p>Store: {storeVal.value}</p>
+    })
 
-    const { getByText } = render(<Comp />)
+    const { getByText } = render(Comp)
     expect(getByText('Store: 0')).toBeInTheDocument()
   })
 
@@ -31,40 +31,43 @@ describe('useStore', () => {
       ignored: 1,
     })
 
-    function Comp() {
+    const Comp = defineComponent(() => {
       const storeVal = useStore(store, (state) => state.select)
-      const [fn] = useState(vi.fn)
-      fn()
 
-      return (
-        <div>
-          <p>Number rendered: {fn.mock.calls.length}</p>
-          <p>Store: {storeVal}</p>
-          <button
-            onClick={() =>
-              store.setState((v) => ({
-                ...v,
-                select: 10,
-              }))
-            }
-          >
-            Update select
-          </button>
-          <button
-            onClick={() =>
-              store.setState((v) => ({
-                ...v,
-                ignored: 10,
-              }))
-            }
-          >
-            Update ignored
-          </button>
-        </div>
-      )
-    }
+      const fn = vi.fn()
 
-    const { getByText } = render(<Comp />)
+      return () => {
+        fn()
+        return (
+          <div>
+            <p>Number rendered: {fn.mock.calls.length}</p>
+            <p>Store: {storeVal.value}</p>
+            <button
+              onClick={() =>
+                store.setState((v) => ({
+                  ...v,
+                  select: 10,
+                }))
+              }
+            >
+              Update select
+            </button>
+            <button
+              onClick={() =>
+                store.setState((v) => ({
+                  ...v,
+                  ignored: 10,
+                }))
+              }
+            >
+              Update ignored
+            </button>
+          </div>
+        )
+      }
+    })
+
+    const { getByText } = render(Comp)
     expect(getByText('Store: 0')).toBeInTheDocument()
     expect(getByText('Number rendered: 1')).toBeInTheDocument()
 
@@ -94,14 +97,14 @@ describe('shallow', () => {
   test('should return false for objects with different keys', () => {
     const objA = { a: 1, b: 'hello' }
     const objB = { a: 1, c: 'world' }
-    // @ts-ignore
+    // @ts-expect-error
     expect(shallow(objA, objB)).toBe(false)
   })
 
   test('should return false for objects with different structures', () => {
     const objA = { a: 1, b: 'hello' }
     const objB = [1, 'hello']
-    // @ts-ignore
+    // @ts-expect-error
     expect(shallow(objA, objB)).toBe(false)
   })
 
@@ -126,7 +129,7 @@ describe('shallow', () => {
   test('should return false for objects with different types', () => {
     const objA = { a: 1, b: 'hello' }
     const objB = { a: '1', b: 'hello' }
-    // @ts-ignore
+    // @ts-expect-error
     expect(shallow(objA, objB)).toBe(false)
   })
 })

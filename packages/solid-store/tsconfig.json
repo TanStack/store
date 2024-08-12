@@ -4,7 +4,9 @@
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "moduleResolution": "Bundler",
-    "types": ["vitest/globals"]
+    "paths": {
+      "@tanstack/store": ["../store/src"]
+    }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", ".eslintrc.cjs", "vite.config.ts"]
+  "include": ["src", "tests", "eslint.config.js", "vite.config.ts"]
 }

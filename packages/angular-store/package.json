@@ -1,48 +1,46 @@
 {
   "name": "@tanstack/angular-store",
+  "version": "0.5.5",
+  "description": "Framework agnostic type-safe store w/ reactive framework adapters",
   "author": "Tanner Linsley",
-  "version": "0.4.0",
   "license": "MIT",
-  "repository": "tanstack/store",
-  "homepage": "https://tanstack.com/store",
-  "description": "",
-  "scripts": {
-    "clean": "rimraf ./dist && rimraf ./coverage",
-    "test:eslint": "eslint --ext .ts,.tsx ./src",
-    "test:types": "tsc",
-    "test:lib": "vitest",
-    "test:lib:dev": "pnpm run test:lib --watch",
-    "test:build": "publint --strict",
-    "build": "vite build"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TanStack/store.git",
+    "directory": "packages/angular-store"
   },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+  "homepage": "https://tanstack.com/store",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/tannerlinsley"
   },
   "keywords": [
     "store",
     "typescript",
     "angular"
   ],
-  "funding": {
-    "type": "github",
-    "url": "https://github.com/sponsors/tannerlinsley"
+  "scripts": {
+    "clean": "rimraf ./dist && rimraf ./coverage",
+    "test:eslint": "eslint ./src ./tests",
+    "test:types": "tsc",
+    "test:lib": "vitest",
+    "test:lib:dev": "pnpm run test:lib --watch",
+    "test:build": "publint --strict",
+    "build": "ng-packagr -p ng-package.json -c tsconfig.build.json && rimraf ./dist/package.json"
   },
   "type": "module",
-  "types": "dist/esm/index.d.ts",
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/fesm2022/tanstack-angular-store.mjs",
   "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/esm/index.d.ts",
-        "default": "./dist/esm/index.js"
-      },
-      "require": {
-        "types": "./dist/cjs/index.d.cts",
-        "default": "./dist/cjs/index.cjs"
-      }
+    "./package.json": {
+      "default": "./package.json"
     },
-    "./package.json": "./package.json"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "esm2022": "./dist/esm2022/tanstack-angular-store.mjs",
+      "esm": "./dist/esm2022/tanstack-angular-store.mjs",
+      "default": "./dist/fesm2022/tanstack-angular-store.mjs"
+    }
   },
   "sideEffects": false,
   "files": [
@@ -50,17 +48,19 @@
     "src"
   ],
   "dependencies": {
-    "@tanstack/store": "workspace:*"
+    "@tanstack/store": "workspace:*",
+    "tslib": "^2.6.3"
   },
   "devDependencies": {
-    "@analogjs/vite-plugin-angular": "^0.2.32",
-    "@angular/common": "^17.1.2",
-    "@angular/compiler": "^17.1.2",
-    "@angular/compiler-cli": "^17.1.2",
-    "@angular/core": "^17.1.2",
-    "@angular/platform-browser": "^17.1.2",
-    "@angular/platform-browser-dynamic": "^17.1.2",
-    "zone.js": "^0.14.3"
+    "@analogjs/vite-plugin-angular": "^1.7.1",
+    "@angular/common": "^17.3.12",
+    "@angular/compiler": "^17.3.12",
+    "@angular/compiler-cli": "^17.3.12",
+    "@angular/core": "^17.3.12",
+    "@angular/platform-browser": "^17.3.12",
+    "@angular/platform-browser-dynamic": "^17.3.12",
+    "ng-packagr": "^17.3.0",
+    "zone.js": "^0.14.10"
   },
   "peerDependencies": {
     "@angular/core": ">=16 < 18",

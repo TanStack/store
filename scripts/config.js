@@ -28,10 +28,10 @@ export const packages = [
     name: '@tanstack/angular-store',
     packageDir: 'packages/angular-store',
   },
-  // {
-  //   name: '@tanstack/svelte-store',
-  //   packageDir: 'packages/svelte-store',
-  // },
+  {
+    name: '@tanstack/svelte-store',
+    packageDir: 'packages/svelte-store',
+  },
 ]
 
 /**
@@ -42,13 +42,10 @@ export const branchConfigs = {
   main: {
     prerelease: false,
   },
-  next: {
+  alpha: {
     prerelease: true,
   },
   beta: {
-    prerelease: true,
-  },
-  alpha: {
     prerelease: true,
   },
 }

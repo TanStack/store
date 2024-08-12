@@ -1,15 +1,16 @@
 import { defineConfig, mergeConfig } from 'vitest/config'
-import { tanstackBuildConfig } from '@tanstack/config/build'
+import { tanstackViteConfig } from '@tanstack/config/vite'
 import react from '@vitejs/plugin-react'
+import packageJson from './package.json'
 
 const config = defineConfig({
   plugins: [react()],
   test: {
-    name: 'react-store',
-    dir: './src',
+    name: packageJson.name,
+    dir: './tests',
     watch: false,
     environment: 'jsdom',
-    globals: true,
+    setupFiles: ['./tests/test-setup.ts'],
     coverage: { enabled: true, provider: 'istanbul', include: ['src/**/*'] },
     typecheck: { enabled: true },
   },
@@ -17,9 +18,8 @@ const config = defineConfig({
 
 export default mergeConfig(
   config,
-  tanstackBuildConfig({
+  tanstackViteConfig({
     entry: './src/index.ts',
     srcDir: './src',
-    exclude: ['./src/tests'],
   }),
 )

@@ -12,8 +12,8 @@ import {
   signal as angularSignal,
 } from '@angular/core'
 import { createWatch } from '@angular/core/primitives/signals'
-import { Store } from '../store'
-import { Derived } from '../derived'
+import { Store } from '../src/store'
+import { Derived } from '../src/derived'
 
 function noop(val: any) {
   val

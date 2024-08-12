@@ -1,9 +1,11 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "moduleResolution": "Bundler",
     "experimentalDecorators": true,
-    "types": ["vitest/globals"]
+    "moduleResolution": "Bundler",
+    "paths": {
+      "@tanstack/store": ["../store/src"]
+    }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", ".eslintrc.cjs", "vite.config.ts"]
+  "include": ["src", "tests", "eslint.config.js", "vite.config.ts"]
 }

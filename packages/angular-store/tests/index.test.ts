@@ -1,8 +1,9 @@
+import { describe, expect, test } from 'vitest'
 import { Component, effect } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
 import { Store } from '@tanstack/store'
-import { injectStore } from '../index'
+import { injectStore } from '../src/index'
 
 describe('injectStore', () => {
   test(`allows us to select state using a selector`, () => {
@@ -23,7 +24,7 @@ describe('injectStore', () => {
     expect(element.textContent).toContain('Store: 0')
   })
 
-  test('only triggers a re-render when selector state is updated', async () => {
+  test('only triggers a re-render when selector state is updated', () => {
     const store = new Store({ select: 0, ignored: 1 })
     let count = 0
 

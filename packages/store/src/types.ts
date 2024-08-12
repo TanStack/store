@@ -1,3 +1,3 @@
-export type AnyUpdater = (...args: any[]) => any
+export type AnyUpdater = (...args: Array<any>) => any
 
 export type Listener = () => void
