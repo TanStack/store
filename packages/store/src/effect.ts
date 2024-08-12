@@ -16,7 +16,7 @@ export class Effect {
     this._derived.cleanup()
   }
 
-  [(Symbol as never as {readonly dispose: unique symbol}).dispose]() {
+  [(Symbol as never as { readonly dispose: unique symbol }).dispose]() {
     this.cleanup()
   }
 }

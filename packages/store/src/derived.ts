@@ -105,7 +105,7 @@ export class Derived<TState> {
     }
   };
 
-  [(Symbol as never as {readonly dispose: unique symbol}).dispose]() {
+  [(Symbol as never as { readonly dispose: unique symbol }).dispose]() {
     this.cleanup()
   }
 
