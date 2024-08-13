@@ -8,7 +8,7 @@ interface DerivedOptions<TState> {
    * Should the value of `Derived` only be computed once it is accessed
    * @default false
    */
-  lazy?: boolean;
+  lazy?: boolean
 }
 
 export type Deps = Array<Derived<any> | Store<any>>
@@ -30,7 +30,7 @@ export class Derived<TState> {
     this.deps = deps
     this.options = options
     this.fn = fn
-    const initVal = options?.lazy ? undefined as ReturnType<typeof fn> : fn()
+    const initVal = options?.lazy ? (undefined as ReturnType<typeof fn>) : fn()
     this._store = new Store(initVal, {
       onSubscribe: options?.onSubscribe?.bind(this) as never,
       onUpdate: options?.onUpdate,

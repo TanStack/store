@@ -107,13 +107,16 @@ describe('Derived', () => {
     expect(tripleCountFn).toHaveBeenNthCalledWith(2, 90)
   })
 
-
   test('Derive from store and another derived, even when lazy', () => {
     const count = new Store(10)
 
-    const doubleCount = new Derived([count], () => {
-      return count.state * 2
-    }, {lazy: true})
+    const doubleCount = new Derived(
+      [count],
+      () => {
+        return count.state * 2
+      },
+      { lazy: true },
+    )
 
     const tripleCount = new Derived([count, doubleCount], () => {
       return count.state + doubleCount.state
@@ -136,10 +139,14 @@ describe('Derived', () => {
   test("Derive that's lazy should not update on first tick", () => {
     const count = new Store(10)
     const fn = vi.fn()
-    const doubleCount = new Derived([count], () => {
-      fn();
-      return count.state * 2
-    }, { lazy: true })
+    const doubleCount = new Derived(
+      [count],
+      () => {
+        fn()
+        return count.state * 2
+      },
+      { lazy: true },
+    )
 
     const doubleCountFn = viFnSubscribe(doubleCount)
 
@@ -147,5 +154,5 @@ describe('Derived', () => {
 
     expect(doubleCountFn).not.toHaveBeenCalled()
     expect(fn).not.toHaveBeenCalled()
-  });
+  })
 })
