@@ -36,7 +36,7 @@ export function updateState(animal: 'dogs' | 'cats') {
 ```
 
 **display.component.ts**
-```typescript
+```angular-ts
 import { injectStore } from '@tanstack/angular-store';
 import { store } from './store';
 
@@ -55,7 +55,7 @@ export class Display {
 ```
 
 **increment.component.ts**
-```typescript
+```angular-ts
 import { injectStore } from '@tanstack/angular-store';
 import { store, updateState } from './store';
 

@@ -49,12 +49,12 @@
     "@tanstack/store": "workspace:*"
   },
   "devDependencies": {
-    "@sveltejs/package": "^2.3.2",
-    "@sveltejs/vite-plugin-svelte": "^4.0.0-next.3",
-    "@testing-library/svelte": "^5.2.0",
-    "eslint-plugin-svelte": "^2.41.0",
-    "svelte": "^5.0.0-next.179",
-    "svelte-check": "^3.8.4"
+    "@sveltejs/package": "^2.3.3",
+    "@sveltejs/vite-plugin-svelte": "^4.0.0-next.6",
+    "@testing-library/svelte": "^5.2.1",
+    "eslint-plugin-svelte": "^2.43.0",
+    "svelte": "^5.0.0-next.216",
+    "svelte-check": "^3.8.5"
   },
   "peerDependencies": {
     "svelte": "^5.0.0-next.138"
