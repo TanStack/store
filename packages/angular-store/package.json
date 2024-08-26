@@ -49,10 +49,10 @@
   ],
   "dependencies": {
     "@tanstack/store": "workspace:*",
-    "tslib": "^2.6.3"
+    "tslib": "^2.7.0"
   },
   "devDependencies": {
-    "@analogjs/vite-plugin-angular": "^1.7.1",
+    "@analogjs/vite-plugin-angular": "^1.7.2",
     "@angular/common": "^17.3.12",
     "@angular/compiler": "^17.3.12",
     "@angular/compiler-cli": "^17.3.12",
@@ -60,7 +60,7 @@
     "@angular/platform-browser": "^17.3.12",
     "@angular/platform-browser-dynamic": "^17.3.12",
     "ng-packagr": "^17.3.0",
-    "zone.js": "^0.14.10"
+    "zone.js": "^0.15.0"
   },
   "peerDependencies": {
     "@angular/core": ">=16 < 18",
