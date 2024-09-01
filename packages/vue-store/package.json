@@ -65,11 +65,11 @@
     "vue-demi": "^0.14.10"
   },
   "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.3",
     "@vue/composition-api": "^1.7.2",
     "vue": "^3.4.38",
     "vue2": "npm:vue@2.6",
-    "vue2.7": "npm:vue@2.7",
-    "@vitejs/plugin-vue": "^5.1.3"
+    "vue2.7": "npm:vue@2.7"
   },
   "peerDependencies": {
     "@vue/composition-api": "^1.2.1",
