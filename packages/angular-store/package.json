@@ -63,7 +63,7 @@
     "zone.js": "^0.15.0"
   },
   "peerDependencies": {
-    "@angular/core": ">=16 < 18",
-    "@angular/common": ">=16 < 18"
+    "@angular/common": ">=16 < 18",
+    "@angular/core": ">=16 < 18"
   }
 }
