@@ -50,11 +50,11 @@
   },
   "devDependencies": {
     "@sveltejs/package": "^2.3.4",
-    "@sveltejs/vite-plugin-svelte": "^4.0.0-next.6",
+    "@sveltejs/vite-plugin-svelte": "^4.0.0-next.7",
     "@testing-library/svelte": "^5.2.1",
     "eslint-plugin-svelte": "^2.43.0",
-    "svelte": "^5.0.0-next.242",
-    "svelte-check": "^4.0.0"
+    "svelte": "^5.0.0-next.244",
+    "svelte-check": "^4.0.1"
   },
   "peerDependencies": {
     "svelte": "^5.0.0-next.138"
