@@ -1,6 +1,6 @@
 /* istanbul ignore file -- @preserve */
 import { bench, describe } from 'vitest'
-import { ref, computed as vueComputed, watch } from 'vue'
+import { shallowRef, computed as vueComputed, watchEffect } from 'vue'
 import { createEffect, createMemo, createSignal } from 'solid-js'
 import {
   computed as preactComputed,
@@ -45,7 +45,7 @@ describe('Derived', () => {
   })
 
   bench('Vue', () => {
-    const a = ref(1)
+    const a = shallowRef(1)
     const b = vueComputed(() => a.value)
     const c = vueComputed(() => a.value)
     const d = vueComputed(() => b.value)
@@ -53,7 +53,7 @@ describe('Derived', () => {
     const f = vueComputed(() => c.value)
     const g = vueComputed(() => d.value + e.value + f.value)
 
-    watch(g, () => {
+    watchEffect(() => {
       noop(g.value)
     })
 

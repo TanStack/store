@@ -66,6 +66,6 @@
     "typescript53": "npm:typescript@5.3",
     "vite": "^5.1.0",
     "vitest": "^2.0.5",
-    "vue": "^3.4.37"
+    "vue": "^3.5.9"
   }
 }
