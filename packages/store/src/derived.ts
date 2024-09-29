@@ -4,14 +4,21 @@ import type { Listener } from './types'
 interface DerivedOptions<TState> {
   onSubscribe?: (listener: Listener, derived: Derived<TState>) => () => void
   onUpdate?: () => void
+  /**
+   * Should the value of `Derived` only be computed once it is accessed
+   * @default false
+   */
+  lazy?: boolean
 }
 
 export type Deps = Array<Derived<any> | Store<any>>
 
 export class Derived<TState> {
-  _store!: Store<TState>
+  _store: Store<TState>
   rootStores = new Set<Store<unknown>>()
   deps: Deps
+  options?: DerivedOptions<TState>
+  fn: () => TState
 
   // Functions representing the subscriptions. Call a function to cleanup
   _subscriptions: Array<() => void> = []
@@ -21,7 +28,10 @@ export class Derived<TState> {
 
   constructor(deps: Deps, fn: () => TState, options?: DerivedOptions<TState>) {
     this.deps = deps
-    this._store = new Store(fn(), {
+    this.options = options
+    this.fn = fn
+    const initVal = options?.lazy ? (undefined as ReturnType<typeof fn>) : fn()
+    this._store = new Store(initVal, {
       onSubscribe: options?.onSubscribe?.bind(this) as never,
       onUpdate: options?.onUpdate,
     })
@@ -83,7 +93,10 @@ export class Derived<TState> {
           __depsThatHaveWrittenThisTick.length === relatedLinkedDerivedVals.size
         ) {
           // Yay! All deps are resolved - write the value of this derived
-          this._store.setState(fn)
+          if (!options?.lazy) {
+            this._store.setState(fn)
+          }
+
           // Cleanup the deps that have written this tick
           __depsThatHaveWrittenThisTick = []
           this._whatStoreIsCurrentlyInUse = null
@@ -96,6 +109,11 @@ export class Derived<TState> {
   }
 
   get state() {
+    if (this.options?.lazy && this._store.state === undefined) {
+      this.options.lazy = false
+      this._store.setState(() => this.fn())
+      return this._store.state
+    }
     return this._store.state
   }
 
