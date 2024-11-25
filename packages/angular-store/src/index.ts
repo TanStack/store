@@ -9,6 +9,9 @@ import {
 import type { AnyUpdater, Store } from '@tanstack/store'
 import type { CreateSignalOptions } from '@angular/core'
 
+/**
+ * @private
+ */
 type NoInfer<T> = [T][T extends any ? 0 : never]
 
 export function injectStore<

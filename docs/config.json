@@ -70,8 +70,16 @@
       "label": "API Reference",
       "children": [
         {
-          "label": "Store",
-          "to": "reference/Store"
+          "label": "JavaScript Reference",
+          "to": "reference/index"
+        },
+        {
+          "label": "Classes / Store",
+          "to": "reference/classes/store"
+        },
+        {
+          "label": "Interfaces / StoreOptions",
+          "to": "reference/interfaces/storeoptions"
         }
       ],
       "frameworks": [
@@ -79,8 +87,16 @@
           "label": "react",
           "children": [
             {
-              "label": "useStore",
-              "to": "framework/react/reference/useStore"
+              "label": "React Reference",
+              "to": "framework/react/reference/index"
+            },
+            {
+              "label": "Functions / useStore",
+              "to": "framework/react/reference/functions/usestore"
+            },
+            {
+              "label": "Functions / shallow",
+              "to": "framework/react/reference/functions/shallow"
             }
           ]
         },
@@ -88,8 +104,16 @@
           "label": "vue",
           "children": [
             {
-              "label": "useStore",
-              "to": "framework/vue/reference/useStore"
+              "label": "Vue Reference",
+              "to": "framework/vue/reference/index"
+            },
+            {
+              "label": "Functions / useStore",
+              "to": "framework/vue/reference/functions/usestore"
+            },
+            {
+              "label": "Functions / shallow",
+              "to": "framework/vue/reference/functions/shallow"
             }
           ]
         },
@@ -97,8 +121,12 @@
           "label": "solid",
           "children": [
             {
-              "label": "useStore",
-              "to": "framework/solid/reference/useStore"
+              "label": "Solid Reference",
+              "to": "framework/solid/reference/index"
+            },
+            {
+              "label": "Functions / useStore",
+              "to": "framework/solid/reference/functions/usestore"
             }
           ]
         },
@@ -106,8 +134,12 @@
           "label": "angular",
           "children": [
             {
-              "label": "injectStore",
-              "to": "framework/angular/reference/injectStore"
+              "label": "Angular Reference",
+              "to": "framework/angular/reference/index"
+            },
+            {
+              "label": "Functions / injectStore",
+              "to": "framework/angular/reference/functions/functionsinjectStore"
             }
           ]
         },
@@ -115,8 +147,16 @@
           "label": "svelte",
           "children": [
             {
-              "label": "useStore",
-              "to": "framework/svelte/reference/useStore"
+              "label": "Svelte Reference",
+              "to": "framework/svelte/reference/index"
+            },
+            {
+              "label": "Functions / useStore",
+              "to": "framework/svelte/reference/functions/usestore"
+            },
+            {
+              "label": "Functions / shallow",
+              "to": "framework/svelte/reference/functions/shallow"
             }
           ]
         }

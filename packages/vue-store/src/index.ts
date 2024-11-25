@@ -4,6 +4,9 @@ import type { Ref } from 'vue-demi'
 
 export * from '@tanstack/store'
 
+/**
+ * @private
+ */
 export type NoInfer<T> = [T][T extends any ? 0 : never]
 
 export function useStore<

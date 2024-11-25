@@ -3,6 +3,9 @@ import type { AnyUpdater, Store } from '@tanstack/store'
 
 export * from '@tanstack/store'
 
+/**
+ * @private
+ */
 export type NoInfer<T> = [T][T extends any ? 0 : never]
 
 export function useStore<
