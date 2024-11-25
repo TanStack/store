@@ -163,7 +163,7 @@ importers:
   examples/react/simple:
     dependencies:
       '@tanstack/react-store':
-        specifier: ^0.6.0
+        specifier: ^0.6.1
         version: link:../../../packages/react-store
       '@tanstack/store':
         specifier: ^0.6.0
@@ -309,10 +309,10 @@ importers:
         specifier: workspace:*
         version: link:../store
       react:
-        specifier: ^17.0.0 || ^18.0.0
+        specifier: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
         version: 18.3.1
       react-dom:
-        specifier: ^17.0.0 || ^18.0.0
+        specifier: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
         version: 18.3.1(react@18.3.1)
       use-sync-external-store:
         specifier: ^1.2.2
