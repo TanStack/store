@@ -1,0 +1,21 @@
+{
+  "name": "@tanstack/store-example-solid-simple",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "test:types": "tsc",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tanstack/solid-store": "^0.5.7",
+    "@tanstack/store": "^0.5.5",
+    "solid-js": "^1.9.3"
+  },
+  "devDependencies": {
+    "typescript": "5.6.3",
+    "vite": "^5.4.11",
+    "vite-plugin-solid": "^2.10.2"
+  }
+}
