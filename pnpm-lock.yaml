@@ -189,10 +189,10 @@ importers:
         specifier: ^1.3.0
         version: 1.3.0(preact@10.25.0)
       solid-js:
-        specifier: ^1.8.20
+        specifier: ^1.9.3
         version: 1.9.3
       vue:
-        specifier: ^3.5.10
+        specifier: ^3.5.13
         version: 3.5.13(typescript@5.4.2)
 
   packages/svelte-store:
