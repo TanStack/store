@@ -9,8 +9,8 @@ export interface DerivedOptions<TState> {
    * @default false
    */
   lazy?: boolean
-  deps: Array<Derived<any> | Store<any>>;
-  fn: () => TState;
+  deps: Array<Derived<any> | Store<any>>
+  fn: () => TState
 }
 
 export class Derived<TState> {
@@ -26,7 +26,9 @@ export class Derived<TState> {
 
   constructor(options: DerivedOptions<TState>) {
     this.options = options
-    const initVal = options.lazy ? (undefined as ReturnType<typeof options.fn>) : options.fn()
+    const initVal = options.lazy
+      ? (undefined as ReturnType<typeof options.fn>)
+      : options.fn()
     this._store = new Store(initVal, {
       onSubscribe: options.onSubscribe?.bind(this) as never,
       onUpdate: options.onUpdate,

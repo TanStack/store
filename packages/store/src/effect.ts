@@ -1,19 +1,20 @@
-import { Derived  } from './derived'
-import type {DerivedOptions} from './derived';
+import { Derived } from './derived'
+import type { DerivedOptions } from './derived'
 
-interface EffectOptions extends Omit<DerivedOptions<unknown>, 'onUpdate' | 'onSubscribe' | "lazy"> {
+interface EffectOptions
+  extends Omit<DerivedOptions<unknown>, 'onUpdate' | 'onSubscribe' | 'lazy'> {
   /**
    * Should the effect trigger immediately?
    * @default false
    */
-  eager?: boolean;
+  eager?: boolean
 }
 
 export class Effect {
   _derived: Derived<void>
 
   constructor(opts: EffectOptions) {
-    const {eager, fn, ...derivedProps} = opts;
+    const { eager, fn, ...derivedProps } = opts
 
     this._derived = new Derived({
       ...derivedProps,
@@ -24,7 +25,7 @@ export class Effect {
     })
 
     if (eager) {
-      fn();
+      fn()
     }
   }
 
