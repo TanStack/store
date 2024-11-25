@@ -198,4 +198,19 @@ describe('Derived', () => {
     expect(doubleCountFn).not.toHaveBeenCalled()
     expect(viFn).not.toHaveBeenCalled()
   })
+
+  test('listeners should receive old and new values', () => {
+    const store = new Store(12)
+    const derived = new Derived({
+      deps: [store],
+      fn: () => {
+        return store.state * 2
+      },
+    })
+    derived.mount()
+    const fn = vi.fn()
+    derived.subscribe(fn)
+    store.setState(() => 24)
+    expect(fn).toBeCalledWith({ prevVal: 24, currentVal: 48 })
+  })
 })

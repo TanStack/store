@@ -81,4 +81,12 @@ describe('store', () => {
     expect(listener).toHaveBeenCalledTimes(5)
     unsub()
   })
+
+  test('listeners should receive old and new values', () => {
+    const store = new Store(12)
+    const fn = vi.fn()
+    store.subscribe(fn)
+    store.setState(() => 24)
+    expect(fn).toBeCalledWith({ prevVal: 12, currentVal: 24 })
+  })
 })

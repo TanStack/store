@@ -14,7 +14,7 @@ export interface StoreOptions<
    * @return a function to unsubscribe the listener
    */
   onSubscribe?: (
-    listener: Listener,
+    listener: Listener<TState>,
     store: Store<TState, TUpdater>,
   ) => () => void
   /**
@@ -27,8 +27,9 @@ export class Store<
   TState,
   TUpdater extends AnyUpdater = (cb: TState) => TState,
 > {
-  listeners = new Set<Listener>()
+  listeners = new Set<Listener<TState>>()
   state: TState
+  prevState: TState
   options?: StoreOptions<TState, TUpdater>
   /**
    * @private
@@ -40,11 +41,12 @@ export class Store<
   _flushing = 0
 
   constructor(initialState: TState, options?: StoreOptions<TState, TUpdater>) {
+    this.prevState = initialState
     this.state = initialState
     this.options = options
   }
 
-  subscribe = (listener: Listener) => {
+  subscribe = (listener: Listener<TState>) => {
     this.listeners.add(listener)
     const unsub = this.options?.onSubscribe?.(listener, this)
     return () => {
@@ -64,6 +66,7 @@ export class Store<
 
     // Attempt to flush
     this._flush()
+    this.prevState = this.state
   }
 
   /**
@@ -74,7 +77,7 @@ export class Store<
     const flushId = ++this._flushing
     for (const listener of this.listeners) {
       if (this._flushing !== flushId) continue
-      listener()
+      listener({ prevVal: this.prevState, currentVal: this.state })
     }
   }
 

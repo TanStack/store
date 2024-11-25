@@ -2,7 +2,10 @@ import { Store } from './store'
 import type { Listener } from './types'
 
 export interface DerivedOptions<TState> {
-  onSubscribe?: (listener: Listener, derived: Derived<TState>) => () => void
+  onSubscribe?: (
+    listener: Listener<TState>,
+    derived: Derived<TState>,
+  ) => () => void
   onUpdate?: () => void
   /**
    * Should the value of `Derived` only be computed once it is accessed
@@ -59,6 +62,7 @@ export class Derived<TState> {
     const initVal = options.lazy
       ? (undefined as ReturnType<typeof options.fn>)
       : options.fn()
+
     this._store = new Store(initVal, {
       onSubscribe: options.onSubscribe?.bind(this) as never,
       onUpdate: options.onUpdate,
@@ -136,7 +140,7 @@ export class Derived<TState> {
     }
   }
 
-  subscribe = (listener: Listener) => {
+  subscribe = (listener: Listener<TState>) => {
     return this._store.subscribe(listener)
   }
 }

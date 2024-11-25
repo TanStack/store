@@ -6,4 +6,4 @@ export type AnyUpdater = (...args: Array<any>) => any
 /**
  * @private
  */
-export type Listener = () => void
+export type Listener<T> = (props: { prevVal: T; currentVal: T }) => void
