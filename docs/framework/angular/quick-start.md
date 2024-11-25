@@ -6,17 +6,32 @@ id: quick-start
 The basic angular app example to get started with the Tanstack angular-store.
 
 **app.component.ts**
-```html
+```angular-ts
+import { Component } from '@angular/core'
+import { DisplayComponent } from './display.component'
+import { IncrementComponent } from './increment.component'
+
+@Component({
+selector: 'app-root',
+imports: [DisplayComponent, IncrementComponent],
+template: `
 <h1>How many of your friends like cats or dogs?</h1>
-<p>Press one of the buttons to add a counter of how many of your friends like cats or dogs</p>
+<p>
+  Press one of the buttons to add a counter of how many of your friends like
+  cats or dogs
+</p>
 <app-increment animal="dogs" />
 <app-display animal="dogs" />
 <app-increment animal="cats" />
 <app-display animal="cats" />
+`,
+})
+export class AppComponent {}
+
 ```
 
 **store.ts**
-```js
+```typescript
 import { Store } from '@tanstack/store';
 
 // You can use @tanstack/store outside of App components too!
@@ -68,6 +83,6 @@ import { store, updateState } from './store';
 })
 export class Increment {
     animal = input.required<string>();
-    updateState = injectStore(store, updateState);
+    updateState = updateState;
 }
 ```
