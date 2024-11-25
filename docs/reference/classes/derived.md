@@ -27,9 +27,21 @@ new Derived<TState>(options): Derived<TState>
 
 #### Defined in
 
-[derived.ts:39](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L39)
+[derived.ts:57](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L57)
 
 ## Properties
+
+### derivedToStore
+
+```ts
+derivedToStore: Map<Derived<unknown>, Set<Store<unknown, (cb) => unknown>>>;
+```
+
+#### Defined in
+
+[derived.ts:55](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L55)
+
+***
 
 ### options
 
@@ -40,6 +52,32 @@ options: DerivedOptions<TState>;
 #### Defined in
 
 [derived.ts:25](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L25)
+
+***
+
+### storeToDerived
+
+```ts
+storeToDerived: Map<Store<unknown, (cb) => unknown>, Set<Derived<unknown>>>;
+```
+
+This is here to solve the pyramid dependency problem where:
+      A
+     / \
+    B   C
+     \ /
+      D
+
+Where we deeply traverse this tree, how do we avoid D being recomputed twice; once when B is updated, once when C is.
+
+To solve this, we create linkedDeps that allows us to sync avoid writes to the state until all of the deps have been
+resolved.
+
+This is a record of stores, because derived stores are not able to write values to, but stores are
+
+#### Defined in
+
+[derived.ts:54](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L54)
 
 ## Accessors
 
@@ -57,23 +95,27 @@ get state(): TState
 
 #### Defined in
 
-[derived.ts:121](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L121)
+[derived.ts:89](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L89)
 
 ## Methods
 
-### cleanup()
+### mount()
 
 ```ts
-cleanup(): void
+mount(): () => void
 ```
 
 #### Returns
+
+`Function`
+
+##### Returns
 
 `void`
 
 #### Defined in
 
-[derived.ts:130](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L130)
+[derived.ts:98](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L98)
 
 ***
 
@@ -97,4 +139,4 @@ subscribe(listener): () => void
 
 #### Defined in
 
-[derived.ts:140](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L140)
+[derived.ts:139](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L139)

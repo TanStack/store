@@ -27,13 +27,17 @@ new Effect(opts): Effect
 
 ## Methods
 
-### cleanup()
+### mount()
 
 ```ts
-cleanup(): void
+mount(): () => void
 ```
 
 #### Returns
+
+`Function`
+
+##### Returns
 
 `void`
 
