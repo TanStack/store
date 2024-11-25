@@ -2,12 +2,16 @@ import { Derived } from './derived'
 import type { DerivedOptions } from './derived'
 
 interface EffectOptions
-  extends Omit<DerivedOptions<unknown>, 'onUpdate' | 'onSubscribe' | 'lazy'> {
+  extends Omit<
+    DerivedOptions<unknown>,
+    'onUpdate' | 'onSubscribe' | 'lazy' | 'fn'
+  > {
   /**
    * Should the effect trigger immediately?
    * @default false
    */
   eager?: boolean
+  fn: () => void
 }
 
 export class Effect {
