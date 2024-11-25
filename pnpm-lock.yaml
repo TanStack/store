@@ -163,7 +163,7 @@ importers:
   examples/react/simple:
     dependencies:
       '@tanstack/react-store':
-        specifier: ^0.6.0
+        specifier: ^0.6.1
         version: link:../../../packages/react-store
       '@tanstack/store':
         specifier: ^0.6.0
