@@ -1,14 +1,25 @@
 import type { AnyUpdater, Listener } from './types'
 
-interface StoreOptions<
+export interface StoreOptions<
   TState,
   TUpdater extends AnyUpdater = (cb: TState) => TState,
 > {
+  /**
+   * Replace the default update function with a custom one.
+   */
   updateFn?: (previous: TState) => (updater: TUpdater) => TState
+  /**
+   * Called when a listener subscribes to the store.
+   *
+   * @return a function to unsubscribe the listener
+   */
   onSubscribe?: (
     listener: Listener,
     store: Store<TState, TUpdater>,
   ) => () => void
+  /**
+   * Called after the state has been updated, used to derive other state.
+   */
   onUpdate?: () => void
 }
 
@@ -19,7 +30,13 @@ export class Store<
   listeners = new Set<Listener>()
   state: TState
   options?: StoreOptions<TState, TUpdater>
+  /**
+   * @private
+   */
   _batching = false
+  /**
+   * @private
+   */
   _flushing = 0
 
   constructor(initialState: TState, options?: StoreOptions<TState, TUpdater>) {
@@ -49,6 +66,9 @@ export class Store<
     this._flush()
   }
 
+  /**
+   * @private
+   */
   _flush = () => {
     if (this._batching) return
     const flushId = ++this._flushing
