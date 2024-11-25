@@ -213,4 +213,22 @@ describe('Derived', () => {
     store.setState(() => 24)
     expect(fn).toBeCalledWith({ prevVal: 24, currentVal: 48 })
   })
+
+  test('derivedFn should receive old and new values', () => {
+    const count = new Store(12)
+    const date = new Date()
+    const time = new Store(date)
+    const fn = vi.fn()
+    const derived = new Derived({
+      deps: [count, time],
+      fn: ({ prevVals, currentVals }) => {
+        fn({ prevVals, currentVals })
+        return void 0
+      },
+    })
+    derived.mount()
+    expect(fn).toBeCalledWith({ prevVals: undefined, currentVals: [12, date] })
+    count.setState(() => 24)
+    expect(fn).toBeCalledWith({ prevVals: [12, date], currentVals: [24, date] })
+  })
 })

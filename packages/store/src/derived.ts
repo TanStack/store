@@ -13,7 +13,16 @@ export interface DerivedOptions<TState> {
    */
   lazy?: boolean
   deps: Array<Derived<any> | Store<any>>
-  fn: () => TState
+  /**
+   * Values of the `deps` from before and after the current invocation of `fn`
+   *
+   * @todo Improve the typings to match `deps` from above
+   */
+  fn: (props: {
+    // `undefined` if it's the first run
+    prevVals: Array<any> | undefined
+    currentVals: Array<any>
+  }) => TState
 }
 
 export class Derived<TState> {
@@ -57,11 +66,27 @@ export class Derived<TState> {
   storeToDerived = new Map<Store<unknown>, Set<Derived<unknown>>>()
   derivedToStore = new Map<Derived<unknown>, Set<Store<unknown>>>()
 
+  getDepVals = () => {
+    const prevVals = [] as Array<unknown>
+    const currentVals = [] as Array<unknown>
+    for (const dep of this.options.deps) {
+      prevVals.push(dep.prevState)
+      currentVals.push(dep.state)
+    }
+    return {
+      prevVals,
+      currentVals,
+    }
+  }
+
   constructor(options: DerivedOptions<TState>) {
     this.options = options
     const initVal = options.lazy
       ? (undefined as ReturnType<typeof options.fn>)
-      : options.fn()
+      : options.fn({
+          prevVals: undefined,
+          currentVals: this.getDepVals().currentVals,
+        })
 
     this._store = new Store(initVal, {
       onSubscribe: options.onSubscribe?.bind(this) as never,
@@ -93,10 +118,14 @@ export class Derived<TState> {
   get state() {
     if (this.options.lazy && this._store.state === undefined) {
       this.options.lazy = false
-      this._store.setState(() => this.options.fn())
+      this._store.setState(() => this.options.fn(this.getDepVals()))
       return this._store.state
     }
     return this._store.state
+  }
+
+  get prevState() {
+    return this._store.prevState
   }
 
   mount = () => {
@@ -120,7 +149,7 @@ export class Derived<TState> {
         ) {
           // Yay! All deps are resolved - write the value of this derived
           if (!this.options.lazy) {
-            this._store.setState(this.options.fn)
+            this._store.setState(() => this.options.fn(this.getDepVals()))
           }
 
           // Cleanup the deps that have written this tick
