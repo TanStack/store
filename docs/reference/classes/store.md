@@ -31,7 +31,7 @@ new Store<TState, TUpdater>(initialState, options?): Store<TState, TUpdater>
 
 #### Defined in
 
-[index.ts:50](https://github.com/TanStack/store/blob/main/packages/store/src/index.ts#L50)
+[store.ts:42](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L42)
 
 ## Properties
 
@@ -43,7 +43,7 @@ listeners: Set<Listener>;
 
 #### Defined in
 
-[index.ts:38](https://github.com/TanStack/store/blob/main/packages/store/src/index.ts#L38)
+[store.ts:30](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L30)
 
 ***
 
@@ -55,7 +55,7 @@ optional options: StoreOptions<TState, TUpdater>;
 
 #### Defined in
 
-[index.ts:40](https://github.com/TanStack/store/blob/main/packages/store/src/index.ts#L40)
+[store.ts:32](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L32)
 
 ***
 
@@ -67,7 +67,7 @@ state: TState;
 
 #### Defined in
 
-[index.ts:39](https://github.com/TanStack/store/blob/main/packages/store/src/index.ts#L39)
+[store.ts:31](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L31)
 
 ## Methods
 
@@ -87,7 +87,7 @@ batch(cb): void
 
 #### Defined in
 
-[index.ts:89](https://github.com/TanStack/store/blob/main/packages/store/src/index.ts#L89)
+[store.ts:81](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L81)
 
 ***
 
@@ -107,7 +107,7 @@ setState(updater): void
 
 #### Defined in
 
-[index.ts:64](https://github.com/TanStack/store/blob/main/packages/store/src/index.ts#L64)
+[store.ts:56](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L56)
 
 ***
 
@@ -131,4 +131,4 @@ subscribe(listener): () => void
 
 #### Defined in
 
-[index.ts:55](https://github.com/TanStack/store/blob/main/packages/store/src/index.ts#L55)
+[store.ts:47](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L47)

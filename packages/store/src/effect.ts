@@ -11,6 +11,9 @@ interface EffectOptions
 }
 
 export class Effect {
+  /**
+   * @private
+   */
   _derived: Derived<void>
 
   constructor(opts: EffectOptions) {

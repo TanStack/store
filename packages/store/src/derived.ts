@@ -14,14 +14,26 @@ export interface DerivedOptions<TState> {
 }
 
 export class Derived<TState> {
+  /**
+   * @private
+   */
   _store: Store<TState>
+  /**
+   * @private
+   */
   rootStores = new Set<Store<unknown>>()
   options: DerivedOptions<TState>
 
-  // Functions representing the subscriptions. Call a function to cleanup
+  /**
+   * Functions representing the subscriptions. Call a function to cleanup
+   * @private
+   */
   _subscriptions: Array<() => void> = []
 
-  // What store called the current update, if any
+  /**
+   * What store called the current update, if any
+   * @private
+   */
   _whatStoreIsCurrentlyInUse: Store<unknown> | null = null
 
   constructor(options: DerivedOptions<TState>) {
