@@ -15,16 +15,25 @@ describe('Derived', () => {
   test('Diamond dep problem', () => {
     const count = new Store(10)
 
-    const halfCount = new Derived([count], () => {
-      return count.state / 2
+    const halfCount = new Derived({
+      deps: [count],
+      fn: () => {
+        return count.state / 2
+      },
     })
 
-    const doubleCount = new Derived([count], () => {
-      return count.state * 2
+    const doubleCount = new Derived({
+      deps: [count],
+      fn: () => {
+        return count.state * 2
+      },
     })
 
-    const sumDoubleHalfCount = new Derived([halfCount, doubleCount], () => {
-      return halfCount.state + doubleCount.state
+    const sumDoubleHalfCount = new Derived({
+      deps: [halfCount, doubleCount],
+      fn: () => {
+        return halfCount.state + doubleCount.state
+      },
     })
 
     const halfCountFn = viFnSubscribe(halfCount)
@@ -56,12 +65,15 @@ describe('Derived', () => {
    */
   test('Complex diamond dep problem', () => {
     const a = new Store(1)
-    const b = new Derived([a], () => a.state)
-    const c = new Derived([a], () => a.state)
-    const d = new Derived([b], () => b.state)
-    const e = new Derived([b], () => b.state)
-    const f = new Derived([c], () => c.state)
-    const g = new Derived([d, e, f], () => d.state + e.state + f.state)
+    const b = new Derived({ deps: [a], fn: () => a.state })
+    const c = new Derived({ deps: [a], fn: () => a.state })
+    const d = new Derived({ deps: [b], fn: () => b.state })
+    const e = new Derived({ deps: [b], fn: () => b.state })
+    const f = new Derived({ deps: [c], fn: () => c.state })
+    const g = new Derived({
+      deps: [d, e, f],
+      fn: () => d.state + e.state + f.state,
+    })
 
     const aFn = viFnSubscribe(a)
     const bFn = viFnSubscribe(b)
@@ -85,12 +97,18 @@ describe('Derived', () => {
   test('Derive from store and another derived', () => {
     const count = new Store(10)
 
-    const doubleCount = new Derived([count], () => {
-      return count.state * 2
+    const doubleCount = new Derived({
+      deps: [count],
+      fn: () => {
+        return count.state * 2
+      },
     })
 
-    const tripleCount = new Derived([count, doubleCount], () => {
-      return count.state + doubleCount.state
+    const tripleCount = new Derived({
+      deps: [count, doubleCount],
+      fn: () => {
+        return count.state + doubleCount.state
+      },
     })
 
     const doubleCountFn = viFnSubscribe(doubleCount)
@@ -110,16 +128,19 @@ describe('Derived', () => {
   test('Derive from store and another derived, even when lazy', () => {
     const count = new Store(10)
 
-    const doubleCount = new Derived(
-      [count],
-      () => {
+    const doubleCount = new Derived({
+      deps: [count],
+      fn: () => {
         return count.state * 2
       },
-      { lazy: true },
-    )
+      lazy: true,
+    })
 
-    const tripleCount = new Derived([count, doubleCount], () => {
-      return count.state + doubleCount.state
+    const tripleCount = new Derived({
+      deps: [count, doubleCount],
+      fn: () => {
+        return count.state + doubleCount.state
+      },
     })
 
     const doubleCountFn = viFnSubscribe(doubleCount)
@@ -138,21 +159,21 @@ describe('Derived', () => {
 
   test("Derive that's lazy should not update on first tick", () => {
     const count = new Store(10)
-    const fn = vi.fn()
-    const doubleCount = new Derived(
-      [count],
-      () => {
-        fn()
+    const viFn = vi.fn()
+    const doubleCount = new Derived({
+      deps: [count],
+      fn: () => {
+        viFn()
         return count.state * 2
       },
-      { lazy: true },
-    )
+      lazy: true,
+    })
 
     const doubleCountFn = viFnSubscribe(doubleCount)
 
     count.setState(() => 20)
 
     expect(doubleCountFn).not.toHaveBeenCalled()
-    expect(fn).not.toHaveBeenCalled()
+    expect(viFn).not.toHaveBeenCalled()
   })
 })

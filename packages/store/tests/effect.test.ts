@@ -7,20 +7,32 @@ describe('Effect', () => {
   test('Side effect free', () => {
     const count = new Store(10)
 
-    const halfCount = new Derived([count], () => {
-      return count.state / 2
+    const halfCount = new Derived({
+      deps: [count],
+      fn: () => {
+        return count.state / 2
+      },
     })
 
-    const doubleCount = new Derived([count], () => {
-      return count.state * 2
+    const doubleCount = new Derived({
+      deps: [count],
+      fn: () => {
+        return count.state * 2
+      },
     })
 
-    const sumDoubleHalfCount = new Derived([halfCount, doubleCount], () => {
-      return halfCount.state + doubleCount.state
+    const sumDoubleHalfCount = new Derived({
+      deps: [halfCount, doubleCount],
+      fn: () => {
+        return halfCount.state + doubleCount.state
+      },
     })
 
     const fn = vi.fn()
-    new Effect([sumDoubleHalfCount], () => fn(sumDoubleHalfCount.state))
+    new Effect({
+      deps: [sumDoubleHalfCount],
+      fn: () => fn(sumDoubleHalfCount.state),
+    })
 
     count.setState(() => 20)
 
@@ -43,15 +55,18 @@ describe('Effect', () => {
    */
   test('Complex diamond dep problem', () => {
     const a = new Store(1)
-    const b = new Derived([a], () => a.state)
-    const c = new Derived([a], () => a.state)
-    const d = new Derived([b], () => b.state)
-    const e = new Derived([b], () => b.state)
-    const f = new Derived([c], () => c.state)
-    const g = new Derived([d, e, f], () => d.state + e.state + f.state)
+    const b = new Derived({ deps: [a], fn: () => a.state })
+    const c = new Derived({ deps: [a], fn: () => a.state })
+    const d = new Derived({ deps: [b], fn: () => b.state })
+    const e = new Derived({ deps: [b], fn: () => b.state })
+    const f = new Derived({ deps: [c], fn: () => c.state })
+    const g = new Derived({
+      deps: [d, e, f],
+      fn: () => d.state + e.state + f.state,
+    })
 
     const fn = vi.fn()
-    new Effect([g], () => fn(g.state))
+    new Effect({ deps: [g], fn: () => fn(g.state) })
 
     a.setState(() => 2)
 

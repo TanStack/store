@@ -32,12 +32,12 @@ function noop(val: any) {
 describe('Derived', () => {
   bench('TanStack', () => {
     const a = new Store(1)
-    const b = new Derived([a], () => a.state)
-    const c = new Derived([a], () => a.state)
-    const d = new Derived([b], () => b.state)
-    const e = new Derived([b], () => b.state)
-    const f = new Derived([c], () => c.state)
-    const g = new Derived([d, e, f], () => d.state + e.state + f.state)
+    const b = new Derived({deps: [a], fn: () => a.state})
+    const c = new Derived({deps: [a], fn: () => a.state})
+    const d = new Derived({deps: [b], fn: () => b.state})
+    const e = new Derived({deps: [b], fn: () => b.state})
+    const f = new Derived({deps: [c], fn: () => c.state})
+    const g = new Derived({deps: [d, e, f], fn: () => d.state + e.state + f.state})
 
     g.subscribe(() => noop(g.state))
 

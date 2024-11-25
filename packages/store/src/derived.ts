@@ -1,7 +1,7 @@
 import { Store } from './store'
 import type { Listener } from './types'
 
-interface DerivedOptions<TState> {
+export interface DerivedOptions<TState> {
   onSubscribe?: (listener: Listener, derived: Derived<TState>) => () => void
   onUpdate?: () => void
   /**
@@ -9,16 +9,14 @@ interface DerivedOptions<TState> {
    * @default false
    */
   lazy?: boolean
+  deps: Array<Derived<any> | Store<any>>;
+  fn: () => TState;
 }
-
-export type Deps = Array<Derived<any> | Store<any>>
 
 export class Derived<TState> {
   _store: Store<TState>
   rootStores = new Set<Store<unknown>>()
-  deps: Deps
-  options?: DerivedOptions<TState>
-  fn: () => TState
+  options: DerivedOptions<TState>
 
   // Functions representing the subscriptions. Call a function to cleanup
   _subscriptions: Array<() => void> = []
@@ -26,14 +24,12 @@ export class Derived<TState> {
   // What store called the current update, if any
   _whatStoreIsCurrentlyInUse: Store<unknown> | null = null
 
-  constructor(deps: Deps, fn: () => TState, options?: DerivedOptions<TState>) {
-    this.deps = deps
+  constructor(options: DerivedOptions<TState>) {
     this.options = options
-    this.fn = fn
-    const initVal = options?.lazy ? (undefined as ReturnType<typeof fn>) : fn()
+    const initVal = options.lazy ? (undefined as ReturnType<typeof options.fn>) : options.fn()
     this._store = new Store(initVal, {
-      onSubscribe: options?.onSubscribe?.bind(this) as never,
-      onUpdate: options?.onUpdate,
+      onSubscribe: options.onSubscribe?.bind(this) as never,
+      onUpdate: options.onUpdate,
     })
     /**
      * This is here to solve the pyramid dependency problem where:
@@ -61,7 +57,7 @@ export class Derived<TState> {
       prevDerivesForStore.add(dep)
       storeToDerived.set(store, prevDerivesForStore)
     }
-    for (const dep of deps) {
+    for (const dep of options.deps) {
       if (dep instanceof Derived) {
         derivedToStore.set(dep, dep.rootStores)
         for (const store of dep.rootStores) {
@@ -74,9 +70,9 @@ export class Derived<TState> {
       }
     }
 
-    let __depsThatHaveWrittenThisTick: Deps = []
+    let __depsThatHaveWrittenThisTick: DerivedOptions<unknown>['deps'] = []
 
-    for (const dep of deps) {
+    for (const dep of options.deps) {
       const isDepAStore = dep instanceof Store
       let relatedLinkedDerivedVals: null | Set<Derived<unknown>> = null
 
@@ -93,8 +89,8 @@ export class Derived<TState> {
           __depsThatHaveWrittenThisTick.length === relatedLinkedDerivedVals.size
         ) {
           // Yay! All deps are resolved - write the value of this derived
-          if (!options?.lazy) {
-            this._store.setState(fn)
+          if (!options.lazy) {
+            this._store.setState(options.fn)
           }
 
           // Cleanup the deps that have written this tick
@@ -109,9 +105,9 @@ export class Derived<TState> {
   }
 
   get state() {
-    if (this.options?.lazy && this._store.state === undefined) {
+    if (this.options.lazy && this._store.state === undefined) {
       this.options.lazy = false
-      this._store.setState(() => this.fn())
+      this._store.setState(() => this.options.fn())
       return this._store.state
     }
     return this._store.state
