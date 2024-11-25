@@ -24,6 +24,7 @@
     "dev": "pnpm run watch",
     "prettier": "prettier --ignore-unknown '**/*'",
     "prettier:write": "pnpm run prettier --write",
+    "docs:generate": "node scripts/generateDocs.js",
     "cipublish": "node scripts/publish.js",
     "cipublishforce": "CI=true pnpm cipublish"
   },
