@@ -1,11 +1,10 @@
 import {
+  DestroyRef,
   Injector,
   assertInInjectionContext,
   inject,
   linkedSignal,
   runInInjectionContext,
-  effect,
-  DestroyRef,
 } from '@angular/core'
 import type { AnyUpdater, Store } from '@tanstack/store'
 import type { CreateSignalOptions } from '@angular/core'
