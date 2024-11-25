@@ -1,6 +1,6 @@
 {
   "name": "@tanstack/store",
-  "version": "0.5.8",
+  "version": "0.6.0",
   "description": "Framework agnostic type-safe store w/ reactive framework adapters",
   "author": "Tanner Linsley",
   "license": "MIT",
@@ -57,7 +57,7 @@
     "src"
   ],
   "devDependencies": {
-    "@angular/core": "^17.3.12",
+    "@angular/core": "^19.0.0",
     "@preact/signals": "^1.3.0",
     "solid-js": "^1.9.3",
     "vue": "^3.5.13"

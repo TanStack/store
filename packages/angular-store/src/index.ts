@@ -1,10 +1,10 @@
 import {
+  DestroyRef,
   Injector,
   assertInInjectionContext,
-  effect,
   inject,
+  linkedSignal,
   runInInjectionContext,
-  signal,
 } from '@angular/core'
 import type { AnyUpdater, Store } from '@tanstack/store'
 import type { CreateSignalOptions } from '@angular/core'
@@ -32,17 +32,16 @@ export function injectStore<
   }
 
   return runInInjectionContext(options.injector, () => {
-    const slice = signal(selector(store.state), options)
+    const destroyRef = inject(DestroyRef)
+    const slice = linkedSignal(() => selector(store.state), options)
 
-    effect(
-      (onCleanup) => {
-        const unsub = store.subscribe(() => {
-          slice.set(selector(store.state))
-        })
-        onCleanup(unsub)
-      },
-      { allowSignalWrites: true },
-    )
+    const unsubscribe = store.subscribe(() => {
+      slice.set(selector(store.state))
+    })
+
+    destroyRef.onDestroy(() => {
+      unsubscribe()
+    })
 
     return slice.asReadonly()
   })

@@ -1,12 +1,12 @@
 {
   "name": "@tanstack/angular-store",
-  "version": "0.5.8",
+  "version": "0.6.0",
   "description": "Framework agnostic type-safe store w/ reactive framework adapters",
   "author": "Tanner Linsley",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/TanStack/store.git",
+    "url": "git+https://github.com/TanStack/store.git",
     "directory": "packages/angular-store"
   },
   "homepage": "https://tanstack.com/store",
@@ -16,6 +16,7 @@
   },
   "keywords": [
     "store",
+    "tanstack",
     "typescript",
     "angular"
   ],
@@ -37,8 +38,6 @@
     },
     ".": {
       "types": "./dist/index.d.ts",
-      "esm2022": "./dist/esm2022/tanstack-angular-store.mjs",
-      "esm": "./dist/esm2022/tanstack-angular-store.mjs",
       "default": "./dist/fesm2022/tanstack-angular-store.mjs"
     }
   },
@@ -53,17 +52,17 @@
   },
   "devDependencies": {
     "@analogjs/vite-plugin-angular": "^1.9.4",
-    "@angular/common": "^17.3.12",
-    "@angular/compiler": "^17.3.12",
-    "@angular/compiler-cli": "^17.3.12",
-    "@angular/core": "^17.3.12",
-    "@angular/platform-browser": "^17.3.12",
-    "@angular/platform-browser-dynamic": "^17.3.12",
-    "ng-packagr": "^17.3.0",
+    "@angular/common": "^19.0.0",
+    "@angular/compiler": "^19.0.0",
+    "@angular/compiler-cli": "^19.0.0",
+    "@angular/core": "^19.0.0",
+    "@angular/platform-browser": "^19.0.0",
+    "@angular/platform-browser-dynamic": "^19.0.0",
+    "ng-packagr": "^19.0.1",
     "zone.js": "^0.15.0"
   },
   "peerDependencies": {
-    "@angular/common": ">=16.0.0",
-    "@angular/core": ">=16.0.0"
+    "@angular/common": ">=19.0.0",
+    "@angular/core": ">=19.0.0"
   }
 }
