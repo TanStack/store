@@ -22,6 +22,8 @@ describe('Derived', () => {
       },
     })
 
+    halfCount.mount()
+
     const doubleCount = new Derived({
       deps: [count],
       fn: () => {
@@ -29,12 +31,16 @@ describe('Derived', () => {
       },
     })
 
+    doubleCount.mount()
+
     const sumDoubleHalfCount = new Derived({
       deps: [halfCount, doubleCount],
       fn: () => {
         return halfCount.state + doubleCount.state
       },
     })
+
+    sumDoubleHalfCount.mount()
 
     const halfCountFn = viFnSubscribe(halfCount)
     const doubleCountFn = viFnSubscribe(doubleCount)
@@ -66,14 +72,20 @@ describe('Derived', () => {
   test('Complex diamond dep problem', () => {
     const a = new Store(1)
     const b = new Derived({ deps: [a], fn: () => a.state })
+    b.mount()
     const c = new Derived({ deps: [a], fn: () => a.state })
+    c.mount()
     const d = new Derived({ deps: [b], fn: () => b.state })
+    d.mount()
     const e = new Derived({ deps: [b], fn: () => b.state })
+    e.mount()
     const f = new Derived({ deps: [c], fn: () => c.state })
+    f.mount()
     const g = new Derived({
       deps: [d, e, f],
       fn: () => d.state + e.state + f.state,
     })
+    g.mount()
 
     const aFn = viFnSubscribe(a)
     const bFn = viFnSubscribe(b)
@@ -104,12 +116,16 @@ describe('Derived', () => {
       },
     })
 
+    doubleCount.mount()
+
     const tripleCount = new Derived({
       deps: [count, doubleCount],
       fn: () => {
         return count.state + doubleCount.state
       },
     })
+
+    tripleCount.mount()
 
     const doubleCountFn = viFnSubscribe(doubleCount)
     const tripleCountFn = viFnSubscribe(tripleCount)
@@ -136,12 +152,16 @@ describe('Derived', () => {
       lazy: true,
     })
 
+    doubleCount.mount()
+
     const tripleCount = new Derived({
       deps: [count, doubleCount],
       fn: () => {
         return count.state + doubleCount.state
       },
     })
+
+    tripleCount.mount()
 
     const doubleCountFn = viFnSubscribe(doubleCount)
     const tripleCountFn = viFnSubscribe(tripleCount)
@@ -168,6 +188,8 @@ describe('Derived', () => {
       },
       lazy: true,
     })
+
+    doubleCount.mount()
 
     const doubleCountFn = viFnSubscribe(doubleCount)
 

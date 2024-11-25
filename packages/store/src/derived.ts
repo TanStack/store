@@ -36,6 +36,24 @@ export class Derived<TState> {
    */
   _whatStoreIsCurrentlyInUse: Store<unknown> | null = null
 
+  /**
+   * This is here to solve the pyramid dependency problem where:
+   *       A
+   *      / \
+   *     B   C
+   *      \ /
+   *       D
+   *
+   * Where we deeply traverse this tree, how do we avoid D being recomputed twice; once when B is updated, once when C is.
+   *
+   * To solve this, we create linkedDeps that allows us to sync avoid writes to the state until all of the deps have been
+   * resolved.
+   *
+   * This is a record of stores, because derived stores are not able to write values to, but stores are
+   */
+  storeToDerived = new Map<Store<unknown>, Set<Derived<unknown>>>()
+  derivedToStore = new Map<Derived<unknown>, Set<Store<unknown>>>()
+
   constructor(options: DerivedOptions<TState>) {
     this.options = options
     const initVal = options.lazy
@@ -45,35 +63,18 @@ export class Derived<TState> {
       onSubscribe: options.onSubscribe?.bind(this) as never,
       onUpdate: options.onUpdate,
     })
-    /**
-     * This is here to solve the pyramid dependency problem where:
-     *       A
-     *      / \
-     *     B   C
-     *      \ /
-     *       D
-     *
-     * Where we deeply traverse this tree, how do we avoid D being recomputed twice; once when B is updated, once when C is.
-     *
-     * To solve this, we create linkedDeps that allows us to sync avoid writes to the state until all of the deps have been
-     * resolved.
-     *
-     * This is a record of stores, because derived stores are not able to write values to, but stores are
-     */
-    const storeToDerived = new Map<Store<unknown>, Set<Derived<unknown>>>()
-    const derivedToStore = new Map<Derived<unknown>, Set<Store<unknown>>>()
 
     const updateStoreToDerived = (
       store: Store<unknown>,
       dep: Derived<unknown>,
     ) => {
-      const prevDerivesForStore = storeToDerived.get(store) || new Set()
+      const prevDerivesForStore = this.storeToDerived.get(store) || new Set()
       prevDerivesForStore.add(dep)
-      storeToDerived.set(store, prevDerivesForStore)
+      this.storeToDerived.set(store, prevDerivesForStore)
     }
     for (const dep of options.deps) {
       if (dep instanceof Derived) {
-        derivedToStore.set(dep, dep.rootStores)
+        this.derivedToStore.set(dep, dep.rootStores)
         for (const store of dep.rootStores) {
           this.rootStores.add(store)
           updateStoreToDerived(store, dep)
@@ -82,39 +83,6 @@ export class Derived<TState> {
         this.rootStores.add(dep)
         updateStoreToDerived(dep, this as Derived<unknown>)
       }
-    }
-
-    let __depsThatHaveWrittenThisTick: DerivedOptions<unknown>['deps'] = []
-
-    for (const dep of options.deps) {
-      const isDepAStore = dep instanceof Store
-      let relatedLinkedDerivedVals: null | Set<Derived<unknown>> = null
-
-      const unsub = dep.subscribe(() => {
-        const store = isDepAStore ? dep : dep._whatStoreIsCurrentlyInUse
-        this._whatStoreIsCurrentlyInUse = store
-        if (store) {
-          relatedLinkedDerivedVals = storeToDerived.get(store) ?? null
-        }
-
-        __depsThatHaveWrittenThisTick.push(dep)
-        if (
-          !relatedLinkedDerivedVals ||
-          __depsThatHaveWrittenThisTick.length === relatedLinkedDerivedVals.size
-        ) {
-          // Yay! All deps are resolved - write the value of this derived
-          if (!options.lazy) {
-            this._store.setState(options.fn)
-          }
-
-          // Cleanup the deps that have written this tick
-          __depsThatHaveWrittenThisTick = []
-          this._whatStoreIsCurrentlyInUse = null
-          return
-        }
-      })
-
-      this._subscriptions.push(unsub)
     }
   }
 
@@ -127,14 +95,45 @@ export class Derived<TState> {
     return this._store.state
   }
 
-  cleanup = () => {
-    for (const cleanup of this._subscriptions) {
-      cleanup()
-    }
-  };
+  mount = () => {
+    let __depsThatHaveWrittenThisTick: DerivedOptions<unknown>['deps'] = []
 
-  [(Symbol as never as { readonly dispose: unique symbol }).dispose]() {
-    this.cleanup()
+    for (const dep of this.options.deps) {
+      const isDepAStore = dep instanceof Store
+      let relatedLinkedDerivedVals: null | Set<Derived<unknown>> = null
+
+      const unsub = dep.subscribe(() => {
+        const store = isDepAStore ? dep : dep._whatStoreIsCurrentlyInUse
+        this._whatStoreIsCurrentlyInUse = store
+        if (store) {
+          relatedLinkedDerivedVals = this.storeToDerived.get(store) ?? null
+        }
+
+        __depsThatHaveWrittenThisTick.push(dep)
+        if (
+          !relatedLinkedDerivedVals ||
+          __depsThatHaveWrittenThisTick.length === relatedLinkedDerivedVals.size
+        ) {
+          // Yay! All deps are resolved - write the value of this derived
+          if (!this.options.lazy) {
+            this._store.setState(this.options.fn)
+          }
+
+          // Cleanup the deps that have written this tick
+          __depsThatHaveWrittenThisTick = []
+          this._whatStoreIsCurrentlyInUse = null
+          return
+        }
+      })
+
+      this._subscriptions.push(unsub)
+    }
+
+    return () => {
+      for (const cleanup of this._subscriptions) {
+        cleanup()
+      }
+    }
   }
 
   subscribe = (listener: Listener) => {

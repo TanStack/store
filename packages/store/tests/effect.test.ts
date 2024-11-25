@@ -14,12 +14,16 @@ describe('Effect', () => {
       },
     })
 
+    halfCount.mount()
+
     const doubleCount = new Derived({
       deps: [count],
       fn: () => {
         return count.state * 2
       },
     })
+
+    doubleCount.mount()
 
     const sumDoubleHalfCount = new Derived({
       deps: [halfCount, doubleCount],
@@ -28,11 +32,14 @@ describe('Effect', () => {
       },
     })
 
+    sumDoubleHalfCount.mount()
+
     const fn = vi.fn()
-    new Effect({
+    const effect = new Effect({
       deps: [sumDoubleHalfCount],
       fn: () => fn(sumDoubleHalfCount.state),
     })
+    effect.mount()
 
     count.setState(() => 20)
 
@@ -56,17 +63,24 @@ describe('Effect', () => {
   test('Complex diamond dep problem', () => {
     const a = new Store(1)
     const b = new Derived({ deps: [a], fn: () => a.state })
+    b.mount()
     const c = new Derived({ deps: [a], fn: () => a.state })
+    c.mount()
     const d = new Derived({ deps: [b], fn: () => b.state })
+    d.mount()
     const e = new Derived({ deps: [b], fn: () => b.state })
+    e.mount()
     const f = new Derived({ deps: [c], fn: () => c.state })
+    f.mount()
     const g = new Derived({
       deps: [d, e, f],
       fn: () => d.state + e.state + f.state,
     })
+    g.mount()
 
     const fn = vi.fn()
-    new Effect({ deps: [g], fn: () => fn(g.state) })
+    const effect = new Effect({ deps: [g], fn: () => fn(g.state) })
+    effect.mount()
 
     a.setState(() => 2)
 

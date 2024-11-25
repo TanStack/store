@@ -32,11 +32,7 @@ export class Effect {
     }
   }
 
-  cleanup() {
-    this._derived.cleanup()
-  }
-
-  [(Symbol as never as { readonly dispose: unique symbol }).dispose]() {
-    this.cleanup()
+  mount() {
+    return this._derived.mount()
   }
 }
