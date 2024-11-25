@@ -15,7 +15,10 @@ const packages = [
   {
     name: 'angular-store',
     entryPoints: [resolve(__dirname, '../packages/angular-store/src/index.ts')],
-    tsconfig: resolve(__dirname, '../packages/angular-store/tsconfig.docs.json'),
+    tsconfig: resolve(
+      __dirname,
+      '../packages/angular-store/tsconfig.docs.json',
+    ),
     outputDir: resolve(__dirname, '../docs/framework/angular/reference'),
     exclude: ['packages/store/**/*'],
   },
