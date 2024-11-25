@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/TanStack/store.git",
+    "url": "git+https://github.com/TanStack/store.git",
     "directory": "packages/angular-store"
   },
   "homepage": "https://tanstack.com/store",
@@ -37,8 +37,6 @@
     },
     ".": {
       "types": "./dist/index.d.ts",
-      "esm2022": "./dist/esm2022/tanstack-angular-store.mjs",
-      "esm": "./dist/esm2022/tanstack-angular-store.mjs",
       "default": "./dist/fesm2022/tanstack-angular-store.mjs"
     }
   },
