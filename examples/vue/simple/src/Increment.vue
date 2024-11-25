@@ -1,7 +1,7 @@
 <script setup>
-import { store, updateState } from './store';
+import { store, updateState } from './store'
 
-const props = defineProps({ animal: String });
+const props = defineProps({ animal: String })
 </script>
 
 <template>
