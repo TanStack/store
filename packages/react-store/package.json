@@ -1,6 +1,6 @@
 {
   "name": "@tanstack/react-store",
-  "version": "0.5.5",
+  "version": "0.5.8",
   "description": "Framework agnostic type-safe store w/ reactive framework adapters",
   "author": "Tanner Linsley",
   "license": "MIT",
@@ -62,7 +62,7 @@
   },
   "devDependencies": {
     "@types/use-sync-external-store": "^0.0.6",
-    "@vitejs/plugin-react": "^4.3.1"
+    "@vitejs/plugin-react": "^4.3.3"
   },
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0",

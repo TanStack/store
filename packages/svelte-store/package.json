@@ -1,6 +1,6 @@
 {
   "name": "@tanstack/svelte-store",
-  "version": "0.5.5",
+  "version": "0.5.8",
   "description": "Framework agnostic type-safe store w/ reactive framework adapters",
   "author": "Tanner Linsley",
   "license": "MIT",
@@ -49,14 +49,14 @@
     "@tanstack/store": "workspace:*"
   },
   "devDependencies": {
-    "@sveltejs/package": "^2.3.3",
-    "@sveltejs/vite-plugin-svelte": "^4.0.0-next.6",
-    "@testing-library/svelte": "^5.2.1",
-    "eslint-plugin-svelte": "^2.43.0",
-    "svelte": "^5.0.0-next.216",
-    "svelte-check": "^3.8.5"
+    "@sveltejs/package": "^2.3.7",
+    "@sveltejs/vite-plugin-svelte": "^4.0.1",
+    "@testing-library/svelte": "^5.2.6",
+    "eslint-plugin-svelte": "^2.46.0",
+    "svelte": "^5.2.7",
+    "svelte-check": "^4.1.0"
   },
   "peerDependencies": {
-    "svelte": "^5.0.0-next.138"
+    "svelte": "^5.0.0"
   }
 }

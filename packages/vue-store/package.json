@@ -1,6 +1,6 @@
 {
   "name": "@tanstack/vue-store",
-  "version": "0.5.5",
+  "version": "0.5.8",
   "description": "Framework agnostic type-safe store w/ reactive framework adapters",
   "author": "Tanner Linsley",
   "license": "MIT",
@@ -65,11 +65,11 @@
     "vue-demi": "^0.14.10"
   },
   "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.0",
     "@vue/composition-api": "^1.7.2",
-    "vue": "^3.4.37",
+    "vue": "^3.5.13",
     "vue2": "npm:vue@2.6",
-    "vue2.7": "npm:vue@2.7",
-    "@vitejs/plugin-vue": "^5.1.2"
+    "vue2.7": "npm:vue@2.7"
   },
   "peerDependencies": {
     "@vue/composition-api": "^1.2.1",
