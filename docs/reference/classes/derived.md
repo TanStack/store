@@ -3,62 +3,64 @@ id: Derived
 title: Derived
 ---
 
-# Class: Derived\<TState\>
+# Class: Derived\<TState, TArr\>
 
 ## Type Parameters
 
 • **TState**
+
+• **TArr** *extends* `ReadonlyArray`\<[`Derived`](derived.md)\<`any`\> \| [`Store`](store.md)\<`any`\>\> = `ReadonlyArray`\<`any`\>
 
 ## Constructors
 
 ### new Derived()
 
 ```ts
-new Derived<TState>(options): Derived<TState>
+new Derived<TState, TArr>(options): Derived<TState, TArr>
 ```
 
 #### Parameters
 
-• **options**: [`DerivedOptions`](../interfaces/derivedoptions.md)\<`TState`\>
+• **options**: [`DerivedOptions`](../interfaces/derivedoptions.md)\<`TState`, `TArr`\>
 
 #### Returns
 
-[`Derived`](derived.md)\<`TState`\>
+[`Derived`](derived.md)\<`TState`, `TArr`\>
 
 #### Defined in
 
-[derived.ts:87](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L87)
+[derived.ts:115](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L115)
 
 ## Properties
 
 ### derivedToStore
 
 ```ts
-derivedToStore: Map<Derived<unknown>, Set<Store<unknown, (cb) => unknown>>>;
+derivedToStore: Map<Derived<unknown, readonly any[]>, Set<Store<unknown, (cb) => unknown>>>;
 ```
 
 #### Defined in
 
-[derived.ts:71](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L71)
+[derived.ts:99](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L99)
 
 ***
 
 ### options
 
 ```ts
-options: DerivedOptions<TState>;
+options: DerivedOptions<TState, TArr>;
 ```
 
 #### Defined in
 
-[derived.ts:41](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L41)
+[derived.ts:69](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L69)
 
 ***
 
 ### storeToDerived
 
 ```ts
-storeToDerived: Map<Store<unknown, (cb) => unknown>, Set<Derived<unknown>>>;
+storeToDerived: Map<Store<unknown, (cb) => unknown>, Set<Derived<unknown, readonly any[]>>>;
 ```
 
 This is here to solve the pyramid dependency problem where:
@@ -77,7 +79,7 @@ This is a record of stores, because derived stores are not able to write values 
 
 #### Defined in
 
-[derived.ts:70](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L70)
+[derived.ts:98](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L98)
 
 ## Accessors
 
@@ -95,7 +97,7 @@ get prevState(): TState
 
 #### Defined in
 
-[derived.ts:133](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L133)
+[derived.ts:161](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L161)
 
 ***
 
@@ -113,23 +115,41 @@ get state(): TState
 
 #### Defined in
 
-[derived.ts:124](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L124)
+[derived.ts:152](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L152)
 
 ## Methods
 
 ### getDepVals()
 
 ```ts
-getDepVals(): DerivedFnProps<TState>
+getDepVals(): object
 ```
 
 #### Returns
 
-[`DerivedFnProps`](../interfaces/derivedfnprops.md)\<`TState`\>
+`object`
+
+##### currDepVals
+
+```ts
+currDepVals: never;
+```
+
+##### prevDepVals
+
+```ts
+prevDepVals: never;
+```
+
+##### prevVal
+
+```ts
+prevVal: undefined | NonNullable<TState>;
+```
 
 #### Defined in
 
-[derived.ts:73](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L73)
+[derived.ts:101](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L101)
 
 ***
 
@@ -149,7 +169,7 @@ mount(): () => void
 
 #### Defined in
 
-[derived.ts:137](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L137)
+[derived.ts:165](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L165)
 
 ***
 
@@ -173,4 +193,4 @@ subscribe(listener): () => void
 
 #### Defined in
 
-[derived.ts:178](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L178)
+[derived.ts:206](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L206)

@@ -3,23 +3,25 @@ id: DerivedOptions
 title: DerivedOptions
 ---
 
-# Interface: DerivedOptions\<TState\>
+# Interface: DerivedOptions\<TState, TArr\>
 
 ## Type Parameters
 
 • **TState**
+
+• **TArr** *extends* `ReadonlyArray`\<[`Derived`](../classes/derived.md)\<`any`\> \| [`Store`](../classes/store.md)\<`any`\>\> = `ReadonlyArray`\<`any`\>
 
 ## Properties
 
 ### deps
 
 ```ts
-deps: (Derived<any> | Store<any, (cb) => any>)[];
+deps: TArr;
 ```
 
 #### Defined in
 
-[derived.ts:23](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L23)
+[derived.ts:48](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L48)
 
 ***
 
@@ -33,19 +35,15 @@ Values of the `deps` from before and after the current invocation of `fn`
 
 #### Parameters
 
-• **props**: [`DerivedFnProps`](derivedfnprops.md)\<`TState`\>
+• **props**: [`DerivedFnProps`](derivedfnprops.md)\<`TState`, `TArr`, `UnwrapReadonlyDerivedOrStoreArray`\<`TArr`\>\>
 
 #### Returns
 
 `TState`
 
-#### Todo
-
-Improve the typings to match `deps` from above
-
 #### Defined in
 
-[derived.ts:29](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L29)
+[derived.ts:52](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L52)
 
 ***
 
@@ -65,7 +63,7 @@ false
 
 #### Defined in
 
-[derived.ts:22](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L22)
+[derived.ts:47](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L47)
 
 ***
 
@@ -79,7 +77,7 @@ optional onSubscribe: (listener, derived) => () => void;
 
 • **listener**: `Listener`\<`TState`\>
 
-• **derived**: [`Derived`](../classes/derived.md)\<`TState`\>
+• **derived**: [`Derived`](../classes/derived.md)\<`TState`, readonly `any`[]\>
 
 #### Returns
 
@@ -91,7 +89,7 @@ optional onSubscribe: (listener, derived) => () => void;
 
 #### Defined in
 
-[derived.ts:13](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L13)
+[derived.ts:38](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L38)
 
 ***
 
@@ -107,4 +105,4 @@ optional onUpdate: () => void;
 
 #### Defined in
 
-[derived.ts:17](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L17)
+[derived.ts:42](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L42)
