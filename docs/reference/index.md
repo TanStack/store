@@ -13,5 +13,6 @@ title: "@tanstack/store"
 
 ## Interfaces
 
+- [DerivedFnProps](interfaces/derivedfnprops.md)
 - [DerivedOptions](interfaces/derivedoptions.md)
 - [StoreOptions](interfaces/storeoptions.md)
