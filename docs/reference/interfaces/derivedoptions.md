@@ -21,7 +21,7 @@ deps: TArr;
 
 #### Defined in
 
-[derived.ts:48](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L48)
+[derived.ts:51](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L51)
 
 ***
 
@@ -35,7 +35,7 @@ Values of the `deps` from before and after the current invocation of `fn`
 
 #### Parameters
 
-• **props**: [`DerivedFnProps`](derivedfnprops.md)\<`TState`, `TArr`, `UnwrapReadonlyDerivedOrStoreArray`\<`TArr`\>\>
+• **props**: [`DerivedFnProps`](derivedfnprops.md)\<`TArr`, `UnwrapReadonlyDerivedOrStoreArray`\<`TArr`\>\>
 
 #### Returns
 
@@ -43,7 +43,7 @@ Values of the `deps` from before and after the current invocation of `fn`
 
 #### Defined in
 
-[derived.ts:52](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L52)
+[derived.ts:55](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L55)
 
 ***
 
@@ -63,7 +63,7 @@ false
 
 #### Defined in
 
-[derived.ts:47](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L47)
+[derived.ts:50](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L50)
 
 ***
 
@@ -89,7 +89,7 @@ optional onSubscribe: (listener, derived) => () => void;
 
 #### Defined in
 
-[derived.ts:38](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L38)
+[derived.ts:41](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L41)
 
 ***
 
@@ -105,4 +105,4 @@ optional onUpdate: () => void;
 
 #### Defined in
 
-[derived.ts:42](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L42)
+[derived.ts:45](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L45)

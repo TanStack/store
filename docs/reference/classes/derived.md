@@ -29,7 +29,7 @@ new Derived<TState, TArr>(options): Derived<TState, TArr>
 
 #### Defined in
 
-[derived.ts:115](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L115)
+[derived.ts:118](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L118)
 
 ## Properties
 
@@ -41,7 +41,7 @@ derivedToStore: Map<Derived<unknown, readonly any[]>, Set<Store<unknown, (cb) =>
 
 #### Defined in
 
-[derived.ts:99](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L99)
+[derived.ts:102](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L102)
 
 ***
 
@@ -53,7 +53,7 @@ options: DerivedOptions<TState, TArr>;
 
 #### Defined in
 
-[derived.ts:69](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L69)
+[derived.ts:72](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L72)
 
 ***
 
@@ -79,7 +79,7 @@ This is a record of stores, because derived stores are not able to write values 
 
 #### Defined in
 
-[derived.ts:98](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L98)
+[derived.ts:101](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L101)
 
 ## Accessors
 
@@ -97,7 +97,7 @@ get prevState(): TState
 
 #### Defined in
 
-[derived.ts:161](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L161)
+[derived.ts:164](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L164)
 
 ***
 
@@ -115,7 +115,7 @@ get state(): TState
 
 #### Defined in
 
-[derived.ts:152](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L152)
+[derived.ts:155](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L155)
 
 ## Methods
 
@@ -149,7 +149,7 @@ prevVal: undefined | NonNullable<TState>;
 
 #### Defined in
 
-[derived.ts:101](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L101)
+[derived.ts:104](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L104)
 
 ***
 
@@ -169,7 +169,7 @@ mount(): () => void
 
 #### Defined in
 
-[derived.ts:165](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L165)
+[derived.ts:168](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L168)
 
 ***
 
@@ -193,4 +193,4 @@ subscribe(listener): () => void
 
 #### Defined in
 
-[derived.ts:206](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L206)
+[derived.ts:209](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L209)
