@@ -1,15 +1,40 @@
 import { Store } from './store'
 import type { Listener } from './types'
 
-export interface DerivedFnProps<TState> {
+export type UnwrapDerivedOrStore<T> =
+  T extends Derived<infer InnerD>
+    ? InnerD
+    : T extends Store<infer InnerS>
+      ? InnerS
+      : never
+
+type UnwrapReadonlyDerivedOrStoreArray<
+  TArr extends ReadonlyArray<Derived<any> | Store<any>>,
+> = TArr extends readonly [infer Head, ...infer Tail]
+  ? Head extends Derived<any> | Store<any>
+    ? Tail extends ReadonlyArray<Derived<any> | Store<any>>
+      ? [UnwrapDerivedOrStore<Head>, ...UnwrapReadonlyDerivedOrStoreArray<Tail>]
+      : []
+    : []
+  : []
+
+export interface DerivedFnProps<
+  TState,
+  ArrType extends ReadonlyArray<Derived<any> | Store<any>> = ReadonlyArray<any>,
+  UnwrappedArrT extends
+    UnwrapReadonlyDerivedOrStoreArray<ArrType> = UnwrapReadonlyDerivedOrStoreArray<ArrType>,
+> {
   // `undefined` if it's the first run
-  prevDepVals: Array<any> | undefined
+  prevDepVals: UnwrappedArrT | undefined
   // Can't have currVal, as it's being evaluated from the current derived fn
   prevVal: TState | undefined
-  currDepVals: Array<any>
+  currDepVals: UnwrappedArrT
 }
 
-export interface DerivedOptions<TState> {
+export interface DerivedOptions<
+  TState,
+  TArr extends ReadonlyArray<Derived<any> | Store<any>> = ReadonlyArray<any>,
+> {
   onSubscribe?: (
     listener: Listener<TState>,
     derived: Derived<TState>,
@@ -20,16 +45,19 @@ export interface DerivedOptions<TState> {
    * @default false
    */
   lazy?: boolean
-  deps: Array<Derived<any> | Store<any>>
+  deps: TArr
   /**
    * Values of the `deps` from before and after the current invocation of `fn`
-   *
-   * @todo Improve the typings to match `deps` from above
    */
-  fn: (props: DerivedFnProps<TState>) => TState
+  fn: (props: DerivedFnProps<TState, TArr>) => TState
 }
 
-export class Derived<TState> {
+export class Derived<
+  TState,
+  const TArr extends ReadonlyArray<
+    Derived<any> | Store<any>
+  > = ReadonlyArray<any>,
+> {
   /**
    * @private
    */
@@ -38,7 +66,7 @@ export class Derived<TState> {
    * @private
    */
   rootStores = new Set<Store<unknown>>()
-  options: DerivedOptions<TState>
+  options: DerivedOptions<TState, TArr>
 
   /**
    * Functions representing the subscriptions. Call a function to cleanup
@@ -70,7 +98,7 @@ export class Derived<TState> {
   storeToDerived = new Map<Store<unknown>, Set<Derived<unknown>>>()
   derivedToStore = new Map<Derived<unknown>, Set<Store<unknown>>>()
 
-  getDepVals = (): DerivedFnProps<TState> => {
+  getDepVals = () => {
     const prevDepVals = [] as Array<unknown>
     const currDepVals = [] as Array<unknown>
     for (const dep of this.options.deps) {
@@ -78,13 +106,13 @@ export class Derived<TState> {
       currDepVals.push(dep.state)
     }
     return {
-      prevDepVals,
-      currDepVals,
+      prevDepVals: prevDepVals as never,
+      currDepVals: currDepVals as never,
       prevVal: this._store?.prevState ?? undefined,
     }
   }
 
-  constructor(options: DerivedOptions<TState>) {
+  constructor(options: DerivedOptions<TState, TArr>) {
     this.options = options
     const initVal = options.lazy
       ? (undefined as ReturnType<typeof options.fn>)
@@ -135,7 +163,7 @@ export class Derived<TState> {
   }
 
   mount = () => {
-    let __depsThatHaveWrittenThisTick: DerivedOptions<unknown>['deps'] = []
+    let __depsThatHaveWrittenThisTick = [] as any[]
 
     for (const dep of this.options.deps) {
       const isDepAStore = dep instanceof Store
