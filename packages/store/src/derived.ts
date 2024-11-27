@@ -18,16 +18,19 @@ type UnwrapReadonlyDerivedOrStoreArray<
     : []
   : []
 
+// Can't have currVal, as it's being evaluated from the current derived fn
 export interface DerivedFnProps<
-  TState,
   ArrType extends ReadonlyArray<Derived<any> | Store<any>> = ReadonlyArray<any>,
   UnwrappedArrT extends
     UnwrapReadonlyDerivedOrStoreArray<ArrType> = UnwrapReadonlyDerivedOrStoreArray<ArrType>,
 > {
   // `undefined` if it's the first run
+  /**
+   * `undefined` if it's the first run
+   * @privateRemarks this also cannot be typed as TState, as it breaks the inferencing of the function's return type when an argument is used - even with `NoInfer` usage
+   */
+  prevVal: unknown | undefined
   prevDepVals: UnwrappedArrT | undefined
-  // Can't have currVal, as it's being evaluated from the current derived fn
-  prevVal: TState | undefined
   currDepVals: UnwrappedArrT
 }
 
@@ -49,7 +52,7 @@ export interface DerivedOptions<
   /**
    * Values of the `deps` from before and after the current invocation of `fn`
    */
-  fn: (props: DerivedFnProps<TState, TArr>) => TState
+  fn: (props: DerivedFnProps<TArr>) => TState
 }
 
 export class Derived<

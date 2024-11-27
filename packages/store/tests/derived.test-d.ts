@@ -11,3 +11,16 @@ test('dep array inner types work', () => {
     },
   })
 })
+
+test('return type inferencing should work', () => {
+  const derived = new Derived({
+    deps: [],
+    fn: ({ prevVal }) => {
+      // See comment in `DerivedOptions` for why this is necessary
+      expectTypeOf(prevVal).toMatchTypeOf<unknown>()
+      return 12 as const
+    },
+  })
+
+  expectTypeOf(derived).toMatchTypeOf<Derived<12, any>>()
+})
