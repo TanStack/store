@@ -3,35 +3,39 @@ id: DerivedFnProps
 title: DerivedFnProps
 ---
 
-# Interface: DerivedFnProps\<TState\>
+# Interface: DerivedFnProps\<TState, ArrType, UnwrappedArrT\>
 
 ## Type Parameters
 
 • **TState**
+
+• **ArrType** *extends* `ReadonlyArray`\<[`Derived`](../classes/derived.md)\<`any`\> \| [`Store`](../classes/store.md)\<`any`\>\> = `ReadonlyArray`\<`any`\>
+
+• **UnwrappedArrT** *extends* `UnwrapReadonlyDerivedOrStoreArray`\<`ArrType`\> = `UnwrapReadonlyDerivedOrStoreArray`\<`ArrType`\>
 
 ## Properties
 
 ### currDepVals
 
 ```ts
-currDepVals: any[];
+currDepVals: UnwrappedArrT;
 ```
 
 #### Defined in
 
-[derived.ts:9](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L9)
+[derived.ts:31](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L31)
 
 ***
 
 ### prevDepVals
 
 ```ts
-prevDepVals: undefined | any[];
+prevDepVals: undefined | UnwrappedArrT;
 ```
 
 #### Defined in
 
-[derived.ts:6](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L6)
+[derived.ts:28](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L28)
 
 ***
 
@@ -43,4 +47,4 @@ prevVal: undefined | TState;
 
 #### Defined in
 
-[derived.ts:8](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L8)
+[derived.ts:30](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L30)

@@ -16,3 +16,7 @@ title: "@tanstack/store"
 - [DerivedFnProps](interfaces/derivedfnprops.md)
 - [DerivedOptions](interfaces/derivedoptions.md)
 - [StoreOptions](interfaces/storeoptions.md)
+
+## Type Aliases
+
+- [UnwrapDerivedOrStore](type-aliases/unwrapderivedorstore.md)
