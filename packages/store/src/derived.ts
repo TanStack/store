@@ -1,6 +1,14 @@
 import { Store } from './store'
 import type { Listener } from './types'
 
+export interface DerivedFnProps<TState> {
+  // `undefined` if it's the first run
+  prevDepVals: Array<any> | undefined
+  // Can't have currVal, as it's being evaluated from the current derived fn
+  prevVal: TState | undefined
+  currDepVals: Array<any>
+}
+
 export interface DerivedOptions<TState> {
   onSubscribe?: (
     listener: Listener<TState>,
@@ -18,11 +26,7 @@ export interface DerivedOptions<TState> {
    *
    * @todo Improve the typings to match `deps` from above
    */
-  fn: (props: {
-    // `undefined` if it's the first run
-    prevVals: Array<any> | undefined
-    currentVals: Array<any>
-  }) => TState
+  fn: (props: DerivedFnProps<TState>) => TState
 }
 
 export class Derived<TState> {
@@ -66,16 +70,17 @@ export class Derived<TState> {
   storeToDerived = new Map<Store<unknown>, Set<Derived<unknown>>>()
   derivedToStore = new Map<Derived<unknown>, Set<Store<unknown>>>()
 
-  getDepVals = () => {
-    const prevVals = [] as Array<unknown>
-    const currentVals = [] as Array<unknown>
+  getDepVals = (): DerivedFnProps<TState> => {
+    const prevDepVals = [] as Array<unknown>
+    const currDepVals = [] as Array<unknown>
     for (const dep of this.options.deps) {
-      prevVals.push(dep.prevState)
-      currentVals.push(dep.state)
+      prevDepVals.push(dep.prevState)
+      currDepVals.push(dep.state)
     }
     return {
-      prevVals,
-      currentVals,
+      prevDepVals,
+      currDepVals,
+      prevVal: this._store?.prevState ?? undefined,
     }
   }
 
@@ -84,8 +89,9 @@ export class Derived<TState> {
     const initVal = options.lazy
       ? (undefined as ReturnType<typeof options.fn>)
       : options.fn({
-          prevVals: undefined,
-          currentVals: this.getDepVals().currentVals,
+          prevDepVals: undefined,
+          prevVal: undefined,
+          currDepVals: this.getDepVals().currDepVals,
         })
 
     this._store = new Store(initVal, {
