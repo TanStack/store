@@ -5,7 +5,7 @@
       "ignoreDependencies": ["@angular/compiler-cli"]
     },
     "packages/store": {
-      "ignore": ["src/tests/derived.bench.ts", "ts-5/index.d.ts"],
+      "ignore": ["src/tests/derived.bench.ts"],
       "ignoreDependencies": [
         "@angular/core",
         "@preact/signals",

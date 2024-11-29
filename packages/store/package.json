@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/TanStack/store.git",
+    "url": "git+https://github.com/TanStack/store.git",
     "directory": "packages/store"
   },
   "homepage": "https://tanstack.com/store",
@@ -48,13 +48,13 @@
   "exports": {
     ".": {
       "import": {
-        "types@>=5.0": "./ts-5/index.v5.d.ts",
         "types": "./dist/esm/index.d.ts",
+        "types@>=5.0": "./ts-5/index.d.ts",
         "default": "./dist/esm/index.js"
       },
       "require": {
-        "types@>=5.0": "./ts-5/index.v5.d.cts",
         "types": "./dist/cjs/index.d.cts",
+        "types@>=5.0": "./ts-5/index.d.cts",
         "default": "./dist/cjs/index.cjs"
       }
     },
