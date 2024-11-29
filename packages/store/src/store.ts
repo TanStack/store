@@ -66,7 +66,6 @@ export class Store<
 
     // Attempt to flush
     this._flush()
-    this.prevState = this.state
   }
 
   /**
@@ -78,6 +77,7 @@ export class Store<
     for (const listener of this.listeners) {
       if (this._flushing !== flushId) continue
       listener({ prevVal: this.prevState, currentVal: this.state })
+      this.prevState = this.state
     }
   }
 
