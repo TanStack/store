@@ -71,11 +71,11 @@ export function __flush(store: Store<unknown>) {
 
       // First notify listeners with updated values
       for (const store of stores) {
-        store.listeners.forEach((listener) => 
+        store.listeners.forEach((listener) =>
           listener({
             prevVal: store.prevState as never,
-            currentVal: store.state as never
-          })
+            currentVal: store.state as never,
+          }),
         )
       }
 
