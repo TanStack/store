@@ -151,7 +151,25 @@ export class Derived<
     }
   }
 
-  unregisterFromGraph() {}
+  unregisterFromGraph(
+    deps: ReadonlyArray<Derived<any> | Store<any>> = this.options.deps,
+  ) {
+    for (const dep of deps) {
+      if (dep instanceof Derived) {
+        this.unregisterFromGraph(dep.options.deps)
+      } else if (dep instanceof Store) {
+        const relatedLinkedDerivedVals = __storeToDerived.get(dep)
+        if (relatedLinkedDerivedVals) {
+          relatedLinkedDerivedVals.delete(this as never)
+        }
+
+        const relatedStores = __derivedToStore.get(this as never)
+        if (relatedStores) {
+          relatedStores.delete(dep)
+        }
+      }
+    }
+  }
 
   mount = () => {
     this.registerOnGraph()
