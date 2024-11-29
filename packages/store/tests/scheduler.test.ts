@@ -1,5 +1,11 @@
-import { describe, expect, test } from 'vitest'
-import { Derived, Store, __derivedToStore, __storeToDerived } from '../src'
+import { describe, expect, test, vi } from 'vitest'
+import {
+  Derived,
+  Store,
+  batch,
+  __derivedToStore,
+  __storeToDerived,
+} from '../src'
 
 describe('Scheduler logic', () => {
   test('Should build a graph properly', () => {
@@ -61,5 +67,34 @@ describe('Scheduler logic', () => {
 
     expect(__storeToDerived.get(count)).not.toContain(halfCount)
     expect(__derivedToStore.get(halfCount)).not.toContain(count)
+  })
+
+  test('Batch prevents listeners from being called during repeated setStates', () => {
+    const store = new Store(0)
+
+    const listener = vi.fn()
+
+    const unsub = store.subscribe(listener)
+
+    batch(() => {
+      store.setState(() => 1)
+      store.setState(() => 2)
+      store.setState(() => 3)
+      store.setState(() => 4)
+    })
+
+    expect(store.state).toEqual(4)
+    // Listener is only called once because of batching
+    expect(listener).toHaveBeenCalledTimes(1)
+
+    store.setState(() => 1)
+    store.setState(() => 2)
+    store.setState(() => 3)
+    store.setState(() => 4)
+
+    expect(store.state).toEqual(4)
+    // Listener is called 4 times because of a lack of batching
+    expect(listener).toHaveBeenCalledTimes(5)
+    unsub()
   })
 })
