@@ -59,22 +59,24 @@ function __flush_internals(relatedVals: Set<Derived<unknown>>) {
 export function __flush(store: Store<unknown>) {
   __pendingUpdates.add(store)
 
-  // If we're already in a batch, don't flush yet
   if (__batchDepth > 0) return
-
   if (__isFlushing) return
 
   try {
     __isFlushing = true
 
-    // Process all pending updates
     while (__pendingUpdates.size > 0) {
       const stores = Array.from(__pendingUpdates)
       __pendingUpdates.clear()
 
       // First notify listeners with updated values
       for (const store of stores) {
-        store.listeners.forEach((listener) => listener(store.state as never))
+        store.listeners.forEach((listener) => 
+          listener({
+            prevVal: store.prevState as never,
+            currentVal: store.state as never
+          })
+        )
       }
 
       // Then update all derived values

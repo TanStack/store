@@ -1,9 +1,17 @@
 /**
  * @private
  */
-export type AnyUpdater = (...args: Array<any>) => any
+export type AnyUpdater = (prev: any) => any
 
 /**
  * @private
  */
-export type Listener<T> = (props: { prevVal: T; currentVal: T }) => void
+export interface ListenerValue<T> {
+  prevVal: T
+  currentVal: T
+}
+
+/**
+ * @private
+ */
+export type Listener<T> = (value: ListenerValue<T>) => void

@@ -238,7 +238,7 @@ describe('Derived', () => {
     })
   })
 
-  test.skip('derivedFn should receive old and new dep values for similar derived values', () => {
+  test('derivedFn should receive old and new dep values for similar derived values', () => {
     const count = new Store(12)
     const halfCount = new Derived({
       deps: [count],
