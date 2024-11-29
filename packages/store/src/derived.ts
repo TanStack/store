@@ -1,8 +1,5 @@
 import { Store } from './store'
-import {
-  __derivedToStore,
-  __storeToDerived,
-} from './scheduler'
+import { __derivedToStore, __storeToDerived } from './scheduler'
 import type { Listener } from './types'
 
 export type UnwrapDerivedOrStore<T> =
