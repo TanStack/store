@@ -238,6 +238,33 @@ describe('Derived', () => {
     })
   })
 
+  test.skip('derivedFn should receive old and new dep values for similar derived values', () => {
+    const count = new Store(12)
+    const halfCount = new Derived({
+      deps: [count],
+      fn: () => count.state / 2,
+    })
+    halfCount.mount()
+    const fn = vi.fn()
+    const derived = new Derived({
+      deps: [count, halfCount],
+      fn: ({ prevDepVals, currDepVals }) => {
+        fn({ prevDepVals, currDepVals })
+        return void 0
+      },
+    })
+    derived.mount()
+    expect(fn).toBeCalledWith({
+      prevDepVals: undefined,
+      currDepVals: [12, 6],
+    })
+    count.setState(() => 24)
+    expect(fn).toBeCalledWith({
+      prevDepVals: [12, 6],
+      currDepVals: [24, 12],
+    })
+  })
+
   test('derivedFn should receive the old value', () => {
     const count = new Store(12)
     const date = new Date()
