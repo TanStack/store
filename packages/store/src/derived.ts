@@ -108,7 +108,10 @@ export class Derived<
     })
   }
 
+  hasBeenRead = false
+
   get state() {
+    this.hasBeenRead = true
     if (this.options.lazy && this._store.state === undefined) {
       this.options.lazy = false
       this._store.setState(() => this.options.fn(this.getDepVals()))
@@ -170,6 +173,9 @@ export class Derived<
   }
 
   recompute = () => {
+    if (this.options.lazy && !this.hasBeenRead) {
+      return
+    }
     this._store.setState(() => {
       const { prevDepVals, currDepVals, prevVal } = this.getDepVals()
       return this.options.fn({
