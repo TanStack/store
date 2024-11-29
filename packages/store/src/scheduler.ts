@@ -30,21 +30,21 @@ export const __depsThatHaveWrittenThisTick = {
 }
 
 let __isFlushing = false
+let __batchDepth = 0
+const __pendingUpdates = new Set<Store<unknown>>()
 
 function __flush_internals(
   _writingSignal: Store<unknown>,
   relatedVals: Set<Derived<unknown>>,
 ) {
-  try {
-    if (__depsThatHaveWrittenThisTick.current.length >= relatedVals.size) {
-      return
+  for (const derived of relatedVals) {
+    if (__depsThatHaveWrittenThisTick.current.includes(derived)) {
+      continue
     }
-    for (const derived of relatedVals) {
-      if (__depsThatHaveWrittenThisTick.current.includes(derived)) {
-        continue
-      }
+    
       __depsThatHaveWrittenThisTick.current.push(derived)
       derived.recompute()
+      
       const stores = __derivedToStore.get(derived)
       if (stores) {
         for (const store of stores) {
@@ -53,9 +53,6 @@ function __flush_internals(
           __flush_internals(store, relatedLinkedDerivedVals)
         }
       }
-    }
-  } finally {
-    __depsThatHaveWrittenThisTick.current = []
   }
 }
 
@@ -63,15 +60,49 @@ function __flush_internals(
  * @private only to be called from `Store` on write
  */
 export function __flush(store: Store<unknown>) {
+  __pendingUpdates.add(store)
+  
+  // If we're already in a batch, don't flush yet
+  if (__batchDepth > 0) return
+  
+  if (__isFlushing) return
+  
   try {
-    store.listeners.forEach((listener) => listener(0 as never))
-    if (__isFlushing) return
     __isFlushing = true
-    const derivedVals = __storeToDerived.get(store)
-    if (!derivedVals) return
-    __depsThatHaveWrittenThisTick.current.push(store)
-    __flush_internals(store, derivedVals)
+    
+    // Process all pending updates
+    while (__pendingUpdates.size > 0) {
+      const stores = Array.from(__pendingUpdates)
+      __pendingUpdates.clear()
+      
+      // First update all derived values
+      for (const store of stores) {
+        const derivedVals = __storeToDerived.get(store)
+        if (!derivedVals) continue
+        
+        __depsThatHaveWrittenThisTick.current.push(store)
+        __flush_internals(store, derivedVals)
+      }
+      
+      // Then notify listeners with updated values
+      for (const store of stores) {
+        store.listeners.forEach((listener) => listener(store.state as never))
+      }
+    }
   } finally {
     __isFlushing = false
+    __depsThatHaveWrittenThisTick.current = []
+  }
+}
+
+export function batch(fn: () => void) {
+  __batchDepth++
+  try {
+    fn()
+  } finally {
+    __batchDepth--
+    if (__batchDepth === 0) {
+      __flush(Array.from(__pendingUpdates)[0] as Store<unknown>) // Trigger flush of all pending updates
+    }
   }
 }
