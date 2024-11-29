@@ -1,4 +1,4 @@
-import { __whatStoreIsCurrentlyInUse } from './scheduler'
+import { __flush } from './scheduler'
 import type { AnyUpdater, Listener } from './types'
 
 export interface StoreOptions<
@@ -49,7 +49,6 @@ export class Store<
   }
 
   setState = (updater: TUpdater) => {
-    __whatStoreIsCurrentlyInUse.current = this as never
     const previous = this.state
     this.state = this.options?.updateFn
       ? this.options.updateFn(previous)(updater)
@@ -59,6 +58,6 @@ export class Store<
     this.options?.onUpdate?.()
 
     // Attempt to flush
-    this._flush()
+    __flush(this as never)
   }
 }
