@@ -3,20 +3,20 @@ id: DerivedFnProps
 title: DerivedFnProps
 ---
 
-# Interface: DerivedFnProps\<ArrType, UnwrappedArrT\>
+# Interface: DerivedFnProps\<TArr, TUnwrappedArr\>
 
 ## Type Parameters
 
-• **ArrType** *extends* `ReadonlyArray`\<[`Derived`](../classes/derived.md)\<`any`\> \| [`Store`](../classes/store.md)\<`any`\>\> = `ReadonlyArray`\<`any`\>
+• **TArr** *extends* `ReadonlyArray`\<[`Derived`](../classes/derived.md)\<`any`\> \| [`Store`](../classes/store.md)\<`any`\>\> = `ReadonlyArray`\<`any`\>
 
-• **UnwrappedArrT** *extends* `UnwrapReadonlyDerivedOrStoreArray`\<`ArrType`\> = `UnwrapReadonlyDerivedOrStoreArray`\<`ArrType`\>
+• **TUnwrappedArr** *extends* `UnwrapReadonlyDerivedOrStoreArray`\<`TArr`\> = `UnwrapReadonlyDerivedOrStoreArray`\<`TArr`\>
 
 ## Properties
 
 ### currDepVals
 
 ```ts
-currDepVals: UnwrappedArrT;
+currDepVals: TUnwrappedArr;
 ```
 
 #### Defined in
@@ -28,7 +28,7 @@ currDepVals: UnwrappedArrT;
 ### prevDepVals
 
 ```ts
-prevDepVals: undefined | UnwrappedArrT;
+prevDepVals: undefined | TUnwrappedArr;
 ```
 
 #### Defined in
