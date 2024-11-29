@@ -20,9 +20,9 @@ type UnwrapReadonlyDerivedOrStoreArray<
 
 // Can't have currVal, as it's being evaluated from the current derived fn
 export interface DerivedFnProps<
-  ArrType extends ReadonlyArray<Derived<any> | Store<any>> = ReadonlyArray<any>,
-  UnwrappedArrT extends
-    UnwrapReadonlyDerivedOrStoreArray<ArrType> = UnwrapReadonlyDerivedOrStoreArray<ArrType>,
+  TArr extends ReadonlyArray<Derived<any> | Store<any>> = ReadonlyArray<any>,
+  TUnwrappedArr extends
+    UnwrapReadonlyDerivedOrStoreArray<TArr> = UnwrapReadonlyDerivedOrStoreArray<TArr>,
 > {
   // `undefined` if it's the first run
   /**
@@ -30,8 +30,8 @@ export interface DerivedFnProps<
    * @privateRemarks this also cannot be typed as TState, as it breaks the inferencing of the function's return type when an argument is used - even with `NoInfer` usage
    */
   prevVal: unknown | undefined
-  prevDepVals: UnwrappedArrT | undefined
-  currDepVals: UnwrappedArrT
+  prevDepVals: TUnwrappedArr | undefined
+  currDepVals: TUnwrappedArr
 }
 
 export interface DerivedOptions<
@@ -57,9 +57,7 @@ export interface DerivedOptions<
 
 export class Derived<
   TState,
-  const TArr extends ReadonlyArray<
-    Derived<any> | Store<any>
-  > = ReadonlyArray<any>,
+  TArr extends ReadonlyArray<Derived<any> | Store<any>> = ReadonlyArray<any>,
 > {
   /**
    * @private
@@ -111,6 +109,7 @@ export class Derived<
     return {
       prevDepVals: prevDepVals as never,
       currDepVals: currDepVals as never,
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       prevVal: this._store?.prevState ?? undefined,
     }
   }
@@ -166,7 +165,9 @@ export class Derived<
   }
 
   mount = () => {
-    let __depsThatHaveWrittenThisTick = [] as any[]
+    let __depsThatHaveWrittenThisTick = [] as Array<
+      Derived<unknown> | Store<unknown>
+    >
 
     for (const dep of this.options.deps) {
       const isDepAStore = dep instanceof Store

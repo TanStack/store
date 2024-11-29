@@ -36,6 +36,13 @@
   },
   "type": "module",
   "types": "dist/esm/index.d.ts",
+  "typesVersions": {
+    "=>5.0": {
+      "index.d.ts": [
+        "ts-5/index.v5.d.ts"
+      ]
+    }
+  },
   "main": "dist/cjs/index.cjs",
   "module": "dist/esm/index.js",
   "exports": {
