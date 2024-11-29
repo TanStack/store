@@ -1,4 +1,10 @@
 import { Store } from './store'
+import {
+  __depsThatHaveWrittenThisTick,
+  __derivedToStore,
+  __storeToDerived,
+  __whatStoreIsCurrentlyInUse,
+} from './scheduler'
 import type { Listener } from './types'
 
 export type UnwrapDerivedOrStore<T> =
@@ -65,10 +71,6 @@ export class Derived<
    * @private
    */
   _store: Store<TState>
-  /**
-   * @private
-   */
-  rootStores = new Set<Store<unknown>>()
   options: DerivedOptions<TState, TArr>
 
   /**
@@ -76,30 +78,6 @@ export class Derived<
    * @private
    */
   _subscriptions: Array<() => void> = []
-
-  /**
-   * What store called the current update, if any
-   * @private
-   */
-  _whatStoreIsCurrentlyInUse: Store<unknown> | null = null
-
-  /**
-   * This is here to solve the pyramid dependency problem where:
-   *       A
-   *      / \
-   *     B   C
-   *      \ /
-   *       D
-   *
-   * Where we deeply traverse this tree, how do we avoid D being recomputed twice; once when B is updated, once when C is.
-   *
-   * To solve this, we create linkedDeps that allows us to sync avoid writes to the state until all of the deps have been
-   * resolved.
-   *
-   * This is a record of stores, because derived stores are not able to write values to, but stores are
-   */
-  storeToDerived = new Map<Store<unknown>, Set<Derived<unknown>>>()
-  derivedToStore = new Map<Derived<unknown>, Set<Store<unknown>>>()
 
   getDepVals = () => {
     const prevDepVals = [] as Array<unknown>
@@ -130,27 +108,6 @@ export class Derived<
       onSubscribe: options.onSubscribe?.bind(this) as never,
       onUpdate: options.onUpdate,
     })
-
-    const updateStoreToDerived = (
-      store: Store<unknown>,
-      dep: Derived<unknown>,
-    ) => {
-      const prevDerivesForStore = this.storeToDerived.get(store) || new Set()
-      prevDerivesForStore.add(dep)
-      this.storeToDerived.set(store, prevDerivesForStore)
-    }
-    for (const dep of options.deps) {
-      if (dep instanceof Derived) {
-        this.derivedToStore.set(dep, dep.rootStores)
-        for (const store of dep.rootStores) {
-          this.rootStores.add(store)
-          updateStoreToDerived(store, dep)
-        }
-      } else if (dep instanceof Store) {
-        this.rootStores.add(dep)
-        updateStoreToDerived(dep, this as Derived<unknown>)
-      }
-    }
   }
 
   get state() {
@@ -166,20 +123,46 @@ export class Derived<
     return this._store.prevState
   }
 
-  mount = () => {
-    let __depsThatHaveWrittenThisTick = [] as Array<
-      Derived<unknown> | Store<unknown>
-    >
+  registerOnGraph(
+    deps: ReadonlyArray<Derived<any> | Store<any>> = this.options.deps,
+  ) {
+    for (const dep of deps) {
+      if (dep instanceof Derived) {
+        // Go into the deps of the derived and find the root store(s) that it depends on deeply
+        // Then, register this derived as a related derived to the store
+        this.registerOnGraph(dep.options.deps)
+      } else if (dep instanceof Store) {
+        // Register the derived as related derived to the store
+        let relatedLinkedDerivedVals = __storeToDerived.get(dep)
+        if (!relatedLinkedDerivedVals) {
+          relatedLinkedDerivedVals = new Set()
+          __storeToDerived.set(dep, relatedLinkedDerivedVals)
+        }
+        relatedLinkedDerivedVals.add(this as never)
 
+        // Register the store as a related store to this derived
+        let relatedStores = __derivedToStore.get(this as never)
+        if (!relatedStores) {
+          relatedStores = new Set()
+          __derivedToStore.set(this as never, relatedStores)
+        }
+        relatedStores.add(dep)
+      }
+    }
+  }
+
+  unregisterFromGraph() {}
+
+  mount = () => {
+    this.registerOnGraph()
     for (const dep of this.options.deps) {
       const isDepAStore = dep instanceof Store
       let relatedLinkedDerivedVals: null | Set<Derived<unknown>> = null
 
       const unsub = dep.subscribe(() => {
-        const store = isDepAStore ? dep : dep._whatStoreIsCurrentlyInUse
-        this._whatStoreIsCurrentlyInUse = store
+        const store = isDepAStore ? dep : __whatStoreIsCurrentlyInUse.current
         if (store) {
-          relatedLinkedDerivedVals = this.storeToDerived.get(store) ?? null
+          relatedLinkedDerivedVals = __storeToDerived.get(store) ?? null
         }
 
         __depsThatHaveWrittenThisTick.push(dep)
@@ -192,9 +175,9 @@ export class Derived<
             this._store.setState(() => this.options.fn(this.getDepVals()))
           }
 
-          // Cleanup the deps that have written this tick
-          __depsThatHaveWrittenThisTick = []
-          this._whatStoreIsCurrentlyInUse = null
+          // // Cleanup the deps that have written this tick
+          // __depsThatHaveWrittenThisTick = []
+          __whatStoreIsCurrentlyInUse.current = null
           return
         }
       })
@@ -203,6 +186,7 @@ export class Derived<
     }
 
     return () => {
+      this.unregisterFromGraph()
       for (const cleanup of this._subscriptions) {
         cleanup()
       }

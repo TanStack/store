@@ -1,3 +1,4 @@
+import { __whatStoreIsCurrentlyInUse } from './scheduler'
 import type { AnyUpdater, Listener } from './types'
 
 export interface StoreOptions<
@@ -31,14 +32,6 @@ export class Store<
   state: TState
   prevState: TState
   options?: StoreOptions<TState, TUpdater>
-  /**
-   * @private
-   */
-  _batching = false
-  /**
-   * @private
-   */
-  _flushing = 0
 
   constructor(initialState: TState, options?: StoreOptions<TState, TUpdater>) {
     this.prevState = initialState
@@ -56,6 +49,7 @@ export class Store<
   }
 
   setState = (updater: TUpdater) => {
+    __whatStoreIsCurrentlyInUse.current = this as never
     const previous = this.state
     this.state = this.options?.updateFn
       ? this.options.updateFn(previous)(updater)
@@ -65,27 +59,6 @@ export class Store<
     this.options?.onUpdate?.()
 
     // Attempt to flush
-    this._flush()
-  }
-
-  /**
-   * @private
-   */
-  _flush = () => {
-    if (this._batching) return
-    const flushId = ++this._flushing
-    for (const listener of this.listeners) {
-      if (this._flushing !== flushId) continue
-      listener({ prevVal: this.prevState, currentVal: this.state })
-      this.prevState = this.state
-    }
-  }
-
-  batch = (cb: () => void) => {
-    if (this._batching) return cb()
-    this._batching = true
-    cb()
-    this._batching = false
     this._flush()
   }
 }
