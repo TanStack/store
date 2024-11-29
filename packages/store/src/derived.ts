@@ -1,9 +1,7 @@
 import { Store } from './store'
 import {
-  __depsThatHaveWrittenThisTick,
   __derivedToStore,
   __storeToDerived,
-  __whatStoreIsCurrentlyInUse,
 } from './scheduler'
 import type { Listener } from './types'
 
@@ -171,37 +169,19 @@ export class Derived<
     }
   }
 
+  recompute = () => {
+    this._store.setState(() => {
+      const { prevDepVals, currDepVals, prevVal } = this.getDepVals()
+      return this.options.fn({
+        prevDepVals,
+        currDepVals,
+        prevVal,
+      })
+    })
+  }
+
   mount = () => {
     this.registerOnGraph()
-    for (const dep of this.options.deps) {
-      const isDepAStore = dep instanceof Store
-      let relatedLinkedDerivedVals: null | Set<Derived<unknown>> = null
-
-      const unsub = dep.subscribe(() => {
-        const store = isDepAStore ? dep : __whatStoreIsCurrentlyInUse.current
-        if (store) {
-          relatedLinkedDerivedVals = __storeToDerived.get(store) ?? null
-        }
-
-        __depsThatHaveWrittenThisTick.push(dep)
-        if (
-          !relatedLinkedDerivedVals ||
-          __depsThatHaveWrittenThisTick.length === relatedLinkedDerivedVals.size
-        ) {
-          // Yay! All deps are resolved - write the value of this derived
-          if (!this.options.lazy) {
-            this._store.setState(() => this.options.fn(this.getDepVals()))
-          }
-
-          // // Cleanup the deps that have written this tick
-          // __depsThatHaveWrittenThisTick = []
-          __whatStoreIsCurrentlyInUse.current = null
-          return
-        }
-      })
-
-      this._subscriptions.push(unsub)
-    }
 
     return () => {
       this.unregisterFromGraph()
