@@ -57,7 +57,7 @@ export interface DerivedOptions<
 
 export class Derived<
   TState,
-  TArr extends ReadonlyArray<Derived<any> | Store<any>> = ReadonlyArray<any>,
+  const TArr extends ReadonlyArray<Derived<any> | Store<any>> = ReadonlyArray<any>,
 > {
   /**
    * @private

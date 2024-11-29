@@ -83,9 +83,6 @@ importers:
       typescript:
         specifier: 5.6.3
         version: 5.6.3
-      typescript49:
-        specifier: npm:typescript@4.9
-        version: typescript@4.9.5
       typescript50:
         specifier: npm:typescript@5.0
         version: typescript@5.0.4
@@ -6513,11 +6510,6 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
-
-  typescript@4.9.5:
-    resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
-    engines: {node: '>=4.2.0'}
-    hasBin: true
 
   typescript@5.0.4:
     resolution: {integrity: sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==}
@@ -13876,8 +13868,6 @@ snapshots:
     transitivePeerDependencies:
       - eslint
       - supports-color
-
-  typescript@4.9.5: {}
 
   typescript@5.0.4: {}
 
