@@ -8,7 +8,7 @@ title: useStore
 ## useStore(store, selector)
 
 ```ts
-function useStore<TState, TSelected>(store, selector): TSelected
+function useStore<TState, TSelected>(store, selector?): TSelected
 ```
 
 ### Type Parameters
@@ -21,7 +21,7 @@ function useStore<TState, TSelected>(store, selector): TSelected
 
 • **store**: `Store`\<`TState`, `any`\>
 
-• **selector**
+• **selector?**
 
 ### Returns
 
@@ -34,7 +34,7 @@ function useStore<TState, TSelected>(store, selector): TSelected
 ## useStore(store, selector)
 
 ```ts
-function useStore<TState, TSelected>(store, selector): TSelected
+function useStore<TState, TSelected>(store, selector?): TSelected
 ```
 
 ### Type Parameters
@@ -47,7 +47,7 @@ function useStore<TState, TSelected>(store, selector): TSelected
 
 • **store**: `Derived`\<`TState`, `any`\>
 
-• **selector**
+• **selector?**
 
 ### Returns
 
