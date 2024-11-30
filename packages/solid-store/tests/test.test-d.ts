@@ -1,8 +1,8 @@
 import { expectTypeOf, test } from 'vitest'
-import { Derived, Store, injectStore } from '../src'
-import type { Signal } from '@angular/core'
+import { Derived, Store, useStore } from '../src'
+import type { Accessor } from 'solid-js'
 
-test('injectStore works with derived state', () => {
+test('useStore works with derived state', () => {
   const store = new Store(12)
   const derived = new Derived({
     deps: [store],
@@ -11,10 +11,10 @@ test('injectStore works with derived state', () => {
     },
   })
 
-  const val = injectStore(derived, (state) => {
+  const val = useStore(derived, (state) => {
     expectTypeOf(state).toMatchTypeOf<{ val: number }>()
     return state.val
   })
 
-  expectTypeOf(val).toMatchTypeOf<Signal<number>>()
+  expectTypeOf(val).toMatchTypeOf<Accessor<number>>()
 })
