@@ -29,21 +29,9 @@ new Derived<TState, TArr>(options): Derived<TState, TArr>
 
 #### Defined in
 
-[derived.ts:92](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L92)
+[derived.ts:87](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L87)
 
 ## Properties
-
-### hasBeenRead
-
-```ts
-hasBeenRead: boolean = false;
-```
-
-#### Defined in
-
-[derived.ts:108](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L108)
-
-***
 
 ### options
 
@@ -53,7 +41,7 @@ options: DerivedOptions<TState, TArr>;
 
 #### Defined in
 
-[derived.ts:69](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L69)
+[derived.ts:64](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L64)
 
 ## Accessors
 
@@ -69,9 +57,23 @@ get prevState(): TState
 
 `TState`
 
+#### Set Signature
+
+```ts
+set prevState(val): void
+```
+
+##### Parameters
+
+• **val**: `TState`
+
+##### Returns
+
+`void`
+
 #### Defined in
 
-[derived.ts:120](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L120)
+[derived.ts:109](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L109)
 
 ***
 
@@ -89,7 +91,7 @@ get state(): TState
 
 #### Defined in
 
-[derived.ts:110](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L110)
+[derived.ts:101](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L101)
 
 ## Methods
 
@@ -123,7 +125,7 @@ prevVal: undefined | NonNullable<TState>;
 
 #### Defined in
 
-[derived.ts:77](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L77)
+[derived.ts:72](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L72)
 
 ***
 
@@ -143,7 +145,7 @@ mount(): () => void
 
 #### Defined in
 
-[derived.ts:186](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L186)
+[derived.ts:172](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L172)
 
 ***
 
@@ -159,7 +161,7 @@ recompute(): void
 
 #### Defined in
 
-[derived.ts:172](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L172)
+[derived.ts:161](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L161)
 
 ***
 
@@ -179,7 +181,7 @@ registerOnGraph(deps): void
 
 #### Defined in
 
-[derived.ts:124](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L124)
+[derived.ts:113](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L113)
 
 ***
 
@@ -203,7 +205,7 @@ subscribe(listener): () => void
 
 #### Defined in
 
-[derived.ts:197](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L197)
+[derived.ts:183](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L183)
 
 ***
 
@@ -223,4 +225,4 @@ unregisterFromGraph(deps): void
 
 #### Defined in
 
-[derived.ts:152](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L152)
+[derived.ts:141](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L141)

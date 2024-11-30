@@ -21,7 +21,7 @@ deps: TArr;
 
 #### Defined in
 
-[derived.ts:52](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L52)
+[derived.ts:47](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L47)
 
 ***
 
@@ -40,26 +40,6 @@ Values of the `deps` from before and after the current invocation of `fn`
 #### Returns
 
 `TState`
-
-#### Defined in
-
-[derived.ts:56](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L56)
-
-***
-
-### lazy?
-
-```ts
-optional lazy: boolean;
-```
-
-Should the value of `Derived` only be computed once it is accessed
-
-#### Default
-
-```ts
-false
-```
 
 #### Defined in
 
