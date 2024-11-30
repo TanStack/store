@@ -44,11 +44,6 @@ export interface DerivedOptions<
     derived: Derived<TState>,
   ) => () => void
   onUpdate?: () => void
-  /**
-   * Should the value of `Derived` only be computed once it is accessed
-   * @default false
-   */
-  lazy?: boolean
   deps: TArr
   /**
    * Values of the `deps` from before and after the current invocation of `fn`
@@ -91,13 +86,11 @@ export class Derived<
 
   constructor(options: DerivedOptions<TState, TArr>) {
     this.options = options
-    const initVal = options.lazy
-      ? (undefined as ReturnType<typeof options.fn>)
-      : options.fn({
-          prevDepVals: undefined,
-          prevVal: undefined,
-          currDepVals: this.getDepVals().currDepVals,
-        })
+    const initVal = options.fn({
+      prevDepVals: undefined,
+      prevVal: undefined,
+      currDepVals: this.getDepVals().currDepVals,
+    })
 
     this._store = new Store(initVal, {
       onSubscribe: options.onSubscribe?.bind(this) as never,
@@ -105,16 +98,12 @@ export class Derived<
     })
   }
 
-  hasBeenRead = false
-
   get state() {
-    this.hasBeenRead = true
-    if (this.options.lazy && this._store.state === undefined) {
-      this.options.lazy = false
-      this._store.setState(() => this.options.fn(this.getDepVals()))
-      return this._store.state
-    }
     return this._store.state
+  }
+
+  set prevState(val: TState) {
+    this._store.prevState = val
   }
 
   get prevState() {
@@ -170,9 +159,6 @@ export class Derived<
   }
 
   recompute = () => {
-    if (this.options.lazy && !this.hasBeenRead) {
-      return
-    }
     this._store.setState(() => {
       const { prevDepVals, currDepVals, prevVal } = this.getDepVals()
       return this.options.fn({
