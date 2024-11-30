@@ -2,9 +2,9 @@ import { describe, expect, test, vi } from 'vitest'
 import {
   Derived,
   Store,
-  batch,
   __derivedToStore,
   __storeToDerived,
+  batch,
 } from '../src'
 
 describe('Scheduler logic', () => {
