@@ -25,4 +25,4 @@ function shallow<T>(objA, objB): boolean
 
 ## Defined in
 
-[index.ts:43](https://github.com/TanStack/store/blob/main/packages/vue-store/src/index.ts#L43)
+[index.ts:47](https://github.com/TanStack/store/blob/main/packages/vue-store/src/index.ts#L47)
