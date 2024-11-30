@@ -49,10 +49,10 @@ export class Store<
   }
 
   setState = (updater: TUpdater) => {
-    this.prevState = this.state
+    const prevVal = this.state
     this.state = this.options?.updateFn
-      ? this.options.updateFn(this.prevState)(updater)
-      : (updater as any)(this.prevState)
+      ? this.options.updateFn(prevVal)(updater)
+      : (updater as any)(prevVal)
 
     // Always run onUpdate, regardless of batching
     this.options?.onUpdate?.()

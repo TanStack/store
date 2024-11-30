@@ -90,6 +90,9 @@ export function __flush(store: Store<unknown>) {
     }
   } finally {
     __isFlushing = false
+    __depsThatHaveWrittenThisTick.current.forEach((dep) => {
+      dep.prevState = dep.state
+    })
     __depsThatHaveWrittenThisTick.current = []
   }
 }
@@ -101,7 +104,12 @@ export function batch(fn: () => void) {
   } finally {
     __batchDepth--
     if (__batchDepth === 0) {
-      __flush(Array.from(__pendingUpdates)[0] as Store<unknown>) // Trigger flush of all pending updates
+      const pendingUpdateToFlush = Array.from(__pendingUpdates)[0] as
+        | Store<unknown>
+        | undefined
+      if (pendingUpdateToFlush) {
+        __flush(pendingUpdateToFlush) // Trigger flush of all pending updates
+      }
     }
   }
 }
