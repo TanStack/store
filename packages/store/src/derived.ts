@@ -123,8 +123,9 @@ export class Derived<
   ) {
     for (const dep of deps) {
       if (dep instanceof Derived) {
-        // Go into the deps of the derived and find the root store(s) that it depends on deeply
-        // Then, register this derived as a related derived to the store
+        // First register the intermediate derived value if it's not already registered
+        dep.registerOnGraph()
+        // Then register this derived with the dep's underlying stores
         this.registerOnGraph(dep.options.deps)
       } else if (dep instanceof Store) {
         // Register the derived as related derived to the store
