@@ -142,6 +142,9 @@ describe('Scheduler logic', () => {
 
     halfDouble.registerOnGraph()
 
-    expect(Array.from(__storeToDerived.get(count)!)).toEqual([double, halfDouble])
+    expect(Array.from(__storeToDerived.get(count)!)).toEqual([
+      double,
+      halfDouble,
+    ])
   })
 })
