@@ -283,7 +283,7 @@ describe('Derived', () => {
     const double = new Derived({
       deps: [count],
       fn: () => {
-        fn(2);
+        fn(2)
         return count.state * 2
       },
     })
@@ -291,7 +291,7 @@ describe('Derived', () => {
     const halfDouble = new Derived({
       deps: [double, count],
       fn: () => {
-        fn(3);
+        fn(3)
         return double.state / 2
       },
     })
