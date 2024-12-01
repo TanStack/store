@@ -122,4 +122,26 @@ describe('Scheduler logic', () => {
     expect(__storeToDerived.get(count)).toContain(double)
     expect(__derivedToStore.get(double)).toContain(count)
   })
+
+  test('should register graph items in the right direction order', () => {
+    const count = new Store<any, any>(12)
+
+    const double = new Derived<any, any>({
+      deps: [count],
+      fn: () => {
+        return count.state * 2
+      },
+    })
+
+    const halfDouble = new Derived<any, any>({
+      deps: [double],
+      fn: () => {
+        return double.state / 2
+      },
+    })
+
+    halfDouble.registerOnGraph()
+
+    expect(Array.from(__storeToDerived.get(count)!)).toEqual([double, halfDouble])
+  })
 })
