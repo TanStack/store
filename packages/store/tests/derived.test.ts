@@ -225,7 +225,7 @@ describe('Derived', () => {
     expect(fn).toBeCalledWith(12)
   })
 
-  test('derivedFn should be able to mount and unmount correctly repeatly', () => {
+  test('should be able to mount and unmount correctly repeatly', () => {
     const count = new Store(12)
     const derived = new Derived({
       deps: [count],
@@ -246,5 +246,32 @@ describe('Derived', () => {
 
     expect(count.state).toBe(24)
     expect(derived.state).toBe(48)
+  })
+
+  test('should be able to mount in the wrong order and still work', () => {
+    const count = new Store(12)
+
+    const double = new Derived({
+      deps: [count],
+      fn: () => {
+        return count.state * 2
+      },
+    })
+
+    const halfDouble = new Derived({
+      deps: [double],
+      fn: () => {
+        return double.state / 2
+      },
+    })
+
+    halfDouble.mount()
+    double.mount()
+
+    count.setState(() => 24)
+
+    expect(count.state).toBe(24)
+    expect(double.state).toBe(48)
+    expect(halfDouble.state).toBe(24)
   })
 })

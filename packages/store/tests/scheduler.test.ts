@@ -97,4 +97,29 @@ describe('Scheduler logic', () => {
     expect(listener).toHaveBeenCalledTimes(5)
     unsub()
   })
+
+  test('should register graph items in the wrong order properly', () => {
+    const count = new Store<any, any>(12)
+
+    const double = new Derived<any, any>({
+      deps: [count],
+      fn: () => {
+        return count.state * 2
+      },
+    })
+
+    const halfDouble = new Derived<any, any>({
+      deps: [double],
+      fn: () => {
+        return double.state / 2
+      },
+    })
+
+    halfDouble.registerOnGraph()
+
+    expect(__storeToDerived.get(count)).toContain(halfDouble)
+    expect(__derivedToStore.get(halfDouble)).toContain(count)
+    expect(__storeToDerived.get(count)).toContain(double)
+    expect(__derivedToStore.get(double)).toContain(count)
+  })
 })
