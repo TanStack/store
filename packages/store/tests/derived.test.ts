@@ -224,4 +224,27 @@ describe('Derived', () => {
     count.setState(() => 24)
     expect(fn).toBeCalledWith(12)
   })
+
+  test('derivedFn should be able to mount and unmount correctly repeatly', () => {
+    const count = new Store(12)
+    const derived = new Derived({
+      deps: [count],
+      fn: () => {
+        return count.state * 2
+      },
+    })
+
+    count.setState(() => 24)
+
+    const cleanup1 = derived.mount()
+    cleanup1()
+    const cleanup2 = derived.mount()
+    cleanup2()
+    const cleanup3 = derived.mount()
+    cleanup3()
+    derived.mount()
+
+    expect(count.state).toBe(24)
+    expect(derived.state).toBe(48)
+  })
 })

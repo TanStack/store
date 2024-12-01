@@ -51,6 +51,14 @@ export interface DerivedOptions<
   fn: (props: DerivedFnProps<TArr>) => TState
 }
 
+export interface DerivedMountOptions {
+  /**
+   * Should recompute the value on mount?
+   * @default {true}
+   */
+  recompute?: boolean
+}
+
 export class Derived<
   TState,
   const TArr extends ReadonlyArray<
@@ -169,8 +177,11 @@ export class Derived<
     })
   }
 
-  mount = () => {
+  mount = ({ recompute = true }: DerivedMountOptions = {}) => {
     this.registerOnGraph()
+    if (recompute) {
+      this.recompute()
+    }
 
     return () => {
       this.unregisterFromGraph()
