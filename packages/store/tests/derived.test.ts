@@ -274,4 +274,31 @@ describe('Derived', () => {
     expect(double.state).toBe(48)
     expect(halfDouble.state).toBe(24)
   })
+
+  test('should recompute in the right order', () => {
+    const count = new Store(12)
+
+    const fn = vi.fn()
+
+    const double = new Derived({
+      deps: [count],
+      fn: () => {
+        fn(2);
+        return count.state * 2
+      },
+    })
+
+    const halfDouble = new Derived({
+      deps: [double, count],
+      fn: () => {
+        fn(3);
+        return double.state / 2
+      },
+    })
+
+    halfDouble.mount()
+    double.mount()
+
+    expect(fn).toHaveBeenLastCalledWith(3)
+  })
 })
