@@ -149,7 +149,7 @@ mount(__namedParameters): () => void
 
 #### Defined in
 
-[derived.ts:180](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L180)
+[derived.ts:181](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L181)
 
 ***
 
@@ -165,7 +165,7 @@ recompute(): void
 
 #### Defined in
 
-[derived.ts:169](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L169)
+[derived.ts:170](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L170)
 
 ***
 
@@ -209,7 +209,7 @@ subscribe(listener): () => void
 
 #### Defined in
 
-[derived.ts:194](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L194)
+[derived.ts:195](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L195)
 
 ***
 
@@ -229,4 +229,4 @@ unregisterFromGraph(deps): void
 
 #### Defined in
 
-[derived.ts:149](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L149)
+[derived.ts:150](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L150)
