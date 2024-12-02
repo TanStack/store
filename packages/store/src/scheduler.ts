@@ -1,5 +1,5 @@
+import { Derived } from './derived'
 import type { Store } from './store'
-import type { Derived } from './derived'
 
 /**
  * This is here to solve the pyramid dependency problem where:
@@ -34,7 +34,16 @@ let __batchDepth = 0
 const __pendingUpdates = new Set<Store<unknown>>()
 
 function __flush_internals(relatedVals: Set<Derived<unknown>>) {
-  for (const derived of relatedVals) {
+  // First sort deriveds by dependency order
+  const sorted = Array.from(relatedVals).sort((a, b) => {
+    // If a depends on b, b should go first
+    if (a instanceof Derived && a.options.deps.includes(b)) return 1
+    // If b depends on a, a should go first
+    if (b instanceof Derived && b.options.deps.includes(a)) return -1
+    return 0
+  })
+
+  for (const derived of sorted) {
     if (__depsThatHaveWrittenThisTick.current.includes(derived)) {
       continue
     }
@@ -51,6 +60,24 @@ function __flush_internals(relatedVals: Set<Derived<unknown>>) {
       }
     }
   }
+}
+
+function __notifyListeners(store: Store<unknown>) {
+  store.listeners.forEach((listener) =>
+    listener({
+      prevVal: store.prevState as never,
+      currentVal: store.state as never,
+    }),
+  )
+}
+
+function __notifyDerivedListeners(derived: Derived<unknown>) {
+  derived.listeners.forEach((listener) =>
+    listener({
+      prevVal: derived.prevState as never,
+      currentVal: derived.state as never,
+    }),
+  )
 }
 
 /**
@@ -71,12 +98,7 @@ export function __flush(store: Store<unknown>) {
 
       // First notify listeners with updated values
       for (const store of stores) {
-        store.listeners.forEach((listener) =>
-          listener({
-            prevVal: store.prevState as never,
-            currentVal: store.state as never,
-          }),
-        )
+        __notifyListeners(store)
       }
 
       // Then update all derived values
@@ -87,12 +109,19 @@ export function __flush(store: Store<unknown>) {
         __depsThatHaveWrittenThisTick.current.push(store)
         __flush_internals(derivedVals)
       }
+
+      // Notify derived listeners after recomputing
+      for (const store of stores) {
+        const derivedVals = __storeToDerived.get(store)
+        if (!derivedVals) continue
+
+        for (const derived of derivedVals) {
+          __notifyDerivedListeners(derived)
+        }
+      }
     }
   } finally {
     __isFlushing = false
-    __depsThatHaveWrittenThisTick.current.forEach((dep) => {
-      dep.prevState = dep.state
-    })
     __depsThatHaveWrittenThisTick.current = []
   }
 }

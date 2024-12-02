@@ -37,6 +37,6 @@ export class Effect {
   }
 
   mount() {
-    return this._derived.mount({ recompute: false })
+    return this._derived.mount()
   }
 }

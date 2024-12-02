@@ -234,8 +234,6 @@ describe('Derived', () => {
       },
     })
 
-    count.setState(() => 24)
-
     const cleanup1 = derived.mount()
     cleanup1()
     const cleanup2 = derived.mount()
@@ -244,8 +242,53 @@ describe('Derived', () => {
     cleanup3()
     derived.mount()
 
+    count.setState(() => 24)
+
     expect(count.state).toBe(24)
     expect(derived.state).toBe(48)
+  })
+
+  test('should handle calculating state before the derived state is mounted', () => {
+    const count = new Store(12)
+    const derived = new Derived({
+      deps: [count],
+      fn: () => {
+        return count.state * 2
+      },
+    })
+
+    count.setState(() => 24)
+
+    derived.mount()
+
+    expect(count.state).toBe(24)
+    expect(derived.state).toBe(48)
+  })
+
+  test('should not recompute more than is needed', () => {
+    const fn = vi.fn()
+    const count = new Store(12)
+    const derived = new Derived({
+      deps: [count],
+      fn: () => {
+        fn('derived')
+        return count.state * 2
+      },
+    })
+
+    count.setState(() => 24)
+
+    const unmount1 = derived.mount()
+    unmount1()
+    const unmount2 = derived.mount()
+    unmount2()
+    const unmount3 = derived.mount()
+    unmount3()
+    derived.mount()
+
+    expect(count.state).toBe(24)
+    expect(derived.state).toBe(48)
+    expect(fn).toBeCalledTimes(2)
   })
 
   test('should be able to mount in the wrong order and still work', () => {
@@ -273,6 +316,33 @@ describe('Derived', () => {
     expect(count.state).toBe(24)
     expect(double.state).toBe(48)
     expect(halfDouble.state).toBe(24)
+  })
+
+  test('should be able to mount in the wrong order and still work with a derived and a non-derived state', () => {
+    const count = new Store(12)
+
+    const double = new Derived({
+      deps: [count],
+      fn: () => {
+        return count.state * 2
+      },
+    })
+
+    const countPlusDouble = new Derived({
+      deps: [count, double],
+      fn: () => {
+        return count.state + double.state
+      },
+    })
+
+    countPlusDouble.mount()
+    double.mount()
+
+    count.setState(() => 24)
+
+    expect(count.state).toBe(24)
+    expect(double.state).toBe(48)
+    expect(countPlusDouble.state).toBe(24 + 48)
   })
 
   test('should recompute in the right order', () => {

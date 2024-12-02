@@ -51,24 +51,15 @@ export interface DerivedOptions<
   fn: (props: DerivedFnProps<TArr>) => TState
 }
 
-export interface DerivedMountOptions {
-  /**
-   * Should recompute the value on mount?
-   * @default {true}
-   */
-  recompute?: boolean
-}
-
 export class Derived<
   TState,
   const TArr extends ReadonlyArray<
     Derived<any> | Store<any>
   > = ReadonlyArray<any>,
 > {
-  /**
-   * @private
-   */
-  _store: Store<TState>
+  listeners = new Set<Listener<TState>>()
+  state: TState
+  prevState: TState | undefined
   options: DerivedOptions<TState, TArr>
 
   /**
@@ -77,6 +68,7 @@ export class Derived<
    */
   _subscriptions: Array<() => void> = []
 
+  lastSeenDepValues: Array<unknown> = []
   getDepVals = () => {
     const prevDepVals = [] as Array<unknown>
     const currDepVals = [] as Array<unknown>
@@ -84,38 +76,21 @@ export class Derived<
       prevDepVals.push(dep.prevState)
       currDepVals.push(dep.state)
     }
+    this.lastSeenDepValues = currDepVals
     return {
-      prevDepVals: prevDepVals as never,
-      currDepVals: currDepVals as never,
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      prevVal: this._store?.prevState ?? undefined,
+      prevDepVals,
+      currDepVals,
+      prevVal: this.prevState ?? undefined,
     }
   }
 
   constructor(options: DerivedOptions<TState, TArr>) {
     this.options = options
-    const initVal = options.fn({
+    this.state = options.fn({
       prevDepVals: undefined,
       prevVal: undefined,
-      currDepVals: this.getDepVals().currDepVals,
+      currDepVals: this.getDepVals().currDepVals as never,
     })
-
-    this._store = new Store(initVal, {
-      onSubscribe: options.onSubscribe?.bind(this) as never,
-      onUpdate: options.onUpdate,
-    })
-  }
-
-  get state() {
-    return this._store.state
-  }
-
-  set prevState(val: TState) {
-    this._store.prevState = val
-  }
-
-  get prevState() {
-    return this._store.prevState
   }
 
   registerOnGraph(
@@ -168,21 +143,41 @@ export class Derived<
   }
 
   recompute = () => {
-    this._store.setState(() => {
-      const { prevDepVals, currDepVals, prevVal } = this.getDepVals()
-      return this.options.fn({
-        prevDepVals,
-        currDepVals,
-        prevVal,
-      })
+    this.prevState = this.state
+    const { prevDepVals, currDepVals, prevVal } = this.getDepVals()
+    this.state = this.options.fn({
+      prevDepVals: prevDepVals as never,
+      currDepVals: currDepVals as never,
+      prevVal,
     })
+
+    this.options.onUpdate?.()
   }
 
-  mount = ({ recompute = true }: DerivedMountOptions = {}) => {
-    this.registerOnGraph()
-    if (recompute) {
+  checkIfRecalculationNeededDeeply = () => {
+    for (const dep of this.options.deps) {
+      if (dep instanceof Derived) {
+        dep.checkIfRecalculationNeededDeeply()
+      }
+    }
+    let shouldRecompute = false
+    const lastSeenDepValues = this.lastSeenDepValues
+    const { currDepVals } = this.getDepVals()
+    for (let i = 0; i < currDepVals.length; i++) {
+      if (currDepVals[i] !== lastSeenDepValues[i]) {
+        shouldRecompute = true
+        break
+      }
+    }
+
+    if (shouldRecompute) {
       this.recompute()
     }
+  }
+
+  mount = () => {
+    this.registerOnGraph()
+    this.checkIfRecalculationNeededDeeply()
 
     return () => {
       this.unregisterFromGraph()
@@ -193,6 +188,11 @@ export class Derived<
   }
 
   subscribe = (listener: Listener<TState>) => {
-    return this._store.subscribe(listener)
+    this.listeners.add(listener)
+    const unsub = this.options.onSubscribe?.(listener, this)
+    return () => {
+      this.listeners.delete(listener)
+      unsub?.()
+    }
   }
 }
