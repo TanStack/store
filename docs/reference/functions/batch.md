@@ -19,4 +19,4 @@ function batch(fn): void
 
 ## Defined in
 
-[scheduler.ts:100](https://github.com/TanStack/store/blob/main/packages/store/src/scheduler.ts#L100)
+[scheduler.ts:120](https://github.com/TanStack/store/blob/main/packages/store/src/scheduler.ts#L120)

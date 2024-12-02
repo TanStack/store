@@ -1,6 +1,6 @@
-import {Store} from './store'
-import {__derivedToStore, __storeToDerived} from './scheduler'
-import type {Listener} from './types'
+import { Store } from './store'
+import { __derivedToStore, __storeToDerived } from './scheduler'
+import type { Listener } from './types'
 
 export type UnwrapDerivedOrStore<T> =
   T extends Derived<infer InnerD>
@@ -22,7 +22,8 @@ type UnwrapReadonlyDerivedOrStoreArray<
 // Can't have currVal, as it's being evaluated from the current derived fn
 export interface DerivedFnProps<
   TArr extends ReadonlyArray<Derived<any> | Store<any>> = ReadonlyArray<any>,
-  TUnwrappedArr extends UnwrapReadonlyDerivedOrStoreArray<TArr> = UnwrapReadonlyDerivedOrStoreArray<TArr>,
+  TUnwrappedArr extends
+    UnwrapReadonlyDerivedOrStoreArray<TArr> = UnwrapReadonlyDerivedOrStoreArray<TArr>,
 > {
   // `undefined` if it's the first run
   /**
@@ -143,7 +144,7 @@ export class Derived<
 
   recompute = () => {
     this.prevState = this.state
-    const {prevDepVals, currDepVals, prevVal} = this.getDepVals()
+    const { prevDepVals, currDepVals, prevVal } = this.getDepVals()
     this.state = this.options.fn({
       prevDepVals: prevDepVals as never,
       currDepVals: currDepVals as never,
@@ -159,9 +160,9 @@ export class Derived<
         dep.checkIfRecalculationNeededDeeply()
       }
     }
-    let shouldRecompute = false;
+    let shouldRecompute = false
     const lastSeenDepValues = this.lastSeenDepValues
-    const {currDepVals} = this.getDepVals()
+    const { currDepVals } = this.getDepVals()
     for (let i = 0; i < currDepVals.length; i++) {
       if (currDepVals[i] !== lastSeenDepValues[i]) {
         shouldRecompute = true
@@ -176,7 +177,7 @@ export class Derived<
 
   mount = () => {
     this.registerOnGraph()
-    this.checkIfRecalculationNeededDeeply();
+    this.checkIfRecalculationNeededDeeply()
 
     return () => {
       this.unregisterFromGraph()

@@ -266,12 +266,12 @@ describe('Derived', () => {
   })
 
   test('should not recompute more than is needed', () => {
-    const fn = vi.fn();
+    const fn = vi.fn()
     const count = new Store(12)
     const derived = new Derived({
       deps: [count],
       fn: () => {
-        fn("derived");
+        fn('derived')
         return count.state * 2
       },
     })
@@ -279,18 +279,17 @@ describe('Derived', () => {
     count.setState(() => 24)
 
     const unmount1 = derived.mount()
-    unmount1();
+    unmount1()
     const unmount2 = derived.mount()
-    unmount2();
+    unmount2()
     const unmount3 = derived.mount()
-    unmount3();
+    unmount3()
     derived.mount()
 
     expect(count.state).toBe(24)
     expect(derived.state).toBe(48)
-    expect(fn).toBeCalledTimes(2);
+    expect(fn).toBeCalledTimes(2)
   })
-
 
   test('should be able to mount in the wrong order and still work', () => {
     const count = new Store(12)
