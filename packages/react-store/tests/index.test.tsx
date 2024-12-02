@@ -1,7 +1,7 @@
 import { describe, expect, it, test, vi } from 'vitest'
 import { render, waitFor } from '@testing-library/react'
 import * as React from 'react'
-import { Store } from '@tanstack/store'
+import { Derived, Store } from '@tanstack/store'
 import { useState } from 'react'
 import { userEvent } from '@testing-library/user-event'
 import { shallow, useStore } from '../src/index'
@@ -77,6 +77,39 @@ describe('useStore', () => {
 
     await user.click(getByText('Update ignored'))
     expect(getByText('Number rendered: 2')).toBeInTheDocument()
+  })
+
+  it('works with mounted derived stores', async () => {
+    const store = new Store(0)
+
+    const derived = new Derived({
+      deps: [store],
+      fn: () => {
+        return { val: store.state * 2 }
+      },
+    })
+
+    derived.mount()
+
+    function Comp() {
+      const derivedVal = useStore(derived, (state) => state.val)
+
+      return (
+        <div>
+          <p>Derived: {derivedVal}</p>
+          <button type="button" onClick={() => store.setState((v) => v + 1)}>
+            Update select
+          </button>
+        </div>
+      )
+    }
+
+    const { getByText } = render(<Comp />)
+    expect(getByText('Derived: 0')).toBeInTheDocument()
+
+    await user.click(getByText('Update select'))
+
+    await waitFor(() => expect(getByText('Derived: 2')).toBeInTheDocument())
   })
 })
 

@@ -25,4 +25,4 @@ function shallow<T>(objA, objB): boolean
 
 ## Defined in
 
-[index.svelte.ts:39](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/index.svelte.ts#L39)
+[index.svelte.ts:43](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/index.svelte.ts#L43)

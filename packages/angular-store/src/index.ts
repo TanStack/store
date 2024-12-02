@@ -6,25 +6,33 @@ import {
   linkedSignal,
   runInInjectionContext,
 } from '@angular/core'
-import type { AnyUpdater, Store } from '@tanstack/store'
-import type { CreateSignalOptions } from '@angular/core'
+import type { Derived, Store } from '@tanstack/store'
+import type { CreateSignalOptions, Signal } from '@angular/core'
+
+export * from '@tanstack/store'
 
 /**
  * @private
  */
 type NoInfer<T> = [T][T extends any ? 0 : never]
 
-export function injectStore<
-  TState,
-  TSelected = NoInfer<TState>,
-  TUpdater extends AnyUpdater = AnyUpdater,
->(
-  store: Store<TState, TUpdater>,
+export function injectStore<TState, TSelected = NoInfer<TState>>(
+  store: Store<TState, any>,
+  selector?: (state: NoInfer<TState>) => TSelected,
+  options?: CreateSignalOptions<TSelected> & { injector?: Injector },
+): Signal<TSelected>
+export function injectStore<TState, TSelected = NoInfer<TState>>(
+  store: Derived<TState, any>,
+  selector?: (state: NoInfer<TState>) => TSelected,
+  options?: CreateSignalOptions<TSelected> & { injector?: Injector },
+): Signal<TSelected>
+export function injectStore<TState, TSelected = NoInfer<TState>>(
+  store: Store<TState, any> | Derived<TState, any>,
   selector: (state: NoInfer<TState>) => TSelected = (d) => d as TSelected,
   options: CreateSignalOptions<TSelected> & { injector?: Injector } = {
     equal: shallow,
   },
-) {
+): Signal<TSelected> {
   !options.injector && assertInInjectionContext(injectStore)
 
   if (!options.injector) {

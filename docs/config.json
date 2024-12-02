@@ -78,8 +78,20 @@
           "to": "reference/classes/store"
         },
         {
+          "label": "Classes / Derived",
+          "to": "reference/classes/derived"
+        },
+        {
+          "label": "Classes / Effect",
+          "to": "reference/classes/effect"
+        },
+        {
           "label": "Interfaces / StoreOptions",
           "to": "reference/interfaces/storeoptions"
+        }
+        {
+          "label": "Interfaces / DerivedOptions",
+          "to": "reference/interfaces/derivedoptions"
         }
       ],
       "frameworks": [

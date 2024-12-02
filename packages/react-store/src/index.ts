@@ -1,5 +1,5 @@
 import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/with-selector.js'
-import type { AnyUpdater, Store } from '@tanstack/store'
+import type { Derived, Store } from '@tanstack/store'
 
 export * from '@tanstack/store'
 
@@ -8,14 +8,18 @@ export * from '@tanstack/store'
  */
 export type NoInfer<T> = [T][T extends any ? 0 : never]
 
-export function useStore<
-  TState,
-  TSelected = NoInfer<TState>,
-  TUpdater extends AnyUpdater = AnyUpdater,
->(
-  store: Store<TState, TUpdater>,
+export function useStore<TState, TSelected = NoInfer<TState>>(
+  store: Store<TState, any>,
+  selector?: (state: NoInfer<TState>) => TSelected,
+): TSelected
+export function useStore<TState, TSelected = NoInfer<TState>>(
+  store: Derived<TState, any>,
+  selector?: (state: NoInfer<TState>) => TSelected,
+): TSelected
+export function useStore<TState, TSelected = NoInfer<TState>>(
+  store: Store<TState, any> | Derived<TState, any>,
   selector: (state: NoInfer<TState>) => TSelected = (d) => d as any,
-) {
+): TSelected {
   const slice = useSyncExternalStoreWithSelector(
     store.subscribe,
     () => store.state,
