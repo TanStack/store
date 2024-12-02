@@ -53,6 +53,24 @@ function __flush_internals(relatedVals: Set<Derived<unknown>>) {
   }
 }
 
+function __notifyListeners(store: Store<unknown>) {
+  store.listeners.forEach((listener) =>
+    listener({
+      prevVal: store.prevState as never,
+      currentVal: store.state as never,
+    }),
+  )
+}
+
+function __notifyDerivedListeners(derived: Derived<unknown>) {
+  derived.listeners.forEach((listener) =>
+    listener({
+      prevVal: derived.prevState as never,
+      currentVal: derived.state as never,
+    }),
+  )
+}
+
 /**
  * @private only to be called from `Store` on write
  */
@@ -71,12 +89,7 @@ export function __flush(store: Store<unknown>) {
 
       // First notify listeners with updated values
       for (const store of stores) {
-        store.listeners.forEach((listener) =>
-          listener({
-            prevVal: store.prevState as never,
-            currentVal: store.state as never,
-          }),
-        )
+        __notifyListeners(store)
       }
 
       // Then update all derived values
@@ -87,12 +100,19 @@ export function __flush(store: Store<unknown>) {
         __depsThatHaveWrittenThisTick.current.push(store)
         __flush_internals(derivedVals)
       }
+
+      // Notify derived listeners after recomputing
+      for (const store of stores) {
+        const derivedVals = __storeToDerived.get(store)
+        if (!derivedVals) continue
+
+        for (const derived of derivedVals) {
+          __notifyDerivedListeners(derived)
+        }
+      }
     }
   } finally {
     __isFlushing = false
-    __depsThatHaveWrittenThisTick.current.forEach((dep) => {
-      dep.prevState = dep.state
-    })
     __depsThatHaveWrittenThisTick.current = []
   }
 }

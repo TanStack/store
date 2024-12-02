@@ -141,8 +141,8 @@ export class Derived<
   }
 
   recompute = () => {
-    const { prevDepVals, currDepVals, prevVal } = this.getDepVals()
     this.prevState = this.state
+    const { prevDepVals, currDepVals, prevVal } = this.getDepVals()
     this.state = this.options.fn({
       prevDepVals,
       currDepVals,
@@ -151,13 +151,6 @@ export class Derived<
 
     // Always run onUpdate, regardless of batching
     this.options.onUpdate?.()
-    
-    for (const listener of this.listeners) {
-      listener({
-        prevVal: this.prevState as never,
-        currentVal: this.state as never,
-      })
-    }
   }
 
   mount = () => {
