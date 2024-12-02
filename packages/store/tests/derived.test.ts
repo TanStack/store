@@ -318,6 +318,34 @@ describe('Derived', () => {
     expect(halfDouble.state).toBe(24)
   })
 
+
+  test('should be able to mount in the wrong order and still work with a derived and a non-derived state', () => {
+    const count = new Store(12)
+
+    const double = new Derived({
+      deps: [count],
+      fn: () => {
+        return count.state * 2
+      },
+    })
+
+    const countPlusDouble = new Derived({
+      deps: [count, double],
+      fn: () => {
+        return count.state + double.state
+      },
+    })
+
+    countPlusDouble.mount()
+    double.mount()
+
+    count.setState(() => 24)
+
+    expect(count.state).toBe(24)
+    expect(double.state).toBe(48)
+    expect(countPlusDouble.state).toBe(24 + 48)
+  })
+
   test('should recompute in the right order', () => {
     const count = new Store(12)
 
