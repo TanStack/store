@@ -1,6 +1,6 @@
-import { Store } from './store'
-import { __derivedToStore, __storeToDerived } from './scheduler'
-import type { Listener } from './types'
+import {Store} from './store'
+import {__derivedToStore, __storeToDerived} from './scheduler'
+import type {Listener} from './types'
 
 export type UnwrapDerivedOrStore<T> =
   T extends Derived<infer InnerD>
@@ -22,8 +22,7 @@ type UnwrapReadonlyDerivedOrStoreArray<
 // Can't have currVal, as it's being evaluated from the current derived fn
 export interface DerivedFnProps<
   TArr extends ReadonlyArray<Derived<any> | Store<any>> = ReadonlyArray<any>,
-  TUnwrappedArr extends
-    UnwrapReadonlyDerivedOrStoreArray<TArr> = UnwrapReadonlyDerivedOrStoreArray<TArr>,
+  TUnwrappedArr extends UnwrapReadonlyDerivedOrStoreArray<TArr> = UnwrapReadonlyDerivedOrStoreArray<TArr>,
 > {
   // `undefined` if it's the first run
   /**
@@ -68,6 +67,7 @@ export class Derived<
    */
   _subscriptions: Array<() => void> = []
 
+  lastSeenDepValues: Array<unknown> = []
   getDepVals = () => {
     const prevDepVals = [] as Array<unknown>
     const currDepVals = [] as Array<unknown>
@@ -75,9 +75,10 @@ export class Derived<
       prevDepVals.push(dep.prevState)
       currDepVals.push(dep.state)
     }
+    this.lastSeenDepValues = currDepVals
     return {
-      prevDepVals: prevDepVals as never,
-      currDepVals: currDepVals as never,
+      prevDepVals,
+      currDepVals,
       prevVal: this.prevState ?? undefined,
     }
   }
@@ -87,7 +88,7 @@ export class Derived<
     this.state = options.fn({
       prevDepVals: undefined,
       prevVal: undefined,
-      currDepVals: this.getDepVals().currDepVals,
+      currDepVals: this.getDepVals().currDepVals as never,
     })
   }
 
@@ -142,19 +143,40 @@ export class Derived<
 
   recompute = () => {
     this.prevState = this.state
-    const { prevDepVals, currDepVals, prevVal } = this.getDepVals()
+    const {prevDepVals, currDepVals, prevVal} = this.getDepVals()
     this.state = this.options.fn({
-      prevDepVals,
-      currDepVals,
+      prevDepVals: prevDepVals as never,
+      currDepVals: currDepVals as never,
       prevVal,
     })
 
-    // Always run onUpdate, regardless of batching
     this.options.onUpdate?.()
+  }
+
+  checkIfRecalculationNeededDeeply = () => {
+    for (const dep of this.options.deps) {
+      if (dep instanceof Derived) {
+        dep.checkIfRecalculationNeededDeeply()
+      }
+    }
+    let shouldRecompute = false;
+    const lastSeenDepValues = this.lastSeenDepValues
+    const {currDepVals} = this.getDepVals()
+    for (let i = 0; i < currDepVals.length; i++) {
+      if (currDepVals[i] !== lastSeenDepValues[i]) {
+        shouldRecompute = true
+        break
+      }
+    }
+
+    if (shouldRecompute) {
+      this.recompute()
+    }
   }
 
   mount = () => {
     this.registerOnGraph()
+    this.checkIfRecalculationNeededDeeply();
 
     return () => {
       this.unregisterFromGraph()
