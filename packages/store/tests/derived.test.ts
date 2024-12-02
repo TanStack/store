@@ -318,7 +318,6 @@ describe('Derived', () => {
     expect(halfDouble.state).toBe(24)
   })
 
-
   test('should be able to mount in the wrong order and still work with a derived and a non-derived state', () => {
     const count = new Store(12)
 
