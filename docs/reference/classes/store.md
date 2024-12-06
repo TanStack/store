@@ -21,9 +21,13 @@ new Store<TState, TUpdater>(initialState, options?): Store<TState, TUpdater>
 
 #### Parameters
 
-• **initialState**: `TState`
+##### initialState
 
-• **options?**: [`StoreOptions`](../interfaces/storeoptions.md)\<`TState`, `TUpdater`\>
+`TState`
+
+##### options?
+
+[`StoreOptions`](../interfaces/storeoptions.md)\<`TState`, `TUpdater`\>
 
 #### Returns
 
@@ -79,7 +83,9 @@ batch(cb): void
 
 #### Parameters
 
-• **cb**
+##### cb
+
+() => `void`
 
 #### Returns
 
@@ -99,7 +105,9 @@ setState(updater): void
 
 #### Parameters
 
-• **updater**: `TUpdater`
+##### updater
+
+`TUpdater`
 
 #### Returns
 
@@ -119,7 +127,9 @@ subscribe(listener): () => void
 
 #### Parameters
 
-• **listener**: `Listener`
+##### listener
+
+`Listener`
 
 #### Returns
 

@@ -15,9 +15,13 @@ function shallow<T>(objA, objB): boolean
 
 ## Parameters
 
-• **objA**: `T`
+### objA
 
-• **objB**: `T`
+`T`
+
+### objB
+
+`T`
 
 ## Returns
 
