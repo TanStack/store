@@ -19,9 +19,13 @@ function useStore<TState, TSelected, TUpdater>(store, selector): object
 
 ## Parameters
 
-• **store**: `Store`\<`TState`, `TUpdater`\>
+### store
 
-• **selector** = `...`
+`Store`\<`TState`, `TUpdater`\>
+
+### selector
+
+(`state`) => `TSelected`
 
 ## Returns
 

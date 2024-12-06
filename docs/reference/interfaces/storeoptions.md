@@ -23,9 +23,13 @@ Called when a listener subscribes to the store.
 
 #### Parameters
 
-• **listener**: `Listener`
+##### listener
 
-• **store**: [`Store`](../classes/store.md)\<`TState`, `TUpdater`\>
+`Listener`
+
+##### store
+
+[`Store`](../classes/store.md)\<`TState`, `TUpdater`\>
 
 #### Returns
 
@@ -71,7 +75,9 @@ Replace the default update function with a custom one.
 
 #### Parameters
 
-• **previous**: `TState`
+##### previous
+
+`TState`
 
 #### Returns
 
@@ -79,7 +85,9 @@ Replace the default update function with a custom one.
 
 ##### Parameters
 
-• **updater**: `TUpdater`
+###### updater
+
+`TUpdater`
 
 ##### Returns
 

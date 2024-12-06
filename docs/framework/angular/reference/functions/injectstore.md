@@ -22,11 +22,17 @@ options): Signal<TSelected>
 
 ## Parameters
 
-• **store**: `Store`\<`TState`, `TUpdater`\>
+### store
 
-• **selector** = `...`
+`Store`\<`TState`, `TUpdater`\>
 
-• **options**: `CreateSignalOptions`\<`TSelected`\> & `object` = `...`
+### selector
+
+(`state`) => `TSelected`
+
+### options
+
+`CreateSignalOptions`\<`TSelected`\> & `object` = `...`
 
 ## Returns
 
