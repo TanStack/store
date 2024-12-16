@@ -52,12 +52,12 @@
   },
   "devDependencies": {
     "@analogjs/vite-plugin-angular": "^1.10.1",
-    "@angular/common": "^19.0.3",
-    "@angular/compiler": "^19.0.3",
-    "@angular/compiler-cli": "^19.0.3",
-    "@angular/core": "^19.0.3",
-    "@angular/platform-browser": "^19.0.3",
-    "@angular/platform-browser-dynamic": "^19.0.3",
+    "@angular/common": "^19.0.4",
+    "@angular/compiler": "^19.0.4",
+    "@angular/compiler-cli": "^19.0.4",
+    "@angular/core": "^19.0.4",
+    "@angular/platform-browser": "^19.0.4",
+    "@angular/platform-browser-dynamic": "^19.0.4",
     "ng-packagr": "^19.0.1",
     "zone.js": "^0.15.0"
   },
