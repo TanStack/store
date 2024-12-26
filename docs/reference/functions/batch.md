@@ -11,7 +11,9 @@ function batch(fn): void
 
 ## Parameters
 
-• **fn**
+### fn
+
+() => `void`
 
 ## Returns
 
@@ -19,4 +21,4 @@ function batch(fn): void
 
 ## Defined in
 
-[scheduler.ts:129](https://github.com/TanStack/store/blob/main/packages/store/src/scheduler.ts#L129)
+[scheduler.ts:140](https://github.com/TanStack/store/blob/main/packages/store/src/scheduler.ts#L140)

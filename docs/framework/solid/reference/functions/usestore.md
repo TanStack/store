@@ -5,7 +5,7 @@ title: useStore
 
 # Function: useStore()
 
-## useStore(store, selector)
+## Call Signature
 
 ```ts
 function useStore<TState, TSelected>(store, selector?): Accessor<TSelected>
@@ -19,9 +19,13 @@ function useStore<TState, TSelected>(store, selector?): Accessor<TSelected>
 
 ### Parameters
 
-• **store**: `Store`\<`TState`, `any`\>
+#### store
 
-• **selector?**
+`Store`\<`TState`, `any`\>
+
+#### selector?
+
+(`state`) => `TSelected`
 
 ### Returns
 
@@ -31,7 +35,7 @@ function useStore<TState, TSelected>(store, selector?): Accessor<TSelected>
 
 [index.tsx:13](https://github.com/TanStack/store/blob/main/packages/solid-store/src/index.tsx#L13)
 
-## useStore(store, selector)
+## Call Signature
 
 ```ts
 function useStore<TState, TSelected>(store, selector?): Accessor<TSelected>
@@ -45,9 +49,13 @@ function useStore<TState, TSelected>(store, selector?): Accessor<TSelected>
 
 ### Parameters
 
-• **store**: `Derived`\<`TState`, `any`\>
+#### store
 
-• **selector?**
+`Derived`\<`TState`, `any`\>
+
+#### selector?
+
+(`state`) => `TSelected`
 
 ### Returns
 

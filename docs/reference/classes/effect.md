@@ -15,7 +15,9 @@ new Effect(opts): Effect
 
 #### Parameters
 
-• **opts**: `EffectOptions`
+##### opts
+
+`EffectOptions`
 
 #### Returns
 

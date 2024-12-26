@@ -35,7 +35,9 @@ Values of the `deps` from before and after the current invocation of `fn`
 
 #### Parameters
 
-• **props**: [`DerivedFnProps`](derivedfnprops.md)\<`TArr`, `UnwrapReadonlyDerivedOrStoreArray`\<`TArr`\>\>
+##### props
+
+[`DerivedFnProps`](derivedfnprops.md)\<`TArr`, `UnwrapReadonlyDerivedOrStoreArray`\<`TArr`\>\>
 
 #### Returns
 
@@ -55,9 +57,13 @@ optional onSubscribe: (listener, derived) => () => void;
 
 #### Parameters
 
-• **listener**: `Listener`\<`TState`\>
+##### listener
 
-• **derived**: [`Derived`](../classes/derived.md)\<`TState`, readonly `any`[]\>
+`Listener`\<`TState`\>
+
+##### derived
+
+[`Derived`](../classes/derived.md)\<`TState`, readonly `any`[]\>
 
 #### Returns
 

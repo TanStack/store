@@ -21,7 +21,9 @@ new Derived<TState, TArr>(options): Derived<TState, TArr>
 
 #### Parameters
 
-• **options**: [`DerivedOptions`](../interfaces/derivedoptions.md)\<`TState`, `TArr`\>
+##### options
+
+[`DerivedOptions`](../interfaces/derivedoptions.md)\<`TState`, `TArr`\>
 
 #### Returns
 
@@ -187,7 +189,9 @@ registerOnGraph(deps): void
 
 #### Parameters
 
-• **deps**: readonly ([`Derived`](derived.md)\<`any`, readonly `any`[]\> \| [`Store`](store.md)\<`any`, (`cb`) => `any`\>)[] = `...`
+##### deps
+
+readonly ([`Derived`](derived.md)\<`any`, readonly `any`[]\> \| [`Store`](store.md)\<`any`, (`cb`) => `any`\>)[] = `...`
 
 #### Returns
 
@@ -207,7 +211,9 @@ subscribe(listener): () => void
 
 #### Parameters
 
-• **listener**: `Listener`\<`TState`\>
+##### listener
+
+`Listener`\<`TState`\>
 
 #### Returns
 
@@ -231,7 +237,9 @@ unregisterFromGraph(deps): void
 
 #### Parameters
 
-• **deps**: readonly ([`Derived`](derived.md)\<`any`, readonly `any`[]\> \| [`Store`](store.md)\<`any`, (`cb`) => `any`\>)[] = `...`
+##### deps
+
+readonly ([`Derived`](derived.md)\<`any`, readonly `any`[]\> \| [`Store`](store.md)\<`any`, (`cb`) => `any`\>)[] = `...`
 
 #### Returns
 

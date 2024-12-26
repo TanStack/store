@@ -5,7 +5,7 @@ title: useStore
 
 # Function: useStore()
 
-## useStore(store, selector)
+## Call Signature
 
 ```ts
 function useStore<TState, TSelected>(store, selector?): object
@@ -19,9 +19,13 @@ function useStore<TState, TSelected>(store, selector?): object
 
 ### Parameters
 
-• **store**: `Store`\<`TState`, `any`\>
+#### store
 
-• **selector?**
+`Store`\<`TState`, `any`\>
+
+#### selector?
+
+(`state`) => `TSelected`
 
 ### Returns
 
@@ -37,7 +41,7 @@ readonly current: TSelected;
 
 [index.svelte.ts:10](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/index.svelte.ts#L10)
 
-## useStore(store, selector)
+## Call Signature
 
 ```ts
 function useStore<TState, TSelected>(store, selector?): object
@@ -51,9 +55,13 @@ function useStore<TState, TSelected>(store, selector?): object
 
 ### Parameters
 
-• **store**: `Derived`\<`TState`, `any`\>
+#### store
 
-• **selector?**
+`Derived`\<`TState`, `any`\>
+
+#### selector?
+
+(`state`) => `TSelected`
 
 ### Returns
 

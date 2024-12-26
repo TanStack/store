@@ -400,6 +400,6 @@ describe('Derived', () => {
     expect(fn).toHaveBeenNthCalledWith(2, {
       prevDepVals: [12],
       currDepVals: [25],
-    })    
+    })
   })
 })

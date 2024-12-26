@@ -5,7 +5,7 @@ title: injectStore
 
 # Function: injectStore()
 
-## injectStore(store, selector, options)
+## Call Signature
 
 ```ts
 function injectStore<TState, TSelected>(
@@ -22,11 +22,17 @@ options?): Signal<TSelected>
 
 ### Parameters
 
-• **store**: `Store`\<`TState`, `any`\>
+#### store
 
-• **selector?**
+`Store`\<`TState`, `any`\>
 
-• **options?**: `CreateSignalOptions`\<`TSelected`\> & `object`
+#### selector?
+
+(`state`) => `TSelected`
+
+#### options?
+
+`CreateSignalOptions`\<`TSelected`\> & `object`
 
 ### Returns
 
@@ -36,7 +42,7 @@ options?): Signal<TSelected>
 
 [index.ts:19](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L19)
 
-## injectStore(store, selector, options)
+## Call Signature
 
 ```ts
 function injectStore<TState, TSelected>(
@@ -53,11 +59,17 @@ options?): Signal<TSelected>
 
 ### Parameters
 
-• **store**: `Derived`\<`TState`, `any`\>
+#### store
 
-• **selector?**
+`Derived`\<`TState`, `any`\>
 
-• **options?**: `CreateSignalOptions`\<`TSelected`\> & `object`
+#### selector?
+
+(`state`) => `TSelected`
+
+#### options?
+
+`CreateSignalOptions`\<`TSelected`\> & `object`
 
 ### Returns
 

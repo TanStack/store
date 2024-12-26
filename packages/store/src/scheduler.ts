@@ -90,7 +90,7 @@ export function __flush(store: Store<unknown>) {
   if (__batchDepth > 0 && !__initialBatchValues.has(store)) {
     __initialBatchValues.set(store, store.prevState)
   }
-  
+
   __pendingUpdates.add(store)
 
   if (__batchDepth > 0) return
