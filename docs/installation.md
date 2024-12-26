@@ -27,7 +27,7 @@ TanStack Store is compatible with Vue 2 and 3.
 npm install @tanstack/angular-store
 ```
 
-TanStack Store is compatible with Angular 16+
+TanStack Store is compatible with Angular 19+
 
 ## SolidJS
 

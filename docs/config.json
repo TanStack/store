@@ -16,6 +16,10 @@
         {
           "label": "Installation",
           "to": "installation"
+        },
+        {
+          "label": "Quick Start",
+          "to": "quick-start"
         }
       ],
       "frameworks": [
@@ -88,7 +92,7 @@
         {
           "label": "Interfaces / StoreOptions",
           "to": "reference/interfaces/storeoptions"
-        }
+        },
         {
           "label": "Interfaces / DerivedOptions",
           "to": "reference/interfaces/derivedoptions"
@@ -224,4 +228,6 @@
           ]
         }
       ]
+    }
+  ]
 }
