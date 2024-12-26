@@ -57,11 +57,11 @@
   ],
   "dependencies": {
     "@tanstack/store": "workspace:*",
-    "use-sync-external-store": "^1.2.2"
+    "use-sync-external-store": "^1.4.0"
   },
   "devDependencies": {
     "@types/use-sync-external-store": "^0.0.6",
-    "@vitejs/plugin-react": "^4.3.3"
+    "@vitejs/plugin-react": "^4.3.4"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
