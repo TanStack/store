@@ -5,32 +5,62 @@ title: useStore
 
 # Function: useStore()
 
+## Call Signature
+
 ```ts
-function useStore<TState, TSelected, TUpdater>(store, selector): Accessor<TSelected>
+function useStore<TState, TSelected>(store, selector?): Accessor<TSelected>
 ```
 
-## Type Parameters
+### Type Parameters
 
 • **TState**
 
 • **TSelected** = `NoInfer`\<`TState`\>
 
-• **TUpdater** *extends* `AnyUpdater` = `AnyUpdater`
+### Parameters
 
-## Parameters
+#### store
 
-### store
+`Store`\<`TState`, `any`\>
 
-`Store`\<`TState`, `TUpdater`\>
-
-### selector
+#### selector?
 
 (`state`) => `TSelected`
 
-## Returns
+### Returns
 
 `Accessor`\<`TSelected`\>
 
-## Defined in
+### Defined in
 
 [index.tsx:13](https://github.com/TanStack/store/blob/main/packages/solid-store/src/index.tsx#L13)
+
+## Call Signature
+
+```ts
+function useStore<TState, TSelected>(store, selector?): Accessor<TSelected>
+```
+
+### Type Parameters
+
+• **TState**
+
+• **TSelected** = `NoInfer`\<`TState`\>
+
+### Parameters
+
+#### store
+
+`Derived`\<`TState`, `any`\>
+
+#### selector?
+
+(`state`) => `TSelected`
+
+### Returns
+
+`Accessor`\<`TSelected`\>
+
+### Defined in
+
+[index.tsx:17](https://github.com/TanStack/store/blob/main/packages/solid-store/src/index.tsx#L17)

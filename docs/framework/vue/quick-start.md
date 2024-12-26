@@ -3,7 +3,7 @@ title: Quick Start
 id: quick-start
 ---
 
-The basic vue app example to get started with the Tanstack vue-store.
+The basic vue app example to get started with the TanStack vue-store.
 
 **App.vue**
 ```html

@@ -3,7 +3,7 @@ title: Quick Start
 id: quick-start
 ---
 
-The basic Svelte app example to get started with the Tanstack svelte-store.
+The basic Svelte app example to get started with the TanStack svelte-store.
 
 **store.ts**
 ```ts

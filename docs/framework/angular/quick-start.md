@@ -3,7 +3,7 @@ title: Quick Start
 id: quick-start
 ---
 
-The basic angular app example to get started with the Tanstack angular-store.
+The basic angular app example to get started with the TanStack angular-store.
 
 **app.component.ts**
 ```angular-ts

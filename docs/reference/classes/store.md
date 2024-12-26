@@ -35,19 +35,19 @@ new Store<TState, TUpdater>(initialState, options?): Store<TState, TUpdater>
 
 #### Defined in
 
-[index.ts:50](https://github.com/TanStack/store/blob/main/packages/store/src/index.ts#L50)
+[store.ts:36](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L36)
 
 ## Properties
 
 ### listeners
 
 ```ts
-listeners: Set<Listener>;
+listeners: Set<Listener<TState>>;
 ```
 
 #### Defined in
 
-[index.ts:38](https://github.com/TanStack/store/blob/main/packages/store/src/index.ts#L38)
+[store.ts:31](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L31)
 
 ***
 
@@ -59,7 +59,19 @@ optional options: StoreOptions<TState, TUpdater>;
 
 #### Defined in
 
-[index.ts:40](https://github.com/TanStack/store/blob/main/packages/store/src/index.ts#L40)
+[store.ts:34](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L34)
+
+***
+
+### prevState
+
+```ts
+prevState: TState;
+```
+
+#### Defined in
+
+[store.ts:33](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L33)
 
 ***
 
@@ -71,31 +83,9 @@ state: TState;
 
 #### Defined in
 
-[index.ts:39](https://github.com/TanStack/store/blob/main/packages/store/src/index.ts#L39)
+[store.ts:32](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L32)
 
 ## Methods
-
-### batch()
-
-```ts
-batch(cb): void
-```
-
-#### Parameters
-
-##### cb
-
-() => `void`
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[index.ts:89](https://github.com/TanStack/store/blob/main/packages/store/src/index.ts#L89)
-
-***
 
 ### setState()
 
@@ -115,7 +105,7 @@ setState(updater): void
 
 #### Defined in
 
-[index.ts:64](https://github.com/TanStack/store/blob/main/packages/store/src/index.ts#L64)
+[store.ts:51](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L51)
 
 ***
 
@@ -129,7 +119,7 @@ subscribe(listener): () => void
 
 ##### listener
 
-`Listener`
+`Listener`\<`TState`\>
 
 #### Returns
 
@@ -141,4 +131,4 @@ subscribe(listener): () => void
 
 #### Defined in
 
-[index.ts:55](https://github.com/TanStack/store/blob/main/packages/store/src/index.ts#L55)
+[store.ts:42](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L42)

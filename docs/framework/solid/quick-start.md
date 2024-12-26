@@ -3,7 +3,7 @@ title: Quick Start
 id: quick-start
 ---
 
-The basic Solid app example to get started with the Tanstack Solid-store.
+The basic Solid app example to get started with the TanStack Solid-store.
 
 ```jsx
 import { useStore, Store } from '@tanstack/solid-store';

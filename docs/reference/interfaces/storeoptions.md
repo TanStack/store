@@ -25,7 +25,7 @@ Called when a listener subscribes to the store.
 
 ##### listener
 
-`Listener`
+`Listener`\<`TState`\>
 
 ##### store
 
@@ -43,7 +43,7 @@ a function to unsubscribe the listener
 
 #### Defined in
 
-[index.ts:24](https://github.com/TanStack/store/blob/main/packages/store/src/index.ts#L24)
+[store.ts:17](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L17)
 
 ***
 
@@ -61,7 +61,7 @@ Called after the state has been updated, used to derive other state.
 
 #### Defined in
 
-[index.ts:31](https://github.com/TanStack/store/blob/main/packages/store/src/index.ts#L31)
+[store.ts:24](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L24)
 
 ***
 
@@ -95,4 +95,4 @@ Replace the default update function with a custom one.
 
 #### Defined in
 
-[index.ts:18](https://github.com/TanStack/store/blob/main/packages/store/src/index.ts#L18)
+[store.ts:11](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L11)

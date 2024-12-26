@@ -5,39 +5,76 @@ title: injectStore
 
 # Function: injectStore()
 
+## Call Signature
+
 ```ts
-function injectStore<TState, TSelected, TUpdater>(
+function injectStore<TState, TSelected>(
    store, 
-   selector, 
-options): Signal<TSelected>
+   selector?, 
+options?): Signal<TSelected>
 ```
 
-## Type Parameters
+### Type Parameters
 
 • **TState**
 
 • **TSelected** = `NoInfer`\<`TState`\>
 
-• **TUpdater** *extends* `AnyUpdater` = `AnyUpdater`
+### Parameters
 
-## Parameters
+#### store
 
-### store
+`Store`\<`TState`, `any`\>
 
-`Store`\<`TState`, `TUpdater`\>
-
-### selector
+#### selector?
 
 (`state`) => `TSelected`
 
-### options
+#### options?
 
-`CreateSignalOptions`\<`TSelected`\> & `object` = `...`
+`CreateSignalOptions`\<`TSelected`\> & `object`
 
-## Returns
+### Returns
 
 `Signal`\<`TSelected`\>
 
-## Defined in
+### Defined in
 
-[index.ts:17](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L17)
+[index.ts:19](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L19)
+
+## Call Signature
+
+```ts
+function injectStore<TState, TSelected>(
+   store, 
+   selector?, 
+options?): Signal<TSelected>
+```
+
+### Type Parameters
+
+• **TState**
+
+• **TSelected** = `NoInfer`\<`TState`\>
+
+### Parameters
+
+#### store
+
+`Derived`\<`TState`, `any`\>
+
+#### selector?
+
+(`state`) => `TSelected`
+
+#### options?
+
+`CreateSignalOptions`\<`TSelected`\> & `object`
+
+### Returns
+
+`Signal`\<`TSelected`\>
+
+### Defined in
+
+[index.ts:24](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L24)

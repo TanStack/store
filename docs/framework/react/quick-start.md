@@ -3,7 +3,7 @@ title: Quick Start
 id: quick-start
 ---
 
-The basic react app example to get started with the Tanstack react-store.
+The basic react app example to get started with the TanStack react-store.
 
 ```tsx
 import React from "react";

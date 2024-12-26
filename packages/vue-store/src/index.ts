@@ -1,5 +1,5 @@
 import { readonly, ref, toRaw, watch } from 'vue-demi'
-import type { AnyUpdater, Store } from '@tanstack/store'
+import type { Derived, Store } from '@tanstack/store'
 import type { Ref } from 'vue-demi'
 
 export * from '@tanstack/store'
@@ -9,12 +9,16 @@ export * from '@tanstack/store'
  */
 export type NoInfer<T> = [T][T extends any ? 0 : never]
 
-export function useStore<
-  TState,
-  TSelected = NoInfer<TState>,
-  TUpdater extends AnyUpdater = AnyUpdater,
->(
-  store: Store<TState, TUpdater>,
+export function useStore<TState, TSelected = NoInfer<TState>>(
+  store: Store<TState, any>,
+  selector?: (state: NoInfer<TState>) => TSelected,
+): Readonly<Ref<TSelected>>
+export function useStore<TState, TSelected = NoInfer<TState>>(
+  store: Derived<TState, any>,
+  selector?: (state: NoInfer<TState>) => TSelected,
+): Readonly<Ref<TSelected>>
+export function useStore<TState, TSelected = NoInfer<TState>>(
+  store: Store<TState, any> | Derived<TState, any>,
   selector: (state: NoInfer<TState>) => TSelected = (d) => d as any,
 ): Readonly<Ref<TSelected>> {
   const slice = ref(selector(store.state)) as Ref<TSelected>

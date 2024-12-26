@@ -16,6 +16,10 @@
         {
           "label": "Installation",
           "to": "installation"
+        },
+        {
+          "label": "Quick Start",
+          "to": "quick-start"
         }
       ],
       "frameworks": [
@@ -78,8 +82,20 @@
           "to": "reference/classes/store"
         },
         {
+          "label": "Classes / Derived",
+          "to": "reference/classes/derived"
+        },
+        {
+          "label": "Classes / Effect",
+          "to": "reference/classes/effect"
+        },
+        {
           "label": "Interfaces / StoreOptions",
           "to": "reference/interfaces/storeoptions"
+        },
+        {
+          "label": "Interfaces / DerivedOptions",
+          "to": "reference/interfaces/derivedoptions"
         }
       ],
       "frameworks": [
