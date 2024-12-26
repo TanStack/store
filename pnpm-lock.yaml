@@ -338,8 +338,8 @@ importers:
   packages/store:
     devDependencies:
       '@angular/core':
-        specifier: ^19.0.0
-        version: 19.0.0(rxjs@7.8.1)(zone.js@0.15.0)
+        specifier: ^19.0.5
+        version: 19.0.5(rxjs@7.8.1)(zone.js@0.15.0)
       '@preact/signals':
         specifier: ^1.3.0
         version: 1.3.0(preact@10.25.0)
