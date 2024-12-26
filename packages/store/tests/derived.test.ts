@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, test, vi } from 'vitest'
 import { Store } from '../src/store'
 import { Derived } from '../src/derived'
+import { batch } from '../src/scheduler'
 
 function viFnSubscribe(subscribable: Store<any> | Derived<any>) {
   const fn = vi.fn()
@@ -370,5 +371,35 @@ describe('Derived', () => {
     double.mount()
 
     expect(fn).toHaveBeenLastCalledWith(3)
+  })
+
+  test('should receive same prevDepVals and currDepVals during batch', () => {
+    const count = new Store(12)
+    const fn = vi.fn()
+    const derived = new Derived({
+      deps: [count],
+      fn: ({ prevDepVals, currDepVals }) => {
+        fn({ prevDepVals, currDepVals })
+        return count.state
+      },
+    })
+    derived.mount()
+
+    // First call when mounting
+    expect(fn).toHaveBeenNthCalledWith(1, {
+      prevDepVals: undefined,
+      currDepVals: [12],
+    })
+
+    batch(() => {
+      count.setState(() => 23)
+      count.setState(() => 24)
+      count.setState(() => 25)
+    })
+
+    expect(fn).toHaveBeenNthCalledWith(2, {
+      prevDepVals: [12],
+      currDepVals: [25],
+    })    
   })
 })

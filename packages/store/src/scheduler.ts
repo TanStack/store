@@ -32,6 +32,8 @@ export const __depsThatHaveWrittenThisTick = {
 let __isFlushing = false
 let __batchDepth = 0
 const __pendingUpdates = new Set<Store<unknown>>()
+// Add a map to store initial values before batch
+const __initialBatchValues = new Map<Store<unknown>, unknown>()
 
 function __flush_internals(relatedVals: Set<Derived<unknown>>) {
   // First sort deriveds by dependency order
@@ -84,6 +86,11 @@ function __notifyDerivedListeners(derived: Derived<unknown>) {
  * @private only to be called from `Store` on write
  */
 export function __flush(store: Store<unknown>) {
+  // If we're starting a batch, store the initial values
+  if (__batchDepth > 0 && !__initialBatchValues.has(store)) {
+    __initialBatchValues.set(store, store.prevState)
+  }
+  
   __pendingUpdates.add(store)
 
   if (__batchDepth > 0) return
@@ -98,6 +105,9 @@ export function __flush(store: Store<unknown>) {
 
       // First notify listeners with updated values
       for (const store of stores) {
+        // Use initial batch values for prevState if we have them
+        const prevState = __initialBatchValues.get(store) ?? store.prevState
+        store.prevState = prevState
         __notifyListeners(store)
       }
 
@@ -123,6 +133,7 @@ export function __flush(store: Store<unknown>) {
   } finally {
     __isFlushing = false
     __depsThatHaveWrittenThisTick.current = []
+    __initialBatchValues.clear()
   }
 }
 
