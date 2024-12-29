@@ -25,7 +25,7 @@ This `Store` can then be used to track updates to your data:
 
 ```typescript
 const unsub = countStore.subscribe(() => {
-  console.log('The count is now:', count.state);
+  console.log('The count is now:', countStore.state);
 });
 
 // Later, to cleanup
