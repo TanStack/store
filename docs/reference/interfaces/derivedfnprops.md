@@ -7,7 +7,9 @@ title: DerivedFnProps
 
 ## Type Parameters
 
-• **TArr** *extends* `ReadonlyArray`\<[`Derived`](../classes/derived.md)\<`any`\> \| [`Store`](../classes/store.md)\<`any`\>\> = `ReadonlyArray`\<`any`\>
+• **TArr** *extends* `ReadonlyArray`\<
+  \| [`Derived`](../classes/derived.md)\<`any`\>
+  \| [`Store`](../classes/store.md)\<`any`\>\> = `ReadonlyArray`\<`any`\>
 
 • **TUnwrappedArr** *extends* `UnwrapReadonlyDerivedOrStoreArray`\<`TArr`\> = `UnwrapReadonlyDerivedOrStoreArray`\<`TArr`\>
 

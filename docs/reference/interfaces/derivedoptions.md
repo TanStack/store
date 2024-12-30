@@ -9,7 +9,9 @@ title: DerivedOptions
 
 • **TState**
 
-• **TArr** *extends* `ReadonlyArray`\<[`Derived`](../classes/derived.md)\<`any`\> \| [`Store`](../classes/store.md)\<`any`\>\> = `ReadonlyArray`\<`any`\>
+• **TArr** *extends* `ReadonlyArray`\<
+  \| [`Derived`](../classes/derived.md)\<`any`\>
+  \| [`Store`](../classes/store.md)\<`any`\>\> = `ReadonlyArray`\<`any`\>
 
 ## Properties
 
@@ -63,7 +65,7 @@ optional onSubscribe: (listener, derived) => () => void;
 
 ##### derived
 
-[`Derived`](../classes/derived.md)\<`TState`, readonly `any`[]\>
+[`Derived`](../classes/derived.md)\<`TState`\>
 
 #### Returns
 

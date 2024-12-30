@@ -14,7 +14,9 @@ const __depsThatHaveWrittenThisTick: object;
 ### current
 
 ```ts
-current: (Derived<unknown, readonly any[]> | Store<unknown, (cb) => unknown>)[];
+current: (
+  | Derived<unknown>
+  | Store<unknown, (cb) => unknown>)[];
 ```
 
 ## Defined in
