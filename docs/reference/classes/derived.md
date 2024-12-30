@@ -191,7 +191,9 @@ registerOnGraph(deps): void
 
 ##### deps
 
-readonly ([`Derived`](derived.md)\<`any`, readonly `any`[]\> \| [`Store`](store.md)\<`any`, (`cb`) => `any`\>)[] = `...`
+readonly (
+  \| [`Derived`](derived.md)\<`any`\>
+  \| [`Store`](store.md)\<`any`, (`cb`) => `any`\>)[] = `...`
 
 #### Returns
 
@@ -239,7 +241,9 @@ unregisterFromGraph(deps): void
 
 ##### deps
 
-readonly ([`Derived`](derived.md)\<`any`, readonly `any`[]\> \| [`Store`](store.md)\<`any`, (`cb`) => `any`\>)[] = `...`
+readonly (
+  \| [`Derived`](derived.md)\<`any`\>
+  \| [`Store`](store.md)\<`any`, (`cb`) => `any`\>)[] = `...`
 
 #### Returns
 

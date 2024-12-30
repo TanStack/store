@@ -6,7 +6,7 @@ title: __storeToDerived
 # Variable: \_\_storeToDerived
 
 ```ts
-const __storeToDerived: WeakMap<Store<unknown, (cb) => unknown>, Set<Derived<unknown, readonly any[]>>>;
+const __storeToDerived: WeakMap<Store<unknown, (cb) => unknown>, Set<Derived<unknown>>>;
 ```
 
 This is here to solve the pyramid dependency problem where:

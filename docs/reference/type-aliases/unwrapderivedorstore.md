@@ -6,7 +6,7 @@ title: UnwrapDerivedOrStore
 # Type Alias: UnwrapDerivedOrStore\<T\>
 
 ```ts
-type UnwrapDerivedOrStore<T>: T extends Derived<infer InnerD> ? InnerD : T extends Store<infer InnerS> ? InnerS : never;
+type UnwrapDerivedOrStore<T> = T extends Derived<infer InnerD> ? InnerD : T extends Store<infer InnerS> ? InnerS : never;
 ```
 
 ## Type Parameters

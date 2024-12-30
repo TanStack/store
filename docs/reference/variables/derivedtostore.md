@@ -6,7 +6,7 @@ title: __derivedToStore
 # Variable: \_\_derivedToStore
 
 ```ts
-const __derivedToStore: WeakMap<Derived<unknown, readonly any[]>, Set<Store<unknown, (cb) => unknown>>>;
+const __derivedToStore: WeakMap<Derived<unknown>, Set<Store<unknown, (cb) => unknown>>>;
 ```
 
 ## Defined in
