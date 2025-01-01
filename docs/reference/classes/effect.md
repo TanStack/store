@@ -5,6 +5,8 @@ title: Effect
 
 # Class: Effect
 
+Defined in: [effect.ts:17](https://github.com/TanStack/store/blob/main/packages/store/src/effect.ts#L17)
+
 ## Constructors
 
 ### new Effect()
@@ -12,6 +14,8 @@ title: Effect
 ```ts
 new Effect(opts): Effect
 ```
+
+Defined in: [effect.ts:23](https://github.com/TanStack/store/blob/main/packages/store/src/effect.ts#L23)
 
 #### Parameters
 
@@ -23,10 +27,6 @@ new Effect(opts): Effect
 
 [`Effect`](effect.md)
 
-#### Defined in
-
-[effect.ts:23](https://github.com/TanStack/store/blob/main/packages/store/src/effect.ts#L23)
-
 ## Methods
 
 ### mount()
@@ -35,6 +35,8 @@ new Effect(opts): Effect
 mount(): () => void
 ```
 
+Defined in: [effect.ts:39](https://github.com/TanStack/store/blob/main/packages/store/src/effect.ts#L39)
+
 #### Returns
 
 `Function`
@@ -42,7 +44,3 @@ mount(): () => void
 ##### Returns
 
 `void`
-
-#### Defined in
-
-[effect.ts:39](https://github.com/TanStack/store/blob/main/packages/store/src/effect.ts#L39)

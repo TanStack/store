@@ -9,6 +9,8 @@ title: shallow
 function shallow<T>(objA, objB): boolean
 ```
 
+Defined in: [index.ts:34](https://github.com/TanStack/store/blob/main/packages/react-store/src/index.ts#L34)
+
 ## Type Parameters
 
 • **T**
@@ -26,7 +28,3 @@ function shallow<T>(objA, objB): boolean
 ## Returns
 
 `boolean`
-
-## Defined in
-
-[index.ts:34](https://github.com/TanStack/store/blob/main/packages/react-store/src/index.ts#L34)
