@@ -5,6 +5,8 @@ title: Store
 
 # Class: Store\<TState, TUpdater\>
 
+Defined in: [store.ts:27](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L27)
+
 ## Type Parameters
 
 • **TState**
@@ -18,6 +20,8 @@ title: Store
 ```ts
 new Store<TState, TUpdater>(initialState, options?): Store<TState, TUpdater>
 ```
+
+Defined in: [store.ts:36](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L36)
 
 #### Parameters
 
@@ -33,10 +37,6 @@ new Store<TState, TUpdater>(initialState, options?): Store<TState, TUpdater>
 
 [`Store`](store.md)\<`TState`, `TUpdater`\>
 
-#### Defined in
-
-[store.ts:36](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L36)
-
 ## Properties
 
 ### listeners
@@ -45,9 +45,7 @@ new Store<TState, TUpdater>(initialState, options?): Store<TState, TUpdater>
 listeners: Set<Listener<TState>>;
 ```
 
-#### Defined in
-
-[store.ts:31](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L31)
+Defined in: [store.ts:31](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L31)
 
 ***
 
@@ -57,9 +55,7 @@ listeners: Set<Listener<TState>>;
 optional options: StoreOptions<TState, TUpdater>;
 ```
 
-#### Defined in
-
-[store.ts:34](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L34)
+Defined in: [store.ts:34](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L34)
 
 ***
 
@@ -69,9 +65,7 @@ optional options: StoreOptions<TState, TUpdater>;
 prevState: TState;
 ```
 
-#### Defined in
-
-[store.ts:33](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L33)
+Defined in: [store.ts:33](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L33)
 
 ***
 
@@ -81,9 +75,7 @@ prevState: TState;
 state: TState;
 ```
 
-#### Defined in
-
-[store.ts:32](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L32)
+Defined in: [store.ts:32](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L32)
 
 ## Methods
 
@@ -92,6 +84,8 @@ state: TState;
 ```ts
 setState(updater): void
 ```
+
+Defined in: [store.ts:51](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L51)
 
 #### Parameters
 
@@ -103,10 +97,6 @@ setState(updater): void
 
 `void`
 
-#### Defined in
-
-[store.ts:51](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L51)
-
 ***
 
 ### subscribe()
@@ -114,6 +104,8 @@ setState(updater): void
 ```ts
 subscribe(listener): () => void
 ```
+
+Defined in: [store.ts:42](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L42)
 
 #### Parameters
 
@@ -128,7 +120,3 @@ subscribe(listener): () => void
 ##### Returns
 
 `void`
-
-#### Defined in
-
-[store.ts:42](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L42)

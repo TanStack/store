@@ -5,6 +5,8 @@ title: Derived
 
 # Class: Derived\<TState, TArr\>
 
+Defined in: [derived.ts:54](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L54)
+
 ## Type Parameters
 
 • **TState**
@@ -19,6 +21,8 @@ title: Derived
 new Derived<TState, TArr>(options): Derived<TState, TArr>
 ```
 
+Defined in: [derived.ts:87](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L87)
+
 #### Parameters
 
 ##### options
@@ -29,10 +33,6 @@ new Derived<TState, TArr>(options): Derived<TState, TArr>
 
 [`Derived`](derived.md)\<`TState`, `TArr`\>
 
-#### Defined in
-
-[derived.ts:87](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L87)
-
 ## Properties
 
 ### lastSeenDepValues
@@ -41,9 +41,7 @@ new Derived<TState, TArr>(options): Derived<TState, TArr>
 lastSeenDepValues: unknown[] = [];
 ```
 
-#### Defined in
-
-[derived.ts:71](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L71)
+Defined in: [derived.ts:71](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L71)
 
 ***
 
@@ -53,9 +51,7 @@ lastSeenDepValues: unknown[] = [];
 listeners: Set<Listener<TState>>;
 ```
 
-#### Defined in
-
-[derived.ts:60](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L60)
+Defined in: [derived.ts:60](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L60)
 
 ***
 
@@ -65,9 +61,7 @@ listeners: Set<Listener<TState>>;
 options: DerivedOptions<TState, TArr>;
 ```
 
-#### Defined in
-
-[derived.ts:63](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L63)
+Defined in: [derived.ts:63](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L63)
 
 ***
 
@@ -77,9 +71,7 @@ options: DerivedOptions<TState, TArr>;
 prevState: undefined | TState;
 ```
 
-#### Defined in
-
-[derived.ts:62](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L62)
+Defined in: [derived.ts:62](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L62)
 
 ***
 
@@ -89,9 +81,7 @@ prevState: undefined | TState;
 state: TState;
 ```
 
-#### Defined in
-
-[derived.ts:61](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L61)
+Defined in: [derived.ts:61](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L61)
 
 ## Methods
 
@@ -101,13 +91,11 @@ state: TState;
 checkIfRecalculationNeededDeeply(): void
 ```
 
+Defined in: [derived.ts:157](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L157)
+
 #### Returns
 
 `void`
-
-#### Defined in
-
-[derived.ts:157](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L157)
 
 ***
 
@@ -116,6 +104,8 @@ checkIfRecalculationNeededDeeply(): void
 ```ts
 getDepVals(): object
 ```
+
+Defined in: [derived.ts:72](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L72)
 
 #### Returns
 
@@ -139,10 +129,6 @@ prevDepVals: unknown[];
 prevVal: undefined | NonNullable<TState>;
 ```
 
-#### Defined in
-
-[derived.ts:72](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L72)
-
 ***
 
 ### mount()
@@ -150,6 +136,8 @@ prevVal: undefined | NonNullable<TState>;
 ```ts
 mount(): () => void
 ```
+
+Defined in: [derived.ts:178](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L178)
 
 #### Returns
 
@@ -159,10 +147,6 @@ mount(): () => void
 
 `void`
 
-#### Defined in
-
-[derived.ts:178](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L178)
-
 ***
 
 ### recompute()
@@ -171,13 +155,11 @@ mount(): () => void
 recompute(): void
 ```
 
+Defined in: [derived.ts:145](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L145)
+
 #### Returns
 
 `void`
-
-#### Defined in
-
-[derived.ts:145](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L145)
 
 ***
 
@@ -187,19 +169,19 @@ recompute(): void
 registerOnGraph(deps): void
 ```
 
+Defined in: [derived.ts:96](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L96)
+
 #### Parameters
 
 ##### deps
 
-readonly ([`Derived`](derived.md)\<`any`, readonly `any`[]\> \| [`Store`](store.md)\<`any`, (`cb`) => `any`\>)[] = `...`
+readonly (
+  \| [`Derived`](derived.md)\<`any`\>
+  \| [`Store`](store.md)\<`any`, (`cb`) => `any`\>)[] = `...`
 
 #### Returns
 
 `void`
-
-#### Defined in
-
-[derived.ts:96](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L96)
 
 ***
 
@@ -208,6 +190,8 @@ readonly ([`Derived`](derived.md)\<`any`, readonly `any`[]\> \| [`Store`](store.
 ```ts
 subscribe(listener): () => void
 ```
+
+Defined in: [derived.ts:190](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L190)
 
 #### Parameters
 
@@ -223,10 +207,6 @@ subscribe(listener): () => void
 
 `void`
 
-#### Defined in
-
-[derived.ts:190](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L190)
-
 ***
 
 ### unregisterFromGraph()
@@ -235,16 +215,16 @@ subscribe(listener): () => void
 unregisterFromGraph(deps): void
 ```
 
+Defined in: [derived.ts:125](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L125)
+
 #### Parameters
 
 ##### deps
 
-readonly ([`Derived`](derived.md)\<`any`, readonly `any`[]\> \| [`Store`](store.md)\<`any`, (`cb`) => `any`\>)[] = `...`
+readonly (
+  \| [`Derived`](derived.md)\<`any`\>
+  \| [`Store`](store.md)\<`any`, (`cb`) => `any`\>)[] = `...`
 
 #### Returns
 
 `void`
-
-#### Defined in
-
-[derived.ts:125](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L125)

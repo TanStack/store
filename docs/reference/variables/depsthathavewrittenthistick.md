@@ -9,14 +9,14 @@ title: __depsThatHaveWrittenThisTick
 const __depsThatHaveWrittenThisTick: object;
 ```
 
+Defined in: [scheduler.ts:28](https://github.com/TanStack/store/blob/main/packages/store/src/scheduler.ts#L28)
+
 ## Type declaration
 
 ### current
 
 ```ts
-current: (Derived<unknown, readonly any[]> | Store<unknown, (cb) => unknown>)[];
+current: (
+  | Derived<unknown>
+  | Store<unknown, (cb) => unknown>)[];
 ```
-
-## Defined in
-
-[scheduler.ts:28](https://github.com/TanStack/store/blob/main/packages/store/src/scheduler.ts#L28)

@@ -11,6 +11,8 @@ title: useStore
 function useStore<TState, TSelected>(store, selector?): TSelected
 ```
 
+Defined in: [index.ts:11](https://github.com/TanStack/store/blob/main/packages/react-store/src/index.ts#L11)
+
 ### Type Parameters
 
 • **TState**
@@ -31,15 +33,13 @@ function useStore<TState, TSelected>(store, selector?): TSelected
 
 `TSelected`
 
-### Defined in
-
-[index.ts:11](https://github.com/TanStack/store/blob/main/packages/react-store/src/index.ts#L11)
-
 ## Call Signature
 
 ```ts
 function useStore<TState, TSelected>(store, selector?): TSelected
 ```
+
+Defined in: [index.ts:15](https://github.com/TanStack/store/blob/main/packages/react-store/src/index.ts#L15)
 
 ### Type Parameters
 
@@ -60,7 +60,3 @@ function useStore<TState, TSelected>(store, selector?): TSelected
 ### Returns
 
 `TSelected`
-
-### Defined in
-
-[index.ts:15](https://github.com/TanStack/store/blob/main/packages/react-store/src/index.ts#L15)
