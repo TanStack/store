@@ -9,6 +9,8 @@ title: batch
 function batch(fn): void
 ```
 
+Defined in: [scheduler.ts:140](https://github.com/TanStack/store/blob/main/packages/store/src/scheduler.ts#L140)
+
 ## Parameters
 
 ### fn
@@ -18,7 +20,3 @@ function batch(fn): void
 ## Returns
 
 `void`
-
-## Defined in
-
-[scheduler.ts:140](https://github.com/TanStack/store/blob/main/packages/store/src/scheduler.ts#L140)
