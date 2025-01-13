@@ -21,13 +21,13 @@
     "angular"
   ],
   "scripts": {
-    "clean": "rimraf ./dist && rimraf ./coverage",
+    "clean": "premove ./dist ./coverage",
     "test:eslint": "eslint ./src ./tests",
     "test:types": "tsc",
     "test:lib": "vitest",
     "test:lib:dev": "pnpm run test:lib --watch",
     "test:build": "publint --strict",
-    "build": "ng-packagr -p ng-package.json -c tsconfig.build.json && rimraf ./dist/package.json"
+    "build": "ng-packagr -p ng-package.json -c tsconfig.build.json && premove ./dist/package.json"
   },
   "type": "module",
   "types": "dist/index.d.ts",

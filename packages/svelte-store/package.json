@@ -20,7 +20,7 @@
     "svelte"
   ],
   "scripts": {
-    "clean": "rimraf ./dist && rimraf ./coverage",
+    "clean": "premove ./dist ./coverage",
     "test:types": "svelte-check --tsconfig ./tsconfig.json",
     "test:eslint": "eslint ./src ./tests",
     "test:lib": "vitest",

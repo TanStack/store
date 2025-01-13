@@ -19,7 +19,7 @@
     "typescript"
   ],
   "scripts": {
-    "clean": "rimraf ./dist && rimraf ./coverage",
+    "clean": "premove ./dist ./coverage",
     "test:eslint": "eslint ./src ./tests",
     "test:types": "pnpm run \"/^test:types:ts[0-9]{2}$/\"",
     "test:types:ts50": "node ../../node_modules/typescript50/lib/tsc.js",
