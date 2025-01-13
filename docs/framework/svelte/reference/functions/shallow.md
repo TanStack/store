@@ -9,6 +9,8 @@ title: shallow
 function shallow<T>(objA, objB): boolean
 ```
 
+Defined in: [index.svelte.ts:43](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/index.svelte.ts#L43)
+
 ## Type Parameters
 
 • **T**
@@ -26,7 +28,3 @@ function shallow<T>(objA, objB): boolean
 ## Returns
 
 `boolean`
-
-## Defined in
-
-[index.svelte.ts:43](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/index.svelte.ts#L43)
