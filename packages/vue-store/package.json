@@ -64,6 +64,7 @@
     "vue-demi": "^0.14.10"
   },
   "devDependencies": {
+    "@testing-library/vue": "^8.1.0",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/composition-api": "^1.7.2",
     "vue": "^3.5.13",

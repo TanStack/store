@@ -1,21 +1,10 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
   "workspaces": {
-    "packages/angular-store": {
-      "ignoreDependencies": ["@angular/compiler-cli"]
-    },
-    "packages/store": {
-      "ignore": ["src/tests/derived.bench.ts"],
-      "ignoreDependencies": [
-        "@angular/core",
-        "@preact/signals",
-        "solid-js",
-        "vue"
-      ]
-    },
     "packages/vue-store": {
       "ignoreDependencies": ["vue2", "vue2.7"]
     }
   },
+  "ignoreDependencies": ["vue"],
   "ignoreWorkspaces": ["examples/**"]
 }
