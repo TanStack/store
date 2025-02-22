@@ -90,7 +90,7 @@ const unmount = double.mount();
 unmount();
 ```
 
-## Previous Deferred Value
+## Previous Derived Value
 
 You can access the previous value of a derived computation by using the `prevVal` argument passed to the `fn` function:
 
