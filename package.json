@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "repository": "https://github.com/tanstack/store.git",
-  "packageManager": "pnpm@9.15.6",
+  "packageManager": "pnpm@10.5.2",
   "type": "module",
   "scripts": {
     "clean": "pnpm --filter \"./packages/**\" run clean",
