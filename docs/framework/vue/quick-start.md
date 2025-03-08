@@ -24,9 +24,9 @@ import Display from './Display.vue';
 
 **store.js**
 ```js
-import { Store } from '@tanstack/store';
+import { Store } from '@tanstack/vue-store';
 
-// You can use @tanstack/store outside of Vue components too!
+// You can instantiate the store outside of Vue components too!
 export const store = new Store({
   dogs: 0,
   cats: 0,

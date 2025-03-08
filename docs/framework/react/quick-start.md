@@ -8,10 +8,9 @@ The basic react app example to get started with the TanStack react-store.
 ```tsx
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { useStore } from "@tanstack/react-store";
-import { Store } from "@tanstack/store";
+import { Store, useStore } from "@tanstack/react-store";
 
-// You can use @tanstack/store outside of React components too!
+// You can instantiate the store outside of React components too!
 export const store = new Store({
   dogs: 0,
   cats: 0,
@@ -54,6 +53,5 @@ function App() {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<App />);
-
 
 ```

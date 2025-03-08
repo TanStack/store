@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@tanstack/solid-store": "^0.7.0",
-    "@tanstack/store": "^0.7.0",
     "solid-js": "^1.9.5"
   },
   "devDependencies": {

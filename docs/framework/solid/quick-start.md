@@ -6,8 +6,9 @@ id: quick-start
 The basic Solid app example to get started with the TanStack Solid-store.
 
 ```jsx
-import { useStore, Store } from '@tanstack/solid-store';
+import { Store, useStore } from '@tanstack/solid-store';
 
+// You can instantiate the store outside of Solid components too!
 export const store = new Store({
   cats: 0,
   dogs: 0
