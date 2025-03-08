@@ -34,7 +34,7 @@ export class AppComponent {}
 ```typescript
 import { Store } from '@tanstack/angular-store';
 
-// You can use @tanstack/store outside of App components too!
+// You can instantiate the store outside of Angular components too!
 export const store = new Store({
   dogs: 0,
   cats: 0,
