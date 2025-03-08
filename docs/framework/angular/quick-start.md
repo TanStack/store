@@ -32,7 +32,7 @@ export class AppComponent {}
 
 **store.ts**
 ```typescript
-import { Store } from '@tanstack/store';
+import { Store } from '@tanstack/angular-store';
 
 // You can use @tanstack/store outside of App components too!
 export const store = new Store({
