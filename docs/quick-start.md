@@ -7,7 +7,7 @@ TanStack Store is, first and foremost, a framework-agnostic signals implementati
 
 It can be used with any of our framework adapters, but can also be used in vanilla JavaScript or TypeScript. It's currently used to power many of our library's internals.
 
-# Store
+## Store
 
 You'll start by creating a new store instance, which is a wrapper around your data:
 
@@ -56,7 +56,7 @@ const count = new Store(0, {
 })
 ```
 
-## Batch Updates
+### Batch Updates
 
 You can batch updates to a store by using the `batch` function:
 
@@ -70,7 +70,7 @@ batch(() => {
 });
 ```
 
-# Derived
+## Derived
 
 You can also use the `Derived` class to create derived values that lazily update when their dependencies change:
 
@@ -90,7 +90,7 @@ const unmount = double.mount();
 unmount();
 ```
 
-## Previous Derived Value
+### Previous Derived Value
 
 You can access the previous value of a derived computation by using the `prevVal` argument passed to the `fn` function:
 
@@ -110,7 +110,7 @@ count.setState(() => 2);
 double.state; // 3
 ```
 
-## Dependency Values
+### Dependency Values
 
 You can access the values of the dependencies of a derived computation by using the `prevDepVals` and `currDepVals` arguments passed to the `fn` function:
 
@@ -130,7 +130,7 @@ count.setState(() => 2);
 double.state; // 3
 ```
 
-# Effects
+## Effects
 
 You can also use the `Effect` class to manage side effects across multiple stores and derived values:
 
