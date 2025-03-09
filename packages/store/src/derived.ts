@@ -4,26 +4,26 @@ import type { Listener } from './types'
 
 export type UnwrapDerivedOrStore<T> =
   T extends Derived<infer InnerD>
-    ? InnerD
-    : T extends Store<infer InnerS>
-      ? InnerS
-      : never
+  ? InnerD
+  : T extends Store<infer InnerS>
+  ? InnerS
+  : never
 
 type UnwrapReadonlyDerivedOrStoreArray<
   TArr extends ReadonlyArray<Derived<any> | Store<any>>,
 > = TArr extends readonly [infer Head, ...infer Tail]
   ? Head extends Derived<any> | Store<any>
-    ? Tail extends ReadonlyArray<Derived<any> | Store<any>>
-      ? [UnwrapDerivedOrStore<Head>, ...UnwrapReadonlyDerivedOrStoreArray<Tail>]
-      : []
-    : []
+  ? Tail extends ReadonlyArray<Derived<any> | Store<any>>
+  ? [UnwrapDerivedOrStore<Head>, ...UnwrapReadonlyDerivedOrStoreArray<Tail>]
+  : []
+  : []
   : []
 
 // Can't have currVal, as it's being evaluated from the current derived fn
 export interface DerivedFnProps<
   TArr extends ReadonlyArray<Derived<any> | Store<any>> = ReadonlyArray<any>,
   TUnwrappedArr extends
-    UnwrapReadonlyDerivedOrStoreArray<TArr> = UnwrapReadonlyDerivedOrStoreArray<TArr>,
+  UnwrapReadonlyDerivedOrStoreArray<TArr> = UnwrapReadonlyDerivedOrStoreArray<TArr>,
 > {
   // `undefined` if it's the first run
   /**
@@ -69,6 +69,11 @@ export class Derived<
   _subscriptions: Array<() => void> = []
 
   lastSeenDepValues: Array<unknown> = []
+
+  // Add a new field to track mounting state
+  private _isMounted = false
+  private _cleanupFn: (() => void) | null = null
+
   getDepVals = () => {
     const prevDepVals = [] as Array<unknown>
     const currDepVals = [] as Array<unknown>
@@ -91,6 +96,8 @@ export class Derived<
       prevVal: undefined,
       currDepVals: this.getDepVals().currDepVals as never,
     })
+
+    // ❌ No auto-mount here! subscribe() will handle it, because it is better to mount only when needed
   }
 
   registerOnGraph(
@@ -175,24 +182,56 @@ export class Derived<
     }
   }
 
+  /**
+   * @deprecated Use subscribe() instead, which automatically mounts when needed
+   */
   mount = () => {
-    this.registerOnGraph()
-    this.checkIfRecalculationNeededDeeply()
-
-    return () => {
-      this.unregisterFromGraph()
-      for (const cleanup of this._subscriptions) {
-        cleanup()
-      }
+    if (!this._isMounted) {
+      this._mount()
     }
+    return this._cleanupFn || (() => { })
   }
 
   subscribe = (listener: Listener<TState>) => {
+    // Auto-mount if this is the first listener
+    if (this.listeners.size === 0 && !this._isMounted) {
+      this._mount()
+    }
+
     this.listeners.add(listener)
     const unsub = this.options.onSubscribe?.(listener, this)
     return () => {
       this.listeners.delete(listener)
       unsub?.()
+
+      // Auto-unmount only if this was the last listener, and it wasn't manually mounted
+      if (this.listeners.size === 0 && this._isMounted) {
+        this._unmount()
+      }
     }
+  }
+
+  // Private mount implementation
+  private _mount = () => {
+    if (this._isMounted) return
+
+    this.registerOnGraph()
+    this.checkIfRecalculationNeededDeeply()
+
+    this._isMounted = true
+    this._cleanupFn = () => {
+      this.unregisterFromGraph()
+      for (const cleanup of this._subscriptions) {
+        cleanup()
+      }
+      this._isMounted = false
+      this._cleanupFn = null
+    }
+  }
+
+  // Private unmount implementation
+  private _unmount = () => {
+    if (!this._isMounted || !this._cleanupFn) return
+    this._cleanupFn()
   }
 }
