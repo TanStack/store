@@ -33,20 +33,20 @@ describe('Derived', () => {
   bench('TanStack', () => {
     const a = new Store(1)
     const b = new Derived({ deps: [a], fn: () => a.state })
-    b.mount()
+    // b.mount() - No longer needed
     const c = new Derived({ deps: [a], fn: () => a.state })
-    c.mount()
+    // c.mount() - No longer needed
     const d = new Derived({ deps: [b], fn: () => b.state })
-    d.mount()
+    // d.mount() - No longer needed
     const e = new Derived({ deps: [b], fn: () => b.state })
-    e.mount()
+    // e.mount() - No longer needed
     const f = new Derived({ deps: [c], fn: () => c.state })
-    f.mount()
+    // f.mount() - No longer needed
     const g = new Derived({
       deps: [d, e, f],
       fn: () => d.state + e.state + f.state,
     })
-    g.mount()
+    // g.mount() - No longer needed
 
     g.subscribe(() => noop(g.state))
 
@@ -114,7 +114,7 @@ describe('Derived', () => {
       () => {
         console.log(g())
       },
-      () => {},
+      () => { },
       false,
     )
 
