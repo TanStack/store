@@ -157,114 +157,145 @@ describe('Derived', () => {
     expect(fn).toBeCalledWith({ prevVal: 24, currentVal: 48 })
   })
 
-  test('derivedFn should receive old and new dep values', () => {
-    const count = new Store(12)
-    const date = new Date()
-    const time = new Store(date)
-    const fn = vi.fn()
+
+  test('derivedFn should receive old and new dep values', async () => {
+    const count = new Store(12);
+    const time = new Store(new Date());
+
+    const fn = vi.fn();
+
     const derived = new Derived({
       deps: [count, time],
       fn: ({ prevDepVals, currDepVals }) => {
-        fn({ prevDepVals, currDepVals })
-        return void 0
+        fn({ prevDepVals, currDepVals });
+        return void 0;
       },
-    })
-    // derived.mount() - No longer needed
-    expect(fn).toBeCalledWith({
-      prevDepVals: undefined,
-      currDepVals: [12, date],
-    })
-    count.setState(() => 24)
-    expect(fn).toBeCalledWith({
-      prevDepVals: [12, date],
-      currDepVals: [24, date],
-    })
-  })
+    });
 
-  test('derivedFn should receive old and new dep values for similar derived values', () => {
-    const count = new Store(12)
+    derived.subscribe(() => { });
+
+    // First call should be with initial values
+    expect(fn).toHaveBeenCalledWith({
+      prevDepVals: undefined,
+      currDepVals: [12, time.state],
+    });
+
+    count.setState(() => 24);
+
+    // Expect function to be called with updated values
+    expect(fn).toHaveBeenCalledWith({
+      prevDepVals: [12, time.state],
+      currDepVals: [24, time.state],
+    });
+  });
+
+
+  test('derivedFn should receive old and new dep values for similar derived values', async () => {
+    const count = new Store(12);
+
     const halfCount = new Derived({
       deps: [count],
       fn: () => count.state / 2,
-    })
-    // halfCount.mount() - No longer needed
-    const fn = vi.fn()
+    });
+
+    // Ensure halfCount subscribes to count
+    halfCount.subscribe(() => { });
+
+    const fn = vi.fn();
+
     const derived = new Derived({
       deps: [count, halfCount],
       fn: ({ prevDepVals, currDepVals }) => {
-        fn({ prevDepVals, currDepVals })
-        return void 0
+        fn({ prevDepVals, currDepVals });
+        return void 0;
       },
-    })
-    // derived.mount() - No longer needed
-    expect(fn).toBeCalledWith({
-      prevDepVals: undefined,
-      currDepVals: [12, 6],
-    })
-    count.setState(() => 24)
-    expect(fn).toBeCalledWith({
-      prevDepVals: [12, 6],
-      currDepVals: [24, 12],
-    })
-  })
+    });
 
-  test('derivedFn should receive the old value', () => {
-    const count = new Store(12)
-    const date = new Date()
-    const time = new Store(date)
-    const fn = vi.fn()
+    derived.subscribe(() => { });
+
+    // First call should be with initial values
+    expect(fn).toHaveBeenCalledWith({
+      prevDepVals: undefined,
+      currDepVals: [12, 6], // halfCount = 12 / 2 = 6
+    });
+
+    count.setState(() => 24);
+
+    // Expect function to be called with updated values
+    expect(fn).toHaveBeenCalledWith({
+      prevDepVals: [12, 6],
+      currDepVals: [24, 12], // halfCount = 24 / 2 = 12
+    });
+  });
+
+  test('derivedFn should receive the old value', async () => {
+    const count = new Store(12);
+    const date = new Date();
+    const time = new Store(date);
+    const fn = vi.fn();
+
     const derived = new Derived({
       deps: [count, time],
       fn: ({ prevVal }) => {
-        fn(prevVal)
-        return count.state
+        fn(prevVal);
+        return count.state;
       },
-    })
-    // derived.mount() - No longer needed
-    expect(fn).toBeCalledWith(undefined)
-    count.setState(() => 24)
-    expect(fn).toBeCalledWith(12)
-  })
+    });
 
-  test('should be able to mount and unmount correctly repeatly', () => {
+    // Ensure derived subscribes and tracks changes
+    derived.subscribe(() => { });
+
+    // First call should use `undefined`
+    expect(fn).toHaveBeenCalledWith(undefined);
+
+    count.setState(() => 24);
+
+    expect(fn).toHaveBeenCalledWith(12);
+  });
+
+
+  test('should update only when subscribed', () => {
     const count = new Store(12)
     const derived = new Derived({
       deps: [count],
-      fn: () => {
-        return count.state * 2
-      },
+      fn: () => count.state * 2,
     })
 
-    const cleanup1 = derived.mount()
-    cleanup1()
-    const cleanup2 = derived.mount()
-    cleanup2()
-    const cleanup3 = derived.mount()
-    cleanup3()
-    // derived.mount() - No longer needed
+    const unsubscribe1 = derived.subscribe(() => { })
+    unsubscribe1()
+    const unsubscribe2 = derived.subscribe(() => { })
+    unsubscribe2()
+
+    // Keep at least one active subscription
+    const unsubscribe3 = derived.subscribe(() => { })
 
     count.setState(() => 24)
 
     expect(count.state).toBe(24)
     expect(derived.state).toBe(48)
+
+    unsubscribe3() // Cleanup
   })
+
+
 
   test('should handle calculating state before the derived state is mounted', () => {
     const count = new Store(12)
     const derived = new Derived({
       deps: [count],
-      fn: () => {
-        return count.state * 2
-      },
+      fn: () => count.state * 2,
     })
 
     count.setState(() => 24)
 
-    // derived.mount() - No longer needed
+    // Force derived to update by subscribing
+    const unsubscribe = derived.subscribe(() => { })
+    unsubscribe()
 
     expect(count.state).toBe(24)
     expect(derived.state).toBe(48)
   })
+
 
   test('should not recompute more than is needed', () => {
     const fn = vi.fn()
@@ -297,54 +328,48 @@ describe('Derived', () => {
 
     const double = new Derived({
       deps: [count],
-      fn: () => {
-        return count.state * 2
-      },
+      fn: () => count.state * 2,
     })
 
     const halfDouble = new Derived({
       deps: [double],
-      fn: () => {
-        return double.state / 2
-      },
+      fn: () => double.state / 2,
     })
 
-    // halfDouble.mount() - No longer needed
-    // double.mount() - No longer needed
-
+    // Force computation by subscribing
+    const unsubscribe = halfDouble.subscribe(() => { })
     count.setState(() => 24)
+    unsubscribe()
 
     expect(count.state).toBe(24)
     expect(double.state).toBe(48)
     expect(halfDouble.state).toBe(24)
   })
 
+
   test('should be able to mount in the wrong order and still work with a derived and a non-derived state', () => {
     const count = new Store(12)
 
     const double = new Derived({
       deps: [count],
-      fn: () => {
-        return count.state * 2
-      },
+      fn: () => count.state * 2,
     })
 
     const countPlusDouble = new Derived({
       deps: [count, double],
-      fn: () => {
-        return count.state + double.state
-      },
+      fn: () => count.state + double.state,
     })
 
-    // countPlusDouble.mount() - No longer needed
-    // double.mount() - No longer needed
-
+    // Subscribe to countPlusDouble to trigger the full dependency chain
+    const unsubscribe = countPlusDouble.subscribe(() => { })
     count.setState(() => 24)
+    unsubscribe()
 
     expect(count.state).toBe(24)
     expect(double.state).toBe(48)
     expect(countPlusDouble.state).toBe(24 + 48)
   })
+
 
   test('should recompute in the right order', () => {
     const count = new Store(12)
