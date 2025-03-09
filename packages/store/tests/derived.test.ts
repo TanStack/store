@@ -32,7 +32,7 @@ describe('Derived', () => {
       },
     })
 
-    doubleCount.mount()
+    // doubleCount.mount() - No longer needed
 
     const sumDoubleHalfCount = new Derived({
       deps: [halfCount, doubleCount],
@@ -41,7 +41,7 @@ describe('Derived', () => {
       },
     })
 
-    sumDoubleHalfCount.mount()
+    // sumDoubleHalfCount.mount() - No longer needed
 
     const halfCountFn = viFnSubscribe(halfCount)
     const doubleCountFn = viFnSubscribe(doubleCount)
@@ -117,7 +117,7 @@ describe('Derived', () => {
       },
     })
 
-    doubleCount.mount()
+    // doubleCount.mount() - No longer needed
 
     const tripleCount = new Derived({
       deps: [count, doubleCount],
@@ -126,7 +126,7 @@ describe('Derived', () => {
       },
     })
 
-    tripleCount.mount()
+    // tripleCount.mount() - No longer needed
 
     const doubleCountFn = viFnSubscribe(doubleCount)
     const tripleCountFn = viFnSubscribe(tripleCount)
@@ -150,7 +150,7 @@ describe('Derived', () => {
         return store.state * 2
       },
     })
-    derived.mount()
+    // derived.mount() No longer needed
     const fn = vi.fn()
     derived.subscribe(fn)
     store.setState(() => 24)
@@ -169,7 +169,7 @@ describe('Derived', () => {
         return void 0
       },
     })
-    derived.mount()
+    // derived.mount() - No longer needed
     expect(fn).toBeCalledWith({
       prevDepVals: undefined,
       currDepVals: [12, date],
@@ -187,7 +187,7 @@ describe('Derived', () => {
       deps: [count],
       fn: () => count.state / 2,
     })
-    halfCount.mount()
+    // halfCount.mount() - No longer needed
     const fn = vi.fn()
     const derived = new Derived({
       deps: [count, halfCount],
@@ -196,7 +196,7 @@ describe('Derived', () => {
         return void 0
       },
     })
-    derived.mount()
+    // derived.mount() - No longer needed
     expect(fn).toBeCalledWith({
       prevDepVals: undefined,
       currDepVals: [12, 6],
@@ -220,7 +220,7 @@ describe('Derived', () => {
         return count.state
       },
     })
-    derived.mount()
+    // derived.mount() - No longer needed
     expect(fn).toBeCalledWith(undefined)
     count.setState(() => 24)
     expect(fn).toBeCalledWith(12)
@@ -241,7 +241,7 @@ describe('Derived', () => {
     cleanup2()
     const cleanup3 = derived.mount()
     cleanup3()
-    derived.mount()
+    // derived.mount() - No longer needed
 
     count.setState(() => 24)
 
@@ -260,7 +260,7 @@ describe('Derived', () => {
 
     count.setState(() => 24)
 
-    derived.mount()
+    // derived.mount() - No longer needed
 
     expect(count.state).toBe(24)
     expect(derived.state).toBe(48)
@@ -285,7 +285,7 @@ describe('Derived', () => {
     unmount2()
     const unmount3 = derived.mount()
     unmount3()
-    derived.mount()
+    // derived.mount() - No longer needed
 
     expect(count.state).toBe(24)
     expect(derived.state).toBe(48)
@@ -309,8 +309,8 @@ describe('Derived', () => {
       },
     })
 
-    halfDouble.mount()
-    double.mount()
+    // halfDouble.mount() - No longer needed
+    // double.mount() - No longer needed
 
     count.setState(() => 24)
 
@@ -336,8 +336,8 @@ describe('Derived', () => {
       },
     })
 
-    countPlusDouble.mount()
-    double.mount()
+    // countPlusDouble.mount() - No longer needed
+    // double.mount() - No longer needed
 
     count.setState(() => 24)
 
@@ -367,8 +367,8 @@ describe('Derived', () => {
       },
     })
 
-    halfDouble.mount()
-    double.mount()
+    // halfDouble.mount() - No longer needed
+    // double.mount() - No longer needed
 
     expect(fn).toHaveBeenLastCalledWith(3)
   })
