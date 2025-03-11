@@ -1,6 +1,6 @@
 import { Store } from '@tanstack/svelte-store'
 
-// You can use @tanstack/svelte-store outside of Svelte files too!
+// You can instantiate a Store outside of Svelte files too!
 export const store = new Store({
   dogs: 0,
   cats: 0,

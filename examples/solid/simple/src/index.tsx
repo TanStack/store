@@ -1,6 +1,7 @@
-import { useStore, Store } from '@tanstack/solid-store'
+import { Store, useStore } from '@tanstack/solid-store'
 import { render } from 'solid-js/web'
 
+// You can instantiate a Store outside of Solid components too!
 export const store = new Store({
   cats: 0,
   dogs: 0,
@@ -13,9 +14,9 @@ interface DisplayProps {
 export const Display = (props: DisplayProps) => {
   const count = useStore(store, (state) => state[props.animals])
   return (
-    <span>
+    <div>
       {props.animals}: {count()}
-    </span>
+    </div>
   )
 }
 
