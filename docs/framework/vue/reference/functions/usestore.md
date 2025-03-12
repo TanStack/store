@@ -13,7 +13,7 @@ title: useStore
 function useStore<TState, TSelected>(store, selector?): Readonly<Ref<TSelected, TSelected>>
 ```
 
-Defined in: [index.ts:12](https://github.com/TanStack/store/blob/main/packages/vue-store/src/index.ts#L12)
+Defined in: [index.ts:12](https://github.com/I-am-abdulazeez/store/blob/main/packages/vue-store/src/index.ts#L12)
 
 ### Type Parameters
 
@@ -41,7 +41,7 @@ Defined in: [index.ts:12](https://github.com/TanStack/store/blob/main/packages/v
 function useStore<TState, TSelected>(store, selector?): Readonly<Ref<TSelected, TSelected>>
 ```
 
-Defined in: [index.ts:16](https://github.com/TanStack/store/blob/main/packages/vue-store/src/index.ts#L16)
+Defined in: [index.ts:16](https://github.com/I-am-abdulazeez/store/blob/main/packages/vue-store/src/index.ts#L16)
 
 ### Type Parameters
 
