@@ -23,7 +23,7 @@ describe('Derived', () => {
       },
     })
 
-    halfCount.mount()
+    // halfCount.mount()
 
     const doubleCount = new Derived({
       deps: [count],
@@ -391,6 +391,8 @@ describe('Derived', () => {
         return double.state / 2
       },
     })
+
+    halfDouble.subscribe(() => { })
 
     // halfDouble.mount() - No longer needed
     // double.mount() - No longer needed
