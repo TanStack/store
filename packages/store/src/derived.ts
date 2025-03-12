@@ -4,26 +4,26 @@ import type { Listener } from './types'
 
 export type UnwrapDerivedOrStore<T> =
   T extends Derived<infer InnerD>
-  ? InnerD
-  : T extends Store<infer InnerS>
-  ? InnerS
-  : never
+    ? InnerD
+    : T extends Store<infer InnerS>
+      ? InnerS
+      : never
 
 type UnwrapReadonlyDerivedOrStoreArray<
   TArr extends ReadonlyArray<Derived<any> | Store<any>>,
 > = TArr extends readonly [infer Head, ...infer Tail]
   ? Head extends Derived<any> | Store<any>
-  ? Tail extends ReadonlyArray<Derived<any> | Store<any>>
-  ? [UnwrapDerivedOrStore<Head>, ...UnwrapReadonlyDerivedOrStoreArray<Tail>]
-  : []
-  : []
+    ? Tail extends ReadonlyArray<Derived<any> | Store<any>>
+      ? [UnwrapDerivedOrStore<Head>, ...UnwrapReadonlyDerivedOrStoreArray<Tail>]
+      : []
+    : []
   : []
 
 // Can't have currVal, as it's being evaluated from the current derived fn
 export interface DerivedFnProps<
   TArr extends ReadonlyArray<Derived<any> | Store<any>> = ReadonlyArray<any>,
   TUnwrappedArr extends
-  UnwrapReadonlyDerivedOrStoreArray<TArr> = UnwrapReadonlyDerivedOrStoreArray<TArr>,
+    UnwrapReadonlyDerivedOrStoreArray<TArr> = UnwrapReadonlyDerivedOrStoreArray<TArr>,
 > {
   // `undefined` if it's the first run
   /**
@@ -189,7 +189,7 @@ export class Derived<
     if (!this._isMounted) {
       this._mount()
     }
-    return this._cleanupFn || (() => { })
+    return this._cleanupFn || (() => {})
   }
 
   subscribe = (listener: Listener<TState>) => {
