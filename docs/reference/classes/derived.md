@@ -7,7 +7,7 @@ title: Derived
 
 # Class: Derived\<TState, TArr\>
 
-Defined in: [derived.ts:54](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L54)
+Defined in: [derived.ts:54](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/derived.ts#L54)
 
 ## Type Parameters
 
@@ -23,7 +23,7 @@ Defined in: [derived.ts:54](https://github.com/TanStack/store/blob/main/packages
 new Derived<TState, TArr>(options): Derived<TState, TArr>
 ```
 
-Defined in: [derived.ts:87](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L87)
+Defined in: [derived.ts:92](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/derived.ts#L92)
 
 #### Parameters
 
@@ -43,7 +43,7 @@ Defined in: [derived.ts:87](https://github.com/TanStack/store/blob/main/packages
 lastSeenDepValues: unknown[] = [];
 ```
 
-Defined in: [derived.ts:71](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L71)
+Defined in: [derived.ts:71](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/derived.ts#L71)
 
 ***
 
@@ -53,7 +53,7 @@ Defined in: [derived.ts:71](https://github.com/TanStack/store/blob/main/packages
 listeners: Set<Listener<TState>>;
 ```
 
-Defined in: [derived.ts:60](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L60)
+Defined in: [derived.ts:60](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/derived.ts#L60)
 
 ***
 
@@ -63,7 +63,7 @@ Defined in: [derived.ts:60](https://github.com/TanStack/store/blob/main/packages
 options: DerivedOptions<TState, TArr>;
 ```
 
-Defined in: [derived.ts:63](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L63)
+Defined in: [derived.ts:63](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/derived.ts#L63)
 
 ***
 
@@ -73,7 +73,7 @@ Defined in: [derived.ts:63](https://github.com/TanStack/store/blob/main/packages
 prevState: undefined | TState;
 ```
 
-Defined in: [derived.ts:62](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L62)
+Defined in: [derived.ts:62](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/derived.ts#L62)
 
 ***
 
@@ -83,7 +83,7 @@ Defined in: [derived.ts:62](https://github.com/TanStack/store/blob/main/packages
 state: TState;
 ```
 
-Defined in: [derived.ts:61](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L61)
+Defined in: [derived.ts:61](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/derived.ts#L61)
 
 ## Methods
 
@@ -93,7 +93,7 @@ Defined in: [derived.ts:61](https://github.com/TanStack/store/blob/main/packages
 checkIfRecalculationNeededDeeply(): void
 ```
 
-Defined in: [derived.ts:157](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L157)
+Defined in: [derived.ts:164](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/derived.ts#L164)
 
 #### Returns
 
@@ -107,7 +107,7 @@ Defined in: [derived.ts:157](https://github.com/TanStack/store/blob/main/package
 getDepVals(): object
 ```
 
-Defined in: [derived.ts:72](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L72)
+Defined in: [derived.ts:77](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/derived.ts#L77)
 
 #### Returns
 
@@ -133,13 +133,13 @@ prevVal: undefined | NonNullable<TState>;
 
 ***
 
-### mount()
+### ~~mount()~~
 
 ```ts
 mount(): () => void
 ```
 
-Defined in: [derived.ts:178](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L178)
+Defined in: [derived.ts:188](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/derived.ts#L188)
 
 #### Returns
 
@@ -149,6 +149,10 @@ Defined in: [derived.ts:178](https://github.com/TanStack/store/blob/main/package
 
 `void`
 
+#### Deprecated
+
+Use subscribe() instead, which automatically mounts when needed
+
 ***
 
 ### recompute()
@@ -157,7 +161,7 @@ Defined in: [derived.ts:178](https://github.com/TanStack/store/blob/main/package
 recompute(): void
 ```
 
-Defined in: [derived.ts:145](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L145)
+Defined in: [derived.ts:152](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/derived.ts#L152)
 
 #### Returns
 
@@ -171,7 +175,7 @@ Defined in: [derived.ts:145](https://github.com/TanStack/store/blob/main/package
 registerOnGraph(deps): void
 ```
 
-Defined in: [derived.ts:96](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L96)
+Defined in: [derived.ts:103](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/derived.ts#L103)
 
 #### Parameters
 
@@ -193,7 +197,7 @@ readonly (
 subscribe(listener): () => void
 ```
 
-Defined in: [derived.ts:190](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L190)
+Defined in: [derived.ts:195](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/derived.ts#L195)
 
 #### Parameters
 
@@ -217,7 +221,7 @@ Defined in: [derived.ts:190](https://github.com/TanStack/store/blob/main/package
 unregisterFromGraph(deps): void
 ```
 
-Defined in: [derived.ts:125](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L125)
+Defined in: [derived.ts:132](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/derived.ts#L132)
 
 #### Parameters
 

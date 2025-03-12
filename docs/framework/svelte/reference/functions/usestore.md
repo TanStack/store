@@ -13,7 +13,7 @@ title: useStore
 function useStore<TState, TSelected>(store, selector?): object
 ```
 
-Defined in: [index.svelte.ts:10](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/index.svelte.ts#L10)
+Defined in: [index.svelte.ts:10](https://github.com/I-am-abdulazeez/store/blob/main/packages/svelte-store/src/index.svelte.ts#L10)
 
 ### Type Parameters
 
@@ -47,7 +47,7 @@ readonly current: TSelected;
 function useStore<TState, TSelected>(store, selector?): object
 ```
 
-Defined in: [index.svelte.ts:14](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/index.svelte.ts#L14)
+Defined in: [index.svelte.ts:14](https://github.com/I-am-abdulazeez/store/blob/main/packages/svelte-store/src/index.svelte.ts#L14)
 
 ### Type Parameters
 
