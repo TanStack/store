@@ -70,6 +70,11 @@ export function shallow<T>(objA: T, objB: T) {
     return true
   }
 
+  if (objA instanceof Date && objB instanceof Date) {
+    if (objA.getTime() !== objB.getTime()) return false
+    return true
+  }
+
   const keysA = Object.keys(objA)
   if (keysA.length !== Object.keys(objB).length) {
     return false
