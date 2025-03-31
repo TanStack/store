@@ -57,7 +57,7 @@
   ],
   "dependencies": {
     "@tanstack/store": "workspace:*",
-    "use-sync-external-store": "^1.4.0"
+    "use-sync-external-store": "^1.5.0"
   },
   "devDependencies": {
     "@testing-library/react": "^16.2.0",
