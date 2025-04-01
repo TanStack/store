@@ -156,4 +156,16 @@ describe('shallow', () => {
     const objB = new Set([2])
     expect(shallow(objA, objB)).toBe(false)
   })
+
+  test('should return false for dates with different values', () => {
+    const objA = new Date('2025-04-10T14:48:00')
+    const objB = new Date('2025-04-10T14:58:00')
+    expect(shallow(objA, objB)).toBe(false)
+  })
+
+  test('should return true for equal dates', () => {
+    const objA = new Date('2025-02-10')
+    const objB = new Date('2025-02-10')
+    expect(shallow(objA, objB)).toBe(true)
+  })
 })
