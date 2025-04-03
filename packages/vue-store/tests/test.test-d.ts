@@ -1,6 +1,6 @@
 import { expectTypeOf, test } from 'vitest'
 import { Derived, Store, useStore } from '../src'
-import type { Ref } from 'vue-demi'
+import type { Ref } from 'vue'
 
 test('useStore works with derived state', () => {
   const store = new Store(12)
