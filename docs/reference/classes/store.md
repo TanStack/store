@@ -7,7 +7,7 @@ title: Store
 
 # Class: Store\<TState, TUpdater\>
 
-Defined in: [store.ts:27](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L27)
+Defined in: [store.ts:27](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/store.ts#L27)
 
 ## Type Parameters
 
@@ -23,7 +23,7 @@ Defined in: [store.ts:27](https://github.com/TanStack/store/blob/main/packages/s
 new Store<TState, TUpdater>(initialState, options?): Store<TState, TUpdater>
 ```
 
-Defined in: [store.ts:36](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L36)
+Defined in: [store.ts:36](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/store.ts#L36)
 
 #### Parameters
 
@@ -47,7 +47,7 @@ Defined in: [store.ts:36](https://github.com/TanStack/store/blob/main/packages/s
 listeners: Set<Listener<TState>>;
 ```
 
-Defined in: [store.ts:31](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L31)
+Defined in: [store.ts:31](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/store.ts#L31)
 
 ***
 
@@ -57,7 +57,7 @@ Defined in: [store.ts:31](https://github.com/TanStack/store/blob/main/packages/s
 optional options: StoreOptions<TState, TUpdater>;
 ```
 
-Defined in: [store.ts:34](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L34)
+Defined in: [store.ts:34](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/store.ts#L34)
 
 ***
 
@@ -67,7 +67,7 @@ Defined in: [store.ts:34](https://github.com/TanStack/store/blob/main/packages/s
 prevState: TState;
 ```
 
-Defined in: [store.ts:33](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L33)
+Defined in: [store.ts:33](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/store.ts#L33)
 
 ***
 
@@ -77,7 +77,7 @@ Defined in: [store.ts:33](https://github.com/TanStack/store/blob/main/packages/s
 state: TState;
 ```
 
-Defined in: [store.ts:32](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L32)
+Defined in: [store.ts:32](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/store.ts#L32)
 
 ## Methods
 
@@ -87,7 +87,7 @@ Defined in: [store.ts:32](https://github.com/TanStack/store/blob/main/packages/s
 setState(updater): void
 ```
 
-Defined in: [store.ts:51](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L51)
+Defined in: [store.ts:51](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/store.ts#L51)
 
 #### Parameters
 
@@ -107,7 +107,7 @@ Defined in: [store.ts:51](https://github.com/TanStack/store/blob/main/packages/s
 subscribe(listener): () => void
 ```
 
-Defined in: [store.ts:42](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L42)
+Defined in: [store.ts:42](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/store.ts#L42)
 
 #### Parameters
 

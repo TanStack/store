@@ -13,7 +13,7 @@ title: useStore
 function useStore<TState, TSelected>(store, selector?): TSelected
 ```
 
-Defined in: [index.ts:11](https://github.com/TanStack/store/blob/main/packages/react-store/src/index.ts#L11)
+Defined in: [index.ts:11](https://github.com/I-am-abdulazeez/store/blob/main/packages/react-store/src/index.ts#L11)
 
 ### Type Parameters
 
@@ -41,7 +41,7 @@ Defined in: [index.ts:11](https://github.com/TanStack/store/blob/main/packages/r
 function useStore<TState, TSelected>(store, selector?): TSelected
 ```
 
-Defined in: [index.ts:15](https://github.com/TanStack/store/blob/main/packages/react-store/src/index.ts#L15)
+Defined in: [index.ts:15](https://github.com/I-am-abdulazeez/store/blob/main/packages/react-store/src/index.ts#L15)
 
 ### Type Parameters
 

@@ -11,4 +11,4 @@ title: __derivedToStore
 const __derivedToStore: WeakMap<Derived<unknown, readonly any[]>, Set<Store<unknown, (cb) => unknown>>>;
 ```
 
-Defined in: [scheduler.ts:23](https://github.com/TanStack/store/blob/main/packages/store/src/scheduler.ts#L23)
+Defined in: [scheduler.ts:23](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/scheduler.ts#L23)

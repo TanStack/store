@@ -11,7 +11,7 @@ title: __depsThatHaveWrittenThisTick
 const __depsThatHaveWrittenThisTick: object;
 ```
 
-Defined in: [scheduler.ts:28](https://github.com/TanStack/store/blob/main/packages/store/src/scheduler.ts#L28)
+Defined in: [scheduler.ts:28](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/scheduler.ts#L28)
 
 ## Type declaration
 

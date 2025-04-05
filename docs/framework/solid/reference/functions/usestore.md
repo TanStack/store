@@ -13,7 +13,7 @@ title: useStore
 function useStore<TState, TSelected>(store, selector?): Accessor<TSelected>
 ```
 
-Defined in: [index.tsx:13](https://github.com/TanStack/store/blob/main/packages/solid-store/src/index.tsx#L13)
+Defined in: [index.tsx:13](https://github.com/I-am-abdulazeez/store/blob/main/packages/solid-store/src/index.tsx#L13)
 
 ### Type Parameters
 
@@ -41,7 +41,7 @@ Defined in: [index.tsx:13](https://github.com/TanStack/store/blob/main/packages/
 function useStore<TState, TSelected>(store, selector?): Accessor<TSelected>
 ```
 
-Defined in: [index.tsx:17](https://github.com/TanStack/store/blob/main/packages/solid-store/src/index.tsx#L17)
+Defined in: [index.tsx:17](https://github.com/I-am-abdulazeez/store/blob/main/packages/solid-store/src/index.tsx#L17)
 
 ### Type Parameters
 
