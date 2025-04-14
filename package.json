@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "repository": "https://github.com/tanstack/store.git",
-  "packageManager": "pnpm@10.7.1",
+  "packageManager": "pnpm@10.8.1",
   "type": "module",
   "scripts": {
     "clean": "pnpm --filter \"./packages/**\" run clean",
@@ -35,7 +35,7 @@
     ]
   },
   "devDependencies": {
-    "@eslint-react/eslint-plugin": "^1.40.3",
+    "@eslint-react/eslint-plugin": "^1.47.2",
     "@tanstack/config": "^0.18.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/user-event": "^14.6.1",
@@ -44,19 +44,19 @@
     "eslint": "^9.24.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "jsdom": "^25.0.1",
-    "knip": "^5.47.0",
-    "nx": "^20.7.1",
+    "knip": "^5.50.3",
+    "nx": "^20.8.0",
     "premove": "^4.0.0",
     "prettier": "^3.5.3",
     "prettier-plugin-svelte": "^3.3.3",
-    "publint": "^0.3.10",
+    "publint": "^0.3.12",
     "sherif": "^1.5.0",
     "typescript": "5.6.3",
     "typescript50": "npm:typescript@5.0",
     "typescript51": "npm:typescript@5.1",
     "typescript52": "npm:typescript@5.2",
     "typescript53": "npm:typescript@5.3",
-    "vite": "^6.2.5",
+    "vite": "^6.2.6",
     "vitest": "^3.1.1",
     "vue": "^3.5.13"
   }
