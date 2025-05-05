@@ -11,7 +11,7 @@ title: __storeToDerived
 const __storeToDerived: WeakMap<Store<unknown, (cb) => unknown>, Set<Derived<unknown, readonly any[]>>>;
 ```
 
-Defined in: [scheduler.ts:19](https://github.com/TanStack/store/blob/main/packages/store/src/scheduler.ts#L19)
+Defined in: [scheduler.ts:19](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/scheduler.ts#L19)
 
 This is here to solve the pyramid dependency problem where:
       A
