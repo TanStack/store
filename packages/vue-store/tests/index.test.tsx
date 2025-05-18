@@ -93,7 +93,9 @@ describe('useStore', () => {
         return (
           <div>
             <p>Store: {storeVal.value}</p>
-            <button onClick={() => store.value = createStore(10)}>Update store</button>
+            <button onClick={() => (store.value = createStore(10))}>
+              Update store
+            </button>
           </div>
         )
       }

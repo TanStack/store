@@ -18,7 +18,9 @@ export function useStore<TState, TSelected = NoInfer<TState>>(
   selector?: (state: NoInfer<TState>) => TSelected,
 ): Readonly<Ref<TSelected>>
 export function useStore<TState, TSelected = NoInfer<TState>>(
-  store: MaybeRefOrGetter<Store<TState, any>> | MaybeRefOrGetter<Derived<TState, any>>,
+  store:
+    | MaybeRefOrGetter<Store<TState, any>>
+    | MaybeRefOrGetter<Derived<TState, any>>,
   selector: (state: NoInfer<TState>) => TSelected = (d) => d as any,
 ): Readonly<Ref<TSelected>> {
   const slice = ref<TSelected>(selector(toValue(store).state))
