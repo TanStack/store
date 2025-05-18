@@ -44,9 +44,7 @@ export function useStore<TState, TSelected = NoInfer<TState>>(
 }
 
 function toValue<T>(store: T | (() => T)): T {
-  return typeof store === 'function'
-    ? (store as () => T)()
-    : store
+  return typeof store === 'function' ? (store as () => T)() : store
 }
 
 export function shallow<T>(objA: T, objB: T) {

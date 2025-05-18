@@ -8,8 +8,11 @@
 
   let store = $state(createStore(0))
 
-  const storeVal = useStore(() => store, (state) => state.count)
+  const storeVal = useStore(
+    () => store,
+    (state) => state.count,
+  )
 </script>
 
 <p>Store: {storeVal.current}</p>
-<button onclick={() => store = createStore(10)}>Update store</button>
+<button onclick={() => (store = createStore(10))}>Update store</button>
