@@ -7,23 +7,26 @@ export * from '@tanstack/store'
  */
 export type NoInfer<T> = [T][T extends any ? 0 : never]
 
+type MaybeGetter<T> = T | (() => T)
+
 export function useStore<TState, TSelected = NoInfer<TState>>(
-  store: Store<TState, any>,
+  store: MaybeGetter<Store<TState, any>>,
   selector?: (state: NoInfer<TState>) => TSelected,
 ): { readonly current: TSelected }
 export function useStore<TState, TSelected = NoInfer<TState>>(
-  store: Derived<TState, any>,
+  store: MaybeGetter<Derived<TState, any>>,
   selector?: (state: NoInfer<TState>) => TSelected,
 ): { readonly current: TSelected }
 export function useStore<TState, TSelected = NoInfer<TState>>(
-  store: Store<TState, any> | Derived<TState, any>,
+  store: MaybeGetter<Store<TState, any>> | MaybeGetter<Derived<TState, any>>,
   selector: (state: NoInfer<TState>) => TSelected = (d) => d as any,
 ): { readonly current: TSelected } {
-  let slice = $state(selector(store.state))
+  let slice = $state(selector(toValue(store).state))
 
   $effect(() => {
-    const unsub = store.subscribe(() => {
-      const data = selector(store.state)
+    const actualStore = toValue(store)
+    const unsub = actualStore.subscribe(() => {
+      const data = selector(actualStore.state)
       if (shallow(slice, data)) {
         return
       }
@@ -38,6 +41,12 @@ export function useStore<TState, TSelected = NoInfer<TState>>(
       return slice
     },
   }
+}
+
+function toValue<T>(store: T | (() => T)): T {
+  return typeof store === 'function'
+    ? (store as () => T)()
+    : store
 }
 
 export function shallow<T>(objA: T, objB: T) {
