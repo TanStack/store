@@ -35,7 +35,7 @@ Called when a listener subscribes to the store.
 
 ##### store
 
-[`Store`](../classes/store.md)\<`TState`, `TUpdater`\>
+[`Store`](../../classes/store.md)\<`TState`, `TUpdater`\>
 
 #### Returns
 

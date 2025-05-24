@@ -33,11 +33,11 @@ Defined in: [store.ts:36](https://github.com/TanStack/store/blob/main/packages/s
 
 ##### options?
 
-[`StoreOptions`](../interfaces/storeoptions.md)\<`TState`, `TUpdater`\>
+[`StoreOptions`](../../interfaces/storeoptions.md)\<`TState`, `TUpdater`\>
 
 #### Returns
 
-[`Store`](store.md)\<`TState`, `TUpdater`\>
+[`Store`](../store.md)\<`TState`, `TUpdater`\>
 
 ## Properties
 

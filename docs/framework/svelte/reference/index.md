@@ -9,5 +9,5 @@ title: "@tanstack/svelte-store"
 
 ## Functions
 
-- [shallow](functions/shallow.md)
-- [useStore](functions/usestore.md)
+- [shallow](../functions/shallow.md)
+- [useStore](../functions/usestore.md)

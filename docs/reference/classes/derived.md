@@ -13,7 +13,7 @@ Defined in: [derived.ts:54](https://github.com/TanStack/store/blob/main/packages
 
 • **TState**
 
-• **TArr** *extends* `ReadonlyArray`\<[`Derived`](derived.md)\<`any`\> \| [`Store`](store.md)\<`any`\>\> = `ReadonlyArray`\<`any`\>
+• **TArr** *extends* `ReadonlyArray`\<[`Derived`](../derived.md)\<`any`\> \| [`Store`](../store.md)\<`any`\>\> = `ReadonlyArray`\<`any`\>
 
 ## Constructors
 
@@ -29,11 +29,11 @@ Defined in: [derived.ts:87](https://github.com/TanStack/store/blob/main/packages
 
 ##### options
 
-[`DerivedOptions`](../interfaces/derivedoptions.md)\<`TState`, `TArr`\>
+[`DerivedOptions`](../../interfaces/derivedoptions.md)\<`TState`, `TArr`\>
 
 #### Returns
 
-[`Derived`](derived.md)\<`TState`, `TArr`\>
+[`Derived`](../derived.md)\<`TState`, `TArr`\>
 
 ## Properties
 
@@ -178,8 +178,8 @@ Defined in: [derived.ts:96](https://github.com/TanStack/store/blob/main/packages
 ##### deps
 
 readonly (
-  \| [`Derived`](derived.md)\<`any`, readonly `any`[]\>
-  \| [`Store`](store.md)\<`any`, (`cb`) => `any`\>)[] = `...`
+  \| [`Derived`](../derived.md)\<`any`, readonly `any`[]\>
+  \| [`Store`](../store.md)\<`any`, (`cb`) => `any`\>)[] = `...`
 
 #### Returns
 
@@ -224,8 +224,8 @@ Defined in: [derived.ts:125](https://github.com/TanStack/store/blob/main/package
 ##### deps
 
 readonly (
-  \| [`Derived`](derived.md)\<`any`, readonly `any`[]\>
-  \| [`Store`](store.md)\<`any`, (`cb`) => `any`\>)[] = `...`
+  \| [`Derived`](../derived.md)\<`any`, readonly `any`[]\>
+  \| [`Store`](../store.md)\<`any`, (`cb`) => `any`\>)[] = `...`
 
 #### Returns
 
