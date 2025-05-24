@@ -7,7 +7,7 @@ title: Effect
 
 # Class: Effect
 
-Defined in: [effect.ts:17](https://github.com/TanStack/store/blob/main/packages/store/src/effect.ts#L17)
+Defined in: [effect.ts:17](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/effect.ts#L17)
 
 ## Constructors
 
@@ -17,7 +17,7 @@ Defined in: [effect.ts:17](https://github.com/TanStack/store/blob/main/packages/
 new Effect(opts): Effect
 ```
 
-Defined in: [effect.ts:23](https://github.com/TanStack/store/blob/main/packages/store/src/effect.ts#L23)
+Defined in: [effect.ts:23](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/effect.ts#L23)
 
 #### Parameters
 
@@ -37,7 +37,7 @@ Defined in: [effect.ts:23](https://github.com/TanStack/store/blob/main/packages/
 mount(): () => void
 ```
 
-Defined in: [effect.ts:39](https://github.com/TanStack/store/blob/main/packages/store/src/effect.ts#L39)
+Defined in: [effect.ts:39](https://github.com/I-am-abdulazeez/store/blob/main/packages/store/src/effect.ts#L39)
 
 #### Returns
 
