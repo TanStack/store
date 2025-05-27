@@ -55,6 +55,9 @@
     "dist",
     "src"
   ],
+  "dependencies": {
+    "alien-signals": "^2.0.5"
+  },
   "devDependencies": {
     "@angular/core": "^19.2.13",
     "@preact/signals": "^1.3.2",

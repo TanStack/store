@@ -1,5 +1,7 @@
+import { ReactiveNode, ReactiveFlags } from '../../../../../stackblitz/alien-signals/src/system'
+import { setCurrentSub, getCurrentSub } from '../../../../../stackblitz/alien-signals/src/index'
+import { unlink, checkDirty, endTracking, startTracking, link, manualUpdate } from './scheduler'
 import { Store } from './store'
-import { __derivedToStore, __storeToDerived } from './scheduler'
 import type { Listener } from './types'
 
 export type UnwrapDerivedOrStore<T> =
@@ -51,6 +53,10 @@ export interface DerivedOptions<
   fn: (props: DerivedFnProps<TArr>) => TState
 }
 
+interface DerivedNode<TState> extends ReactiveNode {
+  derived: Derived<TState, any>
+}
+
 export class Derived<
   TState,
   const TArr extends ReadonlyArray<
@@ -58,141 +64,145 @@ export class Derived<
   > = ReadonlyArray<any>,
 > {
   listeners = new Set<Listener<TState>>()
-  state: TState
+  private _state: TState
   prevState: TState | undefined
   options: DerivedOptions<TState, TArr>
 
-  /**
-   * Functions representing the subscriptions. Call a function to cleanup
-   * @private
-   */
-  _subscriptions: Array<() => void> = []
-
+  private _node: DerivedNode<TState>
+  private _isMounted = false
   lastSeenDepValues: Array<unknown> = []
+
+  get state(): TState {
+    // Auto-link to the current tracking context when state is accessed
+    const currentSub = getCurrentSub()
+    if (currentSub) {
+      link(this._node, currentSub)
+    }
+    
+    const flags = this._node.flags
+    
+    // Check if we need to recompute
+    if (flags & ReactiveFlags.Pending) {
+      manualUpdate(this._node)
+    } else if (flags & ReactiveFlags.Dirty && this._node.deps) {
+      manualUpdate(this._node)
+    }
+    
+    return this._state
+  }
+
+  set state(value: TState) {
+    this._state = value
+  }
+
   getDepVals = () => {
-    const prevDepVals = [] as Array<unknown>
     const currDepVals = [] as Array<unknown>
     for (const dep of this.options.deps) {
-      prevDepVals.push(dep.prevState)
+      // Access the state directly - this will establish reactive links during tracking
       currDepVals.push(dep.state)
     }
-    this.lastSeenDepValues = currDepVals
-    return {
-      prevDepVals,
-      currDepVals,
-      prevVal: this.prevState ?? undefined,
-    }
+    return currDepVals
   }
 
   constructor(options: DerivedOptions<TState, TArr>) {
     this.options = options
-    this.state = options.fn({
-      prevDepVals: undefined,
-      prevVal: undefined,
-      currDepVals: this.getDepVals().currDepVals as never,
-    })
-  }
-
-  registerOnGraph(
-    deps: ReadonlyArray<Derived<any> | Store<any>> = this.options.deps,
-  ) {
-    for (const dep of deps) {
-      if (dep instanceof Derived) {
-        // First register the intermediate derived value if it's not already registered
-        dep.registerOnGraph()
-        // Then register this derived with the dep's underlying stores
-        this.registerOnGraph(dep.options.deps)
-      } else if (dep instanceof Store) {
-        // Register the derived as related derived to the store
-        let relatedLinkedDerivedVals = __storeToDerived.get(dep)
-        if (!relatedLinkedDerivedVals) {
-          relatedLinkedDerivedVals = new Set()
-          __storeToDerived.set(dep, relatedLinkedDerivedVals)
-        }
-        relatedLinkedDerivedVals.add(this as never)
-
-        // Register the store as a related store to this derived
-        let relatedStores = __derivedToStore.get(this as never)
-        if (!relatedStores) {
-          relatedStores = new Set()
-          __derivedToStore.set(this as never, relatedStores)
-        }
-        relatedStores.add(dep)
-      }
+    
+    // Initialize the reactive node with proper flags
+    this._node = {
+      derived: this,
+      flags: ReactiveFlags.Mutable | ReactiveFlags.Dirty // Mark as mutable and initially dirty
+    }
+    
+    // Initial computation with tracking to establish dependencies
+    const prevSub = setCurrentSub(this._node)
+    startTracking(this._node)
+    
+    try {
+      // Get dependency values which will auto-link during tracking
+      const currDepVals = this.options.deps.map(dep => dep.state) as never
+      this.lastSeenDepValues = [...currDepVals]
+      
+      this._state = options.fn({
+        prevDepVals: undefined,
+        prevVal: undefined,
+        currDepVals,
+      })
+    } finally {
+      setCurrentSub(prevSub)
+      endTracking(this._node)
     }
   }
 
-  unregisterFromGraph(
-    deps: ReadonlyArray<Derived<any> | Store<any>> = this.options.deps,
-  ) {
-    for (const dep of deps) {
-      if (dep instanceof Derived) {
-        this.unregisterFromGraph(dep.options.deps)
-      } else if (dep instanceof Store) {
-        const relatedLinkedDerivedVals = __storeToDerived.get(dep)
-        if (relatedLinkedDerivedVals) {
-          relatedLinkedDerivedVals.delete(this as never)
-        }
-
-        const relatedStores = __derivedToStore.get(this as never)
-        if (relatedStores) {
-          relatedStores.delete(dep)
-        }
-      }
+  private unlinkFromDependencies() {
+    let deps = this._node.deps
+    while (deps) {
+      const nextDep = deps.nextDep
+      unlink(deps, this._node)
+      deps = nextDep
     }
   }
 
   recompute = () => {
-    this.prevState = this.state
-    const { prevDepVals, currDepVals, prevVal } = this.getDepVals()
-    this.state = this.options.fn({
-      prevDepVals: prevDepVals as never,
-      currDepVals: currDepVals as never,
-      prevVal,
-    })
-
-    this.options.onUpdate?.()
+    // Check if any dependencies are dirty and need updating
+    if (this._node.deps) {
+      if (checkDirty(this._node.deps, this._node)) {
+        // The reactive system will handle the update through the update function
+        // checkDirty will call our update function if needed
+      }
+    }
   }
 
   checkIfRecalculationNeededDeeply = () => {
-    for (const dep of this.options.deps) {
-      if (dep instanceof Derived) {
-        dep.checkIfRecalculationNeededDeeply()
-      }
-    }
-    let shouldRecompute = false
-    const lastSeenDepValues = this.lastSeenDepValues
-    const { currDepVals } = this.getDepVals()
-    for (let i = 0; i < currDepVals.length; i++) {
-      if (currDepVals[i] !== lastSeenDepValues[i]) {
-        shouldRecompute = true
-        break
-      }
-    }
-
-    if (shouldRecompute) {
-      this.recompute()
+    // This method is called to check if the derived value needs updating
+    // The reactive system handles this automatically, but we can manually check
+    if (this._node.deps) {
+      checkDirty(this._node.deps, this._node)
     }
   }
 
   mount = () => {
-    this.registerOnGraph()
-    this.checkIfRecalculationNeededDeeply()
+    if (this._isMounted) {
+      return () => {}
+    }
+    
+    this._isMounted = true
+    // Mark as watching so it will be included in reactive updates
+    this._node.flags |= ReactiveFlags.Watching
 
     return () => {
-      this.unregisterFromGraph()
-      for (const cleanup of this._subscriptions) {
-        cleanup()
-      }
+      this._isMounted = false
+      this._node.flags &= ~ReactiveFlags.Watching
+      this.unlinkFromDependencies()
     }
   }
 
   subscribe = (listener: Listener<TState>) => {
     this.listeners.add(listener)
+    
+    // Mark as watching when we have listeners
+    if (this.listeners.size === 1) {
+      this._node.flags |= ReactiveFlags.Watching
+    }
+    
     const unsub = this.options.onSubscribe?.(listener, this)
     return () => {
       this.listeners.delete(listener)
+      
+      // Remove watching flag when no more listeners
+      if (this.listeners.size === 0) {
+        this._node.flags &= ~ReactiveFlags.Watching
+      }
+      
       unsub?.()
     }
+  }
+
+  // For backward compatibility - these methods are no longer needed with reactive system
+  registerOnGraph() {
+    // No-op: handled by reactive system
+  }
+
+  unregisterFromGraph() {
+    // No-op: handled by reactive system
   }
 }

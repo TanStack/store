@@ -1,155 +1,166 @@
-import { Derived } from './derived'
-import type { Store } from './store'
+import { createReactiveSystem, ReactiveNode } from '../../../../../stackblitz/alien-signals/src/system'
+import { startBatch, endBatch, ReactiveFlags } from '../../../../../stackblitz/alien-signals/src/index'
 
 /**
- * This is here to solve the pyramid dependency problem where:
- *       A
- *      / \
- *     B   C
- *      \ /
- *       D
- *
- * Where we deeply traverse this tree, how do we avoid D being recomputed twice; once when B is updated, once when C is.
- *
- * To solve this, we create linkedDeps that allows us to sync avoid writes to the state until all of the deps have been
- * resolved.
- *
- * This is a record of stores, because derived stores are not able to write values to, but stores are
+ * Singleton reactive system that all components (Store, Derived, Effect) use.
+ * This ensures proper propagation and dependency tracking across the entire system.
  */
-export const __storeToDerived = new WeakMap<
-  Store<unknown>,
-  Set<Derived<unknown>>
->()
-export const __derivedToStore = new WeakMap<
-  Derived<unknown>,
-  Set<Store<unknown>>
->()
 
-export const __depsThatHaveWrittenThisTick = {
-  current: [] as Array<Derived<unknown> | Store<unknown>>,
+interface StoreNode extends ReactiveNode {
+  store: any
 }
 
-let __isFlushing = false
-let __batchDepth = 0
-const __pendingUpdates = new Set<Store<unknown>>()
-// Add a map to store initial values before batch
-const __initialBatchValues = new Map<Store<unknown>, unknown>()
+interface DerivedNode extends ReactiveNode {
+  derived: any
+}
 
-function __flush_internals(relatedVals: Set<Derived<unknown>>) {
-  // First sort deriveds by dependency order
-  const sorted = Array.from(relatedVals).sort((a, b) => {
-    // If a depends on b, b should go first
-    if (a instanceof Derived && a.options.deps.includes(b)) return 1
-    // If b depends on a, a should go first
-    if (b instanceof Derived && b.options.deps.includes(a)) return -1
-    return 0
-  })
+interface EffectNode extends ReactiveNode {
+  effect: any
+}
 
-  for (const derived of sorted) {
-    if (__depsThatHaveWrittenThisTick.current.includes(derived)) {
-      continue
+type AnyNode = StoreNode | DerivedNode | EffectNode
+
+let batchDepth = 0
+let batchedUpdates = new Set<AnyNode>()
+
+// Create a single reactive system instance that all components will use
+export const reactiveSystem = createReactiveSystem({
+  update(node: AnyNode): boolean {
+    if ('store' in node) {
+      const store = node.store
+      const changed = store.prevState !== store.state
+      return changed
+    } else if ('derived' in node) {
+      const derived = node.derived
+      
+      derived.prevState = derived._state
+      
+      const prevDepVals = [...derived.lastSeenDepValues]
+      const currDepVals = derived.getDepVals()
+      
+      const newValue = derived.options.fn({
+        prevDepVals: prevDepVals.length > 0 ? prevDepVals as never : undefined,
+        prevVal: derived.prevState,
+        currDepVals: currDepVals as never,
+      })
+      
+      const changed = derived._state !== newValue
+      if (changed) {
+        derived._state = newValue
+        derived.lastSeenDepValues = [...currDepVals]
+        derived.options.onUpdate?.()
+      }
+      
+      return changed
+    }
+    
+    return false
+  },
+  
+  notify(node: AnyNode): void {
+    if (batchDepth > 0) {
+      batchedUpdates.add(node)
+      return
     }
 
-    __depsThatHaveWrittenThisTick.current.push(derived)
-    derived.recompute()
-
-    const stores = __derivedToStore.get(derived)
-    if (stores) {
-      for (const store of stores) {
-        const relatedLinkedDerivedVals = __storeToDerived.get(store)
-        if (!relatedLinkedDerivedVals) continue
-        __flush_internals(relatedLinkedDerivedVals)
+    if ('effect' in node) {
+      node.effect.runEffect()
+    } else if ('derived' in node) {
+      const derived = node.derived
+      
+      if (node.flags & (ReactiveFlags.Pending | ReactiveFlags.Dirty)) {
+        manualUpdate(node)
       }
+      
+      derived.listeners.forEach((listener: any) =>
+        listener({
+          prevVal: derived.prevState as never,
+          currentVal: derived._state as never,
+        })
+      )
+    }
+  },
+  
+  unwatched(node: AnyNode): void {
+    let deps = node.deps
+    while (deps) {
+      const nextDep = deps.nextDep
+      unlink(deps, node)
+      deps = nextDep
     }
   }
-}
+})
 
-function __notifyListeners(store: Store<unknown>) {
-  store.listeners.forEach((listener) =>
-    listener({
-      prevVal: store.prevState as never,
-      currentVal: store.state as never,
-    }),
-  )
-}
+export const { 
+  link, 
+  unlink, 
+  propagate, 
+  checkDirty, 
+  startTracking, 
+  endTracking,
+  shallowPropagate
+} = reactiveSystem
 
-function __notifyDerivedListeners(derived: Derived<unknown>) {
-  derived.listeners.forEach((listener) =>
-    listener({
-      prevVal: derived.prevState as never,
-      currentVal: derived.state as never,
-    }),
-  )
-}
-
-/**
- * @private only to be called from `Store` on write
- */
-export function __flush(store: Store<unknown>) {
-  // If we're starting a batch, store the initial values
-  if (__batchDepth > 0 && !__initialBatchValues.has(store)) {
-    __initialBatchValues.set(store, store.prevState)
-  }
-
-  __pendingUpdates.add(store)
-
-  if (__batchDepth > 0) return
-  if (__isFlushing) return
-
-  try {
-    __isFlushing = true
-
-    while (__pendingUpdates.size > 0) {
-      const stores = Array.from(__pendingUpdates)
-      __pendingUpdates.clear()
-
-      // First notify listeners with updated values
-      for (const store of stores) {
-        // Use initial batch values for prevState if we have them
-        const prevState = __initialBatchValues.get(store) ?? store.prevState
-        store.prevState = prevState
-        __notifyListeners(store)
-      }
-
-      // Then update all derived values
-      for (const store of stores) {
-        const derivedVals = __storeToDerived.get(store)
-        if (!derivedVals) continue
-
-        __depsThatHaveWrittenThisTick.current.push(store)
-        __flush_internals(derivedVals)
-      }
-
-      // Notify derived listeners after recomputing
-      for (const store of stores) {
-        const derivedVals = __storeToDerived.get(store)
-        if (!derivedVals) continue
-
-        for (const derived of derivedVals) {
-          __notifyDerivedListeners(derived)
-        }
-      }
-    }
-  } finally {
-    __isFlushing = false
-    __depsThatHaveWrittenThisTick.current = []
-    __initialBatchValues.clear()
-  }
-}
-
+// Enhanced batching with deduplication
 export function batch(fn: () => void) {
-  __batchDepth++
+  batchDepth++
+  startBatch()
   try {
     fn()
   } finally {
-    __batchDepth--
-    if (__batchDepth === 0) {
-      const pendingUpdateToFlush = Array.from(__pendingUpdates)[0] as
-        | Store<unknown>
-        | undefined
-      if (pendingUpdateToFlush) {
-        __flush(pendingUpdateToFlush) // Trigger flush of all pending updates
-      }
+    batchDepth--
+    if (batchDepth === 0) {
+      const updates = Array.from(batchedUpdates)
+      batchedUpdates.clear()
+      
+      updates.forEach(node => {
+        if (node.flags & (ReactiveFlags.Pending | ReactiveFlags.Dirty)) {
+          if ('derived' in node) {
+            manualUpdate(node)
+          }
+        }
+      })
+      
+      updates.forEach(node => {
+        if ('derived' in node) {
+          const derived = node.derived
+          derived.listeners.forEach((listener: any) =>
+            listener({
+              prevVal: derived.prevState as never,
+              currentVal: derived._state as never,
+            })
+          )
+        }
+      })
     }
+    endBatch()
   }
+}
+
+export function manualUpdate(node: AnyNode): boolean {
+  if ('derived' in node) {
+    const derived = node.derived
+    
+    derived.prevState = derived._state
+    
+    const prevDepVals = [...derived.lastSeenDepValues]
+    const currDepVals = derived.getDepVals()
+    
+    const newValue = derived.options.fn({
+      prevDepVals: prevDepVals.length > 0 ? prevDepVals as never : undefined,
+      prevVal: derived.prevState,
+      currDepVals: currDepVals as never,
+    })
+    
+    const changed = derived._state !== newValue
+    derived._state = newValue
+    derived.lastSeenDepValues = [...currDepVals]
+    
+    derived.options.onUpdate?.()
+    
+    node.flags &= ~(ReactiveFlags.Dirty | ReactiveFlags.Pending)
+    
+    return changed
+  }
+  return false
 }

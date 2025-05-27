@@ -36,7 +36,6 @@ describe('Effect', () => {
 
     const fn = vi.fn()
     const effect = new Effect({
-      deps: [sumDoubleHalfCount],
       fn: () => fn(sumDoubleHalfCount.state),
     })
     effect.mount()
@@ -79,7 +78,7 @@ describe('Effect', () => {
     g.mount()
 
     const fn = vi.fn()
-    const effect = new Effect({ deps: [g], fn: () => fn(g.state) })
+    const effect = new Effect({ fn: () => fn(g.state) })
     effect.mount()
 
     a.setState(() => 2)
