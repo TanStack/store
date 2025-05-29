@@ -1,5 +1,6 @@
 import { __flush } from './scheduler'
-import type { AnyUpdater, Listener } from './types'
+import { isUpdaterFunction } from './types'
+import type { AnyUpdater, Listener, Updater } from './types'
 
 export interface StoreOptions<
   TState,
@@ -48,11 +49,24 @@ export class Store<
     }
   }
 
-  setState = (updater: TUpdater) => {
+  /**
+   * Update the store state safely with improved type checking
+   */
+  setState(updater: (prevState: TState) => TState): void
+  setState(updater: TState): void
+  setState(updater: TUpdater): void
+  setState(updater: Updater<TState> | TUpdater): void {
     this.prevState = this.state
-    this.state = this.options?.updateFn
-      ? this.options.updateFn(this.prevState)(updater)
-      : (updater as any)(this.prevState)
+
+    if (this.options?.updateFn) {
+      this.state = this.options.updateFn(this.prevState)(updater as TUpdater)
+    } else {
+      if (isUpdaterFunction(updater)) {
+        this.state = updater(this.prevState)
+      } else {
+        this.state = updater as TState
+      }
+    }
 
     // Always run onUpdate, regardless of batching
     this.options?.onUpdate?.()
