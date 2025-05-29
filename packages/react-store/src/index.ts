@@ -48,7 +48,12 @@ export function shallow<T>(objA: T, objB: T) {
   if (objA instanceof Map && objB instanceof Map) {
     if (objA.size !== objB.size) return false
     for (const [k, v] of objA) {
-      if (!objB.has(k) || !Object.is(v, objB.get(k))) return false
+      const v2 = objB.get(k)
+      if (v instanceof Date && v2 instanceof Date) {
+        if (v.getTime() !== v2.getTime()) return false
+      } else if (!objB.has(k) || !Object.is(v, v2)) {
+        return false
+      }
     }
     return true
   }
@@ -67,12 +72,20 @@ export function shallow<T>(objA: T, objB: T) {
   }
 
   for (let i = 0; i < keysA.length; i++) {
-    if (
-      !Object.prototype.hasOwnProperty.call(objB, keysA[i] as string) ||
-      !Object.is(objA[keysA[i] as keyof T], objB[keysA[i] as keyof T])
-    ) {
+    const key = keysA[i] as keyof T
+    const valA = objA[key]
+    const valB = objB[key]
+
+    if (!Object.prototype.hasOwnProperty.call(objB, key as string)) {
+      return false
+    }
+
+    if (valA instanceof Date && valB instanceof Date) {
+      if (valA.getTime() !== valB.getTime()) return false
+    } else if (!Object.is(valA, valB)) {
       return false
     }
   }
+
   return true
 }
