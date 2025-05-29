@@ -7,7 +7,7 @@ title: StoreOptions
 
 # Interface: StoreOptions\<TState, TUpdater\>
 
-Defined in: [store.ts:4](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L4)
+Defined in: [store.ts:5](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L5)
 
 ## Type Parameters
 
@@ -23,7 +23,7 @@ Defined in: [store.ts:4](https://github.com/TanStack/store/blob/main/packages/st
 optional onSubscribe: (listener, store) => () => void;
 ```
 
-Defined in: [store.ts:17](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L17)
+Defined in: [store.ts:18](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L18)
 
 Called when a listener subscribes to the store.
 
@@ -55,7 +55,7 @@ a function to unsubscribe the listener
 optional onUpdate: () => void;
 ```
 
-Defined in: [store.ts:24](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L24)
+Defined in: [store.ts:25](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L25)
 
 Called after the state has been updated, used to derive other state.
 
@@ -71,7 +71,7 @@ Called after the state has been updated, used to derive other state.
 optional updateFn: (previous) => (updater) => TState;
 ```
 
-Defined in: [store.ts:11](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L11)
+Defined in: [store.ts:12](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L12)
 
 Replace the default update function with a custom one.
 

@@ -25,7 +25,7 @@ export type Listener<T> = (value: ListenerValue<T>) => void
  * Type guard to check if updater is a function
  */
 export function isUpdaterFunction<T>(
-  updater: Updater<T>
+  updater: Updater<T>,
 ): updater is (prev: T) => T {
   return typeof updater === 'function'
 }

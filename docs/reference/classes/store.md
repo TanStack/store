@@ -7,7 +7,7 @@ title: Store
 
 # Class: Store\<TState, TUpdater\>
 
-Defined in: [store.ts:27](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L27)
+Defined in: [store.ts:28](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L28)
 
 ## Type Parameters
 
@@ -23,7 +23,7 @@ Defined in: [store.ts:27](https://github.com/TanStack/store/blob/main/packages/s
 new Store<TState, TUpdater>(initialState, options?): Store<TState, TUpdater>
 ```
 
-Defined in: [store.ts:36](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L36)
+Defined in: [store.ts:37](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L37)
 
 #### Parameters
 
@@ -47,7 +47,7 @@ Defined in: [store.ts:36](https://github.com/TanStack/store/blob/main/packages/s
 listeners: Set<Listener<TState>>;
 ```
 
-Defined in: [store.ts:31](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L31)
+Defined in: [store.ts:32](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L32)
 
 ***
 
@@ -57,7 +57,7 @@ Defined in: [store.ts:31](https://github.com/TanStack/store/blob/main/packages/s
 optional options: StoreOptions<TState, TUpdater>;
 ```
 
-Defined in: [store.ts:34](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L34)
+Defined in: [store.ts:35](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L35)
 
 ***
 
@@ -67,7 +67,7 @@ Defined in: [store.ts:34](https://github.com/TanStack/store/blob/main/packages/s
 prevState: TState;
 ```
 
-Defined in: [store.ts:33](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L33)
+Defined in: [store.ts:34](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L34)
 
 ***
 
@@ -77,25 +77,69 @@ Defined in: [store.ts:33](https://github.com/TanStack/store/blob/main/packages/s
 state: TState;
 ```
 
-Defined in: [store.ts:32](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L32)
+Defined in: [store.ts:33](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L33)
 
 ## Methods
 
 ### setState()
 
+#### Call Signature
+
 ```ts
 setState(updater): void
 ```
 
-Defined in: [store.ts:51](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L51)
+Defined in: [store.ts:55](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L55)
 
-#### Parameters
+Update the store state safely with improved type checking
 
-##### updater
+##### Parameters
+
+###### updater
+
+(`prevState`) => `TState`
+
+##### Returns
+
+`void`
+
+#### Call Signature
+
+```ts
+setState(updater): void
+```
+
+Defined in: [store.ts:56](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L56)
+
+Update the store state safely with improved type checking
+
+##### Parameters
+
+###### updater
+
+`TState`
+
+##### Returns
+
+`void`
+
+#### Call Signature
+
+```ts
+setState(updater): void
+```
+
+Defined in: [store.ts:57](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L57)
+
+Update the store state safely with improved type checking
+
+##### Parameters
+
+###### updater
 
 `TUpdater`
 
-#### Returns
+##### Returns
 
 `void`
 
@@ -107,7 +151,7 @@ Defined in: [store.ts:51](https://github.com/TanStack/store/blob/main/packages/s
 subscribe(listener): () => void
 ```
 
-Defined in: [store.ts:42](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L42)
+Defined in: [store.ts:43](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L43)
 
 #### Parameters
 

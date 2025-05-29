@@ -4,17 +4,17 @@ import { Store } from '../src/index'
 describe('Store.setState Type Safety Improvements', () => {
   test('should handle function updater safely', () => {
     const store = new Store<number>(0)
-    
+
     store.setState((prev) => prev + 5)
     expect(store.state).toBe(5)
-    
+
     store.setState((prev) => prev * 2)
     expect(store.state).toBe(10)
   })
 
   test('should handle direct value updater safely', () => {
     const store = new Store<number>(42)
-    
+
     store.setState(100)
     expect(store.state).toBe(100)
   })
@@ -27,13 +27,13 @@ describe('Store.setState Type Safety Improvements', () => {
 
     const store = new Store<ComplexState>({
       count: 0,
-      user: { name: 'John', age: 25 }
+      user: { name: 'John', age: 25 },
     })
 
-    store.setState(prev => ({
+    store.setState((prev) => ({
       ...prev,
       count: prev.count + 1,
-      user: { ...prev.user, age: prev.user.age + 1 }
+      user: { ...prev.user, age: prev.user.age + 1 },
     }))
 
     expect(store.state.count).toBe(1)
@@ -47,10 +47,10 @@ describe('Store.setState Type Safety Improvements', () => {
           return updater(prev)
         }
         return updater
-      }
+      },
     })
 
-    store.setState(prev => `${prev} updated`)
+    store.setState((prev) => `${prev} updated`)
     expect(store.state).toBe('initial updated')
 
     store.setState('direct value')
@@ -63,11 +63,11 @@ describe('Store.setState Type Safety Improvements', () => {
 
     store.subscribe(listener)
 
-    store.setState(prev => ({ value: prev.value + 10 }))
+    store.setState((prev) => ({ value: prev.value + 10 }))
 
     expect(listener).toHaveBeenCalledWith({
       prevVal: { value: 0 },
-      currentVal: { value: 10 }
+      currentVal: { value: 10 },
     })
   })
 
@@ -80,7 +80,7 @@ describe('Store.setState Type Safety Improvements', () => {
     expect(nullableStore.state).toBe(null)
 
     const arrayStore = new Store<Array<number>>([])
-    arrayStore.setState(prev => [...prev, 1, 2, 3])
+    arrayStore.setState((prev) => [...prev, 1, 2, 3])
     expect(arrayStore.state).toEqual([1, 2, 3])
 
     arrayStore.setState([4, 5, 6])
@@ -92,11 +92,11 @@ describe('Store.setState Type Safety Improvements', () => {
     const iterations = 1000
 
     const start = performance.now()
-    
+
     for (let i = 0; i < iterations; i++) {
-      store.setState(prev => prev + 1)
+      store.setState((prev) => prev + 1)
     }
-    
+
     const end = performance.now()
     const duration = end - start
 

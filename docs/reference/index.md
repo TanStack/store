@@ -22,6 +22,7 @@ title: "@tanstack/store"
 ## Type Aliases
 
 - [UnwrapDerivedOrStore](../type-aliases/unwrapderivedorstore.md)
+- [Updater](../type-aliases/updater.md)
 
 ## Variables
 
@@ -32,3 +33,4 @@ title: "@tanstack/store"
 ## Functions
 
 - [batch](../functions/batch.md)
+- [isUpdaterFunction](../functions/isupdaterfunction.md)
