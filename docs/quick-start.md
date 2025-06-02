@@ -37,7 +37,7 @@ You can even transform the data before it's updated:
 ```typescript
 const count = new Store(12, {
   updateFn: (prevValue) => updateValue => {
-    return updateValue + prevValue;
+    return updateValue(prevValue) + previous;
   }
 });
 
