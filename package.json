@@ -37,16 +37,16 @@
   },
   "devDependencies": {
     "@eslint-react/eslint-plugin": "^1.50.0",
-    "@tanstack/config": "^0.18.0",
+    "@tanstack/config": "^0.18.2",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/user-event": "^14.6.1",
     "@types/node": "^22.10.1",
     "@vitest/coverage-istanbul": "^3.1.4",
-    "eslint": "^9.27.0",
+    "eslint": "^9.28.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "fast-glob": "^3.3.3",
     "jsdom": "^25.0.1",
-    "knip": "^5.58.0",
+    "knip": "^5.59.1",
     "markdown-link-extractor": "^4.0.2",
     "nx": "^20.8.2",
     "premove": "^4.0.0",
@@ -61,6 +61,6 @@
     "typescript53": "npm:typescript@5.3",
     "vite": "^6.3.5",
     "vitest": "^3.1.4",
-    "vue": "^3.5.14"
+    "vue": "^3.5.16"
   }
 }
