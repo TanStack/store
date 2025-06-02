@@ -13,8 +13,6 @@ Defined in: [store.ts:28](https://github.com/TanStack/store/blob/main/packages/s
 
 • **TState**
 
-• **TUpdater** *extends* `AnyUpdater` = (`cb`) => `TState`
-
 ## Constructors
 
 ### new Store()

@@ -17,7 +17,7 @@ export * from '@tanstack/store'
 type NoInfer<T> = [T][T extends any ? 0 : never]
 
 export function injectStore<TState, TSelected = NoInfer<TState>>(
-  store: Store<TState, any>,
+  store: Store<TState>,
   selector?: (state: NoInfer<TState>) => TSelected,
   options?: CreateSignalOptions<TSelected> & { injector?: Injector },
 ): Signal<TSelected>
@@ -27,7 +27,7 @@ export function injectStore<TState, TSelected = NoInfer<TState>>(
   options?: CreateSignalOptions<TSelected> & { injector?: Injector },
 ): Signal<TSelected>
 export function injectStore<TState, TSelected = NoInfer<TState>>(
-  store: Store<TState, any> | Derived<TState, any>,
+  store: Store<TState> | Derived<TState, any>,
   selector: (state: NoInfer<TState>) => TSelected = (d) => d as TSelected,
   options: CreateSignalOptions<TSelected> & { injector?: Injector } = {
     equal: shallow,

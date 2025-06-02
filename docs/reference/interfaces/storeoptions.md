@@ -13,8 +13,6 @@ Defined in: [store.ts:5](https://github.com/TanStack/store/blob/main/packages/st
 
 • **TState**
 
-• **TUpdater** *extends* `AnyUpdater` = (`cb`) => `TState`
-
 ## Properties
 
 ### onSubscribe()?

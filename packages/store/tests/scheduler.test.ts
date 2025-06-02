@@ -9,7 +9,7 @@ import {
 
 describe('Scheduler logic', () => {
   test('Should build a graph properly', () => {
-    const count = new Store<any, any>(10)
+    const count = new Store<any>(10)
 
     const halfCount = new Derived<any, any>({
       deps: [count],
@@ -36,7 +36,7 @@ describe('Scheduler logic', () => {
   })
 
   test('should unbuild a graph properly', () => {
-    const count = new Store<any, any>(10)
+    const count = new Store<any>(10)
 
     const halfCount = new Derived<any, any>({
       deps: [count],
@@ -99,7 +99,7 @@ describe('Scheduler logic', () => {
   })
 
   test('should register graph items in the wrong order properly', () => {
-    const count = new Store<any, any>(12)
+    const count = new Store<any>(12)
 
     const double = new Derived<any, any>({
       deps: [count],
@@ -124,7 +124,7 @@ describe('Scheduler logic', () => {
   })
 
   test('should register graph items in the right direction order', () => {
-    const count = new Store<any, any>(12)
+    const count = new Store<any>(12)
 
     const double = new Derived<any, any>({
       deps: [count],
