@@ -53,6 +53,24 @@ describe('store', () => {
     expect(typeof store.state).toEqual('number')
   })
 
+  test(`updateFn acts as state transformer when directly updating state`, () => {
+    const store = new Store(1, {
+      updateFn: prevState => updater => {
+        return updater(prevState) + prevState;
+      }
+    })
+
+    store.setState(1)
+
+    expect(store.state).toEqual(2)
+
+    store.setState(1)
+
+    expect(store.state).toEqual(3)
+
+    expect(typeof store.state).toEqual('number')
+  })
+
   test('listeners should receive old and new values', () => {
     const store = new Store(12)
     const fn = vi.fn()
