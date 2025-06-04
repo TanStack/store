@@ -11,7 +11,7 @@ export * from '@tanstack/store'
 export type NoInfer<T> = [T][T extends any ? 0 : never]
 
 export function useStore<TState, TSelected = NoInfer<TState>>(
-  store: Store<TState, any>,
+  store: Store<TState>,
   selector?: (state: NoInfer<TState>) => TSelected,
 ): Accessor<TSelected>
 export function useStore<TState, TSelected = NoInfer<TState>>(
@@ -19,7 +19,7 @@ export function useStore<TState, TSelected = NoInfer<TState>>(
   selector?: (state: NoInfer<TState>) => TSelected,
 ): Accessor<TSelected>
 export function useStore<TState, TSelected = NoInfer<TState>>(
-  store: Store<TState, any> | Derived<TState, any>,
+  store: Store<TState> | Derived<TState, any>,
   selector: (state: NoInfer<TState>) => TSelected = (d) => d as any,
 ): Accessor<TSelected> {
   const [slice, setSlice] = createStore({
