@@ -1,9 +1,4 @@
 /**
- * @private
- */
-export type AnyUpdater = (prev: any) => any
-
-/**
  * Type-safe updater that can be either a function or direct value
  */
 export type Updater<T> = ((prev: T) => T) | T

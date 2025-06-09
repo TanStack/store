@@ -1,15 +1,12 @@
 import { __flush } from './scheduler'
 import { isUpdaterFunction } from './types'
-import type { AnyUpdater, Listener, Updater } from './types'
+import type { Listener } from './types'
 
-export interface StoreOptions<
-  TState,
-  TUpdater extends AnyUpdater = (cb: TState) => TState,
-> {
+export interface StoreOptions< TState> {
   /**
    * Replace the default update function with a custom one.
    */
-  updateFn?: (previous: TState) => (updater: TUpdater) => TState
+  updateFn?: (previous: TState) => (updater: (prev: TState) => TState) => TState
   /**
    * Called when a listener subscribes to the store.
    *
@@ -17,7 +14,7 @@ export interface StoreOptions<
    */
   onSubscribe?: (
     listener: Listener<TState>,
-    store: Store<TState, TUpdater>,
+    store: Store<TState>,
   ) => () => void
   /**
    * Called after the state has been updated, used to derive other state.
@@ -25,16 +22,13 @@ export interface StoreOptions<
   onUpdate?: () => void
 }
 
-export class Store<
-  TState,
-  TUpdater extends AnyUpdater = (cb: TState) => TState,
-> {
+export class Store<TState> {
   listeners = new Set<Listener<TState>>()
   state: TState
   prevState: TState
-  options?: StoreOptions<TState, TUpdater>
+  options?: StoreOptions<TState>
 
-  constructor(initialState: TState, options?: StoreOptions<TState, TUpdater>) {
+  constructor(initialState: TState, options?: StoreOptions<TState>) {
     this.prevState = initialState
     this.state = initialState
     this.options = options
@@ -42,30 +36,23 @@ export class Store<
 
   subscribe = (listener: Listener<TState>) => {
     this.listeners.add(listener)
-    const unsub = this.options?.onSubscribe?.(listener, this)
+    const unsubscribe = this.options?.onSubscribe?.(listener, this)
     return () => {
       this.listeners.delete(listener)
-      unsub?.()
+      unsubscribe?.()
     }
   }
 
   /**
    * Update the store state safely with improved type checking
    */
-  setState(updater: (prevState: TState) => TState): void
-  setState(updater: TState): void
-  setState(updater: TUpdater): void
-  setState(updater: Updater<TState> | TUpdater): void {
+  setState(updater: TState | ((prevState: TState) => TState)): void {
     this.prevState = this.state
 
-    if (this.options?.updateFn) {
-      this.state = this.options.updateFn(this.prevState)(updater as TUpdater)
+    if (isUpdaterFunction(updater)) {
+      this.state = this.options?.updateFn ? this.options.updateFn(this.prevState)(updater) : updater(this.prevState)
     } else {
-      if (isUpdaterFunction(updater)) {
-        this.state = updater(this.prevState)
-      } else {
-        this.state = updater as TState
-      }
+      this.state = this.options?.updateFn ? this.options.updateFn(this.prevState)(() => updater) : updater
     }
 
     // Always run onUpdate, regardless of batching
