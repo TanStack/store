@@ -8,17 +8,15 @@ export const store = new Store({
   cats: 0,
 })
 
-interface DisplayProps {
-  animal: 'dogs' | 'cats'
-}
+type Animal = keyof typeof store.state
 
 // This will only re-render when `state[animal]` changes. If an unrelated store property changes, it won't re-render
-const Display = ({ animal }: DisplayProps) => {
+const Display = ({ animal }: { animal: Animal }) => {
   const count = useStore(store, (state) => state[animal])
   return <div>{`${animal}: ${count}`}</div>
 }
 
-const updateState = (animal: 'dogs' | 'cats') => {
+const updateState = (animal: Animal) => {
   store.setState((state) => {
     return {
       ...state,
@@ -27,11 +25,7 @@ const updateState = (animal: 'dogs' | 'cats') => {
   })
 }
 
-interface IncrementProps {
-  animal: 'dogs' | 'cats'
-}
-
-const Increment = ({ animal }: IncrementProps) => (
+const Increment = ({ animal }: { animal: Animal }) => (
   <button onClick={() => updateState(animal)}>My Friend Likes {animal}</button>
 )
 
