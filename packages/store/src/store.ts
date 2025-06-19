@@ -1,12 +1,12 @@
 import { __flush } from './scheduler'
 import { isUpdaterFunction } from './types'
-import type { Listener } from './types'
+import type { Listener, Updater, UpdaterFn } from './types'
 
 export interface StoreOptions< TState> {
   /**
    * Replace the default update function with a custom one.
    */
-  updateFn?: (previous: TState) => (updater: (prev: TState) => TState) => TState
+  updateFn?: (previous: TState) => (updater: UpdaterFn<TState>) => TState
   /**
    * Called when a listener subscribes to the store.
    *
@@ -46,7 +46,7 @@ export class Store<TState> {
   /**
    * Update the store state safely with improved type checking
    */
-  setState(updater: TState | ((prevState: TState) => TState)): void {
+  setState(updater: Updater<TState>): void {
     this.prevState = this.state
 
     if (isUpdaterFunction(updater)) {
