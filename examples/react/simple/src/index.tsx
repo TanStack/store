@@ -8,6 +8,12 @@ export const store = new Store({
   cats: 0,
 })
 
+const countStore = new Store(1, {
+    updateFn: prevState => updater => {
+        return updater(prevState) + prevState;
+    }
+});
+
 interface DisplayProps {
   animal: 'dogs' | 'cats'
 }
@@ -35,6 +41,17 @@ const Increment = ({ animal }: IncrementProps) => (
   <button onClick={() => updateState(animal)}>My Friend Likes {animal}</button>
 )
 
+const DisplayCount = () => {
+    const count = useStore(countStore);
+    return (
+        <>
+            <button onClick={() => countStore.setState(1)}>Update count - part1</button>
+            <button onClick={() => countStore.setState(() => 1)}>Update count - part2</button>
+            <div>{`count: ${count}`}</div>
+        </>
+    );
+};
+
 function App() {
   return (
     <div>
@@ -47,6 +64,7 @@ function App() {
       <Display animal="dogs" />
       <Increment animal="cats" />
       <Display animal="cats" />
+      <DisplayCount />
     </div>
   )
 }
