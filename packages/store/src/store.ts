@@ -38,6 +38,8 @@ export class Store<
     this.prevState = initialState
     this.state = initialState
     this.options = options
+
+    this.setState = this.setState.bind(this);
   }
 
   subscribe = (listener: Listener<TState>) => {

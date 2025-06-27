@@ -37,6 +37,16 @@ describe('store', () => {
     expect(store.state).toEqual(4)
   })
 
+  test(`setState works when not directly called on the store`, () => {
+    const store = new Store(5);
+
+    const setState = store.setState
+
+    setState((v) => v + 1)
+
+    expect(store.state).toEqual(6)
+  })
+
   test(`updateFn acts as state transformer`, () => {
     const store = new Store(1, {
       updateFn: (v) => (updater) => Number(updater(v)),
