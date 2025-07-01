@@ -1,12 +1,12 @@
 /**
- * @private
+ * Type-safe updater function
  */
-export type AnyUpdater = (prev: any) => any
+export type UpdaterFn<T> = (prev: T) => T;
 
 /**
  * Type-safe updater that can be either a function or direct value
  */
-export type Updater<T> = ((prev: T) => T) | T
+export type Updater<T> = UpdaterFn<T> | T
 
 /**
  * @private
