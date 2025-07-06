@@ -9,4 +9,5 @@ title: "@tanstack/solid-store"
 
 ## Functions
 
+- [shallow](../functions/shallow.md)
 - [useStore](../functions/usestore.md)
