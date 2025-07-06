@@ -93,3 +93,53 @@ describe('injectStore', () => {
     expect(count).toEqual(2)
   })
 })
+
+describe('dataType', () => {
+  test('date change trigger re-render', () => {
+    const store = new Store({ date: new Date('2025-03-29T21:06:30.401Z') })
+
+    @Component({
+      template: `
+        <div>
+          <p id="displayStoreVal">{{ storeVal() }}</p>
+          <button id="updateDate" (click)="updateDate()">Update date</button>
+        </div>
+      `,
+      standalone: true,
+    })
+    class MyCmp {
+      storeVal = injectStore(store, (state) => state.date)
+
+      constructor() {
+        effect(() => {
+          console.log(this.storeVal())
+        })
+      }
+
+      updateDate() {
+        store.setState((v) => ({
+          ...v,
+          date: new Date('2025-03-29T21:06:40.401Z'),
+        }))
+      }
+    }
+
+    const fixture = TestBed.createComponent(MyCmp)
+    fixture.detectChanges()
+
+    const debugElement = fixture.debugElement
+
+    expect(
+      debugElement.query(By.css('p#displayStoreVal')).nativeElement.textContent,
+    ).toContain(new Date('2025-03-29T21:06:30.401Z'))
+
+    debugElement
+      .query(By.css('button#updateDate'))
+      .triggerEventHandler('click', null)
+
+    fixture.detectChanges()
+    expect(
+      debugElement.query(By.css('p#displayStoreVal')).nativeElement.textContent,
+    ).toContain(new Date('2025-03-29T21:06:40.401Z'))
+  })
+})
