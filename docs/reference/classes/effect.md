@@ -27,7 +27,7 @@ Defined in: [effect.ts:23](https://github.com/TanStack/store/blob/main/packages/
 
 #### Returns
 
-[`Effect`](effect.md)
+[`Effect`](../effect.md)
 
 ## Methods
 

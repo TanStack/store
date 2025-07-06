@@ -9,16 +9,16 @@
     "test:types": "tsc"
   },
   "dependencies": {
-    "@tanstack/react-store": "^0.7.0",
-    "@tanstack/store": "^0.7.0",
+    "@tanstack/react-store": "^0.7.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.4",
-    "vite": "^6.1.1"
+    "@vitejs/plugin-react": "^4.6.0",
+    "react-scan": "^0.4.3",
+    "vite": "^6.3.5"
   },
   "browserslist": {
     "production": [

@@ -1,6 +1,6 @@
 {
   "name": "@tanstack/solid-store",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Framework agnostic type-safe store w/ reactive framework adapters",
   "author": "Tanner Linsley",
   "license": "MIT",
@@ -64,8 +64,8 @@
   },
   "devDependencies": {
     "@solidjs/testing-library": "^0.8.10",
-    "solid-js": "^1.9.5",
-    "vite-plugin-solid": "^2.11.6"
+    "solid-js": "^1.9.7",
+    "vite-plugin-solid": "^2.11.7"
   },
   "peerDependencies": {
     "solid-js": "^1.6.0"
