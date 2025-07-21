@@ -49,12 +49,12 @@
     "@tanstack/store": "workspace:*"
   },
   "devDependencies": {
-    "@sveltejs/package": "^2.3.12",
+    "@sveltejs/package": "^2.4.0",
     "@sveltejs/vite-plugin-svelte": "^5.1.1",
     "@testing-library/svelte": "^5.2.8",
     "eslint-plugin-svelte": "^2.46.1",
-    "svelte": "^5.35.6",
-    "svelte-check": "^4.2.2"
+    "svelte": "^5.36.12",
+    "svelte-check": "^4.3.0"
   },
   "peerDependencies": {
     "svelte": "^5.0.0"
