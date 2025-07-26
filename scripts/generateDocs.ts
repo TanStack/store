@@ -4,7 +4,6 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import { generateReferenceDocs } from '@tanstack/config/typedoc'
 import { glob } from 'tinyglobby'
 
-
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
 await generateReferenceDocs({
