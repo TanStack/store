@@ -1,7 +1,10 @@
 {
   "name": "root",
   "private": true,
-  "repository": "https://github.com/tanstack/store.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tanstack/store.git"
+  },
   "packageManager": "pnpm@10.13.1",
   "type": "module",
   "scripts": {
@@ -22,12 +25,12 @@
     "build:all": "nx run-many --target=build --exclude=examples/**",
     "watch": "pnpm run build:all && nx watch --all -- pnpm run build:all",
     "dev": "pnpm run watch",
-    "prettier": "prettier --ignore-unknown '**/*'",
+    "prettier": "prettier --experimental-cli --ignore-unknown '**/*'",
     "prettier:write": "pnpm run prettier --write",
-    "docs:generate": "node scripts/generateDocs.js",
-    "cipublish": "node scripts/publish.js",
-    "cipublishforce": "CI=true pnpm cipublish",
-    "verify-links": "node scripts/verify-links.ts"
+    "docs:generate": "node scripts/generateDocs.ts",
+    "verify-links": "node scripts/verify-links.ts",
+    "cipublish": "node scripts/publish.ts",
+    "cipublishforce": "CI=true pnpm cipublish"
   },
   "nx": {
     "includedScripts": [
@@ -40,11 +43,10 @@
     "@tanstack/config": "^0.20.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/user-event": "^14.6.1",
-    "@types/node": "^22.10.1",
+    "@types/node": "^24.1.0",
     "@vitest/coverage-istanbul": "^3.2.4",
     "eslint": "^9.31.0",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "fast-glob": "^3.3.3",
     "jsdom": "^25.0.1",
     "knip": "^5.62.0",
     "markdown-link-extractor": "^4.0.2",
@@ -54,6 +56,7 @@
     "prettier-plugin-svelte": "^3.4.0",
     "publint": "^0.3.12",
     "sherif": "^1.6.1",
+    "tinyglobby": "^0.2.14",
     "typescript": "5.6.3",
     "typescript50": "npm:typescript@5.0",
     "typescript51": "npm:typescript@5.1",
