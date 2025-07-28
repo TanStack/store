@@ -41,11 +41,11 @@
   "devDependencies": {
     "@eslint-react/eslint-plugin": "^1.52.3",
     "@tanstack/config": "^0.20.0",
-    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/jest-dom": "^6.6.4",
     "@testing-library/user-event": "^14.6.1",
     "@types/node": "^24.1.0",
     "@vitest/coverage-istanbul": "^3.2.4",
-    "eslint": "^9.31.0",
+    "eslint": "^9.32.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "jsdom": "^25.0.1",
     "knip": "^5.62.0",
@@ -64,6 +64,6 @@
     "typescript53": "npm:typescript@5.3",
     "vite": "^6.3.5",
     "vitest": "^3.2.4",
-    "vue": "^3.5.17"
+    "vue": "^3.5.18"
   }
 }
