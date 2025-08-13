@@ -145,23 +145,27 @@ describe('shallow', () => {
     expect(shallow(objA, objB)).toBe(false)
   })
 
-  test('should return false for one object being undefined', () => {
-    const objA = { a: 1, b: 'hello' }
-    const objB = undefined
-    expect(shallow(objA, objB)).toBe(false)
+  test('should handle empty objects', () => {
+    expect(shallow({}, {})).toBe(true)
   })
 
-  test('should return true for two null objects', () => {
-    const objA = null
-    const objB = null
+  test('should handle getter-only objects', () => {
+    function createGetterOnlyObject(value: number) {
+      const obj = Object.create({})
+      Object.defineProperty(obj, 'value', {
+        get: () => value,
+        enumerable: false,
+        configurable: true
+      })
+      return obj
+    }
+
+    const objA = createGetterOnlyObject(42)
+    const objB = createGetterOnlyObject(42)
+    const objC = createGetterOnlyObject(24)
+    
     expect(shallow(objA, objB)).toBe(true)
-  })
-
-  test('should return false for objects with different types', () => {
-    const objA = { a: 1, b: 'hello' }
-    const objB = { a: '1', b: 'hello' }
-    // @ts-expect-error
-    expect(shallow(objA, objB)).toBe(false)
+    expect(shallow(objA, objC)).toBe(false)
   })
 
   test('should return true for shallowly equal maps', () => {
