@@ -155,7 +155,7 @@ describe('shallow', () => {
       Object.defineProperty(obj, 'value', {
         get: () => value,
         enumerable: false,
-        configurable: true
+        configurable: true,
       })
       return obj
     }
@@ -163,7 +163,7 @@ describe('shallow', () => {
     const objA = createGetterOnlyObject(42)
     const objB = createGetterOnlyObject(42)
     const objC = createGetterOnlyObject(24)
-    
+
     expect(shallow(objA, objB)).toBe(true)
     expect(shallow(objA, objC)).toBe(false)
   })

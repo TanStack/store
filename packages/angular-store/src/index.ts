@@ -92,7 +92,7 @@ function shallow<T>(objA: T, objB: T) {
 
   const keysA = Object.keys(objA)
   const keysB = Object.keys(objB)
-  
+
   if (keysA.length !== keysB.length) {
     return false
   }
@@ -112,24 +112,24 @@ function shallow<T>(objA: T, objB: T) {
   if (keysA.length === 0) {
     const descriptorsA = Object.getOwnPropertyDescriptors(objA)
     const descriptorsB = Object.getOwnPropertyDescriptors(objB)
-    
+
     const getterKeysA = Object.keys(descriptorsA).filter(
-      key => descriptorsA[key]?.get !== undefined
+      (key) => descriptorsA[key]?.get !== undefined,
     )
     const getterKeysB = Object.keys(descriptorsB).filter(
-      key => descriptorsB[key]?.get !== undefined
+      (key) => descriptorsB[key]?.get !== undefined,
     )
-    
+
     if (getterKeysA.length !== getterKeysB.length) {
       return false
     }
-    
+
     for (const key of getterKeysA) {
       if (
         !getterKeysB.includes(key) ||
         !Object.is(
           (objA as Record<string, unknown>)[key],
-          (objB as Record<string, unknown>)[key]
+          (objB as Record<string, unknown>)[key],
         )
       ) {
         return false
