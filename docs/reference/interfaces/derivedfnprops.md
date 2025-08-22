@@ -7,7 +7,7 @@ title: DerivedFnProps
 
 # Interface: DerivedFnProps\<TArr, TUnwrappedArr\>
 
-Defined in: [derived.ts:23](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L23)
+Defined in: [derived.ts:30](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L30)
 
 ## Type Parameters
 
@@ -25,7 +25,7 @@ Defined in: [derived.ts:23](https://github.com/TanStack/store/blob/main/packages
 currDepVals: TUnwrappedArr;
 ```
 
-Defined in: [derived.ts:35](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L35)
+Defined in: [derived.ts:42](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L42)
 
 ***
 
@@ -35,7 +35,7 @@ Defined in: [derived.ts:35](https://github.com/TanStack/store/blob/main/packages
 prevDepVals: undefined | TUnwrappedArr;
 ```
 
-Defined in: [derived.ts:34](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L34)
+Defined in: [derived.ts:41](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L41)
 
 ***
 
@@ -45,6 +45,6 @@ Defined in: [derived.ts:34](https://github.com/TanStack/store/blob/main/packages
 prevVal: unknown;
 ```
 
-Defined in: [derived.ts:33](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L33)
+Defined in: [derived.ts:40](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L40)
 
 `undefined` if it's the first run

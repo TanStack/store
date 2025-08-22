@@ -16,12 +16,15 @@ type UnwrapReadonlyDerivedOrStoreArray<
   : TArr extends readonly [infer Head, ...infer Tail]
     ? Head extends Derived<any> | Store<any>
       ? Tail extends ReadonlyArray<Derived<any> | Store<any>>
-        ? [UnwrapDerivedOrStore<Head>, ...UnwrapReadonlyDerivedOrStoreArray<Tail>]
+        ? [
+            UnwrapDerivedOrStore<Head>,
+            ...UnwrapReadonlyDerivedOrStoreArray<Tail>,
+          ]
         : [UnwrapDerivedOrStore<Head>]
       : []
     : TArr extends ReadonlyArray<Derived<any> | Store<any>>
       ? Array<UnwrapDerivedOrStore<TArr[number]>>
-      : [];
+      : []
 
 // Can't have currVal, as it's being evaluated from the current derived fn
 export interface DerivedFnProps<
