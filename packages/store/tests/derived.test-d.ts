@@ -12,6 +12,21 @@ test('dep array inner types work', () => {
   })
 })
 
+test('dep array inner types work with derived vals', () => {
+  const derived = new Derived({
+    fn: () => 123,
+    deps: [],
+  })
+
+  new Derived({
+    // This is an edgecase that might happen when an array is of unknown length, like being drive through `.map`
+    deps: [derived] as ReadonlyArray<typeof derived>,
+    fn: ({ currDepVals }) => {
+      expectTypeOf(currDepVals).toMatchTypeOf<Array<number>>()
+    },
+  })
+})
+
 test('return type inferencing should work', () => {
   const derived = new Derived({
     deps: [],

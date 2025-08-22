@@ -7,7 +7,7 @@ title: DerivedOptions
 
 # Interface: DerivedOptions\<TState, TArr\>
 
-Defined in: [derived.ts:38](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L38)
+Defined in: [derived.ts:45](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L45)
 
 ## Type Parameters
 
@@ -25,7 +25,7 @@ Defined in: [derived.ts:38](https://github.com/TanStack/store/blob/main/packages
 deps: TArr;
 ```
 
-Defined in: [derived.ts:47](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L47)
+Defined in: [derived.ts:54](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L54)
 
 ***
 
@@ -35,7 +35,7 @@ Defined in: [derived.ts:47](https://github.com/TanStack/store/blob/main/packages
 fn: (props) => TState;
 ```
 
-Defined in: [derived.ts:51](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L51)
+Defined in: [derived.ts:58](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L58)
 
 Values of the `deps` from before and after the current invocation of `fn`
 
@@ -57,7 +57,7 @@ Values of the `deps` from before and after the current invocation of `fn`
 optional onSubscribe: (listener, derived) => () => void;
 ```
 
-Defined in: [derived.ts:42](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L42)
+Defined in: [derived.ts:49](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L49)
 
 #### Parameters
 
@@ -85,7 +85,7 @@ Defined in: [derived.ts:42](https://github.com/TanStack/store/blob/main/packages
 optional onUpdate: () => void;
 ```
 
-Defined in: [derived.ts:46](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L46)
+Defined in: [derived.ts:53](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L53)
 
 #### Returns
 
