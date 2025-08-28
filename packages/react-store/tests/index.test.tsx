@@ -164,6 +164,20 @@ describe('shallow', () => {
     expect(shallow(objA, objB)).toBe(false)
   })
 
+  test('should return true for shallow equal objects with symbol keys', () => {
+    const sym = Symbol.for('key')
+    const objA = { [sym]: 1 }
+    const objB = { [sym]: 1 }
+    expect(shallow(objA, objB)).toBe(true)
+  })
+
+  test('should return false for shallow different values for symbol keys', () => {
+    const sym = Symbol.for('key')
+    const objA = { [sym]: 1 }
+    const objB = { [sym]: 2 }
+    expect(shallow(objA, objB)).toBe(false)
+  })
+
   test('should return true for shallowly equal maps', () => {
     const objA = new Map([['1', 'hello']])
     const objB = new Map([['1', 'hello']])
