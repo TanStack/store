@@ -66,8 +66,8 @@ export function shallow<T>(objA: T, objB: T) {
     return true
   }
 
-  const keysA = Object.keys(objA)
-  if (keysA.length !== Object.keys(objB).length) {
+  const keysA = Reflect.ownKeys(objA)
+  if (keysA.length !== Reflect.ownKeys(objB).length) {
     return false
   }
 
