@@ -66,8 +66,8 @@ export function shallow<T>(objA: T, objB: T) {
     return true
   }
 
-  const keysA = Reflect.ownKeys(objA)
-  if (keysA.length !== Reflect.ownKeys(objB).length) {
+  const keysA = getOwnKeys(objA)
+  if (keysA.length !== getOwnKeys(objB).length) {
     return false
   }
 
@@ -80,4 +80,10 @@ export function shallow<T>(objA: T, objB: T) {
     }
   }
   return true
+}
+
+function getOwnKeys(obj: object): Array<string | symbol> {
+  return (Object.keys(obj) as Array<string | symbol>).concat(
+    Object.getOwnPropertySymbols(obj),
+  )
 }
