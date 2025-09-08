@@ -3,6 +3,7 @@ import { render, waitFor } from '@testing-library/svelte'
 import { userEvent } from '@testing-library/user-event'
 import { shallow } from '../src/index.svelte.js'
 import TestBaseStore from './BaseStore.test.svelte'
+import DynamicStore from './DynamicStore.test.svelte'
 import TestRerender from './Render.test.svelte'
 
 const user = userEvent.setup()
@@ -25,6 +26,14 @@ describe('useStore', () => {
 
     await user.click(getByText('Update ignored'))
     expect(getByText('Number rendered: 2')).toBeInTheDocument()
+  })
+
+  it('allows us to use a dynamic store', async () => {
+    const { getByText } = render(DynamicStore)
+    expect(getByText('Store: 0')).toBeInTheDocument()
+
+    await user.click(getByText('Update store'))
+    await waitFor(() => expect(getByText('Store: 10')).toBeInTheDocument())
   })
 })
 
