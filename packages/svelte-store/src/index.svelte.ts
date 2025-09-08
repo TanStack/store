@@ -76,17 +76,51 @@ export function shallow<T>(objA: T, objB: T) {
   }
 
   const keysA = Object.keys(objA)
-  if (keysA.length !== Object.keys(objB).length) {
+  const keysB = Object.keys(objB)
+
+  if (keysA.length !== keysB.length) {
     return false
   }
 
-  for (let i = 0; i < keysA.length; i++) {
-    if (
-      !Object.prototype.hasOwnProperty.call(objB, keysA[i] as string) ||
-      !Object.is(objA[keysA[i] as keyof T], objB[keysA[i] as keyof T])
-    ) {
+  if (keysA.length > 0) {
+    for (const key of keysA) {
+      if (
+        !Object.prototype.hasOwnProperty.call(objB, key) ||
+        !Object.is(objA[key as keyof T], objB[key as keyof T])
+      ) {
+        return false
+      }
+    }
+    return true
+  }
+
+  if (keysA.length === 0) {
+    const descriptorsA = Object.getOwnPropertyDescriptors(objA)
+    const descriptorsB = Object.getOwnPropertyDescriptors(objB)
+
+    const getterKeysA = Object.keys(descriptorsA).filter(
+      (key) => descriptorsA[key]?.get !== undefined,
+    )
+    const getterKeysB = Object.keys(descriptorsB).filter(
+      (key) => descriptorsB[key]?.get !== undefined,
+    )
+
+    if (getterKeysA.length !== getterKeysB.length) {
       return false
     }
+
+    for (const key of getterKeysA) {
+      if (
+        !getterKeysB.includes(key) ||
+        !Object.is(
+          (objA as Record<string, unknown>)[key],
+          (objB as Record<string, unknown>)[key],
+        )
+      ) {
+        return false
+      }
+    }
   }
+
   return true
 }
