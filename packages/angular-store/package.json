@@ -1,6 +1,6 @@
 {
   "name": "@tanstack/angular-store",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "Framework agnostic type-safe store w/ reactive framework adapters",
   "author": "Tanner Linsley",
   "license": "MIT",
