@@ -74,11 +74,11 @@ An immutable, reactive data store with framework adapters that powers the core o
 
 
 <div align="center">
-<img src="./media/partner_logo.svg" alt="Query & you?" height="65">
+<img src="./media/partner_logo.svg" alt="Store & you?" height="65">
 <p>
-We're looking for TanStack Query Partners to join our mission! Partner with us to push the boundaries of TanStack Query and build amazing things together.
+We're looking for TanStack Store Partners to join our mission! Partner with us to push the boundaries of TanStack Store and build amazing things together.
 </p>
-<a href="mailto:partners@tanstack.com?subject=TanStack Query Partnership"><b>LET'S CHAT</b></a>
+<a href="mailto:partners@tanstack.com?subject=TanStack Store Partnership"><b>LET'S CHAT</b></a>
 </div>
 
 ## Explore the TanStack Ecosystem
@@ -87,7 +87,7 @@ We're looking for TanStack Query Partners to join our mission! Partner with us t
 - <a href="https://github.com/tanstack/db"><b>TanStack DB</b></a> – Reactive sync client store
 - <a href="https://github.com/tanstack/devtools"><b>TanStack DevTools</b></a> – Unified devtools panel
 - <a href="https://github.com/tanstack/form"><b>TanStack Form</b></a> – Type‑safe form state
-- <a href="https://github.com/tanstack/pacer"><b>TanStack Pacer</b></a> – Debouncing, throttling, batching <br/>
+- <a href="https://github.com/tanstack/pacer"><b>TanStack Pacer</b></a> – Debouncing, throttling, batching
 - <a href="https://github.com/tanstack/query"><b>TanStack Query</b></a> – Async state & caching
 - <a href="https://github.com/tanstack/ranger"><b>TanStack Ranger</b></a> – Range & slider primitives
 - <a href="https://github.com/tanstack/router"><b>TanStack Router</b></a> – Type‑safe routing, caching & URL state
