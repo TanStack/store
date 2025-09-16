@@ -1,6 +1,5 @@
 <img src="https://static.scarf.sh/a.png?x-pxid=d988eb79-b0fc-4a2b-8514-6a1ab932d188" />
 
-
 <div align="center">
   <img src="./media/header_store.png" alt="TanStack Store" />
 </div>
@@ -39,9 +38,9 @@
 
 An immutable, reactive data store with framework adapters that powers the core of the TanStack ecosystem.
 
-- Fine‑grained updates for performant state management  
-- Flexible primitives for building custom state logic  
-- Works across frameworks like React, Solid, Vue, Angular & Svelte  
+- Fine‑grained updates for performant state management
+- Flexible primitives for building custom state logic
+- Works across frameworks like React, Solid, Vue, Angular & Svelte
 - Lightweight and standalone — use it in any app or as a library foundation
 
 ### <a href="https://tanstack.com/store">Read the docs →</b></a>
@@ -54,7 +53,6 @@ An immutable, reactive data store with framework adapters that powers the core o
 - See [CONTRIBUTING.md](./CONTRIBUTING.md) for setup instructions
 
 ## Partners
-
 
 <table align="center">
   <tr>
@@ -71,7 +69,6 @@ An immutable, reactive data store with framework adapters that powers the core o
   </tr>
   
 </table>
-
 
 <div align="center">
 <img src="./media/partner_logo.svg" alt="Store & you?" height="65">
