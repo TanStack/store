@@ -12,8 +12,8 @@ export type Updater<T> = ((prev: T) => T) | T
  * @private
  */
 export interface ListenerValue<T> {
-  prevVal: T
-  currentVal: T
+  readonly prevVal: T
+  readonly currentVal: T
 }
 
 /**
