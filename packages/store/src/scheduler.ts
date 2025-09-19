@@ -66,9 +66,9 @@ function __flush_internals(relatedVals: Set<Derived<unknown>>) {
 
 function __notifyListeners(store: Store<unknown>) {
   const value = {
-      prevVal: store.prevState as never,
-      currentVal: store.state as never,
-    }
+    prevVal: store.prevState as never,
+    currentVal: store.state as never,
+  }
   for (const listener of store.listeners) {
     listener(value)
   }
@@ -76,9 +76,9 @@ function __notifyListeners(store: Store<unknown>) {
 
 function __notifyDerivedListeners(derived: Derived<unknown>) {
   const value = {
-      prevVal: derived.prevState as never,
-      currentVal: derived.state as never,
-    }
+    prevVal: derived.prevState as never,
+    currentVal: derived.state as never,
+  }
   for (const listener of derived.listeners) {
     listener(value)
   }
