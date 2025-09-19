@@ -80,9 +80,10 @@ export class Derived<
     const l = this.options.deps.length
     const prevDepVals = new Array<unknown>(l)
     const currDepVals = new Array<unknown>(l)
-    for (const dep of this.options.deps) {
-      prevDepVals.push(dep.prevState)
-      currDepVals.push(dep.state)
+    for (let i = 0; i < l; i++) {
+      const dep = this.options.deps[i]!
+      prevDepVals[i] = dep.prevState
+      currDepVals[i] = dep.state
     }
     this.lastSeenDepValues = currDepVals
     return {
