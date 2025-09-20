@@ -65,21 +65,23 @@ function __flush_internals(relatedVals: Set<Derived<unknown>>) {
 }
 
 function __notifyListeners(store: Store<unknown>) {
-  store.listeners.forEach((listener) =>
-    listener({
-      prevVal: store.prevState as never,
-      currentVal: store.state as never,
-    }),
-  )
+  const value = {
+    prevVal: store.prevState as never,
+    currentVal: store.state as never,
+  }
+  for (const listener of store.listeners) {
+    listener(value)
+  }
 }
 
 function __notifyDerivedListeners(derived: Derived<unknown>) {
-  derived.listeners.forEach((listener) =>
-    listener({
-      prevVal: derived.prevState as never,
-      currentVal: derived.state as never,
-    }),
-  )
+  const value = {
+    prevVal: derived.prevState as never,
+    currentVal: derived.state as never,
+  }
+  for (const listener of derived.listeners) {
+    listener(value)
+  }
 }
 
 /**
@@ -144,9 +146,7 @@ export function batch(fn: () => void) {
   } finally {
     __batchDepth--
     if (__batchDepth === 0) {
-      const pendingUpdateToFlush = Array.from(__pendingUpdates)[0] as
-        | Store<unknown>
-        | undefined
+      const pendingUpdateToFlush = __pendingUpdates.values().next().value
       if (pendingUpdateToFlush) {
         __flush(pendingUpdateToFlush) // Trigger flush of all pending updates
       }
