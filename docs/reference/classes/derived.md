@@ -93,7 +93,7 @@ Defined in: [derived.ts:68](https://github.com/TanStack/store/blob/main/packages
 checkIfRecalculationNeededDeeply(): void
 ```
 
-Defined in: [derived.ts:177](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L177)
+Defined in: [derived.ts:178](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L178)
 
 #### Returns
 
@@ -139,7 +139,7 @@ prevVal: undefined | NonNullable<TState>;
 mount(): () => void
 ```
 
-Defined in: [derived.ts:198](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L198)
+Defined in: [derived.ts:199](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L199)
 
 #### Returns
 
@@ -157,7 +157,7 @@ Defined in: [derived.ts:198](https://github.com/TanStack/store/blob/main/package
 recompute(): void
 ```
 
-Defined in: [derived.ts:169](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L169)
+Defined in: [derived.ts:170](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L170)
 
 #### Returns
 
@@ -193,7 +193,7 @@ readonly (
 subscribe(listener): () => void
 ```
 
-Defined in: [derived.ts:210](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L210)
+Defined in: [derived.ts:211](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L211)
 
 #### Parameters
 
@@ -217,7 +217,7 @@ Defined in: [derived.ts:210](https://github.com/TanStack/store/blob/main/package
 unregisterFromGraph(deps): void
 ```
 
-Defined in: [derived.ts:146](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L146)
+Defined in: [derived.ts:147](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L147)
 
 #### Parameters
 
