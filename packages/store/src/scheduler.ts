@@ -1,4 +1,4 @@
-import { Derived } from './derived'
+import type { Derived } from './derived'
 import type { Store } from './store'
 
 /**
@@ -18,7 +18,7 @@ import type { Store } from './store'
  */
 export const __storeToDerived = new WeakMap<
   Store<unknown>,
-  Set<Derived<unknown>>
+  Array<Derived<unknown>>
 >()
 export const __derivedToStore = new WeakMap<
   Derived<unknown>,
@@ -35,17 +35,8 @@ const __pendingUpdates = new Set<Store<unknown>>()
 // Add a map to store initial values before batch
 const __initialBatchValues = new Map<Store<unknown>, unknown>()
 
-function __flush_internals(relatedVals: Set<Derived<unknown>>) {
-  // First sort deriveds by dependency order
-  const sorted = Array.from(relatedVals).sort((a, b) => {
-    // If a depends on b, b should go first
-    if (a instanceof Derived && a.options.deps.includes(b)) return 1
-    // If b depends on a, a should go first
-    if (b instanceof Derived && b.options.deps.includes(a)) return -1
-    return 0
-  })
-
-  for (const derived of sorted) {
+function __flush_internals(relatedVals: ReadonlyArray<Derived<unknown>>) {
+  for (const derived of relatedVals) {
     if (__depsThatHaveWrittenThisTick.current.includes(derived)) {
       continue
     }
@@ -57,7 +48,7 @@ function __flush_internals(relatedVals: Set<Derived<unknown>>) {
     if (stores) {
       for (const store of stores) {
         const relatedLinkedDerivedVals = __storeToDerived.get(store)
-        if (!relatedLinkedDerivedVals) continue
+        if (!relatedLinkedDerivedVals?.length) continue
         __flush_internals(relatedLinkedDerivedVals)
       }
     }
