@@ -153,12 +153,8 @@ export class Derived<
 
   recompute = () => {
     this.prevState = this.state
-    const { prevDepVals, currDepVals, prevVal } = this.getDepVals()
-    this.state = this.options.fn({
-      prevDepVals: prevDepVals as never,
-      currDepVals: currDepVals as never,
-      prevVal,
-    })
+    const depVals = this.getDepVals()
+    this.state = this.options.fn(depVals as never)
 
     this.options.onUpdate?.()
   }

@@ -93,7 +93,7 @@ Defined in: [derived.ts:68](https://github.com/TanStack/store/blob/main/packages
 checkIfRecalculationNeededDeeply(): void
 ```
 
-Defined in: [derived.ts:166](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L166)
+Defined in: [derived.ts:162](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L162)
 
 #### Returns
 
@@ -139,7 +139,7 @@ prevVal: undefined | NonNullable<TState>;
 mount(): () => void
 ```
 
-Defined in: [derived.ts:187](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L187)
+Defined in: [derived.ts:183](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L183)
 
 #### Returns
 
@@ -193,7 +193,7 @@ readonly (
 subscribe(listener): () => void
 ```
 
-Defined in: [derived.ts:199](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L199)
+Defined in: [derived.ts:195](https://github.com/TanStack/store/blob/main/packages/store/src/derived.ts#L195)
 
 #### Parameters
 
