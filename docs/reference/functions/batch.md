@@ -11,7 +11,7 @@ title: batch
 function batch(fn): void
 ```
 
-Defined in: [scheduler.ts:140](https://github.com/TanStack/store/blob/main/packages/store/src/scheduler.ts#L140)
+Defined in: [scheduler.ts:142](https://github.com/TanStack/store/blob/main/packages/store/src/scheduler.ts#L142)
 
 ## Parameters
 
