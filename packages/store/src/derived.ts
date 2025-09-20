@@ -116,10 +116,11 @@ export class Derived<
         // Register the derived as related derived to the store
         let relatedLinkedDerivedVals = __storeToDerived.get(dep)
         if (!relatedLinkedDerivedVals) {
-          relatedLinkedDerivedVals = []
+          relatedLinkedDerivedVals = [this as never]
           __storeToDerived.set(dep, relatedLinkedDerivedVals)
+        } else if (!relatedLinkedDerivedVals.includes(this as never)) {
+          relatedLinkedDerivedVals.push(this as never)
         }
-        relatedLinkedDerivedVals.push(this as never)
         toSort.add(relatedLinkedDerivedVals)
 
         // Register the store as a related store to this derived
