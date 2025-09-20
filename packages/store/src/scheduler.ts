@@ -146,9 +146,7 @@ export function batch(fn: () => void) {
   } finally {
     __batchDepth--
     if (__batchDepth === 0) {
-      const pendingUpdateToFlush = Array.from(__pendingUpdates)[0] as
-        | Store<unknown>
-        | undefined
+      const pendingUpdateToFlush = __pendingUpdates.values().next().value
       if (pendingUpdateToFlush) {
         __flush(pendingUpdateToFlush) // Trigger flush of all pending updates
       }
