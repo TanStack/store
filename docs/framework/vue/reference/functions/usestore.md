@@ -25,7 +25,7 @@ Defined in: [index.ts:12](https://github.com/TanStack/store/blob/main/packages/v
 
 #### store
 
-`Store`\<`TState`, `any`\>
+`MaybeRefOrGetter`\<`Store`\<`TState`, `any`\>\>
 
 #### selector?
 
@@ -53,7 +53,7 @@ Defined in: [index.ts:16](https://github.com/TanStack/store/blob/main/packages/v
 
 #### store
 
-`Derived`\<`TState`, `any`\>
+`MaybeRefOrGetter`\<`Derived`\<`TState`, `any`\>\>
 
 #### selector?
 

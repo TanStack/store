@@ -1,6 +1,6 @@
 import { describe, expect, it, test, vi } from 'vitest'
 // @ts-expect-error We need to import `h` as it's part of Vue's JSX transform
-import { defineComponent, h } from 'vue-demi'
+import { defineComponent, h, ref } from 'vue-demi'
 import { render, waitFor } from '@testing-library/vue'
 import { Store } from '@tanstack/store'
 import { userEvent } from '@testing-library/user-event'
@@ -78,6 +78,34 @@ describe('useStore', () => {
 
     await user.click(getByText('Update ignored'))
     expect(getByText('Number rendered: 2')).toBeInTheDocument()
+  })
+
+  it('allows us to use a dynamic store', async () => {
+    function createStore(count: number) {
+      return new Store({ count })
+    }
+
+    const Comp = defineComponent(() => {
+      const store = ref(createStore(0))
+      const storeVal = useStore(store, (state) => state.count)
+
+      return () => {
+        return (
+          <div>
+            <p>Store: {storeVal.value}</p>
+            <button onClick={() => (store.value = createStore(10))}>
+              Update store
+            </button>
+          </div>
+        )
+      }
+    })
+
+    const { getByText } = render(Comp)
+    expect(getByText('Store: 0')).toBeInTheDocument()
+
+    await user.click(getByText('Update store'))
+    await waitFor(() => expect(getByText('Store: 10')).toBeInTheDocument())
   })
 })
 
