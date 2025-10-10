@@ -24,58 +24,126 @@ describe('useStore', () => {
     expect(getByText('Store: 0')).toBeInTheDocument()
   })
 
-  it('only triggers a re-render when selector state is updated', async () => {
-    const store = new Store({
-      select: 0,
-      ignored: 1,
+  describe('only triggers a re-render when selector state is updated', () => {
+    it('using default comparator function', async () => {
+      const store = new Store({
+        select: 0,
+        ignored: 1,
+      })
+
+      function Comp() {
+        const storeVal = useStore(store, (state) => state.select)
+        const [fn] = useState(vi.fn)
+        fn()
+
+        return (
+          <div>
+            <p>Number rendered: {fn.mock.calls.length}</p>
+            <p>Store: {storeVal}</p>
+            <button
+              type="button"
+              onClick={() =>
+                store.setState((v) => ({
+                  ...v,
+                  select: 10,
+                }))
+              }
+            >
+              Update select
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                store.setState((v) => ({
+                  ...v,
+                  ignored: 10,
+                }))
+              }
+            >
+              Update ignored
+            </button>
+          </div>
+        )
+      }
+
+      const { getByText } = render(<Comp />)
+      expect(getByText('Store: 0')).toBeInTheDocument()
+      expect(getByText('Number rendered: 1')).toBeInTheDocument()
+
+      await user.click(getByText('Update select'))
+
+      await waitFor(() => expect(getByText('Store: 10')).toBeInTheDocument())
+      expect(getByText('Number rendered: 2')).toBeInTheDocument()
+
+      await user.click(getByText('Update ignored'))
+      expect(getByText('Number rendered: 2')).toBeInTheDocument()
     })
 
-    function Comp() {
-      const storeVal = useStore(store, (state) => state.select)
-      const [fn] = useState(vi.fn)
-      fn()
+    it('allow specifying custom comparator', async () => {
+      const store = new Store({
+        array: [
+          { select: 0, ignore: 1 },
+          { select: 0, ignore: 1 },
+        ],
+      })
 
-      return (
-        <div>
-          <p>Number rendered: {fn.mock.calls.length}</p>
-          <p>Store: {storeVal}</p>
-          <button
-            type="button"
-            onClick={() =>
-              store.setState((v) => ({
-                ...v,
-                select: 10,
-              }))
-            }
-          >
-            Update select
-          </button>
-          <button
-            type="button"
-            onClick={() =>
-              store.setState((v) => ({
-                ...v,
-                ignored: 10,
-              }))
-            }
-          >
-            Update ignored
-          </button>
-        </div>
-      )
-    }
+      function Comp() {
+        const storeVal = useStore(store, (state) =>
+          state.array.map(({ ignore, ...rest }) => rest),
+        )
+        const [fn] = useState(vi.fn)
+        fn()
 
-    const { getByText } = render(<Comp />)
-    expect(getByText('Store: 0')).toBeInTheDocument()
-    expect(getByText('Number rendered: 1')).toBeInTheDocument()
+        const value = storeVal
+          .map((item) => item.select)
+          .reduce((total, num) => total + num, 0)
 
-    await user.click(getByText('Update select'))
+        return (
+          <div>
+            <p>Number rendered: {fn.mock.calls.length}</p>
+            <p>Store: {value}</p>
+            <button
+              type="button"
+              onClick={() =>
+                store.setState((v) => ({
+                  array: v.array.map((item) => ({
+                    ...item,
+                    select: item.select + 5,
+                  })),
+                }))
+              }
+            >
+              Update select
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                store.setState((v) => ({
+                  array: v.array.map((item) => ({
+                    ...item,
+                    ignore: item.ignore + 2,
+                  })),
+                }))
+              }
+            >
+              Update ignored
+            </button>
+          </div>
+        )
+      }
 
-    await waitFor(() => expect(getByText('Store: 10')).toBeInTheDocument())
-    expect(getByText('Number rendered: 2')).toBeInTheDocument()
+      const { getByText } = render(<Comp />)
+      expect(getByText('Store: 0')).toBeInTheDocument()
+      expect(getByText('Number rendered: 1')).toBeInTheDocument()
 
-    await user.click(getByText('Update ignored'))
-    expect(getByText('Number rendered: 2')).toBeInTheDocument()
+      await user.click(getByText('Update select'))
+
+      await waitFor(() => expect(getByText('Store: 10')).toBeInTheDocument())
+      expect(getByText('Number rendered: 2')).toBeInTheDocument()
+
+      await user.click(getByText('Update ignored'))
+      expect(getByText('Number rendered: 2')).toBeInTheDocument()
+    })
   })
 
   it('works with mounted derived stores', async () => {
