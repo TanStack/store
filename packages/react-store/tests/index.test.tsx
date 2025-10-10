@@ -94,7 +94,7 @@ describe('useStore', () => {
       const storeVal = useStore(
         store,
         (state) => state.array.map(({ ignore, ...rest }) => rest),
-        deepEqual,
+        { equal: deepEqual },
       )
       const [fn] = useState(vi.fn)
       fn()
