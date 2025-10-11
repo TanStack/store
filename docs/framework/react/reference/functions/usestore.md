@@ -10,10 +10,13 @@ title: useStore
 ## Call Signature
 
 ```ts
-function useStore<TState, TSelected>(store, selector?): TSelected
+function useStore<TState, TSelected>(
+   store, 
+   selector?, 
+   options?): TSelected
 ```
 
-Defined in: [index.ts:11](https://github.com/TanStack/store/blob/main/packages/react-store/src/index.ts#L11)
+Defined in: [index.ts:15](https://github.com/TanStack/store/blob/main/packages/react-store/src/index.ts#L15)
 
 ### Type Parameters
 
@@ -31,6 +34,10 @@ Defined in: [index.ts:11](https://github.com/TanStack/store/blob/main/packages/r
 
 (`state`) => `TSelected`
 
+#### options?
+
+`UseStoreOptions`\<`TSelected`\>
+
 ### Returns
 
 `TSelected`
@@ -38,10 +45,13 @@ Defined in: [index.ts:11](https://github.com/TanStack/store/blob/main/packages/r
 ## Call Signature
 
 ```ts
-function useStore<TState, TSelected>(store, selector?): TSelected
+function useStore<TState, TSelected>(
+   store, 
+   selector?, 
+   options?): TSelected
 ```
 
-Defined in: [index.ts:15](https://github.com/TanStack/store/blob/main/packages/react-store/src/index.ts#L15)
+Defined in: [index.ts:20](https://github.com/TanStack/store/blob/main/packages/react-store/src/index.ts#L20)
 
 ### Type Parameters
 
@@ -58,6 +68,10 @@ Defined in: [index.ts:15](https://github.com/TanStack/store/blob/main/packages/r
 #### selector?
 
 (`state`) => `TSelected`
+
+#### options?
+
+`UseStoreOptions`\<`TSelected`\>
 
 ### Returns
 

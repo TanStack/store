@@ -10,10 +10,13 @@ title: useStore
 ## Call Signature
 
 ```ts
-function useStore<TState, TSelected>(store, selector?): object
+function useStore<TState, TSelected>(
+   store, 
+   selector?, 
+   options?): object
 ```
 
-Defined in: [index.svelte.ts:10](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/index.svelte.ts#L10)
+Defined in: [index.svelte.ts:14](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/index.svelte.ts#L14)
 
 ### Type Parameters
 
@@ -31,6 +34,10 @@ Defined in: [index.svelte.ts:10](https://github.com/TanStack/store/blob/main/pac
 
 (`state`) => `TSelected`
 
+#### options?
+
+`UseStoreOptions`\<`TSelected`\>
+
 ### Returns
 
 `object`
@@ -44,10 +51,13 @@ readonly current: TSelected;
 ## Call Signature
 
 ```ts
-function useStore<TState, TSelected>(store, selector?): object
+function useStore<TState, TSelected>(
+   store, 
+   selector?, 
+   options?): object
 ```
 
-Defined in: [index.svelte.ts:14](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/index.svelte.ts#L14)
+Defined in: [index.svelte.ts:19](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/index.svelte.ts#L19)
 
 ### Type Parameters
 
@@ -64,6 +74,10 @@ Defined in: [index.svelte.ts:14](https://github.com/TanStack/store/blob/main/pac
 #### selector?
 
 (`state`) => `TSelected`
+
+#### options?
+
+`UseStoreOptions`\<`TSelected`\>
 
 ### Returns
 

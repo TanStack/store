@@ -8,24 +8,32 @@ export * from '@tanstack/store'
  * @private
  */
 export type NoInfer<T> = [T][T extends any ? 0 : never]
+type EqualityFn<T> = (objA: T, objB: T) => boolean
+interface UseStoreOptions<T> {
+  equal?: EqualityFn<T>
+}
 
 export function useStore<TState, TSelected = NoInfer<TState>>(
   store: Store<TState, any>,
   selector?: (state: NoInfer<TState>) => TSelected,
+  options?: UseStoreOptions<TSelected>,
 ): Accessor<TSelected>
 export function useStore<TState, TSelected = NoInfer<TState>>(
   store: Derived<TState, any>,
   selector?: (state: NoInfer<TState>) => TSelected,
+  options?: UseStoreOptions<TSelected>,
 ): Accessor<TSelected>
 export function useStore<TState, TSelected = NoInfer<TState>>(
   store: Store<TState, any> | Derived<TState, any>,
   selector: (state: NoInfer<TState>) => TSelected = (d) => d as any,
+  options: UseStoreOptions<TSelected> = {},
 ): Accessor<TSelected> {
   const [signal, setSignal] = createSignal(selector(store.state))
+  const equal = options.equal ?? shallow
 
   const unsub = store.subscribe(() => {
     const data = selector(store.state)
-    if (shallow(signal(), data)) {
+    if (equal(signal(), data)) {
       return
     }
     setSignal(() => data)
