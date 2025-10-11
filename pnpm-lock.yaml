@@ -111,7 +111,7 @@ importers:
         specifier: ^19.2.15
         version: 19.2.15(@angular/common@19.2.15(@angular/core@19.2.15(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@19.2.15(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@19.2.15(@angular/animations@19.2.15(@angular/common@19.2.15(@angular/core@19.2.15(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@19.2.15(rxjs@7.8.2)(zone.js@0.15.1)))(@angular/common@19.2.15(@angular/core@19.2.15(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@19.2.15(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)
       '@tanstack/angular-store':
-        specifier: ^0.7.7
+        specifier: ^0.8.0
         version: link:../../../packages/angular-store
       rxjs:
         specifier: ^7.8.2
@@ -139,7 +139,7 @@ importers:
   examples/react/simple:
     dependencies:
       '@tanstack/react-store':
-        specifier: ^0.7.7
+        specifier: ^0.8.0
         version: link:../../../packages/react-store
       react:
         specifier: ^18.3.1
@@ -167,7 +167,7 @@ importers:
   examples/solid/simple:
     dependencies:
       '@tanstack/solid-store':
-        specifier: ^0.7.7
+        specifier: ^0.8.0
         version: link:../../../packages/solid-store
       solid-js:
         specifier: ^1.9.9
@@ -186,7 +186,7 @@ importers:
   examples/svelte/simple:
     dependencies:
       '@tanstack/svelte-store':
-        specifier: ^0.7.7
+        specifier: ^0.8.0
         version: link:../../../packages/svelte-store
     devDependencies:
       '@sveltejs/vite-plugin-svelte':
@@ -214,7 +214,7 @@ importers:
   examples/vue/simple:
     dependencies:
       '@tanstack/vue-store':
-        specifier: ^0.7.7
+        specifier: ^0.8.0
         version: link:../../../packages/vue-store
       vue:
         specifier: ^3.5.22
