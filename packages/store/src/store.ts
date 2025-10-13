@@ -2,6 +2,31 @@ import { __flush } from './scheduler'
 import { isUpdaterFunction } from './types'
 import type { AnyUpdater, Listener, Updater } from './types'
 
+export interface Storage {
+  removeItem: (key: string) => void
+  getItem: (key: string) => string | null
+  setItem: (key: string, value: string) => void
+}
+
+export interface PersistOptions<TState> {
+  /**
+   * Storage key to use when persisting state
+   */
+  key: string
+  /**
+   * Storage to use for persistence. Defaults to localStorage
+   */
+  storage?: Storage
+  /**
+   * Custom serializer. Defaults to JSON.stringify
+   */
+  serialize?: (state: TState) => string
+  /**
+   * Custom deserializer. Defaults to JSON.parse
+   */
+  deserialize?: (serializedState: string) => TState
+}
+
 export interface StoreOptions<
   TState,
   TUpdater extends AnyUpdater = (cb: TState) => TState,
@@ -23,6 +48,10 @@ export interface StoreOptions<
    * Called after the state has been updated, used to derive other state.
    */
   onUpdate?: () => void
+  /**
+   * Options for state persistence
+   */
+  persist?: PersistOptions<TState>
 }
 
 export class Store<
@@ -35,9 +64,99 @@ export class Store<
   options?: StoreOptions<TState, TUpdater>
 
   constructor(initialState: TState, options?: StoreOptions<TState, TUpdater>) {
+    this.options = options
+
+    // Try to load persisted state if persistence is enabled
+    if (options?.persist) {
+      const persistedState = this.loadPersistedState()
+      if (persistedState !== null) {
+        this.prevState = persistedState
+        this.state = persistedState
+        return
+      }
+    }
+
     this.prevState = initialState
     this.state = initialState
-    this.options = options
+  }
+
+  private getDefaultStorage(): Storage {
+    if (typeof window === 'undefined') {
+      return {
+        getItem: () => null,
+        setItem: () => undefined,
+        removeItem: () => undefined,
+      }
+    }
+    return window.localStorage
+  }
+
+  private loadPersistedState(): TState | null {
+    const { persist } = this.options || {}
+    if (!persist) return null
+
+    const deserialize = persist.deserialize || JSON.parse
+    const storage = persist.storage || this.getDefaultStorage()
+
+    try {
+      const persistedState = storage.getItem(persist.key)
+      if (persistedState === null) return null
+      return deserialize(persistedState)
+    } catch (error) {
+      console.error('Failed to load persisted state:', error)
+      return null
+    }
+  }
+
+  private persistState(): void {
+    const { persist } = this.options || {}
+    if (!persist) return
+
+    const serialize = persist.serialize || JSON.stringify
+    const storage = persist.storage || this.getDefaultStorage()
+
+    try {
+      const serializedState = serialize(this.state)
+      storage.setItem(persist.key, serializedState)
+    } catch (error) {
+      console.error('Failed to persist state:', error)
+    }
+  }
+
+  /**
+   * Manually persist the current state
+   */
+  persist(): void {
+    this.persistState()
+  }
+
+  /**
+   * Clear the persisted state
+   */
+  clearPersistedState(): void {
+    const { persist } = this.options || {}
+    if (!persist) return
+
+    const storage = persist.storage || this.getDefaultStorage()
+    try {
+      storage.removeItem(persist.key)
+    } catch (error) {
+      console.error('Failed to clear persisted state:', error)
+    }
+  }
+
+  /**
+   * Reload the state from persistence
+   * @returns true if state was successfully reloaded, false otherwise
+   */
+  rehydrate(): boolean {
+    const persistedState = this.loadPersistedState()
+    if (persistedState === null) return false
+
+    this.prevState = this.state
+    this.state = persistedState
+    __flush(this as never)
+    return true
   }
 
   subscribe = (listener: Listener<TState>) => {
@@ -70,6 +189,9 @@ export class Store<
 
     // Always run onUpdate, regardless of batching
     this.options?.onUpdate?.()
+
+    // Persist state if enabled
+    this.persistState()
 
     // Attempt to flush
     __flush(this as never)
