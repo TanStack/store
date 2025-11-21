@@ -1,7 +1,4 @@
 {
   "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "moduleResolution": "Bundler"
-  },
   "include": ["src", "tests", "eslint.config.js", "vite.config.ts"]
 }
