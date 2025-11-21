@@ -9,3 +9,4 @@ packages:
   - 'examples/solid/**'
   - 'examples/vue/**'
   - 'examples/svelte/**'
+  - 'examples/preact/**'

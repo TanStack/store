@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "moduleResolution": "Bundler",
+    "paths": {
+      "@tanstack/store": ["../store/src"]
+    }
+  },
+  "include": ["src", "tests", "eslint.config.js", "vite.config.ts"]
+}
