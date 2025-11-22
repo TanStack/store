@@ -1,10 +1,14 @@
 import { defineConfig, mergeConfig } from 'vitest/config'
+import { defineConfig as defineConfigVite } from 'vite'
 import { tanstackViteConfig } from '@tanstack/config/vite'
 import preact from '@preact/preset-vite'
 import packageJson from './package.json'
 
-const config = defineConfig({
+const viteConfig = defineConfigVite({
   plugins: [preact()],
+})
+
+const config = defineConfig({
   test: {
     name: packageJson.name,
     dir: './tests',
@@ -16,8 +20,10 @@ const config = defineConfig({
   },
 })
 
+const combinedConfig = { ...config, ...viteConfig }
+
 export default mergeConfig(
-  config,
+  combinedConfig,
   tanstackViteConfig({
     entry: './src/index.ts',
     srcDir: './src',
