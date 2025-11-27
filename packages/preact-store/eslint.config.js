@@ -1,6 +1,5 @@
 // @ts-check
 
-import pluginReact from '@eslint-react/eslint-plugin'
 import pluginReactHooks from 'eslint-plugin-react-hooks'
 import rootConfig from '../../eslint.config.js'
 
@@ -8,7 +7,6 @@ export default [
   ...rootConfig,
   {
     files: ['**/*.{ts,tsx}'],
-    ...pluginReact.configs.recommended,
   },
   {
     plugins: {
