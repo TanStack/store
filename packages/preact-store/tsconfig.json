@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "jsx": "react-jsx",
+    "jsxImportSource": "preact",
     "moduleResolution": "Bundler",
     "paths": {
       "@tanstack/store": ["../store/src"]

@@ -1,4 +1,5 @@
-import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/with-selector.js'
+import { useSyncExternalStore } from 'preact/compat'
+import { useRef } from 'preact/hooks'
 import type { Derived, Store } from '@tanstack/store'
 
 export * from '@tanstack/store'
@@ -10,6 +11,31 @@ export type NoInfer<T> = [T][T extends any ? 0 : never]
 type EqualityFn<T> = (objA: T, objB: T) => boolean
 interface UseStoreOptions<T> {
   equal?: EqualityFn<T>
+}
+
+function useSyncExternalStoreWithSelector<TSnapshot, TSelected>(
+  subscribe: (onStoreChange: () => void) => () => void,
+  getSnapshot: () => TSnapshot,
+  selector: (snapshot: TSnapshot) => TSelected,
+  isEqual: (a: TSelected, b: TSelected) => boolean,
+): TSelected {
+  const selectedSnapshotRef = useRef<TSelected | undefined>()
+
+  const getSelectedSnapshot = () => {
+    const snapshot = getSnapshot()
+    const selected = selector(snapshot)
+
+    if (
+      selectedSnapshotRef.current === undefined ||
+      !isEqual(selectedSnapshotRef.current, selected)
+    ) {
+      selectedSnapshotRef.current = selected
+    }
+
+    return selectedSnapshotRef.current
+  }
+
+  return useSyncExternalStore(subscribe, getSelectedSnapshot)
 }
 
 export function useStore<TState, TSelected = NoInfer<TState>>(
@@ -30,7 +56,6 @@ export function useStore<TState, TSelected = NoInfer<TState>>(
   const equal = options.equal ?? shallow
   const slice = useSyncExternalStoreWithSelector(
     store.subscribe,
-    () => store.state,
     () => store.state,
     selector,
     equal,
