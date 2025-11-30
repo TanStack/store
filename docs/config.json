@@ -67,6 +67,15 @@
               "to": "framework/svelte/quick-start"
             }
           ]
+        },
+        {
+          "label": "preact",
+          "children": [
+            {
+              "label": "Quick Start",
+              "to": "framework/preact/quick-start"
+            }
+          ]
         }
       ]
     },
@@ -175,6 +184,23 @@
               "to": "framework/svelte/reference/functions/shallow"
             }
           ]
+        },
+        {
+          "label": "preact",
+          "children": [
+            {
+              "label": "Preact Reference",
+              "to": "framework/preact/reference/index"
+            },
+            {
+              "label": "Functions / useStore",
+              "to": "framework/preact/reference/functions/usestore"
+            },
+            {
+              "label": "Functions / shallow",
+              "to": "framework/preact/reference/functions/shallow"
+            }
+          ]
         }
       ]
     },
@@ -224,6 +250,15 @@
             {
               "label": "Simple",
               "to": "framework/solid/examples/simple"
+            }
+          ]
+        },
+        {
+          "label": "preact",
+          "children": [
+            {
+              "label": "Simple",
+              "to": "framework/preact/examples/simple"
             }
           ]
         }

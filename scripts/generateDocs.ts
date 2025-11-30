@@ -37,6 +37,18 @@ await generateReferenceDocs({
       exclude: ['packages/store/**/*'],
     },
     {
+      name: 'preact-store',
+      entryPoints: [
+        resolve(__dirname, '../packages/preact-store/src/index.ts'),
+      ],
+      tsconfig: resolve(
+        __dirname,
+        '../packages/preact-store/tsconfig.docs.json',
+      ),
+      outputDir: resolve(__dirname, '../docs/framework/preact/reference'),
+      exclude: ['packages/store/**/*'],
+    },
+    {
       name: 'solid-store',
       entryPoints: [
         resolve(__dirname, '../packages/solid-store/src/index.tsx'),
