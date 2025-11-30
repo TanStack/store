@@ -66,5 +66,14 @@
     "vite": "^6.3.6",
     "vitest": "^3.2.4",
     "vue": "^3.5.22"
+  },
+  "overrides": {
+    "@tanstack/angular-store": "workspace:*",
+    "@tanstack/preact-store": "workspace:*",
+    "@tanstack/react-store": "workspace:*",
+    "@tanstack/solid-store": "workspace:*",
+    "@tanstack/store": "workspace:*",
+    "@tanstack/svelte-store": "workspace:*",
+    "@tanstack/vue-store": "workspace:*"
   }
 }
