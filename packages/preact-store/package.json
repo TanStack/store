@@ -60,9 +60,11 @@
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.2",
-    "@types/use-sync-external-store": "^0.0.6",
+    "@testing-library/preact": "^3.2.4",
     "eslint-config-preact": "^2.0.0",
+    "jsdom": "^25.0.1",
     "preact": "^10.27.2",
+    "typescript-eslint": "^8.48.0",
     "vitest": "^3.2.4"
   },
   "peerDependencies": {
