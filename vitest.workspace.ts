@@ -7,4 +7,5 @@ export default defineWorkspace([
   './packages/vue-store/vite.config.ts',
   './packages/angular-store/vite.config.ts',
   './packages/react-store/vite.config.ts',
+  './packages/preact-store/vite.config.ts',
 ])

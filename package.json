@@ -27,7 +27,7 @@
     "dev": "pnpm run watch",
     "prettier": "prettier --experimental-cli --ignore-unknown '**/*'",
     "prettier:write": "pnpm run prettier --write",
-    "docs:generate": "node scripts/generateDocs.ts",
+    "docs:generate": "pnpm exec tsx scripts/generateDocs.ts",
     "verify-links": "node scripts/verify-links.ts",
     "cipublish": "node scripts/publish.ts",
     "cipublishforce": "CI=true pnpm cipublish"
@@ -57,6 +57,7 @@
     "publint": "^0.3.15",
     "sherif": "^1.9.0",
     "tinyglobby": "^0.2.15",
+    "tsx": "^4.21.0",
     "typescript": "5.6.3",
     "typescript50": "npm:typescript@5.0",
     "typescript51": "npm:typescript@5.1",
@@ -65,5 +66,14 @@
     "vite": "^6.3.6",
     "vitest": "^3.2.4",
     "vue": "^3.5.22"
+  },
+  "overrides": {
+    "@tanstack/angular-store": "workspace:*",
+    "@tanstack/preact-store": "workspace:*",
+    "@tanstack/react-store": "workspace:*",
+    "@tanstack/solid-store": "workspace:*",
+    "@tanstack/store": "workspace:*",
+    "@tanstack/svelte-store": "workspace:*",
+    "@tanstack/vue-store": "workspace:*"
   }
 }
