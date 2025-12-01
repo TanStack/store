@@ -120,3 +120,5 @@ function getOwnKeys(obj: object): Array<string | symbol> {
     Object.getOwnPropertySymbols(obj),
   )
 }
+
+// force

@@ -17,6 +17,10 @@ await publish({
       packageDir: 'packages/react-store',
     },
     {
+      name: '@tanstack/preact-store',
+      packageDir: 'packages/preact-store',
+    },
+    {
       name: '@tanstack/vue-store',
       packageDir: 'packages/vue-store',
     },
