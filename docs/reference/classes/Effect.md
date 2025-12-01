@@ -5,7 +5,7 @@ title: Effect
 
 # Class: Effect
 
-Defined in: [effect.ts:17](https://github.com/TanStack/store/blob/main/packages/store/src/effect.ts#L17)
+Defined in: [effect.ts:16](https://github.com/TanStack/store/blob/main/packages/store/src/effect.ts#L16)
 
 ## Constructors
 
@@ -15,7 +15,7 @@ Defined in: [effect.ts:17](https://github.com/TanStack/store/blob/main/packages/
 new Effect(opts): Effect;
 ```
 
-Defined in: [effect.ts:23](https://github.com/TanStack/store/blob/main/packages/store/src/effect.ts#L23)
+Defined in: [effect.ts:22](https://github.com/TanStack/store/blob/main/packages/store/src/effect.ts#L22)
 
 #### Parameters
 
@@ -35,7 +35,7 @@ Defined in: [effect.ts:23](https://github.com/TanStack/store/blob/main/packages/
 mount(): () => void;
 ```
 
-Defined in: [effect.ts:39](https://github.com/TanStack/store/blob/main/packages/store/src/effect.ts#L39)
+Defined in: [effect.ts:38](https://github.com/TanStack/store/blob/main/packages/store/src/effect.ts#L38)
 
 #### Returns
 

@@ -29,8 +29,8 @@ type UnwrapReadonlyDerivedOrStoreArray<
 // Can't have currVal, as it's being evaluated from the current derived fn
 export interface DerivedFnProps<
   TArr extends ReadonlyArray<Derived<any> | Store<any>> = ReadonlyArray<any>,
-  TUnwrappedArr extends
-    UnwrapReadonlyDerivedOrStoreArray<TArr> = UnwrapReadonlyDerivedOrStoreArray<TArr>,
+  TUnwrappedArr extends UnwrapReadonlyDerivedOrStoreArray<TArr> =
+    UnwrapReadonlyDerivedOrStoreArray<TArr>,
 > {
   // `undefined` if it's the first run
   /**
@@ -60,9 +60,8 @@ export interface DerivedOptions<
 
 export class Derived<
   TState,
-  const TArr extends ReadonlyArray<
-    Derived<any> | Store<any>
-  > = ReadonlyArray<any>,
+  const TArr extends ReadonlyArray<Derived<any> | Store<any>> =
+    ReadonlyArray<any>,
 > {
   listeners = new Set<Listener<TState>>()
   state: TState
