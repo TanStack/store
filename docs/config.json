@@ -117,7 +117,7 @@
             },
             {
               "label": "Functions / useStore",
-              "to": "framework/react/reference/functions/usestore"
+              "to": "framework/react/reference/functions/useStore"
             },
             {
               "label": "Functions / shallow",
@@ -134,7 +134,7 @@
             },
             {
               "label": "Functions / useStore",
-              "to": "framework/vue/reference/functions/usestore"
+              "to": "framework/vue/reference/functions/useStore"
             },
             {
               "label": "Functions / shallow",
@@ -151,7 +151,7 @@
             },
             {
               "label": "Functions / useStore",
-              "to": "framework/solid/reference/functions/usestore"
+              "to": "framework/solid/reference/functions/useStore"
             }
           ]
         },
@@ -164,7 +164,7 @@
             },
             {
               "label": "Functions / injectStore",
-              "to": "framework/angular/reference/functions/functionsinjectStore"
+              "to": "framework/angular/reference/functions/injectStore"
             }
           ]
         },
@@ -177,7 +177,7 @@
             },
             {
               "label": "Functions / useStore",
-              "to": "framework/svelte/reference/functions/usestore"
+              "to": "framework/svelte/reference/functions/useStore"
             },
             {
               "label": "Functions / shallow",
@@ -194,7 +194,7 @@
             },
             {
               "label": "Functions / useStore",
-              "to": "framework/preact/reference/functions/usestore"
+              "to": "framework/preact/reference/functions/useStore"
             },
             {
               "label": "Functions / shallow",
