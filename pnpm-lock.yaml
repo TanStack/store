@@ -142,7 +142,7 @@ importers:
   examples/preact/simple:
     dependencies:
       '@tanstack/preact-store':
-        specifier: ^0.8.0
+        specifier: ^0.10.0
         version: link:../../../packages/preact-store
       preact:
         specifier: ^10.27.2

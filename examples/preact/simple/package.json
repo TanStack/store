@@ -8,7 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tanstack/preact-store": "^0.8.0",
+    "@tanstack/preact-store": "^0.10.0",
     "preact": "^10.27.2"
   },
   "devDependencies": {
