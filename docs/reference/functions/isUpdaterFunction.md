@@ -23,7 +23,7 @@ Type guard to check if updater is a function
 
 ### updater
 
-[`Updater`](../../type-aliases/Updater.md)\<`T`\>
+[`Updater`](../type-aliases/Updater.md)\<`T`\>
 
 ## Returns
 

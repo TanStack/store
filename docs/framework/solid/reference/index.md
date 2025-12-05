@@ -7,5 +7,5 @@ title: "@tanstack/solid-store"
 
 ## Functions
 
-- [shallow](../functions/shallow.md)
-- [useStore](../functions/useStore.md)
+- [shallow](functions/shallow.md)
+- [useStore](functions/useStore.md)

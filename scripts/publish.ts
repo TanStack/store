@@ -1,8 +1,6 @@
-// @ts-check
-
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { publish } from '@tanstack/config/publish'
+import { publish } from '@tanstack/publish-config'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 

@@ -7,4 +7,4 @@ title: "@tanstack/angular-store"
 
 ## Functions
 
-- [injectStore](../functions/injectStore.md)
+- [injectStore](functions/injectStore.md)
