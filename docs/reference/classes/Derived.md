@@ -15,7 +15,7 @@ Defined in: [derived.ts:61](https://github.com/TanStack/store/blob/main/packages
 
 ### TArr
 
-`TArr` *extends* `ReadonlyArray`\<`Derived`\<`any`\> \| [`Store`](../Store.md)\<`any`\>\> = `ReadonlyArray`\<`any`\>
+`TArr` *extends* `ReadonlyArray`\<`Derived`\<`any`\> \| [`Store`](Store.md)\<`any`\>\> = `ReadonlyArray`\<`any`\>
 
 ## Constructors
 
@@ -31,7 +31,7 @@ Defined in: [derived.ts:96](https://github.com/TanStack/store/blob/main/packages
 
 ##### options
 
-[`DerivedOptions`](../../interfaces/DerivedOptions.md)\<`TState`, `TArr`\>
+[`DerivedOptions`](../interfaces/DerivedOptions.md)\<`TState`, `TArr`\>
 
 #### Returns
 
@@ -183,7 +183,7 @@ Defined in: [derived.ts:105](https://github.com/TanStack/store/blob/main/package
 
 readonly (
   \| `Derived`\<`any`, readonly `any`[]\>
-  \| [`Store`](../Store.md)\<`any`, (`cb`) => `any`\>)[] = `...`
+  \| [`Store`](Store.md)\<`any`, (`cb`) => `any`\>)[] = `...`
 
 #### Returns
 
@@ -231,7 +231,7 @@ Defined in: [derived.ts:147](https://github.com/TanStack/store/blob/main/package
 
 readonly (
   \| `Derived`\<`any`, readonly `any`[]\>
-  \| [`Store`](../Store.md)\<`any`, (`cb`) => `any`\>)[] = `...`
+  \| [`Store`](Store.md)\<`any`, (`cb`) => `any`\>)[] = `...`
 
 #### Returns
 

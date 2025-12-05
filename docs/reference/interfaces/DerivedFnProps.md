@@ -12,8 +12,8 @@ Defined in: [derived.ts:30](https://github.com/TanStack/store/blob/main/packages
 ### TArr
 
 `TArr` *extends* `ReadonlyArray`\<
-  \| [`Derived`](../../classes/Derived.md)\<`any`\>
-  \| [`Store`](../../classes/Store.md)\<`any`\>\> = `ReadonlyArray`\<`any`\>
+  \| [`Derived`](../classes/Derived.md)\<`any`\>
+  \| [`Store`](../classes/Store.md)\<`any`\>\> = `ReadonlyArray`\<`any`\>
 
 ### TUnwrappedArr
 

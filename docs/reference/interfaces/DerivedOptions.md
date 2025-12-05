@@ -16,8 +16,8 @@ Defined in: [derived.ts:45](https://github.com/TanStack/store/blob/main/packages
 ### TArr
 
 `TArr` *extends* `ReadonlyArray`\<
-  \| [`Derived`](../../classes/Derived.md)\<`any`\>
-  \| [`Store`](../../classes/Store.md)\<`any`\>\> = `ReadonlyArray`\<`any`\>
+  \| [`Derived`](../classes/Derived.md)\<`any`\>
+  \| [`Store`](../classes/Store.md)\<`any`\>\> = `ReadonlyArray`\<`any`\>
 
 ## Properties
 
@@ -45,7 +45,7 @@ Values of the `deps` from before and after the current invocation of `fn`
 
 ##### props
 
-[`DerivedFnProps`](../DerivedFnProps.md)\<`TArr`\>
+[`DerivedFnProps`](DerivedFnProps.md)\<`TArr`\>
 
 #### Returns
 
@@ -69,7 +69,7 @@ Defined in: [derived.ts:49](https://github.com/TanStack/store/blob/main/packages
 
 ##### derived
 
-[`Derived`](../../classes/Derived.md)\<`TState`\>
+[`Derived`](../classes/Derived.md)\<`TState`\>
 
 #### Returns
 

@@ -35,7 +35,7 @@ Defined in: [store.ts:37](https://github.com/TanStack/store/blob/main/packages/s
 
 ##### options?
 
-[`StoreOptions`](../../interfaces/StoreOptions.md)\<`TState`, `TUpdater`\>
+[`StoreOptions`](../interfaces/StoreOptions.md)\<`TState`, `TUpdater`\>
 
 #### Returns
 
