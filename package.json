@@ -25,11 +25,11 @@
     "build:all": "nx run-many --target=build --exclude=examples/**",
     "watch": "pnpm run build:all && nx watch --all -- pnpm run build:all",
     "dev": "pnpm run watch",
-    "prettier": "prettier --experimental-cli --ignore-unknown '**/*'",
-    "prettier:write": "pnpm run prettier --write",
+    "format": "prettier --experimental-cli --ignore-unknown '**/*' --write",
     "generate-docs": "node scripts/generate-docs.ts",
-    "cipublish": "node scripts/publish.ts",
-    "cipublishforce": "CI=true pnpm cipublish"
+    "changeset": "changeset",
+    "changeset:publish": "changeset publish",
+    "changeset:version": "changeset version && pnpm install --no-frozen-lockfile && pnpm format"
   },
   "nx": {
     "includedScripts": [
@@ -39,9 +39,10 @@
     ]
   },
   "devDependencies": {
+    "@changesets/cli": "^2.29.8",
     "@eslint-react/eslint-plugin": "^1.53.1",
+    "@svitejs/changesets-changelog-github-compact": "^1.2.0",
     "@tanstack/eslint-config": "0.3.3",
-    "@tanstack/publish-config": "0.2.2",
     "@tanstack/typedoc-config": "0.3.1",
     "@tanstack/vite-config": "0.4.1",
     "@testing-library/jest-dom": "^6.9.1",
