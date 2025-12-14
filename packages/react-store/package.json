@@ -57,6 +57,7 @@
   ],
   "dependencies": {
     "@tanstack/store": "workspace:*",
+    "@xstate/store": "^3.13.0",
     "use-sync-external-store": "^1.6.0"
   },
   "devDependencies": {

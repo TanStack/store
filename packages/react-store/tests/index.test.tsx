@@ -1,21 +1,23 @@
 import { describe, expect, it, test, vi } from 'vitest'
 import { render, waitFor } from '@testing-library/react'
-import { Derived, Store } from '@tanstack/store'
 import { useState } from 'react'
 import { userEvent } from '@testing-library/user-event'
-import { shallow, useStore } from '../src/index'
+import { createAtom } from '@xstate/store'
+import { useSelector } from '@xstate/store/react'
+import { shallow } from '../src/index'
 
 const user = userEvent.setup()
 
 describe('useStore', () => {
   it('allows us to select state using a selector', () => {
-    const store = new Store({
+    const store = createAtom({
       select: 0,
       ignored: 1,
     })
 
     function Comp() {
-      const storeVal = useStore(store, (state) => state.select)
+      // const storeVal = useStore(store, (state) => state.select)
+      const storeVal = useSelector(store, (s) => s.select)
 
       return <p>Store: {storeVal}</p>
     }
@@ -25,13 +27,14 @@ describe('useStore', () => {
   })
 
   it('only triggers a re-render when selector state is updated', async () => {
-    const store = new Store({
+    const store = createAtom({
       select: 0,
       ignored: 1,
     })
 
     function Comp() {
-      const storeVal = useStore(store, (state) => state.select)
+      // const storeVal = useStore(store, (state) => state.select)
+      const storeVal = useSelector(store, (s) => s.select)
       const [fn] = useState(vi.fn)
       fn()
 
@@ -42,7 +45,7 @@ describe('useStore', () => {
           <button
             type="button"
             onClick={() =>
-              store.setState((v) => ({
+              store.set((v) => ({
                 ...v,
                 select: 10,
               }))
@@ -53,7 +56,7 @@ describe('useStore', () => {
           <button
             type="button"
             onClick={() =>
-              store.setState((v) => ({
+              store.set((v) => ({
                 ...v,
                 ignored: 10,
               }))
@@ -79,7 +82,7 @@ describe('useStore', () => {
   })
 
   it('allow specifying custom equality function', async () => {
-    const store = new Store({
+    const store = createAtom({
       array: [
         { select: 0, ignore: 1 },
         { select: 0, ignore: 1 },
@@ -91,10 +94,11 @@ describe('useStore', () => {
     }
 
     function Comp() {
-      const storeVal = useStore(
+      // const storeVal = useStore(
+      const storeVal = useSelector(
         store,
-        (state) => state.array.map(({ ignore, ...rest }) => rest),
-        { equal: deepEqual },
+        (s) => s.array.map(({ ignore, ...rest }) => rest),
+        deepEqual,
       )
       const [fn] = useState(vi.fn)
       fn()
@@ -110,7 +114,7 @@ describe('useStore', () => {
           <button
             type="button"
             onClick={() =>
-              store.setState((v) => ({
+              store.set((v) => ({
                 array: v.array.map((item) => ({
                   ...item,
                   select: item.select + 5,
@@ -123,7 +127,7 @@ describe('useStore', () => {
           <button
             type="button"
             onClick={() =>
-              store.setState((v) => ({
+              store.set((v) => ({
                 array: v.array.map((item) => ({
                   ...item,
                   ignore: item.ignore + 2,
@@ -151,24 +155,23 @@ describe('useStore', () => {
   })
 
   it('works with mounted derived stores', async () => {
-    const store = new Store(0)
+    const store = createAtom(0)
 
-    const derived = new Derived({
-      deps: [store],
-      fn: () => {
-        return { val: store.state * 2 }
-      },
-    })
-
-    derived.mount()
+    // const derived = new Derived({
+    //   deps: [store],
+    //   fn: () => {
+    //     return { val: store.state * 2 }
+    //   },
+    // })
+    const derived = createAtom(() => ({ val: store.get() * 2 }))
 
     function Comp() {
-      const derivedVal = useStore(derived, (state) => state.val)
+      const derivedVal = useSelector(derived, (s) => s.val)
 
       return (
         <div>
           <p>Derived: {derivedVal}</p>
-          <button type="button" onClick={() => store.setState((v) => v + 1)}>
+          <button type="button" onClick={() => store.set((v) => v + 1)}>
             Update select
           </button>
         </div>
