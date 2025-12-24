@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import { render, renderHook } from '@solidjs/testing-library'
-import { Store } from '@tanstack/store'
+import { createAtom } from '@xstate/store'
 import { useStore } from '../src/index'
 
 describe('useStore', () => {
   it.todo('allows us to select state using a selector', () => {
-    const store = new Store({
+    const store = createAtom({
       select: 0,
       ignored: 1,
     })
@@ -21,7 +21,7 @@ describe('useStore', () => {
   })
 
   it('allows us to select state using a selector', () => {
-    const store = new Store({
+    const store = createAtom({
       select: 0,
       ignored: 1,
     })
@@ -34,21 +34,21 @@ describe('useStore', () => {
   })
 
   it('updates accessor value when state is updated', () => {
-    const store = new Store(0)
+    const store = createAtom(0)
 
     const { result } = renderHook(() => useStore(store))
 
-    store.setState((prev) => prev + 1)
+    store.set((prev) => prev + 1)
 
     expect(result()).toBe(1)
   })
 
   it('updates when date changes', () => {
-    const store = new Store(new Date('2025-03-29T21:06:30.401Z'))
+    const store = createAtom(new Date('2025-03-29T21:06:30.401Z'))
 
     const { result } = renderHook(() => useStore(store))
 
-    store.setState(() => new Date('2025-03-29T21:06:40.401Z'))
+    store.set(() => new Date('2025-03-29T21:06:40.401Z'))
 
     expect(result()).toStrictEqual(new Date('2025-03-29T21:06:40.401Z'))
   })
