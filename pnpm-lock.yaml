@@ -449,6 +449,9 @@ importers:
       '@tanstack/store':
         specifier: workspace:*
         version: link:../store
+      '@xstate/store':
+        specifier: ^3.13.0
+        version: 3.13.0(react@18.3.1)(solid-js@1.9.10)
       vue-demi:
         specifier: ^0.14.10
         version: 0.14.10(@vue/composition-api@1.7.2(vue@3.5.22(typescript@5.6.3)))(vue@3.5.22(typescript@5.6.3))
