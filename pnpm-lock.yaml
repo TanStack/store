@@ -278,6 +278,9 @@ importers:
       '@tanstack/store':
         specifier: workspace:*
         version: link:../store
+      '@xstate/store':
+        specifier: ^3.13.0
+        version: 3.13.0(react@18.3.1)(solid-js@1.9.10)
       tslib:
         specifier: ^2.8.1
         version: 2.8.1
