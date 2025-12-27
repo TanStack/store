@@ -1,4 +1,4 @@
-import type { Derived, Store } from '@tanstack/store'
+import type { Atom, ReadonlyAtom } from '@xstate/store'
 
 export * from '@tanstack/store'
 
@@ -12,31 +12,21 @@ interface UseStoreOptions<T> {
 }
 
 export function useStore<TState, TSelected = NoInfer<TState>>(
-  store: Store<TState, any>,
-  selector?: (state: NoInfer<TState>) => TSelected,
-  options?: UseStoreOptions<TSelected>,
-): { readonly current: TSelected }
-export function useStore<TState, TSelected = NoInfer<TState>>(
-  store: Derived<TState, any>,
-  selector?: (state: NoInfer<TState>) => TSelected,
-  options?: UseStoreOptions<TSelected>,
-): { readonly current: TSelected }
-export function useStore<TState, TSelected = NoInfer<TState>>(
-  store: Store<TState, any> | Derived<TState, any>,
+  store: Atom<TState> | ReadonlyAtom<TState>,
   selector: (state: NoInfer<TState>) => TSelected = (d) => d as any,
   options: UseStoreOptions<TSelected> = {},
 ): { readonly current: TSelected } {
   const equal = options.equal ?? shallow
-  let slice = $state(selector(store.state))
+  let slice = $state(selector(store.get()))
 
   $effect(() => {
-    const unsub = store.subscribe(() => {
-      const data = selector(store.state)
+    const unsub = store.subscribe((s) => {
+      const data = selector(s)
       if (equal(slice, data)) {
         return
       }
       slice = data
-    })
+    }).unsubscribe
 
     return unsub
   })

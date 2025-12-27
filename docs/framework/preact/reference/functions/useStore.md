@@ -5,80 +5,39 @@ title: useStore
 
 # Function: useStore()
 
-## Call Signature
-
 ```ts
 function useStore<TState, TSelected>(
    store, 
-   selector?, 
-   options?): TSelected;
+   selector, 
+   options): TSelected;
 ```
 
-Defined in: [index.ts:104](https://github.com/TanStack/store/blob/main/packages/preact-store/src/index.ts#L104)
+Defined in: [index.ts:105](https://github.com/TanStack/store/blob/main/packages/preact-store/src/index.ts#L105)
 
-### Type Parameters
+## Type Parameters
 
-#### TState
+### TState
 
 `TState`
 
-#### TSelected
+### TSelected
 
 `TSelected` = `NoInfer`\<`TState`\>
 
-### Parameters
+## Parameters
 
-#### store
+### store
 
-`Store`\<`TState`, `any`\>
+`Atom`\<`TState`\> | `ReadonlyAtom`\<`TState`\>
 
-#### selector?
-
-(`state`) => `TSelected`
-
-#### options?
-
-`UseStoreOptions`\<`TSelected`\>
-
-### Returns
-
-`TSelected`
-
-## Call Signature
-
-```ts
-function useStore<TState, TSelected>(
-   store, 
-   selector?, 
-   options?): TSelected;
-```
-
-Defined in: [index.ts:109](https://github.com/TanStack/store/blob/main/packages/preact-store/src/index.ts#L109)
-
-### Type Parameters
-
-#### TState
-
-`TState`
-
-#### TSelected
-
-`TSelected` = `NoInfer`\<`TState`\>
-
-### Parameters
-
-#### store
-
-`Derived`\<`TState`, `any`\>
-
-#### selector?
+### selector
 
 (`state`) => `TSelected`
 
-#### options?
+### options
 
-`UseStoreOptions`\<`TSelected`\>
+`UseStoreOptions`\<`TSelected`\> = `{}`
 
-### Returns
+## Returns
 
 `TSelected`

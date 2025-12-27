@@ -61,6 +61,7 @@
   ],
   "dependencies": {
     "@tanstack/store": "workspace:*",
+    "@xstate/store": "^3.13.0",
     "vue-demi": "^0.14.10"
   },
   "devDependencies": {

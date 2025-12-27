@@ -2,7 +2,7 @@ import { describe, expect, it, test, vi } from 'vitest'
 // @ts-expect-error We need to import `h` as it's part of Vue's JSX transform
 import { defineComponent, h } from 'vue-demi'
 import { render, waitFor } from '@testing-library/vue'
-import { Store } from '@tanstack/store'
+import { createAtom } from '@xstate/store'
 import { userEvent } from '@testing-library/user-event'
 import { shallow, useStore } from '../src/index'
 
@@ -10,7 +10,7 @@ const user = userEvent.setup()
 
 describe('useStore', () => {
   it('allows us to select state using a selector', () => {
-    const store = new Store({
+    const store = createAtom({
       select: 0,
       ignored: 1,
     })
@@ -26,7 +26,7 @@ describe('useStore', () => {
   })
 
   it('only triggers a re-render when selector state is updated', async () => {
-    const store = new Store({
+    const store = createAtom({
       select: 0,
       ignored: 1,
     })
@@ -44,7 +44,7 @@ describe('useStore', () => {
             <p>Store: {storeVal.value}</p>
             <button
               onClick={() =>
-                store.setState((v) => ({
+                store.set((v) => ({
                   ...v,
                   select: 10,
                 }))
@@ -54,7 +54,7 @@ describe('useStore', () => {
             </button>
             <button
               onClick={() =>
-                store.setState((v) => ({
+                store.set((v) => ({
                   ...v,
                   ignored: 10,
                 }))

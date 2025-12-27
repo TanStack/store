@@ -14,7 +14,7 @@ function injectStore<TState, TSelected>(
 options?): Signal<TSelected>;
 ```
 
-Defined in: [index.ts:19](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L19)
+Defined in: [index.ts:21](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L21)
 
 ### Type Parameters
 
@@ -30,7 +30,7 @@ Defined in: [index.ts:19](https://github.com/TanStack/store/blob/main/packages/a
 
 #### store
 
-`Store`\<`TState`, `any`\>
+`Atom`\<`TState`\>
 
 #### selector?
 
@@ -53,7 +53,7 @@ function injectStore<TState, TSelected>(
 options?): Signal<TSelected>;
 ```
 
-Defined in: [index.ts:24](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L24)
+Defined in: [index.ts:26](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L26)
 
 ### Type Parameters
 
@@ -69,7 +69,7 @@ Defined in: [index.ts:24](https://github.com/TanStack/store/blob/main/packages/a
 
 #### store
 
-`Derived`\<`TState`, `any`\>
+`Atom`\<`TState`\> | `ReadonlyAtom`\<`TState`\>
 
 #### selector?
 

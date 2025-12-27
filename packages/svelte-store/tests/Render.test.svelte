@@ -1,9 +1,9 @@
 <script lang="ts">
   import { untrack } from 'svelte'
-  import { Store } from '@tanstack/store'
+  import { createAtom } from '@xstate/store'
   import { useStore } from '../src/index.svelte.js'
 
-  const store = new Store({
+  const store = createAtom({
     select: 0,
     ignored: 1,
   })
@@ -25,7 +25,7 @@
   <p>Store: {storeVal.current}</p>
   <button
     onclick={() =>
-      store.setState((v) => ({
+      store.set((v) => ({
         ...v,
         select: v.select + 10,
       }))}
@@ -34,7 +34,7 @@
   </button>
   <button
     onclick={() =>
-      store.setState((v) => ({
+      store.set((v) => ({
         ...v,
         ignored: v.ignored + 10,
       }))}
