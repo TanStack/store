@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createAtom } from '@xstate/store'
+  import { createAtom } from '@tanstack/store'
   import { useStore } from '../src/index.svelte.js'
 
   const store = createAtom({

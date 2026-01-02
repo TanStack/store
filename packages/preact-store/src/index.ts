@@ -1,6 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'preact/hooks'
-import type { Atom, ReadonlyAtom } from '@xstate/store'
-// import type { Derived, Store } from '@tanstack/store'
+import type { Atom, ReadonlyAtom } from '@tanstack/store'
 
 export * from '@tanstack/store'
 

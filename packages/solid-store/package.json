@@ -60,8 +60,7 @@
     "src"
   ],
   "dependencies": {
-    "@tanstack/store": "workspace:*",
-    "@xstate/store": "^3.13.0"
+    "@tanstack/store": "workspace:*"
   },
   "devDependencies": {
     "@solidjs/testing-library": "^0.8.10",

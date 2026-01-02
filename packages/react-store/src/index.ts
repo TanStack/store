@@ -3,6 +3,8 @@ import type { Derived, Store } from '@tanstack/store'
 
 export * from '@tanstack/store'
 
+export { useSelector } from './useSelector'
+
 /**
  * @private
  */

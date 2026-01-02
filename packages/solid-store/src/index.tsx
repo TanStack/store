@@ -1,6 +1,6 @@
 import { createSignal, onCleanup } from 'solid-js'
 import type { Accessor } from 'solid-js'
-import type { Atom, ReadonlyAtom } from '@xstate/store'
+import type { Atom, ReadonlyAtom } from '@tanstack/store'
 
 export * from '@tanstack/store'
 

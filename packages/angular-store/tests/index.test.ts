@@ -2,7 +2,7 @@ import { describe, expect, test } from 'vitest'
 import { Component, effect } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
-import { createAtom } from '@xstate/store'
+import { createAtom } from '@tanstack/store'
 import { injectStore } from '../src/index'
 
 describe('injectStore', () => {

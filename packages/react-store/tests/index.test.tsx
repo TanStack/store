@@ -2,9 +2,8 @@ import { describe, expect, it, test, vi } from 'vitest'
 import { render, waitFor } from '@testing-library/react'
 import { useState } from 'react'
 import { userEvent } from '@testing-library/user-event'
-import { createAtom } from '@xstate/store'
-import { useSelector } from '@xstate/store/react'
-import { shallow } from '../src/index'
+import { createAtom } from '@tanstack/store'
+import { shallow, useSelector } from '../src/index'
 
 const user = userEvent.setup()
 

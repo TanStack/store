@@ -1,6 +1,6 @@
 <script lang="ts">
   import { untrack } from 'svelte'
-  import { createAtom } from '@xstate/store'
+  import { createAtom } from '@tanstack/store'
   import { useStore } from '../src/index.svelte.js'
 
   const store = createAtom({

@@ -1,4 +1,4 @@
-import type { Atom, ReadonlyAtom } from '@xstate/store'
+import type { Atom, ReadonlyAtom } from '@tanstack/store'
 
 export * from '@tanstack/store'
 

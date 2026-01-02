@@ -46,8 +46,7 @@
     "src"
   ],
   "dependencies": {
-    "@tanstack/store": "workspace:*",
-    "@xstate/store": "^3.13.0"
+    "@tanstack/store": "workspace:*"
   },
   "devDependencies": {
     "@sveltejs/package": "^2.5.6",

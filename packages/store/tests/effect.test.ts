@@ -1,5 +1,5 @@
 import { describe, expect, test, vi } from 'vitest'
-import { createAtom } from '@xstate/store'
+import { createAtom } from '@tanstack/store'
 
 describe('Effect', () => {
   test('Side effect free', () => {

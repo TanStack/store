@@ -1,5 +1,5 @@
 import { describe, expect, test, vi } from 'vitest'
-import { createAtom } from '@xstate/store'
+import { createAtom } from '../src'
 
 describe('Store.setState Type Safety Improvements', () => {
   test('should handle function updater safely', () => {
@@ -62,7 +62,7 @@ describe('Store.setState Type Safety Improvements', () => {
     const derivedStore = createAtom<{
       prevVal: { value: number } | undefined
       currentVal: { value: number }
-    }>((_, prev) => ({
+    }>((prev) => ({
       prevVal: prev?.currentVal,
       currentVal: store.get(),
     }))

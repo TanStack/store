@@ -1,5 +1,5 @@
 import { expectTypeOf, test } from 'vitest'
-import { createAtom } from '@xstate/store'
+import { createAtom } from '@tanstack/store'
 import { useStore } from '../src'
 
 test('useStore works with derived state', () => {

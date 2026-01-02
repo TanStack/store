@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { render, renderHook } from '@solidjs/testing-library'
-import { createAtom } from '@xstate/store'
+import { createAtom } from '@tanstack/store'
 import { useStore } from '../src/index'
 
 describe('useStore', () => {

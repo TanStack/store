@@ -2,7 +2,7 @@ import { describe, expect, it, test, vi } from 'vitest'
 import { render, waitFor } from '@testing-library/preact'
 import { useState } from 'preact/hooks'
 import { userEvent } from '@testing-library/user-event'
-import { createAtom } from '@xstate/store'
+import { createAtom } from '@tanstack/store'
 import { shallow, useStore } from '../src/index'
 
 const user = userEvent.setup()

@@ -1,5 +1,5 @@
 import { readonly, ref, toRaw, watch } from 'vue-demi'
-import type { Atom, ReadonlyAtom } from '@xstate/store'
+import type { Atom, ReadonlyAtom } from '@tanstack/store'
 import type { Ref } from 'vue-demi'
 
 export * from '@tanstack/store'

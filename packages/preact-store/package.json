@@ -56,8 +56,7 @@
     "src"
   ],
   "dependencies": {
-    "@tanstack/store": "workspace:*",
-    "@xstate/store": "^3.13.0"
+    "@tanstack/store": "workspace:*"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.2",

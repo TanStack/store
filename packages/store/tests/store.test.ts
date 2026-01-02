@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from 'vitest'
 // import { Store } from '../src/index'
-import { createAtom } from '@xstate/store'
+import { createAtom } from '../src'
 
 describe('store', () => {
   test(`should set the initial value`, () => {
@@ -58,7 +58,7 @@ describe('store', () => {
     const derivedStore = createAtom<{
       prevVal: number | undefined
       currentVal: number
-    }>((_, prev) => ({
+    }>((prev) => ({
       prevVal: prev?.currentVal,
       currentVal: store.get(),
     }))

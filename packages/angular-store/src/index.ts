@@ -6,7 +6,7 @@ import {
   linkedSignal,
   runInInjectionContext,
 } from '@angular/core'
-import type { Atom, ReadonlyAtom } from '@xstate/store'
+import type { Atom, ReadonlyAtom } from '@tanstack/store'
 import type { CreateSignalOptions, Signal } from '@angular/core'
 
 type StoreContext = Record<string, unknown>
