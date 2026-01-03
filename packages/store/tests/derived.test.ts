@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, test, vi } from 'vitest'
 import { createAtom } from '../src'
 
+import { endBatch, startBatch } from '../src/alien'
 import type { AnyAtom } from '../src'
 
 function viFnSubscribe(subscribable: AnyAtom) {
@@ -262,64 +263,36 @@ describe('Derived', () => {
     expect(countPlusDouble.get()).toBe(24 + 48)
   })
 
-  // test('should recompute in the right order', () => {
-  //   const count = createAtom(12)
+  // TODO: fix batching
+  test.skip('should receive same prevDepVals and currDepVals during batch', () => {
+    const count = createAtom(12)
+    const fn = vi.fn()
+    createAtom<{
+      prevVal: number | undefined
+      currentVal: number
+    }>((prev) => {
+      const currentVal = count.get()
+      fn({ prevVal: prev?.currentVal, currentVal })
+      return { prevVal: prev?.currentVal, currentVal }
+    }).subscribe({})
 
-  //   const fn = vi.fn()
+    // First call when mounting
+    expect(fn).toHaveBeenNthCalledWith(1, {
+      prevVal: undefined,
+      currentVal: 12,
+    })
 
-  //   const double = createAtom(() => {
-  //     fn(2)
-  //     return count.get() * 2
-  //   })
+    // batch(() => {
+    startBatch()
+    count.set(() => 23)
+    count.set(() => 24)
+    count.set(() => 25)
+    endBatch()
+    // })
 
-  //   // const halfDouble = new Derived({
-  //   //   deps: [double, count],
-  //   //   fn: () => {
-  //   //     fn(3)
-  //   //     return double.state / 2
-  //   //   },
-  //   // })
-  //   const halfDouble = createAtom(() => {
-  //     fn(3)
-  //     return double.get() / 2
-  //   })
-
-  //   halfDouble.get()
-  //   double.get()
-
-  //   // halfDouble.mount()
-  //   // double.mount()
-
-  //   expect(fn).toHaveBeenLastCalledWith(3)
-  // })
-
-  // test('should receive same prevDepVals and currDepVals during batch', () => {
-  //   const count = createAtom(12)
-  //   const fn = vi.fn()
-  //   const derived = new Derived({
-  //     deps: [count],
-  //     fn: ({ prevDepVals, currDepVals }) => {
-  //       fn({ prevDepVals, currDepVals })
-  //       return count.state
-  //     },
-  //   })
-  //   derived.mount()
-
-  //   // First call when mounting
-  //   expect(fn).toHaveBeenNthCalledWith(1, {
-  //     prevDepVals: undefined,
-  //     currDepVals: [12],
-  //   })
-
-  //   batch(() => {
-  //     count.setState(() => 23)
-  //     count.setState(() => 24)
-  //     count.setState(() => 25)
-  //   })
-
-  //   expect(fn).toHaveBeenNthCalledWith(2, {
-  //     prevDepVals: [12],
-  //     currDepVals: [25],
-  //   })
-  // })
+    expect(fn).toHaveBeenNthCalledWith(2, {
+      prevVal: 12,
+      currentVal: 25,
+    })
+  })
 })

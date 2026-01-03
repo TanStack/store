@@ -7,7 +7,7 @@ import type {
   Observer,
   ReadonlyAtom,
   Subscription,
-} from './atomTypes'
+} from './types'
 
 export function toObserver<T>(
   nextHandler?: Observer<T> | ((value: T) => void),
@@ -40,6 +40,7 @@ const { link, unlink, propagate, checkDirty, shallowPropagate } =
     update(atom: InternalAtom<any>): boolean {
       return atom._update()
     },
+    // eslint-disable-next-line no-shadow
     notify(effect: Effect): void {
       queuedEffects[queuedEffectsLength++] = effect
       effect.flags &= ~ReactiveFlags.Watching
@@ -67,6 +68,7 @@ function purgeDeps(sub: ReactiveNode) {
 
 function flush(): void {
   while (notifyIndex < queuedEffectsLength) {
+    // eslint-disable-next-line no-shadow
     const effect = queuedEffects[notifyIndex]!
     queuedEffects[notifyIndex++] = undefined
     effect.notify()
@@ -224,6 +226,7 @@ export function createAtom<T>(
     }
   } else {
     ;(atom as unknown as Atom<T>).set = function (
+      // eslint-disable-next-line no-shadow
       valueOrFn: T | ((prev: T) => T),
     ): void {
       if (atom._update(valueOrFn)) {

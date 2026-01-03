@@ -155,13 +155,6 @@ describe('useStore', () => {
 
   it('works with mounted derived stores', async () => {
     const store = createAtom(0)
-
-    // const derived = new Derived({
-    //   deps: [store],
-    //   fn: () => {
-    //     return { val: store.state * 2 }
-    //   },
-    // })
     const derived = createAtom(() => ({ val: store.get() * 2 }))
 
     function Comp() {

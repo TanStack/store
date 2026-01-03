@@ -1,7 +1,7 @@
 import { render } from 'preact'
-import { Store, useStore } from '@tanstack/preact-store'
+import { createAtom, useStore } from '@tanstack/preact-store'
 
-export const store = new Store({
+export const store = createAtom({
   count: 0,
 })
 
@@ -10,7 +10,9 @@ function Counter() {
   return (
     <div>
       <div>Count: {count}</div>
-      <button onClick={() => store.setState((s) => ({ count: s.count + 1 }))}>
+      <button
+        onClick={() => store.set((state) => ({ count: state.count + 1 }))}
+      >
         Increment
       </button>
     </div>

@@ -1,19 +1,16 @@
 import { expectTypeOf, test } from 'vitest'
-import { Derived, Store, useStore } from '../src'
+import { createAtom, useSelector } from '../src'
 
 test('useStore works with derived state', () => {
-  const store = new Store(12)
-  const derived = new Derived({
-    deps: [store],
-    fn: () => {
-      return { val: store.state * 2 }
-    },
+  const store = createAtom(12)
+  const derived = createAtom(() => {
+    return { val: store.get() * 2 }
   })
 
-  const val = useStore(derived, (state) => {
-    expectTypeOf(state).toMatchTypeOf<{ val: number }>()
+  const val = useSelector(derived, (state) => {
+    expectTypeOf(state).toMatchObjectType<{ val: number }>()
     return state.val
   })
 
-  expectTypeOf(val).toMatchTypeOf<number>()
+  expectTypeOf(val).toExtend<number>()
 })

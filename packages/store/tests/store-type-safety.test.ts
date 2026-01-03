@@ -40,23 +40,6 @@ describe('Store.setState Type Safety Improvements', () => {
     expect(store.get().user.age).toBe(26)
   })
 
-  // test('should work with custom updateFn', () => {
-  //   const store = new Store<string>('initial', {
-  //     updateFn: (prev) => (updater) => {
-  //       if (typeof updater === 'function') {
-  //         return updater(prev)
-  //       }
-  //       return updater
-  //     },
-  //   })
-
-  //   store.setState((prev) => `${prev} updated`)
-  //   expect(store.state).toBe('initial updated')
-
-  //   store.setState('direct value')
-  //   expect(store.state).toBe('direct value')
-  // })
-
   test('should call listeners with correct event structure', () => {
     const store = createAtom<{ value: number }>({ value: 0 })
     const derivedStore = createAtom<{

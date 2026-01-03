@@ -1,9 +1,9 @@
 import { scan } from 'react-scan' // dev-tools for demo
 import ReactDOM from 'react-dom/client'
-import { Store, useStore } from '@tanstack/react-store'
+import { createAtom, useStore } from '@tanstack/react-store'
 
 // You can use instantiate a Store outside of React components too!
-export const store = new Store({
+export const store = createAtom({
   dogs: 0,
   cats: 0,
 })
@@ -19,7 +19,7 @@ const Display = ({ animal }: DisplayProps) => {
 }
 
 const updateState = (animal: 'dogs' | 'cats') => {
-  store.setState((state) => {
+  store.set((state) => {
     return {
       ...state,
       [animal]: state[animal] + 1,

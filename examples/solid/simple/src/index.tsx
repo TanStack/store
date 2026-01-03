@@ -1,8 +1,8 @@
-import { Store, useStore } from '@tanstack/solid-store'
+import { createAtom, useStore } from '@tanstack/solid-store'
 import { render } from 'solid-js/web'
 
 // You can instantiate a Store outside of Solid components too!
-export const store = new Store({
+export const store = createAtom({
   cats: 0,
   dogs: 0,
 })
@@ -28,7 +28,7 @@ export const Button = (props: ButtonProps) => {
   return (
     <button
       onClick={() => {
-        store.setState((state) => {
+        store.set((state) => {
           return {
             ...state,
             [props.animals]: state[props.animals] + 1,
