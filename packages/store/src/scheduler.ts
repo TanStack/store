@@ -26,7 +26,7 @@ export const __derivedToStore = new WeakMap<
 >()
 
 export const __depsThatHaveWrittenThisTick = {
-  current: [] as Array<Derived<unknown> | Store<unknown>>,
+  current: new Set<Derived<unknown> | Store<unknown>>(),
 }
 
 let __isFlushing = false
@@ -37,11 +37,11 @@ const __initialBatchValues = new Map<Store<unknown>, unknown>()
 
 function __flush_internals(relatedVals: ReadonlyArray<Derived<unknown>>) {
   for (const derived of relatedVals) {
-    if (__depsThatHaveWrittenThisTick.current.includes(derived)) {
+    if (__depsThatHaveWrittenThisTick.current.has(derived)) {
       continue
     }
 
-    __depsThatHaveWrittenThisTick.current.push(derived)
+    __depsThatHaveWrittenThisTick.current.add(derived)
     derived.recompute()
 
     const stores = __derivedToStore.get(derived)
@@ -109,7 +109,7 @@ export function __flush(store: Store<unknown>) {
         const derivedVals = __storeToDerived.get(store)
         if (!derivedVals) continue
 
-        __depsThatHaveWrittenThisTick.current.push(store)
+        __depsThatHaveWrittenThisTick.current.add(store)
         __flush_internals(derivedVals)
       }
 
@@ -125,7 +125,7 @@ export function __flush(store: Store<unknown>) {
     }
   } finally {
     __isFlushing = false
-    __depsThatHaveWrittenThisTick.current = []
+    __depsThatHaveWrittenThisTick.current.clear()
     __initialBatchValues.clear()
   }
 }
