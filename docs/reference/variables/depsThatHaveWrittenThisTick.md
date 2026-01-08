@@ -18,5 +18,5 @@ Defined in: [scheduler.ts:28](https://github.com/TanStack/store/blob/main/packag
 ```ts
 current: (
   | Derived<unknown, readonly any[]>
-  | Store<unknown, (cb) => unknown>)[];
+  | Set<Store<unknown, (cb: unknown) => unknown>)[];
 ```
