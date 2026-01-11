@@ -2,14 +2,14 @@ import { describe, expect, it, test, vi } from 'vitest'
 import { render, waitFor } from '@testing-library/preact'
 import { useState } from 'preact/hooks'
 import { userEvent } from '@testing-library/user-event'
-import { createAtom } from '@tanstack/store'
+import { createStore } from '@tanstack/store'
 import { shallow, useStore } from '../src/index'
 
 const user = userEvent.setup()
 
 describe('useStore', () => {
   it('allows us to select state using a selector', () => {
-    const store = createAtom({
+    const store = createStore({
       select: 0,
       ignored: 1,
     })
@@ -26,7 +26,7 @@ describe('useStore', () => {
 
   // This should ideally test the custom uSES hook
   it('only triggers a re-render when selector state is updated', async () => {
-    const store = createAtom({
+    const store = createStore({
       select: 0,
       ignored: 1,
     })
@@ -43,7 +43,7 @@ describe('useStore', () => {
           <button
             type="button"
             onClick={() =>
-              store.set((v) => ({
+              store.setState((v) => ({
                 ...v,
                 select: 10,
               }))
@@ -54,7 +54,7 @@ describe('useStore', () => {
           <button
             type="button"
             onClick={() =>
-              store.set((v) => ({
+              store.setState((v) => ({
                 ...v,
                 ignored: 10,
               }))
@@ -80,7 +80,7 @@ describe('useStore', () => {
   })
 
   it('allow specifying custom equality function', async () => {
-    const store = createAtom({
+    const store = createStore({
       array: [
         { select: 0, ignore: 1 },
         { select: 0, ignore: 1 },
@@ -111,7 +111,7 @@ describe('useStore', () => {
           <button
             type="button"
             onClick={() =>
-              store.set((v) => ({
+              store.setState((v) => ({
                 array: v.array.map((item) => ({
                   ...item,
                   select: item.select + 5,
@@ -124,7 +124,7 @@ describe('useStore', () => {
           <button
             type="button"
             onClick={() =>
-              store.set((v) => ({
+              store.setState((v) => ({
                 array: v.array.map((item) => ({
                   ...item,
                   ignore: item.ignore + 2,
@@ -152,9 +152,9 @@ describe('useStore', () => {
   })
 
   it('works with mounted derived stores', async () => {
-    const store = createAtom(0)
+    const store = createStore(0)
 
-    const derived = createAtom(() => store.get() * 2)
+    const derived = createStore(() => store.state * 2)
 
     function Comp() {
       const derivedVal = useStore(derived, (state) => state)
@@ -162,7 +162,7 @@ describe('useStore', () => {
       return (
         <div>
           <p>Derived: {derivedVal}</p>
-          <button type="button" onClick={() => store.set((v) => v + 1)}>
+          <button type="button" onClick={() => store.setState((v) => v + 1)}>
             Update select
           </button>
         </div>

@@ -12,7 +12,7 @@ import {
   signal as angularSignal,
 } from '@angular/core'
 import { createWatch } from '@angular/core/primitives/signals'
-import { createAtom } from '../src'
+import { createStore } from '../src'
 
 function noop(val: any) {
   val
@@ -30,17 +30,17 @@ function noop(val: any) {
  */
 describe('Derived', () => {
   bench('TanStack', () => {
-    const a = createAtom(1)
-    const b = createAtom(() => a.get())
-    const c = createAtom(() => a.get())
-    const d = createAtom(() => b.get())
-    const e = createAtom(() => b.get())
-    const f = createAtom(() => c.get())
-    const g = createAtom(() => d.get() + e.get() + f.get())
+    const a = createStore(1)
+    const b = createStore(() => a.state)
+    const c = createStore(() => a.state)
+    const d = createStore(() => b.state)
+    const e = createStore(() => b.state)
+    const f = createStore(() => c.state)
+    const g = createStore(() => d.state + e.state + f.state)
 
-    g.subscribe(() => noop(g.get()))
+    g.subscribe(() => noop(g.state))
 
-    a.set(() => 2)
+    a.setState(() => 2)
   })
 
   bench('Vue', () => {

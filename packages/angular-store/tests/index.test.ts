@@ -2,12 +2,12 @@ import { describe, expect, test } from 'vitest'
 import { Component, effect } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
-import { createAtom } from '@tanstack/store'
+import { createStore } from '@tanstack/store'
 import { injectStore } from '../src/index'
 
 describe('injectStore', () => {
   test(`allows us to select state using a selector`, () => {
-    const store = createAtom({ select: 0, ignored: 1 })
+    const store = createStore({ select: 0, ignored: 1 })
 
     @Component({
       template: `<p>Store: {{ storeVal() }}</p>`,
@@ -25,7 +25,7 @@ describe('injectStore', () => {
   })
 
   test('only triggers a re-render when selector state is updated', () => {
-    const store = createAtom({ select: 0, ignored: 1 })
+    const store = createStore({ select: 0, ignored: 1 })
     let count = 0
 
     @Component({
@@ -53,14 +53,14 @@ describe('injectStore', () => {
       }
 
       updateSelect() {
-        store.set((v) => ({
+        store.setState((v) => ({
           ...v,
           select: 10,
         }))
       }
 
       updateIgnored() {
-        store.set((v) => ({
+        store.setState((v) => ({
           ...v,
           ignored: 10,
         }))
@@ -96,7 +96,7 @@ describe('injectStore', () => {
 
 describe('dataType', () => {
   test('date change trigger re-render', () => {
-    const store = createAtom({ date: new Date('2025-03-29T21:06:30.401Z') })
+    const store = createStore({ date: new Date('2025-03-29T21:06:30.401Z') })
 
     @Component({
       template: `
@@ -117,7 +117,7 @@ describe('dataType', () => {
       }
 
       updateDate() {
-        store.set((v) => ({
+        store.setState((v) => ({
           ...v,
           date: new Date('2025-03-29T21:06:40.401Z'),
         }))

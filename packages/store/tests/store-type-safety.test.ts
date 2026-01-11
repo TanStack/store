@@ -1,22 +1,22 @@
 import { describe, expect, test, vi } from 'vitest'
-import { createAtom } from '../src'
+import { createStore } from '../src'
 
 describe('Store.setState Type Safety Improvements', () => {
   test('should handle function updater safely', () => {
-    const store = createAtom(0)
+    const store = createStore(0)
 
-    store.set((prev) => prev + 5)
-    expect(store.get()).toBe(5)
+    store.setState((prev) => prev + 5)
+    expect(store.state).toBe(5)
 
-    store.set((prev) => prev * 2)
-    expect(store.get()).toBe(10)
+    store.setState((prev) => prev * 2)
+    expect(store.state).toBe(10)
   })
 
   test('should handle direct value updater safely', () => {
-    const store = createAtom(42)
+    const store = createStore(42)
 
-    store.set(100)
-    expect(store.get()).toBe(100)
+    store.setState(() => 100)
+    expect(store.state).toBe(100)
   })
 
   test('should work with complex state types', () => {
@@ -25,35 +25,35 @@ describe('Store.setState Type Safety Improvements', () => {
       user: { name: string; age: number }
     }
 
-    const store = createAtom<ComplexState>({
+    const store = createStore<ComplexState>({
       count: 0,
       user: { name: 'John', age: 25 },
     })
 
-    store.set((prev) => ({
+    store.setState((prev) => ({
       ...prev,
       count: prev.count + 1,
       user: { ...prev.user, age: prev.user.age + 1 },
     }))
 
-    expect(store.get().count).toBe(1)
-    expect(store.get().user.age).toBe(26)
+    expect(store.state.count).toBe(1)
+    expect(store.state.user.age).toBe(26)
   })
 
   test('should call listeners with correct event structure', () => {
-    const store = createAtom<{ value: number }>({ value: 0 })
-    const derivedStore = createAtom<{
+    const store = createStore<{ value: number }>({ value: 0 })
+    const derivedStore = createStore<{
       prevVal: { value: number } | undefined
       currentVal: { value: number }
     }>((prev) => ({
       prevVal: prev?.currentVal,
-      currentVal: store.get(),
+      currentVal: store.state,
     }))
     const listener = vi.fn()
 
     derivedStore.subscribe(listener)
 
-    store.set((prev) => ({ value: prev.value + 10 }))
+    store.setState((prev) => ({ value: prev.value + 10 }))
 
     expect(listener).toHaveBeenCalledWith({
       prevVal: { value: 0 },
@@ -62,35 +62,35 @@ describe('Store.setState Type Safety Improvements', () => {
   })
 
   test('should handle edge cases safely', () => {
-    const nullableStore = createAtom<string | null>(null)
-    nullableStore.set('not null')
-    expect(nullableStore.get()).toBe('not null')
+    const nullableStore = createStore<string | null>(null)
+    nullableStore.setState(() => 'not null')
+    expect(nullableStore.state).toBe('not null')
 
-    nullableStore.set(() => null)
-    expect(nullableStore.get()).toBe(null)
+    nullableStore.setState(() => null)
+    expect(nullableStore.state).toBe(null)
 
-    const arrayStore = createAtom<Array<number>>([])
-    arrayStore.set((prev) => [...prev, 1, 2, 3])
-    expect(arrayStore.get()).toEqual([1, 2, 3])
+    const arrayStore = createStore<Array<number>>([])
+    arrayStore.setState((prev) => [...prev, 1, 2, 3])
+    expect(arrayStore.state).toEqual([1, 2, 3])
 
-    arrayStore.set([4, 5, 6])
-    expect(arrayStore.get()).toEqual([4, 5, 6])
+    arrayStore.setState(() => [4, 5, 6])
+    expect(arrayStore.state).toEqual([4, 5, 6])
   })
 
   test('should not cause performance regression', () => {
-    const store = createAtom<number>(0)
+    const store = createStore<number>(0)
     const iterations = 1000
 
     const start = performance.now()
 
     for (let i = 0; i < iterations; i++) {
-      store.set((prev) => prev + 1)
+      store.setState((prev) => prev + 1)
     }
 
     const end = performance.now()
     const duration = end - start
 
-    expect(store.get()).toBe(iterations)
+    expect(store.state).toBe(iterations)
     expect(duration).toBeLessThan(100)
   })
 })

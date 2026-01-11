@@ -1,70 +1,70 @@
 import { describe, expect, test, vi } from 'vitest'
 // import { Store } from '../src/index'
-import { createAtom } from '../src'
+import { createStore } from '../src'
 
 describe('store', () => {
   test(`should set the initial value`, () => {
-    const store = createAtom(0)
+    const store = createStore(0)
 
-    expect(store.get()).toEqual(0)
+    expect(store.state).toEqual(0)
   })
 
   test(`basic subscriptions should work`, () => {
-    const store = createAtom(0)
+    const store = createStore(0)
 
     const subscription = vi.fn()
 
     const unsub = store.subscribe(subscription).unsubscribe
 
-    store.set(1)
+    store.setState(() => 1)
 
-    expect(store.get()).toEqual(1)
+    expect(store.state).toEqual(1)
     expect(subscription).toHaveBeenCalled()
 
     unsub()
 
-    store.set(2)
+    store.setState(() => 2)
 
-    expect(store.get()).toEqual(2)
+    expect(store.state).toEqual(2)
 
     expect(subscription).toHaveBeenCalledTimes(1)
   })
 
   test(`setState passes previous state`, () => {
-    const store = createAtom(3)
+    const store = createStore(3)
 
-    store.set((v) => v + 1)
+    store.setState((v) => v + 1)
 
-    expect(store.get()).toEqual(4)
+    expect(store.state).toEqual(4)
   })
 
   test(`updateFn acts as state transformer`, () => {
-    const store = createAtom('1')
-    const derivedStore = createAtom(() => Number(store.get()))
+    const store = createStore('1')
+    const derivedStore = createStore(() => Number(store.state))
 
-    store.set(() => `${derivedStore.get() + 1}` as never)
+    store.setState(() => `${derivedStore.state + 1}` as never)
 
-    expect(derivedStore.get()).toEqual(2)
+    expect(derivedStore.state).toEqual(2)
 
-    store.set(() => `${derivedStore.get() + 2}` as never)
+    store.setState(() => `${derivedStore.state + 2}` as never)
 
-    expect(derivedStore.get()).toEqual(4)
+    expect(derivedStore.state).toEqual(4)
 
-    expect(typeof derivedStore.get()).toEqual('number')
+    expect(typeof derivedStore.state).toEqual('number')
   })
 
   test('listeners should receive old and new values', () => {
-    const store = createAtom(12)
-    const derivedStore = createAtom<{
+    const store = createStore(12)
+    const derivedStore = createStore<{
       prevVal: number | undefined
       currentVal: number
     }>((prev) => ({
       prevVal: prev?.currentVal,
-      currentVal: store.get(),
+      currentVal: store.state,
     }))
     const fn = vi.fn()
     derivedStore.subscribe(fn)
-    store.set(() => 24)
+    store.setState(() => 24)
     expect(fn).toBeCalledWith({ prevVal: 12, currentVal: 24 })
   })
 })

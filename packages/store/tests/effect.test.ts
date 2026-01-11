@@ -1,31 +1,31 @@
 import { describe, expect, test, vi } from 'vitest'
-import { createAtom } from '@tanstack/store'
+import { createStore } from '../src'
 
 describe('Effect', () => {
   test('Side effect free', () => {
-    const count = createAtom(10)
+    const count = createStore(10)
 
-    const halfCount = createAtom(() => {
-      return count.get() / 2
+    const halfCount = createStore(() => {
+      return count.state / 2
     })
 
-    const doubleCount = createAtom(() => {
-      return count.get() * 2
+    const doubleCount = createStore(() => {
+      return count.state * 2
     })
 
-    const sumDoubleHalfCount = createAtom(() => {
-      return halfCount.get() + doubleCount.get()
+    const sumDoubleHalfCount = createStore(() => {
+      return halfCount.state + doubleCount.state
     })
 
     const fn = vi.fn()
     // effect
     sumDoubleHalfCount.subscribe(fn)
 
-    count.set(() => 20)
+    count.setState(() => 20)
 
     expect(fn).toHaveBeenNthCalledWith(1, 50)
 
-    count.set(() => 30)
+    count.setState(() => 30)
 
     expect(fn).toHaveBeenNthCalledWith(2, 75)
   })
@@ -41,18 +41,18 @@ describe('Effect', () => {
    *        G
    */
   test('Complex diamond dep problem', () => {
-    const a = createAtom(1)
-    const b = createAtom(() => a.get())
-    const c = createAtom(() => a.get())
-    const d = createAtom(() => b.get())
-    const e = createAtom(() => b.get())
-    const f = createAtom(() => c.get())
-    const g = createAtom(() => d.get() + e.get() + f.get())
+    const a = createStore(1)
+    const b = createStore(() => a.state)
+    const c = createStore(() => a.state)
+    const d = createStore(() => b.state)
+    const e = createStore(() => b.state)
+    const f = createStore(() => c.state)
+    const g = createStore(() => d.state + e.state + f.state)
 
     const fn = vi.fn()
     g.subscribe(fn)
 
-    a.set(() => 2)
+    a.setState(() => 2)
 
     expect(fn).toHaveBeenNthCalledWith(1, 6)
   })

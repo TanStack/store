@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { createAtom } from '@tanstack/store'
+  import { createStore } from '@tanstack/store'
   import { useStore } from '../src/index.svelte.js'
 
-  const store = createAtom({
+  const store = createStore({
     select: 0,
     ignored: 1,
   })

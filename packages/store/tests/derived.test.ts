@@ -1,10 +1,10 @@
 import { afterEach, describe, expect, test, vi } from 'vitest'
-import { createAtom } from '../src'
+import { createStore } from '../src'
 
 import { endBatch, startBatch } from '../src/alien'
-import type { AnyAtom } from '../src'
+import type { Store } from '../src'
 
-function viFnSubscribe(subscribable: AnyAtom) {
+function viFnSubscribe(subscribable: Store<any>) {
   const fn = vi.fn()
   const cleanup = subscribable.subscribe((s) => fn(s)).unsubscribe
   afterEach(() => {
@@ -15,31 +15,31 @@ function viFnSubscribe(subscribable: AnyAtom) {
 
 describe('Derived', () => {
   test('Diamond dep problem', () => {
-    const count = createAtom(10)
+    const count = createStore(10)
 
-    const halfCount = createAtom(() => {
-      return count.get() / 2
+    const halfCount = createStore(() => {
+      return count.state / 2
     })
 
-    const doubleCount = createAtom(() => {
-      return count.get() * 2
+    const doubleCount = createStore(() => {
+      return count.state * 2
     })
 
-    const sumDoubleHalfCount = createAtom(() => {
-      return halfCount.get() + doubleCount.get()
+    const sumDoubleHalfCount = createStore(() => {
+      return halfCount.state + doubleCount.state
     })
 
     const halfCountFn = viFnSubscribe(halfCount)
     const doubleCountFn = viFnSubscribe(doubleCount)
     const sumDoubleHalfCountFn = viFnSubscribe(sumDoubleHalfCount)
 
-    count.set(() => 20)
+    count.setState(() => 20)
 
     expect(halfCountFn).toHaveBeenNthCalledWith(1, 10)
     expect(doubleCountFn).toHaveBeenNthCalledWith(1, 40)
     expect(sumDoubleHalfCountFn).toHaveBeenNthCalledWith(1, 50)
 
-    count.set(() => 30)
+    count.setState(() => 30)
 
     expect(halfCountFn).toHaveBeenNthCalledWith(2, 15)
     expect(doubleCountFn).toHaveBeenNthCalledWith(2, 60)
@@ -57,13 +57,13 @@ describe('Derived', () => {
    *        G
    */
   test('Complex diamond dep problem', () => {
-    const a = createAtom(1)
-    const b = createAtom(() => a.get())
-    const c = createAtom(() => a.get())
-    const d = createAtom(() => b.get())
-    const e = createAtom(() => b.get())
-    const f = createAtom(() => c.get())
-    const g = createAtom(() => d.get() + e.get() + f.get())
+    const a = createStore(1)
+    const b = createStore(() => a.state)
+    const c = createStore(() => a.state)
+    const d = createStore(() => b.state)
+    const e = createStore(() => b.state)
+    const f = createStore(() => c.state)
+    const g = createStore(() => d.state + e.state + f.state)
 
     const aFn = viFnSubscribe(a)
     const bFn = viFnSubscribe(b)
@@ -73,7 +73,7 @@ describe('Derived', () => {
     const fFn = viFnSubscribe(f)
     const gFn = viFnSubscribe(g)
 
-    a.set(() => 2)
+    a.setState(() => 2)
 
     expect(aFn).toHaveBeenNthCalledWith(1, 2)
     expect(bFn).toHaveBeenNthCalledWith(1, 2)
@@ -85,57 +85,57 @@ describe('Derived', () => {
   })
 
   test('Derive from store and another derived', () => {
-    const count = createAtom(10)
+    const count = createStore(10)
 
-    const doubleCount = createAtom(() => {
-      return count.get() * 2
+    const doubleCount = createStore(() => {
+      return count.state * 2
     })
-    const tripleCount = createAtom(() => {
-      return count.get() + doubleCount.get()
+    const tripleCount = createStore(() => {
+      return count.state + doubleCount.state
     })
 
     const doubleCountFn = viFnSubscribe(doubleCount)
     const tripleCountFn = viFnSubscribe(tripleCount)
 
-    count.set(() => 20)
+    count.setState(() => 20)
 
     expect(doubleCountFn).toHaveBeenNthCalledWith(1, 40)
     expect(tripleCountFn).toHaveBeenNthCalledWith(1, 60)
 
-    count.set(() => 30)
+    count.setState(() => 30)
 
     expect(doubleCountFn).toHaveBeenNthCalledWith(2, 60)
     expect(tripleCountFn).toHaveBeenNthCalledWith(2, 90)
   })
 
   test('listeners should receive old and new values', () => {
-    const store = createAtom(12)
-    const derived = createAtom<{
+    const store = createStore(12)
+    const derived = createStore<{
       prevVal: number | undefined
       currentVal: number
     }>((prevVal) => ({
       prevVal: prevVal?.currentVal,
-      currentVal: store.get() * 2,
+      currentVal: store.state * 2,
     }))
     const fn = vi.fn()
     derived.subscribe(fn)
-    store.set(() => 24)
+    store.setState(() => 24)
     expect(fn).toBeCalledWith({ prevVal: 24, currentVal: 48 })
   })
 
   test.skip('derivedFn should receive old and new dep values', () => {
-    const count = createAtom(12)
+    const count = createStore(12)
     const date = new Date()
-    const time = createAtom(date)
+    const time = createStore(date)
     const fn = vi.fn()
-    createAtom(() => {
-      return count.get() + time.get().getTime()
+    createStore(() => {
+      return count.state + time.state.getTime()
     })
     expect(fn).toBeCalledWith({
       prevDepVals: undefined,
       currDepVals: [12, date],
     })
-    count.set(() => 24)
+    count.setState(() => 24)
     expect(fn).toBeCalledWith({
       prevDepVals: [12, date],
       currDepVals: [24, date],
@@ -143,77 +143,77 @@ describe('Derived', () => {
   })
 
   test('derivedFn should receive old and new dep values for similar derived values', () => {
-    const count = createAtom(12)
-    const halfCount = createAtom(() => count.get() / 2)
-    const derived = createAtom<{
+    const count = createStore(12)
+    const halfCount = createStore(() => count.state / 2)
+    const derived = createStore<{
       prevDepVals: [number, number] | undefined
       currDepVals: [number, number]
     }>((prev) => {
       return {
         prevDepVals: prev?.currDepVals,
-        currDepVals: [count.get(), halfCount.get()],
+        currDepVals: [count.state, halfCount.state],
       }
     })
 
-    expect(derived.get()).toEqual({
+    expect(derived.state).toEqual({
       prevDepVals: undefined,
       currDepVals: [12, 6],
     })
-    count.set(() => 24)
-    expect(derived.get()).toEqual({
+    count.setState(() => 24)
+    expect(derived.state).toEqual({
       prevDepVals: [12, 6],
       currDepVals: [24, 12],
     })
   })
 
   test('derivedFn should receive the old value', () => {
-    const count = createAtom(12)
-    const atom = createAtom<{
+    const count = createStore(12)
+    const atom = createStore<{
       prevVal: number | undefined
       currentVal: number
     }>((prev) => {
       return {
         prevVal: prev?.currentVal,
-        currentVal: count.get(),
+        currentVal: count.state,
       }
     })
 
-    expect(atom.get()).toEqual({ prevVal: undefined, currentVal: 12 })
-    count.set(() => 24)
-    expect(atom.get()).toEqual({ prevVal: 12, currentVal: 24 })
+    expect(atom.state).toEqual({ prevVal: undefined, currentVal: 12 })
+    count.setState(() => 24)
+    expect(atom.state).toEqual({ prevVal: 12, currentVal: 24 })
   })
 
   test('should be able to mount and unmount correctly repeatly', () => {
-    const count = createAtom(12)
-    const derived = createAtom(() => count.get() * 2)
+    const count = createStore(12)
+    const derived = createStore(() => count.state * 2)
 
-    count.set(() => 24)
+    count.setState(() => 24)
 
-    expect(count.get()).toBe(24)
-    expect(derived.get()).toBe(48)
+    expect(count.state).toBe(24)
+    expect(derived.state).toBe(48)
   })
 
   test('should handle calculating state before the derived state is mounted', () => {
-    const count = createAtom(12)
-    const derived = createAtom(() => count.get() * 2)
+    const count = createStore(12)
+    const derived = createStore(() => count.state * 2)
 
-    count.set(() => 24)
+    count.setState(() => 24)
 
     // derived.mount()
 
-    expect(count.get()).toBe(24)
-    expect(derived.get()).toBe(48)
+    expect(count.state).toBe(24)
+    expect(derived.state).toBe(48)
   })
 
   test('should not recompute more than is needed', () => {
     const fn = vi.fn()
-    const count = createAtom(12)
-    const derived = createAtom(() => {
+    const count = createStore(12)
+    const derived = createStore(() => {
       fn('derived')
-      return count.get() * 2
+      return count.state * 2
     })
 
-    count.set(() => 24)
+    count.setState(() => 24)
 
     // const unmount1 = derived.mount()
     // unmount1()
@@ -223,55 +223,55 @@ describe('Derived', () => {
     // unmount3()
     // derived.mount()
 
-    expect(count.get()).toBe(24)
-    expect(derived.get()).toBe(48)
+    expect(count.state).toBe(24)
+    expect(derived.state).toBe(48)
     // expect(fn).toBeCalledTimes(2)
     expect(fn).toBeCalledTimes(1)
   })
 
   test('should be able to mount in the wrong order and still work', () => {
-    const count = createAtom(12)
+    const count = createStore(12)
 
-    const double = createAtom(() => count.get() * 2)
+    const double = createStore(() => count.state * 2)
 
-    const halfDouble = createAtom(() => double.get() / 2)
+    const halfDouble = createStore(() => double.state / 2)
 
     // halfDouble.mount()
     // double.mount()
 
-    count.set(() => 24)
+    count.setState(() => 24)
 
-    expect(count.get()).toBe(24)
-    expect(double.get()).toBe(48)
-    expect(halfDouble.get()).toBe(24)
+    expect(count.state).toBe(24)
+    expect(double.state).toBe(48)
+    expect(halfDouble.state).toBe(24)
   })
 
   test('should be able to mount in the wrong order and still work with a derived and a non-derived state', () => {
-    const count = createAtom(12)
+    const count = createStore(12)
 
-    const double = createAtom(() => count.get() * 2)
+    const double = createStore(() => count.state * 2)
 
-    const countPlusDouble = createAtom(() => count.get() + double.get())
+    const countPlusDouble = createStore(() => count.state + double.state)
 
     // countPlusDouble.mount()
     // double.mount()
 
-    count.set(() => 24)
+    count.setState(() => 24)
 
-    expect(count.get()).toBe(24)
-    expect(double.get()).toBe(48)
-    expect(countPlusDouble.get()).toBe(24 + 48)
+    expect(count.state).toBe(24)
+    expect(double.state).toBe(48)
+    expect(countPlusDouble.state).toBe(24 + 48)
   })
 
   // TODO: fix batching
   test.skip('should receive same prevDepVals and currDepVals during batch', () => {
-    const count = createAtom(12)
+    const count = createStore(12)
     const fn = vi.fn()
-    createAtom<{
+    createStore<{
       prevVal: number | undefined
       currentVal: number
     }>((prev) => {
-      const currentVal = count.get()
+      const currentVal = count.state
       fn({ prevVal: prev?.currentVal, currentVal })
       return { prevVal: prev?.currentVal, currentVal }
     }).subscribe({})
@@ -284,9 +284,9 @@ describe('Derived', () => {
 
     // batch(() => {
     startBatch()
-    count.set(() => 23)
-    count.set(() => 24)
-    count.set(() => 25)
+    count.setState(() => 23)
+    count.setState(() => 24)
+    count.setState(() => 25)
     endBatch()
     // })
 
