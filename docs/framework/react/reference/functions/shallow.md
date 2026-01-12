@@ -9,7 +9,7 @@ title: shallow
 function shallow<T>(objA, objB): boolean;
 ```
 
-Defined in: [index.ts:42](https://github.com/TanStack/store/blob/main/packages/react-store/src/index.ts#L42)
+Defined in: [index.ts:10](https://github.com/TanStack/store/blob/main/packages/react-store/src/index.ts#L10)
 
 ## Type Parameters
 

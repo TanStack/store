@@ -12,7 +12,7 @@ function useStore<TState, TSelected>(
    options): TSelected;
 ```
 
-Defined in: [index.ts:105](https://github.com/TanStack/store/blob/main/packages/preact-store/src/index.ts#L105)
+Defined in: [index.ts:104](https://github.com/TanStack/store/blob/main/packages/preact-store/src/index.ts#L104)
 
 ## Type Parameters
 
