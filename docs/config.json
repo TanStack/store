@@ -88,23 +88,23 @@
         },
         {
           "label": "Classes / Store",
-          "to": "reference/classes/store"
+          "to": "reference/classes/Store"
         },
         {
           "label": "Classes / Derived",
-          "to": "reference/classes/derived"
+          "to": "reference/classes/Derived"
         },
         {
           "label": "Classes / Effect",
-          "to": "reference/classes/effect"
+          "to": "reference/classes/Effect"
         },
         {
           "label": "Interfaces / StoreOptions",
-          "to": "reference/interfaces/storeoptions"
+          "to": "reference/interfaces/StoreOptions"
         },
         {
           "label": "Interfaces / DerivedOptions",
-          "to": "reference/interfaces/derivedoptions"
+          "to": "reference/interfaces/DerivedOptions"
         }
       ],
       "frameworks": [
