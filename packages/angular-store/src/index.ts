@@ -13,11 +13,6 @@ type StoreContext = Record<string, unknown>
 
 export * from '@tanstack/store'
 
-/**
- * @private
- */
-type NoInfer<T> = [T][T extends any ? 0 : never]
-
 export function injectStore<TState, TSelected = NoInfer<TState>>(
   store: Atom<TState>,
   selector?: (state: NoInfer<TState>) => TSelected,
@@ -33,7 +28,7 @@ export function injectStore<
   TSelected = NoInfer<TState>,
 >(
   store: Atom<TState> | ReadonlyAtom<TState>,
-  selector: (state: NoInfer<TState>) => TSelected = (d) => d as TSelected,
+  selector: (state: NoInfer<TState>) => TSelected = (d) => d as unknown as TSelected,
   options: CreateSignalOptions<TSelected> & { injector?: Injector } = {
     equal: shallow,
   },

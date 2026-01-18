@@ -67,10 +67,6 @@ function didSnapshotChange(inst: {
   }
 }
 
-/**
- * @private
- */
-export type NoInfer<T> = [T][T extends any ? 0 : never]
 type EqualityFn<T> = (objA: T, objB: T) => boolean
 interface UseStoreOptions<T> {
   equal?: EqualityFn<T>

@@ -2,11 +2,6 @@ export * from '@tanstack/store'
 
 export { useSelector } from './useSelector'
 
-/**
- * @private
- */
-export type NoInfer<T> = [T][T extends any ? 0 : never]
-
 export function shallow<T>(objA: T, objB: T) {
   if (Object.is(objA, objB)) {
     return true
