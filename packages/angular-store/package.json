@@ -51,13 +51,13 @@
     "tslib": "^2.8.1"
   },
   "devDependencies": {
-    "@analogjs/vite-plugin-angular": "^1.21.2",
-    "@angular/common": "^19.2.15",
-    "@angular/compiler": "^19.2.15",
-    "@angular/compiler-cli": "^19.2.15",
-    "@angular/core": "^19.2.15",
-    "@angular/platform-browser": "^19.2.15",
-    "@angular/platform-browser-dynamic": "^19.2.15",
+    "@analogjs/vite-plugin-angular": "^1.22.5",
+    "@angular/common": "^19.2.18",
+    "@angular/compiler": "^19.2.18",
+    "@angular/compiler-cli": "^19.2.18",
+    "@angular/core": "^19.2.18",
+    "@angular/platform-browser": "^19.2.18",
+    "@angular/platform-browser-dynamic": "^19.2.18",
     "ng-packagr": "^19.2.2",
     "zone.js": "^0.15.1"
   },

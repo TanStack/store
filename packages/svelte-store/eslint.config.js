@@ -1,9 +1,10 @@
 // @ts-check
 
+import {defineConfig} from 'eslint/config'
 import pluginSvelte from 'eslint-plugin-svelte'
 import rootConfig from '../../eslint.config.js'
 
-export default [
+export default defineConfig([
   ...rootConfig,
   ...pluginSvelte.configs['flat/recommended'],
   {
@@ -13,4 +14,4 @@ export default [
       'svelte/valid-compile': 'off',
     },
   },
-]
+])

@@ -1,10 +1,11 @@
 // @ts-check
 
+import { defineConfig } from 'eslint/config'
 import pluginReact from '@eslint-react/eslint-plugin'
 import pluginReactHooks from 'eslint-plugin-react-hooks'
 import rootConfig from '../../eslint.config.js'
 
-export default [
+export default defineConfig([
   ...rootConfig,
   {
     files: ['**/*.{ts,tsx}'],
@@ -19,4 +20,4 @@ export default [
       'react-hooks/rules-of-hooks': 'error',
     },
   },
-]
+])
