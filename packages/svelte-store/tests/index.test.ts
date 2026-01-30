@@ -1,6 +1,7 @@
 import { describe, expect, it, test } from 'vitest'
 import { render, waitFor } from '@testing-library/svelte'
 import { userEvent } from '@testing-library/user-event'
+import { Temporal } from 'temporal-polyfill'
 import { shallow } from '../src/index.svelte.js'
 import TestBaseStore from './BaseStore.test.svelte'
 import TestRerender from './Render.test.svelte'
@@ -90,5 +91,15 @@ describe('shallow', () => {
     const objA = new Date('2025-02-10')
     const objB = new Date('2025-02-10')
     expect(shallow(objA, objB)).toBe(true)
+  })
+
+  test('should return false for empty object vs empty array', () => {
+    expect(shallow({}, [])).toBe(false)
+  })
+
+  test('should return false for temporal objects with different values', () => {
+    const objA = Temporal.PlainDate.from('2025-02-10')
+    const objB = Temporal.PlainDate.from('2025-02-11')
+    expect(shallow(objA, objB)).toBe(false)
   })
 })

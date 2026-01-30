@@ -4,6 +4,7 @@ import { defineComponent, h } from 'vue-demi'
 import { render, waitFor } from '@testing-library/vue'
 import { Store } from '@tanstack/store'
 import { userEvent } from '@testing-library/user-event'
+import { Temporal } from 'temporal-polyfill'
 import { shallow, useStore } from '../src/index'
 
 const user = userEvent.setup()
@@ -167,5 +168,15 @@ describe('shallow', () => {
     const objA = new Date('2025-02-10')
     const objB = new Date('2025-02-10')
     expect(shallow(objA, objB)).toBe(true)
+  })
+
+  test('should return false for empty object vs empty array', () => {
+    expect(shallow({}, [])).toBe(false)
+  })
+
+  test('should return false for temporal objects with different values', () => {
+    const objA = Temporal.PlainDate.from('2025-02-10')
+    const objB = Temporal.PlainDate.from('2025-02-11')
+    expect(shallow(objA, objB)).toBe(false)
   })
 })

@@ -95,6 +95,30 @@ function shallow<T>(objA: T, objB: T) {
     return false
   }
 
+  // Many "value objects" (e.g. Temporal) have no enumerable keys, which would
+  // otherwise make any two instances appear "shallow equal". Only treat
+  // keyless values as equal when both are plain objects or both are arrays.
+  if (keysA.length === 0) {
+    const aIsPlain = isPlainObject(objA)
+    const bIsPlain = isPlainObject(objB)
+    const aIsArray = Array.isArray(objA)
+    const bIsArray = Array.isArray(objB)
+
+    if ((aIsPlain && bIsPlain) || (aIsArray && bIsArray)) {
+      return true
+    }
+
+    if (hasEquals(objA) && hasEquals(objB)) {
+      try {
+        return objA.equals(objB)
+      } catch {
+        return false
+      }
+    }
+
+    return false
+  }
+
   for (let i = 0; i < keysA.length; i++) {
     if (
       !Object.prototype.hasOwnProperty.call(objB, keysA[i] as string) ||
@@ -104,4 +128,21 @@ function shallow<T>(objA: T, objB: T) {
     }
   }
   return true
+}
+
+function isPlainObject(value: unknown): value is object {
+  if (typeof value !== 'object' || value === null) return false
+  const proto = Object.getPrototypeOf(value)
+  return proto === Object.prototype || proto === null
+}
+
+function hasEquals<TValue>(
+  value: TValue,
+): value is TValue & { equals: (other: unknown) => boolean } {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'equals' in (value as object) &&
+    typeof (value as any).equals === 'function'
+  )
 }

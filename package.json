@@ -60,6 +60,7 @@
     "prettier-plugin-svelte": "^3.4.0",
     "publint": "^0.3.15",
     "sherif": "^1.9.0",
+    "temporal-polyfill": "^0.3.0",
     "tinyglobby": "^0.2.15",
     "typescript": "5.6.3",
     "typescript50": "npm:typescript@5.0",

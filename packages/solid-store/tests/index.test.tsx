@@ -1,7 +1,8 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, test } from 'vitest'
 import { render, renderHook } from '@solidjs/testing-library'
 import { Store } from '@tanstack/store'
-import { useStore } from '../src/index'
+import { Temporal } from 'temporal-polyfill'
+import { shallow, useStore } from '../src/index'
 
 describe('useStore', () => {
   it.todo('allows us to select state using a selector', () => {
@@ -51,5 +52,17 @@ describe('useStore', () => {
     store.setState(() => new Date('2025-03-29T21:06:40.401Z'))
 
     expect(result()).toStrictEqual(new Date('2025-03-29T21:06:40.401Z'))
+  })
+})
+
+describe('shallow', () => {
+  test('should return false for empty object vs empty array', () => {
+    expect(shallow({}, [])).toBe(false)
+  })
+
+  test('should return false for temporal objects with different values', () => {
+    const objA = Temporal.PlainDate.from('2025-02-10')
+    const objB = Temporal.PlainDate.from('2025-02-11')
+    expect(shallow(objA, objB)).toBe(false)
   })
 })
