@@ -11,11 +11,11 @@
   },
   "dependencies": {
     "@angular/animations": "^19.2.15",
-    "@angular/common": "^19.2.15",
-    "@angular/compiler": "^19.2.15",
-    "@angular/core": "^19.2.15",
-    "@angular/platform-browser": "^19.2.15",
-    "@angular/platform-browser-dynamic": "^19.2.15",
+    "@angular/common": "^21.1.2",
+    "@angular/compiler": "^21.1.2",
+    "@angular/core": "^21.1.2",
+    "@angular/platform-browser": "^21.1.2",
+    "@angular/platform-browser-dynamic": "^21.1.2",
     "@angular/router": "^19.2.15",
     "@tanstack/angular-store": "^0.8.0",
     "rxjs": "^7.8.2",
@@ -25,7 +25,7 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "^19.2.17",
     "@angular/cli": "^19.2.17",
-    "@angular/compiler-cli": "^19.2.15",
+    "@angular/compiler-cli": "^21.1.2",
     "typescript": "5.9.3"
   }
 }
