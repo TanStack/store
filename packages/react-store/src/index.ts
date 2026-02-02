@@ -89,7 +89,25 @@ export function shallow<T>(objA: T, objB: T) {
       return true
     }
 
-    if (hasEquals(objA) && hasEquals(objB)) {
+    /**
+     * Temporal branding note:
+     * Temporal types (native or polyfill) define `Symbol.toStringTag` values like
+     * `"Temporal.PlainDate"` as part of the TC39 Temporal spec, which makes this
+     * check reliable across realms/polyfills (unlike `instanceof`).
+     *
+     * See:
+     * - https://tc39.es/proposal-temporal/
+     * - https://tc39.es/proposal-temporal/docs/plaindate.html
+     */
+    const tagA = getToStringTag(objA)
+    const tagB = getToStringTag(objB)
+    const isTemporal =
+      tagA !== undefined &&
+      tagB !== undefined &&
+      tagA === tagB &&
+      tagA.startsWith('Temporal.')
+
+    if (isTemporal && hasEquals(objA) && hasEquals(objB)) {
       try {
         return objA.equals(objB)
       } catch {
@@ -100,10 +118,10 @@ export function shallow<T>(objA: T, objB: T) {
     return false
   }
 
-  for (let i = 0; i < keysA.length; i++) {
+  for (const key of keysA) {
     if (
-      !Object.prototype.hasOwnProperty.call(objB, keysA[i] as string) ||
-      !Object.is(objA[keysA[i] as keyof T], objB[keysA[i] as keyof T])
+      !Object.prototype.hasOwnProperty.call(objB, key) ||
+      !Object.is(objA[key as keyof T], objB[key as keyof T])
     ) {
       return false
     }
@@ -126,6 +144,12 @@ function hasEquals<TValue>(
     'equals' in (value as object) &&
     typeof (value as any).equals === 'function'
   )
+}
+
+function getToStringTag(value: unknown): string | undefined {
+  if (typeof value !== 'object' || value === null) return undefined
+  const tag = (value as any)[Symbol.toStringTag]
+  return typeof tag === 'string' ? tag : undefined
 }
 
 function getOwnKeys(obj: object): Array<string | symbol> {

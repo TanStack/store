@@ -3,6 +3,7 @@ import { render, waitFor } from '@testing-library/react'
 import { Derived, Store } from '@tanstack/store'
 import { useState } from 'react'
 import { userEvent } from '@testing-library/user-event'
+import { Temporal as JsTemporal } from '@js-temporal/polyfill'
 import { Temporal } from 'temporal-polyfill'
 import { shallow, useStore } from '../src/index'
 
@@ -312,5 +313,11 @@ describe('shallow', () => {
     const objA = Temporal.PlainDate.from('2025-02-10')
     const objB = Temporal.PlainDate.from('2025-02-11')
     expect(shallow(objA, objB)).toBe(false)
+  })
+
+  test('supports Temporal from @js-temporal/polyfill', () => {
+    const objA = JsTemporal.PlainDate.from('2025-02-10')
+    const objB = JsTemporal.PlainDate.from('2025-02-10')
+    expect(shallow(objA, objB)).toBe(true)
   })
 })
