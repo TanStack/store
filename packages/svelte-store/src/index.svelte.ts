@@ -83,50 +83,34 @@ export function shallow<T>(objA: T, objB: T) {
     return true
   }
 
-  const keysA = Object.keys(objA)
-  if (keysA.length !== Object.keys(objB).length) {
-    return false
+  /**
+   * Temporal branding note:
+   * Temporal types (native or polyfill) define `Symbol.toStringTag` values like
+   * `"Temporal.PlainDate"` as part of the TC39 Temporal spec, which makes this
+   * check reliable across realms/polyfills (unlike `instanceof`).
+   *
+   * See:
+   * - https://tc39.es/proposal-temporal/
+   * - https://tc39.es/proposal-temporal/docs/plaindate.html
+   */
+  const tagA = getToStringTag(objA)
+  const tagB = getToStringTag(objB)
+  const isTemporal =
+    tagA !== undefined &&
+    tagB !== undefined &&
+    tagA === tagB &&
+    tagA.startsWith('Temporal.')
+
+  if (isTemporal && hasEquals(objA) && hasEquals(objB)) {
+    try {
+      return objA.equals(objB)
+    } catch {
+      return false
+    }
   }
 
-  // Many "value objects" (e.g. Temporal) have no enumerable keys, which would
-  // otherwise make any two instances appear "shallow equal". Only treat
-  // keyless values as equal when both are plain objects or both are arrays.
-  if (keysA.length === 0) {
-    const aIsPlain = isPlainObject(objA)
-    const bIsPlain = isPlainObject(objB)
-    const aIsArray = Array.isArray(objA)
-    const bIsArray = Array.isArray(objB)
-
-    if ((aIsPlain && bIsPlain) || (aIsArray && bIsArray)) {
-      return true
-    }
-
-    /**
-     * Temporal branding note:
-     * Temporal types (native or polyfill) define `Symbol.toStringTag` values like
-     * `"Temporal.PlainDate"` as part of the TC39 Temporal spec, which makes this
-     * check reliable across realms/polyfills (unlike `instanceof`).
-     *
-     * See:
-     * - https://tc39.es/proposal-temporal/
-     * - https://tc39.es/proposal-temporal/docs/plaindate.html
-     */
-    const tagA = getToStringTag(objA)
-    const tagB = getToStringTag(objB)
-    const isTemporal =
-      tagA !== undefined &&
-      tagB !== undefined &&
-      tagA === tagB &&
-      tagA.startsWith('Temporal.')
-
-    if (isTemporal && hasEquals(objA) && hasEquals(objB)) {
-      try {
-        return objA.equals(objB)
-      } catch {
-        return false
-      }
-    }
-
+  const keysA = Object.keys(objA)
+  if (keysA.length !== Object.keys(objB).length) {
     return false
   }
 
@@ -139,12 +123,6 @@ export function shallow<T>(objA: T, objB: T) {
     }
   }
   return true
-}
-
-function isPlainObject(value: unknown): value is object {
-  if (typeof value !== 'object' || value === null) return false
-  const proto = Object.getPrototypeOf(value)
-  return proto === Object.prototype || proto === null
 }
 
 function hasEquals<TValue>(

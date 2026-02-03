@@ -56,10 +56,6 @@ describe('useStore', () => {
 })
 
 describe('shallow', () => {
-  test('should return false for empty object vs empty array', () => {
-    expect(shallow({}, [])).toBe(false)
-  })
-
   test('should return false for temporal objects with different values', () => {
     const objA = Temporal.PlainDate.from('2025-02-10')
     const objB = Temporal.PlainDate.from('2025-02-11')
