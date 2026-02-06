@@ -14,7 +14,7 @@ function injectStore<TState, TSelected>(
 options?): Signal<TSelected>;
 ```
 
-Defined in: [index.ts:21](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L21)
+Defined in: [index.ts:16](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L16)
 
 ### Type Parameters
 
@@ -53,7 +53,7 @@ function injectStore<TState, TSelected>(
 options?): Signal<TSelected>;
 ```
 
-Defined in: [index.ts:26](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L26)
+Defined in: [index.ts:21](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L21)
 
 ### Type Parameters
 
