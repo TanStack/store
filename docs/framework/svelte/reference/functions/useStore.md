@@ -12,7 +12,7 @@ function useStore<TState, TSelected>(
    options): object;
 ```
 
-Defined in: [index.svelte.ts:14](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/index.svelte.ts#L14)
+Defined in: [index.svelte.ts:10](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/index.svelte.ts#L10)
 
 ## Type Parameters
 

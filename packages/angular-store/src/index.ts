@@ -28,7 +28,8 @@ export function injectStore<
   TSelected = NoInfer<TState>,
 >(
   store: Atom<TState> | ReadonlyAtom<TState>,
-  selector: (state: NoInfer<TState>) => TSelected = (d) => d as unknown as TSelected,
+  selector: (state: NoInfer<TState>) => TSelected = (d) =>
+    d as unknown as TSelected,
   options: CreateSignalOptions<TSelected> & { injector?: Injector } = {
     equal: shallow,
   },

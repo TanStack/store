@@ -12,7 +12,7 @@ function useStore<TState, TSelected>(
 options): Accessor<TSelected>;
 ```
 
-Defined in: [index.tsx:16](https://github.com/TanStack/store/blob/main/packages/solid-store/src/index.tsx#L16)
+Defined in: [index.tsx:12](https://github.com/TanStack/store/blob/main/packages/solid-store/src/index.tsx#L12)
 
 ## Type Parameters
 

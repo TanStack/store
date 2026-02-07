@@ -1,6 +1,6 @@
 // @ts-check
 
-import {defineConfig} from 'eslint/config'
+import { defineConfig } from 'eslint/config'
 import pluginSvelte from 'eslint-plugin-svelte'
 import rootConfig from '../../eslint.config.js'
 
