@@ -91,6 +91,8 @@
     }
   },
   "sherif": {
-    "ignorePackage": ["./examples/*"]
+    "ignorePackage": [
+      "./examples/*"
+    ]
   }
 }
