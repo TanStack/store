@@ -48,7 +48,7 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/user-event": "^14.6.1",
     "@types/node": "^25.2.1",
-    "@vitest/coverage-istanbul": "^3.2.4",
+    "@vitest/coverage-istanbul": "^4.0.18",
     "eslint": "^9.37.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "jsdom": "^25.0.1",
@@ -81,6 +81,13 @@
   "pnpm": {
     "overrides": {
       "@types/node": "25.2.1"
+    },
+    "packageExtensions": {
+      "@vue/composition-api": {
+        "peerDependencies": {
+          "vue": ">= 2.5"
+        }
+      }
     }
   }
 }
