@@ -89,5 +89,8 @@
         }
       }
     }
+  },
+  "sherif": {
+    "ignorePackage": ["./examples/*"]
   }
 }

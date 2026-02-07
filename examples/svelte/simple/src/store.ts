@@ -1,13 +1,13 @@
-import { createAtom } from '@tanstack/svelte-store'
+import { Store } from '@tanstack/svelte-store'
 
 // You can instantiate a Store outside of Svelte files too!
-export const store = createAtom({
+export const store = new Store({
   dogs: 0,
   cats: 0,
 })
 
 export function updateState(animal: 'cats' | 'dogs') {
-  store.set((state) => {
+  store.setState((state) => {
     return {
       ...state,
       [animal]: state[animal] + 1,
