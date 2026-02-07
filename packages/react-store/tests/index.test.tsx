@@ -1,6 +1,5 @@
 import { describe, expect, it, test, vi } from 'vitest'
 import { render, waitFor } from '@testing-library/react'
-import { useState } from 'react'
 import { userEvent } from '@testing-library/user-event'
 import { createStore } from '@tanstack/store'
 import { shallow, useSelector } from '../src/index'
@@ -31,15 +30,16 @@ describe('useStore', () => {
       ignored: 1,
     })
 
+    // Spy must be created outside the component so we get one mock instance whose
+    // .mock.calls we can read. useState(vi.fn) would store the factory, not a mock.
+    const renderSpy = vi.fn()
     function Comp() {
-      // const storeVal = useStore(store, (state) => state.select)
       const storeVal = useSelector(store, (s) => s.select)
-      const [fn] = useState(vi.fn)
-      fn()
+      renderSpy()
 
       return (
         <div>
-          <p>Number rendered: {fn.mock.calls.length}</p>
+          <p>Number rendered: {renderSpy.mock.calls.length}</p>
           <p>Store: {storeVal}</p>
           <button
             type="button"
@@ -92,15 +92,14 @@ describe('useStore', () => {
       return JSON.stringify(objA) === JSON.stringify(objB)
     }
 
+    const renderSpy = vi.fn()
     function Comp() {
-      // const storeVal = useStore(
       const storeVal = useSelector(
         store,
         (s) => s.array.map(({ ignore, ...rest }) => rest),
         deepEqual,
       )
-      const [fn] = useState(vi.fn)
-      fn()
+      renderSpy()
 
       const value = storeVal
         .map((item) => item.select)
@@ -108,7 +107,7 @@ describe('useStore', () => {
 
       return (
         <div>
-          <p>Number rendered: {fn.mock.calls.length}</p>
+          <p>Number rendered: {renderSpy.mock.calls.length}</p>
           <p>Store: {value}</p>
           <button
             type="button"

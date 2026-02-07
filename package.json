@@ -77,5 +77,10 @@
     "@tanstack/store": "workspace:*",
     "@tanstack/svelte-store": "workspace:*",
     "@tanstack/vue-store": "workspace:*"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/node": "25.2.1"
+    }
   }
 }
