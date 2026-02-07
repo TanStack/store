@@ -5,7 +5,7 @@ title: ReadonlyAtom
 
 # Interface: ReadonlyAtom\<T\>
 
-Defined in: [types.ts:68](https://github.com/TanStack/store/blob/main/packages/store/src/types.ts#L68)
+Defined in: [types.ts:67](https://github.com/TanStack/store/blob/main/packages/store/src/types.ts#L67)
 
 An atom that is read-only and cannot be set.
 
