@@ -51,8 +51,7 @@ export interface AtomOptions<T> {
 export type AnyAtom = BaseAtom<any>
 
 export interface InternalReadonlyAtom<T>
-  extends InternalBaseAtom<T>,
-    ReactiveNode {}
+  extends InternalBaseAtom<T>, ReactiveNode {}
 
 /**
  * An atom that is read-only and cannot be set.
