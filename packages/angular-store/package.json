@@ -30,14 +30,14 @@
     "build": "ng-packagr -p ng-package.json -c tsconfig.build.json && premove ./dist/package.json"
   },
   "type": "module",
-  "types": "dist/index.d.ts",
+  "types": "dist/types/tanstack-angular-store.d.ts",
   "module": "dist/fesm2022/tanstack-angular-store.mjs",
   "exports": {
     "./package.json": {
       "default": "./package.json"
     },
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./dist/types/tanstack-angular-store.d.ts",
       "default": "./dist/fesm2022/tanstack-angular-store.mjs"
     }
   },
