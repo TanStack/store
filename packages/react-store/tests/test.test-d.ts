@@ -1,5 +1,5 @@
 import { expectTypeOf, test } from 'vitest'
-import { createStore, useSelector } from '../src'
+import { createStore, useStore } from '../src'
 
 test('useStore works with derived state', () => {
   const store = createStore(12)
@@ -7,7 +7,7 @@ test('useStore works with derived state', () => {
     return { val: store.state * 2 }
   })
 
-  const val = useSelector(derived, (state) => {
+  const val = useStore(derived, (state) => {
     expectTypeOf(state).toMatchObjectType<{ val: number }>()
     return state.val
   })

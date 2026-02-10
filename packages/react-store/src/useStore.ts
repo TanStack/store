@@ -10,7 +10,7 @@ function defaultCompare<T>(a: T, b: T) {
   return a === b
 }
 
-export function useSelector<TAtom extends AnyAtom | undefined, T>(
+export function useStore<TAtom extends AnyAtom | undefined, T>(
   atom: TAtom,
   selector: (
     snapshot: TAtom extends { get: () => infer TSnapshot }

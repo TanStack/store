@@ -2,7 +2,7 @@ import { describe, expect, it, test, vi } from 'vitest'
 import { render, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { createStore } from '@tanstack/store'
-import { shallow, useSelector } from '../src/index'
+import { shallow, useStore } from '../src/index'
 
 const user = userEvent.setup()
 
@@ -33,7 +33,7 @@ describe('useStore', () => {
     // .mock.calls we can read. useState(vi.fn) would store the factory, not a mock.
     const renderSpy = vi.fn()
     function Comp() {
-      const storeVal = useSelector(store, (s) => s.select)
+      const storeVal = useStore(store, (s) => s.select)
       renderSpy()
 
       return (
@@ -93,7 +93,7 @@ describe('useStore', () => {
 
     const renderSpy = vi.fn()
     function Comp() {
-      const storeVal = useSelector(
+      const storeVal = useStore(
         store,
         (s) => s.array.map(({ ignore, ...rest }) => rest),
         deepEqual,
@@ -156,7 +156,7 @@ describe('useStore', () => {
     const derived = createStore(() => ({ val: store.state * 2 }))
 
     function Comp() {
-      const derivedVal = useSelector(derived, (s) => s.val)
+      const derivedVal = useStore(derived, (s) => s.val)
 
       return (
         <div>

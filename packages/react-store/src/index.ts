@@ -1,6 +1,6 @@
 export * from '@tanstack/store'
 
-export { useSelector } from './useSelector'
+export { useStore } from './useStore'
 
 export function shallow<T>(objA: T, objB: T) {
   if (Object.is(objA, objB)) {
