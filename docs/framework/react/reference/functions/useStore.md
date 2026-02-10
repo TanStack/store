@@ -1,18 +1,18 @@
 ---
-id: useSelector
-title: useSelector
+id: useStore
+title: useStore
 ---
 
-# Function: useSelector()
+# Function: useStore()
 
 ```ts
-function useSelector<TAtom, T>(
+function useStore<TAtom, T>(
    atom, 
    selector, 
    compare): T;
 ```
 
-Defined in: [useSelector.ts:13](https://github.com/TanStack/store/blob/main/packages/react-store/src/useSelector.ts#L13)
+Defined in: [useStore.ts:13](https://github.com/TanStack/store/blob/main/packages/react-store/src/useStore.ts#L13)
 
 ## Type Parameters
 

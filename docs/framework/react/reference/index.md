@@ -8,4 +8,4 @@ title: "@tanstack/react-store"
 ## Functions
 
 - [shallow](functions/shallow.md)
-- [useSelector](functions/useSelector.md)
+- [useStore](functions/useStore.md)
