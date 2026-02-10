@@ -14,8 +14,7 @@ describe('useStore', () => {
     })
 
     function Comp() {
-      // const storeVal = useStore(store, (state) => state.select)
-      const storeVal = useSelector(store, (s) => s.select)
+      const storeVal = useStore(store, (state) => state.select)
 
       return <p>Store: {storeVal}</p>
     }
