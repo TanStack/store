@@ -1,6 +1,6 @@
 {
   "name": "@tanstack/store",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Framework agnostic type-safe store w/ reactive framework adapters",
   "author": "Tanner Linsley",
   "license": "MIT",
