@@ -105,7 +105,6 @@ export class Derived<
   registerOnGraph(
     deps: ReadonlyArray<Derived<any> | Store<any>> = this.options.deps,
   ) {
-    const toSort = new Set<Array<Derived<unknown>>>()
     for (const dep of deps) {
       if (dep instanceof Derived) {
         // First register the intermediate derived value if it's not already registered
@@ -116,12 +115,10 @@ export class Derived<
         // Register the derived as related derived to the store
         let relatedLinkedDerivedVals = __storeToDerived.get(dep)
         if (!relatedLinkedDerivedVals) {
-          relatedLinkedDerivedVals = [this as never]
+          relatedLinkedDerivedVals = new Set()
           __storeToDerived.set(dep, relatedLinkedDerivedVals)
-        } else if (!relatedLinkedDerivedVals.includes(this as never)) {
-          relatedLinkedDerivedVals.push(this as never)
-          toSort.add(relatedLinkedDerivedVals)
         }
+        relatedLinkedDerivedVals.add(this as never)
 
         // Register the store as a related store to this derived
         let relatedStores = __derivedToStore.get(this as never)
@@ -131,16 +128,6 @@ export class Derived<
         }
         relatedStores.add(dep)
       }
-    }
-    for (const arr of toSort) {
-      // First sort deriveds by dependency order
-      arr.sort((a, b) => {
-        // If a depends on b, b should go first
-        if (a instanceof Derived && a.options.deps.includes(b)) return 1
-        // If b depends on a, a should go first
-        if (b instanceof Derived && b.options.deps.includes(a)) return -1
-        return 0
-      })
     }
   }
 
@@ -153,10 +140,7 @@ export class Derived<
       } else if (dep instanceof Store) {
         const relatedLinkedDerivedVals = __storeToDerived.get(dep)
         if (relatedLinkedDerivedVals) {
-          relatedLinkedDerivedVals.splice(
-            relatedLinkedDerivedVals.indexOf(this as never),
-            1,
-          )
+          relatedLinkedDerivedVals.delete(this as never)
         }
 
         const relatedStores = __derivedToStore.get(this as never)

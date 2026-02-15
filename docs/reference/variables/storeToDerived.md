@@ -6,7 +6,7 @@ title: __storeToDerived
 # Variable: \_\_storeToDerived
 
 ```ts
-const __storeToDerived: WeakMap<Store<unknown, (cb) => unknown>, Derived<unknown, readonly any[]>[]>;
+const __storeToDerived: WeakMap<Store<unknown, (cb) => unknown>, Set<Derived<unknown, readonly any[]>>>;
 ```
 
 Defined in: [scheduler.ts:19](https://github.com/TanStack/store/blob/main/packages/store/src/scheduler.ts#L19)
