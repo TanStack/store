@@ -2,7 +2,7 @@ import { describe, expect, it, test, vi } from 'vitest'
 // @ts-expect-error We need to import `h` as it's part of Vue's JSX transform
 import { defineComponent, h } from 'vue-demi'
 import { render, waitFor } from '@testing-library/vue'
-import { Store } from '@tanstack/store'
+import { createStore } from '@tanstack/store'
 import { userEvent } from '@testing-library/user-event'
 import { shallow, useStore } from '../src/index'
 
@@ -10,7 +10,7 @@ const user = userEvent.setup()
 
 describe('useStore', () => {
   it('allows us to select state using a selector', () => {
-    const store = new Store({
+    const store = createStore({
       select: 0,
       ignored: 1,
     })
@@ -26,7 +26,7 @@ describe('useStore', () => {
   })
 
   it('only triggers a re-render when selector state is updated', async () => {
-    const store = new Store({
+    const store = createStore({
       select: 0,
       ignored: 1,
     })
@@ -155,5 +155,17 @@ describe('shallow', () => {
     const objA = new Set([1])
     const objB = new Set([2])
     expect(shallow(objA, objB)).toBe(false)
+  })
+
+  test('should return false for dates with different values', () => {
+    const objA = new Date('2025-04-10T14:48:00')
+    const objB = new Date('2025-04-10T14:58:00')
+    expect(shallow(objA, objB)).toBe(false)
+  })
+
+  test('should return true for equal dates', () => {
+    const objA = new Date('2025-02-10')
+    const objB = new Date('2025-02-10')
+    expect(shallow(objA, objB)).toBe(true)
   })
 })

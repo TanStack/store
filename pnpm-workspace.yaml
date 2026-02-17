@@ -1,3 +1,11 @@
+cleanupUnusedCatalogs: true
+linkWorkspacePackages: true
+preferWorkspacePackages: true
+
+peerDependencyRules:
+  allowedVersions:
+    '@vue/composition-api>vue': '>= 2.5'
+
 packages:
   - 'packages/**'
   - 'examples/angular/**'
@@ -5,3 +13,4 @@ packages:
   - 'examples/solid/**'
   - 'examples/vue/**'
   - 'examples/svelte/**'
+  - 'examples/preact/**'

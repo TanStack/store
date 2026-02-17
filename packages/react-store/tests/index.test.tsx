@@ -1,15 +1,14 @@
 import { describe, expect, it, test, vi } from 'vitest'
 import { render, waitFor } from '@testing-library/react'
-import { Derived, Store } from '@tanstack/store'
-import { useState } from 'react'
 import { userEvent } from '@testing-library/user-event'
+import { createStore } from '@tanstack/store'
 import { shallow, useStore } from '../src/index'
 
 const user = userEvent.setup()
 
 describe('useStore', () => {
   it('allows us to select state using a selector', () => {
-    const store = new Store({
+    const store = createStore({
       select: 0,
       ignored: 1,
     })
@@ -25,19 +24,21 @@ describe('useStore', () => {
   })
 
   it('only triggers a re-render when selector state is updated', async () => {
-    const store = new Store({
+    const store = createStore({
       select: 0,
       ignored: 1,
     })
 
+    // Spy must be created outside the component so we get one mock instance whose
+    // .mock.calls we can read. useState(vi.fn) would store the factory, not a mock.
+    const renderSpy = vi.fn()
     function Comp() {
-      const storeVal = useStore(store, (state) => state.select)
-      const [fn] = useState(vi.fn)
-      fn()
+      const storeVal = useStore(store, (s) => s.select)
+      renderSpy()
 
       return (
         <div>
-          <p>Number rendered: {fn.mock.calls.length}</p>
+          <p>Number rendered: {renderSpy.mock.calls.length}</p>
           <p>Store: {storeVal}</p>
           <button
             type="button"
@@ -78,20 +79,84 @@ describe('useStore', () => {
     expect(getByText('Number rendered: 2')).toBeInTheDocument()
   })
 
-  it('works with mounted derived stores', async () => {
-    const store = new Store(0)
-
-    const derived = new Derived({
-      deps: [store],
-      fn: () => {
-        return { val: store.state * 2 }
-      },
+  it('allow specifying custom equality function', async () => {
+    const store = createStore({
+      array: [
+        { select: 0, ignore: 1 },
+        { select: 0, ignore: 1 },
+      ],
     })
 
-    derived.mount()
+    function deepEqual<T>(objA: T, objB: T) {
+      return JSON.stringify(objA) === JSON.stringify(objB)
+    }
+
+    const renderSpy = vi.fn()
+    function Comp() {
+      const storeVal = useStore(
+        store,
+        (s) => s.array.map(({ ignore, ...rest }) => rest),
+        deepEqual,
+      )
+      renderSpy()
+
+      const value = storeVal
+        .map((item) => item.select)
+        .reduce((total, num) => total + num, 0)
+
+      return (
+        <div>
+          <p>Number rendered: {renderSpy.mock.calls.length}</p>
+          <p>Store: {value}</p>
+          <button
+            type="button"
+            onClick={() =>
+              store.setState((v) => ({
+                array: v.array.map((item) => ({
+                  ...item,
+                  select: item.select + 5,
+                })),
+              }))
+            }
+          >
+            Update select
+          </button>
+          <button
+            type="button"
+            onClick={() =>
+              store.setState((v) => ({
+                array: v.array.map((item) => ({
+                  ...item,
+                  ignore: item.ignore + 2,
+                })),
+              }))
+            }
+          >
+            Update ignored
+          </button>
+        </div>
+      )
+    }
+
+    const { getByText } = render(<Comp />)
+    expect(getByText('Store: 0')).toBeInTheDocument()
+    expect(getByText('Number rendered: 1')).toBeInTheDocument()
+
+    await user.click(getByText('Update select'))
+
+    await waitFor(() => expect(getByText('Store: 10')).toBeInTheDocument())
+    expect(getByText('Number rendered: 2')).toBeInTheDocument()
+
+    await user.click(getByText('Update ignored'))
+    expect(getByText('Number rendered: 2')).toBeInTheDocument()
+  })
+
+  it('works with mounted derived stores', async () => {
+    const store = createStore(0)
+    const derived = createStore(() => ({ val: store.state * 2 }))
 
     function Comp() {
-      const derivedVal = useStore(derived, (state) => state.val)
+      const derivedVal = useStore(derived, (s) => s.val)
 
       return (
         <div>
@@ -164,6 +229,37 @@ describe('shallow', () => {
     expect(shallow(objA, objB)).toBe(false)
   })
 
+  test('should return true for shallow equal objects with symbol keys', () => {
+    const sym = Symbol.for('key')
+    const objA = { [sym]: 1 }
+    const objB = { [sym]: 1 }
+    expect(shallow(objA, objB)).toBe(true)
+  })
+
+  test('should return false for shallow different values for symbol keys', () => {
+    const sym = Symbol.for('key')
+    const objA = { [sym]: 1 }
+    const objB = { [sym]: 2 }
+    expect(shallow(objA, objB)).toBe(false)
+  })
+
+  test('should return true for non-enumerable keys', () => {
+    const objA = {}
+    const objB = {}
+
+    Object.defineProperty(objA, 'a', {
+      enumerable: false,
+      value: 1,
+    })
+
+    Object.defineProperty(objB, 'a', {
+      enumerable: false,
+      value: 2,
+    })
+
+    expect(shallow(objA, objB)).toBe(true)
+  })
+
   test('should return true for shallowly equal maps', () => {
     const objA = new Map([['1', 'hello']])
     const objB = new Map([['1', 'hello']])
@@ -186,5 +282,17 @@ describe('shallow', () => {
     const objA = new Set([1])
     const objB = new Set([2])
     expect(shallow(objA, objB)).toBe(false)
+  })
+
+  test('should return false for dates with different values', () => {
+    const objA = new Date('2025-04-10T14:48:00')
+    const objB = new Date('2025-04-10T14:58:00')
+    expect(shallow(objA, objB)).toBe(false)
+  })
+
+  test('should return true for equal dates', () => {
+    const objA = new Date('2025-02-10')
+    const objB = new Date('2025-02-10')
+    expect(shallow(objA, objB)).toBe(true)
   })
 })

@@ -2,12 +2,12 @@ import { describe, expect, test } from 'vitest'
 import { Component, effect } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
-import { Store } from '@tanstack/store'
+import { createStore } from '@tanstack/store'
 import { injectStore } from '../src/index'
 
 describe('injectStore', () => {
   test(`allows us to select state using a selector`, () => {
-    const store = new Store({ select: 0, ignored: 1 })
+    const store = createStore({ select: 0, ignored: 1 })
 
     @Component({
       template: `<p>Store: {{ storeVal() }}</p>`,
@@ -25,7 +25,7 @@ describe('injectStore', () => {
   })
 
   test('only triggers a re-render when selector state is updated', () => {
-    const store = new Store({ select: 0, ignored: 1 })
+    const store = createStore({ select: 0, ignored: 1 })
     let count = 0
 
     @Component({
@@ -91,5 +91,55 @@ describe('injectStore', () => {
     fixture.detectChanges()
     expect(element.textContent).toContain('Store: 10')
     expect(count).toEqual(2)
+  })
+})
+
+describe('dataType', () => {
+  test('date change trigger re-render', () => {
+    const store = createStore({ date: new Date('2025-03-29T21:06:30.401Z') })
+
+    @Component({
+      template: `
+        <div>
+          <p id="displayStoreVal">{{ storeVal() }}</p>
+          <button id="updateDate" (click)="updateDate()">Update date</button>
+        </div>
+      `,
+      standalone: true,
+    })
+    class MyCmp {
+      storeVal = injectStore(store, (state) => state.date)
+
+      constructor() {
+        effect(() => {
+          console.log(this.storeVal())
+        })
+      }
+
+      updateDate() {
+        store.setState((v) => ({
+          ...v,
+          date: new Date('2025-03-29T21:06:40.401Z'),
+        }))
+      }
+    }
+
+    const fixture = TestBed.createComponent(MyCmp)
+    fixture.detectChanges()
+
+    const debugElement = fixture.debugElement
+
+    expect(
+      debugElement.query(By.css('p#displayStoreVal')).nativeElement.textContent,
+    ).toContain(new Date('2025-03-29T21:06:30.401Z'))
+
+    debugElement
+      .query(By.css('button#updateDate'))
+      .triggerEventHandler('click', null)
+
+    fixture.detectChanges()
+    expect(
+      debugElement.query(By.css('p#displayStoreVal')).nativeElement.textContent,
+    ).toContain(new Date('2025-03-29T21:06:40.401Z'))
   })
 })

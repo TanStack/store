@@ -1,34 +1,28 @@
-import type { Derived, Store } from '@tanstack/store'
+import type { Atom, ReadonlyAtom } from '@tanstack/store'
 
 export * from '@tanstack/store'
 
-/**
- * @private
- */
-export type NoInfer<T> = [T][T extends any ? 0 : never]
+type EqualityFn<T> = (objA: T, objB: T) => boolean
+interface UseStoreOptions<T> {
+  equal?: EqualityFn<T>
+}
 
 export function useStore<TState, TSelected = NoInfer<TState>>(
-  store: Store<TState, any>,
-  selector?: (state: NoInfer<TState>) => TSelected,
-): { readonly current: TSelected }
-export function useStore<TState, TSelected = NoInfer<TState>>(
-  store: Derived<TState, any>,
-  selector?: (state: NoInfer<TState>) => TSelected,
-): { readonly current: TSelected }
-export function useStore<TState, TSelected = NoInfer<TState>>(
-  store: Store<TState, any> | Derived<TState, any>,
+  store: Atom<TState> | ReadonlyAtom<TState>,
   selector: (state: NoInfer<TState>) => TSelected = (d) => d as any,
+  options: UseStoreOptions<TSelected> = {},
 ): { readonly current: TSelected } {
-  let slice = $state(selector(store.state))
+  const equal = options.equal ?? shallow
+  let slice = $state(selector(store.get()))
 
   $effect(() => {
-    const unsub = store.subscribe(() => {
-      const data = selector(store.state)
-      if (shallow(slice, data)) {
+    const unsub = store.subscribe((s) => {
+      const data = selector(s)
+      if (equal(slice, data)) {
         return
       }
       slice = data
-    })
+    }).unsubscribe
 
     return unsub
   })
@@ -67,6 +61,11 @@ export function shallow<T>(objA: T, objB: T) {
     for (const v of objA) {
       if (!objB.has(v)) return false
     }
+    return true
+  }
+
+  if (objA instanceof Date && objB instanceof Date) {
+    if (objA.getTime() !== objB.getTime()) return false
     return true
   }
 

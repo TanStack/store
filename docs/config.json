@@ -67,6 +67,15 @@
               "to": "framework/svelte/quick-start"
             }
           ]
+        },
+        {
+          "label": "preact",
+          "children": [
+            {
+              "label": "Quick Start",
+              "to": "framework/preact/quick-start"
+            }
+          ]
         }
       ]
     },
@@ -108,7 +117,7 @@
             },
             {
               "label": "Functions / useStore",
-              "to": "framework/react/reference/functions/usestore"
+              "to": "framework/react/reference/functions/useStore"
             },
             {
               "label": "Functions / shallow",
@@ -125,7 +134,7 @@
             },
             {
               "label": "Functions / useStore",
-              "to": "framework/vue/reference/functions/usestore"
+              "to": "framework/vue/reference/functions/useStore"
             },
             {
               "label": "Functions / shallow",
@@ -142,7 +151,7 @@
             },
             {
               "label": "Functions / useStore",
-              "to": "framework/solid/reference/functions/usestore"
+              "to": "framework/solid/reference/functions/useStore"
             }
           ]
         },
@@ -155,7 +164,7 @@
             },
             {
               "label": "Functions / injectStore",
-              "to": "framework/angular/reference/functions/functionsinjectStore"
+              "to": "framework/angular/reference/functions/injectStore"
             }
           ]
         },
@@ -168,11 +177,28 @@
             },
             {
               "label": "Functions / useStore",
-              "to": "framework/svelte/reference/functions/usestore"
+              "to": "framework/svelte/reference/functions/useStore"
             },
             {
               "label": "Functions / shallow",
               "to": "framework/svelte/reference/functions/shallow"
+            }
+          ]
+        },
+        {
+          "label": "preact",
+          "children": [
+            {
+              "label": "Preact Reference",
+              "to": "framework/preact/reference/index"
+            },
+            {
+              "label": "Functions / useStore",
+              "to": "framework/preact/reference/functions/useStore"
+            },
+            {
+              "label": "Functions / shallow",
+              "to": "framework/preact/reference/functions/shallow"
             }
           ]
         }
@@ -224,6 +250,15 @@
             {
               "label": "Simple",
               "to": "framework/solid/examples/simple"
+            }
+          ]
+        },
+        {
+          "label": "preact",
+          "children": [
+            {
+              "label": "Simple",
+              "to": "framework/preact/examples/simple"
             }
           ]
         }

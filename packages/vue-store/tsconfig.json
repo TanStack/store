@@ -3,7 +3,6 @@
   "compilerOptions": {
     "jsx": "preserve",
     "jsxImportSource": "vue",
-    "moduleResolution": "Bundler",
     "types": ["vue/jsx"],
     "paths": {
       "@tanstack/store": ["../store/src"]

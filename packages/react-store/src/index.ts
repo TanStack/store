@@ -1,35 +1,6 @@
-import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/with-selector.js'
-import type { Derived, Store } from '@tanstack/store'
-
 export * from '@tanstack/store'
 
-/**
- * @private
- */
-export type NoInfer<T> = [T][T extends any ? 0 : never]
-
-export function useStore<TState, TSelected = NoInfer<TState>>(
-  store: Store<TState, any>,
-  selector?: (state: NoInfer<TState>) => TSelected,
-): TSelected
-export function useStore<TState, TSelected = NoInfer<TState>>(
-  store: Derived<TState, any>,
-  selector?: (state: NoInfer<TState>) => TSelected,
-): TSelected
-export function useStore<TState, TSelected = NoInfer<TState>>(
-  store: Store<TState, any> | Derived<TState, any>,
-  selector: (state: NoInfer<TState>) => TSelected = (d) => d as any,
-): TSelected {
-  const slice = useSyncExternalStoreWithSelector(
-    store.subscribe,
-    () => store.state,
-    () => store.state,
-    selector,
-    shallow,
-  )
-
-  return slice
-}
+export { useStore } from './useStore'
 
 export function shallow<T>(objA: T, objB: T) {
   if (Object.is(objA, objB)) {
@@ -61,11 +32,17 @@ export function shallow<T>(objA: T, objB: T) {
     return true
   }
 
-  const keysA = Object.keys(objA)
-  if (keysA.length !== Object.keys(objB).length) {
+  if (objA instanceof Date && objB instanceof Date) {
+    if (objA.getTime() !== objB.getTime()) return false
+    return true
+  }
+
+  const keysA = getOwnKeys(objA)
+  if (keysA.length !== getOwnKeys(objB).length) {
     return false
   }
 
+  // eslint-disable-next-line @typescript-eslint/prefer-for-of
   for (let i = 0; i < keysA.length; i++) {
     if (
       !Object.prototype.hasOwnProperty.call(objB, keysA[i] as string) ||
@@ -75,4 +52,10 @@ export function shallow<T>(objA: T, objB: T) {
     }
   }
   return true
+}
+
+function getOwnKeys(obj: object): Array<string | symbol> {
+  return (Object.keys(obj) as Array<string | symbol>).concat(
+    Object.getOwnPropertySymbols(obj),
+  )
 }
