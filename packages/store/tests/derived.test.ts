@@ -1,7 +1,6 @@
 import { afterEach, describe, expect, test, vi } from 'vitest'
-import { createStore } from '../src'
+import { batch, createStore } from '../src'
 
-import { endBatch, startBatch } from '../src/alien'
 import type { Store } from '../src'
 
 function viFnSubscribe(subscribable: Store<any>) {
@@ -263,8 +262,7 @@ describe('Derived', () => {
     expect(countPlusDouble.state).toBe(24 + 48)
   })
 
-  // TODO: fix batching
-  test.skip('should receive same prevDepVals and currDepVals during batch', () => {
+  test('should receive same prevDepVals and currDepVals during batch', () => {
     const count = createStore(12)
     const fn = vi.fn()
     createStore<{
@@ -282,13 +280,11 @@ describe('Derived', () => {
       currentVal: 12,
     })
 
-    // batch(() => {
-    startBatch()
-    count.setState(() => 23)
-    count.setState(() => 24)
-    count.setState(() => 25)
-    endBatch()
-    // })
+    batch(() => {
+      count.setState(() => 23)
+      count.setState(() => 24)
+      count.setState(() => 25)
+    })
 
     expect(fn).toHaveBeenNthCalledWith(2, {
       prevVal: 12,

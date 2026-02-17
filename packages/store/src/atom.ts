@@ -1,4 +1,4 @@
-import { ReactiveFlags, createReactiveSystem } from './alien'
+import { ReactiveFlags, createReactiveSystem, getBatchDepth } from './alien'
 
 import type { ReactiveNode } from './alien'
 import type {
@@ -66,7 +66,10 @@ function purgeDeps(sub: ReactiveNode) {
   }
 }
 
-function flush(): void {
+export function flush(): void {
+  if (getBatchDepth() > 0) {
+    return
+  }
   while (notifyIndex < queuedEffectsLength) {
     // eslint-disable-next-line no-shadow
     const effect = queuedEffects[notifyIndex]!
