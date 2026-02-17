@@ -8,10 +8,10 @@ title: createStore
 ## Call Signature
 
 ```ts
-function createStore<T>(getValue): Store<T>;
+function createStore<T>(getValue): ReadonlyStore<T>;
 ```
 
-Defined in: [store.ts:31](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L31)
+Defined in: [store.ts:55](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L55)
 
 ### Type Parameters
 
@@ -27,7 +27,7 @@ Defined in: [store.ts:31](https://github.com/TanStack/store/blob/main/packages/s
 
 ### Returns
 
-[`Store`](../classes/Store.md)\<`T`\>
+[`ReadonlyStore`](../classes/ReadonlyStore.md)\<`T`\>
 
 ## Call Signature
 
@@ -35,7 +35,7 @@ Defined in: [store.ts:31](https://github.com/TanStack/store/blob/main/packages/s
 function createStore<T>(initialValue): Store<T>;
 ```
 
-Defined in: [store.ts:32](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L32)
+Defined in: [store.ts:58](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L58)
 
 ### Type Parameters
 

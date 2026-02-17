@@ -7,6 +7,7 @@ title: "@tanstack/store"
 
 ## Classes
 
+- [ReadonlyStore](classes/ReadonlyStore.md)
 - [Store](classes/Store.md)
 
 ## Interfaces
