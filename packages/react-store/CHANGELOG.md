@@ -1,5 +1,12 @@
 # @tanstack/react-store
 
+## 0.9.1
+
+### Patch Changes
+
+- Updated dependencies [[`77c872f`](https://github.com/TanStack/store/commit/77c872fcbbc399374a9a0bc1c31568097bd20cf6)]:
+  - @tanstack/store@0.9.1
+
 ## 0.9.0
 
 ### Minor Changes

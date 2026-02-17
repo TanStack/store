@@ -1,5 +1,11 @@
 # @tanstack/store
 
+## 0.9.1
+
+### Patch Changes
+
+- derived createStore now returns readonly store ([#278](https://github.com/TanStack/store/pull/278))
+
 ## 0.9.0
 
 ### Minor Changes
