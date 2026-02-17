@@ -10,7 +10,7 @@
   "updateInternalDependencies": "patch",
   "fixed": [],
   "linked": [],
-  "ignore": [],
+  "ignore": ["@tanstack/store-example-*"],
   "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
     "onlyUpdatePeerDependentsWhenOutOfRange": true
   }
