@@ -5,80 +5,39 @@ title: useStore
 
 # Function: useStore()
 
-## Call Signature
-
 ```ts
 function useStore<TState, TSelected>(
    store, 
-   selector?, 
-options?): Readonly<Ref<TSelected>>;
+   selector, 
+options): Readonly<Ref<TSelected>>;
 ```
 
-Defined in: [index.ts:16](https://github.com/TanStack/store/blob/main/packages/vue-store/src/index.ts#L16)
+Defined in: [index.ts:12](https://github.com/TanStack/store/blob/main/packages/vue-store/src/index.ts#L12)
 
-### Type Parameters
+## Type Parameters
 
-#### TState
+### TState
 
 `TState`
 
-#### TSelected
+### TSelected
 
 `TSelected` = `NoInfer`\<`TState`\>
 
-### Parameters
+## Parameters
 
-#### store
+### store
 
-`Store`\<`TState`, `any`\>
+`Atom`\<`TState`\> | `ReadonlyAtom`\<`TState`\>
 
-#### selector?
-
-(`state`) => `TSelected`
-
-#### options?
-
-`UseStoreOptions`\<`TSelected`\>
-
-### Returns
-
-`Readonly`\<`Ref`\<`TSelected`\>\>
-
-## Call Signature
-
-```ts
-function useStore<TState, TSelected>(
-   store, 
-   selector?, 
-options?): Readonly<Ref<TSelected>>;
-```
-
-Defined in: [index.ts:21](https://github.com/TanStack/store/blob/main/packages/vue-store/src/index.ts#L21)
-
-### Type Parameters
-
-#### TState
-
-`TState`
-
-#### TSelected
-
-`TSelected` = `NoInfer`\<`TState`\>
-
-### Parameters
-
-#### store
-
-`Derived`\<`TState`, `any`\>
-
-#### selector?
+### selector
 
 (`state`) => `TSelected`
 
-#### options?
+### options
 
-`UseStoreOptions`\<`TSelected`\>
+`UseStoreOptions`\<`TSelected`\> = `{}`
 
-### Returns
+## Returns
 
 `Readonly`\<`Ref`\<`TSelected`\>\>

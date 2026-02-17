@@ -5,80 +5,39 @@ title: useStore
 
 # Function: useStore()
 
-## Call Signature
-
 ```ts
-function useStore<TState, TSelected>(
-   store, 
-   selector?, 
-   options?): TSelected;
+function useStore<TAtom, T>(
+   atom, 
+   selector, 
+   compare): T;
 ```
 
-Defined in: [index.ts:15](https://github.com/TanStack/store/blob/main/packages/react-store/src/index.ts#L15)
+Defined in: [useStore.ts:13](https://github.com/TanStack/store/blob/main/packages/react-store/src/useStore.ts#L13)
 
-### Type Parameters
+## Type Parameters
 
-#### TState
+### TAtom
 
-`TState`
+`TAtom` *extends* `AnyAtom` \| `undefined`
 
-#### TSelected
+### T
 
-`TSelected` = `NoInfer`\<`TState`\>
+`T`
 
-### Parameters
+## Parameters
 
-#### store
+### atom
 
-`Store`\<`TState`, `any`\>
+`TAtom`
 
-#### selector?
+### selector
 
-(`state`) => `TSelected`
+(`snapshot`) => `T`
 
-#### options?
+### compare
 
-`UseStoreOptions`\<`TSelected`\>
+(`a`, `b`) => `boolean`
 
-### Returns
+## Returns
 
-`TSelected`
-
-## Call Signature
-
-```ts
-function useStore<TState, TSelected>(
-   store, 
-   selector?, 
-   options?): TSelected;
-```
-
-Defined in: [index.ts:20](https://github.com/TanStack/store/blob/main/packages/react-store/src/index.ts#L20)
-
-### Type Parameters
-
-#### TState
-
-`TState`
-
-#### TSelected
-
-`TSelected` = `NoInfer`\<`TState`\>
-
-### Parameters
-
-#### store
-
-`Derived`\<`TState`, `any`\>
-
-#### selector?
-
-(`state`) => `TSelected`
-
-#### options?
-
-`UseStoreOptions`\<`TSelected`\>
-
-### Returns
-
-`TSelected`
+`T`

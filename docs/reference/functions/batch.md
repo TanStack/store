@@ -9,7 +9,7 @@ title: batch
 function batch(fn): void;
 ```
 
-Defined in: [scheduler.ts:142](https://github.com/TanStack/store/blob/main/packages/store/src/scheduler.ts#L142)
+Defined in: [batch.ts:4](https://github.com/TanStack/store/blob/main/packages/store/src/batch.ts#L4)
 
 ## Parameters
 

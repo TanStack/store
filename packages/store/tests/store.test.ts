@@ -1,19 +1,20 @@
 import { describe, expect, test, vi } from 'vitest'
-import { Store } from '../src/index'
+// import { Store } from '../src/index'
+import { createStore } from '../src'
 
 describe('store', () => {
   test(`should set the initial value`, () => {
-    const store = new Store(0)
+    const store = createStore(0)
 
     expect(store.state).toEqual(0)
   })
 
   test(`basic subscriptions should work`, () => {
-    const store = new Store(0)
+    const store = createStore(0)
 
     const subscription = vi.fn()
 
-    const unsub = store.subscribe(subscription)
+    const unsub = store.subscribe(subscription).unsubscribe
 
     store.setState(() => 1)
 
@@ -30,7 +31,7 @@ describe('store', () => {
   })
 
   test(`setState passes previous state`, () => {
-    const store = new Store(3)
+    const store = createStore(3)
 
     store.setState((v) => v + 1)
 
@@ -38,25 +39,31 @@ describe('store', () => {
   })
 
   test(`updateFn acts as state transformer`, () => {
-    const store = new Store(1, {
-      updateFn: (v) => (updater) => Number(updater(v)),
-    })
+    const store = createStore('1')
+    const derivedStore = createStore(() => Number(store.state))
 
-    store.setState((v) => `${v + 1}` as never)
+    store.setState(() => `${derivedStore.state + 1}` as never)
 
-    expect(store.state).toEqual(2)
+    expect(derivedStore.state).toEqual(2)
 
-    store.setState((v) => `${v + 2}` as never)
+    store.setState(() => `${derivedStore.state + 2}` as never)
 
-    expect(store.state).toEqual(4)
+    expect(derivedStore.state).toEqual(4)
 
-    expect(typeof store.state).toEqual('number')
+    expect(typeof derivedStore.state).toEqual('number')
   })
 
   test('listeners should receive old and new values', () => {
-    const store = new Store(12)
+    const store = createStore(12)
+    const derivedStore = createStore<{
+      prevVal: number | undefined
+      currentVal: number
+    }>((prev) => ({
+      prevVal: prev?.currentVal,
+      currentVal: store.state,
+    }))
     const fn = vi.fn()
-    store.subscribe(fn)
+    derivedStore.subscribe(fn)
     store.setState(() => 24)
     expect(fn).toBeCalledWith({ prevVal: 12, currentVal: 24 })
   })

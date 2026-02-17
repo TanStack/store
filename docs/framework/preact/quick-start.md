@@ -7,10 +7,10 @@ The basic preact app example to get started with the TanStack preact-store.
 
 ```tsx
 import { render } from "preact";
-import { Store, useStore } from "@tanstack/preact-store";
+import { createStore, useStore } from "@tanstack/preact-store";
 
 // You can instantiate the store outside of Preact components too!
-export const store = new Store({
+export const store = createStore({
   dogs: 0,
   cats: 0,
 });

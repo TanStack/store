@@ -1,9 +1,9 @@
 <script lang="ts">
   import { untrack } from 'svelte'
-  import { Store } from '@tanstack/store'
+  import { createStore } from '@tanstack/store'
   import { useStore } from '../src/index.svelte.js'
 
-  const store = new Store({
+  const store = createStore({
     select: 0,
     ignored: 1,
   })
