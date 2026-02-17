@@ -17,7 +17,7 @@
   ```
 - `new Effect()` removed in favor of `store.subscribe()`:
   ```ts
-  const {unsubscribe} = store.subscribe(() => {
+  const { unsubscribe } = store.subscribe(() => {
     console.log(store.state)
   })
   ```
