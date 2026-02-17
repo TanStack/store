@@ -60,7 +60,7 @@ export function createStore<T>(
   valueOrFn: T | ((prev?: T) => T),
 ): Store<T> | ReadonlyStore<T> {
   if (typeof valueOrFn === 'function') {
-    return new Store(valueOrFn as (prev?: NoInfer<T>) => T)
+    return new ReadonlyStore(valueOrFn as (prev?: NoInfer<T>) => T)
   }
   return new Store(valueOrFn)
 }
