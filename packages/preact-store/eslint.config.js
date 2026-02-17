@@ -1,12 +1,13 @@
 // @ts-check
 
+import { defineConfig } from 'eslint/config'
 // @ts-ignore: no types for eslint-config-preact
 import preact from 'eslint-config-preact'
 import rootConfig from '../../eslint.config.js'
 // eslint-config-preact uses typescript-eslint under the hood
 import tseslint from 'typescript-eslint'
 
-export default [
+export default defineConfig([
   ...rootConfig,
   ...preact,
   {
@@ -27,4 +28,4 @@ export default [
       '@typescript-eslint/no-redeclare': 'error',
     },
   },
-]
+])

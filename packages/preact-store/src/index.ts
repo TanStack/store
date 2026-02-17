@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'preact/hooks'
-import type { Derived, Store } from '@tanstack/store'
+import type { Atom, ReadonlyAtom } from '@tanstack/store'
 
 export * from '@tanstack/store'
 
@@ -67,10 +67,6 @@ function didSnapshotChange(inst: {
   }
 }
 
-/**
- * @private
- */
-export type NoInfer<T> = [T][T extends any ? 0 : never]
 type EqualityFn<T> = (objA: T, objB: T) => boolean
 interface UseStoreOptions<T> {
   equal?: EqualityFn<T>
@@ -102,24 +98,14 @@ function useSyncExternalStoreWithSelector<TSnapshot, TSelected>(
 }
 
 export function useStore<TState, TSelected = NoInfer<TState>>(
-  store: Store<TState, any>,
-  selector?: (state: NoInfer<TState>) => TSelected,
-  options?: UseStoreOptions<TSelected>,
-): TSelected
-export function useStore<TState, TSelected = NoInfer<TState>>(
-  store: Derived<TState, any>,
-  selector?: (state: NoInfer<TState>) => TSelected,
-  options?: UseStoreOptions<TSelected>,
-): TSelected
-export function useStore<TState, TSelected = NoInfer<TState>>(
-  store: Store<TState, any> | Derived<TState, any>,
+  store: Atom<TState> | ReadonlyAtom<TState>,
   selector: (state: NoInfer<TState>) => TSelected = (d) => d as any,
   options: UseStoreOptions<TSelected> = {},
 ): TSelected {
   const equal = options.equal ?? shallow
   const slice = useSyncExternalStoreWithSelector(
-    store.subscribe,
-    () => store.state,
+    (onStoreChange) => store.subscribe(onStoreChange).unsubscribe,
+    () => store.get(),
     selector,
     equal,
   )

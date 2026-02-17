@@ -1,46 +1,32 @@
 import { readonly, ref, toRaw, watch } from 'vue-demi'
-import type { Derived, Store } from '@tanstack/store'
+import type { Atom, ReadonlyAtom } from '@tanstack/store'
 import type { Ref } from 'vue-demi'
 
 export * from '@tanstack/store'
 
-/**
- * @private
- */
-export type NoInfer<T> = [T][T extends any ? 0 : never]
 type EqualityFn<T> = (objA: T, objB: T) => boolean
 interface UseStoreOptions<T> {
   equal?: EqualityFn<T>
 }
 
 export function useStore<TState, TSelected = NoInfer<TState>>(
-  store: Store<TState, any>,
-  selector?: (state: NoInfer<TState>) => TSelected,
-  options?: UseStoreOptions<TSelected>,
-): Readonly<Ref<TSelected>>
-export function useStore<TState, TSelected = NoInfer<TState>>(
-  store: Derived<TState, any>,
-  selector?: (state: NoInfer<TState>) => TSelected,
-  options?: UseStoreOptions<TSelected>,
-): Readonly<Ref<TSelected>>
-export function useStore<TState, TSelected = NoInfer<TState>>(
-  store: Store<TState, any> | Derived<TState, any>,
+  store: Atom<TState> | ReadonlyAtom<TState>,
   selector: (state: NoInfer<TState>) => TSelected = (d) => d as any,
   options: UseStoreOptions<TSelected> = {},
 ): Readonly<Ref<TSelected>> {
-  const slice = ref(selector(store.state)) as Ref<TSelected>
+  const slice = ref(selector(store.get())) as Ref<TSelected>
   const equal = options.equal ?? shallow
 
   watch(
     () => store,
     (value, _oldValue, onCleanup) => {
-      const unsub = value.subscribe(() => {
-        const data = selector(value.state)
+      const unsub = value.subscribe((s) => {
+        const data = selector(s)
         if (equal(toRaw(slice.value), data)) {
           return
         }
         slice.value = data
-      })
+      }).unsubscribe
 
       onCleanup(() => {
         unsub()

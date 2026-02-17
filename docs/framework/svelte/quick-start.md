@@ -7,10 +7,10 @@ The basic Svelte app example to get started with the TanStack svelte-store.
 
 **store.ts**
 ```ts
-import { Store } from '@tanstack/svelte-store';
+import { createStore } from '@tanstack/svelte-store';
 
 // You can instantiate the store outside of Svelte files too!
-export const store = new Store({
+export const store = createStore({
   dogs: 0,
   cats: 0,
 });

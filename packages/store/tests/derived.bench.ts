@@ -12,8 +12,7 @@ import {
   signal as angularSignal,
 } from '@angular/core'
 import { createWatch } from '@angular/core/primitives/signals'
-import { Store } from '../src/store'
-import { Derived } from '../src/derived'
+import { createStore } from '../src'
 
 function noop(val: any) {
   val
@@ -31,22 +30,13 @@ function noop(val: any) {
  */
 describe('Derived', () => {
   bench('TanStack', () => {
-    const a = new Store(1)
-    const b = new Derived({ deps: [a], fn: () => a.state })
-    b.mount()
-    const c = new Derived({ deps: [a], fn: () => a.state })
-    c.mount()
-    const d = new Derived({ deps: [b], fn: () => b.state })
-    d.mount()
-    const e = new Derived({ deps: [b], fn: () => b.state })
-    e.mount()
-    const f = new Derived({ deps: [c], fn: () => c.state })
-    f.mount()
-    const g = new Derived({
-      deps: [d, e, f],
-      fn: () => d.state + e.state + f.state,
-    })
-    g.mount()
+    const a = createStore(1)
+    const b = createStore(() => a.state)
+    const c = createStore(() => a.state)
+    const d = createStore(() => b.state)
+    const e = createStore(() => b.state)
+    const f = createStore(() => c.state)
+    const g = createStore(() => d.state + e.state + f.state)
 
     g.subscribe(() => noop(g.state))
 

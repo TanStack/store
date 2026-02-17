@@ -1,15 +1,14 @@
 import { describe, expect, it, test, vi } from 'vitest'
 import { render, waitFor } from '@testing-library/preact'
-import { Derived, Store } from '@tanstack/store'
-import { useState } from 'preact/hooks'
 import { userEvent } from '@testing-library/user-event'
+import { createStore } from '@tanstack/store'
 import { shallow, useStore } from '../src/index'
 
 const user = userEvent.setup()
 
 describe('useStore', () => {
   it('allows us to select state using a selector', () => {
-    const store = new Store({
+    const store = createStore({
       select: 0,
       ignored: 1,
     })
@@ -26,19 +25,19 @@ describe('useStore', () => {
 
   // This should ideally test the custom uSES hook
   it('only triggers a re-render when selector state is updated', async () => {
-    const store = new Store({
+    const store = createStore({
       select: 0,
       ignored: 1,
     })
 
+    const renderSpy = vi.fn()
     function Comp() {
       const storeVal = useStore(store, (state) => state.select)
-      const [fn] = useState(vi.fn)
-      fn()
+      renderSpy()
 
       return (
         <div>
-          <p>Number rendered: {fn.mock.calls.length}</p>
+          <p>Number rendered: {renderSpy.mock.calls.length}</p>
           <p>Store: {storeVal}</p>
           <button
             type="button"
@@ -80,7 +79,7 @@ describe('useStore', () => {
   })
 
   it('allow specifying custom equality function', async () => {
-    const store = new Store({
+    const store = createStore({
       array: [
         { select: 0, ignore: 1 },
         { select: 0, ignore: 1 },
@@ -91,14 +90,14 @@ describe('useStore', () => {
       return JSON.stringify(objA) === JSON.stringify(objB)
     }
 
+    const renderSpy = vi.fn()
     function Comp() {
       const storeVal = useStore(
         store,
         (state) => state.array.map(({ ignore, ...rest }) => rest),
         { equal: deepEqual },
       )
-      const [fn] = useState(vi.fn)
-      fn()
+      renderSpy()
 
       const value = storeVal
         .map((item) => item.select)
@@ -106,7 +105,7 @@ describe('useStore', () => {
 
       return (
         <div>
-          <p>Number rendered: {fn.mock.calls.length}</p>
+          <p>Number rendered: {renderSpy.mock.calls.length}</p>
           <p>Store: {value}</p>
           <button
             type="button"
@@ -152,19 +151,12 @@ describe('useStore', () => {
   })
 
   it('works with mounted derived stores', async () => {
-    const store = new Store(0)
+    const store = createStore(0)
 
-    const derived = new Derived({
-      deps: [store],
-      fn: () => {
-        return { val: store.state * 2 }
-      },
-    })
-
-    derived.mount()
+    const derived = createStore(() => store.state * 2)
 
     function Comp() {
-      const derivedVal = useStore(derived, (state) => state.val)
+      const derivedVal = useStore(derived, (state) => state)
 
       return (
         <div>

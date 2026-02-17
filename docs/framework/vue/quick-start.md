@@ -24,10 +24,10 @@ import Display from './Display.vue';
 
 **store.js**
 ```js
-import { Store } from '@tanstack/vue-store';
+import { createStore } from '@tanstack/vue-store';
 
 // You can instantiate the store outside of Vue components too!
-export const store = new Store({
+export const store = createStore({
   dogs: 0,
   cats: 0,
 });

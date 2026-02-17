@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import { render, renderHook } from '@solidjs/testing-library'
-import { Store } from '@tanstack/store'
+import { createStore } from '@tanstack/store'
 import { useStore } from '../src/index'
 
 describe('useStore', () => {
   it.todo('allows us to select state using a selector', () => {
-    const store = new Store({
+    const store = createStore({
       select: 0,
       ignored: 1,
     })
@@ -21,7 +21,7 @@ describe('useStore', () => {
   })
 
   it('allows us to select state using a selector', () => {
-    const store = new Store({
+    const store = createStore({
       select: 0,
       ignored: 1,
     })
@@ -34,7 +34,7 @@ describe('useStore', () => {
   })
 
   it('updates accessor value when state is updated', () => {
-    const store = new Store(0)
+    const store = createStore(0)
 
     const { result } = renderHook(() => useStore(store))
 
@@ -44,7 +44,7 @@ describe('useStore', () => {
   })
 
   it('updates when date changes', () => {
-    const store = new Store(new Date('2025-03-29T21:06:30.401Z'))
+    const store = createStore(new Date('2025-03-29T21:06:30.401Z'))
 
     const { result } = renderHook(() => useStore(store))
 

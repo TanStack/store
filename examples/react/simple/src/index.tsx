@@ -19,7 +19,7 @@ const Display = ({ animal }: DisplayProps) => {
 }
 
 const updateState = (animal: 'dogs' | 'cats') => {
-  store.setState((state) => {
+  store.setState((state: { dogs: number; cats: number }) => {
     return {
       ...state,
       [animal]: state[animal] + 1,

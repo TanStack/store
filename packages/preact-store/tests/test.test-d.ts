@@ -1,19 +1,15 @@
 import { expectTypeOf, test } from 'vitest'
-import { Derived, Store, useStore } from '../src'
+import { createStore } from '@tanstack/store'
+import { useStore } from '../src'
 
 test('useStore works with derived state', () => {
-  const store = new Store(12)
-  const derived = new Derived({
-    deps: [store],
-    fn: () => {
-      return { val: store.state * 2 }
-    },
-  })
+  const store = createStore(12)
+  const derived = createStore(() => store.state * 2)
 
   const val = useStore(derived, (state) => {
-    expectTypeOf(state).toMatchTypeOf<{ val: number }>()
-    return state.val
+    expectTypeOf(state).toEqualTypeOf<number>()
+    return state
   })
 
-  expectTypeOf(val).toMatchTypeOf<number>()
+  expectTypeOf(val).toEqualTypeOf<number>()
 })

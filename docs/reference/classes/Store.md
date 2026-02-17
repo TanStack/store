@@ -3,145 +3,101 @@ id: Store
 title: Store
 ---
 
-# Class: Store\<TState, TUpdater\>
+# Class: Store\<T\>
 
-Defined in: [store.ts:28](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L28)
+Defined in: [store.ts:4](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L4)
 
 ## Type Parameters
 
-### TState
+### T
 
-`TState`
-
-### TUpdater
-
-`TUpdater` *extends* `AnyUpdater` = (`cb`) => `TState`
+`T`
 
 ## Constructors
 
 ### Constructor
 
 ```ts
-new Store<TState, TUpdater>(initialState, options?): Store<TState, TUpdater>;
+new Store<T>(getValue): Store<T>;
 ```
 
-Defined in: [store.ts:37](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L37)
+Defined in: [store.ts:6](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L6)
 
 #### Parameters
 
-##### initialState
+##### getValue
 
-`TState`
-
-##### options?
-
-[`StoreOptions`](../interfaces/StoreOptions.md)\<`TState`, `TUpdater`\>
+(`prev?`) => `T`
 
 #### Returns
 
-`Store`\<`TState`, `TUpdater`\>
+`Store`\<`T`\>
 
-## Properties
-
-### listeners
+### Constructor
 
 ```ts
-listeners: Set<Listener<TState>>;
+new Store<T>(initialValue): Store<T>;
 ```
 
-Defined in: [store.ts:32](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L32)
+Defined in: [store.ts:7](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L7)
 
-***
+#### Parameters
 
-### options?
+##### initialValue
 
-```ts
-optional options: StoreOptions<TState, TUpdater>;
-```
+`T`
 
-Defined in: [store.ts:35](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L35)
+#### Returns
 
-***
+`Store`\<`T`\>
 
-### prevState
-
-```ts
-prevState: TState;
-```
-
-Defined in: [store.ts:34](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L34)
-
-***
+## Accessors
 
 ### state
 
+#### Get Signature
+
 ```ts
-state: TState;
+get state(): T;
 ```
 
-Defined in: [store.ts:33](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L33)
+Defined in: [store.ts:18](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L18)
+
+##### Returns
+
+`T`
 
 ## Methods
 
+### get()
+
+```ts
+get(): T;
+```
+
+Defined in: [store.ts:21](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L21)
+
+#### Returns
+
+`T`
+
+***
+
 ### setState()
 
-#### Call Signature
-
 ```ts
 setState(updater): void;
 ```
 
-Defined in: [store.ts:55](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L55)
+Defined in: [store.ts:15](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L15)
 
-Update the store state safely with improved type checking
+#### Parameters
 
-##### Parameters
+##### updater
 
-###### updater
+(`prev`) => `T`
 
-(`prevState`) => `TState`
-
-##### Returns
-
-`void`
-
-#### Call Signature
-
-```ts
-setState(updater): void;
-```
-
-Defined in: [store.ts:56](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L56)
-
-Update the store state safely with improved type checking
-
-##### Parameters
-
-###### updater
-
-`TState`
-
-##### Returns
-
-`void`
-
-#### Call Signature
-
-```ts
-setState(updater): void;
-```
-
-Defined in: [store.ts:57](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L57)
-
-Update the store state safely with improved type checking
-
-##### Parameters
-
-###### updater
-
-`TUpdater`
-
-##### Returns
+#### Returns
 
 `void`
 
@@ -150,23 +106,17 @@ Update the store state safely with improved type checking
 ### subscribe()
 
 ```ts
-subscribe(listener): () => void;
+subscribe(observerOrFn): Subscription;
 ```
 
-Defined in: [store.ts:43](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L43)
+Defined in: [store.ts:24](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L24)
 
 #### Parameters
 
-##### listener
+##### observerOrFn
 
-`Listener`\<`TState`\>
+[`Observer`](../type-aliases/Observer.md)\<`T`\> | (`value`) => `void`
 
 #### Returns
 
-```ts
-(): void;
-```
-
-##### Returns
-
-`void`
+[`Subscription`](../interfaces/Subscription.md)
