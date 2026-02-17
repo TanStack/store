@@ -15,4 +15,10 @@
   ```ts
   const derived = createStore(() => store.state * 2)
   ```
+- `new Effect()` removed in favor of `store.subscribe()`:
+  ```ts
+  const {unsubscribe} = store.subscribe(() => {
+    console.log(store.state)
+  })
+  ```
 - Uses [alien-signals](https://github.com/nicepkg/alien-signals) under the hood for efficient reactivity

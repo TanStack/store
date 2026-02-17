@@ -24,12 +24,12 @@ console.log(countStore.state); // 1
 This `Store` can then be used to track updates to your data:
 
 ```typescript
-const unsub = countStore.subscribe(() => {
+const {unsubscribe} = countStore.subscribe(() => {
   console.log('The count is now:', countStore.state);
 });
 
 // Later, to cleanup
-unsub();
+unsubscribe();
 ```
 
 ### Batch Updates
@@ -83,7 +83,7 @@ You can subscribe to store changes to perform side effects:
 ```typescript
 const count = createStore(0);
 
-const unsubscribe = count.subscribe((state) => {
+const {unsubscribe} = count.subscribe((state) => {
   console.log('The count is now:', state);
 });
 
