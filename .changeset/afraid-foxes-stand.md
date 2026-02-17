@@ -1,11 +1,11 @@
 ---
-'@tanstack/angular-store': major
-'@tanstack/preact-store': major
-'@tanstack/svelte-store': major
-'@tanstack/react-store': major
-'@tanstack/solid-store': major
-'@tanstack/vue-store': major
-'@tanstack/store': major
+'@tanstack/angular-store': minor
+'@tanstack/preact-store': minor
+'@tanstack/svelte-store': minor
+'@tanstack/react-store': minor
+'@tanstack/solid-store': minor
+'@tanstack/vue-store': minor
+'@tanstack/store': minor
 ---
 
 ## Breaking changes
