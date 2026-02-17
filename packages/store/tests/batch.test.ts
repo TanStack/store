@@ -1,10 +1,9 @@
 import { describe, expect, test } from 'vitest'
-import { Store } from '../src/store'
-import { batch } from '../src'
+import { batch, createStore } from '../src'
 
 describe('batch', () => {
   test('updates store immediately', () => {
-    const store = new Store({ hello: 100, world: 200 })
+    const store = createStore({ hello: 100, world: 200 })
     batch(() => {
       store.setState((state) => ({ ...state, hello: state.hello + 1 }))
       expect(store.state.hello).toBe(101)
