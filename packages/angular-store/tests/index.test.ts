@@ -3,6 +3,7 @@ import { Component, effect } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
 import { createStore } from '@tanstack/store'
+import { Temporal } from 'temporal-polyfill'
 import { injectStore } from '../src/index'
 
 describe('injectStore', () => {
@@ -141,5 +142,49 @@ describe('dataType', () => {
     expect(
       debugElement.query(By.css('p#displayStoreVal')).nativeElement.textContent,
     ).toContain(new Date('2025-03-29T21:06:40.401Z'))
+  })
+
+  test('temporal change trigger re-render', () => {
+    const store = createStore({
+      date: Temporal.PlainDate.from('2025-03-29'),
+    })
+
+    @Component({
+      template: `
+        <div>
+          <p id="displayStoreVal">{{ storeVal().toString() }}</p>
+          <button id="updateDate" (click)="updateDate()">Update date</button>
+        </div>
+      `,
+      standalone: true,
+    })
+    class MyCmp {
+      storeVal = injectStore(store, (state) => state.date)
+
+      updateDate() {
+        store.setState((v) => ({
+          ...v,
+          date: Temporal.PlainDate.from('2025-03-30'),
+        }))
+      }
+    }
+
+    const fixture = TestBed.createComponent(MyCmp)
+    fixture.detectChanges()
+
+    const debugElement = fixture.debugElement
+
+    expect(
+      debugElement.query(By.css('p#displayStoreVal')).nativeElement.textContent,
+    ).toContain('2025-03-29')
+
+    debugElement
+      .query(By.css('button#updateDate'))
+      .triggerEventHandler('click', null)
+
+    fixture.detectChanges()
+    expect(
+      debugElement.query(By.css('p#displayStoreVal')).nativeElement.textContent,
+    ).toContain('2025-03-30')
   })
 })

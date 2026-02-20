@@ -2,6 +2,7 @@ import { describe, expect, it, test, vi } from 'vitest'
 import { render, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { createStore } from '@tanstack/store'
+import { Temporal } from 'temporal-polyfill'
 import { shallow, useStore } from '../src/index'
 
 const user = userEvent.setup()
@@ -76,6 +77,47 @@ describe('useStore', () => {
     expect(getByText('Number rendered: 2')).toBeInTheDocument()
 
     await user.click(getByText('Update ignored'))
+    expect(getByText('Number rendered: 2')).toBeInTheDocument()
+  })
+
+  it('triggers a re-render when Temporal value changes', async () => {
+    const store = createStore({
+      date: Temporal.PlainDate.from('2025-02-10'),
+    })
+
+    const renderSpy = vi.fn()
+    function Comp() {
+      const storeVal = useStore(store, (s) => s.date, shallow)
+      renderSpy()
+
+      return (
+        <div>
+          <p>Number rendered: {renderSpy.mock.calls.length}</p>
+          <p>Store: {storeVal.toString()}</p>
+          <button
+            type="button"
+            onClick={() =>
+              store.setState((v) => ({
+                ...v,
+                date: Temporal.PlainDate.from('2025-02-11'),
+              }))
+            }
+          >
+            Update date
+          </button>
+        </div>
+      )
+    }
+
+    const { getByText } = render(<Comp />)
+    expect(getByText('Store: 2025-02-10')).toBeInTheDocument()
+    expect(getByText('Number rendered: 1')).toBeInTheDocument()
+
+    await user.click(getByText('Update date'))
+
+    await waitFor(() =>
+      expect(getByText('Store: 2025-02-11')).toBeInTheDocument(),
+    )
     expect(getByText('Number rendered: 2')).toBeInTheDocument()
   })
 
@@ -293,6 +335,18 @@ describe('shallow', () => {
   test('should return true for equal dates', () => {
     const objA = new Date('2025-02-10')
     const objB = new Date('2025-02-10')
+    expect(shallow(objA, objB)).toBe(true)
+  })
+
+  test('should return false for temporal objects with different values', () => {
+    const objA = Temporal.PlainDate.from('2025-02-10')
+    const objB = Temporal.PlainDate.from('2025-02-11')
+    expect(shallow(objA, objB)).toBe(false)
+  })
+
+  test('should return true for temporal objects with equal values', () => {
+    const objA = Temporal.PlainDate.from('2025-02-10')
+    const objB = Temporal.PlainDate.from('2025-02-10')
     expect(shallow(objA, objB)).toBe(true)
   })
 })

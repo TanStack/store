@@ -2,6 +2,7 @@ import { describe, expect, it, test, vi } from 'vitest'
 import { render, waitFor } from '@testing-library/preact'
 import { userEvent } from '@testing-library/user-event'
 import { createStore } from '@tanstack/store'
+import { Temporal } from 'temporal-polyfill'
 import { shallow, useStore } from '../src/index'
 
 const user = userEvent.setup()
@@ -293,6 +294,18 @@ describe('shallow', () => {
   test('should return true for equal dates', () => {
     const objA = new Date('2025-02-10')
     const objB = new Date('2025-02-10')
+    expect(shallow(objA, objB)).toBe(true)
+  })
+
+  test('should return false for temporal objects with different values', () => {
+    const objA = Temporal.PlainDate.from('2025-02-10')
+    const objB = Temporal.PlainDate.from('2025-02-11')
+    expect(shallow(objA, objB)).toBe(false)
+  })
+
+  test('should return true for temporal objects with equal values', () => {
+    const objA = Temporal.PlainDate.from('2025-02-10')
+    const objB = Temporal.PlainDate.from('2025-02-10')
     expect(shallow(objA, objB)).toBe(true)
   })
 })
