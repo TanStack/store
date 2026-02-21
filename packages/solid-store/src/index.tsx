@@ -14,7 +14,7 @@ export function useStore<TState, TSelected = NoInfer<TState>>(
   selector: (state: NoInfer<TState>) => TSelected = (d) => d as any,
   options: UseStoreOptions<TSelected> = {},
 ): Accessor<TSelected> {
-  const [signal, setSignal] = createSignal(selector(store.get()))
+  const [signal, setSignal] = createSignal(() => selector(store.get()))
   const equal = options.equal ?? shallow
 
   const unsub = store.subscribe((s) => {
