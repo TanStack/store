@@ -1,9 +1,16 @@
 import { describe, expect, test } from 'vitest'
-import { Component, effect } from '@angular/core'
+import {
+  Component,
+  effect,
+  input,
+  inputBinding,
+  signal,
+} from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
 import { createStore } from '@tanstack/store'
-import { injectStore } from '../src/index'
+import { injectLazyStore, injectStore } from '../src/index'
+import { stableSignal } from '../src/injectLazyStore'
 
 describe('injectStore', () => {
   test(`allows us to select state using a selector`, () => {
@@ -91,6 +98,51 @@ describe('injectStore', () => {
     fixture.detectChanges()
     expect(element.textContent).toContain('Store: 10')
     expect(count).toEqual(2)
+  })
+})
+
+describe('injectLazyStore', () => {
+  test('selects state using a selector when store is provided via a signal', () => {
+    const storeSignal = stableSignal(() => createStore({ select: 42, other: 1 }))
+
+    @Component({
+      template: `<p>Lazy: {{ storeVal() }}</p>`,
+      standalone: true,
+    })
+    class MyCmp {
+      storeVal = injectLazyStore(storeSignal, (state) => state.select)
+    }
+
+    const fixture = TestBed.createComponent(MyCmp)
+    fixture.detectChanges()
+
+    const element = fixture.nativeElement
+    expect(element.textContent).toContain('Lazy: 42')
+  })
+
+  test('accepts signal input in the store signal (computed store from input)', () => {
+    @Component({
+      template: `<p id="val">Val: {{ storeVal() }}</p>`,
+      standalone: true,
+    })
+    class MyCmp {
+      public argument = input.required<number>()
+      private lazyStore = stableSignal(() =>
+        createStore({ select: this.argument(), other: 0 })
+      )
+
+      storeVal = injectLazyStore(this.lazyStore, (state) => state.select)
+    }
+    const value = signal(1)
+
+    const fixture = TestBed.createComponent(MyCmp, {
+      bindings: [inputBinding('argument', () => value())],
+    })
+    fixture.detectChanges()
+
+    expect(fixture.nativeElement.querySelector('#val').textContent).toContain(
+      'Val: 1',
+    )
   })
 })
 
