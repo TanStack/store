@@ -176,9 +176,15 @@ export function createAtom<T>(
     _update(getValue?: T | ((snapshot: T) => T)): boolean {
       const prevSub = activeSub
       const compare = options?.compare ?? Object.is
-      activeSub = atom
-      ++cycle
-      atom.depsTail = undefined
+      if (isComputed) {
+        activeSub = atom
+        ++cycle
+        atom.depsTail = undefined
+      } else if (getValue === undefined) {
+        // Mutable atoms can be marked dirty by the reactive graph, but they should
+        // never be recomputed without an explicit value/updater.
+        return false
+      }
       if (isComputed) {
         atom.flags = ReactiveFlags.Mutable | ReactiveFlags.RecursedCheck
       }
