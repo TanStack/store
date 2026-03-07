@@ -67,4 +67,12 @@ describe('store', () => {
     store.setState(() => 24)
     expect(fn).toBeCalledWith({ prevVal: 12, currentVal: 24 })
   })
+
+  test('mutable store should ignore internal no-arg updates', () => {
+    const store = createStore({ pageIndex: 1 })
+    const atom = (store as any).atom
+
+    expect(atom._update()).toBe(false)
+    expect(store.state).toEqual({ pageIndex: 1 })
+  })
 })
