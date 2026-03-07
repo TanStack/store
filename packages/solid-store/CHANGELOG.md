@@ -1,5 +1,12 @@
 # @tanstack/solid-store
 
+## 0.9.2
+
+### Patch Changes
+
+- Updated dependencies [[`84dc3eb`](https://github.com/TanStack/store/commit/84dc3eb3fac116fdf5c2a527b017a44e848be6f3)]:
+  - @tanstack/store@0.9.2
+
 ## 0.9.1
 
 ### Patch Changes
