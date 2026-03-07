@@ -1,5 +1,13 @@
 # @tanstack/store
 
+## 0.9.2
+
+### Patch Changes
+
+- Fix a regression where mutable atoms could be updated internally with no updater and have their snapshot replaced with `undefined`. ([#289](https://github.com/TanStack/store/pull/289))
+
+  Mutable atoms now ignore internal no-argument `_update()` calls, while computed atoms keep existing recomputation behavior. This prevents external-store state from disappearing during reactive graph cleanup.
+
 ## 0.9.1
 
 ### Patch Changes
