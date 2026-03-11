@@ -1,7 +1,7 @@
 import {
-  DestroyRef,
   Injector,
   assertInInjectionContext,
+  effect,
   inject,
   linkedSignal,
   runInInjectionContext,
@@ -12,7 +12,7 @@ import type { CreateSignalOptions, Signal } from '@angular/core'
 export * from '@tanstack/store'
 
 export function injectStore<TState, TSelected = NoInfer<TState>>(
-  store: Atom<TState> | ReadonlyAtom<TState>,
+  storeOrStoreSignal: Atom<TState> | ReadonlyAtom<TState> | (() => Atom<TState> | ReadonlyAtom<TState>),
   selector: (state: NoInfer<TState>) => TSelected = (d) => d as unknown as TSelected,
   options: CreateSignalOptions<TSelected> & { injector?: Injector } = {
     equal: shallow,
@@ -25,18 +25,20 @@ export function injectStore<TState, TSelected = NoInfer<TState>>(
   }
 
   return runInInjectionContext(options.injector, () => {
-    const destroyRef = inject(DestroyRef)
-    const slice = linkedSignal(() => selector(store.get()), options)
+    const storeSignal = typeof storeOrStoreSignal === "function"
+      ? storeOrStoreSignal
+      : () => storeOrStoreSignal;
 
-    const { unsubscribe } = store.subscribe((s) => {
-      slice.set(selector(s))
-    })
+    const slice = linkedSignal(() => selector(storeSignal().get()), options);
 
-    destroyRef.onDestroy(() => {
-      unsubscribe()
-    })
+    effect((onCleanup) => {
+      const { unsubscribe } = storeSignal().subscribe((s) => {
+        slice.set(selector(s));
+      });
+      onCleanup(() => unsubscribe());
+    });
 
-    return slice.asReadonly()
+    return slice.asReadonly();
   })
 }
 
