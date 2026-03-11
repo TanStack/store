@@ -9,27 +9,11 @@ import {
 import type { Atom, ReadonlyAtom } from '@tanstack/store'
 import type { CreateSignalOptions, Signal } from '@angular/core'
 
-type StoreContext = Record<string, unknown>
-
 export * from '@tanstack/store'
 
 export function injectStore<TState, TSelected = NoInfer<TState>>(
-  store: Atom<TState>,
-  selector?: (state: NoInfer<TState>) => TSelected,
-  options?: CreateSignalOptions<TSelected> & { injector?: Injector },
-): Signal<TSelected>
-export function injectStore<TState, TSelected = NoInfer<TState>>(
   store: Atom<TState> | ReadonlyAtom<TState>,
-  selector?: (state: NoInfer<TState>) => TSelected,
-  options?: CreateSignalOptions<TSelected> & { injector?: Injector },
-): Signal<TSelected>
-export function injectStore<
-  TState extends StoreContext,
-  TSelected = NoInfer<TState>,
->(
-  store: Atom<TState> | ReadonlyAtom<TState>,
-  selector: (state: NoInfer<TState>) => TSelected = (d) =>
-    d as unknown as TSelected,
+  selector: (state: NoInfer<TState>) => TSelected = (d) => d as unknown as TSelected,
   options: CreateSignalOptions<TSelected> & { injector?: Injector } = {
     equal: shallow,
   },
