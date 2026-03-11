@@ -4,15 +4,15 @@ import {
   computed,
   effect,
   input,
-  OnInit,
+  inputBinding,
   signal,
   untracked,
-  inputBinding,
 } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
 import { createStore } from '@tanstack/store'
 import { injectStore } from '../src/index'
+import type { OnInit } from '@angular/core'
 
 function createStableSignal<T>(fn: () => T): () => T {
   return computed(() => untracked(fn))
@@ -113,7 +113,10 @@ describe('injectStore', () => {
 
     const storeVal = TestBed.runInInjectionContext(() => {
       const store = createStableSignal(() => createStore({ value: count() }))
-      const storeVal = injectStore(() => store(), (state) => state.value)
+      const storeVal = injectStore(
+        () => store(),
+        (state) => state.value,
+      )
 
       effect(() => {
         store().setState(() => ({ value: count() }))
@@ -140,7 +143,10 @@ describe('injectStore', () => {
       store = createStableSignal(() =>
         createStore({ doubled: this.value() * 2 }),
       )
-      storeVal = injectStore(() => this.store(), (state) => state.doubled)
+      storeVal = injectStore(
+        () => this.store(),
+        (state) => state.doubled,
+      )
 
       constructor() {
         effect(() => {
@@ -215,7 +221,10 @@ describe('injectStore', () => {
       store = createStableSignal(() =>
         createStore({ doubled: this.value() * 2 }),
       )
-      storeVal = injectStore(() => this.store(), (state) => state.doubled)
+      storeVal = injectStore(
+        () => this.store(),
+        (state) => state.doubled,
+      )
 
       constructor() {
         effect(() => {

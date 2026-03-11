@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitest/config'
 import packageJson from './package.json'
-import angular from '@analogjs/vite-plugin-angular';
+import angular from '@analogjs/vite-plugin-angular'
 
 export default defineConfig({
   plugins: [angular()],

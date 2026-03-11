@@ -12,8 +12,12 @@ import type { CreateSignalOptions, Signal } from '@angular/core'
 export * from '@tanstack/store'
 
 export function injectStore<TState, TSelected = NoInfer<TState>>(
-  storeOrStoreSignal: Atom<TState> | ReadonlyAtom<TState> | (() => Atom<TState> | ReadonlyAtom<TState>),
-  selector: (state: NoInfer<TState>) => TSelected = (d) => d as unknown as TSelected,
+  storeOrStoreSignal:
+    | Atom<TState>
+    | ReadonlyAtom<TState>
+    | (() => Atom<TState> | ReadonlyAtom<TState>),
+  selector: (state: NoInfer<TState>) => TSelected = (d) =>
+    d as unknown as TSelected,
   options: CreateSignalOptions<TSelected> & { injector?: Injector } = {
     equal: shallow,
   },
@@ -25,20 +29,21 @@ export function injectStore<TState, TSelected = NoInfer<TState>>(
   }
 
   return runInInjectionContext(options.injector, () => {
-    const storeSignal = typeof storeOrStoreSignal === "function"
-      ? storeOrStoreSignal
-      : () => storeOrStoreSignal;
+    const storeSignal =
+      typeof storeOrStoreSignal === 'function'
+        ? storeOrStoreSignal
+        : () => storeOrStoreSignal
 
-    const slice = linkedSignal(() => selector(storeSignal().get()), options);
+    const slice = linkedSignal(() => selector(storeSignal().get()), options)
 
     effect((onCleanup) => {
       const { unsubscribe } = storeSignal().subscribe((s) => {
-        slice.set(selector(s));
-      });
-      onCleanup(() => unsubscribe());
-    });
+        slice.set(selector(s))
+      })
+      onCleanup(() => unsubscribe())
+    })
 
-    return slice.asReadonly();
+    return slice.asReadonly()
   })
 }
 

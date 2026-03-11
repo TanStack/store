@@ -58,7 +58,6 @@
     "@angular/compiler-cli": "^21.1.2",
     "@angular/core": "^21.1.2",
     "@angular/platform-browser": "^21.1.2",
-    "@angular/platform-browser-dynamic": "^21.1.2",
     "ng-packagr": "^21.1.0",
     "zone.js": "^0.15.1"
   },
