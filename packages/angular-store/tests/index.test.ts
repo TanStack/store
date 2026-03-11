@@ -1,9 +1,24 @@
 import { describe, expect, test } from 'vitest'
-import { Component, effect } from '@angular/core'
+import {
+  Component,
+  computed,
+  effect,
+  input,
+  OnInit,
+  signal,
+  untracked,
+  inputBinding,
+} from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
 import { createStore } from '@tanstack/store'
 import { injectStore } from '../src/index'
+
+function createStableSignal<T>(fn: () => T): () => T {
+  return computed(() => untracked(fn))
+}
+
+const selectorReadsInputStore = createStore({ cats: 2, dogs: 4 })
 
 describe('injectStore', () => {
   test(`allows us to select state using a selector`, () => {
@@ -91,6 +106,135 @@ describe('injectStore', () => {
     fixture.detectChanges()
     expect(element.textContent).toContain('Store: 10')
     expect(count).toEqual(2)
+  })
+
+  test('supports a store created inside a stable signal', () => {
+    const count = signal(1)
+
+    const storeVal = TestBed.runInInjectionContext(() => {
+      const store = createStableSignal(() => createStore({ value: count() }))
+      const storeVal = injectStore(() => store(), (state) => state.value)
+
+      effect(() => {
+        store().setState(() => ({ value: count() }))
+      })
+
+      return storeVal
+    })
+
+    expect(storeVal()).toBe(1)
+
+    count.set(5)
+    TestBed.tick()
+
+    expect(storeVal()).toBe(5)
+  })
+
+  test('supports a store created from input signals', () => {
+    @Component({
+      template: `<p id="displayStoreVal">{{ storeVal() }}</p>`,
+      standalone: true,
+    })
+    class StoreFromInputChildCmp {
+      value = input.required<number>()
+      store = createStableSignal(() =>
+        createStore({ doubled: this.value() * 2 }),
+      )
+      storeVal = injectStore(() => this.store(), (state) => state.doubled)
+
+      constructor() {
+        effect(() => {
+          this.store().setState(() => ({ doubled: this.value() * 2 }))
+        })
+      }
+    }
+
+    const value = signal(3)
+    const fixture = TestBed.createComponent(StoreFromInputChildCmp, {
+      bindings: [inputBinding('value', value)],
+    })
+    fixture.detectChanges()
+
+    const debugElement = fixture.debugElement
+
+    expect(
+      debugElement.query(By.css('p#displayStoreVal')).nativeElement.textContent,
+    ).toContain('6')
+
+    value.set(4)
+    fixture.detectChanges()
+
+    expect(
+      debugElement.query(By.css('p#displayStoreVal')).nativeElement.textContent,
+    ).toContain('8')
+  })
+
+  test('supports selectors that read input signals', () => {
+    @Component({
+      selector: 'app-selector-reads-input',
+      template: `<p id="displayStoreVal">{{ count() }}</p>`,
+      standalone: true,
+    })
+    class SelectorReadsInputChildCmp {
+      animal = input.required<'cats' | 'dogs'>()
+      count = injectStore(
+        selectorReadsInputStore,
+        (state) => state[this.animal()],
+      )
+    }
+
+    const animal = signal<'cats' | 'dogs'>('cats')
+    const fixture = TestBed.createComponent(SelectorReadsInputChildCmp, {
+      bindings: [inputBinding('animal', animal)],
+    })
+    fixture.detectChanges()
+
+    const debugElement = fixture.debugElement
+
+    expect(
+      debugElement.query(By.css('p#displayStoreVal')).nativeElement.textContent,
+    ).toContain('2')
+
+    animal.set('dogs')
+    fixture.detectChanges()
+
+    expect(
+      debugElement.query(By.css('p#displayStoreVal')).nativeElement.textContent,
+    ).toContain('4')
+  })
+
+  test('makes the selected store value available on ngOnInit', () => {
+    let didAssertOnInit = false
+
+    @Component({
+      template: ``,
+      standalone: true,
+    })
+    class StoreFromInputOnInitCmp implements OnInit {
+      value = input.required<number>()
+      store = createStableSignal(() =>
+        createStore({ doubled: this.value() * 2 }),
+      )
+      storeVal = injectStore(() => this.store(), (state) => state.doubled)
+
+      constructor() {
+        effect(() => {
+          this.store().setState(() => ({ doubled: this.value() * 2 }))
+        })
+      }
+
+      ngOnInit() {
+        expect(this.storeVal()).toBe(14)
+        didAssertOnInit = true
+      }
+    }
+
+    const value = signal(7)
+    const fixture = TestBed.createComponent(StoreFromInputOnInitCmp, {
+      bindings: [inputBinding('value', value)],
+    })
+    fixture.detectChanges()
+    expect(didAssertOnInit).toBe(true)
   })
 })
 
