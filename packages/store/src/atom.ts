@@ -70,7 +70,6 @@ export function batch(fn: () => void) {
   }
 }
 
-
 function purgeDeps(sub: ReactiveNode) {
   const depsTail = sub.depsTail
   let dep = depsTail !== undefined ? depsTail.nextDep : sub.deps

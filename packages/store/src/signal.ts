@@ -32,44 +32,44 @@ let activeSub: ReactiveNode | undefined
 const queued: (EffectNode | undefined)[] = []
 const { link, unlink, propagate, checkDirty, shallowPropagate } =
   /* @__PURE__ */ createReactiveSystem({
-  update(node: SignalNode | ComputedNode): boolean {
-    if (node.depsTail !== undefined) {
-      return updateComputed(node as ComputedNode)
-    } else {
-      return updateSignal(node as SignalNode)
-    }
-  },
-  notify(effect: EffectNode) {
-    let insertIndex = queuedLength
-    let firstInsertedIndex = insertIndex
-
-    do {
-      queued[insertIndex++] = effect
-      effect.flags &= ~ReactiveFlags.Watching
-      effect = effect.subs?.sub as EffectNode
-      if (effect === undefined || !(effect.flags & ReactiveFlags.Watching)) {
-        break
+    update(node: SignalNode | ComputedNode): boolean {
+      if (node.depsTail !== undefined) {
+        return updateComputed(node as ComputedNode)
+      } else {
+        return updateSignal(node as SignalNode)
       }
-    } while (true)
+    },
+    notify(effect: EffectNode) {
+      let insertIndex = queuedLength
+      let firstInsertedIndex = insertIndex
 
-    queuedLength = insertIndex
+      do {
+        queued[insertIndex++] = effect
+        effect.flags &= ~ReactiveFlags.Watching
+        effect = effect.subs?.sub as EffectNode
+        if (effect === undefined || !(effect.flags & ReactiveFlags.Watching)) {
+          break
+        }
+      } while (true)
 
-    while (firstInsertedIndex < --insertIndex) {
-      const left = queued[firstInsertedIndex]
-      queued[firstInsertedIndex++] = queued[insertIndex]
-      queued[insertIndex] = left
-    }
-  },
-  unwatched(node) {
-    if (!(node.flags & ReactiveFlags.Mutable)) {
-      effectScopeOper.call(node)
-    } else if (node.depsTail !== undefined) {
-      node.depsTail = undefined
-      node.flags = ReactiveFlags.Mutable | ReactiveFlags.Dirty
-      purgeDeps(node)
-    }
-  },
-})
+      queuedLength = insertIndex
+
+      while (firstInsertedIndex < --insertIndex) {
+        const left = queued[firstInsertedIndex]
+        queued[firstInsertedIndex++] = queued[insertIndex]
+        queued[insertIndex] = left
+      }
+    },
+    unwatched(node) {
+      if (!(node.flags & ReactiveFlags.Mutable)) {
+        effectScopeOper.call(node)
+      } else if (node.depsTail !== undefined) {
+        node.depsTail = undefined
+        node.flags = ReactiveFlags.Mutable | ReactiveFlags.Dirty
+        purgeDeps(node)
+      }
+    },
+  })
 
 export function getActiveSub(): ReactiveNode | undefined {
   return activeSub
@@ -245,7 +245,7 @@ function run(e: EffectNode): void {
     e.flags = ReactiveFlags.Watching | ReactiveFlags.RecursedCheck
     const prevSub = setActiveSub(e)
     try {
-      ; (e as EffectNode).fn()
+      ;(e as EffectNode).fn()
     } finally {
       activeSub = prevSub
       e.flags &= ~ReactiveFlags.RecursedCheck
