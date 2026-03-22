@@ -7,7 +7,7 @@ type SyncExternalStoreSubscribe = Parameters<
 >[0]
 
 function defaultCompare<T>(a: T, b: T) {
-  return a === b
+  return Object.is(a, b)
 }
 
 export function useStore<TAtom extends AnyAtom | undefined, T>(
