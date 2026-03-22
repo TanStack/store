@@ -6,6 +6,7 @@ type SyncExternalStoreSubscribe = Parameters<
   typeof useSyncExternalStoreWithSelector
 >[0]
 
+/** Comparator using Object.is to correctly handle NaN and -0 edge cases. */
 function defaultCompare<T>(a: T, b: T) {
   return Object.is(a, b)
 }
