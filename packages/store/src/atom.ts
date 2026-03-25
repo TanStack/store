@@ -1,4 +1,4 @@
-import { ReactiveFlags, createReactiveSystem, getBatchDepth } from './alien'
+import { ReactiveFlags, createReactiveSystem } from './alien'
 
 import type { ReactiveNode } from './alien'
 import type {
@@ -57,6 +57,18 @@ const { link, unlink, propagate, checkDirty, shallowPropagate } =
 let notifyIndex = 0
 let queuedEffectsLength = 0
 let activeSub: ReactiveNode | undefined
+let batchDepth = 0
+
+export function batch(fn: () => void) {
+  try {
+    ++batchDepth
+    fn()
+  } finally {
+    if (!--batchDepth) {
+      flush()
+    }
+  }
+}
 
 function purgeDeps(sub: ReactiveNode) {
   const depsTail = sub.depsTail
@@ -67,7 +79,7 @@ function purgeDeps(sub: ReactiveNode) {
 }
 
 export function flush(): void {
-  if (getBatchDepth() > 0) {
+  if (batchDepth > 0) {
     return
   }
   while (notifyIndex < queuedEffectsLength) {

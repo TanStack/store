@@ -7,5 +7,5 @@
   },
   "ignoreDependencies": ["vue"],
   "ignoreWorkspaces": ["examples/**"],
-  "ignore": ["packages/store/src/alien.ts"]
+  "ignore": ["packages/store/src/signal.ts"]
 }
