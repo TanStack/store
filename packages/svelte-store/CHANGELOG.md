@@ -1,5 +1,12 @@
 # @tanstack/svelte-store
 
+## 0.10.3
+
+### Patch Changes
+
+- Updated dependencies [[`d8b51a7`](https://github.com/TanStack/store/commit/d8b51a7e2b8e42a38d6dab9e4aae139d6fb1c153)]:
+  - @tanstack/store@0.9.3
+
 ## 0.10.2
 
 ### Patch Changes
