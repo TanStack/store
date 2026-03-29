@@ -1,5 +1,11 @@
 # @tanstack/store
 
+## 0.9.3
+
+### Patch Changes
+
+- Improve tree-shaking of alien-signals ([#297](https://github.com/TanStack/store/pull/297))
+
 ## 0.9.2
 
 ### Patch Changes
