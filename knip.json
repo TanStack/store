@@ -5,7 +5,6 @@
       "ignoreDependencies": ["vue2", "vue2.7"]
     }
   },
-  "ignoreDependencies": ["vue"],
   "ignoreWorkspaces": ["examples/**"],
   "ignore": ["packages/store/src/signal.ts"]
 }

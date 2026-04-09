@@ -30,22 +30,16 @@
     "test:lib": "vitest",
     "test:lib:dev": "pnpm run test:lib --watch",
     "test:build": "publint --strict",
-    "build": "vite build"
+    "build": "tsdown --tsconfig tsconfig.build.json"
   },
   "type": "module",
-  "types": "dist/esm/index.d.ts",
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/esm/index.js",
+  "types": "./dist/index.d.cts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/esm/index.d.ts",
-        "default": "./dist/esm/index.js"
-      },
-      "require": {
-        "types": "./dist/cjs/index.d.cts",
-        "default": "./dist/cjs/index.cjs"
-      }
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./package.json": "./package.json"
   },
@@ -58,13 +52,13 @@
     "@tanstack/store": "workspace:*"
   },
   "devDependencies": {
-    "@preact/preset-vite": "^2.10.2",
+    "@preact/preset-vite": "^2.10.5",
     "@testing-library/preact": "^3.2.4",
     "eslint-config-preact": "^2.0.0",
-    "jsdom": "^25.0.1",
-    "preact": "^10.27.2",
-    "typescript-eslint": "^8.48.0",
-    "vitest": "^4.0.18"
+    "jsdom": "^29.0.2",
+    "preact": "^10.29.1",
+    "typescript-eslint": "^8.58.1",
+    "vitest": "^4.1.4"
   },
   "peerDependencies": {
     "preact": "^10.0.0"

@@ -8,6 +8,12 @@ export default defineConfig([
   ...rootConfig,
   ...pluginSvelte.configs['flat/recommended'],
   {
+    files: ['src/**/*.svelte.ts'],
+    rules: {
+      'import/newline-after-import': 'off',
+    },
+  },
+  {
     rules: {
       'svelte/block-lang': ['error', { script: ['ts'] }],
       'svelte/no-svelte-internal': 'error',

@@ -10,15 +10,15 @@
   },
   "dependencies": {
     "@tanstack/react-store": "^0.9.3",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
   },
   "devDependencies": {
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.7.0",
-    "react-scan": "^0.4.3",
-    "vite": "^6.3.6"
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "react-scan": "^0.5.3",
+    "vite": "^8.0.8"
   },
   "browserslist": {
     "production": [

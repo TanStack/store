@@ -1,9 +1,8 @@
-import { defineConfig, mergeConfig } from 'vitest/config'
-import { tanstackViteConfig } from '@tanstack/vite-config'
+import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
 import packageJson from './package.json'
 
-const config = defineConfig({
+export default defineConfig({
   plugins: [vue()],
   test: {
     name: packageJson.name,
@@ -14,16 +13,4 @@ const config = defineConfig({
     coverage: { enabled: true, provider: 'istanbul', include: ['src/**/*'] },
     typecheck: { enabled: true },
   },
-  esbuild: {
-    jsxFactory: 'h',
-    jsxFragment: 'Fragment',
-  },
 })
-
-export default mergeConfig(
-  config,
-  tanstackViteConfig({
-    entry: './src/index.ts',
-    srcDir: './src',
-  }),
-)
