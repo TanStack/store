@@ -30,16 +30,26 @@
     "test:lib": "vitest",
     "test:lib:dev": "pnpm run test:lib --watch",
     "test:build": "publint --strict",
-    "build": "tsdown --tsconfig tsconfig.build.json"
+    "build": "tsdown --tsconfig tsconfig.build.json && tsc -p tsconfig.source.json"
   },
   "type": "module",
-  "types": "./dist/index.d.cts",
+  "types": "./dist/index.d.ts",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "solid": {
+        "types": "./dist/source/index.d.ts",
+        "default": "./dist/source/index.jsx"
+      },
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./package.json": "./package.json"
   },
