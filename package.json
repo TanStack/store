@@ -78,9 +78,6 @@
     "@tanstack/vue-store": "workspace:*"
   },
   "pnpm": {
-    "overrides": {
-      "@types/node": "25.2.1"
-    },
     "packageExtensions": {
       "@vue/composition-api": {
         "peerDependencies": {

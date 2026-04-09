@@ -39,8 +39,7 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "solid": "./dist/index.js"
+      "require": "./dist/index.cjs"
     },
     "./package.json": "./package.json"
   },

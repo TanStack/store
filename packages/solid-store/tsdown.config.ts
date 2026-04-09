@@ -11,22 +11,7 @@ export default defineConfig({
   clean: true,
   minify: false,
   fixedExtension: false,
-  exports: {
-    customExports(exports) {
-      const rootExport =
-        typeof exports['.'] === 'object' && exports['.'] !== null
-          ? exports['.']
-          : {}
-
-      return {
-        ...exports,
-        '.': {
-          ...rootExport,
-          solid: './dist/index.js',
-        },
-      }
-    },
-  },
+  exports: true,
   publint: {
     strict: true,
   },
