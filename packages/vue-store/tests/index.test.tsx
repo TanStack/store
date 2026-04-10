@@ -1,5 +1,4 @@
 import { describe, expect, it, test, vi } from 'vitest'
-// @ts-expect-error We need to import `h` as it's part of Vue's JSX transform
 import { defineComponent, h } from 'vue-demi'
 import { render, waitFor } from '@testing-library/vue'
 import { createStore } from '@tanstack/store'
@@ -18,7 +17,7 @@ describe('useStore', () => {
     const Comp = defineComponent(() => {
       const storeVal = useStore(store, (state) => state.select)
 
-      return () => <p>Store: {storeVal.value}</p>
+      return () => h('p', `Store: ${storeVal.value}`)
     })
 
     const { getByText } = render(Comp)
@@ -38,32 +37,32 @@ describe('useStore', () => {
 
       return () => {
         fn()
-        return (
-          <div>
-            <p>Number rendered: {fn.mock.calls.length}</p>
-            <p>Store: {storeVal.value}</p>
-            <button
-              onClick={() =>
+        return h('div', [
+          h('p', `Number rendered: ${fn.mock.calls.length}`),
+          h('p', `Store: ${storeVal.value}`),
+          h(
+            'button',
+            {
+              onClick: () =>
                 store.setState((v) => ({
                   ...v,
                   select: 10,
-                }))
-              }
-            >
-              Update select
-            </button>
-            <button
-              onClick={() =>
+                })),
+            },
+            'Update select',
+          ),
+          h(
+            'button',
+            {
+              onClick: () =>
                 store.setState((v) => ({
                   ...v,
                   ignored: 10,
-                }))
-              }
-            >
-              Update ignored
-            </button>
-          </div>
-        )
+                })),
+            },
+            'Update ignored',
+          ),
+        ])
       }
     })
 

@@ -10,13 +10,13 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@tanstack/vue-store": "^0.9.3",
-    "vue": "^3.5.22"
+    "@tanstack/vue-store": "^0.10.0",
+    "vue": "^3.5.32"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.2.4",
-    "typescript": "5.6.3",
-    "vite": "^6.3.6",
-    "vue-tsc": "^2.2.12"
+    "@vitejs/plugin-vue": "^6.0.5",
+    "typescript": "6.0.2",
+    "vite": "^8.0.8",
+    "vue-tsc": "^3.2.6"
   }
 }

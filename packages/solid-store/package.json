@@ -1,6 +1,6 @@
 {
   "name": "@tanstack/solid-store",
-  "version": "0.9.3",
+  "version": "0.10.0",
   "description": "Framework agnostic type-safe store w/ reactive framework adapters",
   "author": "Tanner Linsley",
   "license": "MIT",
@@ -30,12 +30,12 @@
     "test:lib": "vitest",
     "test:lib:dev": "pnpm run test:lib --watch",
     "test:build": "publint --strict",
-    "build": "vite build && tsc -p tsconfig.build.json"
+    "build": "tsdown --tsconfig tsconfig.build.json && tsc -p tsconfig.source.json"
   },
   "type": "module",
-  "types": "dist/esm/index.d.ts",
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/esm/index.js",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "exports": {
     ".": {
       "solid": {
@@ -43,12 +43,12 @@
         "default": "./dist/source/index.jsx"
       },
       "import": {
-        "types": "./dist/esm/index.d.ts",
-        "default": "./dist/esm/index.js"
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
       },
       "require": {
-        "types": "./dist/cjs/index.d.cts",
-        "default": "./dist/cjs/index.cjs"
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
       }
     },
     "./package.json": "./package.json"
@@ -63,8 +63,8 @@
   },
   "devDependencies": {
     "@solidjs/testing-library": "^0.8.10",
-    "solid-js": "^1.9.9",
-    "vite-plugin-solid": "^2.11.9"
+    "solid-js": "^1.9.12",
+    "vite-plugin-solid": "^2.11.12"
   },
   "peerDependencies": {
     "solid-js": "^1.6.0"

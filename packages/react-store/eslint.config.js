@@ -5,19 +5,28 @@ import pluginReact from '@eslint-react/eslint-plugin'
 import pluginReactHooks from 'eslint-plugin-react-hooks'
 import rootConfig from '../../eslint.config.js'
 
+const reactRecommended = /** @type {any} */ (pluginReact.configs.recommended)
+const reactHooksPlugin = /** @type {any} */ (pluginReactHooks)
+
 export default defineConfig([
   ...rootConfig,
   {
     files: ['**/*.{ts,tsx}'],
-    ...pluginReact.configs.recommended,
+    ...reactRecommended,
   },
   {
     plugins: {
-      'react-hooks': pluginReactHooks,
+      'react-hooks': reactHooksPlugin,
     },
     rules: {
       'react-hooks/exhaustive-deps': 'error',
       'react-hooks/rules-of-hooks': 'error',
+    },
+  },
+  {
+    files: ['tests/**/*.{ts,tsx}'],
+    rules: {
+      '@eslint-react/component-hook-factories': 'off',
     },
   },
 ])
