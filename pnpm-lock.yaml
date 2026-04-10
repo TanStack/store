@@ -119,7 +119,7 @@ importers:
         specifier: ^21.2.8
         version: 21.2.8(@angular/common@21.2.8(@angular/core@21.2.8(@angular/compiler@21.2.8)(rxjs@7.8.2)(zone.js@0.16.1))(rxjs@7.8.2))(@angular/core@21.2.8(@angular/compiler@21.2.8)(rxjs@7.8.2)(zone.js@0.16.1))(@angular/platform-browser@21.2.8(@angular/animations@21.2.8(@angular/core@21.2.8(@angular/compiler@21.2.8)(rxjs@7.8.2)(zone.js@0.16.1)))(@angular/common@21.2.8(@angular/core@21.2.8(@angular/compiler@21.2.8)(rxjs@7.8.2)(zone.js@0.16.1))(rxjs@7.8.2))(@angular/core@21.2.8(@angular/compiler@21.2.8)(rxjs@7.8.2)(zone.js@0.16.1)))(rxjs@7.8.2)
       '@tanstack/angular-store':
-        specifier: ^0.9.3
+        specifier: ^0.10.0
         version: link:../../../packages/angular-store
       rxjs:
         specifier: ^7.8.2
@@ -147,7 +147,7 @@ importers:
   examples/preact/simple:
     dependencies:
       '@tanstack/preact-store':
-        specifier: ^0.11.3
+        specifier: ^0.12.0
         version: link:../../../packages/preact-store
       preact:
         specifier: ^10.29.1
@@ -175,7 +175,7 @@ importers:
   examples/react/simple:
     dependencies:
       '@tanstack/react-store':
-        specifier: ^0.9.3
+        specifier: ^0.10.0
         version: link:../../../packages/react-store
       react:
         specifier: ^19.2.5
@@ -203,7 +203,7 @@ importers:
   examples/solid/simple:
     dependencies:
       '@tanstack/solid-store':
-        specifier: ^0.9.3
+        specifier: ^0.10.0
         version: link:../../../packages/solid-store
       solid-js:
         specifier: ^1.9.12
@@ -222,7 +222,7 @@ importers:
   examples/svelte/simple:
     dependencies:
       '@tanstack/svelte-store':
-        specifier: ^0.10.3
+        specifier: ^0.11.0
         version: link:../../../packages/svelte-store
     devDependencies:
       '@sveltejs/vite-plugin-svelte':
@@ -250,7 +250,7 @@ importers:
   examples/vue/simple:
     dependencies:
       '@tanstack/vue-store':
-        specifier: ^0.9.3
+        specifier: ^0.10.0
         version: link:../../../packages/vue-store
       vue:
         specifier: ^3.5.32
