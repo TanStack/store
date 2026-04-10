@@ -12,7 +12,7 @@ function useStore<TAtom, T>(
    compare): T;
 ```
 
-Defined in: [useStore.ts:13](https://github.com/TanStack/store/blob/main/packages/react-store/src/useStore.ts#L13)
+Defined in: [useStore.ts:14](https://github.com/TanStack/store/blob/main/packages/react-store/src/useStore.ts#L14)
 
 ## Type Parameters
 
