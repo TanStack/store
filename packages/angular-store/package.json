@@ -30,19 +30,13 @@
     "build": "tsdown --tsconfig tsconfig.build.json"
   },
   "type": "module",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.cts",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./package.json": "./package.json"
   },
@@ -55,7 +49,7 @@
     "@tanstack/store": "workspace:*"
   },
   "devDependencies": {
-    "@analogjs/vite-plugin-angular": "^2.4.3",
+    "@analogjs/vite-plugin-angular": "^2.4.5",
     "@angular/common": "^21.2.8",
     "@angular/compiler": "^21.2.8",
     "@angular/core": "^21.2.8",

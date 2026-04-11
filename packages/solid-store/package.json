@@ -33,23 +33,13 @@
     "build": "tsdown --tsconfig tsconfig.build.json && tsc -p tsconfig.source.json"
   },
   "type": "module",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.cts",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "exports": {
     ".": {
-      "solid": {
-        "types": "./dist/source/index.d.ts",
-        "default": "./dist/source/index.jsx"
-      },
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
-      }
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./package.json": "./package.json"
   },

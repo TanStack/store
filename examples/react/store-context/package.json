@@ -9,7 +9,7 @@
     "test:types": "tsc"
   },
   "dependencies": {
-    "@tanstack/react-store": "^0.9.3",
+    "@tanstack/react-store": "^0.10.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5"
   },
