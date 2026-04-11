@@ -11,7 +11,7 @@ title: useSetValue
 function useSetValue<TValue>(source): (fn) => void & (value) => void;
 ```
 
-Defined in: react-store/src/useSetValue.ts:23
+Defined in: [react-store/src/useSetValue.ts:23](https://github.com/TanStack/store/blob/main/packages/react-store/src/useSetValue.ts#L23)
 
 Returns a stable setter for a writable atom or store.
 
@@ -53,7 +53,7 @@ setState((prev) => ({ ...prev, count: prev.count + 1 }))
 function useSetValue<TValue>(source): (updater) => void;
 ```
 
-Defined in: react-store/src/useSetValue.ts:24
+Defined in: [react-store/src/useSetValue.ts:24](https://github.com/TanStack/store/blob/main/packages/react-store/src/useSetValue.ts#L24)
 
 Returns a stable setter for a writable atom or store.
 
