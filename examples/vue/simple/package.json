@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port=3050",
     "build": "vite build",
     "build:dev": "vite build -m development",
     "test:types": "vue-tsc",

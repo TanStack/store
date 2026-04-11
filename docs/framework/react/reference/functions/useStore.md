@@ -3,41 +3,53 @@ id: useStore
 title: useStore
 ---
 
-# Function: useStore()
+# ~~Function: useStore()~~
 
 ```ts
-function useStore<TAtom, T>(
-   atom, 
+function useStore<TSource, TSelected>(
+   source, 
    selector, 
-   compare): T;
+   compare?): TSelected;
 ```
 
-Defined in: [useStore.ts:13](https://github.com/TanStack/store/blob/main/packages/react-store/src/useStore.ts#L13)
+Defined in: [react-store/src/useStore.ts:8](https://github.com/TanStack/store/blob/main/packages/react-store/src/useStore.ts#L8)
+
+Deprecated alias for [useSelector](useSelector.md).
 
 ## Type Parameters
 
-### TAtom
+### TSource
 
-`TAtom` *extends* `AnyAtom` \| `undefined`
+`TSource`
 
-### T
+### TSelected
 
-`T`
+`TSelected`
 
 ## Parameters
 
-### atom
+### source
 
-`TAtom`
+#### get
+
+() => `TSource`
+
+#### subscribe
+
+(`listener`) => `object`
 
 ### selector
 
-(`snapshot`) => `T`
+(`snapshot`) => `TSelected`
 
-### compare
+### compare?
 
 (`a`, `b`) => `boolean`
 
 ## Returns
 
-`T`
+`TSelected`
+
+## Deprecated
+
+Use `useSelector` instead.

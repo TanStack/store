@@ -1,6 +1,5 @@
-import { scan } from 'react-scan' // dev-tools for demo
 import ReactDOM from 'react-dom/client'
-import { Store, useStore } from '@tanstack/react-store'
+import { Store, useSelector } from '@tanstack/react-store'
 
 // You can use instantiate a Store outside of React components too!
 export const store = new Store({
@@ -14,7 +13,7 @@ interface DisplayProps {
 
 // This will only re-render when `state[animal]` changes. If an unrelated store property changes, it won't re-render
 const Display = ({ animal }: DisplayProps) => {
-  const count = useStore(store, (state) => state[animal])
+  const count = useSelector(store, (state) => state[animal]) // formerly, useStore. Now renamed to useSelector.
   return <div>{`${animal}: ${count}`}</div>
 }
 
@@ -53,5 +52,3 @@ function App() {
 
 const root = ReactDOM.createRoot(document.getElementById('root')!)
 root.render(<App />)
-
-scan()

@@ -176,8 +176,36 @@
               "to": "framework/react/reference/index"
             },
             {
-              "label": "Functions / useStore",
-              "to": "framework/react/reference/functions/useStore"
+              "label": "Functions / createStoreContext",
+              "to": "framework/react/reference/functions/createStoreContext"
+            },
+            {
+              "label": "Functions / useCreateAtom",
+              "to": "framework/react/reference/functions/useCreateAtom"
+            },
+            {
+              "label": "Functions / useValue",
+              "to": "framework/react/reference/functions/useValue"
+            },
+            {
+              "label": "Functions / useSetValue",
+              "to": "framework/react/reference/functions/useSetValue"
+            },
+            {
+              "label": "Functions / useAtom",
+              "to": "framework/react/reference/functions/useAtom"
+            },
+            {
+              "label": "Functions / useCreateStore",
+              "to": "framework/react/reference/functions/useCreateStore"
+            },
+            {
+              "label": "Functions / useSelector",
+              "to": "framework/react/reference/functions/useSelector"
+            },
+            {
+              "label": "Variables / useStore (deprecated)",
+              "to": "framework/react/reference/variables/useStore"
             },
             {
               "label": "Functions / shallow",
