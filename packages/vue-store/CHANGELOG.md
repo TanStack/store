@@ -1,5 +1,16 @@
 # @tanstack/vue-store
 
+## 0.10.0
+
+### Minor Changes
+
+- chore: update deps and change build process to tsdown ([#304](https://github.com/TanStack/store/pull/304))
+
+### Patch Changes
+
+- Updated dependencies [[`66e3010`](https://github.com/TanStack/store/commit/66e30108f49b5bf4c9796c9c98a009c08520c9a9)]:
+  - @tanstack/store@0.10.0
+
 ## 0.9.3
 
 ### Patch Changes

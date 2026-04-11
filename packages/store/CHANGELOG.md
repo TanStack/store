@@ -1,5 +1,11 @@
 # @tanstack/store
 
+## 0.10.0
+
+### Minor Changes
+
+- chore: update deps and change build process to tsdown ([#304](https://github.com/TanStack/store/pull/304))
+
 ## 0.9.3
 
 ### Patch Changes

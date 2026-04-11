@@ -6,7 +6,7 @@ id: quick-start
 The basic vue app example to get started with the TanStack vue-store.
 
 **App.vue**
-```html
+```vue
 <script setup>
 import Increment from './Increment.vue';
 import Display from './Display.vue';
@@ -43,7 +43,7 @@ export function updateState(animal) {
 ```
 
 **Display.vue**
-```html
+```vue
 <script setup>
 import { useStore } from '@tanstack/vue-store';
 import { store } from './store';
@@ -59,7 +59,7 @@ const count = useStore(store, (state) => state[props.animal]);
 ```
 
 **Increment.vue**
-```html
+```vue
 <script setup>
 import { store, updateState } from './store';
 
