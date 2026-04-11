@@ -5,7 +5,7 @@ title: ReadonlyStore
 
 # Class: ReadonlyStore\<T\>
 
-Defined in: [store.ts:31](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L31)
+Defined in: [store.ts:61](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L61)
 
 ## Type Parameters
 
@@ -15,7 +15,7 @@ Defined in: [store.ts:31](https://github.com/TanStack/store/blob/main/packages/s
 
 ## Implements
 
-- `Omit`\<[`Store`](Store.md)\<`T`\>, `"setState"`\>
+- `Omit`\<[`Store`](Store.md)\<`T`\>, `"setState"` \| `"actions"`\>
 
 ## Constructors
 
@@ -25,7 +25,7 @@ Defined in: [store.ts:31](https://github.com/TanStack/store/blob/main/packages/s
 new ReadonlyStore<T>(getValue): ReadonlyStore<T>;
 ```
 
-Defined in: [store.ts:33](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L33)
+Defined in: [store.ts:66](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L66)
 
 #### Parameters
 
@@ -43,7 +43,7 @@ Defined in: [store.ts:33](https://github.com/TanStack/store/blob/main/packages/s
 new ReadonlyStore<T>(initialValue): ReadonlyStore<T>;
 ```
 
-Defined in: [store.ts:34](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L34)
+Defined in: [store.ts:67](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L67)
 
 #### Parameters
 
@@ -65,7 +65,7 @@ Defined in: [store.ts:34](https://github.com/TanStack/store/blob/main/packages/s
 get state(): T;
 ```
 
-Defined in: [store.ts:42](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L42)
+Defined in: [store.ts:75](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L75)
 
 ##### Returns
 
@@ -85,7 +85,7 @@ Omit.state
 get(): T;
 ```
 
-Defined in: [store.ts:45](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L45)
+Defined in: [store.ts:78](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L78)
 
 #### Returns
 
@@ -105,7 +105,7 @@ Omit.get
 subscribe(observerOrFn): Subscription;
 ```
 
-Defined in: [store.ts:48](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L48)
+Defined in: [store.ts:81](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L81)
 
 #### Parameters
 

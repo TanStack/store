@@ -19,4 +19,5 @@ title: "@tanstack/react-store"
 - [useSelector](functions/useSelector.md)
 - [useSetValue](functions/useSetValue.md)
 - [~~useStore~~](functions/useStore.md)
+- [useStoreActions](functions/useStoreActions.md)
 - [useValue](functions/useValue.md)

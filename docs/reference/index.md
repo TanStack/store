@@ -20,6 +20,7 @@ title: "@tanstack/store"
 - [InteropSubscribable](interfaces/InteropSubscribable.md)
 - [Readable](interfaces/Readable.md)
 - [ReadonlyAtom](interfaces/ReadonlyAtom.md)
+- [StoreActionsApi](interfaces/StoreActionsApi.md)
 - [Subscribable](interfaces/Subscribable.md)
 - [Subscription](interfaces/Subscription.md)
 
@@ -28,6 +29,9 @@ title: "@tanstack/store"
 - [AnyAtom](type-aliases/AnyAtom.md)
 - [Observer](type-aliases/Observer.md)
 - [Selection](type-aliases/Selection.md)
+- [StoreAction](type-aliases/StoreAction.md)
+- [StoreActionMap](type-aliases/StoreActionMap.md)
+- [StoreActionsFactory](type-aliases/StoreActionsFactory.md)
 
 ## Functions
 

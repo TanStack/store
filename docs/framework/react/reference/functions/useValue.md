@@ -28,7 +28,7 @@ should be treated as equivalent.
 
 ### source
 
-`Atom`\<`TValue`\> | `ReadonlyAtom`\<`TValue`\> | `Store`\<`TValue`\> | `ReadonlyStore`\<`TValue`\>
+`Atom`\<`TValue`\> | `ReadonlyAtom`\<`TValue`\> | `Store`\<`TValue`, `any`\> | `ReadonlyStore`\<`TValue`\>
 
 ### options?
 

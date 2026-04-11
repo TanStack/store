@@ -50,7 +50,7 @@ setState((prev) => ({ ...prev, count: prev.count + 1 }))
 ## Call Signature
 
 ```ts
-function useSetValue<TValue>(source): (updater) => void;
+function useSetValue<TValue, TActions>(source): (updater) => void;
 ```
 
 Defined in: [react-store/src/useSetValue.ts:24](https://github.com/TanStack/store/blob/main/packages/react-store/src/useSetValue.ts#L24)
@@ -67,11 +67,15 @@ values and updater functions. Writable stores preserve their native
 
 `TValue`
 
+#### TActions
+
+`TActions` *extends* `StoreActionMap`
+
 ### Parameters
 
 #### source
 
-`Store`\<`TValue`\>
+`Store`\<`TValue`, `TActions`\>
 
 ### Returns
 
