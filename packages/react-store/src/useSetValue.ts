@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import type { Atom, Store } from '@tanstack/store'
+import type { Atom, Store, StoreActionMap } from '@tanstack/store'
 
 /**
  * Returns a stable setter for a writable atom or store.
@@ -21,11 +21,13 @@ import type { Atom, Store } from '@tanstack/store'
  * ```
  */
 export function useSetValue<TValue>(source: Atom<TValue>): Atom<TValue>['set']
-export function useSetValue<TValue>(
-  source: Store<TValue>,
-): Store<TValue>['setState']
-export function useSetValue<TValue>(source: Atom<TValue> | Store<TValue>) {
-  return useCallback<Atom<TValue>['set'] | Store<TValue>['setState']>(
+export function useSetValue<TValue, TActions extends StoreActionMap>(
+  source: Store<TValue, TActions>,
+): Store<TValue, TActions>['setState']
+export function useSetValue<TValue, TActions extends StoreActionMap>(
+  source: Atom<TValue> | Store<TValue, TActions>,
+) {
+  return useCallback<Atom<TValue>['set'] | Store<TValue, TActions>['setState']>(
     (valueOrUpdater: TValue | ((prevVal: TValue) => TValue)) => {
       if ('setState' in source) {
         source.setState(valueOrUpdater as (prevVal: TValue) => TValue)

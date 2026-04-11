@@ -11,6 +11,7 @@ import {
   useSelector,
   useSetValue,
   useStore,
+  useStoreActions,
   useValue,
 } from '../src/index'
 
@@ -391,6 +392,27 @@ describe('store hooks', () => {
     expect(result.current.state).toBe(1)
   })
 
+  it('useCreateStore supports actions and keeps them stable', () => {
+    const { result, rerender } = renderHook(() =>
+      useCreateStore({ count: 0 }, ({ get, set }) => ({
+        inc: () => set((prev) => ({ count: prev.count + 1 })),
+        current: () => get().count,
+      })),
+    )
+    const store = result.current
+    const actions = store.actions
+
+    act(() => {
+      store.actions.inc()
+    })
+
+    rerender()
+
+    expect(result.current).toBe(store)
+    expect(result.current.actions).toBe(actions)
+    expect(result.current.actions.current()).toBe(1)
+  })
+
   it('useSelector allows us to select state using a selector', () => {
     const store = createStore({
       select: 0,
@@ -589,6 +611,24 @@ describe('store hooks', () => {
     await user.click(getByText('Update select'))
 
     await waitFor(() => expect(getByText('Derived: 2')).toBeInTheDocument())
+  })
+
+  it('useStoreActions returns the stable actions bag without subscribing to state', () => {
+    const store = createStore({ count: 0 }, ({ set }) => ({
+      inc: () => set((prev) => ({ count: prev.count + 1 })),
+    }))
+
+    const { result, rerender } = renderHook(() => useStoreActions(store))
+    const actions = result.current
+
+    act(() => {
+      store.actions.inc()
+    })
+
+    rerender()
+
+    expect(result.current).toBe(actions)
+    expect(store.state.count).toBe(1)
   })
 })
 

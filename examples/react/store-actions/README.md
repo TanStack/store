@@ -1,10 +1,10 @@
-# React Store Hooks Example
+# React Store Actions Example
 
 This example demonstrates:
 
 - `useSelector`
-- `store.setState`
-- module-level `Store`
+- `useStoreActions`
+- module-level `Store` actions
 
 To run this example:
 

@@ -1,11 +1,27 @@
 import ReactDOM from 'react-dom/client'
-import { Store, useSelector } from '@tanstack/react-store'
+import { Store, useSelector, useStoreActions } from '@tanstack/react-store'
 
 // Optionally, you can create stores outside of React components at module scope
-const petStore = new Store({
-  cats: 0,
-  dogs: 0,
-})
+const petStore = new Store(
+  {
+    cats: 0,
+    dogs: 0,
+  },
+  ({ set }) =>
+    // optionally, define actions for updating your store in specific ways right on the store.
+    ({
+      addCat: () =>
+        set((prev) => ({
+          ...prev,
+          cats: prev.cats + 1,
+        })),
+      addDog: () =>
+        set((prev) => ({
+          ...prev,
+          dogs: prev.dogs + 1,
+        })),
+    }),
+)
 
 function App() {
   // or define stores inside of components with hook variant. You would have to pass store as props or use store context though.
@@ -13,10 +29,10 @@ function App() {
 
   return (
     <main>
-      <h1>React Store Hooks</h1>
+      <h1>React Store Actions</h1>
       <p>
-        This example creates a module-level store. Components read state with
-        `useSelector` and update it directly with `store.setState`.
+        This example creates a module-level store with actions. Components read
+        state with `useSelector` and call mutations through `useStoreActions`.
       </p>
       <CatsCard />
       <DogsCard />
@@ -41,29 +57,15 @@ function DogsCard() {
 }
 
 function StoreButtons() {
+  // pull stable action functions from the
+  const { addCat, addDog } = useStoreActions(petStore)
+
   return (
     <div>
-      <button
-        type="button"
-        onClick={() =>
-          petStore.setState((prev) => ({
-            ...prev,
-            cats: prev.cats + 1,
-          }))
-        }
-      >
+      <button type="button" onClick={() => addCat()}>
         Add cat
       </button>
-      <button
-        type="button"
-        onClick={() =>
-          // directly update values in the store
-          petStore.setState((prev) => ({
-            ...prev,
-            dogs: prev.dogs + 1,
-          }))
-        }
-      >
+      <button type="button" onClick={() => addDog()}>
         Add dog
       </button>
     </div>

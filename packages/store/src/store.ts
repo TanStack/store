@@ -1,16 +1,46 @@
 import { createAtom, toObserver } from './atom'
 import type { Atom, Observer, Subscription } from './types'
 
-export class Store<T> {
+export interface StoreActionsApi<T> {
+  set: (updater: (prev: T) => T) => void
+  get: () => T
+}
+
+export type StoreAction = (...args: Array<any>) => any
+
+export type StoreActionMap = Record<string, StoreAction>
+
+export type StoreActionsFactory<T, TActions extends StoreActionMap> = (
+  api: StoreActionsApi<T>,
+) => TActions
+
+type NonFunction<T> = T extends (...args: Array<any>) => any ? never : T
+
+export class Store<T, TActions extends StoreActionMap = never> {
   private atom: Atom<T>
+  public readonly actions!: TActions
   constructor(getValue: (prev?: NoInfer<T>) => T)
   constructor(initialValue: T)
-  constructor(valueOrFn: T | ((prev?: T) => T)) {
+  constructor(
+    initialValue: NonFunction<T>,
+    actionsFactory: StoreActionsFactory<T, TActions>,
+  )
+  constructor(
+    valueOrFn: T | ((prev?: T) => T),
+    actionsFactory?: StoreActionsFactory<T, TActions>,
+  ) {
     // createAtom has overloads that return ReadonlyAtom<T> for functions and Atom<T> for values
     // Store always needs Atom<T> for setState, so we assert the return type
     this.atom = createAtom(
       valueOrFn as T | ((prev?: NoInfer<T>) => T),
     ) as Atom<T>
+
+    if (actionsFactory) {
+      this.actions = actionsFactory({
+        set: (updater) => this.setState(updater),
+        get: () => this.get(),
+      })
+    }
   }
   public setState(updater: (prev: T) => T) {
     this.atom.set(updater)
@@ -28,7 +58,10 @@ export class Store<T> {
   }
 }
 
-export class ReadonlyStore<T> implements Omit<Store<T>, 'setState'> {
+export class ReadonlyStore<T> implements Omit<
+  Store<T>,
+  'setState' | 'actions'
+> {
   private atom: Atom<T>
   constructor(getValue: (prev?: NoInfer<T>) => T)
   constructor(initialValue: T)
@@ -56,11 +89,19 @@ export function createStore<T>(
   getValue: (prev?: NoInfer<T>) => T,
 ): ReadonlyStore<T>
 export function createStore<T>(initialValue: T): Store<T>
-export function createStore<T>(
+export function createStore<T, TActions extends StoreActionMap>(
+  initialValue: NonFunction<T>,
+  actions: StoreActionsFactory<T, TActions>,
+): Store<T, TActions>
+export function createStore<T, TActions extends StoreActionMap>(
   valueOrFn: T | ((prev?: T) => T),
-): Store<T> | ReadonlyStore<T> {
+  actions?: StoreActionsFactory<T, TActions>,
+): Store<T, TActions> | Store<T> | ReadonlyStore<T> {
   if (typeof valueOrFn === 'function') {
     return new ReadonlyStore(valueOrFn as (prev?: NoInfer<T>) => T)
+  }
+  if (actions) {
+    return new Store(valueOrFn as NonFunction<T>, actions)
   }
   return new Store(valueOrFn)
 }

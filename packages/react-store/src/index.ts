@@ -5,6 +5,7 @@ export * from './useCreateAtom'
 export * from './useCreateStore'
 
 export * from './useSetValue'
+export * from './useStoreActions'
 
 export * from './useValue'
 export * from './useSelector'

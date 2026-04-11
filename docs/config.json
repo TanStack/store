@@ -302,6 +302,22 @@
             {
               "label": "Simple",
               "to": "framework/react/examples/simple"
+            },
+            {
+              "label": "Atoms",
+              "to": "framework/react/examples/atoms"
+            },
+            {
+              "label": "Stores",
+              "to": "framework/react/examples/stores"
+            },
+            {
+              "label": "Store Actions",
+              "to": "framework/react/examples/store-actions"
+            },
+            {
+              "label": "Store Context",
+              "to": "framework/react/examples/store-context"
             }
           ]
         },

@@ -8,6 +8,7 @@ import {
   useSelector,
   useSetValue,
   useStore,
+  useStoreActions,
   useValue,
 } from '../src'
 import type { Atom, ReadonlyStore } from '@tanstack/store'
@@ -79,12 +80,25 @@ test('useAtom only accepts writable atoms', () => {
 
 test('useCreateStore returns writable and readonly store types', () => {
   const writableStore = useCreateStore(12)
+  const writableStoreWithActions = useCreateStore({ count: 0 }, ({ set }) => ({
+    inc: () => set((prev) => ({ count: prev.count + 1 })),
+  }))
   const readonlyStore = useCreateStore(() => 24)
 
   expectTypeOf(writableStore.state).toExtend<number>()
   expectTypeOf(writableStore.setState).toBeFunction()
+  expectTypeOf(writableStoreWithActions.state).toMatchObjectType<{
+    count: number
+  }>()
+  expectTypeOf(writableStoreWithActions.actions.inc).toBeFunction()
   expectTypeOf(readonlyStore.state).toExtend<number>()
   expectTypeOf(readonlyStore).not.toHaveProperty('setState')
+
+  useCreateStore({ count: 0 }, () => ({
+    // @ts-expect-error actions must be functions
+    asdf: 123,
+    inc: () => {},
+  }))
 })
 
 test('useSelector infers state and selected types for stores', () => {
@@ -131,6 +145,25 @@ test('useStore matches useSelector types for compatibility', () => {
 
   expectTypeOf(selectorValue).toExtend<number>()
   expectTypeOf(compatValue).toExtend<number>()
+})
+
+test('useStoreActions infers the action bag from writable stores', () => {
+  const store = createStore({ count: 0 }, ({ get, set }) => ({
+    inc: () => set((prev) => ({ count: prev.count + 1 })),
+    current: () => get().count,
+  }))
+
+  const actions = useStoreActions(store)
+
+  expectTypeOf(actions.inc).toBeFunction()
+  expectTypeOf(actions.current()).toExtend<number>()
+
+  const plainStore = createStore(12)
+  expectTypeOf(useStoreActions(plainStore)).toEqualTypeOf<never>()
+
+  const readonlyStore = createStore(() => 24)
+  // @ts-expect-error readonly stores do not expose actions
+  useStoreActions(readonlyStore)
 })
 
 test('createStoreContext preserves keyed atom and store types', () => {
