@@ -1,5 +1,5 @@
-import { createRequiredContext } from './createRequiredContext'
-import type { ReactElement, ReactNode } from 'react'
+import { createContext, useContext } from 'react'
+import type { PropsWithChildren, ReactElement } from 'react'
 
 /**
  * Creates a typed React context for sharing a bundle of atoms and stores with a subtree.
@@ -38,16 +38,41 @@ import type { ReactElement, ReactNode } from 'react'
  * @throws When `useStoreContext()` is called outside the matching `StoreProvider`.
  */
 export function createStoreContext<TValue extends object>(): {
-  StoreProvider: (props: {
-    children?: ReactNode
-    value: TValue
-  }) => ReactElement
+  StoreProvider: (
+    props: {
+      value: TValue
+    } & PropsWithChildren,
+  ) => ReactElement
   useStoreContext: () => TValue
 } {
-  const { Provider, useRequiredValue } = createRequiredContext<TValue>()
+  const Context = createContext<TValue | null>(null)
+  Context.displayName = 'StoreContext'
+
+  // eslint-disable-next-line @eslint-react/component-hook-factories
+  function StoreProvider({
+    children,
+    value,
+  }: PropsWithChildren<{
+    value: TValue
+  }>) {
+    // eslint-disable-next-line @eslint-react/no-context-provider
+    return <Context.Provider value={value}>{children}</Context.Provider>
+  }
+
+  // eslint-disable-next-line @eslint-react/component-hook-factories
+  function useStoreContext() {
+    // eslint-disable-next-line @eslint-react/no-use-context
+    const value = useContext(Context)
+
+    if (value === null) {
+      throw new Error('Missing StoreProvider for StoreContext')
+    }
+
+    return value
+  }
 
   return {
-    StoreProvider: Provider,
-    useStoreContext: useRequiredValue,
+    StoreProvider,
+    useStoreContext,
   }
 }
