@@ -9,7 +9,7 @@ title: useValue
 function useValue<TValue>(source, options?): Accessor<TValue>;
 ```
 
-Defined in: solid-store/src/useValue.ts:24
+Defined in: [solid-store/src/useValue.ts:24](https://github.com/TanStack/store/blob/main/packages/solid-store/src/useValue.ts#L24)
 
 Subscribes to an atom or store and returns its current value accessor.
 

@@ -11,7 +11,7 @@ title: useCreateStore
 function useCreateStore<T>(getValue): ReadonlyStore<T>;
 ```
 
-Defined in: preact-store/src/useCreateStore.ts:38
+Defined in: [preact-store/src/useCreateStore.ts:38](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useCreateStore.ts#L38)
 
 Creates a stable store instance for the lifetime of the component.
 
@@ -60,7 +60,7 @@ function Counter() {
 function useCreateStore<T>(initialValue): Store<T>;
 ```
 
-Defined in: preact-store/src/useCreateStore.ts:41
+Defined in: [preact-store/src/useCreateStore.ts:41](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useCreateStore.ts#L41)
 
 Creates a stable store instance for the lifetime of the component.
 
@@ -109,7 +109,7 @@ function Counter() {
 function useCreateStore<T, TActions>(initialValue, actions): Store<T, TActions>;
 ```
 
-Defined in: preact-store/src/useCreateStore.ts:42
+Defined in: [preact-store/src/useCreateStore.ts:42](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useCreateStore.ts#L42)
 
 Creates a stable store instance for the lifetime of the component.
 

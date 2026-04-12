@@ -11,7 +11,7 @@ title: useSetValue
 function useSetValue<TValue>(source): (fn) => void & (value) => void;
 ```
 
-Defined in: vue-store/src/useSetValue.ts:21
+Defined in: [vue-store/src/useSetValue.ts:21](https://github.com/TanStack/store/blob/main/packages/vue-store/src/useSetValue.ts#L21)
 
 Returns a stable setter for a writable atom or store.
 
@@ -52,7 +52,7 @@ setState((state) => ({ ...state, count: state.count + 1 }))
 function useSetValue<TValue, TActions>(source): (updater) => void;
 ```
 
-Defined in: vue-store/src/useSetValue.ts:22
+Defined in: [vue-store/src/useSetValue.ts:22](https://github.com/TanStack/store/blob/main/packages/vue-store/src/useSetValue.ts#L22)
 
 Returns a stable setter for a writable atom or store.
 

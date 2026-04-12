@@ -9,7 +9,7 @@ title: useValue
 function useValue<TValue>(source, options?): TValue;
 ```
 
-Defined in: preact-store/src/useValue.ts:22
+Defined in: [preact-store/src/useValue.ts:22](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useValue.ts#L22)
 
 Subscribes to an atom or store and returns its current value.
 

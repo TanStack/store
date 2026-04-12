@@ -12,7 +12,7 @@ function useStore<TSource, TSelected>(
 compare?): Readonly<Ref<TSelected>>;
 ```
 
-Defined in: vue-store/src/useStore.ts:14
+Defined in: [vue-store/src/useStore.ts:14](https://github.com/TanStack/store/blob/main/packages/vue-store/src/useStore.ts#L14)
 
 Deprecated alias for [useSelector](useSelector.md).
 

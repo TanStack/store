@@ -12,7 +12,7 @@ function useSelector<TSource, TSelected>(
    options?): TSelected;
 ```
 
-Defined in: preact-store/src/useSelector.ts:127
+Defined in: [preact-store/src/useSelector.ts:127](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useSelector.ts#L127)
 
 Selects a slice of state from an atom or store and subscribes the component
 to that selection.

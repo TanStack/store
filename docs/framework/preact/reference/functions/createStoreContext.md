@@ -9,7 +9,7 @@ title: createStoreContext
 function createStoreContext<TValue>(): object;
 ```
 
-Defined in: preact-store/src/createStoreContext.tsx:44
+Defined in: [preact-store/src/createStoreContext.tsx:44](https://github.com/TanStack/store/blob/main/packages/preact-store/src/createStoreContext.tsx#L44)
 
 Creates a typed Preact context for sharing a bundle of atoms and stores with
 a subtree.

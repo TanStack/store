@@ -9,7 +9,7 @@ title: useValue
 function useValue<TValue>(source, options?): Readonly<Ref<TValue>>;
 ```
 
-Defined in: vue-store/src/useValue.ts:23
+Defined in: [vue-store/src/useValue.ts:23](https://github.com/TanStack/store/blob/main/packages/vue-store/src/useValue.ts#L23)
 
 Subscribes to an atom or store and returns its current value ref.
 

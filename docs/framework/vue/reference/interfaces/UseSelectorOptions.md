@@ -5,7 +5,7 @@ title: UseSelectorOptions
 
 # Interface: UseSelectorOptions\<TSelected\>
 
-Defined in: vue-store/src/useSelector.ts:4
+Defined in: [vue-store/src/useSelector.ts:4](https://github.com/TanStack/store/blob/main/packages/vue-store/src/useSelector.ts#L4)
 
 ## Type Parameters
 
@@ -21,7 +21,7 @@ Defined in: vue-store/src/useSelector.ts:4
 optional compare: (a, b) => boolean;
 ```
 
-Defined in: vue-store/src/useSelector.ts:5
+Defined in: [vue-store/src/useSelector.ts:5](https://github.com/TanStack/store/blob/main/packages/vue-store/src/useSelector.ts#L5)
 
 #### Parameters
 

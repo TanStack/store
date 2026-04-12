@@ -12,7 +12,7 @@ function useStore<TSource, TSelected>(
 compare?): Accessor<TSelected>;
 ```
 
-Defined in: solid-store/src/useStore.ts:14
+Defined in: [solid-store/src/useStore.ts:14](https://github.com/TanStack/store/blob/main/packages/solid-store/src/useStore.ts#L14)
 
 Deprecated alias for [useSelector](useSelector.md).
 

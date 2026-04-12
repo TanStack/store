@@ -12,7 +12,7 @@ function useStore<TSource, TSelected>(
    compare?): TSelected;
 ```
 
-Defined in: preact-store/src/useStore.ts:13
+Defined in: [preact-store/src/useStore.ts:13](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useStore.ts#L13)
 
 Deprecated alias for [useSelector](useSelector.md).
 
