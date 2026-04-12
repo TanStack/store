@@ -9,7 +9,7 @@ title: shallow
 function shallow<T>(objA, objB): boolean;
 ```
 
-Defined in: [index.tsx:35](https://github.com/TanStack/store/blob/main/packages/solid-store/src/index.tsx#L35)
+Defined in: solid-store/src/shallow.ts:1
 
 ## Type Parameters
 

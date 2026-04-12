@@ -3,9 +3,7 @@ id: injectStore
 title: injectStore
 ---
 
-# Function: injectStore()
-
-## Call Signature
+# ~~Function: injectStore()~~
 
 ```ts
 function injectStore<TState, TSelected>(
@@ -14,71 +12,44 @@ function injectStore<TState, TSelected>(
 options?): Signal<TSelected>;
 ```
 
-Defined in: [index.ts:16](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L16)
+Defined in: [packages/angular-store/src/index.ts:238](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L238)
 
-### Type Parameters
+Deprecated alias for [injectSelector](injectSelector.md).
 
-#### TState
+## Type Parameters
+
+### TState
 
 `TState`
 
-#### TSelected
+### TSelected
 
 `TSelected` = `NoInfer`\<`TState`\>
 
-### Parameters
+## Parameters
 
-#### store
+### store
 
-`Atom`\<`TState`\>
+`SelectionSource`\<`TState`\>
 
-#### selector?
+### selector?
 
 (`state`) => `TSelected`
 
-#### options?
+### options?
 
-`CreateSignalOptions`\<`TSelected`\> & `object`
+`CompatibilityInjectStoreOptions`\<`TSelected`\>
 
-### Returns
+## Returns
 
 `Signal`\<`TSelected`\>
 
-## Call Signature
+## Example
 
 ```ts
-function injectStore<TState, TSelected>(
-   store, 
-   selector?, 
-options?): Signal<TSelected>;
+readonly count = injectStore(counterStore, (state) => state.count)
 ```
 
-Defined in: [index.ts:21](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L21)
+## Deprecated
 
-### Type Parameters
-
-#### TState
-
-`TState`
-
-#### TSelected
-
-`TSelected` = `NoInfer`\<`TState`\>
-
-### Parameters
-
-#### store
-
-`Atom`\<`TState`\> | `ReadonlyAtom`\<`TState`\>
-
-#### selector?
-
-(`state`) => `TSelected`
-
-#### options?
-
-`CreateSignalOptions`\<`TSelected`\> & `object`
-
-### Returns
-
-`Signal`\<`TSelected`\>
+Use `injectSelector` instead.

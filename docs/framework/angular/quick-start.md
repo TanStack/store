@@ -52,7 +52,7 @@ export function updateState(animal: 'dogs' | 'cats') {
 
 **display.component.ts**
 ```angular-ts
-import { injectStore } from '@tanstack/angular-store';
+import { injectSelector } from '@tanstack/angular-store';
 import { store } from './store';
 
 @Component({
@@ -65,7 +65,7 @@ import { store } from './store';
 })
 export class Display {
     animal = input.required<string>();
-    count = injectStore(store, (state) => state[this.animal()]);
+    count = injectSelector(store, (state) => state[this.animal()]);
 }
 ```
 
@@ -86,3 +86,5 @@ export class Increment {
     updateState = updateState;
 }
 ```
+
+`injectStore` remains available as a deprecated alias to `injectSelector`.

@@ -1,13 +1,15 @@
 import { describe, expect, it, test } from 'vitest'
 import { render, waitFor } from '@testing-library/svelte'
 import { userEvent } from '@testing-library/user-event'
-import { shallow } from '../src/index.svelte.js'
+import { createStore } from '@tanstack/store'
+import { shallow, useStoreActions } from '../src/index.svelte.js'
 import TestBaseStore from './BaseStore.test.svelte'
 import TestRerender from './Render.test.svelte'
+import TestValue from './Value.test.svelte'
 
 const user = userEvent.setup()
 
-describe('useStore', () => {
+describe('useSelector', () => {
   it('allows us to select state using a selector', () => {
     const { getByText } = render(TestBaseStore)
     expect(getByText('Store: 0')).toBeInTheDocument()
@@ -25,6 +27,28 @@ describe('useStore', () => {
 
     await user.click(getByText('Update ignored'))
     expect(getByText('Number rendered: 2')).toBeInTheDocument()
+  })
+
+  it('useValue reads writable and readonly store state', async () => {
+    const { getByText } = render(TestValue)
+    expect(getByText('Value: 1')).toBeInTheDocument()
+    expect(getByText('Readonly: 2')).toBeInTheDocument()
+
+    await user.click(getByText('Update'))
+
+    await waitFor(() => expect(getByText('Value: 2')).toBeInTheDocument())
+    await waitFor(() => expect(getByText('Readonly: 4')).toBeInTheDocument())
+  })
+
+  it('useStoreActions returns the stable actions bag', () => {
+    const store = createStore({ count: 0 }, ({ set }) => ({
+      inc: () => set((prev) => ({ count: prev.count + 1 })),
+    }))
+
+    const actions = useStoreActions(store)
+    actions.inc()
+
+    expect(store.state.count).toBe(1)
   })
 })
 

@@ -3,41 +3,59 @@ id: useStore
 title: useStore
 ---
 
-# Function: useStore()
+# ~~Function: useStore()~~
 
 ```ts
-function useStore<TState, TSelected>(
-   store, 
+function useStore<TSource, TSelected>(
+   source, 
    selector, 
-options): Accessor<TSelected>;
+compare?): Accessor<TSelected>;
 ```
 
-Defined in: [index.tsx:12](https://github.com/TanStack/store/blob/main/packages/solid-store/src/index.tsx#L12)
+Defined in: solid-store/src/useStore.ts:14
+
+Deprecated alias for [useSelector](useSelector.md).
 
 ## Type Parameters
 
-### TState
+### TSource
 
-`TState`
+`TSource`
 
 ### TSelected
 
-`TSelected` = `NoInfer`\<`TState`\>
+`TSelected`
 
 ## Parameters
 
-### store
+### source
 
-`Atom`\<`TState`\> | `ReadonlyAtom`\<`TState`\>
+#### get
+
+() => `TSource`
+
+#### subscribe
+
+(`listener`) => `object`
 
 ### selector
 
-(`state`) => `TSelected`
+(`snapshot`) => `TSelected`
 
-### options
+### compare?
 
-`UseStoreOptions`\<`TSelected`\> = `{}`
+(`a`, `b`) => `boolean`
 
 ## Returns
 
 `Accessor`\<`TSelected`\>
+
+## Example
+
+```tsx
+const count = useStore(counterStore, (state) => state.count)
+```
+
+## Deprecated
+
+Use `useSelector` instead.

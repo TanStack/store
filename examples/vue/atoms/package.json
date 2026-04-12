@@ -1,0 +1,22 @@
+{
+  "name": "@tanstack/store-example-vue-atoms",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port=3050",
+    "build": "vite build",
+    "build:dev": "vite build -m development",
+    "test:types": "vue-tsc",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@tanstack/vue-store": "^0.10.0",
+    "vue": "^3.5.32"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.5",
+    "typescript": "6.0.2",
+    "vite": "^8.0.8",
+    "vue-tsc": "^3.2.6"
+  }
+}

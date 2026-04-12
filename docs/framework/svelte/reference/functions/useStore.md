@@ -3,16 +3,18 @@ id: useStore
 title: useStore
 ---
 
-# Function: useStore()
+# ~~Function: useStore()~~
 
 ```ts
 function useStore<TState, TSelected>(
-   store, 
+   source, 
    selector, 
-   options): object;
+   compare?): object;
 ```
 
-Defined in: [index.svelte.ts:10](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/index.svelte.ts#L10)
+Defined in: [svelte-store/src/index.svelte.ts:183](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/index.svelte.ts#L183)
+
+Deprecated alias for [useSelector](useSelector.md).
 
 ## Type Parameters
 
@@ -26,24 +28,35 @@ Defined in: [index.svelte.ts:10](https://github.com/TanStack/store/blob/main/pac
 
 ## Parameters
 
-### store
+### source
 
-`Atom`\<`TState`\> | `ReadonlyAtom`\<`TState`\>
+`Atom`\<`TState`\> | `ReadonlyAtom`\<`TState`\> | `Store`\<`TState`, `any`\> | `ReadonlyStore`\<`TState`\>
 
 ### selector
 
 (`state`) => `TSelected`
 
-### options
+### compare?
 
-`UseStoreOptions`\<`TSelected`\> = `{}`
+(`a`, `b`) => `boolean`
 
 ## Returns
 
 `object`
 
-### current
+### ~~current~~
 
 ```ts
 readonly current: TSelected;
 ```
+
+## Example
+
+```ts
+const count = useStore(counterStore, (state) => state.count)
+console.log(count.current)
+```
+
+## Deprecated
+
+Use `useSelector` instead.
