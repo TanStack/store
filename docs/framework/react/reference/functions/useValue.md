@@ -9,7 +9,7 @@ title: useValue
 function useValue<TValue>(source, options?): TValue;
 ```
 
-Defined in: [react-store/src/useValue.ts:23](https://github.com/TanStack/store/blob/main/packages/react-store/src/useValue.ts#L23)
+Defined in: [packages/react-store/src/useValue.ts:23](https://github.com/TanStack/store/blob/main/packages/react-store/src/useValue.ts#L23)
 
 Subscribes to an atom or store and returns its current value.
 

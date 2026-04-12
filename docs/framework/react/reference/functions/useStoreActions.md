@@ -9,7 +9,7 @@ title: useStoreActions
 function useStoreActions<TValue, TActions>(store): TActions;
 ```
 
-Defined in: [react-store/src/useStoreActions.ts:16](https://github.com/TanStack/store/blob/main/packages/react-store/src/useStoreActions.ts#L16)
+Defined in: [packages/react-store/src/useStoreActions.ts:16](https://github.com/TanStack/store/blob/main/packages/react-store/src/useStoreActions.ts#L16)
 
 Returns the stable actions bag from a writable store created with actions.
 

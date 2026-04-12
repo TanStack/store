@@ -11,7 +11,7 @@ title: useCreateAtom
 function useCreateAtom<T>(getValue, options?): ReadonlyAtom<T>;
 ```
 
-Defined in: [react-store/src/useCreateAtom.ts:17](https://github.com/TanStack/store/blob/main/packages/react-store/src/useCreateAtom.ts#L17)
+Defined in: [packages/react-store/src/useCreateAtom.ts:17](https://github.com/TanStack/store/blob/main/packages/react-store/src/useCreateAtom.ts#L17)
 
 Creates a stable atom instance for the lifetime of the component.
 
@@ -51,7 +51,7 @@ const countAtom = useCreateAtom(0)
 function useCreateAtom<T>(initialValue, options?): Atom<T>;
 ```
 
-Defined in: [react-store/src/useCreateAtom.ts:21](https://github.com/TanStack/store/blob/main/packages/react-store/src/useCreateAtom.ts#L21)
+Defined in: [packages/react-store/src/useCreateAtom.ts:21](https://github.com/TanStack/store/blob/main/packages/react-store/src/useCreateAtom.ts#L21)
 
 Creates a stable atom instance for the lifetime of the component.
 
