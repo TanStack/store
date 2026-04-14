@@ -31,8 +31,10 @@ export class Store<T, TActions extends StoreActionMap = never> {
       valueOrFn as T | ((prev?: NoInfer<T>) => T),
     ) as Atom<T>
 
-    this.setState = this.setState.bind(this)
+    // bind for safe destructuring
     this.get = this.get.bind(this)
+    this.setState = this.setState.bind(this)
+    this.subscribe = this.subscribe.bind(this)
 
     if (actionsFactory) {
       this.actions = actionsFactory(this)

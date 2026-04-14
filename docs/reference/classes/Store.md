@@ -97,7 +97,7 @@ Defined in: [store.ts:17](https://github.com/TanStack/store/blob/main/packages/s
 get state(): T;
 ```
 
-Defined in: [store.ts:44](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L44)
+Defined in: [store.ts:46](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L46)
 
 ##### Returns
 
@@ -111,7 +111,7 @@ Defined in: [store.ts:44](https://github.com/TanStack/store/blob/main/packages/s
 get(): T;
 ```
 
-Defined in: [store.ts:47](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L47)
+Defined in: [store.ts:49](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L49)
 
 #### Returns
 
@@ -125,7 +125,7 @@ Defined in: [store.ts:47](https://github.com/TanStack/store/blob/main/packages/s
 setState(updater): void;
 ```
 
-Defined in: [store.ts:41](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L41)
+Defined in: [store.ts:43](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L43)
 
 #### Parameters
 
@@ -145,7 +145,7 @@ Defined in: [store.ts:41](https://github.com/TanStack/store/blob/main/packages/s
 subscribe(observerOrFn): Subscription;
 ```
 
-Defined in: [store.ts:50](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L50)
+Defined in: [store.ts:52](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L52)
 
 #### Parameters
 
