@@ -1,4 +1,3 @@
-import { useSetValue } from './useSetValue'
 import { useValue } from './useValue'
 import type { Atom } from '@tanstack/store'
 import type { UseSelectorOptions } from './useSelector'
@@ -19,7 +18,6 @@ export function useAtom<TValue>(
   options?: UseSelectorOptions<TValue>,
 ): [TValue, Atom<TValue>['set']] {
   const value = useValue(atom, options)
-  const setValue = useSetValue(atom)
 
-  return [value, setValue]
+  return [value, atom.set]
 }

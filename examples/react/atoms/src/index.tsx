@@ -1,35 +1,53 @@
 import ReactDOM from 'react-dom/client'
 import {
-  type Atom,
+  createAtom,
   useAtom,
-  useCreateAtom,
-  useSetValue,
+  // useCreateAtom,
   useValue,
 } from '@tanstack/react-store'
 
-function AtomValuePanel({ countAtom }: { countAtom: Atom<number> }) {
-  const count = useValue(countAtom)
+// Optionally, you can create atoms outside of React components at module scope
+const countAtom = createAtom(0)
+
+function App() {
+  // or define atoms inside of components with hook variant. You would have to pass atom as props or use store context though.
+  // const countAtom = useCreateAtom(0)
+
+  return (
+    <main>
+      <h1>React Atom Hooks</h1>
+      <p>
+        This example creates a module-level atom and reads and updates it with
+        the React hooks.
+      </p>
+      <AtomValuePanel />
+      <AtomButtons />
+      <AtomStepper />
+    </main>
+  )
+}
+
+function AtomValuePanel() {
+  const count = useValue(countAtom) // useValue re-renders when the value changes. Useful for read-only access to an atom.
 
   return <p>Total: {count}</p>
 }
 
-function AtomButtons({ countAtom }: { countAtom: Atom<number> }) {
-  const setCount = useSetValue(countAtom)
-
+function AtomButtons() {
   return (
     <div>
-      <button type="button" onClick={() => setCount((prev) => prev + 1)}>
-        Increment with useSetValue
+      <button type="button" onClick={() => countAtom.set((prev) => prev + 1)}>
+        Increment
       </button>
-      <button type="button" onClick={() => setCount(0)}>
-        Reset with useSetValue
+      <button type="button" onClick={() => countAtom.set(0)}>
+        Reset
       </button>
     </div>
   )
 }
 
-function AtomStepper({ countAtom }: { countAtom: Atom<number> }) {
-  const [count, setCount] = useAtom(countAtom)
+function AtomStepper() {
+  const [count, setCount] = useAtom(countAtom) // read and write access to the atom. Re-renders when the value changes.
 
   return (
     <div>
@@ -38,23 +56,6 @@ function AtomStepper({ countAtom }: { countAtom: Atom<number> }) {
         Add 5 with useAtom
       </button>
     </div>
-  )
-}
-
-function App() {
-  const countAtom = useCreateAtom(0)
-
-  return (
-    <main>
-      <h1>React Atom Hooks</h1>
-      <p>
-        This example creates a local atom and reads and updates it with the new
-        React hooks.
-      </p>
-      <AtomValuePanel countAtom={countAtom} />
-      <AtomButtons countAtom={countAtom} />
-      <AtomStepper countAtom={countAtom} />
-    </main>
   )
 }
 

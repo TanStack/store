@@ -1,7 +1,9 @@
 import { describe, expect, test, vi } from 'vitest'
-import { createStore } from '../src'
+import { Store, createStore } from '../src'
 
 describe('Store.setState Type Safety Improvements', () => {
+  const typecheckOnly = false as boolean
+
   test('should handle function updater safely', () => {
     const store = createStore(0)
 
@@ -61,6 +63,58 @@ describe('Store.setState Type Safety Improvements', () => {
     })
   })
 
+  test('should infer action types safely', () => {
+    const store = createStore({ count: 0 }, ({ get, setState }) => ({
+      inc: () => setState((prev) => ({ count: prev.count + 1 })),
+      current: () => get().count,
+    }))
+
+    store.actions.inc()
+    expect(store.actions.current()).toBe(1)
+
+    createStore({ count: 0 }, ({ setState }) => ({
+      // @ts-expect-error setState only accepts updater functions
+      bad: () => setState({ count: 1 }),
+    }))
+
+    if (typecheckOnly) {
+      createStore({ count: 0 }, () => ({
+        // @ts-expect-error actions must be functions
+        asdf: 123,
+        inc: () => {},
+      }))
+
+      type InvalidCounterActions = {
+        asdf: number
+        inc: () => void
+      }
+
+      // @ts-expect-error action maps may only contain functions
+      new Store<{ count: number }, InvalidCounterActions>({ count: 0 }, () => ({
+        asdf: 123,
+        inc: () => {},
+      }))
+    }
+  })
+
+  test('should reject actions on derived stores', () => {
+    const count = createStore(1)
+    const derived = createStore(() => count.state * 2)
+
+    // @ts-expect-error readonly stores do not expose actions
+    derived.actions
+
+    if (typecheckOnly) {
+      createStore(
+        // @ts-expect-error function first arg with actions is not supported
+        () => ({ count: 0 }),
+        ({ setState }) => ({
+          inc: () => setState((prev) => ({ count: prev.count + 1 })),
+        }),
+      )
+    }
+  })
+
   test('should handle edge cases safely', () => {
     const nullableStore = createStore<string | null>(null)
     nullableStore.setState(() => 'not null')
@@ -92,5 +146,14 @@ describe('Store.setState Type Safety Improvements', () => {
 
     expect(store.state).toBe(iterations)
     expect(duration).toBeLessThan(100)
+  })
+
+  test('plain writable stores should not expose usable actions', () => {
+    const store = createStore(0)
+
+    if (typecheckOnly) {
+      // @ts-expect-error plain writable stores do not have usable actions
+      store.actions.toString()
+    }
   })
 })

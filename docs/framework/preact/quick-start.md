@@ -7,7 +7,7 @@ The basic preact app example to get started with the TanStack preact-store.
 
 ```tsx
 import { render } from "preact";
-import { createStore, useStore } from "@tanstack/preact-store";
+import { createStore, useSelector } from "@tanstack/preact-store";
 
 // You can instantiate the store outside of Preact components too!
 export const store = createStore({
@@ -18,7 +18,7 @@ export const store = createStore({
 // This will only re-render when `state[animal]` changes. If an unrelated store property changes, it won't re-render
 
 const Display = ({ animal }) => {
-  const count = useStore(store, (state) => state[animal]);
+  const count = useSelector(store, (state) => state[animal]);
   return <div>{`${animal}: ${count}`}</div>;
 };
 
@@ -53,3 +53,4 @@ function App() {
 render(<App />, document.getElementById("root"));
 ```
 
+`useStore` remains available as a deprecated alias to `useSelector`.

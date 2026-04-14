@@ -83,88 +83,8 @@
       "label": "API Reference",
       "children": [
         {
-          "label": "JavaScript Reference",
+          "label": "Core API Reference",
           "to": "reference/index"
-        },
-        {
-          "label": "Classes / Store",
-          "to": "reference/classes/Store"
-        },
-        {
-          "label": "Interfaces / Atom",
-          "to": "reference/interfaces/atom"
-        },
-        {
-          "label": "Interfaces / AtomOptions",
-          "to": "reference/interfaces/atomoptions"
-        },
-        {
-          "label": "Interfaces / BaseAtom",
-          "to": "reference/interfaces/baseatom"
-        },
-        {
-          "label": "Interfaces / InternalBaseAtom",
-          "to": "reference/interfaces/internalbaseatom"
-        },
-        {
-          "label": "Interfaces / InternalReadonlyAtom",
-          "to": "reference/interfaces/internalreadonlyatom"
-        },
-        {
-          "label": "Interfaces / InteropSubscribable",
-          "to": "reference/interfaces/interopsubscribable"
-        },
-        {
-          "label": "Interfaces / Readable",
-          "to": "reference/interfaces/readable"
-        },
-        {
-          "label": "Interfaces / ReadonlyAtom",
-          "to": "reference/interfaces/readonlyatom"
-        },
-        {
-          "label": "Interfaces / Subscribable",
-          "to": "reference/interfaces/subscribable"
-        },
-        {
-          "label": "Interfaces / Subscription",
-          "to": "reference/interfaces/subscription"
-        },
-        {
-          "label": "Type Aliases / AnyAtom",
-          "to": "reference/type-aliases/anyatom"
-        },
-        {
-          "label": "Type Aliases / Observer",
-          "to": "reference/type-aliases/observer"
-        },
-        {
-          "label": "Type Aliases / Selection",
-          "to": "reference/type-aliases/selection"
-        },
-        {
-          "label": "Functions / batch",
-          "to": "reference/functions/batch"
-        },
-        {
-          "label": "Functions / createAsyncAtom",
-          "to": "reference/functions/createasyncatom"
-        },
-        {
-          "label": "Functions / createAtom",
-          "to": "reference/functions/createatom"
-        },
-        {
-          "label": "Functions / createStore",
-          "to": "reference/functions/createstore"
-        },
-        {
-          "label": "Functions / flush",
-          "to": "reference/functions/flush"
-        },
-        {
-          "label": "Functions / toObserver",
-          "to": "reference/functions/toobserver"
         }
       ],
       "frameworks": [
@@ -172,44 +92,8 @@
           "label": "react",
           "children": [
             {
-              "label": "React Reference",
+              "label": "React Hooks",
               "to": "framework/react/reference/index"
-            },
-            {
-              "label": "Functions / createStoreContext",
-              "to": "framework/react/reference/functions/createStoreContext"
-            },
-            {
-              "label": "Functions / useCreateAtom",
-              "to": "framework/react/reference/functions/useCreateAtom"
-            },
-            {
-              "label": "Functions / useValue",
-              "to": "framework/react/reference/functions/useValue"
-            },
-            {
-              "label": "Functions / useSetValue",
-              "to": "framework/react/reference/functions/useSetValue"
-            },
-            {
-              "label": "Functions / useAtom",
-              "to": "framework/react/reference/functions/useAtom"
-            },
-            {
-              "label": "Functions / useCreateStore",
-              "to": "framework/react/reference/functions/useCreateStore"
-            },
-            {
-              "label": "Functions / useSelector",
-              "to": "framework/react/reference/functions/useSelector"
-            },
-            {
-              "label": "Variables / useStore (deprecated)",
-              "to": "framework/react/reference/variables/useStore"
-            },
-            {
-              "label": "Functions / shallow",
-              "to": "framework/react/reference/functions/shallow"
             }
           ]
         },
@@ -217,16 +101,8 @@
           "label": "vue",
           "children": [
             {
-              "label": "Vue Reference",
+              "label": "Vue Hooks",
               "to": "framework/vue/reference/index"
-            },
-            {
-              "label": "Functions / useStore",
-              "to": "framework/vue/reference/functions/useStore"
-            },
-            {
-              "label": "Functions / shallow",
-              "to": "framework/vue/reference/functions/shallow"
             }
           ]
         },
@@ -234,12 +110,8 @@
           "label": "solid",
           "children": [
             {
-              "label": "Solid Reference",
+              "label": "Solid Hooks",
               "to": "framework/solid/reference/index"
-            },
-            {
-              "label": "Functions / useStore",
-              "to": "framework/solid/reference/functions/useStore"
             }
           ]
         },
@@ -247,12 +119,8 @@
           "label": "angular",
           "children": [
             {
-              "label": "Angular Reference",
+              "label": "Angular Inject API",
               "to": "framework/angular/reference/index"
-            },
-            {
-              "label": "Functions / injectStore",
-              "to": "framework/angular/reference/functions/injectStore"
             }
           ]
         },
@@ -260,16 +128,8 @@
           "label": "svelte",
           "children": [
             {
-              "label": "Svelte Reference",
+              "label": "Svelte Hooks",
               "to": "framework/svelte/reference/index"
-            },
-            {
-              "label": "Functions / useStore",
-              "to": "framework/svelte/reference/functions/useStore"
-            },
-            {
-              "label": "Functions / shallow",
-              "to": "framework/svelte/reference/functions/shallow"
             }
           ]
         },
@@ -277,16 +137,363 @@
           "label": "preact",
           "children": [
             {
-              "label": "Preact Reference",
+              "label": "Preact Hooks",
               "to": "framework/preact/reference/index"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "collapsible": true,
+      "defaultCollapsed": true,
+      "label": "Store API Reference",
+      "children": [
+        {
+          "label": "Store",
+          "to": "reference/classes/Store"
+        },
+        {
+          "label": "ReadonlyStore",
+          "to": "reference/classes/ReadonlyStore"
+        },
+        {
+          "label": "Atom",
+          "to": "reference/interfaces/Atom"
+        },
+        {
+          "label": "AtomOptions",
+          "to": "reference/interfaces/AtomOptions"
+        },
+        {
+          "label": "BaseAtom",
+          "to": "reference/interfaces/BaseAtom"
+        },
+        {
+          "label": "InternalBaseAtom",
+          "to": "reference/interfaces/InternalBaseAtom"
+        },
+        {
+          "label": "InternalReadonlyAtom",
+          "to": "reference/interfaces/InternalReadonlyAtom"
+        },
+        {
+          "label": "InteropSubscribable",
+          "to": "reference/interfaces/InteropSubscribable"
+        },
+        {
+          "label": "Readable",
+          "to": "reference/interfaces/Readable"
+        },
+        {
+          "label": "ReadonlyAtom",
+          "to": "reference/interfaces/ReadonlyAtom"
+        },
+        {
+          "label": "StoreActionsApi",
+          "to": "reference/interfaces/StoreActionsApi"
+        },
+        {
+          "label": "Subscribable",
+          "to": "reference/interfaces/Subscribable"
+        },
+        {
+          "label": "Subscription",
+          "to": "reference/interfaces/Subscription"
+        },
+        {
+          "label": "AnyAtom",
+          "to": "reference/type-aliases/AnyAtom"
+        },
+        {
+          "label": "Observer",
+          "to": "reference/type-aliases/Observer"
+        },
+        {
+          "label": "Selection",
+          "to": "reference/type-aliases/Selection"
+        },
+        {
+          "label": "StoreAction",
+          "to": "reference/type-aliases/StoreAction"
+        },
+        {
+          "label": "StoreActionMap",
+          "to": "reference/type-aliases/StoreActionMap"
+        },
+        {
+          "label": "StoreActionsFactory",
+          "to": "reference/type-aliases/StoreActionsFactory"
+        },
+        {
+          "label": "batch",
+          "to": "reference/functions/batch"
+        },
+        {
+          "label": "createAsyncAtom",
+          "to": "reference/functions/createAsyncAtom"
+        },
+        {
+          "label": "createAtom",
+          "to": "reference/functions/createAtom"
+        },
+        {
+          "label": "createStore",
+          "to": "reference/functions/createStore"
+        },
+        {
+          "label": "flush",
+          "to": "reference/functions/flush"
+        },
+        {
+          "label": "toObserver",
+          "to": "reference/functions/toObserver"
+        }
+      ],
+      "frameworks": [
+        {
+          "label": "react",
+          "children": [
+            {
+              "label": "createStoreContext",
+              "to": "framework/react/reference/functions/createStoreContext"
             },
             {
-              "label": "Functions / useStore",
+              "label": "useCreateAtom",
+              "to": "framework/react/reference/functions/useCreateAtom"
+            },
+            {
+              "label": "useCreateStore",
+              "to": "framework/react/reference/functions/useCreateStore"
+            },
+            {
+              "label": "useSelector",
+              "to": "framework/react/reference/functions/useSelector"
+            },
+            {
+              "label": "useValue",
+              "to": "framework/react/reference/functions/useValue"
+            },
+            {
+              "label": "useSetValue",
+              "to": "framework/react/reference/functions/useSetValue"
+            },
+            {
+              "label": "useAtom",
+              "to": "framework/react/reference/functions/useAtom"
+            },
+            {
+              "label": "useStoreActions",
+              "to": "framework/react/reference/functions/useStoreActions"
+            },
+            {
+              "label": "useStore (deprecated)",
+              "to": "framework/react/reference/functions/useStore"
+            },
+            {
+              "label": "shallow",
+              "to": "framework/react/reference/functions/shallow"
+            },
+            {
+              "label": "UseSelectorOptions",
+              "to": "framework/react/reference/interfaces/UseSelectorOptions"
+            }
+          ]
+        },
+        {
+          "label": "vue",
+          "children": [
+            {
+              "label": "useSelector",
+              "to": "framework/vue/reference/functions/useSelector"
+            },
+            {
+              "label": "useValue",
+              "to": "framework/vue/reference/functions/useValue"
+            },
+            {
+              "label": "useSetValue",
+              "to": "framework/vue/reference/functions/useSetValue"
+            },
+            {
+              "label": "useAtom",
+              "to": "framework/vue/reference/functions/useAtom"
+            },
+            {
+              "label": "useStoreActions",
+              "to": "framework/vue/reference/functions/useStoreActions"
+            },
+            {
+              "label": "useStore (deprecated)",
+              "to": "framework/vue/reference/functions/useStore"
+            },
+            {
+              "label": "shallow",
+              "to": "framework/vue/reference/functions/shallow"
+            },
+            {
+              "label": "UseSelectorOptions",
+              "to": "framework/vue/reference/interfaces/UseSelectorOptions"
+            }
+          ]
+        },
+        {
+          "label": "solid",
+          "children": [
+            {
+              "label": "useSelector",
+              "to": "framework/solid/reference/functions/useSelector"
+            },
+            {
+              "label": "useValue",
+              "to": "framework/solid/reference/functions/useValue"
+            },
+            {
+              "label": "useSetValue",
+              "to": "framework/solid/reference/functions/useSetValue"
+            },
+            {
+              "label": "useAtom",
+              "to": "framework/solid/reference/functions/useAtom"
+            },
+            {
+              "label": "useStoreActions",
+              "to": "framework/solid/reference/functions/useStoreActions"
+            },
+            {
+              "label": "useStore (deprecated)",
+              "to": "framework/solid/reference/functions/useStore"
+            },
+            {
+              "label": "shallow",
+              "to": "framework/solid/reference/functions/shallow"
+            },
+            {
+              "label": "UseSelectorOptions",
+              "to": "framework/solid/reference/interfaces/UseSelectorOptions"
+            }
+          ]
+        },
+        {
+          "label": "angular",
+          "children": [
+            {
+              "label": "injectSelector",
+              "to": "framework/angular/reference/functions/injectSelector"
+            },
+            {
+              "label": "injectValue",
+              "to": "framework/angular/reference/functions/injectValue"
+            },
+            {
+              "label": "injectSetValue",
+              "to": "framework/angular/reference/functions/injectSetValue"
+            },
+            {
+              "label": "injectAtom",
+              "to": "framework/angular/reference/functions/injectAtom"
+            },
+            {
+              "label": "injectStoreActions",
+              "to": "framework/angular/reference/functions/injectStoreActions"
+            },
+            {
+              "label": "injectStore (deprecated)",
+              "to": "framework/angular/reference/functions/injectStore"
+            },
+            {
+              "label": "shallow",
+              "to": "framework/angular/reference/functions/shallow"
+            },
+            {
+              "label": "InjectSelectorOptions",
+              "to": "framework/angular/reference/interfaces/InjectSelectorOptions"
+            }
+          ]
+        },
+        {
+          "label": "svelte",
+          "children": [
+            {
+              "label": "useSelector",
+              "to": "framework/svelte/reference/functions/useSelector"
+            },
+            {
+              "label": "useValue",
+              "to": "framework/svelte/reference/functions/useValue"
+            },
+            {
+              "label": "useSetValue",
+              "to": "framework/svelte/reference/functions/useSetValue"
+            },
+            {
+              "label": "useAtom",
+              "to": "framework/svelte/reference/functions/useAtom"
+            },
+            {
+              "label": "useStoreActions",
+              "to": "framework/svelte/reference/functions/useStoreActions"
+            },
+            {
+              "label": "useStore (deprecated)",
+              "to": "framework/svelte/reference/functions/useStore"
+            },
+            {
+              "label": "shallow",
+              "to": "framework/svelte/reference/functions/shallow"
+            },
+            {
+              "label": "UseSelectorOptions",
+              "to": "framework/svelte/reference/interfaces/UseSelectorOptions"
+            }
+          ]
+        },
+        {
+          "label": "preact",
+          "children": [
+            {
+              "label": "createStoreContext",
+              "to": "framework/preact/reference/functions/createStoreContext"
+            },
+            {
+              "label": "useCreateAtom",
+              "to": "framework/preact/reference/functions/useCreateAtom"
+            },
+            {
+              "label": "useCreateStore",
+              "to": "framework/preact/reference/functions/useCreateStore"
+            },
+            {
+              "label": "useSelector",
+              "to": "framework/preact/reference/functions/useSelector"
+            },
+            {
+              "label": "useValue",
+              "to": "framework/preact/reference/functions/useValue"
+            },
+            {
+              "label": "useSetValue",
+              "to": "framework/preact/reference/functions/useSetValue"
+            },
+            {
+              "label": "useAtom",
+              "to": "framework/preact/reference/functions/useAtom"
+            },
+            {
+              "label": "useStoreActions",
+              "to": "framework/preact/reference/functions/useStoreActions"
+            },
+            {
+              "label": "useStore (deprecated)",
               "to": "framework/preact/reference/functions/useStore"
             },
             {
-              "label": "Functions / shallow",
+              "label": "shallow",
               "to": "framework/preact/reference/functions/shallow"
+            },
+            {
+              "label": "UseSelectorOptions",
+              "to": "framework/preact/reference/interfaces/UseSelectorOptions"
             }
           ]
         }
@@ -302,6 +509,22 @@
             {
               "label": "Simple",
               "to": "framework/react/examples/simple"
+            },
+            {
+              "label": "Atoms",
+              "to": "framework/react/examples/atoms"
+            },
+            {
+              "label": "Stores",
+              "to": "framework/react/examples/stores"
+            },
+            {
+              "label": "Store Actions",
+              "to": "framework/react/examples/store-actions"
+            },
+            {
+              "label": "Store Context",
+              "to": "framework/react/examples/store-context"
             }
           ]
         },
@@ -311,6 +534,22 @@
             {
               "label": "Simple",
               "to": "framework/vue/examples/simple"
+            },
+            {
+              "label": "Atoms",
+              "to": "framework/vue/examples/atoms"
+            },
+            {
+              "label": "Stores",
+              "to": "framework/vue/examples/stores"
+            },
+            {
+              "label": "Store Actions",
+              "to": "framework/vue/examples/store-actions"
+            },
+            {
+              "label": "Store Context",
+              "to": "framework/vue/examples/store-context"
             }
           ]
         },
@@ -320,6 +559,22 @@
             {
               "label": "Simple",
               "to": "framework/angular/examples/simple"
+            },
+            {
+              "label": "Atoms",
+              "to": "framework/angular/examples/atoms"
+            },
+            {
+              "label": "Stores",
+              "to": "framework/angular/examples/stores"
+            },
+            {
+              "label": "Store Actions",
+              "to": "framework/angular/examples/store-actions"
+            },
+            {
+              "label": "Store Context",
+              "to": "framework/angular/examples/store-context"
             }
           ]
         },
@@ -329,6 +584,22 @@
             {
               "label": "Simple",
               "to": "framework/svelte/examples/simple"
+            },
+            {
+              "label": "Atoms",
+              "to": "framework/svelte/examples/atoms"
+            },
+            {
+              "label": "Stores",
+              "to": "framework/svelte/examples/stores"
+            },
+            {
+              "label": "Store Actions",
+              "to": "framework/svelte/examples/store-actions"
+            },
+            {
+              "label": "Store Context",
+              "to": "framework/svelte/examples/store-context"
             }
           ]
         },
@@ -338,6 +609,22 @@
             {
               "label": "Simple",
               "to": "framework/solid/examples/simple"
+            },
+            {
+              "label": "Atoms",
+              "to": "framework/solid/examples/atoms"
+            },
+            {
+              "label": "Stores",
+              "to": "framework/solid/examples/stores"
+            },
+            {
+              "label": "Store Actions",
+              "to": "framework/solid/examples/store-actions"
+            },
+            {
+              "label": "Store Context",
+              "to": "framework/solid/examples/store-context"
             }
           ]
         },
@@ -347,6 +634,22 @@
             {
               "label": "Simple",
               "to": "framework/preact/examples/simple"
+            },
+            {
+              "label": "Atoms",
+              "to": "framework/preact/examples/atoms"
+            },
+            {
+              "label": "Stores",
+              "to": "framework/preact/examples/stores"
+            },
+            {
+              "label": "Store Actions",
+              "to": "framework/preact/examples/store-actions"
+            },
+            {
+              "label": "Store Context",
+              "to": "framework/preact/examples/store-context"
             }
           ]
         }

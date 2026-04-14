@@ -1,55 +1,64 @@
 ---
-id: useStore
-title: useStore
+id: _useStore
+title: _useStore
 ---
 
-# ~~Function: useStore()~~
+# Function: \_useStore()
 
 ```ts
-function useStore<TSource, TSelected>(
-   source, 
+function _useStore<TState, TActions, TSelected>(
+   store, 
    selector, 
-   compare?): TSelected;
+   options?): [TSelected, [TActions] extends [never] ? (updater) => void : TActions];
 ```
 
-Defined in: [react-store/src/useStore.ts:8](https://github.com/TanStack/store/blob/main/packages/react-store/src/useStore.ts#L8)
+Defined in: [packages/react-store/src/\_useStore.ts:24](https://github.com/TanStack/store/blob/main/packages/react-store/src/_useStore.ts#L24)
 
-Deprecated alias for [useSelector](useSelector.md).
+Experimental combined read+write hook for stores, mirroring useAtom's tuple
+pattern.
+
+Returns `[selected, actions]` when the store has an actions factory, or
+`[selected, setState]` for plain stores.
 
 ## Type Parameters
 
-### TSource
+### TState
 
-`TSource`
+`TState`
+
+### TActions
+
+`TActions` *extends* `StoreActionMap`
 
 ### TSelected
 
-`TSelected`
+`TSelected` = `NoInfer`\<`TState`\>
 
 ## Parameters
 
-### source
+### store
 
-#### get
-
-() => `TSource`
-
-#### subscribe
-
-(`listener`) => `object`
+`Store`\<`TState`, `TActions`\>
 
 ### selector
 
-(`snapshot`) => `TSelected`
+(`state`) => `TSelected`
 
-### compare?
+### options?
 
-(`a`, `b`) => `boolean`
+[`UseSelectorOptions`](../interfaces/UseSelectorOptions.md)\<`TSelected`\>
 
 ## Returns
 
-`TSelected`
+\[`TSelected`, \[`TActions`\] *extends* \[`never`\] ? (`updater`) => `void` : `TActions`\]
 
-## Deprecated
+## Example
 
-Use `useSelector` instead.
+```tsx
+// Store with actions
+const [cats, { addCat }] = _useStore(petStore, (s) => s.cats)
+
+// Store without actions
+const [count, setState] = _useStore(plainStore, (s) => s)
+setState((prev) => prev + 1)
+```

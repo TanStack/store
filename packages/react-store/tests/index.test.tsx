@@ -3,13 +3,13 @@ import { userEvent } from '@testing-library/user-event'
 import { describe, expect, it, test, vi } from 'vitest'
 import { createAtom, createStore } from '@tanstack/store'
 import {
+  _useStore,
   createStoreContext,
   shallow,
   useAtom,
   useCreateAtom,
   useCreateStore,
   useSelector,
-  useSetValue,
   useStore,
   useValue,
 } from '../src/index'
@@ -142,25 +142,6 @@ describe('atom hooks', () => {
     expect(getByText('Renders: 2')).toBeInTheDocument()
   })
 
-  it('useSetValue updates atoms by value and updater and stays stable', () => {
-    const atom = createAtom(0)
-    const { result, rerender } = renderHook(() => useSetValue(atom))
-    const setAtom = result.current
-
-    act(() => {
-      result.current(1)
-    })
-    expect(atom.get()).toBe(1)
-
-    rerender()
-    expect(result.current).toBe(setAtom)
-
-    act(() => {
-      result.current((prev) => prev + 1)
-    })
-    expect(atom.get()).toBe(2)
-  })
-
   it('useAtom returns the current value and setter', () => {
     const atom = createAtom(0)
     const { result } = renderHook(() => useAtom(atom))
@@ -172,25 +153,6 @@ describe('atom hooks', () => {
     })
 
     expect(result.current[0]).toBe(5)
-  })
-
-  it('useSetValue updates stores by updater and stays stable', () => {
-    const store = createStore(0)
-    const { result, rerender } = renderHook(() => useSetValue(store))
-    const setStore = result.current
-
-    act(() => {
-      result.current((prev) => prev + 1)
-    })
-    expect(store.state).toBe(1)
-
-    rerender()
-    expect(result.current).toBe(setStore)
-
-    act(() => {
-      result.current((prev) => prev + 1)
-    })
-    expect(store.state).toBe(2)
   })
 })
 
@@ -207,21 +169,22 @@ describe('store contexts', () => {
       const { countAtom: currentAtom, totalStore: currentStore } =
         useStoreContext()
       const value = useValue(currentAtom)
-      const setValue = useSetValue(currentAtom)
       const total = useSelector(currentStore, (state) => state.count)
-      const setTotal = useSetValue(currentStore)
 
       return (
         <div>
           <p>Value: {value}</p>
           <p>Total: {total}</p>
-          <button type="button" onClick={() => setValue((prev) => prev + 1)}>
+          <button
+            type="button"
+            onClick={() => currentAtom.set((prev) => prev + 1)}
+          >
             Update
           </button>
           <button
             type="button"
             onClick={() =>
-              setTotal((state) => ({
+              currentStore.setState((state) => ({
                 ...state,
                 count: state.count + 1,
               }))
@@ -389,6 +352,27 @@ describe('store hooks', () => {
 
     expect(result.current).toBe(store)
     expect(result.current.state).toBe(1)
+  })
+
+  it('useCreateStore supports actions and keeps them stable', () => {
+    const { result, rerender } = renderHook(() =>
+      useCreateStore({ count: 0 }, ({ get, setState }) => ({
+        inc: () => setState((prev) => ({ count: prev.count + 1 })),
+        current: () => get().count,
+      })),
+    )
+    const store = result.current
+    const actions = store.actions
+
+    act(() => {
+      store.actions.inc()
+    })
+
+    rerender()
+
+    expect(result.current).toBe(store)
+    expect(result.current.actions).toBe(actions)
+    expect(result.current.actions.current()).toBe(1)
   })
 
   it('useSelector allows us to select state using a selector', () => {
@@ -642,6 +626,58 @@ describe('useStore', () => {
     expect(getByText('Value: 0')).toBeInTheDocument()
 
     await user.click(getByText('Update'))
+
+    await waitFor(() => expect(getByText('Value: 1')).toBeInTheDocument())
+  })
+})
+
+describe('_useStore', () => {
+  it('returns selected state and actions for stores with actions', async () => {
+    const store = createStore({ count: 0 }, ({ setState }) => ({
+      inc: () => setState((prev) => ({ count: prev.count + 1 })),
+    }))
+
+    function Comp() {
+      const [count, { inc }] = _useStore(store, (state) => state.count)
+
+      return (
+        <div>
+          <p>Count: {count}</p>
+          <button type="button" onClick={() => inc()}>
+            Inc
+          </button>
+        </div>
+      )
+    }
+
+    const { getByText } = render(<Comp />)
+    expect(getByText('Count: 0')).toBeInTheDocument()
+
+    await user.click(getByText('Inc'))
+
+    await waitFor(() => expect(getByText('Count: 1')).toBeInTheDocument())
+  })
+
+  it('returns selected state and setState for plain stores', async () => {
+    const store = createStore(0)
+
+    function Comp() {
+      const [value, setState] = _useStore(store, (state) => state)
+
+      return (
+        <div>
+          <p>Value: {value}</p>
+          <button type="button" onClick={() => setState((prev) => prev + 1)}>
+            Inc
+          </button>
+        </div>
+      )
+    }
+
+    const { getByText } = render(<Comp />)
+    expect(getByText('Value: 0')).toBeInTheDocument()
+
+    await user.click(getByText('Inc'))
 
     await waitFor(() => expect(getByText('Value: 1')).toBeInTheDocument())
   })

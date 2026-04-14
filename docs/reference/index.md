@@ -28,6 +28,9 @@ title: "@tanstack/store"
 - [AnyAtom](type-aliases/AnyAtom.md)
 - [Observer](type-aliases/Observer.md)
 - [Selection](type-aliases/Selection.md)
+- [StoreAction](type-aliases/StoreAction.md)
+- [StoreActionMap](type-aliases/StoreActionMap.md)
+- [StoreActionsFactory](type-aliases/StoreActionsFactory.md)
 
 ## Functions
 
@@ -36,4 +39,5 @@ title: "@tanstack/store"
 - [createAtom](functions/createAtom.md)
 - [createStore](functions/createStore.md)
 - [flush](functions/flush.md)
+- [shallow](functions/shallow.md)
 - [toObserver](functions/toObserver.md)

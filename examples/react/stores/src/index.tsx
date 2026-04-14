@@ -1,36 +1,52 @@
 import ReactDOM from 'react-dom/client'
-import { type Store, useCreateStore, useSelector } from '@tanstack/react-store'
+import { Store, useSelector } from '@tanstack/react-store'
 
-type CounterStore = {
-  cats: number
-  dogs: number
-}
+// Optionally, you can create stores outside of React components at module scope
+const petStore = new Store({
+  cats: 0,
+  dogs: 0,
+})
 
-function CountCard({
-  label,
-  store,
-  selector,
-}: {
-  label: string
-  store: Store<CounterStore>
-  selector: (state: CounterStore) => number
-}) {
-  const value = useSelector(store, selector)
+function App() {
+  // or define stores inside of components with hook variant. You would have to pass store as props or use store context though.
+  // const petStore = useCreateStore(...)
 
   return (
-    <p>
-      {label}: {value}
-    </p>
+    <main>
+      <h1>React Store Hooks</h1>
+      <p>
+        This example creates a module-level store. Components read state with
+        `useSelector` and update it directly with `store.setState`.
+      </p>
+      <CatsCard />
+      <DogsCard />
+      <TotalCard />
+      <StoreButtons />
+    </main>
   )
 }
 
-function StoreButtons({ store }: { store: Store<CounterStore> }) {
+function CatsCard() {
+  // read state slice (only re-renders when the selected value changes)
+  const value = useSelector(petStore, (state) => state.cats)
+
+  return <p>Cats: {value}</p>
+}
+
+function DogsCard() {
+  // read state slice (only re-renders when the selected value changes)
+  const value = useSelector(petStore, (state) => state.dogs)
+
+  return <p>Dogs: {value}</p>
+}
+
+function StoreButtons() {
   return (
     <div>
       <button
         type="button"
         onClick={() =>
-          store.setState((prev) => ({
+          petStore.setState((prev) => ({
             ...prev,
             cats: prev.cats + 1,
           }))
@@ -41,7 +57,8 @@ function StoreButtons({ store }: { store: Store<CounterStore> }) {
       <button
         type="button"
         onClick={() =>
-          store.setState((prev) => ({
+          // directly update values in the store
+          petStore.setState((prev) => ({
             ...prev,
             dogs: prev.dogs + 1,
           }))
@@ -53,31 +70,10 @@ function StoreButtons({ store }: { store: Store<CounterStore> }) {
   )
 }
 
-function TotalCard({ store }: { store: Store<CounterStore> }) {
-  const total = useSelector(store, (state) => state.cats + state.dogs)
+function TotalCard() {
+  const total = useSelector(petStore, (state) => state.cats + state.dogs)
 
   return <p>Total votes: {total}</p>
-}
-
-function App() {
-  const store = useCreateStore<CounterStore>({
-    cats: 0,
-    dogs: 0,
-  })
-
-  return (
-    <main>
-      <h1>React Store Hooks</h1>
-      <p>
-        This example creates a local store and uses useSelector so each view
-        reads only the state it needs.
-      </p>
-      <CountCard label="Cats" store={store} selector={(state) => state.cats} />
-      <CountCard label="Dogs" store={store} selector={(state) => state.dogs} />
-      <TotalCard store={store} />
-      <StoreButtons store={store} />
-    </main>
-  )
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root')!)

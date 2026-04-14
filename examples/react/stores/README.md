@@ -2,8 +2,9 @@
 
 This example demonstrates:
 
-- `useCreateStore`
 - `useSelector`
+- `store.setState`
+- module-level `Store`
 
 To run this example:
 

@@ -11,7 +11,7 @@ title: createStore
 function createStore<T>(getValue): ReadonlyStore<T>;
 ```
 
-Defined in: [store.ts:55](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L55)
+Defined in: [store.ts:84](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L84)
 
 ### Type Parameters
 
@@ -35,7 +35,7 @@ Defined in: [store.ts:55](https://github.com/TanStack/store/blob/main/packages/s
 function createStore<T>(initialValue): Store<T>;
 ```
 
-Defined in: [store.ts:58](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L58)
+Defined in: [store.ts:87](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L87)
 
 ### Type Parameters
 
@@ -52,3 +52,35 @@ Defined in: [store.ts:58](https://github.com/TanStack/store/blob/main/packages/s
 ### Returns
 
 [`Store`](../classes/Store.md)\<`T`\>
+
+## Call Signature
+
+```ts
+function createStore<T, TActions>(initialValue, actions): Store<T, TActions>;
+```
+
+Defined in: [store.ts:88](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L88)
+
+### Type Parameters
+
+#### T
+
+`T`
+
+#### TActions
+
+`TActions` *extends* [`StoreActionMap`](../type-aliases/StoreActionMap.md)
+
+### Parameters
+
+#### initialValue
+
+`NonFunction`\<`T`\>
+
+#### actions
+
+[`StoreActionsFactory`](../type-aliases/StoreActionsFactory.md)\<`T`, `TActions`\>
+
+### Returns
+
+[`Store`](../classes/Store.md)\<`T`, `TActions`\>

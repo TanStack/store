@@ -3,9 +3,9 @@ id: Store
 title: Store
 ---
 
-# Class: Store\<T\>
+# Class: Store\<T, TActions\>
 
-Defined in: [store.ts:4](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L4)
+Defined in: [store.ts:15](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L15)
 
 ## Type Parameters
 
@@ -13,15 +13,19 @@ Defined in: [store.ts:4](https://github.com/TanStack/store/blob/main/packages/st
 
 `T`
 
+### TActions
+
+`TActions` *extends* [`StoreActionMap`](../type-aliases/StoreActionMap.md) = `never`
+
 ## Constructors
 
 ### Constructor
 
 ```ts
-new Store<T>(getValue): Store<T>;
+new Store<T, TActions>(getValue): Store<T, TActions>;
 ```
 
-Defined in: [store.ts:6](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L6)
+Defined in: [store.ts:18](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L18)
 
 #### Parameters
 
@@ -31,15 +35,15 @@ Defined in: [store.ts:6](https://github.com/TanStack/store/blob/main/packages/st
 
 #### Returns
 
-`Store`\<`T`\>
+`Store`\<`T`, `TActions`\>
 
 ### Constructor
 
 ```ts
-new Store<T>(initialValue): Store<T>;
+new Store<T, TActions>(initialValue): Store<T, TActions>;
 ```
 
-Defined in: [store.ts:7](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L7)
+Defined in: [store.ts:19](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L19)
 
 #### Parameters
 
@@ -49,7 +53,39 @@ Defined in: [store.ts:7](https://github.com/TanStack/store/blob/main/packages/st
 
 #### Returns
 
-`Store`\<`T`\>
+`Store`\<`T`, `TActions`\>
+
+### Constructor
+
+```ts
+new Store<T, TActions>(initialValue, actionsFactory): Store<T, TActions>;
+```
+
+Defined in: [store.ts:20](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L20)
+
+#### Parameters
+
+##### initialValue
+
+`NonFunction`\<`T`\>
+
+##### actionsFactory
+
+[`StoreActionsFactory`](../type-aliases/StoreActionsFactory.md)\<`T`, `TActions`\>
+
+#### Returns
+
+`Store`\<`T`, `TActions`\>
+
+## Properties
+
+### actions
+
+```ts
+readonly actions: TActions;
+```
+
+Defined in: [store.ts:17](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L17)
 
 ## Accessors
 
@@ -61,7 +97,7 @@ Defined in: [store.ts:7](https://github.com/TanStack/store/blob/main/packages/st
 get state(): T;
 ```
 
-Defined in: [store.ts:18](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L18)
+Defined in: [store.ts:44](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L44)
 
 ##### Returns
 
@@ -75,7 +111,7 @@ Defined in: [store.ts:18](https://github.com/TanStack/store/blob/main/packages/s
 get(): T;
 ```
 
-Defined in: [store.ts:21](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L21)
+Defined in: [store.ts:47](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L47)
 
 #### Returns
 
@@ -89,7 +125,7 @@ Defined in: [store.ts:21](https://github.com/TanStack/store/blob/main/packages/s
 setState(updater): void;
 ```
 
-Defined in: [store.ts:15](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L15)
+Defined in: [store.ts:41](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L41)
 
 #### Parameters
 
@@ -109,7 +145,7 @@ Defined in: [store.ts:15](https://github.com/TanStack/store/blob/main/packages/s
 subscribe(observerOrFn): Subscription;
 ```
 
-Defined in: [store.ts:24](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L24)
+Defined in: [store.ts:50](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L50)
 
 #### Parameters
 

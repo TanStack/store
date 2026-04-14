@@ -24,7 +24,7 @@ export function useValue<TValue>(
   source:
     | Atom<TValue>
     | ReadonlyAtom<TValue>
-    | Store<TValue>
+    | Store<TValue, any>
     | ReadonlyStore<TValue>,
   options?: UseSelectorOptions<TValue>,
 ): TValue {

@@ -5,10 +5,11 @@ import {
   createStoreContext,
   useCreateStore,
   useSelector,
-  useSetValue,
   useValue,
 } from '@tanstack/react-store'
 import type { Atom, Store } from '@tanstack/react-store'
+
+// one drawback of storing stores and atoms in context is you have to define types for the context manually, instead of everything being inferred.
 
 type CounterStore = {
   cats: number
@@ -20,18 +21,22 @@ type StoreContextValue = {
   countAtom: Atom<number>
 }
 
+// create context provider and hook
 const { StoreProvider, useStoreContext } =
   createStoreContext<StoreContextValue>()
 
 // top-level app component with provider
 function App() {
+  // create the store
   const votesStore = useCreateStore<CounterStore>({
     cats: 0,
     dogs: 0,
   })
+  // create the atom
   const countAtom = useCreateAtom(0)
 
   return (
+    // provide both the store and atom in a single context object
     <StoreProvider value={{ votesStore, countAtom }}>
       <main>
         <h1>React Store Context</h1>
@@ -39,8 +44,8 @@ function App() {
           This example provides both atoms and stores through a single typed
           context object, then consumes them from nested components.
         </p>
-        <CountCard label="Cats" selector={(state) => state.cats} />
-        <CountCard label="Dogs" selector={(state) => state.dogs} />
+        <CatCard />
+        <DogCard />
         <TotalCard />
         <StoreButtons />
         <section>
@@ -54,31 +59,35 @@ function App() {
   )
 }
 
-function CountCard({
-  label,
-  selector,
-}: {
-  label: string
-  selector: (state: CounterStore) => number
-}) {
+function CatCard() {
+  // pull a store from context
   const { votesStore } = useStoreContext()
-  const value = useSelector(votesStore, selector)
+  // select a value from the store with useSelector
+  const value = useSelector(votesStore, (state) => state.cats)
 
-  return (
-    <p>
-      {label}: {value}
-    </p>
-  )
+  return <p>Cats: {value}</p>
+}
+
+function DogCard() {
+  // pull a store from context
+  const { votesStore } = useStoreContext()
+  // select a value from the store with useSelector
+  const value = useSelector(votesStore, (state) => state.dogs)
+
+  return <p>Dogs: {value}</p>
 }
 
 function TotalCard() {
+  // pull a store from context
   const { votesStore } = useStoreContext()
+  // custom selector to calculate total votes from the store state
   const total = useSelector(votesStore, (state) => state.cats + state.dogs)
 
   return <p>Total votes: {total}</p>
 }
 
 function AtomSummary() {
+  // pull an atom from context
   const { countAtom } = useStoreContext()
   const count = useValue(countAtom)
 
@@ -87,14 +96,13 @@ function AtomSummary() {
 
 function NestedAtomControls() {
   const { countAtom } = useStoreContext()
-  const setCount = useSetValue(countAtom)
 
   return (
     <div>
-      <button type="button" onClick={() => setCount((prev) => prev + 1)}>
+      <button type="button" onClick={() => countAtom.set((prev) => prev + 1)}>
         Increment atom
       </button>
-      <button type="button" onClick={() => setCount(0)}>
+      <button type="button" onClick={() => countAtom.set(0)}>
         Reset atom
       </button>
     </div>
@@ -117,14 +125,13 @@ function DeepAtomEditor() {
 
 function StoreButtons() {
   const { votesStore } = useStoreContext()
-  const setVotes = useSetValue(votesStore)
 
   return (
     <div>
       <button
         type="button"
         onClick={() =>
-          setVotes((prev) => ({
+          votesStore.setState((prev) => ({
             ...prev,
             cats: prev.cats + 1,
           }))
@@ -135,7 +142,7 @@ function StoreButtons() {
       <button
         type="button"
         onClick={() =>
-          setVotes((prev) => ({
+          votesStore.setState((prev) => ({
             ...prev,
             dogs: prev.dogs + 1,
           }))

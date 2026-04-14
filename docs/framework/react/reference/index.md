@@ -11,12 +11,11 @@ title: "@tanstack/react-store"
 
 ## Functions
 
+- [\_useStore](functions/useStore.md)
 - [createStoreContext](functions/createStoreContext.md)
-- [shallow](functions/shallow.md)
 - [useAtom](functions/useAtom.md)
 - [useCreateAtom](functions/useCreateAtom.md)
 - [useCreateStore](functions/useCreateStore.md)
 - [useSelector](functions/useSelector.md)
-- [useSetValue](functions/useSetValue.md)
-- [~~useStore~~](functions/useStore.md)
+- [~~useStore~~](functions/useStore-1.md)
 - [useValue](functions/useValue.md)

@@ -1,6 +1,13 @@
 import { useState } from 'react'
 import { createStore } from '@tanstack/store'
-import type { ReadonlyStore, Store } from '@tanstack/store'
+import type {
+  ReadonlyStore,
+  Store,
+  StoreActionMap,
+  StoreActionsFactory,
+} from '@tanstack/store'
+
+type NonFunction<T> = T extends (...args: Array<any>) => any ? never : T
 
 /**
  * Creates a stable store instance for the lifetime of the component.
@@ -18,16 +25,27 @@ export function useCreateStore<T>(
   getValue: (prev?: NoInfer<T>) => T,
 ): ReadonlyStore<T>
 export function useCreateStore<T>(initialValue: T): Store<T>
-export function useCreateStore<T>(
+export function useCreateStore<T, TActions extends StoreActionMap>(
+  initialValue: NonFunction<T>,
+  actions: StoreActionsFactory<T, TActions>,
+): Store<T, TActions>
+export function useCreateStore<T, TActions extends StoreActionMap>(
   valueOrFn: T | ((prev?: T) => T),
-): Store<T> | ReadonlyStore<T> {
-  const [store] = useState<Store<T> | ReadonlyStore<T>>(() => {
-    if (typeof valueOrFn === 'function') {
-      return createStore(valueOrFn as (prev?: NoInfer<T>) => T)
-    }
+  actions?: StoreActionsFactory<T, TActions>,
+): Store<T, TActions> | Store<T> | ReadonlyStore<T> {
+  const [store] = useState<Store<T, TActions> | Store<T> | ReadonlyStore<T>>(
+    () => {
+      if (typeof valueOrFn === 'function') {
+        return createStore(valueOrFn as (prev?: NoInfer<T>) => T)
+      }
 
-    return createStore(valueOrFn)
-  })
+      if (actions) {
+        return createStore(valueOrFn as NonFunction<T>, actions)
+      }
+
+      return createStore(valueOrFn)
+    },
+  )
 
   return store
 }
