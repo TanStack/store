@@ -11,7 +11,7 @@ function useAtom<TValue>(atom, options?): [{
 }, (fn) => void & (value) => void];
 ```
 
-Defined in: [svelte-store/src/index.svelte.ts:144](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/index.svelte.ts#L144)
+Defined in: [svelte-store/src/useAtom.ts:18](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/useAtom.ts#L18)
 
 Returns the current atom holder together with a setter.
 

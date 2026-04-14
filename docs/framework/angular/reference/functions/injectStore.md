@@ -1,26 +1,34 @@
 ---
-id: injectStore
-title: injectStore
+id: _injectStore
+title: _injectStore
 ---
 
-# ~~Function: injectStore()~~
+# Function: \_injectStore()
 
 ```ts
-function injectStore<TState, TSelected>(
+function _injectStore<TState, TActions, TSelected>(
    store, 
-   selector?, 
-options?): Signal<TSelected>;
+   selector, 
+   options?): [Signal<TSelected>, [TActions] extends [never] ? (updater) => void : TActions];
 ```
 
-Defined in: [packages/angular-store/src/index.ts:238](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L238)
+Defined in: [packages/angular-store/src/\_injectStore.ts:24](https://github.com/TanStack/store/blob/main/packages/angular-store/src/_injectStore.ts#L24)
 
-Deprecated alias for [injectSelector](injectSelector.md).
+Experimental combined read+write injection function for stores, mirroring
+injectAtom's pattern.
+
+Returns `[signal, actions]` when the store has an actions factory, or
+`[signal, setState]` for plain stores.
 
 ## Type Parameters
 
 ### TState
 
 `TState`
+
+### TActions
+
+`TActions` *extends* `StoreActionMap`
 
 ### TSelected
 
@@ -30,26 +38,28 @@ Deprecated alias for [injectSelector](injectSelector.md).
 
 ### store
 
-`SelectionSource`\<`TState`\>
+`Store`\<`TState`, `TActions`\>
 
-### selector?
+### selector
 
 (`state`) => `TSelected`
 
 ### options?
 
-`CompatibilityInjectStoreOptions`\<`TSelected`\>
+[`InjectSelectorOptions`](../interfaces/InjectSelectorOptions.md)\<`TSelected`\>
 
 ## Returns
 
-`Signal`\<`TSelected`\>
+\[`Signal`\<`TSelected`\>, \[`TActions`\] *extends* \[`never`\] ? (`updater`) => `void` : `TActions`\]
 
 ## Example
 
 ```ts
-readonly count = injectStore(counterStore, (state) => state.count)
+// Store with actions
+readonly result = _injectStore(petStore, (s) => s.cats)
+// result[0] is Signal<number>, result[1] is actions
+
+// Store without actions
+readonly result = _injectStore(plainStore, (s) => s)
+// result[0] is Signal<number>, result[1] is setState
 ```
-
-## Deprecated
-
-Use `injectSelector` instead.

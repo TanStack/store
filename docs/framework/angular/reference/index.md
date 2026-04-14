@@ -8,13 +8,17 @@ title: "@tanstack/angular-store"
 ## Interfaces
 
 - [InjectSelectorOptions](interfaces/InjectSelectorOptions.md)
+- [WritableAtomSignal](interfaces/WritableAtomSignal.md)
+
+## Type Aliases
+
+- [SelectionSource](type-aliases/SelectionSource.md)
 
 ## Functions
 
+- [\_injectStore](functions/injectStore.md)
+- [createStoreContext](functions/createStoreContext.md)
 - [injectAtom](functions/injectAtom.md)
 - [injectSelector](functions/injectSelector.md)
-- [injectSetValue](functions/injectSetValue.md)
-- [~~injectStore~~](functions/injectStore.md)
-- [injectStoreActions](functions/injectStoreActions.md)
+- [~~injectStore~~](functions/injectStore-1.md)
 - [injectValue](functions/injectValue.md)
-- [shallow](functions/shallow.md)

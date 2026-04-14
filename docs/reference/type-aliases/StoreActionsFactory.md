@@ -6,10 +6,10 @@ title: StoreActionsFactory
 # Type Alias: StoreActionsFactory()\<T, TActions\>
 
 ```ts
-type StoreActionsFactory<T, TActions> = (api) => TActions;
+type StoreActionsFactory<T, TActions> = (store) => TActions;
 ```
 
-Defined in: [store.ts:13](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L13)
+Defined in: [store.ts:8](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L8)
 
 ## Type Parameters
 
@@ -23,9 +23,15 @@ Defined in: [store.ts:13](https://github.com/TanStack/store/blob/main/packages/s
 
 ## Parameters
 
-### api
+### store
 
-[`StoreActionsApi`](../interfaces/StoreActionsApi.md)\<`T`\>
+#### get
+
+[`Store`](../classes/Store.md)\<`T`\>\[`"get"`\]
+
+#### setState
+
+[`Store`](../classes/Store.md)\<`T`\>\[`"setState"`\]
 
 ## Returns
 

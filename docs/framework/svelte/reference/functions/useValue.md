@@ -9,7 +9,7 @@ title: useValue
 function useValue<TValue>(source, options?): object;
 ```
 
-Defined in: [svelte-store/src/index.svelte.ts:82](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/index.svelte.ts#L82)
+Defined in: [svelte-store/src/useValue.ts:20](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/useValue.ts#L20)
 
 Subscribes to an atom or store and returns its whole current value through a
 rune-friendly holder object.

@@ -6,12 +6,13 @@ title: injectAtom
 # Function: injectAtom()
 
 ```ts
-function injectAtom<TValue>(atom, options?): [Signal<TValue>, (fn) => void & (value) => void];
+function injectAtom<TValue>(atom, options?): WritableAtomSignal<TValue>;
 ```
 
-Defined in: [packages/angular-store/src/index.ts:197](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L197)
+Defined in: [packages/angular-store/src/injectAtom.ts:44](https://github.com/TanStack/store/blob/main/packages/angular-store/src/injectAtom.ts#L44)
 
-Returns the current atom signal together with a setter.
+Returns a [WritableAtomSignal](../interfaces/WritableAtomSignal.md) that reads the current atom value when
+called and exposes a `.set` method for updates.
 
 Use this when a component needs to both read and update the same writable
 atom.
@@ -34,12 +35,14 @@ atom.
 
 ## Returns
 
-\[`Signal`\<`TValue`\>, (`fn`) => `void` & (`value`) => `void`\]
+[`WritableAtomSignal`](../interfaces/WritableAtomSignal.md)\<`TValue`\>
 
 ## Example
 
 ```ts
-readonly atomTuple = injectAtom(countAtom)
-readonly count = this.atomTuple[0]
-readonly setCount = this.atomTuple[1]
+readonly count = injectAtom(countAtom)
+
+increment() {
+  this.count.set((prev) => prev + 1)
+}
 ```

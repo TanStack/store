@@ -11,10 +11,8 @@ title: "@tanstack/solid-store"
 
 ## Functions
 
-- [shallow](functions/shallow.md)
+- [\_useStore](functions/useStore.md)
 - [useAtom](functions/useAtom.md)
 - [useSelector](functions/useSelector.md)
-- [useSetValue](functions/useSetValue.md)
-- [~~useStore~~](functions/useStore.md)
-- [useStoreActions](functions/useStoreActions.md)
+- [~~useStore~~](functions/useStore-1.md)
 - [useValue](functions/useValue.md)

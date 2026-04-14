@@ -17,7 +17,7 @@ a subtree.
 The returned `StoreProvider` only transports the provided object through
 Preact context. Consumers destructure the contextual atoms and stores, then
 compose them with the existing hooks like [useSelector](useSelector.md),
-[useValue](useValue.md), [useSetValue](useSetValue.md), and [useAtom](useAtom.md).
+[useValue](useValue.md), useSetValue, and [useAtom](useAtom.md).
 
 The object shape is preserved exactly, so keyed atoms and stores remain fully
 typed when read back with `useStoreContext()`.

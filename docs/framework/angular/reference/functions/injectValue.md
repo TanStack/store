@@ -9,7 +9,7 @@ title: injectValue
 function injectValue<TValue>(source, options?): Signal<TValue>;
 ```
 
-Defined in: [packages/angular-store/src/index.ts:131](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L131)
+Defined in: [packages/angular-store/src/injectValue.ts:21](https://github.com/TanStack/store/blob/main/packages/angular-store/src/injectValue.ts#L21)
 
 Returns the current value signal for an atom or store.
 

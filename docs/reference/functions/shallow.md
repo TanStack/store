@@ -9,7 +9,7 @@ title: shallow
 function shallow<T>(objA, objB): boolean;
 ```
 
-Defined in: [vue-store/src/shallow.ts:1](https://github.com/TanStack/store/blob/main/packages/vue-store/src/shallow.ts#L1)
+Defined in: [shallow.ts:1](https://github.com/TanStack/store/blob/main/packages/store/src/shallow.ts#L1)
 
 ## Type Parameters
 

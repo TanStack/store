@@ -12,7 +12,7 @@ function injectSelector<TState, TSelected>(
 options?): Signal<TSelected>;
 ```
 
-Defined in: [packages/angular-store/src/index.ts:107](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L107)
+Defined in: [packages/angular-store/src/injectSelector.ts:93](https://github.com/TanStack/store/blob/main/packages/angular-store/src/injectSelector.ts#L93)
 
 Selects a slice of state from an atom or store and returns it as an Angular
 signal.
@@ -33,7 +33,7 @@ This is the primary Angular read hook for TanStack Store.
 
 ### source
 
-`SelectionSource`\<`TState`\>
+[`SelectionSource`](../type-aliases/SelectionSource.md)\<`TState`\>
 
 ### selector
 

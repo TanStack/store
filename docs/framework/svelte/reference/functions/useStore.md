@@ -1,20 +1,26 @@
 ---
-id: useStore
-title: useStore
+id: _useStore
+title: _useStore
 ---
 
-# ~~Function: useStore()~~
+# Function: \_useStore()
 
 ```ts
-function useStore<TState, TSelected>(
-   source, 
+function _useStore<TState, TActions, TSelected>(
+   store, 
    selector, 
-   compare?): object;
+   options?): [{
+  current: TSelected;
+}, [TActions] extends [never] ? (updater) => void : TActions];
 ```
 
-Defined in: [svelte-store/src/index.svelte.ts:183](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/index.svelte.ts#L183)
+Defined in: [svelte-store/src/\_useStore.ts:21](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/_useStore.ts#L21)
 
-Deprecated alias for [useSelector](useSelector.md).
+Experimental combined read+write hook for stores, mirroring useAtom's tuple
+pattern.
+
+Returns `[selected, actions]` when the store has an actions factory, or
+`[selected, setState]` for plain stores.
 
 ## Type Parameters
 
@@ -22,41 +28,40 @@ Deprecated alias for [useSelector](useSelector.md).
 
 `TState`
 
+### TActions
+
+`TActions` *extends* `StoreActionMap`
+
 ### TSelected
 
 `TSelected` = `NoInfer`\<`TState`\>
 
 ## Parameters
 
-### source
+### store
 
-`Atom`\<`TState`\> | `ReadonlyAtom`\<`TState`\> | `Store`\<`TState`, `any`\> | `ReadonlyStore`\<`TState`\>
+`Store`\<`TState`, `TActions`\>
 
 ### selector
 
 (`state`) => `TSelected`
 
-### compare?
+### options?
 
-(`a`, `b`) => `boolean`
+[`UseSelectorOptions`](../interfaces/UseSelectorOptions.md)\<`TSelected`\>
 
 ## Returns
 
-`object`
-
-### ~~current~~
-
-```ts
-readonly current: TSelected;
-```
+\[\{
+  `current`: `TSelected`;
+\}, \[`TActions`\] *extends* \[`never`\] ? (`updater`) => `void` : `TActions`\]
 
 ## Example
 
 ```ts
-const count = useStore(counterStore, (state) => state.count)
-console.log(count.current)
+// Store with actions
+const [cats, { addCat }] = _useStore(petStore, (s) => s.cats)
+
+// Store without actions
+const [count, setState] = _useStore(plainStore, (s) => s)
 ```
-
-## Deprecated
-
-Use `useSelector` instead.

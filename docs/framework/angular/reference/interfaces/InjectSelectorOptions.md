@@ -5,7 +5,7 @@ title: InjectSelectorOptions
 
 # Interface: InjectSelectorOptions\<TSelected\>
 
-Defined in: [packages/angular-store/src/index.ts:20](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L20)
+Defined in: [packages/angular-store/src/injectSelector.ts:11](https://github.com/TanStack/store/blob/main/packages/angular-store/src/injectSelector.ts#L11)
 
 ## Extends
 
@@ -25,7 +25,7 @@ Defined in: [packages/angular-store/src/index.ts:20](https://github.com/TanStack
 optional compare: (a, b) => boolean;
 ```
 
-Defined in: [packages/angular-store/src/index.ts:24](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L24)
+Defined in: [packages/angular-store/src/injectSelector.ts:15](https://github.com/TanStack/store/blob/main/packages/angular-store/src/injectSelector.ts#L15)
 
 #### Parameters
 
@@ -67,4 +67,4 @@ Omit.debugName
 optional injector: Injector;
 ```
 
-Defined in: [packages/angular-store/src/index.ts:25](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L25)
+Defined in: [packages/angular-store/src/injectSelector.ts:16](https://github.com/TanStack/store/blob/main/packages/angular-store/src/injectSelector.ts#L16)

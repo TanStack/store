@@ -12,7 +12,7 @@ function useSelector<TState, TSelected>(
    options): object;
 ```
 
-Defined in: [svelte-store/src/index.svelte.ts:36](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/index.svelte.ts#L36)
+Defined in: [svelte-store/src/useSelector.svelte.ts:28](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/useSelector.svelte.ts#L28)
 
 Selects a slice of state from an atom or store and exposes it through a
 rune-friendly holder object.
