@@ -1,10 +1,5 @@
 import { render } from 'solid-js/web'
-import {
-  createAtom,
-  useAtom,
-  useSetValue,
-  useValue,
-} from '@tanstack/solid-store'
+import { createAtom, useAtom, useValue } from '@tanstack/solid-store'
 
 // Optionally, you can create atoms outside of Solid components at module scope
 const countAtom = createAtom(0)
@@ -31,15 +26,13 @@ function AtomValuePanel() {
 }
 
 function AtomButtons() {
-  const setCount = useSetValue(countAtom) // useSetValue avoids wiring the current value into this component when you only need writes.
-
   return (
     <div>
-      <button type="button" onClick={() => setCount((prev) => prev + 1)}>
-        Increment with useSetValue
+      <button type="button" onClick={() => countAtom.set((prev) => prev + 1)}>
+        Increment
       </button>
-      <button type="button" onClick={() => setCount(0)}>
-        Reset with useSetValue
+      <button type="button" onClick={() => countAtom.set(0)}>
+        Reset
       </button>
     </div>
   )

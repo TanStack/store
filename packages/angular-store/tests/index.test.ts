@@ -2,15 +2,16 @@ import { describe, expect, test } from 'vitest'
 import { Component, effect } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
-import { createAtom, createStore } from '@tanstack/store'
+import { Store, createAtom, createStore } from '@tanstack/store'
 import {
+  _injectStore,
+  createStoreContext,
   injectAtom,
   injectSelector,
-  injectSetValue,
   injectStore,
-  injectStoreActions,
   injectValue,
 } from '../src/index'
+import type { Atom } from '@tanstack/store'
 
 describe('atom hooks', () => {
   test('injectValue reads mutable atom state and rerenders when updated', () => {
@@ -46,28 +47,23 @@ describe('atom hooks', () => {
     expect(fixture.nativeElement.textContent).toContain('Value: 1')
   })
 
-  test('injectAtom returns the current signal and setter', () => {
+  test('injectAtom returns a callable signal with a set method', () => {
     const atom = createAtom(0)
 
     @Component({
       template: `
         <div>
-          <p>Value: {{ value() }}</p>
+          <p>Value: {{ count() }}</p>
           <button id="add" (click)="add()">Add 5</button>
         </div>
       `,
       standalone: true,
     })
     class MyCmp {
-      value!: ReturnType<typeof injectAtom<number>>[0]
-      setValue!: ReturnType<typeof injectAtom<number>>[1]
-
-      constructor() {
-        ;[this.value, this.setValue] = injectAtom(atom)
-      }
+      count = injectAtom(atom)
 
       add() {
-        this.setValue((prev) => prev + 5)
+        this.count.set((prev) => prev + 5)
       }
     }
 
@@ -82,6 +78,43 @@ describe('atom hooks', () => {
     fixture.detectChanges()
 
     expect(fixture.nativeElement.textContent).toContain('Value: 5')
+  })
+
+  test('injectAtom set accepts a direct value', () => {
+    const atom = createAtom(0)
+
+    @Component({
+      template: `
+        <div>
+          <p>Value: {{ count() }}</p>
+          <button id="reset" (click)="reset()">Reset</button>
+        </div>
+      `,
+      standalone: true,
+    })
+    class MyCmp {
+      count = injectAtom(atom)
+
+      constructor() {
+        this.count.set(42)
+      }
+
+      reset() {
+        this.count.set(0)
+      }
+    }
+
+    const fixture = TestBed.createComponent(MyCmp)
+    fixture.detectChanges()
+
+    expect(fixture.nativeElement.textContent).toContain('Value: 42')
+
+    fixture.debugElement
+      .query(By.css('button#reset'))
+      .triggerEventHandler('click', null)
+    fixture.detectChanges()
+
+    expect(fixture.nativeElement.textContent).toContain('Value: 0')
   })
 })
 
@@ -332,56 +365,6 @@ describe('selector hooks', () => {
       fixture.debugElement.query(By.css('p#derived')).nativeElement.textContent,
     ).toContain('2')
   })
-
-  test('injectSetValue updates stores by updater', () => {
-    const store = createStore(0)
-
-    @Component({
-      template: `<button id="update" (click)="update()">Update</button>`,
-      standalone: true,
-    })
-    class MyCmp {
-      updateState = injectSetValue(store)
-
-      update() {
-        this.updateState((prev) => prev + 1)
-      }
-    }
-
-    const fixture = TestBed.createComponent(MyCmp)
-    fixture.detectChanges()
-
-    fixture.debugElement
-      .query(By.css('button#update'))
-      .triggerEventHandler('click', null)
-    expect(store.state).toBe(1)
-  })
-
-  test('injectStoreActions returns the stable actions bag', () => {
-    const store = createStore({ count: 0 }, ({ set }) => ({
-      inc: () => set((prev) => ({ count: prev.count + 1 })),
-    }))
-
-    @Component({
-      template: `<button id="update" (click)="update()">Update</button>`,
-      standalone: true,
-    })
-    class MyCmp {
-      actions = injectStoreActions(store)
-
-      update() {
-        this.actions.inc()
-      }
-    }
-
-    const fixture = TestBed.createComponent(MyCmp)
-    fixture.detectChanges()
-
-    fixture.debugElement
-      .query(By.css('button#update'))
-      .triggerEventHandler('click', null)
-    expect(store.state.count).toBe(1)
-  })
 })
 
 describe('injectStore', () => {
@@ -443,5 +426,175 @@ describe('dataType', () => {
       fixture.debugElement.query(By.css('p#displayStoreVal')).nativeElement
         .textContent,
     ).toContain(new Date('2025-03-29T21:06:40.401Z'))
+  })
+})
+
+describe('_injectStore', () => {
+  test('returns selected state and actions for stores with actions', () => {
+    const store = createStore({ count: 0 }, ({ setState }) => ({
+      inc: () => setState((prev) => ({ count: prev.count + 1 })),
+    }))
+
+    @Component({
+      template: `
+        <div>
+          <p id="count">{{ count() }}</p>
+          <button id="inc" (click)="inc()">Inc</button>
+        </div>
+      `,
+      standalone: true,
+    })
+    class MyCmp {
+      private result = _injectStore(store, (state) => state.count)
+      count = this.result[0]
+      actions = this.result[1]
+
+      inc() {
+        this.actions.inc()
+      }
+    }
+
+    const fixture = TestBed.createComponent(MyCmp)
+    fixture.detectChanges()
+
+    expect(
+      fixture.debugElement.query(By.css('p#count')).nativeElement.textContent,
+    ).toContain('0')
+
+    fixture.debugElement
+      .query(By.css('button#inc'))
+      .triggerEventHandler('click', null)
+    fixture.detectChanges()
+
+    expect(
+      fixture.debugElement.query(By.css('p#count')).nativeElement.textContent,
+    ).toContain('1')
+  })
+
+  test('returns selected state and setState for plain stores', () => {
+    const store = createStore(0)
+
+    @Component({
+      template: `
+        <div>
+          <p id="value">{{ value() }}</p>
+          <button id="inc" (click)="inc()">Inc</button>
+        </div>
+      `,
+      standalone: true,
+    })
+    class MyCmp {
+      private result = _injectStore(store, (state) => state)
+      value = this.result[0]
+      setState = this.result[1]
+
+      inc() {
+        this.setState((prev) => prev + 1)
+      }
+    }
+
+    const fixture = TestBed.createComponent(MyCmp)
+    fixture.detectChanges()
+
+    expect(
+      fixture.debugElement.query(By.css('p#value')).nativeElement.textContent,
+    ).toContain('0')
+
+    fixture.debugElement
+      .query(By.css('button#inc'))
+      .triggerEventHandler('click', null)
+    fixture.detectChanges()
+
+    expect(
+      fixture.debugElement.query(By.css('p#value')).nativeElement.textContent,
+    ).toContain('1')
+  })
+})
+
+describe('createStoreContext', () => {
+  test('provides and injects a typed store context', () => {
+    const { provideStoreContext, injectStoreContext } = createStoreContext<{
+      countAtom: Atom<number>
+      petStore: Store<{ cats: number; dogs: number }>
+    }>()
+
+    @Component({
+      template: `
+        <div>
+          <p id="count">{{ count() }}</p>
+          <p id="cats">{{ cats() }}</p>
+          <button id="inc" (click)="inc()">Inc</button>
+          <button id="addCat" (click)="addCat()">Add cat</button>
+        </div>
+      `,
+      standalone: true,
+      providers: [
+        provideStoreContext(() => ({
+          countAtom: createAtom(10),
+          petStore: new Store({ cats: 2, dogs: 3 }),
+        })),
+      ],
+    })
+    class MyCmp {
+      private ctx = injectStoreContext()
+      count = injectValue(this.ctx.countAtom)
+      cats = injectSelector(this.ctx.petStore, (s) => s.cats)
+
+      inc() {
+        this.ctx.countAtom.set((prev) => prev + 1)
+      }
+
+      addCat() {
+        this.ctx.petStore.setState((prev) => ({
+          ...prev,
+          cats: prev.cats + 1,
+        }))
+      }
+    }
+
+    const fixture = TestBed.createComponent(MyCmp)
+    fixture.detectChanges()
+
+    expect(
+      fixture.debugElement.query(By.css('p#count')).nativeElement.textContent,
+    ).toContain('10')
+    expect(
+      fixture.debugElement.query(By.css('p#cats')).nativeElement.textContent,
+    ).toContain('2')
+
+    fixture.debugElement
+      .query(By.css('button#inc'))
+      .triggerEventHandler('click', null)
+    fixture.detectChanges()
+    expect(
+      fixture.debugElement.query(By.css('p#count')).nativeElement.textContent,
+    ).toContain('11')
+
+    fixture.debugElement
+      .query(By.css('button#addCat'))
+      .triggerEventHandler('click', null)
+    fixture.detectChanges()
+    expect(
+      fixture.debugElement.query(By.css('p#cats')).nativeElement.textContent,
+    ).toContain('3')
+  })
+
+  test('throws when injectStoreContext is called without a provider', () => {
+    const { injectStoreContext } = createStoreContext<{
+      countAtom: Atom<number>
+    }>()
+
+    @Component({
+      template: `<p>{{ count() }}</p>`,
+      standalone: true,
+    })
+    class MyCmp {
+      private ctx = injectStoreContext()
+      count = injectValue(this.ctx.countAtom)
+    }
+
+    expect(() => TestBed.createComponent(MyCmp)).toThrow(
+      /Missing StoreContext provider/,
+    )
   })
 })

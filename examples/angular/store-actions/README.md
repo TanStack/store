@@ -3,7 +3,7 @@
 This example demonstrates:
 
 - `injectSelector`
-- `injectStoreActions`
+- `_injectStore`
 - module-level `Store` actions
 
 To run this example:

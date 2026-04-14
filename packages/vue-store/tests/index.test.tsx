@@ -4,12 +4,11 @@ import { render, waitFor } from '@testing-library/vue'
 import { createAtom, createStore } from '@tanstack/store'
 import { userEvent } from '@testing-library/user-event'
 import {
+  _useStore,
   shallow,
   useAtom,
   useSelector,
-  useSetValue,
   useStore,
-  useStoreActions,
   useValue,
 } from '../src/index'
 
@@ -272,46 +271,6 @@ describe('store hooks', () => {
 
     await waitFor(() => expect(getByText('Derived: 2')).toBeInTheDocument())
   })
-
-  it('useSetValue updates stores by updater', async () => {
-    const store = createStore(0)
-
-    const Comp = defineComponent(() => {
-      const setValue = useSetValue(store)
-
-      return () =>
-        h('button', { onClick: () => setValue((prev) => prev + 1) }, 'Update')
-    })
-
-    const { getByText } = render(Comp)
-
-    await user.click(getByText('Update'))
-
-    expect(store.state).toBe(1)
-  })
-
-  it('useStoreActions returns the stable actions bag without subscribing to state', async () => {
-    const store = createStore({ count: 0 }, ({ set }) => ({
-      inc: () => set((prev) => ({ count: prev.count + 1 })),
-    }))
-
-    const Comp = defineComponent(() => {
-      const actions = useStoreActions(store)
-
-      return () =>
-        h(
-          'button',
-          { onClick: () => actions.inc() },
-          `Count: ${store.state.count}`,
-        )
-    })
-
-    const { getByText } = render(Comp)
-
-    await user.click(getByText('Count: 0'))
-
-    expect(store.state.count).toBe(1)
-  })
 })
 
 describe('useStore', () => {
@@ -365,6 +324,52 @@ describe('useStore', () => {
     expect(getByText('Value: 0')).toBeInTheDocument()
 
     await user.click(getByText('Update'))
+
+    await waitFor(() => expect(getByText('Value: 1')).toBeInTheDocument())
+  })
+})
+
+describe('_useStore', () => {
+  it('returns selected state and actions for stores with actions', async () => {
+    const store = createStore({ count: 0 }, ({ setState }) => ({
+      inc: () => setState((prev) => ({ count: prev.count + 1 })),
+    }))
+
+    const Comp = defineComponent(() => {
+      const [count, { inc }] = _useStore(store, (state) => state.count)
+
+      return () =>
+        h('div', [
+          h('p', `Count: ${count.value}`),
+          h('button', { onClick: () => inc() }, 'Inc'),
+        ])
+    })
+
+    const { getByText } = render(Comp)
+    expect(getByText('Count: 0')).toBeInTheDocument()
+
+    await user.click(getByText('Inc'))
+
+    await waitFor(() => expect(getByText('Count: 1')).toBeInTheDocument())
+  })
+
+  it('returns selected state and setState for plain stores', async () => {
+    const store = createStore(0)
+
+    const Comp = defineComponent(() => {
+      const [value, setState] = _useStore(store, (state) => state)
+
+      return () =>
+        h('div', [
+          h('p', `Value: ${value.value}`),
+          h('button', { onClick: () => setState((prev) => prev + 1) }, 'Inc'),
+        ])
+    })
+
+    const { getByText } = render(Comp)
+    expect(getByText('Value: 0')).toBeInTheDocument()
+
+    await user.click(getByText('Inc'))
 
     await waitFor(() => expect(getByText('Value: 1')).toBeInTheDocument())
   })

@@ -3,7 +3,7 @@
 This example demonstrates:
 
 - `useSelector`
-- `useStoreActions`
+- `_useStore`
 - module-level `Store` actions
 
 To run this example:

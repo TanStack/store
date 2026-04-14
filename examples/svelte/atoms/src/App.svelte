@@ -1,16 +1,10 @@
 <script lang="ts">
-  import {
-    createAtom,
-    useAtom,
-    useSetValue,
-    useValue,
-  } from '@tanstack/svelte-store'
+  import { createAtom, useAtom, useValue } from '@tanstack/svelte-store'
 
   // Optionally, you can create atoms outside of Svelte files at module scope
   const countAtom = createAtom(0)
 
   const count = useValue(countAtom) // useValue re-renders when the value changes. Useful for read-only access to an atom.
-  const setCount = useSetValue(countAtom) // useSetValue avoids wiring the current value into this component when you only need writes.
   const [editableCount, setEditableCount] = useAtom(countAtom) // read and write access to the atom.
 </script>
 
@@ -22,10 +16,10 @@
   </p>
   <p>Total: {count.current}</p>
   <div>
-    <button onclick={() => setCount((prev) => prev + 1)}>
-      Increment with useSetValue
+    <button onclick={() => countAtom.set((prev) => prev + 1)}>
+      Increment
     </button>
-    <button onclick={() => setCount(0)}>Reset with useSetValue</button>
+    <button onclick={() => countAtom.set(0)}>Reset</button>
   </div>
   <div>
     <p>Editable count: {editableCount.current}</p>

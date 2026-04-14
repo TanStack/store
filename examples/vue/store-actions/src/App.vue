@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Store, useSelector, useStoreActions } from '@tanstack/vue-store'
+import { Store, _useStore, useSelector } from '@tanstack/vue-store'
 
 // Optionally, you can create stores outside of Vue components at module scope
 const petStore = new Store(
@@ -7,43 +7,47 @@ const petStore = new Store(
     cats: 0,
     dogs: 0,
   },
-  ({ set }) =>
+  ({ setState, get }) =>
     // optionally, define actions for updating your store in specific ways right on the store.
     ({
       addCat: () =>
-        set((prev: { cats: number; dogs: number }) => ({
+        setState((prev: { cats: number; dogs: number }) => ({
           ...prev,
           cats: prev.cats + 1,
         })),
       addDog: () =>
-        set((prev: { cats: number; dogs: number }) => ({
+        setState((prev: { cats: number; dogs: number }) => ({
           ...prev,
           dogs: prev.dogs + 1,
         })),
+      log: () => console.log(get()),
     }),
 )
 
-// read state slice (only re-renders when the selected value changes)
-const cats = useSelector(petStore, (state) => state.cats)
-const dogs = useSelector(petStore, (state) => state.dogs)
+// _useStore gives both the selected state and actions in a single tuple
+const [cats, { addCat }] = _useStore(petStore, (state) => state.cats)
+const [dogs, { addDog }] = _useStore(petStore, (state) => state.dogs)
 const total = useSelector(petStore, (state) => state.cats + state.dogs)
-// pull stable action functions from the store
-const { addCat, addDog } = useStoreActions(petStore)
 </script>
 
 <template>
   <main>
+    <button type="button" @click="petStore.actions.log()">Log State</button>
     <h1>Vue Store Actions</h1>
     <p>
       This example creates a module-level store with actions. Components read
-      state with `useSelector` and call mutations through `useStoreActions`.
+      state with <code>useSelector</code> and call mutations through
+      <code>store.actions</code> or the experimental <code>_useStore</code>
+      hook.
     </p>
-    <p>Cats: {{ cats }}</p>
-    <p>Dogs: {{ dogs }}</p>
-    <p>Total votes: {{ total }}</p>
     <div>
-      <button type="button" @click="addCat()">Add cat</button>
-      <button type="button" @click="addDog()">Add dog</button>
+      <p>Cats: {{ cats }}</p>
+      <button type="button" @click="addCat()">Vote for cats</button>
     </div>
+    <div>
+      <p>Dogs: {{ dogs }}</p>
+      <button type="button" @click="addDog()">Vote for dogs</button>
+    </div>
+    <p>Total votes: {{ total }}</p>
   </main>
 </template>

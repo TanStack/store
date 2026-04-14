@@ -39,8 +39,8 @@ describe('store', () => {
   })
 
   test('supports actions on writable stores', () => {
-    const store = createStore({ count: 0 }, ({ set }) => ({
-      inc: () => set((prev) => ({ count: prev.count + 1 })),
+    const store = createStore({ count: 0 }, ({ setState }) => ({
+      inc: () => setState((prev) => ({ count: prev.count + 1 })),
     }))
 
     expect(store.state).toEqual({ count: 0 })
@@ -51,10 +51,10 @@ describe('store', () => {
   })
 
   test('actions can read current state', () => {
-    const store = createStore({ count: 1 }, ({ get, set }) => ({
+    const store = createStore({ count: 1 }, ({ get, setState }) => ({
       addIfOdd: () => {
         if (get().count % 2 === 1) {
-          set((prev) => ({ count: prev.count + 1 }))
+          setState((prev) => ({ count: prev.count + 1 }))
         }
       },
     }))
@@ -67,8 +67,8 @@ describe('store', () => {
   })
 
   test('actions bag is stable across updates', () => {
-    const store = createStore({ count: 0 }, ({ set }) => ({
-      inc: () => set((prev) => ({ count: prev.count + 1 })),
+    const store = createStore({ count: 0 }, ({ setState }) => ({
+      inc: () => setState((prev) => ({ count: prev.count + 1 })),
     }))
 
     const actions = store.actions

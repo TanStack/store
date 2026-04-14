@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { createAtom, useAtom, useSetValue, useValue } from '@tanstack/vue-store'
+import { createAtom, useAtom, useValue } from '@tanstack/vue-store'
 
 // Optionally, you can create atoms outside of Vue components at module scope
 const countAtom = createAtom(0)
 
 const count = useValue(countAtom) // useValue re-renders when the value changes. Useful for read-only access to an atom.
-const setCount = useSetValue(countAtom) // useSetValue never causes a re-render (useAtom does) if you need write-only in a component
 const [editableCount, setEditableCount] = useAtom(countAtom) // read and write access to the atom. Re-renders when the value changes.
 </script>
 
@@ -18,10 +17,10 @@ const [editableCount, setEditableCount] = useAtom(countAtom) // read and write a
     </p>
     <p>Total: {{ count }}</p>
     <div>
-      <button type="button" @click="setCount((prev: number) => prev + 1)">
-        Increment with useSetValue
+      <button type="button" @click="countAtom.set((prev: number) => prev + 1)">
+        Increment
       </button>
-      <button type="button" @click="setCount(0)">Reset with useSetValue</button>
+      <button type="button" @click="countAtom.set(0)">Reset</button>
     </div>
     <div>
       <p>Editable count: {{ editableCount }}</p>

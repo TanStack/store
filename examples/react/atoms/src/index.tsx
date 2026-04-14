@@ -3,7 +3,6 @@ import {
   createAtom,
   useAtom,
   // useCreateAtom,
-  useSetValue,
   useValue,
 } from '@tanstack/react-store'
 
@@ -35,15 +34,13 @@ function AtomValuePanel() {
 }
 
 function AtomButtons() {
-  const setCount = useSetValue(countAtom) // useSetValue never causes a re-render (useAtom does) if you need write-only in a component
-
   return (
     <div>
-      <button type="button" onClick={() => setCount((prev) => prev + 1)}>
-        Increment with useSetValue
+      <button type="button" onClick={() => countAtom.set((prev) => prev + 1)}>
+        Increment
       </button>
-      <button type="button" onClick={() => setCount(0)}>
-        Reset with useSetValue
+      <button type="button" onClick={() => countAtom.set(0)}>
+        Reset
       </button>
     </div>
   )

@@ -5,7 +5,6 @@ import {
   Store,
   useAtom,
   useSelector,
-  useSetValue,
   useValue,
 } from '@tanstack/vue-store'
 import type { Atom } from '@tanstack/vue-store'
@@ -79,16 +78,22 @@ const AtomSummary = defineComponent(() => {
 
 const NestedAtomControls = defineComponent(() => {
   const { countAtom } = useStoreContext()
-  const setCount = useSetValue(countAtom)
 
   return () =>
     h('div', [
       h(
         'button',
-        { type: 'button', onClick: () => setCount((prev: number) => prev + 1) },
+        {
+          type: 'button',
+          onClick: () => countAtom.set((prev: number) => prev + 1),
+        },
         'Increment atom',
       ),
-      h('button', { type: 'button', onClick: () => setCount(0) }, 'Reset atom'),
+      h(
+        'button',
+        { type: 'button', onClick: () => countAtom.set(0) },
+        'Reset atom',
+      ),
     ])
 })
 
@@ -109,7 +114,6 @@ const DeepAtomEditor = defineComponent(() => {
 
 const StoreButtons = defineComponent(() => {
   const { votesStore } = useStoreContext()
-  const setVotes = useSetValue(votesStore)
 
   return () =>
     h('div', [
@@ -118,7 +122,7 @@ const StoreButtons = defineComponent(() => {
         {
           type: 'button',
           onClick: () =>
-            setVotes((prev: CounterStore) => ({
+            votesStore.setState((prev: CounterStore) => ({
               ...prev,
               cats: prev.cats + 1,
             })),
@@ -130,7 +134,7 @@ const StoreButtons = defineComponent(() => {
         {
           type: 'button',
           onClick: () =>
-            setVotes((prev: CounterStore) => ({
+            votesStore.setState((prev: CounterStore) => ({
               ...prev,
               dogs: prev.dogs + 1,
             })),

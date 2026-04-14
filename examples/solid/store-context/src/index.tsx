@@ -5,7 +5,6 @@ import {
   Store,
   useAtom,
   useSelector,
-  useSetValue,
   useValue,
 } from '@tanstack/solid-store'
 import type { Atom } from '@tanstack/solid-store'
@@ -102,14 +101,13 @@ function AtomSummary() {
 
 function NestedAtomControls() {
   const { countAtom } = useStoreContext()
-  const setCount = useSetValue(countAtom)
 
   return (
     <div>
-      <button type="button" onClick={() => setCount((prev) => prev + 1)}>
+      <button type="button" onClick={() => countAtom.set((prev) => prev + 1)}>
         Increment atom
       </button>
-      <button type="button" onClick={() => setCount(0)}>
+      <button type="button" onClick={() => countAtom.set(0)}>
         Reset atom
       </button>
     </div>
@@ -132,14 +130,13 @@ function DeepAtomEditor() {
 
 function StoreButtons() {
   const { votesStore } = useStoreContext()
-  const setVotes = useSetValue(votesStore)
 
   return (
     <div>
       <button
         type="button"
         onClick={() =>
-          setVotes((prev) => ({
+          votesStore.setState((prev) => ({
             ...prev,
             cats: prev.cats + 1,
           }))
@@ -150,7 +147,7 @@ function StoreButtons() {
       <button
         type="button"
         onClick={() =>
-          setVotes((prev) => ({
+          votesStore.setState((prev) => ({
             ...prev,
             dogs: prev.dogs + 1,
           }))

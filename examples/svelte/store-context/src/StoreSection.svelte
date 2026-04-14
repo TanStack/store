@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getContext } from 'svelte'
-  import { useSelector, useSetValue } from '@tanstack/svelte-store'
+  import { useSelector } from '@tanstack/svelte-store'
   import { STORE_CONTEXT } from './context'
   import type { StoreContextValue } from './context'
 
@@ -11,7 +11,6 @@
   const dogs = useSelector(votesStore, (state) => state.dogs)
   // custom selector to calculate total votes from the store state
   const total = useSelector(votesStore, (state) => state.cats + state.dogs)
-  const setVotes = useSetValue(votesStore)
 </script>
 
 <p>Cats: {cats.current}</p>
@@ -20,7 +19,7 @@
 <div>
   <button
     onclick={() =>
-      setVotes((prev) => ({
+      votesStore.setState((prev) => ({
         ...prev,
         cats: prev.cats + 1,
       }))}
@@ -29,7 +28,7 @@
   </button>
   <button
     onclick={() =>
-      setVotes((prev) => ({
+      votesStore.setState((prev) => ({
         ...prev,
         dogs: prev.dogs + 1,
       }))}

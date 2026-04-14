@@ -2,12 +2,11 @@ import { describe, expect, it, test, vi } from 'vitest'
 import { renderHook } from '@solidjs/testing-library'
 import { createAtom, createStore } from '@tanstack/store'
 import {
+  _useStore,
   shallow,
   useAtom,
   useSelector,
-  useSetValue,
   useStore,
-  useStoreActions,
   useValue,
 } from '../src/index'
 
@@ -21,17 +20,6 @@ describe('atom hooks', () => {
     atom.set((prev) => prev + 1)
 
     expect(result()).toBe(1)
-  })
-
-  it('useSetValue updates atoms by value and updater', () => {
-    const atom = createAtom(0)
-    const { result } = renderHook(() => useSetValue(atom))
-
-    result(1)
-    expect(atom.get()).toBe(1)
-
-    result((prev) => prev + 1)
-    expect(atom.get()).toBe(2)
   })
 
   it('useAtom returns the current accessor and setter', () => {
@@ -161,28 +149,6 @@ describe('store hooks', () => {
 
     expect(result()).toBe(2)
   })
-
-  it('useSetValue updates stores by updater', () => {
-    const store = createStore(0)
-    const { result } = renderHook(() => useSetValue(store))
-
-    result((prev) => prev + 1)
-    expect(store.state).toBe(1)
-  })
-
-  it('useStoreActions returns the stable actions bag', () => {
-    const store = createStore({ count: 0 }, ({ set }) => ({
-      inc: () => set((prev) => ({ count: prev.count + 1 })),
-    }))
-
-    const { result } = renderHook(() => useStoreActions(store))
-    const actions = result
-
-    actions.inc()
-
-    expect(result).toBe(actions)
-    expect(store.state.count).toBe(1)
-  })
 })
 
 describe('useStore', () => {
@@ -206,6 +172,36 @@ describe('useStore', () => {
     atom.set((prev) => prev + 1)
 
     expect(result()).toBe(1)
+  })
+})
+
+describe('_useStore', () => {
+  it('returns selected state and actions for stores with actions', () => {
+    const store = createStore({ count: 0 }, ({ setState }) => ({
+      inc: () => setState((prev) => ({ count: prev.count + 1 })),
+    }))
+
+    const { result } = renderHook(() =>
+      _useStore(store, (state) => state.count),
+    )
+
+    expect(result[0]()).toBe(0)
+
+    result[1].inc()
+
+    expect(result[0]()).toBe(1)
+  })
+
+  it('returns selected state and setState for plain stores', () => {
+    const store = createStore(0)
+
+    const { result } = renderHook(() => _useStore(store, (state) => state))
+
+    expect(result[0]()).toBe(0)
+
+    result[1]((prev) => prev + 1)
+
+    expect(result[0]()).toBe(1)
   })
 })
 

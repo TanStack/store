@@ -1,8 +1,7 @@
 import { describe, expect, it, test } from 'vitest'
 import { render, waitFor } from '@testing-library/svelte'
 import { userEvent } from '@testing-library/user-event'
-import { createStore } from '@tanstack/store'
-import { shallow, useStoreActions } from '../src/index.svelte.js'
+import { shallow } from '../src/index.svelte.js'
 import TestBaseStore from './BaseStore.test.svelte'
 import TestRerender from './Render.test.svelte'
 import TestValue from './Value.test.svelte'
@@ -38,17 +37,6 @@ describe('useSelector', () => {
 
     await waitFor(() => expect(getByText('Value: 2')).toBeInTheDocument())
     await waitFor(() => expect(getByText('Readonly: 4')).toBeInTheDocument())
-  })
-
-  it('useStoreActions returns the stable actions bag', () => {
-    const store = createStore({ count: 0 }, ({ set }) => ({
-      inc: () => set((prev) => ({ count: prev.count + 1 })),
-    }))
-
-    const actions = useStoreActions(store)
-    actions.inc()
-
-    expect(store.state.count).toBe(1)
   })
 })
 

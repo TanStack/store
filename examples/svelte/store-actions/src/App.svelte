@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Store, useSelector, useStoreActions } from '@tanstack/svelte-store'
+  import { Store, _useStore, useSelector } from '@tanstack/svelte-store'
 
   // Optionally, you can create stores outside of Svelte files at module scope
   const petStore = new Store(
@@ -7,41 +7,45 @@
       cats: 0,
       dogs: 0,
     },
-    ({ set }) =>
+    ({ setState, get }) =>
       // optionally, define actions for updating your store in specific ways right on the store.
       ({
         addCat: () =>
-          set((prev) => ({
+          setState((prev) => ({
             ...prev,
             cats: prev.cats + 1,
           })),
         addDog: () =>
-          set((prev) => ({
+          setState((prev) => ({
             ...prev,
             dogs: prev.dogs + 1,
           })),
+        log: () => console.log(get()),
       }),
   )
 
-  // read state slice (only re-renders when the selected value changes)
-  const cats = useSelector(petStore, (state) => state.cats)
-  const dogs = useSelector(petStore, (state) => state.dogs)
+  // _useStore gives both the selected state and actions in a single tuple
+  const [cats, { addCat }] = _useStore(petStore, (state) => state.cats)
+  const [dogs, { addDog }] = _useStore(petStore, (state) => state.dogs)
   const total = useSelector(petStore, (state) => state.cats + state.dogs)
-  // pull stable action functions from the store
-  const { addCat, addDog } = useStoreActions(petStore)
 </script>
 
 <main>
+  <button onclick={petStore.actions.log}>Log State</button>
   <h1>Svelte Store Actions</h1>
   <p>
     This example creates a module-level store with actions. Components read
-    state with `useSelector` and call mutations through `useStoreActions`.
+    state with <code>useSelector</code> and call mutations through
+    <code>store.actions</code> or the experimental <code>_useStore</code>
+    hook.
   </p>
-  <p>Cats: {cats.current}</p>
-  <p>Dogs: {dogs.current}</p>
-  <p>Total votes: {total.current}</p>
   <div>
-    <button onclick={() => addCat()}>Add cat</button>
-    <button onclick={() => addDog()}>Add dog</button>
+    <p>Cats: {cats.current}</p>
+    <button onclick={() => addCat()}>Vote for cats</button>
   </div>
+  <div>
+    <p>Dogs: {dogs.current}</p>
+    <button onclick={() => addDog()}>Vote for dogs</button>
+  </div>
+  <p>Total votes: {total.current}</p>
 </main>

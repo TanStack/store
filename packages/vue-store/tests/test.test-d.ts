@@ -1,15 +1,8 @@
 import { expectTypeOf, test } from 'vitest'
 import { createAtom, createStore } from '@tanstack/store'
-import {
-  useAtom,
-  useSelector,
-  useSetValue,
-  useStore,
-  useStoreActions,
-  useValue,
-} from '../src'
+import { _useStore, useAtom, useSelector, useStore, useValue } from '../src'
 import type { Ref } from 'vue-demi'
-import type { Atom } from '@tanstack/store'
+import type { Store } from '@tanstack/store'
 
 test('useSelector works with derived state', () => {
   const store = createStore(12)
@@ -35,22 +28,6 @@ test('useValue infers value from mutable and readonly sources', () => {
   expectTypeOf(useValue(readonlyStore)).toEqualTypeOf<Readonly<Ref<number>>>()
 })
 
-test('useSetValue preserves native setter contracts', () => {
-  const writableAtom = createAtom(12)
-  const readonlyAtom = createAtom(() => 24)
-  const writableStore = createStore(12)
-  const readonlyStore = createStore(() => 24)
-
-  expectTypeOf(useSetValue(writableAtom)).toEqualTypeOf<Atom<number>['set']>()
-  expectTypeOf(useSetValue(writableStore)).toEqualTypeOf<
-    typeof writableStore.setState
-  >()
-  // @ts-expect-error readonly atoms cannot be set
-  useSetValue(readonlyAtom)
-  // @ts-expect-error readonly stores cannot be set
-  useSetValue(readonlyStore)
-})
-
 test('useAtom only accepts writable atoms', () => {
   const writableAtom = createAtom(12)
   const readonlyAtom = createAtom(() => 24)
@@ -72,21 +49,22 @@ test('useStore matches useSelector types for compatibility', () => {
   expectTypeOf(compatValue).toEqualTypeOf<Readonly<Ref<number>>>()
 })
 
-test('useStoreActions infers the action bag from writable stores', () => {
-  const store = createStore({ count: 0 }, ({ get, set }) => ({
-    inc: () => set((prev) => ({ count: prev.count + 1 })),
-    current: () => get().count,
+test('_useStore returns actions for stores with actions', () => {
+  const store = createStore({ count: 0 }, ({ setState }) => ({
+    inc: () => setState((prev) => ({ count: prev.count + 1 })),
   }))
 
-  const actions = useStoreActions(store)
+  const [selected, actions] = _useStore(store, (state) => state.count)
 
+  expectTypeOf(selected).toEqualTypeOf<Readonly<Ref<number>>>()
   expectTypeOf(actions.inc).toBeFunction()
-  expectTypeOf(actions.current()).toExtend<number>()
+})
 
-  const plainStore = createStore(12)
-  expectTypeOf(useStoreActions(plainStore)).toEqualTypeOf<never>()
+test('_useStore returns setState for plain stores', () => {
+  const store = createStore(0)
 
-  const readonlyStore = createStore(() => 24)
-  // @ts-expect-error readonly stores do not expose actions
-  useStoreActions(readonlyStore)
+  const [selected, setState] = _useStore(store, (state) => state)
+
+  expectTypeOf(selected).toEqualTypeOf<Readonly<Ref<number>>>()
+  expectTypeOf(setState).toEqualTypeOf<Store<number>['setState']>()
 })

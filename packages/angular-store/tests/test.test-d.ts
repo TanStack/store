@@ -1,15 +1,16 @@
 import { expectTypeOf, test } from 'vitest'
 import { createAtom, createStore } from '@tanstack/store'
 import {
+  _injectStore,
+  createStoreContext,
   injectAtom,
   injectSelector,
-  injectSetValue,
   injectStore,
-  injectStoreActions,
   injectValue,
 } from '../src'
 import type { Signal } from '@angular/core'
-import type { Atom } from '@tanstack/store'
+import type { Atom, Store } from '@tanstack/store'
+import type { WritableAtomSignal } from '../src'
 
 test('injectSelector works with derived state', () => {
   const store = createStore(12)
@@ -35,32 +36,16 @@ test('injectValue infers value from mutable and readonly sources', () => {
   expectTypeOf(injectValue(readonlyStore)).toEqualTypeOf<Signal<number>>()
 })
 
-test('injectSetValue preserves native setter contracts', () => {
-  const writableAtom = createAtom(12)
-  const readonlyAtom = createAtom(() => 24)
-  const writableStore = createStore(12)
-  const readonlyStore = createStore(() => 24)
-
-  expectTypeOf(injectSetValue(writableAtom)).toEqualTypeOf<
-    Atom<number>['set']
-  >()
-  expectTypeOf(injectSetValue(writableStore)).toEqualTypeOf<
-    typeof writableStore.setState
-  >()
-  // @ts-expect-error readonly atoms cannot be set
-  injectSetValue(readonlyAtom)
-  // @ts-expect-error readonly stores cannot be set
-  injectSetValue(readonlyStore)
-})
-
-test('injectAtom only accepts writable atoms', () => {
+test('injectAtom returns a WritableAtomSignal', () => {
   const writableAtom = createAtom(12)
   const readonlyAtom = createAtom(() => 24)
 
-  const [value, setValue] = injectAtom(writableAtom)
+  const atomSignal = injectAtom(writableAtom)
 
-  expectTypeOf(value).toEqualTypeOf<Signal<number>>()
-  expectTypeOf(setValue).toBeFunction()
+  expectTypeOf(atomSignal).toEqualTypeOf<WritableAtomSignal<number>>()
+  expectTypeOf(atomSignal()).toEqualTypeOf<number>()
+  expectTypeOf(atomSignal.set).toEqualTypeOf<Atom<number>['set']>()
+
   // @ts-expect-error readonly atoms cannot be used with injectAtom
   injectAtom(readonlyAtom)
 })
@@ -74,21 +59,37 @@ test('injectStore matches injectSelector types for compatibility', () => {
   expectTypeOf(compatValue).toEqualTypeOf<Signal<number>>()
 })
 
-test('injectStoreActions infers the action bag from writable stores', () => {
-  const store = createStore({ count: 0 }, ({ get, set }) => ({
-    inc: () => set((prev) => ({ count: prev.count + 1 })),
-    current: () => get().count,
+test('createStoreContext preserves typed context shape', () => {
+  const { provideStoreContext, injectStoreContext } = createStoreContext<{
+    countAtom: Atom<number>
+    petStore: Store<{ cats: number }>
+  }>()
+
+  expectTypeOf(provideStoreContext).toBeFunction()
+  expectTypeOf(injectStoreContext).toBeFunction()
+
+  const ctx = injectStoreContext()
+
+  expectTypeOf(ctx.countAtom).toEqualTypeOf<Atom<number>>()
+  expectTypeOf(ctx.petStore).toEqualTypeOf<Store<{ cats: number }>>()
+})
+
+test('_injectStore returns actions for stores with actions', () => {
+  const store = createStore({ count: 0 }, ({ setState }) => ({
+    inc: () => setState((prev) => ({ count: prev.count + 1 })),
   }))
 
-  const actions = injectStoreActions(store)
+  const [selected, actions] = _injectStore(store, (state) => state.count)
 
+  expectTypeOf(selected).toEqualTypeOf<Signal<number>>()
   expectTypeOf(actions.inc).toBeFunction()
-  expectTypeOf(actions.current()).toExtend<number>()
+})
 
-  const plainStore = createStore(12)
-  expectTypeOf(injectStoreActions(plainStore)).toEqualTypeOf<never>()
+test('_injectStore returns setState for plain stores', () => {
+  const store = createStore(0)
 
-  const readonlyStore = createStore(() => 24)
-  // @ts-expect-error readonly stores do not expose actions
-  injectStoreActions(readonlyStore)
+  const [selected, setState] = _injectStore(store, (state) => state)
+
+  expectTypeOf(selected).toEqualTypeOf<Signal<number>>()
+  expectTypeOf(setState).toEqualTypeOf<Store<number>['setState']>()
 })
