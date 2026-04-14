@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { Store, useSelector } from '@tanstack/svelte-store'
+  import { createStore, useSelector } from '@tanstack/svelte-store'
 
   // Optionally, you can create stores outside of Svelte files at module scope
-  const petStore = new Store({
+  const petStore = createStore({
     cats: 0,
     dogs: 0,
   })

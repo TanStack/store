@@ -2,12 +2,12 @@
 import { defineComponent, h, inject, provide } from 'vue'
 import {
   createAtom,
-  Store,
+  createStore,
   useAtom,
   useSelector,
   useValue,
 } from '@tanstack/vue-store'
-import type { Atom } from '@tanstack/vue-store'
+import type { Atom, Store } from '@tanstack/vue-store'
 import type { InjectionKey } from 'vue'
 
 // one drawback of storing stores and atoms in context is you have to define types for the context manually, instead of everything being inferred.
@@ -37,7 +37,7 @@ function useStoreContext() {
 }
 
 // Vue setup runs once per component instance, so stores and atoms created here stay stable for this provider instance.
-const votesStore = new Store<CounterStore>({
+const votesStore = createStore<CounterStore>({
   cats: 0,
   dogs: 0,
 })

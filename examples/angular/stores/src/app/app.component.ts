@@ -1,8 +1,8 @@
 import { Component } from '@angular/core'
-import { injectSelector, Store } from '@tanstack/angular-store'
+import { createStore, injectSelector } from '@tanstack/angular-store'
 
 // Optionally, you can create stores outside of Angular components at module scope
-const petStore = new Store({
+const petStore = createStore({
   cats: 0,
   dogs: 0,
 })

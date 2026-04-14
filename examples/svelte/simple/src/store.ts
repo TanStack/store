@@ -1,7 +1,7 @@
-import { Store } from '@tanstack/svelte-store'
+import { createStore } from '@tanstack/svelte-store'
 
 // You can instantiate a Store outside of Svelte files too!
-export const store = new Store({
+export const store = createStore({
   dogs: 0,
   cats: 0,
 })

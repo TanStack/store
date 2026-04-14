@@ -1,8 +1,8 @@
 import ReactDOM from 'react-dom/client'
-import { Store, useSelector } from '@tanstack/react-store'
+import { createStore, useSelector } from '@tanstack/react-store'
 
 // You can use instantiate a Store outside of React components too!
-export const store = new Store({
+export const store = createStore({
   dogs: 0,
   cats: 0,
 })

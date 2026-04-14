@@ -2,12 +2,12 @@ import { createContext, useContext } from 'solid-js'
 import { render } from 'solid-js/web'
 import {
   createAtom,
-  Store,
+  createStore,
   useAtom,
   useSelector,
   useValue,
 } from '@tanstack/solid-store'
-import type { Atom } from '@tanstack/solid-store'
+import type { Atom, Store } from '@tanstack/solid-store'
 
 // one drawback of storing stores and atoms in context is you have to define types for the context manually, instead of everything being inferred.
 
@@ -35,7 +35,7 @@ function useStoreContext() {
 
 function App() {
   // Solid components only run once per mount, so stores and atoms created here stay stable for this provider instance.
-  const votesStore = new Store<CounterStore>({
+  const votesStore = createStore<CounterStore>({
     cats: 0,
     dogs: 0,
   })

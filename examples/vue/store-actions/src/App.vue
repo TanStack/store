@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Store, _useStore, useSelector } from '@tanstack/vue-store'
+import { createStore, _useStore, useSelector } from '@tanstack/vue-store'
 
 // Optionally, you can create stores outside of Vue components at module scope
-const petStore = new Store(
+const petStore = createStore(
   {
     cats: 0,
     dogs: 0,

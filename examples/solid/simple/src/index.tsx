@@ -1,8 +1,8 @@
-import { Store, useSelector } from '@tanstack/solid-store'
+import { createStore, useSelector } from '@tanstack/solid-store'
 import { render } from 'solid-js/web'
 
 // You can instantiate a Store outside of Solid components too!
-export const store = new Store({
+export const store = createStore({
   cats: 0,
   dogs: 0,
 })

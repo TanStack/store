@@ -1,6 +1,6 @@
 <script lang="ts">
   import { setContext } from 'svelte'
-  import { createAtom, Store } from '@tanstack/svelte-store'
+  import { createAtom, createStore } from '@tanstack/svelte-store'
   import AtomSection from './AtomSection.svelte'
   import StoreSection from './StoreSection.svelte'
   import { STORE_CONTEXT } from './context'
@@ -9,7 +9,7 @@
   // one drawback of storing stores and atoms in context is you have to define types for the context manually, instead of everything being inferred.
 
   // Svelte components initialize once per mount, so stores and atoms created here stay stable for this provider instance.
-  const votesStore = new Store<CounterStore>({
+  const votesStore = createStore<CounterStore>({
     cats: 0,
     dogs: 0,
   })

@@ -1,13 +1,13 @@
 import { Component } from '@angular/core'
 import {
   createAtom,
+  createStore,
   createStoreContext,
   injectAtom,
   injectSelector,
   injectValue,
-  Store,
 } from '@tanstack/angular-store'
-import type { Atom } from '@tanstack/angular-store'
+import type { Atom, Store } from '@tanstack/angular-store'
 
 type CounterStore = {
   cats: number
@@ -24,7 +24,7 @@ const { provideStoreContext, injectStoreContext } = createStoreContext<{
   standalone: true,
   providers: [
     provideStoreContext(() => ({
-      votesStore: new Store<CounterStore>({
+      votesStore: createStore<CounterStore>({
         cats: 0,
         dogs: 0,
       }),

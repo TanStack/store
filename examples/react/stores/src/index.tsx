@@ -1,8 +1,8 @@
 import ReactDOM from 'react-dom/client'
-import { Store, useSelector } from '@tanstack/react-store'
+import { createStore, useSelector } from '@tanstack/react-store'
 
 // Optionally, you can create stores outside of React components at module scope
-const petStore = new Store({
+const petStore = createStore({
   cats: 0,
   dogs: 0,
 })
