@@ -9,4 +9,4 @@ title: StoreActionMap
 type StoreActionMap = Record<string, StoreAction>;
 ```
 
-Defined in: [store.ts:11](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L11)
+Defined in: [store.ts:6](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L6)

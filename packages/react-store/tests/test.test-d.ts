@@ -1,17 +1,16 @@
 import { expectTypeOf, test } from 'vitest'
 import { createAtom, createStore } from '@tanstack/store'
 import {
+  _useStore,
   createStoreContext,
   useAtom,
   useCreateAtom,
   useCreateStore,
   useSelector,
-  useSetValue,
   useStore,
-  useStoreActions,
   useValue,
 } from '../src'
-import type { Atom, ReadonlyStore } from '@tanstack/store'
+import type { Atom, ReadonlyStore, Store } from '@tanstack/store'
 
 test('useCreateAtom returns a writable atom for initial values', () => {
   const atom = useCreateAtom(12)
@@ -46,22 +45,6 @@ test('useValue infers value from mutable and readonly atoms', () => {
   ).toExtend<number>()
 })
 
-test('useSetValue preserves native atom and store setter contracts', () => {
-  const writableAtom = createAtom(12)
-  const readonlyAtom = createAtom(() => 24)
-  const writableStore = createStore(12)
-  const readonlyStore = createStore(() => 24)
-
-  expectTypeOf(useSetValue(writableAtom)).toEqualTypeOf<Atom<number>['set']>()
-  expectTypeOf(useSetValue(writableStore)).toEqualTypeOf<
-    typeof writableStore.setState
-  >()
-  // @ts-expect-error readonly atoms cannot be set
-  useSetValue(readonlyAtom)
-  // @ts-expect-error readonly stores cannot be set
-  useSetValue(readonlyStore)
-})
-
 test('useAtom only accepts writable atoms', () => {
   const writableAtom = createAtom(12)
   const readonlyAtom = createAtom(() => 24)
@@ -80,9 +63,12 @@ test('useAtom only accepts writable atoms', () => {
 
 test('useCreateStore returns writable and readonly store types', () => {
   const writableStore = useCreateStore(12)
-  const writableStoreWithActions = useCreateStore({ count: 0 }, ({ set }) => ({
-    inc: () => set((prev) => ({ count: prev.count + 1 })),
-  }))
+  const writableStoreWithActions = useCreateStore(
+    { count: 0 },
+    ({ setState }) => ({
+      inc: () => setState((prev) => ({ count: prev.count + 1 })),
+    }),
+  )
   const readonlyStore = useCreateStore(() => 24)
 
   expectTypeOf(writableStore.state).toExtend<number>()
@@ -147,25 +133,6 @@ test('useStore matches useSelector types for compatibility', () => {
   expectTypeOf(compatValue).toExtend<number>()
 })
 
-test('useStoreActions infers the action bag from writable stores', () => {
-  const store = createStore({ count: 0 }, ({ get, set }) => ({
-    inc: () => set((prev) => ({ count: prev.count + 1 })),
-    current: () => get().count,
-  }))
-
-  const actions = useStoreActions(store)
-
-  expectTypeOf(actions.inc).toBeFunction()
-  expectTypeOf(actions.current()).toExtend<number>()
-
-  const plainStore = createStore(12)
-  expectTypeOf(useStoreActions(plainStore)).toEqualTypeOf<never>()
-
-  const readonlyStore = createStore(() => 24)
-  // @ts-expect-error readonly stores do not expose actions
-  useStoreActions(readonlyStore)
-})
-
 test('createStoreContext preserves keyed atom and store types', () => {
   const countAtom = createAtom(12)
   const readonlySource = createStore(() => ({ value: 24 }))
@@ -177,7 +144,6 @@ test('createStoreContext preserves keyed atom and store types', () => {
 
   expectTypeOf(contextValue.countAtom).toExtend<Atom<number>>()
   expectTypeOf(contextValue.countAtom.set).toBeFunction()
-  expectTypeOf(useSetValue(contextValue.countAtom)).toBeFunction()
 
   const [value, setValue] = useAtom(contextValue.countAtom)
   expectTypeOf(value).toExtend<number>()
@@ -189,4 +155,24 @@ test('createStoreContext preserves keyed atom and store types', () => {
 
   const selected = useSelector(readonlyStore, (state) => state.value)
   expectTypeOf(selected).toExtend<number>()
+})
+
+test('_useStore returns actions for stores with actions', () => {
+  const store = createStore({ count: 0 }, ({ setState }) => ({
+    inc: () => setState((prev) => ({ count: prev.count + 1 })),
+  }))
+
+  const [selected, actions] = _useStore(store, (state) => state.count)
+
+  expectTypeOf(selected).toExtend<number>()
+  expectTypeOf(actions.inc).toBeFunction()
+})
+
+test('_useStore returns setState for plain stores', () => {
+  const store = createStore(0)
+
+  const [selected, setState] = _useStore(store, (state) => state)
+
+  expectTypeOf(selected).toExtend<number>()
+  expectTypeOf(setState).toEqualTypeOf<Store<number>['setState']>()
 })

@@ -1,24 +1,36 @@
 ---
-id: useStore
-title: useStore
+id: _useStore
+title: _useStore
 ---
 
-# Function: useStore()
+# Function: \_useStore()
 
 ```ts
-function useStore<TState, TSelected>(
+function _useStore<TState, TActions, TSelected>(
    store, 
    selector, 
-   options): object;
+   options?): [{
+  current: TSelected;
+}, [TActions] extends [never] ? (updater) => void : TActions];
 ```
 
-Defined in: [index.svelte.ts:10](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/index.svelte.ts#L10)
+Defined in: [svelte-store/src/\_useStore.ts:21](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/_useStore.ts#L21)
+
+Experimental combined read+write hook for stores, mirroring useAtom's tuple
+pattern.
+
+Returns `[selected, actions]` when the store has an actions factory, or
+`[selected, setState]` for plain stores.
 
 ## Type Parameters
 
 ### TState
 
 `TState`
+
+### TActions
+
+`TActions` *extends* `StoreActionMap`
 
 ### TSelected
 
@@ -28,22 +40,28 @@ Defined in: [index.svelte.ts:10](https://github.com/TanStack/store/blob/main/pac
 
 ### store
 
-`Atom`\<`TState`\> | `ReadonlyAtom`\<`TState`\>
+`Store`\<`TState`, `TActions`\>
 
 ### selector
 
 (`state`) => `TSelected`
 
-### options
+### options?
 
-`UseStoreOptions`\<`TSelected`\> = `{}`
+[`UseSelectorOptions`](../interfaces/UseSelectorOptions.md)\<`TSelected`\>
 
 ## Returns
 
-`object`
+\[\{
+  `current`: `TSelected`;
+\}, \[`TActions`\] *extends* \[`never`\] ? (`updater`) => `void` : `TActions`\]
 
-### current
+## Example
 
 ```ts
-readonly current: TSelected;
+// Store with actions
+const [cats, { addCat }] = _useStore(petStore, (s) => s.cats)
+
+// Store without actions
+const [count, setState] = _useStore(plainStore, (s) => s)
 ```

@@ -1,18 +1,14 @@
 import { createAtom, toObserver } from './atom'
 import type { Atom, Observer, Subscription } from './types'
 
-export interface StoreActionsApi<T> {
-  set: (updater: (prev: T) => T) => void
-  get: () => T
-}
-
 export type StoreAction = (...args: Array<any>) => any
 
 export type StoreActionMap = Record<string, StoreAction>
 
-export type StoreActionsFactory<T, TActions extends StoreActionMap> = (
-  api: StoreActionsApi<T>,
-) => TActions
+export type StoreActionsFactory<T, TActions extends StoreActionMap> = (store: {
+  setState: Store<T>['setState']
+  get: Store<T>['get']
+}) => TActions
 
 type NonFunction<T> = T extends (...args: Array<any>) => any ? never : T
 
@@ -35,11 +31,11 @@ export class Store<T, TActions extends StoreActionMap = never> {
       valueOrFn as T | ((prev?: NoInfer<T>) => T),
     ) as Atom<T>
 
+    this.setState = this.setState.bind(this)
+    this.get = this.get.bind(this)
+
     if (actionsFactory) {
-      this.actions = actionsFactory({
-        set: (updater) => this.setState(updater),
-        get: () => this.get(),
-      })
+      this.actions = actionsFactory(this)
     }
   }
   public setState(updater: (prev: T) => T) {

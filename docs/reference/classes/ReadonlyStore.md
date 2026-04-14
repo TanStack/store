@@ -5,7 +5,7 @@ title: ReadonlyStore
 
 # Class: ReadonlyStore\<T\>
 
-Defined in: [store.ts:61](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L61)
+Defined in: [store.ts:57](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L57)
 
 ## Type Parameters
 
@@ -25,7 +25,7 @@ Defined in: [store.ts:61](https://github.com/TanStack/store/blob/main/packages/s
 new ReadonlyStore<T>(getValue): ReadonlyStore<T>;
 ```
 
-Defined in: [store.ts:66](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L66)
+Defined in: [store.ts:62](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L62)
 
 #### Parameters
 
@@ -43,7 +43,7 @@ Defined in: [store.ts:66](https://github.com/TanStack/store/blob/main/packages/s
 new ReadonlyStore<T>(initialValue): ReadonlyStore<T>;
 ```
 
-Defined in: [store.ts:67](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L67)
+Defined in: [store.ts:63](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L63)
 
 #### Parameters
 
@@ -65,7 +65,7 @@ Defined in: [store.ts:67](https://github.com/TanStack/store/blob/main/packages/s
 get state(): T;
 ```
 
-Defined in: [store.ts:75](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L75)
+Defined in: [store.ts:71](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L71)
 
 ##### Returns
 
@@ -85,7 +85,7 @@ Omit.state
 get(): T;
 ```
 
-Defined in: [store.ts:78](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L78)
+Defined in: [store.ts:74](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L74)
 
 #### Returns
 
@@ -105,7 +105,7 @@ Omit.get
 subscribe(observerOrFn): Subscription;
 ```
 
-Defined in: [store.ts:81](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L81)
+Defined in: [store.ts:77](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L77)
 
 #### Parameters
 

@@ -64,16 +64,18 @@ describe('Store.setState Type Safety Improvements', () => {
   })
 
   test('should infer action types safely', () => {
-    const store = createStore({ count: 0 }, ({ get, set }) => ({
-      inc: () => set((prev) => ({ count: prev.count + 1 })),
+    const store = createStore({ count: 0 }, ({ get, setState }) => ({
+      inc: () => setState((prev) => ({ count: prev.count + 1 })),
       current: () => get().count,
     }))
 
     store.actions.inc()
     expect(store.actions.current()).toBe(1)
 
-    // @ts-expect-error set only accepts updater functions
-    createStore({ count: 0 }, ({ set }) => ({ bad: () => set({ count: 1 }) }))
+    createStore({ count: 0 }, ({ setState }) => ({
+      // @ts-expect-error setState only accepts updater functions
+      bad: () => setState({ count: 1 }),
+    }))
 
     if (typecheckOnly) {
       createStore({ count: 0 }, () => ({
@@ -106,8 +108,8 @@ describe('Store.setState Type Safety Improvements', () => {
       createStore(
         // @ts-expect-error function first arg with actions is not supported
         () => ({ count: 0 }),
-        ({ set }) => ({
-          inc: () => set((prev) => ({ count: prev.count + 1 })),
+        ({ setState }) => ({
+          inc: () => setState((prev) => ({ count: prev.count + 1 })),
         }),
       )
     }

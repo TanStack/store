@@ -11,7 +11,7 @@ title: createStore
 function createStore<T>(getValue): ReadonlyStore<T>;
 ```
 
-Defined in: [store.ts:88](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L88)
+Defined in: [store.ts:84](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L84)
 
 ### Type Parameters
 
@@ -35,7 +35,7 @@ Defined in: [store.ts:88](https://github.com/TanStack/store/blob/main/packages/s
 function createStore<T>(initialValue): Store<T>;
 ```
 
-Defined in: [store.ts:91](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L91)
+Defined in: [store.ts:87](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L87)
 
 ### Type Parameters
 
@@ -59,7 +59,7 @@ Defined in: [store.ts:91](https://github.com/TanStack/store/blob/main/packages/s
 function createStore<T, TActions>(initialValue, actions): Store<T, TActions>;
 ```
 
-Defined in: [store.ts:92](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L92)
+Defined in: [store.ts:88](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L88)
 
 ### Type Parameters
 

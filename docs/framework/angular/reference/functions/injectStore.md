@@ -1,84 +1,65 @@
 ---
-id: injectStore
-title: injectStore
+id: _injectStore
+title: _injectStore
 ---
 
-# Function: injectStore()
-
-## Call Signature
+# Function: \_injectStore()
 
 ```ts
-function injectStore<TState, TSelected>(
+function _injectStore<TState, TActions, TSelected>(
    store, 
-   selector?, 
-options?): Signal<TSelected>;
+   selector, 
+   options?): [Signal<TSelected>, [TActions] extends [never] ? (updater) => void : TActions];
 ```
 
-Defined in: [index.ts:16](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L16)
+Defined in: [packages/angular-store/src/\_injectStore.ts:24](https://github.com/TanStack/store/blob/main/packages/angular-store/src/_injectStore.ts#L24)
 
-### Type Parameters
+Experimental combined read+write injection function for stores, mirroring
+injectAtom's pattern.
 
-#### TState
+Returns `[signal, actions]` when the store has an actions factory, or
+`[signal, setState]` for plain stores.
+
+## Type Parameters
+
+### TState
 
 `TState`
 
-#### TSelected
+### TActions
+
+`TActions` *extends* `StoreActionMap`
+
+### TSelected
 
 `TSelected` = `NoInfer`\<`TState`\>
 
-### Parameters
+## Parameters
 
-#### store
+### store
 
-`Atom`\<`TState`\>
+`Store`\<`TState`, `TActions`\>
 
-#### selector?
+### selector
 
 (`state`) => `TSelected`
 
-#### options?
+### options?
 
-`CreateSignalOptions`\<`TSelected`\> & `object`
+[`InjectSelectorOptions`](../interfaces/InjectSelectorOptions.md)\<`TSelected`\>
 
-### Returns
+## Returns
 
-`Signal`\<`TSelected`\>
+\[`Signal`\<`TSelected`\>, \[`TActions`\] *extends* \[`never`\] ? (`updater`) => `void` : `TActions`\]
 
-## Call Signature
+## Example
 
 ```ts
-function injectStore<TState, TSelected>(
-   store, 
-   selector?, 
-options?): Signal<TSelected>;
+// Store with actions
+readonly result = _injectStore(petStore, (s) => s.cats)
+// result[0] is Signal<number>, result[1] is actions
+
+// Store without actions
+readonly result = _injectStore(plainStore, (s) => s)
+// result[0] is Signal<number>, result[1] is setState
 ```
-
-Defined in: [index.ts:21](https://github.com/TanStack/store/blob/main/packages/angular-store/src/index.ts#L21)
-
-### Type Parameters
-
-#### TState
-
-`TState`
-
-#### TSelected
-
-`TSelected` = `NoInfer`\<`TState`\>
-
-### Parameters
-
-#### store
-
-`Atom`\<`TState`\> | `ReadonlyAtom`\<`TState`\>
-
-#### selector?
-
-(`state`) => `TSelected`
-
-#### options?
-
-`CreateSignalOptions`\<`TSelected`\> & `object`
-
-### Returns
-
-`Signal`\<`TSelected`\>

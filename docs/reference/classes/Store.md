@@ -5,7 +5,7 @@ title: Store
 
 # Class: Store\<T, TActions\>
 
-Defined in: [store.ts:19](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L19)
+Defined in: [store.ts:15](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L15)
 
 ## Type Parameters
 
@@ -25,7 +25,7 @@ Defined in: [store.ts:19](https://github.com/TanStack/store/blob/main/packages/s
 new Store<T, TActions>(getValue): Store<T, TActions>;
 ```
 
-Defined in: [store.ts:22](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L22)
+Defined in: [store.ts:18](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L18)
 
 #### Parameters
 
@@ -43,7 +43,7 @@ Defined in: [store.ts:22](https://github.com/TanStack/store/blob/main/packages/s
 new Store<T, TActions>(initialValue): Store<T, TActions>;
 ```
 
-Defined in: [store.ts:23](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L23)
+Defined in: [store.ts:19](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L19)
 
 #### Parameters
 
@@ -61,7 +61,7 @@ Defined in: [store.ts:23](https://github.com/TanStack/store/blob/main/packages/s
 new Store<T, TActions>(initialValue, actionsFactory): Store<T, TActions>;
 ```
 
-Defined in: [store.ts:24](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L24)
+Defined in: [store.ts:20](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L20)
 
 #### Parameters
 
@@ -85,7 +85,7 @@ Defined in: [store.ts:24](https://github.com/TanStack/store/blob/main/packages/s
 readonly actions: TActions;
 ```
 
-Defined in: [store.ts:21](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L21)
+Defined in: [store.ts:17](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L17)
 
 ## Accessors
 
@@ -97,7 +97,7 @@ Defined in: [store.ts:21](https://github.com/TanStack/store/blob/main/packages/s
 get state(): T;
 ```
 
-Defined in: [store.ts:48](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L48)
+Defined in: [store.ts:44](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L44)
 
 ##### Returns
 
@@ -111,7 +111,7 @@ Defined in: [store.ts:48](https://github.com/TanStack/store/blob/main/packages/s
 get(): T;
 ```
 
-Defined in: [store.ts:51](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L51)
+Defined in: [store.ts:47](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L47)
 
 #### Returns
 
@@ -125,7 +125,7 @@ Defined in: [store.ts:51](https://github.com/TanStack/store/blob/main/packages/s
 setState(updater): void;
 ```
 
-Defined in: [store.ts:45](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L45)
+Defined in: [store.ts:41](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L41)
 
 #### Parameters
 
@@ -145,7 +145,7 @@ Defined in: [store.ts:45](https://github.com/TanStack/store/blob/main/packages/s
 subscribe(observerOrFn): Subscription;
 ```
 
-Defined in: [store.ts:54](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L54)
+Defined in: [store.ts:50](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L50)
 
 #### Parameters
 
