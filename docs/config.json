@@ -92,55 +92,55 @@
         },
         {
           "label": "Interfaces / Atom",
-          "to": "reference/interfaces/atom"
+          "to": "reference/interfaces/Atom"
         },
         {
           "label": "Interfaces / AtomOptions",
-          "to": "reference/interfaces/atomoptions"
+          "to": "reference/interfaces/AtomOptions"
         },
         {
           "label": "Interfaces / BaseAtom",
-          "to": "reference/interfaces/baseatom"
+          "to": "reference/interfaces/BaseAtom"
         },
         {
           "label": "Interfaces / InternalBaseAtom",
-          "to": "reference/interfaces/internalbaseatom"
+          "to": "reference/interfaces/InternalBaseAtom"
         },
         {
           "label": "Interfaces / InternalReadonlyAtom",
-          "to": "reference/interfaces/internalreadonlyatom"
+          "to": "reference/interfaces/InternalReadonlyAtom"
         },
         {
           "label": "Interfaces / InteropSubscribable",
-          "to": "reference/interfaces/interopsubscribable"
+          "to": "reference/interfaces/InteropSubscribable"
         },
         {
           "label": "Interfaces / Readable",
-          "to": "reference/interfaces/readable"
+          "to": "reference/interfaces/Readable"
         },
         {
           "label": "Interfaces / ReadonlyAtom",
-          "to": "reference/interfaces/readonlyatom"
+          "to": "reference/interfaces/ReadonlyAtom"
         },
         {
           "label": "Interfaces / Subscribable",
-          "to": "reference/interfaces/subscribable"
+          "to": "reference/interfaces/Subscribable"
         },
         {
           "label": "Interfaces / Subscription",
-          "to": "reference/interfaces/subscription"
+          "to": "reference/interfaces/Subscription"
         },
         {
           "label": "Type Aliases / AnyAtom",
-          "to": "reference/type-aliases/anyatom"
+          "to": "reference/type-aliases/AnyAtom"
         },
         {
           "label": "Type Aliases / Observer",
-          "to": "reference/type-aliases/observer"
+          "to": "reference/type-aliases/Observer"
         },
         {
           "label": "Type Aliases / Selection",
-          "to": "reference/type-aliases/selection"
+          "to": "reference/type-aliases/Selection"
         },
         {
           "label": "Functions / batch",
@@ -148,15 +148,15 @@
         },
         {
           "label": "Functions / createAsyncAtom",
-          "to": "reference/functions/createasyncatom"
+          "to": "reference/functions/CreateAsyncAtom"
         },
         {
           "label": "Functions / createAtom",
-          "to": "reference/functions/createatom"
+          "to": "reference/functions/CreateAtom"
         },
         {
           "label": "Functions / createStore",
-          "to": "reference/functions/createstore"
+          "to": "reference/functions/CreateStore"
         },
         {
           "label": "Functions / flush",
@@ -164,7 +164,7 @@
         },
         {
           "label": "Functions / toObserver",
-          "to": "reference/functions/toobserver"
+          "to": "reference/functions/ToObserver"    
         }
       ],
       "frameworks": [
