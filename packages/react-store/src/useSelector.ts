@@ -28,6 +28,8 @@ function defaultCompare<T>(a: T, b: T) {
  * source that exposes `get()` and `subscribe()`, including atoms, readonly
  * atoms, stores, and readonly stores.
  *
+ * Omit the selector to subscribe to the whole value.
+ *
  * @example
  * ```tsx
  * const count = useSelector(counterStore, (state) => state.count)
@@ -35,12 +37,12 @@ function defaultCompare<T>(a: T, b: T) {
  *
  * @example
  * ```tsx
- * const count = useSelector(countAtom, (value) => value)
+ * const value = useSelector(countAtom)
  * ```
  */
-export function useSelector<TSource, TSelected>(
+export function useSelector<TSource, TSelected = NoInfer<TSource>>(
   source: SelectionSource<TSource>,
-  selector: (snapshot: TSource) => TSelected,
+  selector: (snapshot: TSource) => TSelected = (s) => s as unknown as TSelected,
   options?: UseSelectorOptions<TSelected>,
 ): TSelected {
   const compare = options?.compare ?? defaultCompare

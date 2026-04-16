@@ -3,7 +3,7 @@ import {
   createAtom,
   useAtom,
   // useCreateAtom,
-  useValue,
+  useSelector,
 } from '@tanstack/preact-store'
 
 // Optionally, you can create atoms outside of Preact components at module scope
@@ -28,7 +28,7 @@ function App() {
 }
 
 function AtomValuePanel() {
-  const count = useValue(countAtom) // useValue re-renders when the value changes. Useful for read-only access to an atom.
+  const count = useSelector(countAtom) // useSelector with no selector re-renders when the value changes. Useful for read-only access to an atom.
 
   return <p>Total: {count}</p>
 }

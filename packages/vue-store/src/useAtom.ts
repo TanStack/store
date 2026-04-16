@@ -1,4 +1,4 @@
-import { useValue } from './useValue'
+import { useSelector } from './useSelector'
 import type { Ref } from 'vue-demi'
 import type { Atom } from '@tanstack/store'
 import type { UseSelectorOptions } from './useSelector'
@@ -21,7 +21,7 @@ export function useAtom<TValue>(
   atom: Atom<TValue>,
   options?: UseSelectorOptions<TValue>,
 ): [Readonly<Ref<TValue>>, Atom<TValue>['set']] {
-  const value = useValue(atom, options)
+  const value = useSelector(atom, undefined, options)
 
   return [value, atom.set]
 }

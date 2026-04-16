@@ -21,4 +21,3 @@ title: "@tanstack/angular-store"
 - [injectAtom](functions/injectAtom.md)
 - [injectSelector](functions/injectSelector.md)
 - [~~injectStore~~](functions/injectStore-1.md)
-- [injectValue](functions/injectValue.md)

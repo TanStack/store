@@ -6,7 +6,6 @@ import {
   injectAtom,
   injectSelector,
   injectStore,
-  injectValue,
 } from '../src'
 import type { Signal } from '@angular/core'
 import type { Atom, Store } from '@tanstack/store'
@@ -24,16 +23,16 @@ test('injectSelector works with derived state', () => {
   expectTypeOf(val).toEqualTypeOf<Signal<number>>()
 })
 
-test('injectValue infers value from mutable and readonly sources', () => {
+test('injectSelector infers value from mutable and readonly sources', () => {
   const writableAtom = createAtom(12)
   const readonlyAtom = createAtom(() => 24)
   const writableStore = createStore(12)
   const readonlyStore = createStore(() => 24)
 
-  expectTypeOf(injectValue(writableAtom)).toEqualTypeOf<Signal<number>>()
-  expectTypeOf(injectValue(readonlyAtom)).toEqualTypeOf<Signal<number>>()
-  expectTypeOf(injectValue(writableStore)).toEqualTypeOf<Signal<number>>()
-  expectTypeOf(injectValue(readonlyStore)).toEqualTypeOf<Signal<number>>()
+  expectTypeOf(injectSelector(writableAtom)).toEqualTypeOf<Signal<number>>()
+  expectTypeOf(injectSelector(readonlyAtom)).toEqualTypeOf<Signal<number>>()
+  expectTypeOf(injectSelector(writableStore)).toEqualTypeOf<Signal<number>>()
+  expectTypeOf(injectSelector(readonlyStore)).toEqualTypeOf<Signal<number>>()
 })
 
 test('injectAtom returns a WritableAtomSignal', () => {

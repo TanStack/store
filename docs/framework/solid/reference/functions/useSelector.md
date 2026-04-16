@@ -12,13 +12,15 @@ function useSelector<TSource, TSelected>(
 options?): Accessor<TSelected>;
 ```
 
-Defined in: [solid-store/src/useSelector.ts:38](https://github.com/TanStack/store/blob/main/packages/solid-store/src/useSelector.ts#L38)
+Defined in: [solid-store/src/useSelector.ts:40](https://github.com/TanStack/store/blob/main/packages/solid-store/src/useSelector.ts#L40)
 
 Selects a slice of state from an atom or store and subscribes the component
 to that selection.
 
 This is the primary Solid read hook for TanStack Store. It returns a Solid
 accessor so consumers can read the selected value reactively.
+
+Omit the selector to subscribe to the whole value.
 
 ## Type Parameters
 
@@ -28,7 +30,7 @@ accessor so consumers can read the selected value reactively.
 
 ### TSelected
 
-`TSelected`
+`TSelected` = `NoInfer`\<`TSource`\>
 
 ## Parameters
 
@@ -57,5 +59,5 @@ return <p>{count()}</p>
 ```
 
 ```tsx
-const doubled = useSelector(countAtom, (value) => value * 2)
+const value = useSelector(countAtom)
 ```

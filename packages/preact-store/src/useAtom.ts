@@ -1,6 +1,6 @@
-import { useValue } from './useValue'
+import { useSelector } from './useSelector'
 import type { Atom } from '@tanstack/store'
-import type { UseSelectorOptions } from './useSelector'
+import type { UseSelectorOptions } from './useSelector' // eslint-disable-line no-duplicate-imports
 
 /**
  * Returns the current atom value together with a stable setter.
@@ -23,7 +23,7 @@ export function useAtom<TValue>(
   atom: Atom<TValue>,
   options?: UseSelectorOptions<TValue>,
 ): [TValue, Atom<TValue>['set']] {
-  const value = useValue(atom, options)
+  const value = useSelector(atom, undefined, options)
 
   return [value, atom.set]
 }

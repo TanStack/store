@@ -7,7 +7,7 @@ import type { PropsWithChildren, ReactElement } from 'react'
  * The returned `StoreProvider` only transports the provided object through
  * React context. Consumers destructure the contextual atoms and stores, then
  * compose them with the existing hooks like {@link useSelector},
- * {@link useValue}, {@link useSetValue}, and {@link useAtom}.
+ * {@link useSelector} and {@link useAtom}.
  *
  * The object shape is preserved exactly, so keyed atoms and stores remain fully
  * typed when read back with `useStoreContext()`.
@@ -21,7 +21,7 @@ import type { PropsWithChildren, ReactElement } from 'react'
  *
  * function CountButton() {
  *   const { countAtom, totalsStore } = useStoreContext()
- *   const count = useValue(countAtom)
+ *   const count = useSelector(countAtom)
  *   const total = useSelector(totalsStore, (state) => state.count)
  *
  *   return (

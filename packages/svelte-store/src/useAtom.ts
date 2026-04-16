@@ -1,4 +1,4 @@
-import { useValue } from './useValue'
+import { useSelector } from './useSelector.svelte.js'
 import type { Atom } from '@tanstack/store'
 import type { UseSelectorOptions } from './useSelector.svelte.js'
 
@@ -19,7 +19,7 @@ export function useAtom<TValue>(
   atom: Atom<TValue>,
   options?: UseSelectorOptions<TValue>,
 ): [{ readonly current: TValue }, Atom<TValue>['set']] {
-  const value = useValue(atom, options)
+  const value = useSelector(atom, undefined, options)
 
   return [value, atom.set]
 }

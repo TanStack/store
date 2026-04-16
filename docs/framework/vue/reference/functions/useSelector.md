@@ -12,13 +12,15 @@ function useSelector<TSource, TSelected>(
 options?): Readonly<Ref<TSelected>>;
 ```
 
-Defined in: [vue-store/src/useSelector.ts:37](https://github.com/TanStack/store/blob/main/packages/vue-store/src/useSelector.ts#L37)
+Defined in: [vue-store/src/useSelector.ts:39](https://github.com/TanStack/store/blob/main/packages/vue-store/src/useSelector.ts#L39)
 
 Selects a slice of state from an atom or store and subscribes the component
 to that selection.
 
 This is the primary Vue read hook for TanStack Store. It returns a readonly
 ref containing the selected value.
+
+Omit the selector to subscribe to the whole value.
 
 ## Type Parameters
 
@@ -28,7 +30,7 @@ ref containing the selected value.
 
 ### TSelected
 
-`TSelected`
+`TSelected` = `NoInfer`\<`TSource`\>
 
 ## Parameters
 
@@ -56,5 +58,5 @@ console.log(count.value)
 ```
 
 ```ts
-const doubled = useSelector(countAtom, (value) => value * 2)
+const value = useSelector(countAtom)
 ```

@@ -5,7 +5,6 @@ import {
   createStore,
   useAtom,
   useSelector,
-  useValue,
 } from '@tanstack/solid-store'
 import type { Atom, Store } from '@tanstack/solid-store'
 
@@ -94,7 +93,7 @@ function TotalCard() {
 function AtomSummary() {
   // pull an atom from context
   const { countAtom } = useStoreContext()
-  const count = useValue(countAtom)
+  const count = useSelector(countAtom)
 
   return <p>Atom count: {count()}</p>
 }

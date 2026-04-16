@@ -7,8 +7,6 @@ This example demonstrates:
 - `useCreateAtom`
 - `useStoreContext`
 - `useSelector`
-- `useValue`
-- `useSetValue`
 - `useAtom`
 
 To run this example:

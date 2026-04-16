@@ -7,13 +7,12 @@ import {
   useAtom,
   useSelector,
   useStore,
-  useValue,
 } from '../src/index'
 
 describe('atom hooks', () => {
-  it('useValue reads mutable atom state and updates when changed', () => {
+  it('useSelector reads mutable atom state and updates when changed', () => {
     const atom = createAtom(0)
-    const { result } = renderHook(() => useValue(atom))
+    const { result } = renderHook(() => useSelector(atom))
 
     expect(result()).toBe(0)
 
@@ -48,11 +47,13 @@ describe('store hooks', () => {
     expect(result()).toBe(0)
   })
 
-  it('useValue reads writable and readonly store state', () => {
+  it('useSelector reads writable and readonly store state', () => {
     const baseStore = createStore(1)
     const readonlyStore = createStore(() => ({ value: baseStore.state * 2 }))
-    const { result: writableValue } = renderHook(() => useValue(baseStore))
-    const { result: readonlyValue } = renderHook(() => useValue(readonlyStore))
+    const { result: writableValue } = renderHook(() => useSelector(baseStore))
+    const { result: readonlyValue } = renderHook(() =>
+      useSelector(readonlyStore),
+    )
 
     expect(writableValue()).toBe(1)
     expect(readonlyValue().value).toBe(2)

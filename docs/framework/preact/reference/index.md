@@ -18,4 +18,3 @@ title: "@tanstack/preact-store"
 - [useCreateStore](functions/useCreateStore.md)
 - [useSelector](functions/useSelector.md)
 - [~~useStore~~](functions/useStore-1.md)
-- [useValue](functions/useValue.md)

@@ -15,4 +15,3 @@ title: "@tanstack/vue-store"
 - [useAtom](functions/useAtom.md)
 - [useSelector](functions/useSelector.md)
 - [~~useStore~~](functions/useStore-1.md)
-- [useValue](functions/useValue.md)

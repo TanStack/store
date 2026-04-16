@@ -1,6 +1,5 @@
 export * from '@tanstack/store'
 
-export * from './useValue'
 export * from './useSelector'
 
 export * from './useAtom'

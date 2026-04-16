@@ -4,7 +4,6 @@ export * from './createStoreContext'
 export * from './useCreateAtom'
 export * from './useCreateStore'
 
-export * from './useValue'
 export * from './useSelector'
 
 export * from './useAtom'

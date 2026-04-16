@@ -23,6 +23,8 @@ function defaultCompare<T>(a: T, b: T) {
  * This is the primary Vue read hook for TanStack Store. It returns a readonly
  * ref containing the selected value.
  *
+ * Omit the selector to subscribe to the whole value.
+ *
  * @example
  * ```ts
  * const count = useSelector(counterStore, (state) => state.count)
@@ -31,12 +33,12 @@ function defaultCompare<T>(a: T, b: T) {
  *
  * @example
  * ```ts
- * const doubled = useSelector(countAtom, (value) => value * 2)
+ * const value = useSelector(countAtom)
  * ```
  */
-export function useSelector<TSource, TSelected>(
+export function useSelector<TSource, TSelected = NoInfer<TSource>>(
   source: SelectionSource<TSource>,
-  selector: (snapshot: TSource) => TSelected,
+  selector: (snapshot: TSource) => TSelected = (s) => s as unknown as TSelected,
   options?: UseSelectorOptions<TSelected>,
 ): Readonly<Ref<TSelected>> {
   const compare = options?.compare ?? defaultCompare

@@ -5,7 +5,6 @@ import {
   createStoreContext,
   useCreateStore,
   useSelector,
-  useValue,
 } from '@tanstack/preact-store'
 import type { Atom, Store } from '@tanstack/preact-store'
 
@@ -89,7 +88,7 @@ function TotalCard() {
 function AtomSummary() {
   // pull an atom from context
   const { countAtom } = useStoreContext()
-  const count = useValue(countAtom)
+  const count = useSelector(countAtom)
 
   return <p>Atom count: {count}</p>
 }

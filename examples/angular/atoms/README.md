@@ -2,7 +2,7 @@
 
 This example demonstrates:
 
-- `injectValue`
+- `injectSelector`
 - `injectSetValue`
 - `injectAtom`
 

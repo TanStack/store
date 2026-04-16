@@ -13,7 +13,7 @@ import type { Provider } from '@angular/core'
  * Consumers call `injectStoreContext()` inside an injection context (typically a
  * constructor or field initializer) to retrieve the contextual atoms and stores,
  * then compose them with existing hooks like {@link injectSelector},
- * {@link injectValue}, and {@link injectAtom}.
+ * {@link injectSelector}, and {@link injectAtom}.
  *
  * @example
  * ```ts
@@ -38,7 +38,7 @@ import type { Provider } from '@angular/core'
  * @Component({ template: `{{ count() }}` })
  * class ChildComponent {
  *   private ctx = injectStoreContext()
- *   count = injectValue(this.ctx.countAtom)
+ *   count = injectSelector(this.ctx.countAtom)
  * }
  * ```
  *

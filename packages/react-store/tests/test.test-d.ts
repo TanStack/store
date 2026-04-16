@@ -8,7 +8,6 @@ import {
   useCreateStore,
   useSelector,
   useStore,
-  useValue,
 } from '../src'
 import type { Atom, ReadonlyStore, Store } from '@tanstack/store'
 
@@ -28,18 +27,18 @@ test('useCreateAtom returns a readonly atom for derived values', () => {
   expectTypeOf(atom).not.toHaveProperty('set')
 })
 
-test('useValue infers value from mutable and readonly atoms', () => {
+test('useSelector infers value from mutable and readonly atoms', () => {
   const writableAtom = createAtom(12)
   const readonlyAtom = createAtom(() => 24)
   const writableStore = createStore(12)
   const readonlyStore = createStore(() => 24)
 
-  expectTypeOf(useValue(writableAtom)).toExtend<number>()
-  expectTypeOf(useValue(readonlyAtom)).toExtend<number>()
-  expectTypeOf(useValue(writableStore)).toExtend<number>()
-  expectTypeOf(useValue(readonlyStore)).toExtend<number>()
+  expectTypeOf(useSelector(writableAtom)).toExtend<number>()
+  expectTypeOf(useSelector(readonlyAtom)).toExtend<number>()
+  expectTypeOf(useSelector(writableStore)).toExtend<number>()
+  expectTypeOf(useSelector(readonlyStore)).toExtend<number>()
   expectTypeOf(
-    useValue(writableAtom, {
+    useSelector(writableAtom, undefined, {
       compare: (prev, next) => prev === next,
     }),
   ).toExtend<number>()

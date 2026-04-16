@@ -24,7 +24,7 @@ Deprecated alias for [useSelector](useSelector.md).
 
 ### TSelected
 
-`TSelected`
+`TSelected` = `NoInfer`\<`TSource`\>
 
 ## Parameters
 

@@ -28,7 +28,7 @@ describe('useSelector', () => {
     expect(getByText('Number rendered: 2')).toBeInTheDocument()
   })
 
-  it('useValue reads writable and readonly store state', async () => {
+  it('useSelector reads writable and readonly store state', async () => {
     const { getByText } = render(TestValue)
     expect(getByText('Value: 1')).toBeInTheDocument()
     expect(getByText('Readonly: 2')).toBeInTheDocument()

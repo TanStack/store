@@ -9,12 +9,11 @@ import {
   injectAtom,
   injectSelector,
   injectStore,
-  injectValue,
 } from '../src/index'
 import type { Atom } from '@tanstack/store'
 
 describe('atom hooks', () => {
-  test('injectValue reads mutable atom state and rerenders when updated', () => {
+  test('injectSelector reads mutable atom state and rerenders when updated', () => {
     const atom = createAtom(0)
 
     @Component({
@@ -27,7 +26,7 @@ describe('atom hooks', () => {
       standalone: true,
     })
     class MyCmp {
-      value = injectValue(atom)
+      value = injectSelector(atom)
 
       update() {
         atom.set((prev) => prev + 1)
@@ -136,7 +135,7 @@ describe('selector hooks', () => {
     expect(fixture.nativeElement.textContent).toContain('Store: 0')
   })
 
-  test('injectValue reads writable and readonly store state', () => {
+  test('injectSelector reads writable and readonly store state', () => {
     const baseStore = createStore(1)
     const readonlyStore = createStore(() => ({ value: baseStore.state * 2 }))
 
@@ -151,8 +150,8 @@ describe('selector hooks', () => {
       standalone: true,
     })
     class MyCmp {
-      value = injectValue(baseStore)
-      readonlyValue = injectValue(readonlyStore)
+      value = injectSelector(baseStore)
+      readonlyValue = injectSelector(readonlyStore)
 
       update() {
         baseStore.setState((prev) => prev + 1)
@@ -537,7 +536,7 @@ describe('createStoreContext', () => {
     })
     class MyCmp {
       private ctx = injectStoreContext()
-      count = injectValue(this.ctx.countAtom)
+      count = injectSelector(this.ctx.countAtom)
       cats = injectSelector(this.ctx.petStore, (s) => s.cats)
 
       inc() {
@@ -590,7 +589,7 @@ describe('createStoreContext', () => {
     })
     class MyCmp {
       private ctx = injectStoreContext()
-      count = injectValue(this.ctx.countAtom)
+      count = injectSelector(this.ctx.countAtom)
     }
 
     expect(() => TestBed.createComponent(MyCmp)).toThrow(

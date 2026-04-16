@@ -112,7 +112,8 @@ function useSyncExternalStoreWithSelector<TSnapshot, TSelected>(
  * to that selection.
  *
  * This is the primary Preact read hook for TanStack Store. Use it when a
- * component only needs part of a source value.
+ * component only needs part of a source value, or omit the selector to
+ * subscribe to the whole value.
  *
  * @example
  * ```tsx
@@ -121,12 +122,12 @@ function useSyncExternalStoreWithSelector<TSnapshot, TSelected>(
  *
  * @example
  * ```tsx
- * const doubled = useSelector(countAtom, (value) => value * 2)
+ * const value = useSelector(countAtom)
  * ```
  */
-export function useSelector<TSource, TSelected>(
+export function useSelector<TSource, TSelected = NoInfer<TSource>>(
   source: SelectionSource<TSource>,
-  selector: (snapshot: TSource) => TSelected,
+  selector: (snapshot: TSource) => TSelected = (s) => s as unknown as TSelected,
   options?: UseSelectorOptions<TSelected>,
 ): TSelected {
   const compare = options?.compare ?? defaultCompare

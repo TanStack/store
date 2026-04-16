@@ -12,13 +12,14 @@ function useSelector<TSource, TSelected>(
    options?): TSelected;
 ```
 
-Defined in: [preact-store/src/useSelector.ts:127](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useSelector.ts#L127)
+Defined in: [preact-store/src/useSelector.ts:128](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useSelector.ts#L128)
 
 Selects a slice of state from an atom or store and subscribes the component
 to that selection.
 
 This is the primary Preact read hook for TanStack Store. Use it when a
-component only needs part of a source value.
+component only needs part of a source value, or omit the selector to
+subscribe to the whole value.
 
 ## Type Parameters
 
@@ -28,7 +29,7 @@ component only needs part of a source value.
 
 ### TSelected
 
-`TSelected`
+`TSelected` = `NoInfer`\<`TSource`\>
 
 ## Parameters
 
@@ -55,5 +56,5 @@ const count = useSelector(counterStore, (state) => state.count)
 ```
 
 ```tsx
-const doubled = useSelector(countAtom, (value) => value * 2)
+const value = useSelector(countAtom)
 ```

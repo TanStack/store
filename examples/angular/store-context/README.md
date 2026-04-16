@@ -4,8 +4,6 @@ This example demonstrates:
 
 - Angular `InjectionToken` providers
 - `injectSelector`
-- `injectValue`
-- `injectSetValue`
 - `injectAtom`
 
 To run this example:

@@ -1,4 +1,4 @@
-import { injectValue } from './injectValue'
+import { injectSelector } from './injectSelector'
 import type { Atom } from '@tanstack/store'
 import type { InjectSelectorOptions } from './injectSelector'
 
@@ -45,7 +45,7 @@ export function injectAtom<TValue>(
   atom: Atom<TValue>,
   options?: InjectSelectorOptions<TValue>,
 ): WritableAtomSignal<TValue> {
-  const value = injectValue(atom, options)
+  const value = injectSelector(atom, undefined, options)
   const atomSignal = (() => value()) as WritableAtomSignal<TValue>
   atomSignal.set = atom.set
   return atomSignal

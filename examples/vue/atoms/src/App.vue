@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { createAtom, useAtom, useValue } from '@tanstack/vue-store'
+import { createAtom, useAtom, useSelector } from '@tanstack/vue-store'
 
 // Optionally, you can create atoms outside of Vue components at module scope
 const countAtom = createAtom(0)
 
-const count = useValue(countAtom) // useValue re-renders when the value changes. Useful for read-only access to an atom.
+const count = useSelector(countAtom) // useSelector with no selector re-renders when the value changes. Useful for read-only access to an atom.
 const [editableCount, setEditableCount] = useAtom(countAtom) // read and write access to the atom. Re-renders when the value changes.
 </script>
 

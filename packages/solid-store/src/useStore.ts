@@ -11,7 +11,7 @@ import type { Accessor } from 'solid-js'
  *
  * @deprecated Use `useSelector` instead.
  */
-export const useStore = <TSource, TSelected>(
+export const useStore = <TSource, TSelected = NoInfer<TSource>>(
   source: {
     get: () => TSource
     subscribe: (listener: (value: TSource) => void) => {

@@ -5,7 +5,6 @@ import {
   createStore,
   useAtom,
   useSelector,
-  useValue,
 } from '@tanstack/vue-store'
 import type { Atom, Store } from '@tanstack/vue-store'
 import type { InjectionKey } from 'vue'
@@ -71,7 +70,7 @@ const TotalCard = defineComponent(() => {
 
 const AtomSummary = defineComponent(() => {
   const { countAtom } = useStoreContext()
-  const count = useValue(countAtom)
+  const count = useSelector(countAtom)
 
   return () => h('p', `Atom count: ${count.value}`)
 })

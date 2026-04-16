@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { createAtom, useAtom, useValue } from '@tanstack/svelte-store'
+  import { createAtom, useAtom, useSelector } from '@tanstack/svelte-store'
 
   // Optionally, you can create atoms outside of Svelte files at module scope
   const countAtom = createAtom(0)
 
-  const count = useValue(countAtom) // useValue re-renders when the value changes. Useful for read-only access to an atom.
+  const count = useSelector(countAtom) // useSelector with no selector re-renders when the value changes. Useful for read-only access to an atom.
   const [editableCount, setEditableCount] = useAtom(countAtom) // read and write access to the atom.
 </script>
 

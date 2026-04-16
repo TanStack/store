@@ -9,17 +9,16 @@ import {
   useAtom,
   useSelector,
   useStore,
-  useValue,
 } from '../src/index'
 
 const user = userEvent.setup()
 
 describe('atom hooks', () => {
-  it('useValue reads mutable atom state and rerenders when updated', async () => {
+  it('useSelector reads mutable atom state and rerenders when updated', async () => {
     const atom = createAtom(0)
 
     const Comp = defineComponent(() => {
-      const value = useValue(atom)
+      const value = useSelector(atom)
 
       return () =>
         h('div', [
@@ -87,13 +86,13 @@ describe('store hooks', () => {
     expect(getByText('Store: 0')).toBeInTheDocument()
   })
 
-  it('useValue reads writable and readonly store state', async () => {
+  it('useSelector reads writable and readonly store state', async () => {
     const baseStore = createStore(1)
     const readonlyStore = createStore(() => ({ value: baseStore.state * 2 }))
 
     const Comp = defineComponent(() => {
-      const value = useValue(baseStore)
-      const readonlyValue = useValue(readonlyStore)
+      const value = useSelector(baseStore)
+      const readonlyValue = useSelector(readonlyStore)
 
       return () =>
         h('div', [

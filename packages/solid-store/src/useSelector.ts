@@ -23,6 +23,8 @@ function defaultCompare<T>(a: T, b: T) {
  * This is the primary Solid read hook for TanStack Store. It returns a Solid
  * accessor so consumers can read the selected value reactively.
  *
+ * Omit the selector to subscribe to the whole value.
+ *
  * @example
  * ```tsx
  * const count = useSelector(counterStore, (state) => state.count)
@@ -32,12 +34,12 @@ function defaultCompare<T>(a: T, b: T) {
  *
  * @example
  * ```tsx
- * const doubled = useSelector(countAtom, (value) => value * 2)
+ * const value = useSelector(countAtom)
  * ```
  */
-export function useSelector<TSource, TSelected>(
+export function useSelector<TSource, TSelected = NoInfer<TSource>>(
   source: SelectionSource<TSource>,
-  selector: (snapshot: TSource) => TSelected,
+  selector: (snapshot: TSource) => TSelected = (s) => s as unknown as TSelected,
   options?: UseSelectorOptions<TSelected>,
 ): Accessor<TSelected> {
   const compare = options?.compare ?? defaultCompare

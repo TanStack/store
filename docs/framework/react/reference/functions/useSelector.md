@@ -12,7 +12,7 @@ function useSelector<TSource, TSelected>(
    options?): TSelected;
 ```
 
-Defined in: [packages/react-store/src/useSelector.ts:41](https://github.com/TanStack/store/blob/main/packages/react-store/src/useSelector.ts#L41)
+Defined in: [packages/react-store/src/useSelector.ts:43](https://github.com/TanStack/store/blob/main/packages/react-store/src/useSelector.ts#L43)
 
 Selects a slice of state from an atom or store and subscribes the component
 to that selection.
@@ -20,6 +20,8 @@ to that selection.
 This is the primary React read hook for TanStack Store. It works with any
 source that exposes `get()` and `subscribe()`, including atoms, readonly
 atoms, stores, and readonly stores.
+
+Omit the selector to subscribe to the whole value.
 
 ## Type Parameters
 
@@ -29,7 +31,7 @@ atoms, stores, and readonly stores.
 
 ### TSelected
 
-`TSelected`
+`TSelected` = `NoInfer`\<`TSource`\>
 
 ## Parameters
 
@@ -56,5 +58,5 @@ const count = useSelector(counterStore, (state) => state.count)
 ```
 
 ```tsx
-const count = useSelector(countAtom, (value) => value)
+const value = useSelector(countAtom)
 ```

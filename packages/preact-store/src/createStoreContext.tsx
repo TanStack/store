@@ -8,8 +8,8 @@ import { useContext } from 'preact/hooks'
  *
  * The returned `StoreProvider` only transports the provided object through
  * Preact context. Consumers destructure the contextual atoms and stores, then
- * compose them with the existing hooks like {@link useSelector},
- * {@link useValue}, {@link useSetValue}, and {@link useAtom}.
+ * compose them with the existing hooks like {@link useSelector} and
+ * {@link useAtom}.
  *
  * The object shape is preserved exactly, so keyed atoms and stores remain fully
  * typed when read back with `useStoreContext()`.
@@ -23,7 +23,7 @@ import { useContext } from 'preact/hooks'
  *
  * function CountButton() {
  *   const { countAtom, totalsStore } = useStoreContext()
- *   const count = useValue(countAtom)
+ *   const count = useSelector(countAtom)
  *   const total = useSelector(totalsStore, (state) => state.count)
  *
  *   return (

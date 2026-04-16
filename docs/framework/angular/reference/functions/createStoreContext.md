@@ -22,7 +22,7 @@ cross-request pollution.
 Consumers call `injectStoreContext()` inside an injection context (typically a
 constructor or field initializer) to retrieve the contextual atoms and stores,
 then compose them with existing hooks like [injectSelector](injectSelector.md),
-[injectValue](injectValue.md), and [injectAtom](injectAtom.md).
+[injectSelector](injectSelector.md), and [injectAtom](injectAtom.md).
 
 ## Type Parameters
 
@@ -84,7 +84,7 @@ class ParentComponent {}
 @Component({ template: `{{ count() }}` })
 class ChildComponent {
   private ctx = injectStoreContext()
-  count = injectValue(this.ctx.countAtom)
+  count = injectSelector(this.ctx.countAtom)
 }
 ```
 

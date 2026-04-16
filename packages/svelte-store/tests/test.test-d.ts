@@ -5,7 +5,6 @@ import {
   useAtom,
   useSelector,
   useStore,
-  useValue,
 } from '../src/index.svelte.js'
 import type { Store } from '@tanstack/store'
 
@@ -21,22 +20,22 @@ test('useSelector works with derived state', () => {
   expectTypeOf(val).toEqualTypeOf<{ readonly current: number }>()
 })
 
-test('useValue infers value from mutable and readonly sources', () => {
+test('useSelector infers value from mutable and readonly sources', () => {
   const writableAtom = createAtom(12)
   const readonlyAtom = createAtom(() => 24)
   const writableStore = createStore(12)
   const readonlyStore = createStore(() => 24)
 
-  expectTypeOf(useValue(writableAtom)).toEqualTypeOf<{
+  expectTypeOf(useSelector(writableAtom)).toEqualTypeOf<{
     readonly current: number
   }>()
-  expectTypeOf(useValue(readonlyAtom)).toEqualTypeOf<{
+  expectTypeOf(useSelector(readonlyAtom)).toEqualTypeOf<{
     readonly current: number
   }>()
-  expectTypeOf(useValue(writableStore)).toEqualTypeOf<{
+  expectTypeOf(useSelector(writableStore)).toEqualTypeOf<{
     readonly current: number
   }>()
-  expectTypeOf(useValue(readonlyStore)).toEqualTypeOf<{
+  expectTypeOf(useSelector(readonlyStore)).toEqualTypeOf<{
     readonly current: number
   }>()
 })

@@ -1,12 +1,12 @@
 <script lang="ts">
   import { getContext } from 'svelte'
-  import { useAtom, useValue } from '@tanstack/svelte-store'
+  import { useAtom } from '@tanstack/svelte-store'
   import { STORE_CONTEXT } from './context'
   import type { StoreContextValue } from './context'
 
   const { countAtom } = getContext<StoreContextValue>(STORE_CONTEXT)
 
-  const count = useValue(countAtom)
+  const count = useSelector(countAtom)
   const [editableCount, setEditableCount] = useAtom(countAtom)
 </script>
 

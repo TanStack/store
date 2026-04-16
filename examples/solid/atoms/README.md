@@ -2,7 +2,7 @@
 
 This example demonstrates:
 
-- `useValue`
+- `useSelector`
 - `useSetValue`
 - `useAtom`
 

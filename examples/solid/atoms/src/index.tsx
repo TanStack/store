@@ -1,5 +1,5 @@
 import { render } from 'solid-js/web'
-import { createAtom, useAtom, useValue } from '@tanstack/solid-store'
+import { createAtom, useAtom, useSelector } from '@tanstack/solid-store'
 
 // Optionally, you can create atoms outside of Solid components at module scope
 const countAtom = createAtom(0)
@@ -20,7 +20,7 @@ function App() {
 }
 
 function AtomValuePanel() {
-  const count = useValue(countAtom) // useValue re-renders when the value changes. Useful for read-only access to an atom.
+  const count = useSelector(countAtom) // useSelector with no selector re-renders when the value changes. Useful for read-only access to an atom.
 
   return <p>Total: {count()}</p>
 }

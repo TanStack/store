@@ -5,7 +5,6 @@ import {
   createStoreContext,
   injectAtom,
   injectSelector,
-  injectValue,
 } from '@tanstack/angular-store'
 import type { Atom, Store } from '@tanstack/angular-store'
 

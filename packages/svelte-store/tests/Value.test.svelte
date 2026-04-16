@@ -1,12 +1,12 @@
 <script lang="ts">
   import { createStore } from '@tanstack/store'
-  import { useValue } from '../src/index.svelte.js'
+  import { useSelector } from '../src/index.svelte.js'
 
   const baseStore = createStore(1)
   const readonlyStore = createStore(() => ({ value: baseStore.state * 2 }))
 
-  const value = useValue(baseStore)
-  const readonlyValue = useValue(readonlyStore)
+  const value = useSelector(baseStore)
+  const readonlyValue = useSelector(readonlyStore)
 </script>
 
 <div>

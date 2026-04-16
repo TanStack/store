@@ -37,7 +37,7 @@ export function _useStore<
   const actionsOrSetState = useMemo(
     () => (store.actions as StoreActionMap | undefined) ?? store.setState,
     [store],
-  )
+  ) as [TActions] extends [never] ? Store<TState>['setState'] : TActions
 
-  return [selected, actionsOrSetState] as any
+  return [selected, actionsOrSetState]
 }

@@ -1,6 +1,6 @@
 import { expectTypeOf, test } from 'vitest'
 import { createAtom, createStore } from '@tanstack/store'
-import { _useStore, useAtom, useSelector, useStore, useValue } from '../src'
+import { _useStore, useAtom, useSelector, useStore } from '../src'
 import type { Accessor } from 'solid-js'
 import type { Store } from '@tanstack/store'
 
@@ -16,16 +16,16 @@ test('useSelector works with derived state', () => {
   expectTypeOf(val).toEqualTypeOf<Accessor<number>>()
 })
 
-test('useValue infers value from mutable and readonly sources', () => {
+test('useSelector infers value from mutable and readonly sources', () => {
   const writableAtom = createAtom(12)
   const readonlyAtom = createAtom(() => 24)
   const writableStore = createStore(12)
   const readonlyStore = createStore(() => 24)
 
-  expectTypeOf(useValue(writableAtom)).toEqualTypeOf<Accessor<number>>()
-  expectTypeOf(useValue(readonlyAtom)).toEqualTypeOf<Accessor<number>>()
-  expectTypeOf(useValue(writableStore)).toEqualTypeOf<Accessor<number>>()
-  expectTypeOf(useValue(readonlyStore)).toEqualTypeOf<Accessor<number>>()
+  expectTypeOf(useSelector(writableAtom)).toEqualTypeOf<Accessor<number>>()
+  expectTypeOf(useSelector(readonlyAtom)).toEqualTypeOf<Accessor<number>>()
+  expectTypeOf(useSelector(writableStore)).toEqualTypeOf<Accessor<number>>()
+  expectTypeOf(useSelector(readonlyStore)).toEqualTypeOf<Accessor<number>>()
 })
 
 test('useAtom only accepts writable atoms', () => {

@@ -11,7 +11,6 @@ import {
   useCreateStore,
   useSelector,
   useStore,
-  useValue,
 } from '../src/index'
 
 const user = userEvent.setup()
@@ -31,11 +30,11 @@ describe('atom hooks', () => {
     expect(result.current.get()).toBe(1)
   })
 
-  it('useValue reads mutable atom state and rerenders when updated', async () => {
+  it('useSelector reads mutable atom state and rerenders when updated', async () => {
     const atom = createAtom(0)
 
     function Comp() {
-      const value = useValue(atom)
+      const value = useSelector(atom)
 
       return (
         <div>
@@ -56,12 +55,12 @@ describe('atom hooks', () => {
     await waitFor(() => expect(getByText('Value: 1')).toBeInTheDocument())
   })
 
-  it('useValue reads readonly atom state', async () => {
+  it('useSelector reads readonly atom state', async () => {
     const countAtom = createAtom(1)
     const doubledAtom = createAtom(() => countAtom.get() * 2)
 
     function Comp() {
-      const value = useValue(doubledAtom)
+      const value = useSelector(doubledAtom)
 
       return (
         <div>
@@ -85,7 +84,7 @@ describe('atom hooks', () => {
     await waitFor(() => expect(getByText('Value: 4')).toBeInTheDocument())
   })
 
-  it('useValue respects custom compare', async () => {
+  it('useSelector respects custom compare', async () => {
     const atom = createAtom({
       select: 0,
       ignored: 1,
@@ -93,7 +92,7 @@ describe('atom hooks', () => {
     const renderSpy = vi.fn()
 
     function Comp() {
-      const value = useValue(atom, {
+      const value = useSelector(atom, undefined, {
         compare: (prev, next) => prev.select === next.select,
       })
       renderSpy()
@@ -168,7 +167,7 @@ describe('store contexts', () => {
     function Comp() {
       const { countAtom: currentAtom, totalStore: currentStore } =
         useStoreContext()
-      const value = useValue(currentAtom)
+      const value = useSelector(currentAtom)
       const total = useSelector(currentStore, (state) => state.count)
 
       return (
@@ -225,7 +224,7 @@ describe('store contexts', () => {
     function Comp() {
       const { readonlyAtom: currentAtom, readonlyStore: currentStore } =
         useStoreContext()
-      const atomValue = useValue(currentAtom)
+      const atomValue = useSelector(currentAtom)
       const storeValue = useSelector(currentStore, (state) => state.value)
 
       return (
@@ -307,7 +306,7 @@ describe('store contexts', () => {
 
     function Value() {
       const { countAtom: atom } = useStoreContext()
-      const value = useValue(atom)
+      const value = useSelector(atom)
 
       return <p>Value: {value}</p>
     }
@@ -391,13 +390,13 @@ describe('store hooks', () => {
     expect(getByText('Store: 0')).toBeInTheDocument()
   })
 
-  it('useValue reads writable and readonly store state', async () => {
+  it('useSelector reads writable and readonly store state', async () => {
     const baseStore = createStore(1)
     const readonlyStore = createStore(() => ({ value: baseStore.state * 2 }))
 
     function Comp() {
-      const value = useValue(baseStore)
-      const readonlyValue = useValue(readonlyStore)
+      const value = useSelector(baseStore)
+      const readonlyValue = useSelector(readonlyStore)
 
       return (
         <div>

@@ -271,10 +271,6 @@
               "to": "framework/react/reference/functions/useSelector"
             },
             {
-              "label": "useValue",
-              "to": "framework/react/reference/functions/useValue"
-            },
-            {
               "label": "useSetValue",
               "to": "framework/react/reference/functions/useSetValue"
             },
@@ -306,10 +302,6 @@
             {
               "label": "useSelector",
               "to": "framework/vue/reference/functions/useSelector"
-            },
-            {
-              "label": "useValue",
-              "to": "framework/vue/reference/functions/useValue"
             },
             {
               "label": "useSetValue",
@@ -345,10 +337,6 @@
               "to": "framework/solid/reference/functions/useSelector"
             },
             {
-              "label": "useValue",
-              "to": "framework/solid/reference/functions/useValue"
-            },
-            {
               "label": "useSetValue",
               "to": "framework/solid/reference/functions/useSetValue"
             },
@@ -382,10 +370,6 @@
               "to": "framework/angular/reference/functions/injectSelector"
             },
             {
-              "label": "injectValue",
-              "to": "framework/angular/reference/functions/injectValue"
-            },
-            {
               "label": "injectSetValue",
               "to": "framework/angular/reference/functions/injectSetValue"
             },
@@ -417,10 +401,6 @@
             {
               "label": "useSelector",
               "to": "framework/svelte/reference/functions/useSelector"
-            },
-            {
-              "label": "useValue",
-              "to": "framework/svelte/reference/functions/useValue"
             },
             {
               "label": "useSetValue",
@@ -466,10 +446,6 @@
             {
               "label": "useSelector",
               "to": "framework/preact/reference/functions/useSelector"
-            },
-            {
-              "label": "useValue",
-              "to": "framework/preact/reference/functions/useValue"
             },
             {
               "label": "useSetValue",
