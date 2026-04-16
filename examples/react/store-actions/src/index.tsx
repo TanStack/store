@@ -46,8 +46,8 @@ function App() {
 }
 
 function CatVoter() {
-  // _useStore gives both the selected state and actions in a single tuple
-  const [cats, { addCat }] = _useStore(petStore, (state) => state.cats)
+  const cats = useSelector(petStore, (state) => state.cats)
+  const { addCat } = petStore.actions
 
   return (
     <div>

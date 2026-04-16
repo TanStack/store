@@ -24,9 +24,13 @@ const petStore = createStore(
     }),
 )
 
+// Read via useSelector and grab actions directly from the store
+const cats = useSelector(petStore, (state) => state.cats)
+const { addCat } = petStore.actions
+
 // _useStore gives both the selected state and actions in a single tuple
-const [cats, { addCat }] = _useStore(petStore, (state) => state.cats)
 const [dogs, { addDog }] = _useStore(petStore, (state) => state.dogs)
+
 const total = useSelector(petStore, (state) => state.cats + state.dogs)
 </script>
 
