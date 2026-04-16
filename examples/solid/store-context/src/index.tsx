@@ -1,8 +1,8 @@
-import { createContext, useContext } from 'solid-js'
 import { render } from 'solid-js/web'
 import {
   createAtom,
   createStore,
+  createStoreContext,
   useAtom,
   useSelector,
 } from '@tanstack/solid-store'
@@ -20,17 +20,9 @@ type StoreContextValue = {
   countAtom: Atom<number>
 }
 
-const StoreContext = createContext<StoreContextValue>()
-
-function useStoreContext() {
-  const value = useContext(StoreContext)
-
-  if (!value) {
-    throw new Error('Missing StoreProvider for StoreContext')
-  }
-
-  return value
-}
+// create context provider and hook
+const { StoreProvider, useStoreContext } =
+  createStoreContext<StoreContextValue>()
 
 function App() {
   // Solid components only run once per mount, so stores and atoms created here stay stable for this provider instance.
@@ -41,7 +33,7 @@ function App() {
   const countAtom = createAtom(0)
 
   return (
-    <StoreContext.Provider value={{ votesStore, countAtom }}>
+    <StoreProvider value={{ votesStore, countAtom }}>
       <main>
         <h1>Solid Store Context</h1>
         <p>
@@ -59,7 +51,7 @@ function App() {
           <DeepAtomEditor />
         </section>
       </main>
-    </StoreContext.Provider>
+    </StoreProvider>
   )
 }
 

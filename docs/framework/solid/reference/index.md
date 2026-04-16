@@ -12,6 +12,7 @@ title: "@tanstack/solid-store"
 ## Functions
 
 - [\_useStore](functions/useStore.md)
+- [createStoreContext](functions/createStoreContext.md)
 - [useAtom](functions/useAtom.md)
 - [useSelector](functions/useSelector.md)
 - [~~useStore~~](functions/useStore-1.md)

@@ -2,7 +2,8 @@
 
 This example demonstrates:
 
-- Solid `createContext`
+- `createStoreContext`
+- `useStoreContext`
 - `useSelector`
 - `useAtom`
 

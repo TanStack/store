@@ -1,8 +1,14 @@
 import { expectTypeOf, test } from 'vitest'
 import { createAtom, createStore } from '@tanstack/store'
-import { _useStore, useAtom, useSelector, useStore } from '../src'
+import {
+  _useStore,
+  createStoreContext,
+  useAtom,
+  useSelector,
+  useStore,
+} from '../src'
 import type { Accessor } from 'solid-js'
-import type { Store } from '@tanstack/store'
+import type { Atom, ReadonlyStore, Store } from '@tanstack/store'
 
 test('useSelector works with derived state', () => {
   const store = createStore(12)
@@ -67,4 +73,28 @@ test('_useStore returns setState for plain stores', () => {
 
   expectTypeOf(selected).toEqualTypeOf<Accessor<number>>()
   expectTypeOf(setState).toEqualTypeOf<Store<number>['setState']>()
+})
+
+test('createStoreContext preserves keyed atom and store types', () => {
+  const countAtom = createAtom(12)
+  const readonlySource = createStore(() => ({ value: 24 }))
+  const storeFactory = createStoreContext<{
+    countAtom: typeof countAtom
+    readonlyStore: typeof readonlySource
+  }>()
+  const contextValue = storeFactory.useStoreContext()
+
+  expectTypeOf(contextValue.countAtom).toExtend<Atom<number>>()
+  expectTypeOf(contextValue.countAtom.set).toBeFunction()
+
+  const [value, setValue] = useAtom(contextValue.countAtom)
+  expectTypeOf(value).toEqualTypeOf<Accessor<number>>()
+  expectTypeOf(setValue).toBeFunction()
+
+  const readonlyStore = contextValue.readonlyStore
+  expectTypeOf(readonlyStore).toExtend<ReadonlyStore<{ value: number }>>()
+  expectTypeOf(readonlyStore).not.toHaveProperty('setState')
+
+  const selected = useSelector(readonlyStore, (state) => state.value)
+  expectTypeOf(selected).toEqualTypeOf<Accessor<number>>()
 })

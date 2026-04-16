@@ -1,8 +1,9 @@
 import { describe, expect, it, test, vi } from 'vitest'
-import { renderHook } from '@solidjs/testing-library'
+import { render, renderHook } from '@solidjs/testing-library'
 import { createAtom, createStore } from '@tanstack/store'
 import {
   _useStore,
+  createStoreContext,
   shallow,
   useAtom,
   useSelector,
@@ -203,6 +204,58 @@ describe('_useStore', () => {
     result[1]((prev) => prev + 1)
 
     expect(result[0]()).toBe(1)
+  })
+})
+
+describe('createStoreContext', () => {
+  it('provides bundled writable atoms and stores', () => {
+    const countAtom = createAtom(0)
+    const totalStore = createStore({ count: 0 })
+    const { StoreProvider, useStoreContext } = createStoreContext<{
+      countAtom: typeof countAtom
+      totalStore: typeof totalStore
+    }>()
+
+    function Comp() {
+      const { countAtom: ctxAtom, totalStore: ctxStore } = useStoreContext()
+      const value = useSelector(ctxAtom)
+      const total = useSelector(ctxStore, (state) => state.count)
+
+      return (
+        <div>
+          <p>Value: {value()}</p>
+          <p>Total: {total()}</p>
+        </div>
+      )
+    }
+
+    const { getByText } = render(() => (
+      <StoreProvider value={{ countAtom, totalStore }}>
+        <Comp />
+      </StoreProvider>
+    ))
+
+    expect(getByText('Value: 0')).toBeInTheDocument()
+    expect(getByText('Total: 0')).toBeInTheDocument()
+
+    countAtom.set((prev) => prev + 1)
+    totalStore.setState((prev) => ({ ...prev, count: prev.count + 1 }))
+
+    expect(getByText('Value: 1')).toBeInTheDocument()
+    expect(getByText('Total: 1')).toBeInTheDocument()
+  })
+
+  it('throws a clear error when a store provider is missing', () => {
+    const { useStoreContext } = createStoreContext<{ countAtom: number }>()
+
+    function Comp() {
+      useStoreContext()
+      return null
+    }
+
+    expect(() => render(() => <Comp />)).toThrowError(
+      'Missing StoreProvider for StoreContext',
+    )
   })
 })
 
