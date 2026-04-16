@@ -8,4 +8,9 @@
 '@tanstack/store': minor
 ---
 
-chore: update deps and change build process to tsdown
+Hooks included in this release:
+
+- useAtom
+- useSelector
+- useStore (deprecated, replaced by useSelector)
+- createStoreContext (provides StoreProvider and useStoreContext for context-based consumption)
