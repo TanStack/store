@@ -55,6 +55,12 @@ export class Store<T, TActions extends StoreActionMap = never> {
   ): Subscription {
     return this.atom.subscribe(toObserver(observerOrFn))
   }
+  /**
+   * `effect` will be called while the atom is watched. `effect` may return a
+   * cleanup function, which will be called when the atom is unwatched.
+   *
+   * Returns a `stop` function which cancels the listener.
+   */
   public whileWatched(effect: WatchedEffect): () => void {
     return this.atom.whileWatched(effect)
   }
@@ -85,6 +91,12 @@ export class ReadonlyStore<T> implements Omit<
   ): Subscription {
     return this.atom.subscribe(toObserver(observerOrFn))
   }
+  /**
+   * `effect` will be called while the atom is watched. `effect` may return a
+   * cleanup function, which will be called when the atom is unwatched.
+   *
+   * Returns a `stop` function which cancels the listener.
+   */
   public whileWatched(effect: WatchedEffect): () => void {
     return this.atom.whileWatched(effect)
   }
