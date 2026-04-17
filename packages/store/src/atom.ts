@@ -169,7 +169,7 @@ export function createAsyncAtom<T>(
 
 /**
  * Like React.useSyncExternalStore: pulls external state into an atom.
- * Thic can be used for interoperating with other state management libraries.
+ * This can be used for interoperating with other state management libraries.
  *
  * ```ts
  * import * as redux from "redux"
