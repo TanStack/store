@@ -38,10 +38,12 @@ export const enum ReactiveFlags {
 export function createReactiveSystem({
   update,
   notify,
+  watched,
   unwatched,
 }: {
   update(sub: ReactiveNode): boolean
   notify(sub: ReactiveNode): void
+  watched(sub: ReactiveNode): void
   unwatched(sub: ReactiveNode): void
 }) {
   return {
@@ -95,6 +97,7 @@ export function createReactiveSystem({
       prevSub.nextSub = newLink
     } else {
       dep.subs = newLink
+      watched(dep)
     }
   }
 

@@ -1,13 +1,13 @@
-import { ReactiveFlags, createReactiveSystem } from './alien'
+import { ReactiveFlags, createReactiveSystem } from './alien';
 
-import type { ReactiveNode } from './alien'
+import type { ReactiveNode } from './alien';
 import type {
-  Atom,
-  AtomOptions,
-  Observer,
-  ReadonlyAtom,
-  Subscription,
-} from './types'
+    Atom,
+    AtomOptions,
+    Observer,
+    ReadonlyAtom,
+    Subscription,
+} from './types';
 
 export function toObserver<T>(
   nextHandler?: Observer<T> | ((value: T) => void),
@@ -26,11 +26,29 @@ export function toObserver<T>(
   }
 }
 
+/**
+ * Called when the atom is watched.
+ * Returns a cleanup function that will be called when the atom is unwatched.
+ */
+export type WatchedEffect = () => (() => void) | void | undefined
+
 interface InternalAtom<T> extends ReactiveNode {
   _snapshot: T
   _update: (getValue?: T | ((snapshot: T) => T)) => boolean
+
   get: () => T
   subscribe: (observerOrFn: Observer<T> | ((value: T) => void)) => Subscription
+  /**
+   * `effect` will be called while the atom is watched. `effect` may return a
+   * cleanup function, which will be called when the atom is unwatched.
+   * 
+   * Returns a `stop` function which cancels the listener.
+   */
+  whileWatched: (effect: WatchedEffect) => () => void
+
+  _watched: boolean
+  _watchedSubs?: Array<WatchedEffect>
+  _watchedCleanups?: Array<(() => void) | void | undefined>
 }
 
 const queuedEffects: Array<Effect | undefined> = []
@@ -45,7 +63,21 @@ const { link, unlink, propagate, checkDirty, shallowPropagate } =
       queuedEffects[queuedEffectsLength++] = effect
       effect.flags &= ~ReactiveFlags.Watching
     },
+    watched(atom: InternalAtom<any>): void {
+      atom._watched = true
+      if (atom._watchedSubs?.length) {
+        atom._watchedCleanups = atom._watchedSubs.map((sub) => sub())
+      }
+    },
     unwatched(atom: InternalAtom<any>): void {
+      atom._watched = false
+      // not sure if this should go above or below the deps purge
+      // preorder vs postorder
+      if (atom._watchedCleanups?.length) {
+        atom._watchedCleanups.forEach((cleanup) => cleanup?.())
+        atom._watchedCleanups = undefined
+      }
+
       if (atom.depsTail !== undefined) {
         atom.depsTail = undefined
         atom.flags = ReactiveFlags.Mutable | ReactiveFlags.Dirty
@@ -153,6 +185,7 @@ export function createAtom<T>(
   // Create plain object atom
   const atom: InternalAtom<T> = {
     _snapshot: isComputed ? undefined! : valueOrFn,
+    _watched: false,
 
     subs: undefined,
     subsTail: undefined,
@@ -185,6 +218,26 @@ export function createAtom<T>(
         },
       }
     },
+
+    whileWatched(effect: WatchedEffect): () => void {
+      atom._watchedSubs ??= []
+      atom._watchedSubs.push(effect)
+      if (atom._watched) {
+        atom._watchedCleanups ??= []
+        atom._watchedCleanups.push(effect())
+      }
+      return () => {
+        if (!atom._watchedSubs) {
+          return
+        }
+        const index = atom._watchedSubs?.indexOf(effect)
+        if (index !== -1) {
+          atom._watchedSubs.splice(index, 1)
+        }
+      }
+    },
+
+
     _update(getValue?: T | ((snapshot: T) => T)): boolean {
       const prevSub = activeSub
       const compare = options?.compare ?? Object.is

@@ -1,4 +1,5 @@
-import type { ReactiveNode } from './alien'
+import type { ReactiveNode } from './alien';
+import { WatchedEffect } from './atom';
 
 export type Selection<TSelected> = Readable<TSelected>
 
@@ -30,7 +31,15 @@ export interface Readable<T> extends Subscribable<T> {
   get: () => T
 }
 
-export interface BaseAtom<T> extends Subscribable<T>, Readable<T> {}
+export interface BaseAtom<T> extends Subscribable<T>, Readable<T> {
+  /**
+   * `effect` will be called while the atom is watched. `effect` may return a
+   * cleanup function, which will be called when the atom is unwatched.
+   * 
+   * Returns a `stop` function which cancels the listener.
+   */
+  whileWatched: (effect: WatchedEffect) => () => void
+}
 
 export interface InternalBaseAtom<T> extends Subscribable<T>, Readable<T> {
   /** @internal */

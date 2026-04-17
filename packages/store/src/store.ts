@@ -1,5 +1,5 @@
-import { createAtom, toObserver } from './atom'
-import type { Atom, Observer, Subscription } from './types'
+import { createAtom, toObserver, WatchedEffect } from './atom';
+import type { Atom, Observer, Subscription } from './types';
 
 export type StoreAction = (...args: Array<any>) => any
 
@@ -54,6 +54,9 @@ export class Store<T, TActions extends StoreActionMap = never> {
   ): Subscription {
     return this.atom.subscribe(toObserver(observerOrFn))
   }
+  public whileWatched(effect: WatchedEffect): () => void {
+    return this.atom.whileWatched(effect)
+  }
 }
 
 export class ReadonlyStore<T> implements Omit<
@@ -80,6 +83,9 @@ export class ReadonlyStore<T> implements Omit<
     observerOrFn: Observer<T> | ((value: T) => void),
   ): Subscription {
     return this.atom.subscribe(toObserver(observerOrFn))
+  }
+  public whileWatched(effect: WatchedEffect): () => void {
+    return this.atom.whileWatched(effect)
   }
 }
 
