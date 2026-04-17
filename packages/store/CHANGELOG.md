@@ -1,5 +1,15 @@
 # @tanstack/store
 
+## 0.11.0
+
+### Minor Changes
+
+- Hooks included in this release: ([#306](https://github.com/TanStack/store/pull/306))
+  - useAtom
+  - useSelector
+  - useStore (deprecated, replaced by useSelector)
+  - createStoreContext (provides StoreProvider and useStoreContext for context-based consumption)
+
 ## 0.10.0
 
 ### Minor Changes
