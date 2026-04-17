@@ -1,4 +1,5 @@
-import { createAtom, toObserver, WatchedEffect } from './atom';
+import { createAtom, toObserver } from './atom';
+import type { WatchedEffect } from './atom';
 import type { Atom, Observer, Subscription } from './types';
 
 export type StoreAction = (...args: Array<any>) => any
