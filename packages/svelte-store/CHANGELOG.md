@@ -1,5 +1,20 @@
 # @tanstack/svelte-store
 
+## 0.12.0
+
+### Minor Changes
+
+- Hooks included in this release: ([#306](https://github.com/TanStack/store/pull/306))
+  - useAtom
+  - useSelector
+  - useStore (deprecated, replaced by useSelector)
+  - createStoreContext (provides StoreProvider and useStoreContext for context-based consumption)
+
+### Patch Changes
+
+- Updated dependencies [[`4d87a83`](https://github.com/TanStack/store/commit/4d87a83158d0966cbbaf38cd51419693641f57fa)]:
+  - @tanstack/store@0.11.0
+
 ## 0.11.0
 
 ### Minor Changes
