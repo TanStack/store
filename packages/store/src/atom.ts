@@ -1,13 +1,13 @@
-import { ReactiveFlags, createReactiveSystem } from './alien';
+import { ReactiveFlags, createReactiveSystem } from './alien'
 
-import type { ReactiveNode } from './alien';
+import type { ReactiveNode } from './alien'
 import type {
-    Atom,
-    AtomOptions,
-    Observer,
-    ReadonlyAtom,
-    Subscription,
-} from './types';
+  Atom,
+  AtomOptions,
+  Observer,
+  ReadonlyAtom,
+  Subscription,
+} from './types'
 
 export function toObserver<T>(
   nextHandler?: Observer<T> | ((value: T) => void),
@@ -41,7 +41,7 @@ interface InternalAtom<T> extends ReactiveNode {
   /**
    * `effect` will be called while the atom is watched. `effect` may return a
    * cleanup function, which will be called when the atom is unwatched.
-   * 
+   *
    * Returns a `stop` function which cancels the listener.
    */
   whileWatched: (effect: WatchedEffect) => () => void
@@ -75,7 +75,7 @@ const { link, unlink, propagate, checkDirty, shallowPropagate } =
       // preorder vs postorder
       if (atom._watchedCleanups?.length) {
         atom._watchedCleanups.forEach((cleanup) => cleanup?.())
-        atom._watchedCleanups = undefined
+        atom._watchedCleanups.length = 0
       }
 
       if (atom.depsTail !== undefined) {
@@ -167,6 +167,40 @@ export function createAsyncAtom<T>(
   return atom
 }
 
+/**
+ * Like React.useSyncExternalStore: pulls external state into an atom.
+ * Thic can be used for interoperating with other state management libraries.
+ *
+ * ```ts
+ * import * as redux from "redux"
+ *
+ * const reduxStore = redux.createStore((state: number, action: number) => state + action, 0)
+ * const atom = createExternalStoreAtom(reduxStore.getState, reduxStore.subscribe)
+ *
+ * const timesTwo = createAtom(() => atom.get() * 2)
+ * timesTwo.subscribe((value) => {
+ *   console.log('timesTwo: ', value)
+ * })
+ *
+ * reduxStore.dispatch(1)
+ * // timesTwo: 2
+ * reduxStore.dispatch(1)
+ * // timesTwo: 4
+ */
+export function createExternalStoreAtom<T>(
+  getSnapshot: () => T,
+  subscribe: (onStoreChange: () => void) => () => void,
+  options?: AtomOptions<T>,
+): ReadonlyAtom<T> {
+  const mutable = createAtom({ value: getSnapshot() })
+  const updateFromExternalStore = () => mutable.set({ value: getSnapshot() })
+  mutable.whileWatched(() => {
+    updateFromExternalStore()
+    return subscribe(updateFromExternalStore)
+  })
+  return createAtom(() => mutable.get().value, options)
+}
+
 export function createAtom<T>(
   getValue: (prev?: NoInfer<T>) => T,
   options?: AtomOptions<T>,
@@ -219,24 +253,23 @@ export function createAtom<T>(
       }
     },
 
-    whileWatched(effect: WatchedEffect): () => void {
+    whileWatched(listener: WatchedEffect): () => void {
       atom._watchedSubs ??= []
-      atom._watchedSubs.push(effect)
+      atom._watchedSubs.push(listener)
       if (atom._watched) {
         atom._watchedCleanups ??= []
-        atom._watchedCleanups.push(effect())
+        atom._watchedCleanups.push(listener())
       }
       return () => {
         if (!atom._watchedSubs) {
           return
         }
-        const index = atom._watchedSubs?.indexOf(effect)
+        const index = atom._watchedSubs.indexOf(listener)
         if (index !== -1) {
           atom._watchedSubs.splice(index, 1)
         }
       }
     },
-
 
     _update(getValue?: T | ((snapshot: T) => T)): boolean {
       const prevSub = activeSub

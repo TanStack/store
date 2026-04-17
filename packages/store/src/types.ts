@@ -1,5 +1,5 @@
-import type { ReactiveNode } from './alien';
-import { WatchedEffect } from './atom';
+import type { ReactiveNode } from './alien'
+import { WatchedEffect } from './atom'
 
 export type Selection<TSelected> = Readable<TSelected>
 
