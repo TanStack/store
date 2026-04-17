@@ -5,7 +5,14 @@ title: "@tanstack/solid-store"
 
 # @tanstack/solid-store
 
+## Interfaces
+
+- [UseSelectorOptions](interfaces/UseSelectorOptions.md)
+
 ## Functions
 
-- [shallow](functions/shallow.md)
-- [useStore](functions/useStore.md)
+- [\_useStore](functions/useStore.md)
+- [createStoreContext](functions/createStoreContext.md)
+- [useAtom](functions/useAtom.md)
+- [useSelector](functions/useSelector.md)
+- [~~useStore~~](functions/useStore-1.md)

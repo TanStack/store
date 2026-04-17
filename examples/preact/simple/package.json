@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --port=3002",
+    "dev": "vite --port=3050",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.5",
-    "@types/node": "^25.5.2",
+    "@types/node": "^25.6.0",
     "eslint": "^10.2.0",
     "eslint-config-preact": "^2.0.0",
     "typescript": "6.0.2",

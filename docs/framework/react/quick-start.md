@@ -8,7 +8,7 @@ The basic react app example to get started with the TanStack react-store.
 ```tsx
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createStore, useStore } from "@tanstack/react-store";
+import { createStore, useSelector } from "@tanstack/react-store";
 
 // You can instantiate the store outside of React components too!
 export const store = createStore({
@@ -19,7 +19,7 @@ export const store = createStore({
 // This will only re-render when `state[animal]` changes. If an unrelated store property changes, it won't re-render
 
 const Display = ({ animal }) => {
-  const count = useStore(store, (state) => state[animal]);
+  const count = useSelector(store, (state) => state[animal]);
   return <div>{`${animal}: ${count}`}</div>;
 };
 
@@ -55,3 +55,5 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<App />);
 
 ```
+
+`useStore` remains available as a deprecated alias to `useSelector`.

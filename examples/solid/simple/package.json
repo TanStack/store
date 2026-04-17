@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port=3050",
     "build": "tsc && vite build",
     "test:types": "tsc",
     "preview": "vite preview"

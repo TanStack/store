@@ -1,0 +1,22 @@
+{
+  "name": "@tanstack/store-example-react-atoms",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port=3050",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test:types": "tsc"
+  },
+  "dependencies": {
+    "@tanstack/react-store": "^0.10.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "vite": "^8.0.8"
+  }
+}

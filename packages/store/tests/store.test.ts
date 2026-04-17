@@ -38,6 +38,47 @@ describe('store', () => {
     expect(store.state).toEqual(4)
   })
 
+  test('supports actions on writable stores', () => {
+    const store = createStore({ count: 0 }, ({ setState }) => ({
+      inc: () => setState((prev) => ({ count: prev.count + 1 })),
+    }))
+
+    expect(store.state).toEqual({ count: 0 })
+
+    store.actions.inc()
+
+    expect(store.state).toEqual({ count: 1 })
+  })
+
+  test('actions can read current state', () => {
+    const store = createStore({ count: 1 }, ({ get, setState }) => ({
+      addIfOdd: () => {
+        if (get().count % 2 === 1) {
+          setState((prev) => ({ count: prev.count + 1 }))
+        }
+      },
+    }))
+
+    store.actions.addIfOdd()
+    expect(store.state).toEqual({ count: 2 })
+
+    store.actions.addIfOdd()
+    expect(store.state).toEqual({ count: 2 })
+  })
+
+  test('actions bag is stable across updates', () => {
+    const store = createStore({ count: 0 }, ({ setState }) => ({
+      inc: () => setState((prev) => ({ count: prev.count + 1 })),
+    }))
+
+    const actions = store.actions
+
+    store.actions.inc()
+    store.setState((prev) => ({ count: prev.count + 1 }))
+
+    expect(store.actions).toBe(actions)
+  })
+
   test(`updateFn acts as state transformer`, () => {
     const store = createStore('1')
     const derivedStore = createStore(() => Number(store.state))

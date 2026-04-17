@@ -1,7 +1,7 @@
-import { Store } from '@tanstack/angular-store'
+import { createStore } from '@tanstack/angular-store'
 
 // You can instantiate a Store outside of Angular components too!
-export const store = new Store({
+export const store = createStore({
   dogs: 0,
   cats: 0,
 })

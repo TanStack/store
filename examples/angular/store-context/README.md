@@ -1,0 +1,12 @@
+# Angular Store Context Example
+
+This example demonstrates:
+
+- Angular `InjectionToken` providers
+- `injectSelector`
+- `injectAtom`
+
+To run this example:
+
+- `npm install`
+- `npm run start`

@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite --port=3001",
+    "dev": "vite --port=3050",
     "build": "vite build",
     "preview": "vite preview",
     "test:types": "tsc"
@@ -17,7 +17,6 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
-    "react-scan": "^0.5.3",
     "vite": "^8.0.8"
   },
   "browserslist": {

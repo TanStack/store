@@ -1,4 +1,4 @@
-import { injectStore } from '@tanstack/angular-store'
+import { injectSelector } from '@tanstack/angular-store'
 import { Component, input } from '@angular/core'
 import { store } from './store'
 
@@ -11,5 +11,5 @@ import { store } from './store'
 })
 export class DisplayComponent {
   animal = input.required<'cats' | 'dogs'>()
-  count = injectStore(store, (state) => state[this.animal()])
+  count = injectSelector(store, (state) => state[this.animal()])
 }

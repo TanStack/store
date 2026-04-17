@@ -6,7 +6,7 @@ id: quick-start
 The basic Solid app example to get started with the TanStack Solid-store.
 
 ```jsx
-import { createStore, useStore } from '@tanstack/solid-store';
+import { createStore, useSelector } from '@tanstack/solid-store';
 
 // You can instantiate the store outside of Solid components too!
 export const store = createStore({
@@ -15,7 +15,7 @@ export const store = createStore({
 })
 
 export const Display = (props) => {
-  const count = useStore(store, (state) => state[props.animals]);
+  const count = useSelector(store, (state) => state[props.animals]);
   return (
     <span>
       {props.animals}: {count()}
@@ -58,3 +58,5 @@ const App = () => {
 
 export default App;
 ```
+
+`useStore` remains available as a deprecated alias to `useSelector`.

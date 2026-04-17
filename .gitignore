@@ -19,6 +19,8 @@ dist
 .env.test.local
 .env.production.local
 .next
+.angular/*
+.cache/*
 
 npm-debug.log*
 yarn-debug.log*
@@ -41,3 +43,16 @@ stats.html
 
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+examples/angular/atoms/.angular/cache/*
+examples/angular/atoms/.angular/cache/21.2.7/atoms/angular-compiler.db
+examples/angular/atoms/.angular/cache/21.2.7/atoms/angular-compiler.db-lock
+examples/angular/store-actions/.angular/cache/21.2.7/store-actions/.tsbuildinfo
+examples/angular/store-actions/.angular/cache/21.2.7/store-actions/angular-compiler.db
+examples/angular/store-actions/.angular/cache/21.2.7/store-actions/angular-compiler.db-lock
+examples/angular/store-context/.angular/cache/21.2.7/store-context/.tsbuildinfo
+examples/angular/store-context/.angular/cache/21.2.7/store-context/angular-compiler.db
+examples/angular/store-context/.angular/cache/21.2.7/store-context/angular-compiler.db-lock
+examples/angular/stores/.angular/cache/21.2.7/stores/.tsbuildinfo
+examples/angular/stores/.angular/cache/21.2.7/stores/angular-compiler.db
+examples/angular/stores/.angular/cache/21.2.7/stores/angular-compiler.db-lock
