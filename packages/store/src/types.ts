@@ -37,7 +37,7 @@ export interface BaseAtom<T> extends Subscribable<T>, Readable<T> {
    * may return a cleanup function, which will be called when the atom is
    * unwatched.
    *
-   * Returns an `cleanup` function which removes the `whileWatched` listener.
+   * Returns a `cleanup` function which removes the `whileWatched` listener.
    *
    * This can be used to sync external resources into the atom, similar to
    * `useLayoutEffect` in React.
