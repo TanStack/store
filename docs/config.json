@@ -246,6 +246,10 @@
           "to": "reference/functions/flush"
         },
         {
+          "label": "shallow",
+          "to": "reference/functions/shallow"
+        },
+        {
           "label": "toObserver",
           "to": "reference/functions/toObserver"
         }
@@ -283,12 +287,12 @@
               "to": "framework/react/reference/functions/useStoreActions"
             },
             {
-              "label": "useStore (deprecated)",
+              "label": "_useStore (experimental)",
               "to": "framework/react/reference/functions/useStore"
             },
             {
-              "label": "shallow",
-              "to": "framework/react/reference/functions/shallow"
+              "label": "useStore (deprecated)",
+              "to": "framework/react/reference/functions/useStore-1"
             },
             {
               "label": "UseSelectorOptions",
@@ -316,12 +320,12 @@
               "to": "framework/vue/reference/functions/useStoreActions"
             },
             {
-              "label": "useStore (deprecated)",
+              "label": "_useStore (experimental)",
               "to": "framework/vue/reference/functions/useStore"
             },
             {
-              "label": "shallow",
-              "to": "framework/vue/reference/functions/shallow"
+              "label": "useStore (deprecated)",
+              "to": "framework/vue/reference/functions/useStore-1"
             },
             {
               "label": "UseSelectorOptions",
@@ -349,12 +353,12 @@
               "to": "framework/solid/reference/functions/useStoreActions"
             },
             {
-              "label": "useStore (deprecated)",
+              "label": "_useStore (experimental)",
               "to": "framework/solid/reference/functions/useStore"
             },
             {
-              "label": "shallow",
-              "to": "framework/solid/reference/functions/shallow"
+              "label": "useStore (deprecated)",
+              "to": "framework/solid/reference/functions/useStore-1"
             },
             {
               "label": "UseSelectorOptions",
@@ -386,10 +390,6 @@
               "to": "framework/angular/reference/functions/injectStore"
             },
             {
-              "label": "shallow",
-              "to": "framework/angular/reference/functions/shallow"
-            },
-            {
               "label": "InjectSelectorOptions",
               "to": "framework/angular/reference/interfaces/InjectSelectorOptions"
             }
@@ -415,12 +415,12 @@
               "to": "framework/svelte/reference/functions/useStoreActions"
             },
             {
-              "label": "useStore (deprecated)",
+              "label": "_useStore (experimental)",
               "to": "framework/svelte/reference/functions/useStore"
             },
             {
-              "label": "shallow",
-              "to": "framework/svelte/reference/functions/shallow"
+              "label": "useStore (deprecated)",
+              "to": "framework/svelte/reference/functions/useStore-1"
             },
             {
               "label": "UseSelectorOptions",
@@ -460,12 +460,12 @@
               "to": "framework/preact/reference/functions/useStoreActions"
             },
             {
-              "label": "useStore (deprecated)",
+              "label": "_useStore (experimental)",
               "to": "framework/preact/reference/functions/useStore"
             },
             {
-              "label": "shallow",
-              "to": "framework/preact/reference/functions/shallow"
+              "label": "useStore (deprecated)",
+              "to": "framework/preact/reference/functions/useStore-1"
             },
             {
               "label": "UseSelectorOptions",
