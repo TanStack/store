@@ -186,6 +186,7 @@ export function createAsyncAtom<T>(
  * // timesTwo: 2
  * reduxStore.dispatch(1)
  * // timesTwo: 4
+ * ```
  */
 export function createExternalStoreAtom<T>(
   getSnapshot: () => T,
