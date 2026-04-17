@@ -192,13 +192,15 @@ export function createExternalStoreAtom<T>(
   subscribe: (onStoreChange: () => void) => () => void,
   options?: AtomOptions<T>,
 ): ReadonlyAtom<T> {
-  const mutable = createAtom({ value: getSnapshot() })
-  const updateFromExternalStore = () => mutable.set({ value: getSnapshot() })
-  mutable.whileWatched(() => {
-    updateFromExternalStore()
-    return subscribe(updateFromExternalStore)
-  })
-  return createAtom(() => mutable.get().value, options)
+  const trigger = createAtom(0)
+  const invalidate = () => trigger.set((n) => n + 1)
+  trigger.whileWatched(() => subscribe(invalidate))
+
+  return createAtom(() => {
+    // Return latest snapshot when `trigger` changes
+    trigger.get()
+    return getSnapshot()
+  }, options)
 }
 
 export function createAtom<T>(
