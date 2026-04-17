@@ -226,6 +226,10 @@
           "to": "reference/type-aliases/StoreActionsFactory"
         },
         {
+          "label": "WatchedEffect",
+          "to": "reference/type-aliases/WatchedEffect"
+        },
+        {
           "label": "batch",
           "to": "reference/functions/batch"
         },
@@ -236,6 +240,10 @@
         {
           "label": "createAtom",
           "to": "reference/functions/createAtom"
+        },
+        {
+          "label": "createExternalStoreAtom",
+          "to": "reference/functions/createExternalStoreAtom"
         },
         {
           "label": "createStore",
