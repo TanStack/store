@@ -21,6 +21,7 @@
           "label": "Quick Start",
           "to": "quick-start"
         }
+
       ],
       "frameworks": [
         {
@@ -79,6 +80,25 @@
         }
       ]
     },
+    {
+      "label": "Guides & Concepts",
+      "children": [
+        {
+          "label": "Store",
+          "to": "core-store"
+        },
+        {
+          "label": "Derived",
+          "to": "core-derived"
+        },
+        {
+          "label": "Effect",
+          "to": "core-effect"
+        }
+      ]
+
+    },
+
     {
       "label": "API Reference",
       "children": [
