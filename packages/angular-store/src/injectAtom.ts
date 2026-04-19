@@ -25,6 +25,21 @@ export interface WritableAtomSignal<T> {
   set: Atom<T>['set']
 }
 
+
+function createSetter<TValue>(
+  atom: Atom<TValue> | (() => Atom<TValue>),
+): Atom<TValue>['set'] {
+  function set(value: TValue): void
+  function set(fn: (prevVal: TValue) => TValue): void
+  function set(
+    updaterOrValue: TValue | ((prevVal: TValue) => TValue),
+  ): void {
+    const _atom = typeof atom === "function" ? atom() : atom
+    _atom.set(updaterOrValue as never)
+  }
+  return set as Atom<TValue>['set']
+}
+
 /**
  * Returns a {@link WritableAtomSignal} that reads the current atom value when
  * called and exposes a `.set` method for updates.
@@ -42,11 +57,11 @@ export interface WritableAtomSignal<T> {
  * ```
  */
 export function injectAtom<TValue>(
-  atom: Atom<TValue>,
+  atom: Atom<TValue> | (() => Atom<TValue>),
   options?: InjectSelectorOptions<TValue>,
 ): WritableAtomSignal<TValue> {
   const value = injectSelector(atom, undefined, options)
   const atomSignal = (() => value()) as WritableAtomSignal<TValue>
-  atomSignal.set = atom.set
+  atomSignal.set = createSetter(atom)
   return atomSignal
 }
