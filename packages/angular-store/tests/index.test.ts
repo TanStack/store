@@ -5,6 +5,7 @@ import {
   effect,
   input,
   inputBinding,
+  isSignal,
   signal,
   untracked,
 } from '@angular/core'
@@ -496,6 +497,14 @@ describe('dataType', () => {
 })
 
 describe('_injectStore', () => {
+  test('return value passes isSignal (proxies the selector signal)', () => {
+    TestBed.runInInjectionContext(() => {
+      const store = createStore(0)
+      const slice = _injectStore(store, (s) => s)
+      expect(isSignal(slice)).toBe(true)
+    })
+  })
+
   test('returns selected state and actions for stores with actions', () => {
     const store = createStore({ count: 0 }, ({ setState }) => ({
       inc: () => setState((prev) => ({ count: prev.count + 1 })),
@@ -511,12 +520,10 @@ describe('_injectStore', () => {
       standalone: true,
     })
     class MyCmp {
-      private result = _injectStore(store, (state) => state.count)
-      count = this.result[0]
-      actions = this.result[1]
+      protected count = _injectStore(store, (state) => state.count)
 
       inc() {
-        this.actions.inc()
+        this.count.inc()
       }
     }
 
@@ -550,12 +557,10 @@ describe('_injectStore', () => {
       standalone: true,
     })
     class MyCmp {
-      private result = _injectStore(store, (state) => state)
-      value = this.result[0]
-      setState = this.result[1]
+      private value = _injectStore(store, (state) => state)
 
       inc() {
-        this.setState((prev) => prev + 1)
+        this.value.setState((prev: number) => prev + 1)
       }
     }
 
