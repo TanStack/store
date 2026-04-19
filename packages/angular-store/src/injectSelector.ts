@@ -70,11 +70,11 @@ export function injectSelector<TState, TSelected = NoInfer<TState>>(
       equal: options?.compare,
     })
 
-    effect(() => {
+    effect((onCleanup) => {
       const { unsubscribe } = _source().subscribe((state) => {
         slice.set(selector(state))
       })
-      return unsubscribe
+      onCleanup(unsubscribe)
     })
 
     return slice.asReadonly()
