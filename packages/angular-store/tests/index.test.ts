@@ -557,7 +557,7 @@ describe('_injectStore', () => {
       standalone: true,
     })
     class MyCmp {
-      private value = _injectStore(store, (state) => state)
+      protected value = _injectStore(store, (state) => state)
 
       inc() {
         this.value.setState((prev: number) => prev + 1)
