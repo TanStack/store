@@ -1,7 +1,7 @@
 import {
-  DestroyRef,
   Injector,
   assertInInjectionContext,
+  effect,
   inject,
   linkedSignal,
   runInInjectionContext,
@@ -23,10 +23,6 @@ export type SelectionSource<T> = {
   }
 }
 
-function defaultCompare<T>(a: T, b: T) {
-  return a === b
-}
-
 function resolveInjector(
   fn: (...args: Array<never>) => unknown,
   injector?: Injector,
@@ -39,40 +35,6 @@ function resolveInjector(
   return injector
 }
 
-function createReadonlySelectionSignal<TSource, TSelected>(
-  source: SelectionSource<TSource>,
-  selector: (state: NoInfer<TSource>) => TSelected,
-  options?: InjectSelectorOptions<TSelected>,
-): Signal<TSelected> {
-  const injector = resolveInjector(
-    createReadonlySelectionSignal,
-    options?.injector,
-  )
-
-  return runInInjectionContext(injector, () => {
-    const destroyRef = inject(DestroyRef)
-    const compare = options?.compare ?? defaultCompare
-    const {
-      injector: _injector,
-      compare: _compare,
-      ...signalOptions
-    } = options ?? {}
-    const slice = linkedSignal(() => selector(source.get()), {
-      ...signalOptions,
-      equal: compare,
-    })
-
-    const { unsubscribe } = source.subscribe((state) => {
-      slice.set(selector(state))
-    })
-
-    destroyRef.onDestroy(() => {
-      unsubscribe()
-    })
-
-    return slice.asReadonly()
-  })
-}
 
 /**
  * Selects a slice of state from an atom or store and returns it as an Angular
@@ -91,10 +53,30 @@ function createReadonlySelectionSignal<TSource, TSelected>(
  * ```
  */
 export function injectSelector<TState, TSelected = NoInfer<TState>>(
-  source: SelectionSource<TState>,
+  source: SelectionSource<TState> | (() => SelectionSource<TState>),
   selector: (state: NoInfer<TState>) => TSelected = (d) =>
     d as unknown as TSelected,
   options?: InjectSelectorOptions<TSelected>,
 ): Signal<TSelected> {
-  return createReadonlySelectionSignal(source, selector, options)
+  const injector = resolveInjector(
+    injectSelector,
+    options?.injector,
+  )
+
+  return runInInjectionContext(injector, () => {
+    const _source = typeof source === "function" ? source : (() => source)
+
+    const slice = linkedSignal(() => selector(_source().get()), {
+      equal: options?.compare,
+    })
+
+    effect(() => {
+      const { unsubscribe } = _source().subscribe((state) => {
+        slice.set(selector(state))
+      })
+      return unsubscribe
+    })
+
+    return slice.asReadonly()
+  })
 }
