@@ -91,7 +91,7 @@ function removeWatch(node: WatchableNode) {
  * Causes `fn` to be called when `node` becomes gains its first live subscriber.
  * If `fn` returns a cleanup function, it will be called when `node` loses its last live subscriber.
  */
-export function whiteWatched(node: WatchableNode, fn: WatchedEffect) {
+export function whileWatched(node: WatchableNode, fn: WatchedEffect) {
   const initialEffects = (node._watchEffects ??= [])
   initialEffects.push(fn)
   if (node._watches) {
@@ -375,7 +375,7 @@ export function createAtom<T>(
     },
 
     whileWatched(listener: WatchedEffect): () => void {
-      return whiteWatched(this, listener)
+      return whileWatched(this, listener)
     },
 
     _update(getValue?: T | ((snapshot: T) => T)): boolean {
