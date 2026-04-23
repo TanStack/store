@@ -1,6 +1,7 @@
+import { destroyPlatform } from '@angular/core';
 import { ReactiveFlags, createReactiveSystem } from './alien'
 
-import type { ReactiveNode } from './alien'
+import type { Link, ReactiveNode } from './alien'
 import type {
   Atom,
   AtomOptions,
@@ -26,11 +27,103 @@ export function toObserver<T>(
   }
 }
 
+export type WatchedEffect = () => (() => void) | void | undefined
+
+interface WatchableNode extends ReactiveNode {
+  _watches?: number
+  _watchEffects?: Array<WatchedEffect>
+  _watchCleanups?:  Array<(() => void) | void | undefined>
+}
+
+function getWatchCount(node: WatchableNode): number {
+  return node._watches || (node.flags & ReactiveFlags.Watching) ? 1 : 0
+}
+
+function addWatch(node: WatchableNode) {
+  node._watches ??= 0
+  const prev = node._watches++
+
+  // On first watch, node becomes alive:
+  if (prev === 0) {
+    // 1. propagate liveness to deps
+		// We become alive *after* everything we depend on becomes watched.
+		// (set up dependencies first before us, the subscriber.)
+		let deps = node.deps
+		while (deps !== undefined) {
+			addWatch(deps.dep)
+			deps = deps.nextDep
+		}
+
+    // 2. start/run watch effects
+    const watchEffects = node._watchEffects
+    if (watchEffects?.length) {
+      node._watchCleanups = watchEffects.map((ef) => ef())
+    }
+  }
+}
+
+function removeWatch(node: WatchableNode) {
+  node._watches ??= 0
+  const next = --node._watches
+
+  // On last unwatch, node becomes dead:
+  if (next === 0) {
+    // 1. Clean up effects
+    // We clean up subs before we clean up their deps (no use after free)
+    node._watchCleanups?.forEach((cleanup) => cleanup?.())
+    node._watchCleanups = undefined
+
+    // 2. propagate unwatch to deps
+    let deps = node.depsTail
+		while (deps !== undefined) {
+			removeWatch(deps.dep)
+			deps = deps.prevDep
+		}
+  }
+}
+
+export function whileWatched(node: WatchableNode, fn: WatchedEffect) {
+  const initialEffects = (node._watchEffects ??= [])
+  initialEffects.push(fn)
+  if (node._watches) {
+    // Node is already watched, start effect immediately
+    const cleanups = (node._watchCleanups ??= [])
+    cleanups.push(fn())
+  }
+
+  return function removeWhileWatched() {
+    const stoppableEffects = node._watchEffects
+    if (!stoppableEffects) {
+      return
+    }
+
+    const index = stoppableEffects.indexOf(fn)
+    if (index === -1) {
+      return
+    }
+
+    stoppableEffects.splice(index, 1)
+
+    if (node._watches) {
+      // If node is watched when we remove,
+      // also clean up the effect immediately
+      const watchCleanups = node._watchCleanups
+      if (watchCleanups?.length) {
+        const cleanup = watchCleanups[index]
+        cleanup?.()
+        watchCleanups.splice(index, 1)
+        if (watchCleanups.length === 0) {
+          node._watchCleanups = undefined
+        }
+      }
+    }
+  }
+}
+
 /**
  * Called when the atom is watched.
  * Returns a cleanup function that will be called when the atom is unwatched.
  */
-export type WatchedEffect = () => (() => void) | void | undefined
 
 interface InternalAtom<T> extends ReactiveNode {
   _snapshot: T
@@ -53,7 +146,7 @@ interface InternalAtom<T> extends ReactiveNode {
 
 const queuedEffects: Array<Effect | undefined> = []
 let cycle = 0
-const { link, unlink, propagate, checkDirty, shallowPropagate } =
+const { link: _link, unlink: _unlink, propagate, checkDirty, shallowPropagate } =
   createReactiveSystem({
     update(atom: InternalAtom<any>): boolean {
       return atom._update()
@@ -62,12 +155,6 @@ const { link, unlink, propagate, checkDirty, shallowPropagate } =
     notify(effect: Effect): void {
       queuedEffects[queuedEffectsLength++] = effect
       effect.flags &= ~ReactiveFlags.Watching
-    },
-    watched(atom: InternalAtom<any>): void {
-      atom._watched = true
-      if (atom._watchedSubs?.length) {
-        atom._watchedCleanups = atom._watchedSubs.map((sub) => sub())
-      }
     },
     unwatched(atom: InternalAtom<any>): void {
       atom._watched = false
@@ -85,6 +172,31 @@ const { link, unlink, propagate, checkDirty, shallowPropagate } =
       }
     },
   })
+
+function link(dep: ReactiveNode, sub: ReactiveNode, version: number) {
+  const originalTail = dep.subsTail
+  _link(dep, sub, version)
+  const newTail = dep.subsTail
+
+  if (newTail && newTail !== originalTail && getWatchCount(sub)) {
+    // Propagate watch liveness from sub -> dep
+    addWatch(dep)
+  }
+}
+
+
+function unlink(
+  link: Link,
+  // sub must ALWAYS be link.sub, this arg is here for micro-optimization
+  sub: ReactiveNode = link.sub
+): Link | undefined {
+  const dep = link.dep
+  if (getWatchCount(sub)) {
+    // Revoke liveness from this sub on dep when unlinked
+    removeWatch(dep)
+  }
+  return _unlink(link, sub)
+}
 
 let notifyIndex = 0
 let queuedEffectsLength = 0
@@ -195,13 +307,18 @@ export function createExternalStoreAtom<T>(
 ): ReadonlyAtom<T> {
   const trigger = createAtom(0)
   const invalidate = () => trigger.set((n) => n + 1)
-  trigger.whileWatched(() => subscribe(invalidate))
-
-  return createAtom(() => {
+  const atom = createAtom(() => {
     // Return latest snapshot when `trigger` changes
     trigger.get()
     return getSnapshot()
   }, options)
+  // Attach whileWatched to `atom`, not `trigger`. An unobserved `atom.get()`
+  // runs the getter with `activeSub = atom`, creating a trigger → atom link and
+  // firing `watched(trigger)` — but trigger has no whileWatched callback, so
+  // nothing happens. `watched(atom)` only fires when a real subscriber actually
+  // links in via subscribe/effect, which is what we want.
+  atom.whileWatched(() => subscribe(invalidate))
+  return atom
 }
 
 export function createAtom<T>(
