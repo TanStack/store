@@ -1,4 +1,3 @@
-import { destroyPlatform } from '@angular/core';
 import { ReactiveFlags, createReactiveSystem } from './alien'
 
 import type { Link, ReactiveNode } from './alien'
@@ -158,7 +157,7 @@ export function whileWatched(node: WatchableNode, fn: WatchedEffect) {
  * Returns a cleanup function that will be called when the atom is unwatched.
  */
 
-interface InternalAtom<T> extends ReactiveNode {
+interface InternalAtom<T> extends WatchableNode {
   _snapshot: T
   _update: (getValue?: T | ((snapshot: T) => T)) => boolean
 
@@ -171,10 +170,6 @@ interface InternalAtom<T> extends ReactiveNode {
    * Returns a `stop` function which cancels the listener.
    */
   whileWatched: (effect: WatchedEffect) => () => void
-
-  _watched: boolean
-  _watchedSubs?: Array<WatchedEffect>
-  _watchedCleanups?: Array<(() => void) | void | undefined>
 }
 
 const queuedEffects: Array<Effect | undefined> = []
@@ -364,8 +359,7 @@ export function createAtom<T>(
   // Create plain object atom
   const atom: InternalAtom<T> = {
     _snapshot: isComputed ? undefined! : valueOrFn,
-    _watched: false,
-
+    _watches: 0,
     subs: undefined,
     subsTail: undefined,
     deps: undefined,
