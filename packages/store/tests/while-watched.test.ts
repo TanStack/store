@@ -1,5 +1,24 @@
 import { describe, expect, test, vi } from 'vitest'
-import { createAtom } from '../src'
+import { createAtom, createExternalStoreAtom } from '../src'
+
+function makeExternalStore<T>(initial: T) {
+  let value = initial
+  const listeners = new Set<() => void>()
+  return {
+    getSnapshot: () => value,
+    set(next: T) {
+      value = next
+      listeners.forEach((l) => l())
+    },
+    subscribe(cb: () => void) {
+      listeners.add(cb)
+      return () => {
+        listeners.delete(cb)
+      }
+    },
+    listenerCount: () => listeners.size,
+  }
+}
 
 describe('whileWatched', () => {
   test('does not fire before any subscriber', () => {
@@ -167,5 +186,171 @@ describe('whileWatched', () => {
 
     subDerived.unsubscribe()
     subSource.unsubscribe()
+  })
+
+  test('long chain sub/unsub cycles do not drift _watches', () => {
+    const ext = makeExternalStore(1)
+    const a = createExternalStoreAtom(ext.getSnapshot, ext.subscribe)
+    const b = createAtom(() => a.get() * 2)
+    const c = createAtom(() => `${b.get()} dogs`)
+
+    const effect = vi.fn()
+    const cleanup = vi.fn()
+    a.whileWatched(() => {
+      effect()
+      return cleanup
+    })
+
+    for (let i = 0; i < 10; i++) {
+      const sub = c.subscribe(() => {})
+      expect(ext.listenerCount()).toBe(1)
+      sub.unsubscribe()
+      expect(ext.listenerCount()).toBe(0)
+    }
+
+    expect(effect).toHaveBeenCalledTimes(10)
+    expect(cleanup).toHaveBeenCalledTimes(10)
+  })
+
+  test('conditional deps: dropped branch cleanup fires on recompute', () => {
+    const cond = createAtom(true)
+    const a = createAtom(1)
+    const b = createAtom(10)
+    const pick = createAtom(() => (cond.get() ? a.get() : b.get()))
+
+    const aCleanup = vi.fn()
+    const bCleanup = vi.fn()
+    const aEffect = vi.fn(() => aCleanup)
+    const bEffect = vi.fn(() => bCleanup)
+    a.whileWatched(aEffect)
+    b.whileWatched(bEffect)
+
+    const sub = pick.subscribe(() => {})
+    expect(aEffect).toHaveBeenCalledTimes(1)
+    expect(bEffect).not.toHaveBeenCalled()
+
+    cond.set(false)
+    expect(aCleanup).toHaveBeenCalledTimes(1)
+    expect(bEffect).toHaveBeenCalledTimes(1)
+    expect(bCleanup).not.toHaveBeenCalled()
+
+    cond.set(true)
+    expect(bCleanup).toHaveBeenCalledTimes(1)
+    expect(aEffect).toHaveBeenCalledTimes(2)
+
+    sub.unsubscribe()
+    expect(aCleanup).toHaveBeenCalledTimes(2)
+    expect(bCleanup).toHaveBeenCalledTimes(1)
+  })
+
+  test('diamond graph: shared source counted once per activation', () => {
+    const ext = makeExternalStore(1)
+    const source = createExternalStoreAtom(ext.getSnapshot, ext.subscribe)
+    const left = createAtom(() => source.get() + 1)
+    const right = createAtom(() => source.get() + 2)
+
+    const subL = left.subscribe(() => {})
+    expect(ext.listenerCount()).toBe(1)
+    const subR = right.subscribe(() => {})
+    expect(ext.listenerCount()).toBe(1)
+
+    subL.unsubscribe()
+    expect(ext.listenerCount()).toBe(1)
+    subR.unsubscribe()
+    expect(ext.listenerCount()).toBe(0)
+
+    // Re-activation cycle works
+    const subL2 = left.subscribe(() => {})
+    expect(ext.listenerCount()).toBe(1)
+    subL2.unsubscribe()
+    expect(ext.listenerCount()).toBe(0)
+  })
+
+  test('stop() while watched runs cleanup immediately and only once', () => {
+    const atom = createAtom(0)
+    const cleanup = vi.fn()
+    const stop = atom.whileWatched(() => cleanup)
+
+    const sub = atom.subscribe(() => {})
+    expect(cleanup).not.toHaveBeenCalled()
+
+    stop()
+    expect(cleanup).toHaveBeenCalledTimes(1)
+
+    sub.unsubscribe()
+    expect(cleanup).toHaveBeenCalledTimes(1)
+  })
+
+  test('re-entrant subscribe during cleanup leaves graph consistent', () => {
+    const ext = makeExternalStore(0)
+    const atom = createExternalStoreAtom(ext.getSnapshot, ext.subscribe)
+
+    const activate = vi.fn()
+    let reenter = true
+
+    atom.whileWatched(() => {
+      activate()
+      return () => {
+        if (reenter) {
+          reenter = false
+          // briefly resubscribe during cleanup — activates a second cycle
+          const innerSub = atom.subscribe(() => {})
+          innerSub.unsubscribe()
+        }
+      }
+    })
+
+    const sub = atom.subscribe(() => {})
+    expect(activate).toHaveBeenCalledTimes(1)
+    expect(ext.listenerCount()).toBe(1)
+
+    sub.unsubscribe()
+    // The re-entry created a 2nd activation, then cleaned up.
+    expect(activate).toHaveBeenCalledTimes(2)
+    // After all unwinding, external store must have zero listeners.
+    expect(ext.listenerCount()).toBe(0)
+
+    // _watches must not be stuck: a fresh subscribe re-activates.
+    const sub2 = atom.subscribe(() => {})
+    expect(activate).toHaveBeenCalledTimes(3)
+    expect(ext.listenerCount()).toBe(1)
+    sub2.unsubscribe()
+    expect(ext.listenerCount()).toBe(0)
+  })
+
+  test('adding a whileWatched during another effect runs it immediately', () => {
+    const atom = createAtom(0)
+    const lateEffect = vi.fn()
+    const lateCleanup = vi.fn()
+
+    atom.whileWatched(() => {
+      atom.whileWatched(() => {
+        lateEffect()
+        return lateCleanup
+      })
+    })
+
+    const sub = atom.subscribe(() => {})
+    expect(lateEffect).toHaveBeenCalledTimes(1)
+    expect(lateCleanup).not.toHaveBeenCalled()
+
+    sub.unsubscribe()
+    expect(lateCleanup).toHaveBeenCalledTimes(1)
+  })
+
+  test('many subscribers release source exactly when the last one leaves', () => {
+    const ext = makeExternalStore(0)
+    const atom = createExternalStoreAtom(ext.getSnapshot, ext.subscribe)
+
+    const subs = Array.from({ length: 20 }, () => atom.subscribe(() => {}))
+    expect(ext.listenerCount()).toBe(1)
+
+    for (let i = 0; i < subs.length - 1; i++) {
+      subs[i].unsubscribe()
+      expect(ext.listenerCount()).toBe(1)
+    }
+
+    subs[subs.length - 1].unsubscribe()
+    expect(ext.listenerCount()).toBe(0)
   })
 })

@@ -59,10 +59,22 @@ function addWatch(node: WatchableNode) {
 			deps = deps.nextDep
 		}
 
-    // 2. start/run own watch effects
+    // 2. start/run own watch effects.
+    // Assign `_watchCleanups` BEFORE invoking any effect and seed it with
+    // packed `undefined` slots (avoid `new Array(len)` which gives a holey
+    // SMI array in V8). A re-entrant `whileWatched()` during `ef()` pushes
+    // into this same array at `i >= len`, keeping indices aligned with
+    // `_watchEffects`; the outer loop writes the pre-reserved slot by index.
     const watchEffects = node._watchEffects
     if (watchEffects?.length) {
-      node._watchCleanups = watchEffects.map((ef) => ef())
+      const len = watchEffects.length
+      const cleanups: Array<(() => void) | void | undefined> = []
+      node._watchCleanups = cleanups
+      for (let i = 0; i < len; i++) cleanups.push(undefined)
+      for (let i = 0; i < len; i++) {
+        const ef = watchEffects[i]
+        if (ef) cleanups[i] = ef()
+      }
     }
   }
 }
@@ -73,17 +85,27 @@ function removeWatch(node: WatchableNode) {
 
   // On last unwatch, node becomes dead:
   if (next === 0) {
-    // 1. Clean up effects
-    // We clean up subs before we clean up their deps (no use after free)
-    node._watchCleanups?.forEach((cleanup) => cleanup?.())
+    // 1. Clean up effects.
+    // Snapshot and clear `_watchCleanups` BEFORE invoking any cleanup, so a
+    // re-entrant subscribe during cleanup sees a consistent (empty) state and
+    // can rebuild cleanups into a fresh array via addWatch.
+    const cleanups = node._watchCleanups
     node._watchCleanups = undefined
+    if (cleanups) {
+      for (let i = cleanups.length - 1; i >= 0; i--) {
+        cleanups[i]?.()
+      }
+    }
 
-    // 2. propagate unwatch to deps
+    // 2. propagate unwatch to deps.
+    // Capture `prevDep` BEFORE recursing, so cleanups that mutate the dep
+    // list can't redirect our traversal.
     let deps = node.depsTail
-		while (deps !== undefined) {
-			removeWatch(deps.dep)
-			deps = deps.prevDep
-		}
+    while (deps !== undefined) {
+      const prev = deps.prevDep
+      removeWatch(deps.dep)
+      deps = prev
+    }
   }
 }
 
@@ -503,6 +525,7 @@ function effect<T>(fn: () => T): Effect {
       this.flags = ReactiveFlags.None
       this.depsTail = undefined
       purgeDeps(this)
+      removeWatch(this)
     },
   }
 
