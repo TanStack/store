@@ -33,6 +33,29 @@ describe('createExternalStoreAtom', () => {
     expect(ext.listenerCount()).toBe(0)
   })
 
+  test('unobserved .get() does not activate the external subscription', () => {
+    const ext = makeExternalStore(7)
+    const atom = createExternalStoreAtom(ext.getSnapshot, ext.subscribe)
+
+    expect(atom.get()).toBe(7)
+    expect(ext.listenerCount()).toBe(0)
+
+    atom.get()
+    atom.get()
+    expect(ext.listenerCount()).toBe(0)
+  })
+
+  test('unobserved chain read through derived atoms does not activate', async () => {
+    const { createAtom } = await import('../src')
+    const ext = makeExternalStore(1)
+    const a = createExternalStoreAtom(ext.getSnapshot, ext.subscribe)
+    const b = createAtom(() => a.get() * 2)
+    const c = createAtom(() => `${b.get()} dogs`)
+
+    expect(c.get()).toBe('2 dogs')
+    expect(ext.listenerCount()).toBe(0)
+  })
+
   test('subscribes on first atom subscriber; unsubscribes on last', () => {
     const ext = makeExternalStore(0)
     const atom = createExternalStoreAtom(ext.getSnapshot, ext.subscribe)

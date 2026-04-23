@@ -30,13 +30,18 @@ export function toObserver<T>(
 export type WatchedEffect = () => (() => void) | void | undefined
 
 interface WatchableNode extends ReactiveNode {
+  /**
+   * Reference count: number of direct subs that are alive
+   * When >0, the node is "alive" and its watch effects should be running
+   * When =0, the node is "dead", and its watch effects should be stopped
+   */
   _watches?: number
   _watchEffects?: Array<WatchedEffect>
   _watchCleanups?:  Array<(() => void) | void | undefined>
 }
 
-function getWatchCount(node: WatchableNode): number {
-  return node._watches || (node.flags & ReactiveFlags.Watching) ? 1 : 0
+function isWatched(node: WatchableNode): boolean {
+  return !!node._watches
 }
 
 function addWatch(node: WatchableNode) {
@@ -54,7 +59,7 @@ function addWatch(node: WatchableNode) {
 			deps = deps.nextDep
 		}
 
-    // 2. start/run watch effects
+    // 2. start/run own watch effects
     const watchEffects = node._watchEffects
     if (watchEffects?.length) {
       node._watchCleanups = watchEffects.map((ef) => ef())
@@ -82,7 +87,11 @@ function removeWatch(node: WatchableNode) {
   }
 }
 
-export function whileWatched(node: WatchableNode, fn: WatchedEffect) {
+/**
+ * Causes `fn` to be called when `node` becomes gains its first live subscriber.
+ * If `fn` returns a cleanup function, it will be called when `node` loses its last live subscriber.
+ */
+export function whiteWatched(node: WatchableNode, fn: WatchedEffect) {
   const initialEffects = (node._watchEffects ??= [])
   initialEffects.push(fn)
   if (node._watches) {
@@ -157,14 +166,6 @@ const { link: _link, unlink: _unlink, propagate, checkDirty, shallowPropagate } 
       effect.flags &= ~ReactiveFlags.Watching
     },
     unwatched(atom: InternalAtom<any>): void {
-      atom._watched = false
-      // not sure if this should go above or below the deps purge
-      // preorder vs postorder
-      if (atom._watchedCleanups?.length) {
-        atom._watchedCleanups.forEach((cleanup) => cleanup?.())
-        atom._watchedCleanups.length = 0
-      }
-
       if (atom.depsTail !== undefined) {
         atom.depsTail = undefined
         atom.flags = ReactiveFlags.Mutable | ReactiveFlags.Dirty
@@ -178,7 +179,7 @@ function link(dep: ReactiveNode, sub: ReactiveNode, version: number) {
   _link(dep, sub, version)
   const newTail = dep.subsTail
 
-  if (newTail && newTail !== originalTail && getWatchCount(sub)) {
+  if (newTail && newTail !== originalTail && isWatched(sub)) {
     // Propagate watch liveness from sub -> dep
     addWatch(dep)
   }
@@ -191,7 +192,7 @@ function unlink(
   sub: ReactiveNode = link.sub
 ): Link | undefined {
   const dep = link.dep
-  if (getWatchCount(sub)) {
+  if (isWatched(sub)) {
     // Revoke liveness from this sub on dep when unlinked
     removeWatch(dep)
   }
@@ -374,21 +375,7 @@ export function createAtom<T>(
     },
 
     whileWatched(listener: WatchedEffect): () => void {
-      atom._watchedSubs ??= []
-      atom._watchedSubs.push(listener)
-      if (atom._watched) {
-        atom._watchedCleanups ??= []
-        atom._watchedCleanups.push(listener())
-      }
-      return () => {
-        if (!atom._watchedSubs) {
-          return
-        }
-        const index = atom._watchedSubs.indexOf(listener)
-        if (index !== -1) {
-          atom._watchedSubs.splice(index, 1)
-        }
-      }
+      return whiteWatched(this, listener)
     },
 
     _update(getValue?: T | ((snapshot: T) => T)): boolean {
@@ -471,6 +458,7 @@ export function createAtom<T>(
 }
 
 interface Effect extends ReactiveNode {
+  _watches: number
   notify: () => void
   stop: () => void
 }
@@ -496,6 +484,8 @@ function effect<T>(fn: () => T): Effect {
     subs: undefined,
     subsTail: undefined,
     flags: ReactiveFlags.Watching | ReactiveFlags.RecursedCheck,
+    // Effects are the source of liveness - they are created alive
+    _watches: 1,
 
     notify(): void {
       const flags = this.flags
