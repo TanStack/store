@@ -106,6 +106,8 @@ function removeWatch(node: WatchableNode) {
       removeWatch(deps.dep)
       deps = prev
     }
+  } else if (next < 0) {
+    throw new Error(`Unbalanced watch/unwatch led to negative watch count on ReactiveNode: ${next}`)
   }
 }
 
