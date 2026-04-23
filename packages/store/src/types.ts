@@ -1,3 +1,4 @@
+import type { WatchedEffect } from './atom'
 import type { ReactiveNode } from './alien'
 
 export type Selection<TSelected> = Readable<TSelected>
@@ -30,7 +31,36 @@ export interface Readable<T> extends Subscribable<T> {
   get: () => T
 }
 
-export interface BaseAtom<T> extends Subscribable<T>, Readable<T> {}
+export interface BaseAtom<T> extends Subscribable<T>, Readable<T> {
+  /**
+   * `effect` will be called when the first subscriber is added. `effect`
+   * may return a cleanup function, which will be called when the atom is
+   * unwatched.
+   *
+   * Returns a `cleanup` function which removes the `whileWatched` listener.
+   *
+   * This can be used to sync external resources into the atom, similar to
+   * `useLayoutEffect` in React.
+   *
+   * ```ts
+   * function createTicker(ms: number) {
+   *   const now = createAtom(Date.now())
+   *   const refresh = () => now.set(Date.now())
+   *   now.whileWatched(() => {
+   *     refresh()
+   *     const interval = setInterval(refresh, ms)
+   *     return () => clearInterval(interval)
+   *   })
+   *   return createAtom(() => now.get())
+   * }
+   * const ticker = createTicker(1000)
+   * ticker.subscribe(() => {
+   *   console.log('current time: ', ticker.get())
+   * })
+   * ```
+   */
+  whileWatched: (effect: WatchedEffect) => () => void
+}
 
 export interface InternalBaseAtom<T> extends Subscribable<T>, Readable<T> {
   /** @internal */
