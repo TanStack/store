@@ -320,17 +320,24 @@ describe('whileWatched', () => {
 
   test('adding a whileWatched during another effect runs it immediately', () => {
     const atom = createAtom(0)
+    const outerEffect = vi.fn()
     const lateEffect = vi.fn()
     const lateCleanup = vi.fn()
 
     atom.whileWatched(() => {
+      outerEffect()
       atom.whileWatched(() => {
         lateEffect()
         return lateCleanup
       })
     })
 
+    // whileWatched should not have started the effect immediately
+    expect(outerEffect).not.toHaveBeenCalled()
+    expect(lateEffect).not.toHaveBeenCalled()
+
     const sub = atom.subscribe(() => {})
+    expect(outerEffect).toHaveBeenCalledTimes(1)
     expect(lateEffect).toHaveBeenCalledTimes(1)
     expect(lateCleanup).not.toHaveBeenCalled()
 
