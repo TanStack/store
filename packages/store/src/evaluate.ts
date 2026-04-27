@@ -1,4 +1,8 @@
-export function evaluate<T>(objA: T, objB: T, config?: {depth: 'shallow'| 'deep'}) {
+export function evaluate<T>(
+  objA: T,
+  objB: T,
+  config?: { depth: 'shallow' | 'deep' },
+) {
   if (Object.is(objA, objB)) {
     return true
   }
