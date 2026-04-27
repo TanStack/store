@@ -173,11 +173,21 @@ describe('evaluate', () => {
   it('should not throw a runtime error when File is undefined in the environment', () => {
     vi.stubGlobal('File', undefined)
 
-    const file1 = { name: 'hello.txt', size: 5, type: 'text/plain', lastModified: 0 }
-    const file2 = { name: 'hello.txt', size: 5, type: 'text/plain', lastModified: 0 }
+    const file1 = {
+      name: 'hello.txt',
+      size: 5,
+      type: 'text/plain',
+      lastModified: 0,
+    }
+    const file2 = {
+      name: 'hello.txt',
+      size: 5,
+      type: 'text/plain',
+      lastModified: 0,
+    }
 
     expect(() => evaluate(file1, file2)).not.toThrow()
-    
+
     vi.unstubAllGlobals()
   })
 })
