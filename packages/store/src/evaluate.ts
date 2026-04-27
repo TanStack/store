@@ -1,4 +1,4 @@
-export function evaluate<T>(objA: T, objB: T) {
+export function evaluate<T>(objA: T, objB: T, config?: {depth: 'shallow'| 'deep'}) {
   if (Object.is(objA, objB)) {
     return true
   }
@@ -43,6 +43,10 @@ export function evaluate<T>(objA: T, objB: T) {
       if (!objB.has(v)) return false
     }
     return true
+  }
+
+  if (Object.getPrototypeOf(objA) !== Object.getPrototypeOf(objB)) {
+    return false
   }
 
   const keysA = Object.keys(objA as object)

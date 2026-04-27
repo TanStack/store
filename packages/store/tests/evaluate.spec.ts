@@ -170,6 +170,15 @@ describe('evaluate', () => {
     expect(evaluate({ file: file1 }, { file: fileDiffName })).toEqual(false)
   })
 
+  it('should return false for runtime cross-type comparisons', () => {
+    expect(evaluate<any>(new Date(), new Map())).toEqual(false)
+    expect(evaluate<any>(new Date(), new Set())).toEqual(false)
+    expect(evaluate<any>(new Map(), new Set())).toEqual(false)
+    expect(evaluate<any>(new Date(), {})).toEqual(false)
+    expect(evaluate<any>(new Map(), {})).toEqual(false)
+    expect(evaluate<any>(new Set(), {})).toEqual(false)
+  })
+
   it('should not throw a runtime error when File is undefined in the environment', () => {
     vi.stubGlobal('File', undefined)
 
