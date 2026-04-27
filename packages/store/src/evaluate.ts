@@ -16,7 +16,11 @@ export function evaluate<T>(objA: T, objB: T) {
     return objA.getTime() === objB.getTime()
   }
 
-  if (objA instanceof File && objB instanceof File) {
+  if (
+    typeof File !== 'undefined' &&
+    objA instanceof File &&
+    objB instanceof File
+  ) {
     return (
       objA.name === objB.name &&
       objA.size === objB.size &&

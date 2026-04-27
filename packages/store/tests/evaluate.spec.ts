@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { evaluate } from '../src/evaluate'
 
 describe('evaluate', () => {
@@ -168,5 +168,16 @@ describe('evaluate', () => {
 
     expect(evaluate({ file: file1 }, { file: file2 })).toEqual(true)
     expect(evaluate({ file: file1 }, { file: fileDiffName })).toEqual(false)
+  })
+
+  it('should not throw a runtime error when File is undefined in the environment', () => {
+    vi.stubGlobal('File', undefined)
+
+    const file1 = { name: 'hello.txt', size: 5, type: 'text/plain', lastModified: 0 }
+    const file2 = { name: 'hello.txt', size: 5, type: 'text/plain', lastModified: 0 }
+
+    expect(() => evaluate(file1, file2)).not.toThrow()
+    
+    vi.unstubAllGlobals()
   })
 })
