@@ -187,8 +187,14 @@ describe('evaluate', () => {
     })
 
     it('should test equality between File objects', () => {
-      const file1 = new File(['hello'], 'hello.txt', { type: 'text/plain', lastModified: 0 })
-      const file2 = new File(['hello'], 'hello.txt', { type: 'text/plain', lastModified: 0 })
+      const file1 = new File(['hello'], 'hello.txt', {
+        type: 'text/plain',
+        lastModified: 0,
+      })
+      const file2 = new File(['hello'], 'hello.txt', {
+        type: 'text/plain',
+        lastModified: 0,
+      })
       const fileDiffName = new File(['hello'], 'world.txt', {
         type: 'text/plain',
         lastModified: 0,
@@ -411,8 +417,14 @@ describe('evaluate', () => {
     })
 
     it('should test equality between File objects', () => {
-      const file1 = new File(['hello'], 'hello.txt', { type: 'text/plain', lastModified: 0 })
-      const file2 = new File(['hello'], 'hello.txt', { type: 'text/plain', lastModified: 0 })
+      const file1 = new File(['hello'], 'hello.txt', {
+        type: 'text/plain',
+        lastModified: 0,
+      })
+      const file2 = new File(['hello'], 'hello.txt', {
+        type: 'text/plain',
+        lastModified: 0,
+      })
       const fileDiffName = new File(['hello'], 'world.txt', {
         type: 'text/plain',
         lastModified: 0,
