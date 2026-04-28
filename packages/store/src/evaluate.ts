@@ -94,12 +94,13 @@ function _evaluate<T>(
     return true
   }
 
+  // guards against runtime cross type evaluation
   if (Object.getPrototypeOf(objA) !== Object.getPrototypeOf(objB)) {
     return false
   }
 
-  const keysA = Object.keys(objA as object)
-  const keysB = Object.keys(objB as object)
+  const keysA = getOwnKeys(objA as object)
+  const keysB = getOwnKeys(objB as object)
 
   if (keysA.length !== keysB.length) {
     return false
@@ -128,4 +129,10 @@ function _evaluate<T>(
   }
 
   return true
+}
+
+function getOwnKeys(obj: object): Array<string | symbol> {
+  return (Object.keys(obj) as Array<string | symbol>).concat(
+    Object.getOwnPropertySymbols(obj),
+  )
 }
