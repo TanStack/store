@@ -39,6 +39,11 @@ function _evaluate<T>(
     seenB.add(objB as object)
   }
 
+  // guards against runtime cross type evaluation
+  if (Object.getPrototypeOf(objA) !== Object.getPrototypeOf(objB)) {
+    return false
+  }
+
   if (objA instanceof Date && objB instanceof Date) {
     return objA.getTime() === objB.getTime()
   }
@@ -92,11 +97,6 @@ function _evaluate<T>(
     }
 
     return true
-  }
-
-  // guards against runtime cross type evaluation
-  if (Object.getPrototypeOf(objA) !== Object.getPrototypeOf(objB)) {
-    return false
   }
 
   const keysA = getOwnKeys(objA as object)

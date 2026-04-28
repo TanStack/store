@@ -28,6 +28,41 @@ describe('evaluate', () => {
     expect(compare<any>(new Set(), {})).toEqual(false)
   })
 
+  it('should return false when comparing a subclass instance to a base class instance', () => {
+    class ExtendedMap extends Map {}
+    class ExtendedSet extends Set {}
+    class ExtendedDate extends Date {}
+
+    // subclass vs base class, different prototypes, never equal
+    expect(compare<any>(new ExtendedMap(), new Map())).toEqual(false)
+    expect(compare<any>(new Map(), new ExtendedMap())).toEqual(false)
+    expect(compare<any>(new ExtendedSet(), new Set())).toEqual(false)
+    expect(compare<any>(new Set(), new ExtendedSet())).toEqual(false)
+    expect(compare<any>(new ExtendedDate(), new Date())).toEqual(false)
+    expect(compare<any>(new Date(), new ExtendedDate())).toEqual(false)
+
+    // two instances of the same subclass with equal contents are equal
+    expect(compare<any>(new ExtendedMap(), new ExtendedMap())).toEqual(true)
+    expect(compare<any>(new ExtendedSet(), new ExtendedSet())).toEqual(true)
+
+    // same checks hold in deep mode
+    expect(
+      compare<any>(new ExtendedMap(), new Map(), { mode: 'deep' }),
+    ).toEqual(false)
+    expect(
+      compare<any>(new ExtendedSet(), new Set(), { mode: 'deep' }),
+    ).toEqual(false)
+    expect(
+      compare<any>(new ExtendedDate(), new Date(), { mode: 'deep' }),
+    ).toEqual(false)
+    expect(
+      compare<any>(new ExtendedMap(), new ExtendedMap(), { mode: 'deep' }),
+    ).toEqual(true)
+    expect(
+      compare<any>(new ExtendedSet(), new ExtendedSet(), { mode: 'deep' }),
+    ).toEqual(true)
+  })
+
   it('should not throw a runtime error when File is undefined in the environment', () => {
     vi.stubGlobal('File', undefined)
 
