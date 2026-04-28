@@ -2,7 +2,16 @@ export function evaluate<T>(
   objA: T,
   objB: T,
   config: { mode: 'shallow' | 'deep' } = { mode: 'shallow' },
-) {
+): boolean {
+  return _evaluate(objA, objB, config, new WeakMap())
+}
+
+function _evaluate<T>(
+  objA: T,
+  objB: T,
+  config: { mode: 'shallow' | 'deep' },
+  seen: WeakMap<object, WeakSet<object>>,
+): boolean {
   if (Object.is(objA, objB)) {
     return true
   }
@@ -14,6 +23,20 @@ export function evaluate<T>(
     objB === null
   ) {
     return false
+  }
+
+  // guards against circular references
+  if (config.mode === 'deep') {
+    let seenB = seen.get(objA as object)
+
+    if (seenB?.has(objB as object)) return true
+
+    if (!seenB) {
+      seenB = new WeakSet()
+      seen.set(objA as object, seenB)
+    }
+
+    seenB.add(objB as object)
   }
 
   if (objA instanceof Date && objB instanceof Date) {
@@ -38,7 +61,8 @@ export function evaluate<T>(
 
     if (config.mode === 'deep') {
       for (const [k, v] of objA) {
-        if (!objB.has(k) || !evaluate(v, objB.get(k), config)) return false
+        if (!objB.has(k) || !_evaluate(v, objB.get(k), config, seen))
+          return false
       }
     }
 
@@ -56,7 +80,8 @@ export function evaluate<T>(
 
     if (config.mode === 'deep') {
       for (const v of objA) {
-        if (![...objB].some((bv) => evaluate(v, bv, config))) return false
+        if (![...objB].some((bv) => _evaluate(v, bv, config, seen)))
+          return false
       }
     }
 
@@ -83,8 +108,8 @@ export function evaluate<T>(
   if (config.mode === 'deep') {
     for (const key of keysA) {
       if (
-        !keysB.includes(key) ||
-        !evaluate(objA[key as keyof T], objB[key as keyof T], config)
+        !Object.prototype.hasOwnProperty.call(objB, key) ||
+        !_evaluate(objA[key as keyof T], objB[key as keyof T], config, seen)
       ) {
         return false
       }
@@ -94,7 +119,7 @@ export function evaluate<T>(
   if (config.mode === 'shallow') {
     for (const key of keysA) {
       if (
-        !keysB.includes(key) ||
+        !Object.prototype.hasOwnProperty.call(objB, key) ||
         !Object.is(objA[key as keyof T], objB[key as keyof T])
       ) {
         return false

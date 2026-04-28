@@ -417,5 +417,20 @@ describe('evaluate', () => {
         evaluate({ file: file1 }, { file: fileDiffName }, { mode: 'deep' }),
       ).toEqual(false)
     })
+
+    it('should handle circular references', () => {
+      const a: any = { x: 1 }
+      a.self = a
+
+      const b: any = { x: 1 }
+      b.self = b
+
+      expect(() => evaluate(a, b, { mode: 'deep' })).not.toThrow()
+      expect(evaluate(a, b, { mode: 'deep' })).toEqual(true)
+
+      const c: any = { x: 2 }
+      c.self = c
+      expect(evaluate(a, c, { mode: 'deep' })).toEqual(false)
+    })
   })
 })
