@@ -1,18 +1,18 @@
 ---
-id: evaluate
-title: evaluate
+id: compare
+title: compare
 ---
 
-# Function: evaluate()
+# Function: compare()
 
 ```ts
-function evaluate<T>(
+function compare<T>(
    objA, 
    objB, 
    config): boolean;
 ```
 
-Defined in: [evaluate.ts:1](https://github.com/TanStack/store/blob/main/packages/store/src/evaluate.ts#L1)
+Defined in: [compare.ts:1](https://github.com/TanStack/store/blob/main/packages/store/src/compare.ts#L1)
 
 ## Type Parameters
 
