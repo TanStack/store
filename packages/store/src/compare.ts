@@ -1,4 +1,4 @@
-export function evaluate<T>(
+export function compare<T>(
   objA: T,
   objB: T,
   config: { mode: 'shallow' | 'deep' } = { mode: 'shallow' },
