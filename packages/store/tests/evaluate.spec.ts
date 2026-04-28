@@ -44,9 +44,11 @@ describe('evaluate', () => {
       lastModified: 0,
     }
 
-    expect(() => evaluate(file1, file2)).not.toThrow()
-
-    vi.unstubAllGlobals()
+    try {
+      expect(() => evaluate(file1, file2)).not.toThrow()
+    } finally {
+      vi.unstubAllGlobals()
+    }
   })
 
   describe('shallow', () => {
@@ -209,8 +211,12 @@ describe('evaluate', () => {
     it('should test equality between objects with Symbol keys', () => {
       const sym = Symbol('id')
 
-      expect(evaluate({ [sym]: 1, name: 'foo' }, { [sym]: 1, name: 'foo' })).toEqual(true)
-      expect(evaluate({ [sym]: 1, name: 'foo' }, { [sym]: 2, name: 'foo' })).toEqual(false)
+      expect(
+        evaluate({ [sym]: 1, name: 'foo' }, { [sym]: 1, name: 'foo' }),
+      ).toEqual(true)
+      expect(
+        evaluate({ [sym]: 1, name: 'foo' }, { [sym]: 2, name: 'foo' }),
+      ).toEqual(false)
       expect(evaluate({ [sym]: 1 } as any, {} as any)).toEqual(false)
       expect(evaluate({} as any, { [sym]: 1 } as any)).toEqual(false)
     })
@@ -430,10 +436,34 @@ describe('evaluate', () => {
     it('should test equality between objects with Symbol keys', () => {
       const sym = Symbol('id')
 
-      expect(evaluate({ [sym]: 1, name: 'foo' }, { [sym]: 1, name: 'foo' }, { mode: 'deep' })).toEqual(true)
-      expect(evaluate({ [sym]: 1, name: 'foo' }, { [sym]: 2, name: 'foo' }, { mode: 'deep' })).toEqual(false)
-      expect(evaluate({ [sym]: { nested: true } } as any, { [sym]: { nested: true } } as any, { mode: 'deep' })).toEqual(true)
-      expect(evaluate({ [sym]: { nested: true } } as any, { [sym]: { nested: false } } as any, { mode: 'deep' })).toEqual(false)
+      expect(
+        evaluate(
+          { [sym]: 1, name: 'foo' },
+          { [sym]: 1, name: 'foo' },
+          { mode: 'deep' },
+        ),
+      ).toEqual(true)
+      expect(
+        evaluate(
+          { [sym]: 1, name: 'foo' },
+          { [sym]: 2, name: 'foo' },
+          { mode: 'deep' },
+        ),
+      ).toEqual(false)
+      expect(
+        evaluate(
+          { [sym]: { nested: true } } as any,
+          { [sym]: { nested: true } } as any,
+          { mode: 'deep' },
+        ),
+      ).toEqual(true)
+      expect(
+        evaluate(
+          { [sym]: { nested: true } } as any,
+          { [sym]: { nested: false } } as any,
+          { mode: 'deep' },
+        ),
+      ).toEqual(false)
     })
 
     it('should handle circular references', () => {
