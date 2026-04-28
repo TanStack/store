@@ -38,6 +38,7 @@ title: "@tanstack/store"
 - [createAsyncAtom](functions/createAsyncAtom.md)
 - [createAtom](functions/createAtom.md)
 - [createStore](functions/createStore.md)
+- [evaluate](functions/evaluate.md)
 - [flush](functions/flush.md)
 - [shallow](functions/shallow.md)
 - [toObserver](functions/toObserver.md)
