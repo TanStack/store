@@ -49,7 +49,7 @@ Defined in: [packages/angular-store/src/injectSelector.ts:15](https://github.com
 optional debugName: string;
 ```
 
-Defined in: node\_modules/.pnpm/@angular+core@21.2.8\_@angular+compiler@21.2.8\_rxjs@7.8.2\_zone.js@0.16.1/node\_modules/@angular/core/types/\_chrome\_dev\_tools\_performance-chunk.d.ts:54
+Defined in: node\_modules/.pnpm/@angular+core@21.2.11\_@angular+compiler@21.2.11\_rxjs@7.8.2\_zone.js@0.16.1/node\_modules/@angular/core/types/\_chrome\_dev\_tools\_performance-chunk.d.ts:54
 
 A debug name for the signal. Used in Angular DevTools to identify the signal.
 
