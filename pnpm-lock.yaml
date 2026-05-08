@@ -343,7 +343,7 @@ importers:
   examples/preact/atoms:
     dependencies:
       '@tanstack/preact-store':
-        specifier: ^0.13.0
+        specifier: ^0.13.1
         version: link:../../../packages/preact-store
       preact:
         specifier: ^10.29.1
@@ -371,7 +371,7 @@ importers:
   examples/preact/simple:
     dependencies:
       '@tanstack/preact-store':
-        specifier: ^0.13.0
+        specifier: ^0.13.1
         version: link:../../../packages/preact-store
       preact:
         specifier: ^10.29.1
@@ -399,7 +399,7 @@ importers:
   examples/preact/store-actions:
     dependencies:
       '@tanstack/preact-store':
-        specifier: ^0.13.0
+        specifier: ^0.13.1
         version: link:../../../packages/preact-store
       preact:
         specifier: ^10.29.1
@@ -427,7 +427,7 @@ importers:
   examples/preact/store-context:
     dependencies:
       '@tanstack/preact-store':
-        specifier: ^0.13.0
+        specifier: ^0.13.1
         version: link:../../../packages/preact-store
       preact:
         specifier: ^10.29.1
@@ -455,7 +455,7 @@ importers:
   examples/preact/stores:
     dependencies:
       '@tanstack/preact-store':
-        specifier: ^0.13.0
+        specifier: ^0.13.1
         version: link:../../../packages/preact-store
       preact:
         specifier: ^10.29.1
