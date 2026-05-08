@@ -800,4 +800,45 @@ describe('shallow', () => {
     const objB = new Date('2025-02-10')
     expect(shallow(objA, objB)).toBe(true)
   })
+
+  test('should handle arrays inside of a useSelector', async () => {
+    const store = createStore({ one: 1, two: 2 })
+
+    function Comp() {
+      const values = useSelector(store, (state) => [state.one, state.two])
+
+      return (
+        <div>
+          <p>Values: {values.join(',')}</p>
+          <button
+            type="button"
+            onClick={() =>
+              store.setState((prev) => ({ ...prev, one: prev.one + 1 }))
+            }
+          >
+            Update one
+          </button>
+          <button
+            type="button"
+            onClick={() =>
+              store.setState((prev) => ({ ...prev, two: prev.two + 1 }))
+            }
+          >
+            Update two
+          </button>
+        </div>
+      )
+    }
+
+    const { getByText } = render(<Comp />)
+    expect(getByText('Values: 1,2')).toBeInTheDocument()
+
+    await user.click(getByText('Update one'))
+
+    await waitFor(() => expect(getByText('Values: 2,2')).toBeInTheDocument())
+
+    await user.click(getByText('Update two'))
+
+    await waitFor(() => expect(getByText('Values: 2,3')).toBeInTheDocument())
+  })
 })
