@@ -28,9 +28,9 @@ describe('TanStackAtom', () => {
       }
     }
 
-    defineOnce('test-atom-el', TestAtomEl)
+    const tag = defineOnce('test-atom-el', TestAtomEl)
 
-    const element = await mount<TestAtomEl>('test-atom-el')
+    const element = await mount<TestAtomEl>(tag)
 
     const getBtn = () =>
       element.shadowRoot!.querySelector<HTMLButtonElement>('#btn')

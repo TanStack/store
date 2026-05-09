@@ -25,9 +25,9 @@ describe('Lit Store Tests', async () => {
       }
     }
 
-    defineOnce('test-form', TestForm)
+    const tag = defineOnce('test-form', TestForm)
 
-    const element = await mount<TestForm>('test-form')
+    const element = await mount<TestForm>(tag)
 
     const getBtn = () =>
       element.shadowRoot!.querySelector<HTMLButtonElement>('#btn')
@@ -69,9 +69,9 @@ describe('Lit Store Tests', async () => {
       }
     }
 
-    defineOnce('test-form', TestForm)
+    const tag = defineOnce('test-form', TestForm)
 
-    const element = await mount<TestForm>('test-form')
+    const element = await mount<TestForm>(tag)
 
     const getBtn = () =>
       element.shadowRoot!.querySelector<HTMLButtonElement>('#btn')
