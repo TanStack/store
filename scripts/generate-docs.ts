@@ -82,7 +82,7 @@ await generateReferenceDocs({
       entryPoints: [resolve(__dirname, '../packages/lit-store/src/index.ts')],
       tsconfig: resolve(__dirname, '../packages/lit-store/tsconfig.docs.json'),
       outputDir: resolve(__dirname, '../docs/framework/lit/reference'),
-      exclude: ['packages/lit-store/**/*'],
+      exclude: ['packages/store/**/*'],
     },
   ],
 })
