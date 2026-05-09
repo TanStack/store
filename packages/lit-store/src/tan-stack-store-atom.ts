@@ -36,7 +36,12 @@ export class TanStackStoreAtom<TValue> {
     options?: UseSelectorOptions<TValue>,
   ) {
     this.#getAtom = getAtom
-    this.#selector = new TanStackStoreSelector(host, getAtom, undefined, options)
+    this.#selector = new TanStackStoreSelector(
+      host,
+      getAtom,
+      undefined,
+      options,
+    )
 
     this.set = this.set.bind(this)
   }
