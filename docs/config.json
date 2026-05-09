@@ -76,6 +76,15 @@
               "to": "framework/preact/quick-start"
             }
           ]
+        },
+        {
+          "label": "lit",
+          "children": [
+            {
+              "label": "Quick Start",
+              "to": "framework/lit/quick-start"
+            }
+          ]
         }
       ]
     },
@@ -626,6 +635,15 @@
             {
               "label": "Store Context",
               "to": "framework/preact/examples/store-context"
+            }
+          ]
+        },
+        {
+          "label": "lit",
+          "children": [
+            {
+              "label": "Simple",
+              "to": "framework/lit/examples/simple"
             }
           ]
         }
