@@ -14,7 +14,7 @@ import type { UseSelectorOptions } from './tan-stack-store-selector.js'
  * @example
  * ```ts
  * class CounterEl extends LitElement {
- *   #count = new TanStackAtom(this, () => countAtom)
+ *   `#count` = new TanStackStoreAtom(this, () => countAtom)
  *
  *   render() {
  *     return html`

@@ -77,7 +77,7 @@ describe('Lit Store Tests', async () => {
       element.shadowRoot!.querySelector<HTMLButtonElement>('#btn')
 
     const getIgnore = () =>
-      element.shadowRoot!.querySelector<HTMLParagraphElement>('#ignore')
+      element.shadowRoot!.querySelector<HTMLButtonElement>('#ignore')
 
     expect(getBtn()).toHaveTextContent('0')
     expect(getIgnore()).toHaveTextContent('1')
