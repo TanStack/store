@@ -76,6 +76,15 @@
               "to": "framework/preact/quick-start"
             }
           ]
+        },
+        {
+          "label": "lit",
+          "children": [
+            {
+              "label": "Quick Start",
+              "to": "framework/lit/quick-start"
+            }
+          ]
         }
       ]
     },
@@ -139,6 +148,15 @@
             {
               "label": "Preact Hooks",
               "to": "framework/preact/reference/index"
+            }
+          ]
+        },
+        {
+          "label": "lit",
+          "children": [
+            {
+              "label": "Lit Reactive Controllers",
+              "to": "framework/lit/reference/index"
             }
           ]
         }
@@ -472,6 +490,23 @@
               "to": "framework/preact/reference/interfaces/UseSelectorOptions"
             }
           ]
+        },
+        {
+          "label": "lit",
+          "children": [
+            {
+              "label": "TanStackStoreSelector",
+              "to": "framework/lit/reference/classes/TanStackStoreSelector"
+            },
+            {
+              "label": "TanStackStoreAtom",
+              "to": "framework/lit/reference/classes/TanStackStoreAtom"
+            },
+            {
+              "label": "UseSelectorOptions",
+              "to": "framework/lit/reference/interfaces/UseSelectorOptions"
+            }
+          ]
         }
       ]
     },
@@ -626,6 +661,15 @@
             {
               "label": "Store Context",
               "to": "framework/preact/examples/store-context"
+            }
+          ]
+        },
+        {
+          "label": "lit",
+          "children": [
+            {
+              "label": "Simple",
+              "to": "framework/lit/examples/simple"
             }
           ]
         }
