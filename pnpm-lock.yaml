@@ -340,6 +340,19 @@ importers:
         specifier: ^6.0.2
         version: 6.0.2
 
+  examples/lit/simple:
+    dependencies:
+      '@tanstack/lit-store':
+        specifier: ^0.13.1
+        version: link:../../../packages/lit-store
+      lit:
+        specifier: ^3.3.1
+        version: 3.3.2
+    devDependencies:
+      vite:
+        specifier: ^7.2.2
+        version: 7.3.2(@types/node@25.6.0)(jiti@2.6.1)(less@4.6.4)(lightningcss@1.32.0)(sass@1.98.0)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.3)
+
   examples/preact/atoms:
     dependencies:
       '@tanstack/preact-store':
@@ -17778,6 +17791,25 @@ snapshots:
       tsx: 4.21.0
       yaml: 2.8.3
     optional: true
+
+  vite@7.3.2(@types/node@25.6.0)(jiti@2.6.1)(less@4.6.4)(lightningcss@1.32.0)(sass@1.98.0)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.3):
+    dependencies:
+      esbuild: 0.27.4
+      fdir: 6.5.0(picomatch@4.0.4)
+      picomatch: 4.0.4
+      postcss: 8.5.8
+      rollup: 4.60.1
+      tinyglobby: 0.2.16
+    optionalDependencies:
+      '@types/node': 25.6.0
+      fsevents: 2.3.3
+      jiti: 2.6.1
+      less: 4.6.4
+      lightningcss: 1.32.0
+      sass: 1.98.0
+      terser: 5.46.0
+      tsx: 4.21.0
+      yaml: 2.8.3
 
   vite@8.0.8(@types/node@25.6.0)(esbuild@0.27.4)(jiti@2.6.1)(less@4.6.4)(sass@1.98.0)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.3):
     dependencies:
