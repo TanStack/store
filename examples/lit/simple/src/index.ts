@@ -1,9 +1,6 @@
 import { LitElement, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import {
-  TanStackStoreSelector,
-  createStore,
-} from '@tanstack/lit-store'
+import { TanStackStoreSelector, createStore } from '@tanstack/lit-store'
 
 // You can instantiate a Store outside of Lit components too!
 export const store = createStore({
