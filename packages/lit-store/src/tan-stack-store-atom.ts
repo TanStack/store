@@ -28,7 +28,6 @@ import type { UseSelectorOptions } from './tan-stack-store-selector.js'
  */
 export class TanStackStoreAtom<TValue> {
   #getAtom: () => Atom<TValue> | undefined
-  #selector: TanStackStoreSelector<TValue, TValue>
 
   constructor(
     host: ReactiveControllerHost,
@@ -36,7 +35,7 @@ export class TanStackStoreAtom<TValue> {
     options?: UseSelectorOptions<TValue>,
   ) {
     this.#getAtom = getAtom
-    this.#selector = new TanStackStoreSelector(
+    new TanStackStoreSelector(
       host,
       getAtom,
       undefined,
