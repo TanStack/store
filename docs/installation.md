@@ -52,3 +52,11 @@ npm install @tanstack/svelte-store
 ```
 
 TanStack Store is compatible with Svelte 5.
+
+## Lit
+
+```sh
+npm install @tanstack/lit-store
+```
+
+TanStack Store is compatible with Lit 3.

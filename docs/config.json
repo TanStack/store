@@ -27,7 +27,7 @@
           "label": "react",
           "children": [
             {
-              "label": "Quick Start",
+              "label": "Quick Start - React",
               "to": "framework/react/quick-start"
             }
           ]
@@ -36,7 +36,7 @@
           "label": "vue",
           "children": [
             {
-              "label": "Quick Start",
+              "label": "Quick Start - Vue",
               "to": "framework/vue/quick-start"
             }
           ]
@@ -45,7 +45,7 @@
           "label": "solid",
           "children": [
             {
-              "label": "Quick Start",
+              "label": "Quick Start - Solid",
               "to": "framework/solid/quick-start"
             }
           ]
@@ -54,7 +54,7 @@
           "label": "angular",
           "children": [
             {
-              "label": "Quick Start",
+              "label": "Quick Start - Angular",
               "to": "framework/angular/quick-start"
             }
           ]
@@ -63,7 +63,7 @@
           "label": "svelte",
           "children": [
             {
-              "label": "Quick Start",
+              "label": "Quick Start - Svelte",
               "to": "framework/svelte/quick-start"
             }
           ]
@@ -72,7 +72,7 @@
           "label": "preact",
           "children": [
             {
-              "label": "Quick Start",
+              "label": "Quick Start - Preact",
               "to": "framework/preact/quick-start"
             }
           ]
@@ -81,7 +81,7 @@
           "label": "lit",
           "children": [
             {
-              "label": "Quick Start",
+              "label": "Quick Start - Lit",
               "to": "framework/lit/quick-start"
             }
           ]
