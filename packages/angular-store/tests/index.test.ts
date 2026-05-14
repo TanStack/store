@@ -1,7 +1,17 @@
 import { describe, expect, test } from 'vitest'
-import { Component, effect } from '@angular/core'
+import {
+  Component,
+  computed,
+  effect,
+  input,
+  inputBinding,
+  isSignal,
+  signal,
+  untracked,
+} from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
+import { render } from '@testing-library/angular'
 import { Store, createAtom, createStore } from '@tanstack/store'
 import {
   _injectStore,
@@ -11,6 +21,10 @@ import {
   injectStore,
 } from '../src/index'
 import type { Atom } from '@tanstack/store'
+
+function createStableSignal<T>(fn: () => T): () => T {
+  return computed(() => untracked(fn))
+}
 
 describe('atom hooks', () => {
   test('injectSelector reads mutable atom state and rerenders when updated', () => {
@@ -114,6 +128,34 @@ describe('atom hooks', () => {
     fixture.detectChanges()
 
     expect(fixture.nativeElement.textContent).toContain('Value: 0')
+  })
+
+  test('injectAtom supports atoms created from input signals', async () => {
+    @Component({
+      template: `<p>{{ doubled() }}</p>`,
+      standalone: true,
+    })
+    class AtomFromInputChildCmp {
+      value = input.required<number>()
+      atom = createStableSignal(() => createAtom(this.value() * 2))
+      doubled = injectAtom(this.atom)
+
+      constructor() {
+        effect(() => {
+          this.doubled.set(this.value() * 2)
+        })
+      }
+    }
+
+    const value = signal(3)
+    const { getByText, findByText } = await render(AtomFromInputChildCmp, {
+      bindings: [inputBinding('value', value)],
+    })
+
+    expect(getByText('6')).toBeInTheDocument()
+
+    value.set(4)
+    expect(await findByText('8')).toBeInTheDocument()
   })
 })
 
@@ -364,6 +406,32 @@ describe('selector hooks', () => {
       fixture.debugElement.query(By.css('p#derived')).nativeElement.textContent,
     ).toContain('2')
   })
+
+  test('injectSelector supports selectors that read input signals', async () => {
+    const selectorReadsInputStore = createStore({ cats: 2, dogs: 4 })
+
+    @Component({
+      template: `<p>{{ count() }}</p>`,
+      standalone: true,
+    })
+    class SelectorReadsInputChildCmp {
+      animal = input.required<'cats' | 'dogs'>()
+      count = injectSelector(
+        selectorReadsInputStore,
+        (state) => state[this.animal()],
+      )
+    }
+
+    const animal = signal<'cats' | 'dogs'>('cats')
+    const { getByText, findByText } = await render(SelectorReadsInputChildCmp, {
+      bindings: [inputBinding('animal', animal)],
+    })
+
+    expect(getByText('2')).toBeInTheDocument()
+
+    animal.set('dogs')
+    expect(await findByText('4')).toBeInTheDocument()
+  })
 })
 
 describe('injectStore', () => {
@@ -429,6 +497,14 @@ describe('dataType', () => {
 })
 
 describe('_injectStore', () => {
+  test('return value passes isSignal (proxies the selector signal)', () => {
+    TestBed.runInInjectionContext(() => {
+      const store = createStore(0)
+      const slice = _injectStore(store, (s) => s)
+      expect(isSignal(slice)).toBe(true)
+    })
+  })
+
   test('returns selected state and actions for stores with actions', () => {
     const store = createStore({ count: 0 }, ({ setState }) => ({
       inc: () => setState((prev) => ({ count: prev.count + 1 })),
@@ -444,12 +520,10 @@ describe('_injectStore', () => {
       standalone: true,
     })
     class MyCmp {
-      private result = _injectStore(store, (state) => state.count)
-      count = this.result[0]
-      actions = this.result[1]
+      protected count = _injectStore(store, (state) => state.count)
 
       inc() {
-        this.actions.inc()
+        this.count.inc()
       }
     }
 
@@ -483,12 +557,10 @@ describe('_injectStore', () => {
       standalone: true,
     })
     class MyCmp {
-      private result = _injectStore(store, (state) => state)
-      value = this.result[0]
-      setState = this.result[1]
+      protected value = _injectStore(store, (state) => state)
 
       inc() {
-        this.setState((prev) => prev + 1)
+        this.value.setState((prev: number) => prev + 1)
       }
     }
 
