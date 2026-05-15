@@ -75,7 +75,8 @@
     "@tanstack/solid-store": "workspace:*",
     "@tanstack/store": "workspace:*",
     "@tanstack/svelte-store": "workspace:*",
-    "@tanstack/vue-store": "workspace:*"
+    "@tanstack/vue-store": "workspace:*",
+    "@tanstack/lit-store": "workspace:*"
   },
   "pnpm": {
     "packageExtensions": {
