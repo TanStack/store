@@ -60,6 +60,9 @@ const { link, unlink, propagate, checkDirty, shallowPropagate } =
         queued[insertIndex] = left
       }
     },
+    watched(_node) {
+      // whileWatched not implemented for signal.ts
+    },
     unwatched(node) {
       if (!(node.flags & ReactiveFlags.Mutable)) {
         effectScopeOper.call(node)
