@@ -9,7 +9,7 @@ import { defineOnce, mount } from './utils'
 
 const user = userEvent.setup()
 
-describe('Lit Store Tests', async () => {
+describe('Lit Store Tests', () => {
   it('should update when a store is selected with no selector', async () => {
     const counter = createStore(0)
 
@@ -40,6 +40,38 @@ describe('Lit Store Tests', async () => {
     expect(counter.state).toBe(1)
     expect(getBtn()).toHaveTextContent('1')
   })
+
+  it('should update value setter is used', async () => {
+    const counter = createStore(0)
+
+    function add() {
+      counter.setState((prev) => prev + 1)
+    }
+
+    class TestForm extends LitElement {
+      #selector = new TanStackStoreSelector(this, () => counter)
+
+      render() {
+        return html`<button id="btn" @click=${add}>${this.#selector.value}</button>`
+      }
+    }
+
+    const tag = defineOnce('test-form', TestForm)
+
+    const element = await mount<TestForm>(tag)
+
+    const getBtn = () =>
+      element.shadowRoot!.querySelector<HTMLButtonElement>('#btn')
+
+    expect(getBtn()).toHaveTextContent('0')
+ 
+    expect(counter.state).toBe(0)
+
+    await user.click(getBtn()!)
+    expect(counter.state).toBe(1)
+    expect(getBtn()).toHaveTextContent('1')
+  })
+
 
   it('should ignore updates when a store is selected with a selector', async () => {
     const counter = createStore({ count: 0, ignore: 1 })
