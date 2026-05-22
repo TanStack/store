@@ -5,6 +5,7 @@ import { shallow } from '../src/index.svelte.js'
 import TestBaseStore from './BaseStore.test.svelte'
 import TestRerender from './Render.test.svelte'
 import TestValue from './Value.test.svelte'
+import TestProxyEquality from './ProxyEquality.test.svelte'
 
 const user = userEvent.setup()
 
@@ -26,6 +27,14 @@ describe('useSelector', () => {
 
     await user.click(getByText('Update ignored'))
     expect(getByText('Number rendered: 2')).toBeInTheDocument()
+  })
+
+  it('does not trigger re-render when selector returns same object reference', async () => {
+    const { getByText } = render(TestProxyEquality)
+    expect(getByText('Number rendered: 1')).toBeInTheDocument()
+
+    await user.click(getByText('Update ignored'))
+    expect(getByText('Number rendered: 1')).toBeInTheDocument()
   })
 
   it('useSelector reads writable and readonly store state', async () => {
