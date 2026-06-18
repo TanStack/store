@@ -52,7 +52,9 @@ describe('Lit Store Tests', () => {
       #selector = new TanStackStoreSelector(this, () => counter)
 
       render() {
-        return html`<button id="btn" @click=${add}>${this.#selector.value}</button>`
+        return html`<button id="btn" @click=${add}>
+          ${this.#selector.value}
+        </button>`
       }
     }
 
@@ -64,14 +66,13 @@ describe('Lit Store Tests', () => {
       element.shadowRoot!.querySelector<HTMLButtonElement>('#btn')
 
     expect(getBtn()).toHaveTextContent('0')
- 
+
     expect(counter.state).toBe(0)
 
     await user.click(getBtn()!)
     expect(counter.state).toBe(1)
     expect(getBtn()).toHaveTextContent('1')
   })
-
 
   it('should ignore updates when a store is selected with a selector', async () => {
     const counter = createStore({ count: 0, ignore: 1 })
