@@ -1,5 +1,11 @@
 # @tanstack/preact-store
 
+## 0.13.1
+
+### Patch Changes
+
+- useSelector handles unstable selector functions now ([#318](https://github.com/TanStack/store/pull/318))
+
 ## 0.13.0
 
 ### Minor Changes

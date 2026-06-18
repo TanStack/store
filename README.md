@@ -40,7 +40,7 @@ An immutable, reactive data store with framework adapters that powers the core o
 
 - Fine‑grained updates for performant state management
 - Flexible primitives for building custom state logic
-- Works across frameworks like React, Solid, Vue, Angular & Svelte
+- Works across frameworks like React, Solid, Vue, Angular, Svelte & Lit
 - Lightweight and standalone — use it in any app or as a library foundation
 
 ### <a href="https://tanstack.com/store">Read the docs →</b></a>

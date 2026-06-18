@@ -27,7 +27,7 @@
           "label": "react",
           "children": [
             {
-              "label": "Quick Start",
+              "label": "Quick Start - React",
               "to": "framework/react/quick-start"
             }
           ]
@@ -36,7 +36,7 @@
           "label": "vue",
           "children": [
             {
-              "label": "Quick Start",
+              "label": "Quick Start - Vue",
               "to": "framework/vue/quick-start"
             }
           ]
@@ -45,7 +45,7 @@
           "label": "solid",
           "children": [
             {
-              "label": "Quick Start",
+              "label": "Quick Start - Solid",
               "to": "framework/solid/quick-start"
             }
           ]
@@ -54,7 +54,7 @@
           "label": "angular",
           "children": [
             {
-              "label": "Quick Start",
+              "label": "Quick Start - Angular",
               "to": "framework/angular/quick-start"
             }
           ]
@@ -63,7 +63,7 @@
           "label": "svelte",
           "children": [
             {
-              "label": "Quick Start",
+              "label": "Quick Start - Svelte",
               "to": "framework/svelte/quick-start"
             }
           ]
@@ -72,8 +72,17 @@
           "label": "preact",
           "children": [
             {
-              "label": "Quick Start",
+              "label": "Quick Start - Preact",
               "to": "framework/preact/quick-start"
+            }
+          ]
+        },
+        {
+          "label": "lit",
+          "children": [
+            {
+              "label": "Quick Start - Lit",
+              "to": "framework/lit/quick-start"
             }
           ]
         }
@@ -139,6 +148,15 @@
             {
               "label": "Preact Hooks",
               "to": "framework/preact/reference/index"
+            }
+          ]
+        },
+        {
+          "label": "lit",
+          "children": [
+            {
+              "label": "Lit Reactive Controllers",
+              "to": "framework/lit/reference/index"
             }
           ]
         }
@@ -472,6 +490,23 @@
               "to": "framework/preact/reference/interfaces/UseSelectorOptions"
             }
           ]
+        },
+        {
+          "label": "lit",
+          "children": [
+            {
+              "label": "TanStackStoreSelector",
+              "to": "framework/lit/reference/classes/TanStackStoreSelector"
+            },
+            {
+              "label": "TanStackStoreAtom",
+              "to": "framework/lit/reference/classes/TanStackStoreAtom"
+            },
+            {
+              "label": "UseSelectorOptions",
+              "to": "framework/lit/reference/interfaces/UseSelectorOptions"
+            }
+          ]
         }
       ]
     },
@@ -626,6 +661,15 @@
             {
               "label": "Store Context",
               "to": "framework/preact/examples/store-context"
+            }
+          ]
+        },
+        {
+          "label": "lit",
+          "children": [
+            {
+              "label": "Simple",
+              "to": "framework/lit/examples/simple"
             }
           ]
         }

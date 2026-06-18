@@ -142,10 +142,35 @@ export function useSelector<TSource, TSelected = NoInfer<TSource>>(
 
   const getSnapshot = useCallback(() => source.get(), [source])
 
+  // Memoize the selector's output by the source snapshot so that selectors
+  // returning a fresh reference each call (e.g. `(s) => [s.one, s.two]`) still
+  // produce a stable reference for unchanged snapshots. Without this, the
+  // shim's identity-based memo would always miss and trigger an update loop.
+  const selectorMemoRef = useRef<{
+    _hasMemo: boolean
+    _snapshot: TSource | undefined
+    _selected: TSelected | undefined
+  }>({ _hasMemo: false, _snapshot: undefined, _selected: undefined })
+
+  const memoizedSelector = useCallback(
+    (snapshot: TSource): TSelected => {
+      const memo = selectorMemoRef.current
+      if (memo._hasMemo && Object.is(memo._snapshot, snapshot)) {
+        return memo._selected as TSelected
+      }
+      const next = selector(snapshot)
+      memo._hasMemo = true
+      memo._snapshot = snapshot
+      memo._selected = next
+      return next
+    },
+    [selector],
+  )
+
   return useSyncExternalStoreWithSelector(
     subscribe,
     getSnapshot,
-    selector,
+    memoizedSelector,
     compare,
   )
 }
