@@ -341,7 +341,7 @@ importers:
   examples/lit/simple:
     dependencies:
       '@tanstack/lit-store':
-        specifier: ^0.13.2
+        specifier: ^0.14.0
         version: link:../../../packages/lit-store
       lit:
         specifier: ^3.3.1
