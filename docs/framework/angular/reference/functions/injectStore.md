@@ -9,16 +9,16 @@ title: _injectStore
 function _injectStore<TState, TActions, TSelected>(
    store, 
    selector, 
-   options?): [Signal<TSelected>, [TActions] extends [never] ? (updater) => void : TActions];
+options?): WritableStoreSliceSignal<TState, TSelected, TActions>;
 ```
 
-Defined in: [packages/angular-store/src/\_injectStore.ts:24](https://github.com/TanStack/store/blob/main/packages/angular-store/src/_injectStore.ts#L24)
+Defined in: [packages/angular-store/src/\_injectStore.ts:34](https://github.com/TanStack/store/blob/main/packages/angular-store/src/_injectStore.ts#L34)
 
 Experimental combined read+write injection function for stores, mirroring
 injectAtom's pattern.
 
-Returns `[signal, actions]` when the store has an actions factory, or
-`[signal, setState]` for plain stores.
+Returns a callable slice with methods when the store has an actions factory, or
+with only the setState method for plain stores.
 
 ## Type Parameters
 
@@ -38,7 +38,7 @@ Returns `[signal, actions]` when the store has an actions factory, or
 
 ### store
 
-`Store`\<`TState`, `TActions`\>
+`Store`\<`TState`, `TActions`\> | () => `Store`\<`TState`, `TActions`\>
 
 ### selector
 
@@ -50,16 +50,16 @@ Returns `[signal, actions]` when the store has an actions factory, or
 
 ## Returns
 
-\[`Signal`\<`TSelected`\>, \[`TActions`\] *extends* \[`never`\] ? (`updater`) => `void` : `TActions`\]
+`WritableStoreSliceSignal`\<`TState`, `TSelected`, `TActions`\>
 
 ## Example
 
 ```ts
 // Store with actions
-readonly result = _injectStore(petStore, (s) => s.cats)
-// result[0] is Signal<number>, result[1] is actions
+readonly dogs = _injectStore(petStore, (s) => s.dogs)
+// dogs() and dogs.addDog()
 
 // Store without actions
-readonly result = _injectStore(plainStore, (s) => s)
-// result[0] is Signal<number>, result[1] is setState
+readonly value = _injectStore(plainStore, (s) => s)
+// value() and value.setState(...)
 ```

@@ -1,6 +1,7 @@
 import { injectSelector } from './injectSelector'
 import type { Atom } from '@tanstack/store'
 import type { InjectSelectorOptions } from './injectSelector'
+import type { Signal } from '@angular/core'
 
 /**
  * A callable signal that reads the current atom value when invoked and
@@ -18,9 +19,7 @@ import type { InjectSelectorOptions } from './injectSelector'
  * //                   this.count.set(prev => prev + 1)
  * ```
  */
-export interface WritableAtomSignal<T> {
-  /** Read the current value. */
-  (): T
+export interface WritableAtomSignal<T> extends Signal<T> {
   /** Set the atom value (accepts a direct value or an updater function). */
   set: Atom<T>['set']
 }
@@ -42,11 +41,17 @@ export interface WritableAtomSignal<T> {
  * ```
  */
 export function injectAtom<TValue>(
-  atom: Atom<TValue>,
+  atom: Atom<TValue> | (() => Atom<TValue>),
   options?: InjectSelectorOptions<TValue>,
 ): WritableAtomSignal<TValue> {
-  const value = injectSelector(atom, undefined, options)
-  const atomSignal = (() => value()) as WritableAtomSignal<TValue>
-  atomSignal.set = atom.set
-  return atomSignal
+  // In the future, this could be updated to use a linkedSignal setter
+  // https://github.com/angular/angular/pull/68708
+  const value = injectSelector(atom, undefined, options) as WritableAtomSignal<TValue>
+  value.set = (
+    updaterOrValue: TValue | ((prevVal: TValue) => TValue),
+  ): void => {
+    const _atom = typeof atom === "function" ? atom() : atom
+    _atom.set(updaterOrValue as never)
+  }
+  return value
 }
