@@ -3,10 +3,21 @@ linkWorkspacePackages: true
 preferWorkspacePackages: true
 blockExoticSubdeps: true
 trustPolicy: 'no-downgrade'
+minimumReleaseAge: 1
+
+trustPolicyExclude:
+  - 'chokidar@4.0.3' # Socket: popular, 193M weekly downloads; alerts page returned no alert entries
+  - 'semver@5.7.2' # Socket: popular legacy line, 673M weekly downloads; alerts page returned no alert entries
+  - 'semver@6.3.1' # Socket: popular latest-6 line, 673M weekly downloads; alerts page returned no alert entries
 
 peerDependencyRules:
   allowedVersions:
     '@vue/composition-api>vue': '>= 2.5'
+
+packageExtensions:
+  '@vue/composition-api':
+    peerDependencies:
+      vue: '>= 2.5'
 
 packages:
   - 'packages/**'

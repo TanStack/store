@@ -4,6 +4,8 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+packageExtensionsChecksum: sha256-q0WqwD1UO6YpRIfbn6gzMcNpC1UKGtJSx45gsLN8yFo=
+
 importers:
 
   .:
@@ -52,7 +54,7 @@ importers:
         version: 4.0.3
       nx:
         specifier: 22.6.5
-        version: 22.6.5
+        version: 22.6.5(debug@4.4.3)
       premove:
         specifier: ^4.0.0
         version: 4.0.0
@@ -1296,6 +1298,7 @@ packages:
   '@angular/animations@21.2.8':
     resolution: {integrity: sha512-RIqfVmfretQ0x/mXgMXe7Bw0Tpe8+zBV/Mm2OaNVyrmNG+9gYItEn5t/ZnQGcPD5nMNqckgp3+4/ZMc/qkS5ww==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
+    deprecated: '@angular/animations is deprecated. Use `animate.enter` and `animate.leave` instead. For more information see: https://v22.angular.dev/guide/animations.'
     peerDependencies:
       '@angular/core': 21.2.8
 
@@ -1388,6 +1391,7 @@ packages:
   '@angular/platform-browser-dynamic@21.2.8':
     resolution: {integrity: sha512-9XeplSHsKnLDm14dvwXG00Ox6WbDrhf7ub7MxxcJ6gCgRm/yqJ3Vrz4a+NBpYnelapqiCCGEdHeyx2xt8vG1qA==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
+    deprecated: '@angular/platform-browser-dynamic is deprecated. Use `@angular/platform-browser` instead.'
     peerDependencies:
       '@angular/common': 21.2.8
       '@angular/compiler': 21.2.8
@@ -4126,6 +4130,7 @@ packages:
   '@svitejs/changesets-changelog-github-compact@1.2.0':
     resolution: {integrity: sha512-08eKiDAjj4zLug1taXSIJ0kGL5cawjVCyJkBb6EWSg5fEPX6L+Wtr0CH2If4j5KYylz85iaZiFlUItvgJvll5g==}
     engines: {node: ^14.13.1 || ^16.0.0 || >=18}
+    deprecated: unmaintained
 
   '@tanstack/eslint-config@0.4.0':
     resolution: {integrity: sha512-V+Cd81W/f65dqKJKpytbwTGx9R+IwxKAHsG/uJ3nSLYEh36hlAr54lRpstUhggQB8nf/cP733cIw8DuD2dzQUg==}
@@ -9382,7 +9387,7 @@ snapshots:
       less: 4.4.2
       lmdb: 3.5.1
       postcss: 8.5.14
-      vitest: 4.1.4(@types/node@25.6.0)(@vitest/coverage-istanbul@4.1.4)(jsdom@29.0.2)(vite@8.0.13(@types/node@25.6.0)(esbuild@0.27.7)(jiti@2.6.1)(less@4.4.2)(sass@1.97.3)(terser@5.46.0)(yaml@2.8.3))
+      vitest: 4.1.4(@types/node@25.6.0)(@vitest/coverage-istanbul@4.1.4)(jsdom@29.0.2)(vite@7.3.2(@types/node@25.6.0)(jiti@2.6.1)(less@4.4.2)(lightningcss@1.32.0)(sass@1.97.3)(terser@5.46.0)(yaml@2.8.3))
     transitivePeerDependencies:
       - '@emnapi/core'
       - '@emnapi/runtime'
@@ -13011,7 +13016,7 @@ snapshots:
     dependencies:
       possible-typed-array-names: 1.1.0
 
-  axios@1.15.0:
+  axios@1.15.0(debug@4.4.3):
     dependencies:
       follow-redirects: 1.15.11(debug@4.4.3)
       form-data: 4.0.5
@@ -15687,13 +15692,13 @@ snapshots:
     dependencies:
       boolbase: 1.0.0
 
-  nx@22.6.5:
+  nx@22.6.5(debug@4.4.3):
     dependencies:
       '@napi-rs/wasm-runtime': 0.2.4
       '@yarnpkg/lockfile': 1.1.0
       '@yarnpkg/parsers': 3.0.2
       '@zkochan/js-yaml': 0.0.7
-      axios: 1.15.0
+      axios: 1.15.0(debug@4.4.3)
       cli-cursor: 3.1.0
       cli-spinners: 2.6.1
       cliui: 8.0.1
