@@ -3,7 +3,7 @@ linkWorkspacePackages: true
 preferWorkspacePackages: true
 blockExoticSubdeps: true
 trustPolicy: 'no-downgrade'
-minimumReleaseAge: 1
+minimumReleaseAge: 1440
 
 trustPolicyExclude:
   - 'chokidar@4.0.3' # Socket: popular, 193M weekly downloads; alerts page returned no alert entries
