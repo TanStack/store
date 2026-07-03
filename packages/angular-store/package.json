@@ -49,7 +49,7 @@
     "@tanstack/store": "workspace:*"
   },
   "devDependencies": {
-    "@analogjs/vite-plugin-angular": "^2.4.5",
+    "@analogjs/vite-plugin-angular": "^2.6.2",
     "@angular/common": "^21.2.8",
     "@angular/compiler": "^21.2.8",
     "@angular/core": "^21.2.8",
