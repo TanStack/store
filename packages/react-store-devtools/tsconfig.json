@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "types": ["node"]
+  },
+  "include": ["src", "vitest.config.ts", "tests"],
+  "exclude": ["eslint.config.js"]
+}
