@@ -1,3 +1,3 @@
 export default function App() {
-    return <>Store devtools template!</>
+  return <>Store devtools template!</>
 }
