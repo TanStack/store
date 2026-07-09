@@ -5,6 +5,10 @@ title: "@tanstack/store"
 
 # @tanstack/store
 
+## Namespaces
+
+- [$internals](@tanstack/namespaces/$internals/index.md)
+
 ## Classes
 
 - [ReadonlyStore](classes/ReadonlyStore.md)

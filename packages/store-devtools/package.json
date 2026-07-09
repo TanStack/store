@@ -1,0 +1,70 @@
+{
+  "name": "@tanstack/store-devtools",
+  "version": "0.11.0",
+  "description": "Devtools for TanStack Store",
+  "author": "Tanner Linsley",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TanStack/store.git",
+    "directory": "packages/store-devtools"
+  },
+  "homepage": "https://tanstack.com/store",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/tannerlinsley"
+  },
+  "keywords": [
+    "solid",
+    "tanstack",
+    "store",
+    "devtools"
+  ],
+  "scripts": {
+    "dev": "vite build --watch",
+    "clean": "premove ./dist ./coverage",
+    "test:eslint": "eslint ./src ./tests",
+    "test:types": "tsc",
+    "test:lib": "vitest",
+    "test:lib:dev": "pnpm run test:lib --watch",
+    "test:build": "publint --strict",
+    "build": "tsdown"
+  },
+  "type": "module",
+  "types": "./dist/index.d.cts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./production": {
+      "import": {
+        "types": "./dist/production.d.ts",
+        "default": "./dist/production.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "src"
+  ],
+  "dependencies": {
+    "@tanstack/devtools-event-client": "^0.5.0",
+    "@tanstack/devtools-utils": "^0.5.0",
+    "@tanstack/store": "workspace:*"
+  },
+  "devDependencies": {
+    "@solidjs/testing-library": "^0.8.10",
+    "solid-js": "^1.9.12",
+    "vite-plugin-solid": "^2.11.12"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.6.0"
+  }
+}
