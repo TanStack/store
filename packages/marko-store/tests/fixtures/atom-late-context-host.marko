@@ -1,0 +1,17 @@
+import StoreAtom from '../../src/tags/store-atom.marko'
+
+// A getter-fed atom whose source resolves NOTHING at mount (empty shelf) and only
+// becomes available after a provider publishes — the resume/browser-only beat that
+// used to crash the tag ("Cannot read properties of undefined"). The null-tolerant
+// getter is the documented form; the tag's bus recovery attaches late.
+export interface Input {
+  from: () => {
+    get(): any
+    set(v: any): void
+    subscribe(listener: (value: any) => void): { unsubscribe(): void }
+  } | null
+}
+
+<StoreAtom/value from=input.from/>
+<div data-testid='value'>${value ?? ''}</div>
+<button data-testid='inc' onClick() { value = (value ?? 0) + 1 }>inc</button>

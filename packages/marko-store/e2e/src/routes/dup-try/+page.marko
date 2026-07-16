@@ -1,0 +1,30 @@
+import { createStore } from '@tanstack/store'
+<!-- Seeds inlined from the old harness route table: a=111, b=222. -->
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>helper duplicate-in-try</title></head>
+  <body>
+    <let/resumed='no'>
+    <lifecycle onMount() { resumed = 'yes' }/>
+    <div data-testid='resumed'>${resumed}</div>
+    <try>
+      <div>
+        <await|sa|=new Promise((r) => setTimeout(() => r(111), 60))>
+          <stream-store-provider key='dupBox' value=() => ({ counter: createStore({ n: sa }) })>
+            <store-selector/va key='dupBox' context=(c: any) => c.counter selector=(s: any) => s.n/>
+            <div data-testid='dup-a'>${va}</div>
+          </stream-store-provider>
+        </await>
+        <await|sb|=new Promise((r) => setTimeout(() => r(222), 120))>
+          <stream-store-provider key='dupBox' value=() => ({ counter: createStore({ n: sb }) })>
+            <store-selector/vb key='dupBox' context=(c: any) => c.counter selector=(s: any) => s.n/>
+            <div data-testid='dup-b'>${vb}</div>
+          </stream-store-provider>
+        </await>
+      </div>
+      <@catch|err|>
+        <div data-testid='dup-caught'>caught:${(err as Error).message}</div>
+      </@catch>
+    </try>
+  </body>
+</html>

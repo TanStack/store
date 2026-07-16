@@ -1,0 +1,10 @@
+import StoreProvider from '../../src/tags/store-provider.marko'
+import StoreSelector from '../../src/tags/store-selector.marko'
+import StoreContext from '../../src/tags/store-context.marko'
+export interface Input { store: any }
+<StoreProvider value=() => ({ counter: input.store })>
+  <StoreSelector/count context=(c: any) => c.counter selector=(s: any) => s.count/>
+  <div data-testid='count'>${count}</div>
+  <StoreContext/ctx/>
+  <button data-testid='btn' onClick() { (ctx() as { counter: any }).counter.setState(() => ({ count: 99 })) }>set</button>
+</StoreProvider>

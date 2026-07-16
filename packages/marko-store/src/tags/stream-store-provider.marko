@@ -1,0 +1,47 @@
+export interface Input {
+  value: () => Record<string, unknown>
+  key: string
+  content?: Marko.Body
+}
+
+import { publishStore } from './store-bus'
+
+<const/contextKey=input.key>
+
+<const/_build=(() => {
+  const g = ($global ?? {}) as unknown as Record<string, unknown>
+  // Shares the provider's "$owner" marker on purpose: a <store-provider> and a
+  // <stream-store-provider> on the same key both write the same box, which is always a mistake,
+  // so they must detect each other and throw rather than silently clobber.
+  const marker = contextKey + '$owner'
+  if (g[marker]) {
+    throw new Error(
+      'Duplicate <stream-store-provider> for key "' +
+        contextKey +
+        '": a provider already claimed this key. Each streamed provider needs a distinct key.',
+    )
+  }
+  g[marker] = true
+  if (!g[contextKey]) g[contextKey] = input.value()
+  return 0
+})()>
+
+<lifecycle
+  onMount() {
+    const g = ($global ?? {}) as unknown as Record<string, unknown>
+    if (!g[contextKey]) g[contextKey] = input.value()
+    g[contextKey + '$owner'] = true
+    publishStore()
+  }
+  onDestroy() {
+    // Parity with <store-provider>: clear the shelf and the marker on teardown. On the client
+    // $global lives for the page, so without this the store would linger after the subtree
+    // unmounts. Not required to fix any observed bug (the streamed await subtree mounts once and
+    // stays), but it keeps the two providers symmetric and the shelf clean.
+    const g = ($global ?? {}) as unknown as Record<string, unknown>
+    g[contextKey] = undefined
+    g[contextKey + '$owner'] = undefined
+  }
+/>
+
+<${input.content}/>

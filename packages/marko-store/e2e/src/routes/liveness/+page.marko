@@ -1,0 +1,20 @@
+import { createStore } from '@tanstack/store'
+<!-- Seeds inlined from the old harness route table: serverValue=77. -->
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>helper liveness</title></head>
+  <body>
+    <let/resumed='no'>
+    <lifecycle onMount() { resumed = 'yes' }/>
+    <div data-testid='resumed'>${resumed}</div>
+    <await|slice|=new Promise((r) => setTimeout(() => r(77), 150))>
+      <stream-store-provider key='box' value=() => ({ counter: createStore({ n: slice }) })>
+        <store-selector/value key='box' context=(c: any) => c.counter selector=(s: any) => s.n/>
+        <div data-testid='count'>${value}</div>
+      </stream-store-provider>
+    </await>
+    <button data-testid='external-inc' onClick() {
+      const g = ($global ?? {}) as any; if (g['box']) g['box'].counter.setState((s: any) => ({ n: s.n + 1 }))
+    }>inc</button>
+  </body>
+</html>

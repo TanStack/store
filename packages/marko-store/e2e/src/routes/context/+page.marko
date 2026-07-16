@@ -1,0 +1,33 @@
+import { ctxCounterStore } from '../../context-store'
+
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>marko-store context delivery resume probe</title></head>
+  <body>
+    <let/resumed='no'>
+    <lifecycle onMount() {
+      resumed = 'yes'
+    }>
+    <div data-testid='resumed'>${resumed}</div>
+
+    <!--
+      The context delivery chain: a provider parks a bundle of stores; the selector reads a
+      member off the shelf via its context picker (the empty-shelf guard + bell recovery in
+      store-selector is what lets this survive the wake-up moment); store-context grabs the
+      bundle in a handler to write.
+    -->
+    <store-provider value=() => ({ counter: ctxCounterStore })>
+      <store-selector/count context=(c: { counter: typeof ctxCounterStore }) => c.counter selector=(s) => s.count/>
+      <div data-testid='selector-count'>${count}</div>
+
+      <store-context/ctx/>
+      <button data-testid='ctx-reset' onClick() { (ctx() as { counter: typeof ctxCounterStore }).counter.setState(() => ({ count: 0 })) }>
+        reset via context
+      </button>
+    </store-provider>
+
+    <button data-testid='external-inc' onClick() { ctxCounterStore.setState((s) => ({ count: s.count + 1 })) }>
+      external inc
+    </button>
+  </body>
+</html>

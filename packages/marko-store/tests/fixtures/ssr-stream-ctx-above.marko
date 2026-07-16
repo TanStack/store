@@ -1,0 +1,11 @@
+import { createStore } from '../../src/index'
+import StreamStoreProvider from '../../src/tags/stream-store-provider.marko'
+import StoreContext from '../../src/tags/store-context.marko'
+export interface Input { value: number }
+<StoreContext/ctx key='ctxBox'/>
+<div data-testid='ctx-has'>${ctx() ? 'has' : 'no'}</div>
+<await|slice|=new Promise((r) => setTimeout(() => r(input.value), 5))>
+  <StreamStoreProvider key='ctxBox' value=() => ({ counter: createStore({ n: slice }) })>
+    <div data-testid='await-count'>${slice}</div>
+  </StreamStoreProvider>
+</await>

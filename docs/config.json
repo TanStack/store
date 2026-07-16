@@ -85,6 +85,15 @@
               "to": "framework/lit/quick-start"
             }
           ]
+        },
+        {
+          "label": "marko",
+          "children": [
+            {
+              "label": "Quick Start - Marko",
+              "to": "framework/marko/quick-start"
+            }
+          ]
         }
       ]
     },
@@ -158,6 +167,12 @@
               "label": "Lit Reactive Controllers",
               "to": "framework/lit/reference/index"
             }
+          ]
+        },
+        {
+          "label": "marko",
+          "children": [
+            { "label": "Marko Tags", "to": "framework/marko/reference/index" }
           ]
         }
       ]
@@ -507,6 +522,16 @@
               "to": "framework/lit/reference/interfaces/UseSelectorOptions"
             }
           ]
+        },
+        {
+          "label": "marko",
+          "children": [
+            { "label": "<store-provider>", "to": "framework/marko/reference/tags/store-provider" },
+            { "label": "<store-context>", "to": "framework/marko/reference/tags/store-context" },
+            { "label": "<store-selector>", "to": "framework/marko/reference/tags/store-selector" },
+            { "label": "<store-atom>", "to": "framework/marko/reference/tags/store-atom" },
+            { "label": "<stream-store-provider>", "to": "framework/marko/reference/tags/stream-store-provider" }
+          ]
         }
       ]
     },
@@ -671,6 +696,16 @@
               "label": "Simple",
               "to": "framework/lit/examples/simple"
             }
+          ]
+        },
+        {
+          "label": "marko",
+          "children": [
+            { "label": "Simple", "to": "framework/marko/examples/simple" },
+            { "label": "Atoms", "to": "framework/marko/examples/atoms" },
+            { "label": "Stores", "to": "framework/marko/examples/stores" },
+            { "label": "Store Actions", "to": "framework/marko/examples/store-actions" },
+            { "label": "Store Context", "to": "framework/marko/examples/store-context" }
           ]
         }
       ]

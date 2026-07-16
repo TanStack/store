@@ -1,0 +1,44 @@
+import { createStore } from '@tanstack/store'
+
+// Client-only first-paint probe (the real-browser half of the jsdom pin in
+// tests/store-context-tags.test.ts). When a provider + getter-fed selector
+// subtree first paints purely in the BROWSER (no server render of the subtree),
+// the selector can read before the provider has parked the bundle: one blank
+// frame, then the built-in recovery corrects it. jsdom mounts synchronously and
+// never shows the blank, so this page toggles the subtree on after mount to get
+// a genuine browser-only first paint, and records every value the consuming
+// interpolation observes into window.__paintHistory — a PLAIN array, not
+// reactive state, so recording is a benign side effect of the interpolation and
+// never feeds back into rendering. The spec reads the history: first entry
+// blank, a later entry the recovered value.
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>client-only first paint</title></head>
+  <body>
+    <let/resumed='no'>
+    <let/show=false>
+    <const/observe=(v: unknown) => {
+      const s = v === undefined || v === null ? '' : String(v)
+      const g = globalThis as any
+      g.__paintHistory = g.__paintHistory ?? []
+      if (g.__paintHistory[g.__paintHistory.length - 1] !== s) g.__paintHistory.push(s)
+      return s
+    }>
+    <lifecycle onMount() {
+      resumed = 'yes'
+      show = true
+    }/>
+    <div data-testid='resumed'>${resumed}</div>
+
+    <if=show>
+      <store-provider value=() => ({ counter: createStore({ count: 5 }) })>
+        <store-context/ctx/>
+        <store-selector/count
+          from=() => ((ctx() as any)?.counter ?? null)
+          selector=(s: any) => s.count
+        />
+        <div data-testid='count'>${observe(count)}</div>
+      </store-provider>
+    </if>
+  </body>
+</html>

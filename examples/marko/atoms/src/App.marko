@@ -1,0 +1,20 @@
+import { countAtom } from './atom'
+
+<main>
+  <h1>Marko Atoms</h1>
+  <p>This example creates a module-level atom and reads and updates it with the tags.</p>
+
+  <!-- read-only: a selector with no selector function passes the whole atom value through -->
+  <store-selector/total from=(() => countAtom)/>
+  <p>Total: ${total}</p>
+
+  <div>
+    <button type='button' onClick() { countAtom.set((prev) => prev + 1) }>Increment</button>
+    <button type='button' onClick() { countAtom.set(0) }>Reset</button>
+  </div>
+
+  <!-- read/write: <store-atom> exposes a writable binding (assigning it calls atom.set) -->
+  <store-atom/count from=(() => countAtom)/>
+  <p>Editable count: ${count}</p>
+  <button type='button' onClick() { count += 5 }>Add 5 with the atom tag</button>
+</main>

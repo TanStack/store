@@ -1,0 +1,34 @@
+import { streamFillOnmountStore } from '../../streaming-store'
+
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>streaming fill: onMount (client-only, flash)</title></head>
+  <body>
+    <!--
+      CHARACTERIZATION -- documents Marko behavior, NOT a recommended pattern. A progressive fill
+      written in onMount runs on the CLIENT when the streamed subtree resumes: it fills the client
+      store (the value reaches every subtree, including late ones) but does NOT run during SSR, so
+      the server renders the default first -- a first-paint flash. This is the other half of why
+      neither naive fill alone gives both a no-flash server render AND client liveness.
+    -->
+    <store-provider value=() => ({ counter: streamFillOnmountStore })>
+      <store-selector/shellCount context=(c: { counter: typeof streamFillOnmountStore }) => c.counter selector=(s) => s.count/>
+      <div data-testid='shell-count'>${shellCount}</div>
+
+      <await=new Promise((r) => setTimeout(() => r('A'), 100))>
+        <let/aResumed='no'>
+        <lifecycle onMount() {
+          aResumed = 'yes'
+          streamFillOnmountStore.setState(() => ({ count: 99 }))
+        }>
+        <div data-testid='a-resumed'>${aResumed}</div>
+        <store-selector/aCount context=(c: { counter: typeof streamFillOnmountStore }) => c.counter selector=(s) => s.count/>
+        <div data-testid='a-count'>${aCount}</div>
+      </await>
+    </store-provider>
+
+    <button data-testid='external-inc' onClick() { streamFillOnmountStore.setState((s) => ({ count: s.count + 1 })) }>
+      external inc
+    </button>
+  </body>
+</html>

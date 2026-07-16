@@ -1,0 +1,14 @@
+import StoreSelector from '../../src/tags/store-selector.marko'
+
+// No `selector` attr: <store-selector> falls back to the identity passthrough
+// (input.selector ?? ((s) => s)), so `value` is the whole store snapshot and
+// updates whenever any field changes. Covers the identity arm of that `??`.
+export interface Input {
+  from: () => {
+    get(): any
+    subscribe(listener: (value: any) => void): { unsubscribe(): void }
+  }
+}
+
+<StoreSelector/value from=input.from/>
+<div data-testid='value'>${JSON.stringify(value)}</div>

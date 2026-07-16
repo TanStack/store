@@ -1,0 +1,20 @@
+import StoreAtom from '../../src/tags/store-atom.marko'
+
+export interface Input {
+  from: () => {
+    get(): any
+    set(value: any): void
+    subscribe(listener: (value: any) => void): { unsubscribe(): void }
+  }
+}
+
+<StoreAtom/value from=input.from/>
+<div data-testid='value'>${value}</div>
+<button
+  data-testid='inc'
+  onClick() {
+    value++
+  }
+>
+  inc
+</button>

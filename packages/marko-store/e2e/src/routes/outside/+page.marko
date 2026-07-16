@@ -1,0 +1,19 @@
+import { createStore } from '@tanstack/store'
+<!-- Seeds inlined from the old harness route table: v=55. -->
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>helper selector-outside</title></head>
+  <body>
+    <let/resumed='no'>
+    <lifecycle onMount() { resumed = 'yes' }/>
+    <div data-testid='resumed'>${resumed}</div>
+    <store-selector/before key='box' context=(c: any) => c == null ? null : c.counter selector=(s: any) => s == null ? -1 : s.n/>
+    <div data-testid='before-count'>${before == null ? 'undef' : before}</div>
+    <await|sv|=new Promise((r) => setTimeout(() => r(55), 150))>
+      <stream-store-provider key='box' value=() => ({ counter: createStore({ n: sv }) })>
+        <store-selector/inside key='box' context=(c: any) => c.counter selector=(s: any) => s.n/>
+        <div data-testid='inside-count'>${inside}</div>
+      </stream-store-provider>
+    </await>
+  </body>
+</html>

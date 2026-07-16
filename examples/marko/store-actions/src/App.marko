@@ -1,0 +1,23 @@
+import { petStore } from './store'
+
+<main>
+  <button onClick() { petStore.actions.log() }>Log State</button>
+  <h1>Marko Store Actions</h1>
+  <p>
+    This example creates a module-level store with actions. Components read state
+    with a selector and mutate through store.actions. Marko has no equivalent of
+    the experimental _useStore tuple, and does not need one: you already hold the
+    store, so a selector for the read plus store.actions for the write cover it.
+  </p>
+
+  <store-selector/cats from=(() => petStore) selector=(s => s.cats)/>
+  <p>Cats: ${cats}</p>
+  <button type='button' onClick() { petStore.actions.addCat() }>Vote for cats</button>
+
+  <store-selector/dogs from=(() => petStore) selector=(s => s.dogs)/>
+  <p>Dogs: ${dogs}</p>
+  <button type='button' onClick() { petStore.actions.addDog() }>Vote for dogs</button>
+
+  <store-selector/total from=(() => petStore) selector=(s => s.cats + s.dogs)/>
+  <p>Total votes: ${total}</p>
+</main>

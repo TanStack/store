@@ -1,0 +1,7 @@
+import StreamStoreProvider from '../../src/tags/stream-store-provider.marko'
+import StoreSelector from '../../src/tags/store-selector.marko'
+export interface Input { onBuild: () => void; store: any }
+<StreamStoreProvider key='csrBuild' value=() => { input.onBuild(); return { counter: input.store } }>
+  <StoreSelector/count context=(c: any) => c.counter selector=(s: any) => s.count key='csrBuild'/>
+  <div data-testid='count'>${count}</div>
+</StreamStoreProvider>

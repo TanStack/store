@@ -1,0 +1,8 @@
+import StoreSelector from '../../src/tags/store-selector.marko'
+export interface Input { store: any }
+<StoreSelector/count
+  from=() => input.store
+  context=(c: any) => c.counter
+  selector=(s: any) => s.count
+/>
+<div data-testid='count'>${count}</div>

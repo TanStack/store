@@ -1,0 +1,67 @@
+import { subscribeStorePublish } from './store-bus'
+
+export interface Input<T> {
+  from: () => {
+    get(): T
+    set(value: T | ((prev: T) => T)): void
+    subscribe(listener: (value: T) => void): { unsubscribe(): void }
+  } | null
+}
+
+// Maps an untyped (any/unknown) source to `any` so reads stay usable, exactly
+// like the implementation (value = source.get()); a concrete T is preserved.
+export type Value<T> = unknown extends T ? any : T
+
+// The source thunk may legitimately return null for a beat: a getter fed from
+// <store-context> (from=(() => ctx()?.countAtom ?? null)) resolves nothing until
+// the provider parks its bundle — during resume, and on a browser-only first
+// paint. Like <store-selector>, this tag tolerates the empty beat and listens on
+// the internal publish bus to attach the moment the bundle lands. A non-null
+// source that isn't an atom (no set()) still fails loudly — that's a usage
+// error, not a timing beat.
+<const/assertAtom=(source: any) => {
+  if (source != null && typeof source.set !== 'function') {
+    throw new Error(
+      '<store-atom> expects an atom from createAtom(); the provided value has no set() ' +
+      'method. A Store (createStore) uses setState — read it with <store-selector> instead.'
+    )
+  }
+  return source
+}>
+
+<let/value: Value<T> =(() => {
+  const source = assertAtom(input.from())
+  return source == null ? undefined : source.get()
+})()>
+
+<lifecycle<{ unsub?: (() => void) | null; busOff?: (() => void) | null }>
+  onMount() {
+    const subscribeTo = (source: any) => {
+      value = source.get()
+      this.unsub = source.subscribe((next: any) => {
+        value = next
+      }).unsubscribe
+    }
+    const source = assertAtom(input.from())
+    if (source != null) subscribeTo(source)
+    // Recovery: if the source wasn't there yet (context bundle not parked),
+    // attach when a provider publishes.
+    this.busOff = subscribeStorePublish(() => {
+      if (this.unsub) return
+      const late = assertAtom(input.from())
+      if (late != null) subscribeTo(late)
+    })
+  }
+  onDestroy() {
+    this.unsub?.()
+    this.unsub = null
+    this.busOff?.()
+    this.busOff = null
+  }
+>
+
+<return=value
+  valueChange(next) {
+    input.from()?.set(next as T)
+  }
+>

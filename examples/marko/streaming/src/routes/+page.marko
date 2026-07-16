@@ -1,0 +1,28 @@
+import { createStore } from '@tanstack/marko-store'
+
+
+<!-- Seeds inlined from the old dev-server route table: value=77. -->
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>Streaming (in-order)</title></head>
+  <body>
+    <main>
+      <h1>Streaming a store into a late await (in-order)</h1>
+      <p>The server computes per-request data inside a late await; the store is born from that value with &lt;stream-store-provider&gt;, renders server-side with no flash, and stays live after resume.</p>
+
+      <let/resumed='no'>
+      <lifecycle onMount() { resumed = 'yes' }/>
+      <p>Resumed in browser: ${resumed}</p>
+
+      <!-- ~2s delay so you can watch the streamed block arrive after the rest of the page -->
+      <await|slice|=new Promise((r) => setTimeout(() => r(77), 2000))>
+        <stream-store-provider key='counter' value=() => ({ store: createStore({ n: slice }) })>
+          <store-selector/n key='counter' context=((c: any) => c.store) selector=((s: any) => s.n)/>
+          <p>Streamed value: ${n}</p>
+          <store-context/ctx key='counter'/>
+          <button type='button' onClick() { (ctx() as any).store.setState((s: any) => ({ n: s.n + 1 })) }>inc</button>
+        </stream-store-provider>
+      </await>
+    </main>
+  </body>
+</html>

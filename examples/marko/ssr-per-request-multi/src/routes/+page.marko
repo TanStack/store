@@ -1,0 +1,70 @@
+import { createStore, shallow } from '@tanstack/marko-store'
+import type { Store } from '@tanstack/marko-store'
+
+// The seed is deliberately RICHER than a counter: real routes pass real data. A
+// string, a nested array of objects, and a Date all cross the serialized payload
+// (Marko's serializer supports plain data plus built-ins like Date/Map/Set), and
+// the store is rebuilt from them per request AND on the client — a live store is
+// never serialized. In an app this object would come from the route's handler;
+// here it is inlined (the count seed, 42, is from the old dev-server route table).
+static interface Report {
+  count: number
+  title: string
+  updatedAt: Date
+  rows: Array<{ id: number; label: string; tags: Array<string> }>
+}
+static const seed = (): Report => ({
+  count: 42,
+  title: 'quarterly report',
+  updatedAt: new Date('2026-07-14T00:00:00.000Z'),
+  rows: [
+    { id: 1, label: 'alpha', tags: ['a', 'b'] },
+    { id: 2, label: 'beta', tags: [] },
+  ],
+})
+
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>Per-request data</title></head>
+  <body>
+    <main>
+      <h1>Per-request data, rebuilt on resume</h1>
+      <p>The route passes plain DATA (here, the inlined seed); the provider creates the store from it. The data crosses in the serialized payload and the store is rebuilt on the client — a live store is never serialized.</p>
+
+      <let/resumed='no'>
+      <lifecycle onMount() { resumed = 'yes' }/>
+      <p>Resumed in browser: ${resumed}</p>
+
+      <store-provider value=() => ({ report: createStore(seed()) })>
+        <store-selector/count context=((c: { report: Store<Report> }) => c.report) selector=((s: Report) => s.count)/>
+        <p>Count: ${count}</p>
+
+        <store-selector/title context=((c: { report: Store<Report> }) => c.report) selector=((s: Report) => s.title)/>
+        <store-selector/updated context=((c: { report: Store<Report> }) => c.report) selector=((s: Report) => s.updatedAt.toISOString().slice(0, 10))/>
+        <p>${title} (updated ${updated})</p>
+
+        <!--
+          An object/array slice is a fresh reference on every store change, so it
+          needs shallow comparison — passed through an inline arrow, which is the
+          SSR-safe form (a bare imported function can't cross Marko's
+          serialization boundary on resume).
+        -->
+        <store-selector/labels
+          context=((c: { report: Store<Report> }) => c.report)
+          selector=((s: Report) => s.rows.map((r) => r.label))
+          compare=((a, b) => shallow(a, b))
+        />
+        <p>Rows: ${(labels ?? []).join(', ')} (${(labels ?? []).length})</p>
+
+        <store-context/ctx/>
+        <button type='button' onClick() { (ctx() as { report: Store<Report> }).report.setState((s) => ({ ...s, count: s.count + 1 })) }>inc via context</button>
+        <button type='button' onClick() {
+          (ctx() as { report: Store<Report> }).report.setState((s) => ({
+            ...s,
+            rows: [...s.rows, { id: s.rows.length + 1, label: 'gamma', tags: ['c'] }],
+          }))
+        }>add row</button>
+      </store-provider>
+    </main>
+  </body>
+</html>

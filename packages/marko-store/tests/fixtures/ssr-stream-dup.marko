@@ -1,0 +1,16 @@
+import { createStore } from '../../src/index'
+import StreamStoreProvider from '../../src/tags/stream-store-provider.marko'
+import StoreSelector from '../../src/tags/store-selector.marko'
+export interface Input { a: number; b: number }
+<await|sa|=new Promise((r) => setTimeout(() => r(input.a), 5))>
+  <StreamStoreProvider key='dupBox' value=() => ({ counter: createStore({ n: sa }) })>
+    <StoreSelector/va context=(c: any) => c.counter selector=(s: any) => s.n key='dupBox'/>
+    <div data-testid='dup-a'>${va}</div>
+  </StreamStoreProvider>
+</await>
+<await|sb|=new Promise((r) => setTimeout(() => r(input.b), 10))>
+  <StreamStoreProvider key='dupBox' value=() => ({ counter: createStore({ n: sb }) })>
+    <StoreSelector/vb context=(c: any) => c.counter selector=(s: any) => s.n key='dupBox'/>
+    <div data-testid='dup-b'>${vb}</div>
+  </StreamStoreProvider>
+</await>

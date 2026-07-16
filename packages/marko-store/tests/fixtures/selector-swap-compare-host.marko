@@ -1,0 +1,29 @@
+import StoreSelector from '../../src/tags/store-selector.marko'
+
+// Point 8: a deliberate selector swap must take effect even when `compare` would
+// treat the new slice as equal to the old. The tolerance comparator reports equal
+// for values within 10; swapping from `a` (1) to `b` (2) is inside that tolerance,
+// so a compare-gated swap would wrongly keep showing 1. The swap must publish 2.
+export interface Input {
+  from: () => {
+    get(): any
+    subscribe(listener: (value: any) => void): { unsubscribe(): void }
+  }
+}
+
+<let/useB=false>
+<const/selector=useB ? (s: any) => s.b : (s: any) => s.a>
+<StoreSelector/value
+  from=input.from
+  selector=selector
+  compare=(x: any, y: any) => Math.abs(x - y) < 10
+/>
+<div data-testid='value'>${value}</div>
+<button
+  data-testid='swap-selector'
+  onClick() {
+    useB = !useB
+  }
+>
+  swap selector
+</button>

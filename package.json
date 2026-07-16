@@ -59,6 +59,7 @@
     "nx": "22.6.5",
     "premove": "^4.0.0",
     "prettier": "^3.8.2",
+    "prettier-plugin-marko": "^4.0.9",
     "prettier-plugin-svelte": "^3.5.1",
     "publint": "^0.3.18",
     "sherif": "^1.11.1",

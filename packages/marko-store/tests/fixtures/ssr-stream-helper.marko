@@ -1,0 +1,10 @@
+import { createStore } from '../../src/index'
+import StreamStoreProvider from '../../src/tags/stream-store-provider.marko'
+import StoreSelector from '../../src/tags/store-selector.marko'
+export interface Input { value: number }
+<await|slice|=new Promise((r) => setTimeout(() => r(input.value), 5))>
+  <StreamStoreProvider key='box' value=() => ({ counter: createStore({ n: slice }) })>
+    <StoreSelector/value context=(c: any) => c.counter selector=(s: any) => s.n key='box'/>
+    <div data-testid='count'>${value}</div>
+  </StreamStoreProvider>
+</await>

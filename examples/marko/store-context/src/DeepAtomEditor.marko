@@ -1,0 +1,7 @@
+<!-- pull the atom off the context bundle and feed it to <store-atom> for read/write -->
+<store-context/ctx/>
+<store-atom/count from=(() => (ctx() as any)?.countAtom ?? null)/>
+<div>
+  <p>Editable atom count: ${count}</p>
+  <button type='button' onClick() { count += 5 }>Add 5 to atom</button>
+</div>

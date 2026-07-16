@@ -1,0 +1,30 @@
+import { createStore } from '@tanstack/store'
+import type { Store } from '@tanstack/store'
+
+<!-- Seeds inlined from the old harness route table: initial={ count: 42 }. -->
+
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>marko-store per-request resume probe</title></head>
+  <body>
+    <let/resumed='no'>
+    <lifecycle onMount() {
+      resumed = 'yes'
+    }>
+    <div data-testid='resumed'>${resumed}</div>
+
+    <!--
+      Per-request SSR: the route passes plain DATA ({ count: 42 }), and the provider creates the
+      store from it. The data crosses in the serialized payload and the store is rebuilt on the
+      client -- no live store is ever serialized.
+    -->
+    <store-provider value=() => ({ counter: createStore({ count: 42 }) })>
+      <store-selector/count context=(c: { counter: Store<{ count: number }> }) => c.counter selector=(s) => s.count/>
+      <div data-testid='selector-count'>${count}</div>
+      <store-context/ctx/>
+      <button data-testid='ctx-inc' onClick() { (ctx() as { counter: Store<{ count: number }> }).counter.setState((s) => ({ count: s.count + 1 })) }>
+        inc via context
+      </button>
+    </store-provider>
+  </body>
+</html>

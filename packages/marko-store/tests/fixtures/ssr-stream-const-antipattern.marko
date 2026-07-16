@@ -1,0 +1,8 @@
+import { createStore } from '../../src/index'
+import StoreSelector from '../../src/tags/store-selector.marko'
+export interface Input { value: number }
+<await|slice|=new Promise((r) => setTimeout(() => r(input.value), 5))>
+  <const/s=createStore({ n: slice })/>
+  <StoreSelector/c from=() => s selector=(x: any) => x.n/>
+  <div data-testid='count'>${c}</div>
+</await>

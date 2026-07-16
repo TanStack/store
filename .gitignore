@@ -56,3 +56,6 @@ examples/angular/store-context/.angular/cache/21.2.7/store-context/angular-compi
 examples/angular/stores/.angular/cache/21.2.7/stores/.tsbuildinfo
 examples/angular/stores/.angular/cache/21.2.7/stores/angular-compiler.db
 examples/angular/stores/.angular/cache/21.2.7/stores/angular-compiler.db-lock
+test-results/
+*.tsbuildinfo
+packages/marko-store/e2e/pw-results.json

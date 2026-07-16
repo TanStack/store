@@ -1,0 +1,25 @@
+import { createStore } from '@tanstack/store'
+<!-- Seeds inlined from the old harness route table: up=5, late=9. -->
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>helper provider-collision</title></head>
+  <body>
+    <let/resumed='no'>
+    <lifecycle onMount() { resumed = 'yes' }/>
+    <div data-testid='resumed'>${resumed}</div>
+    <store-provider key='shared' value=() => ({ counter: createStore({ n: 5 }) })>
+      <store-selector/u key='shared' context=(c: any) => c.counter selector=(s: any) => s.n/>
+      <div data-testid='provider-count'>${u}</div>
+      <try>
+        <await|late|=new Promise((r) => setTimeout(() => r(9), 60))>
+          <stream-store-provider key='shared' value=() => ({ counter: createStore({ n: late }) })>
+            <div data-testid='never'>${late}</div>
+          </stream-store-provider>
+        </await>
+        <@catch|err|>
+          <div data-testid='collision-caught'>caught:${(err as Error).message}</div>
+        </@catch>
+      </try>
+    </store-provider>
+  </body>
+</html>

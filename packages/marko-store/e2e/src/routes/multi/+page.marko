@@ -1,0 +1,25 @@
+import { createStore } from '@tanstack/store'
+<!-- Seeds inlined from the old harness route table: a=11, b=22. -->
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>helper multi</title></head>
+  <body>
+    <let/resumed='no'>
+    <lifecycle onMount() { resumed = 'yes' }/>
+    <div data-testid='resumed'>${resumed}</div>
+    <await|sa|=new Promise((r) => setTimeout(() => r(11), 150))>
+      <stream-store-provider key='boxA' value=() => ({ counter: createStore({ n: sa }) })>
+        <store-selector/va key='boxA' context=(c: any) => c.counter selector=(s: any) => s.n/>
+        <div data-testid='count-a'>${va}</div>
+      </stream-store-provider>
+    </await>
+    <await|sb|=new Promise((r) => setTimeout(() => r(22), 70))>
+      <stream-store-provider key='boxB' value=() => ({ counter: createStore({ n: sb }) })>
+        <store-selector/vb key='boxB' context=(c: any) => c.counter selector=(s: any) => s.n/>
+        <div data-testid='count-b'>${vb}</div>
+      </stream-store-provider>
+    </await>
+    <button data-testid='inc-a' onClick() { const g = ($global ?? {}) as any; if (g['boxA']) g['boxA'].counter.setState((s: any) => ({ n: s.n + 1 })) }>incA</button>
+    <button data-testid='inc-b' onClick() { const g = ($global ?? {}) as any; if (g['boxB']) g['boxB'].counter.setState((s: any) => ({ n: s.n + 1 })) }>incB</button>
+  </body>
+</html>

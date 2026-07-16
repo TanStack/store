@@ -1,0 +1,5 @@
+<store-context/ctx/>
+<div>
+  <button type='button' onClick() { (ctx() as any).countAtom.set((prev: number) => prev + 1) }>Increment atom</button>
+  <button type='button' onClick() { (ctx() as any).countAtom.set(0) }>Reset atom</button>
+</div>

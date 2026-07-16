@@ -1,0 +1,12 @@
+import StoreSelector from '../../src/tags/store-selector.marko'
+
+export interface Input {
+  from: () => {
+    get(): any
+    subscribe(listener: (value: any) => void): { unsubscribe(): void }
+  }
+  selector?: (snapshot: any) => any
+}
+
+<StoreSelector/value from=input.from selector=input.selector/>
+<div data-testid='value'>${value}</div>

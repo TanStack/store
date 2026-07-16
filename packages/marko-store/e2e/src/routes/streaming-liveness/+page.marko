@@ -1,0 +1,39 @@
+import { streamLivenessStore } from '../../streaming-store'
+
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>marko-store streaming liveness (in-order)</title></head>
+  <body>
+    <!--
+      Core Phase 3 proof: a store delivered via <store-provider> ($global + bus) stays LIVE inside
+      progressively-streamed <await> subtrees -- including a LATE one (500ms) -- after the page
+      resumes. Bare <await> streams IN DOCUMENT ORDER (flush-up-to): a slow earlier boundary delays
+      later content. This page asserts liveness, not order; out-of-order has its own page/spec.
+      A read-only seed plus an external mutation means there is no per-request fill to leak.
+    -->
+    <store-provider value=() => ({ counter: streamLivenessStore })>
+      <store-selector/shellCount context=(c: { counter: typeof streamLivenessStore }) => c.counter selector=(s) => s.count/>
+      <div data-testid='shell-count'>${shellCount}</div>
+
+      <await=new Promise((r) => setTimeout(() => r('A'), 100))>
+        <let/aResumed='no'>
+        <lifecycle onMount() { aResumed = 'yes' }>
+        <div data-testid='a-resumed'>${aResumed}</div>
+        <store-selector/aCount context=(c: { counter: typeof streamLivenessStore }) => c.counter selector=(s) => s.count/>
+        <div data-testid='a-count'>${aCount}</div>
+      </await>
+
+      <await=new Promise((r) => setTimeout(() => r('B'), 500))>
+        <let/bResumed='no'>
+        <lifecycle onMount() { bResumed = 'yes' }>
+        <div data-testid='b-resumed'>${bResumed}</div>
+        <store-selector/bCount context=(c: { counter: typeof streamLivenessStore }) => c.counter selector=(s) => s.count/>
+        <div data-testid='b-count'>${bCount}</div>
+      </await>
+    </store-provider>
+
+    <button data-testid='external-inc' onClick() { streamLivenessStore.setState((s) => ({ count: s.count + 1 })) }>
+      external inc
+    </button>
+  </body>
+</html>

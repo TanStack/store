@@ -1,0 +1,34 @@
+import { streamFillRenderStore } from '../../streaming-store'
+
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>streaming fill: render-time side effect (server-only)</title></head>
+  <body>
+    <!--
+      CHARACTERIZATION -- documents Marko behavior, NOT a recommended pattern. A progressive fill
+      written as a RENDER-TIME side effect (the comma expression below) sets the store on the
+      SERVER but is NOT replayed on client resume: Marko adopts the already-streamed text node
+      without re-evaluating the expression. So the live selector ends up reflecting the fresh
+      client store (0), not the server-rendered 99. This is one half of why Phase 3's no-flash
+      data delivery must serialize the awaited data rather than rely on a setState in the body.
+    -->
+    <store-provider value=() => ({ counter: streamFillRenderStore })>
+      <store-selector/shellCount context=(c: { counter: typeof streamFillRenderStore }) => c.counter selector=(s) => s.count/>
+      <div data-testid='shell-count'>${shellCount}</div>
+
+      <await=new Promise((r) => setTimeout(() => r('A'), 100))>
+        <let/aResumed='no'>
+        <lifecycle onMount() { aResumed = 'yes' }>
+        <div data-testid='a-resumed'>${aResumed}</div>
+        <!-- render-time side-effect fill; renders empty (the comma yields '') -->
+        ${(streamFillRenderStore.setState(() => ({ count: 99 })), '')}
+        <store-selector/aCount context=(c: { counter: typeof streamFillRenderStore }) => c.counter selector=(s) => s.count/>
+        <div data-testid='a-count'>${aCount}</div>
+      </await>
+    </store-provider>
+
+    <button data-testid='external-inc' onClick() { streamFillRenderStore.setState((s) => ({ count: s.count + 1 })) }>
+      external inc
+    </button>
+  </body>
+</html>

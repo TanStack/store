@@ -1,0 +1,109 @@
+import { subscribeStorePublish } from './store-bus'
+
+export interface Input<TSource, TSelected = TSource> {
+  from?: () => {
+    get(): TSource
+    subscribe(listener: (value: TSource) => void): { unsubscribe(): void }
+  }
+  context?: (bundle: any) => {
+    get(): TSource
+    subscribe(listener: (value: TSource) => void): { unsubscribe(): void }
+  }
+  key?: string
+  selector?: (snapshot: TSource) => TSelected
+  compare?: (a: TSelected, b: TSelected) => boolean
+}
+
+<const/DEFAULT_KEY='__tanstack_store_context'>
+<const/defaultCompare=(a: any, b: any) => a === b>
+// When no selector is given, TSelected defaults to TSource (see Input), so the identity
+// fallback is type-correct; the assertion only bridges TS's inability to narrow the `??`.
+<const/select=input.selector ?? ((snapshot: TSource) => snapshot as unknown as TSelected)>
+
+<const/_modeGuard=(() => {
+  if (input.from && input.context) {
+    throw new Error('<store-selector> takes either `from` or `context`, not both.')
+  }
+})()>
+
+// Resolve the current source store. In context mode this reads the bundle off the shelf and
+// picks a member; the shelf can be momentarily empty on resume (provider not parked yet), so
+// this may return null — callers must tolerate that.
+<const/resolveSource=() => {
+  if (input.context) {
+    const bundle = (($global ?? {}) as any)[input.key ?? DEFAULT_KEY]
+    return bundle == null ? null : input.context(bundle)
+  }
+  return input.from ? input.from() : null
+}>
+
+// Seed at render — null-tolerant (empty shelf => undefined, no crash).
+<let/value=(() => { const s = resolveSource(); return s == null ? undefined : select(s.get()) })()>
+
+<lifecycle<{
+  unsub?: (() => void) | null
+  src?: any
+  sel?: Input<TSource, TSelected>['selector']
+  last?: unknown
+  busOff?: (() => void) | null
+}>
+  onMount() {
+    const subscribeTo = (source: any) => {
+      this.src = source
+      this.sel = input.selector
+      const cmp = input.compare ?? defaultCompare
+      // Refresh the render-time seed in case the store changed between render and
+      // mount (or the shelf was empty at render) — but let `compare` drop a
+      // redundant reseed. An object/array slice is a fresh identity on every
+      // select() call, so an unconditional assignment would re-render consumers
+      // once at mount with identical content. `this.last` still takes the fresh
+      // slice so future comparisons run against current data.
+      const seeded = select(source.get())
+      if (!cmp(value as any, seeded)) value = seeded as any
+      this.last = seeded
+      this.unsub = source.subscribe((snapshot: any) => {
+        const next = (input.selector ?? ((s: any) => s))(snapshot)
+        if (!cmp(this.last as any, next)) { this.last = next; value = next as any }
+      }).unsubscribe
+    }
+    const source = resolveSource()
+    if (source != null) subscribeTo(source)
+    // context mode: recover from the empty-shelf moment when the provider parks and rings.
+    if (input.context) {
+      this.busOff = subscribeStorePublish(() => {
+        const s = resolveSource()
+        if (s != null && s !== this.src) { this.unsub?.(); subscribeTo(s) }
+      })
+    }
+  }
+  onUpdate() {
+    const source = resolveSource()
+    if (source != null && source !== this.src) {
+      this.unsub?.()
+      this.src = source
+      this.sel = input.selector
+      this.last = select(source.get())
+      value = this.last as any
+      this.unsub = source.subscribe((snapshot: any) => {
+        const next = (input.selector ?? ((s: any) => s))(snapshot)
+        const c = input.compare ?? defaultCompare
+        if (!c(this.last as any, next)) { this.last = next; value = next as any }
+      }).unsubscribe
+    } else if (input.selector !== this.sel && this.src != null) {
+      // A deliberate selector swap always takes effect. `compare` exists to drop
+      // redundant updates from store mutations, not to gate a change of selector,
+      // so the new projection is published unconditionally.
+      this.sel = input.selector
+      this.last = select(this.src.get())
+      value = this.last as any
+    }
+  }
+  onDestroy() {
+    this.unsub?.()
+    this.unsub = null
+    this.busOff?.()
+    this.busOff = null
+  }
+>
+
+<return=value>

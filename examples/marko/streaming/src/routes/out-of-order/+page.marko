@@ -1,0 +1,43 @@
+import { createStore } from '@tanstack/marko-store'
+
+
+<!-- Seeds inlined from the old dev-server route table: slow=33, fast=44. -->
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>Streaming (out-of-order)</title></head>
+  <body>
+    <main>
+      <h1>Streaming out-of-order with try/placeholder</h1>
+      <p>Each awaited block is born with its own store. Wrapping an await in &lt;try&gt; with a &lt;@placeholder&gt; lets the fast block paint before the slow one, while each store stays live. Click either inc button after the block lands to confirm the store is interactive post-resume.</p>
+
+      <let/resumed='no'>
+      <lifecycle onMount() { resumed = 'yes' }/>
+      <p>Resumed in browser: ${resumed}</p>
+
+      <!-- slow ~2.5s vs fast ~0.8s: the placeholders show first, then fast lands, then slow -->
+      <try>
+        <await|ss|=new Promise((r) => setTimeout(() => r(33), 2500))>
+          <stream-store-provider key='slowBox' value=() => ({ store: createStore({ n: ss }) })>
+            <store-selector/vs key='slowBox' context=((c: any) => c.store) selector=((s: any) => s.n)/>
+            <p>Slow: ${vs}</p>
+            <store-context/ctxSlow key='slowBox'/>
+            <button type='button' onClick() { (ctxSlow() as any).store.setState((s: any) => ({ n: s.n + 1 })) }>inc slow</button>
+          </stream-store-provider>
+        </await>
+        <@placeholder><p>loading slow…</p></@placeholder>
+      </try>
+
+      <try>
+        <await|sf|=new Promise((r) => setTimeout(() => r(44), 800))>
+          <stream-store-provider key='fastBox' value=() => ({ store: createStore({ n: sf }) })>
+            <store-selector/vf key='fastBox' context=((c: any) => c.store) selector=((s: any) => s.n)/>
+            <p>Fast: ${vf}</p>
+            <store-context/ctxFast key='fastBox'/>
+            <button type='button' onClick() { (ctxFast() as any).store.setState((s: any) => ({ n: s.n + 1 })) }>inc fast</button>
+          </stream-store-provider>
+        </await>
+        <@placeholder><p>loading fast…</p></@placeholder>
+      </try>
+    </main>
+  </body>
+</html>

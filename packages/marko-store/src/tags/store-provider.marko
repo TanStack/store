@@ -1,0 +1,39 @@
+export interface Input {
+  value: () => Record<string, unknown>
+  key?: string
+  content?: Marko.Body
+}
+
+import { publishStore } from './store-bus'
+
+<const/contextKey=input.key ?? '__tanstack_store_context'>
+
+<const/_park=(() => {
+  const g = ($global ?? {}) as unknown as Record<string, unknown>
+  const marker = contextKey + '$owner'
+  if (g[marker]) {
+    throw new Error(
+      'Duplicate <store-provider> for context key "' +
+        contextKey +
+        '". Only one provider per key is supported in Marko; use distinct keys, or share a module-singleton store directly.',
+    )
+  }
+  g[marker] = true
+  g[contextKey] = input.value()
+})()>
+
+<lifecycle
+  onMount() {
+    const g = ($global ?? {}) as unknown as Record<string, unknown>
+    g[contextKey] = input.value()
+    g[contextKey + '$owner'] = true
+    publishStore()
+  }
+  onDestroy() {
+    const g = ($global ?? {}) as unknown as Record<string, unknown>
+    g[contextKey] = undefined
+    g[contextKey + '$owner'] = undefined
+  }
+/>
+
+<${input.content}/>
