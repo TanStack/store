@@ -30,22 +30,21 @@
     "test:lib": "vitest && vitest --config vitest.ssr.config.ts",
     "test:lib:dev": "vitest --watch",
     "test:build": "publint --strict",
-    "build": "tsdown --tsconfig tsconfig.build.json"
+    "build": "tsc -p tsconfig.build.json --noEmit"
   },
   "type": "module",
-  "types": "./dist/index.d.cts",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "types": "./src/index.ts",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
     },
     "./package.json": "./package.json"
   },
   "sideEffects": false,
   "files": [
-    "dist",
     "src"
   ],
   "engines": {
@@ -54,7 +53,6 @@
   "octane": {
     "hookSlots": {
       "manual": [
-        "dist",
         "src"
       ]
     }
