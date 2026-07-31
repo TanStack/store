@@ -73,6 +73,7 @@
   },
   "overrides": {
     "@tanstack/angular-store": "workspace:*",
+    "@tanstack/octane-store": "workspace:*",
     "@tanstack/preact-store": "workspace:*",
     "@tanstack/react-store": "workspace:*",
     "@tanstack/solid-store": "workspace:*",
