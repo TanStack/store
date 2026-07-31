@@ -12,7 +12,7 @@ function useSelector<TSource, TSelected>(
    options?): TSelected;
 ```
 
-Defined in: octane-store/src/useSelector.ts:44
+Defined in: [octane-store/src/useSelector.ts:44](https://github.com/TanStack/store/blob/main/packages/octane-store/src/useSelector.ts#L44)
 
 Selects a slice of state from an atom or store and subscribes the component
 to that selection.

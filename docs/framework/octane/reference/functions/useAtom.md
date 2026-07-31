@@ -9,7 +9,7 @@ title: useAtom
 function useAtom<TValue>(atom, options?): [TValue, (fn) => void & (value) => void];
 ```
 
-Defined in: octane-store/src/useAtom.ts:17
+Defined in: [octane-store/src/useAtom.ts:17](https://github.com/TanStack/store/blob/main/packages/octane-store/src/useAtom.ts#L17)
 
 Returns the current atom value together with a stable setter.
 

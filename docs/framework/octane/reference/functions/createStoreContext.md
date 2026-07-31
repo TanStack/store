@@ -9,7 +9,7 @@ title: createStoreContext
 function createStoreContext<TValue>(): object;
 ```
 
-Defined in: octane-store/src/createStoreContext.ts:44
+Defined in: [octane-store/src/createStoreContext.ts:44](https://github.com/TanStack/store/blob/main/packages/octane-store/src/createStoreContext.ts#L44)
 
 Creates a typed Octane context for sharing a bundle of atoms and stores with
 a subtree.

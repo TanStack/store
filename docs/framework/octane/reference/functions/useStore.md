@@ -12,7 +12,7 @@ function useStore<TSource, TSelected>(
    compare?): TSelected;
 ```
 
-Defined in: octane-store/src/useStore.ts:22
+Defined in: [octane-store/src/useStore.ts:22](https://github.com/TanStack/store/blob/main/packages/octane-store/src/useStore.ts#L22)
 
 Deprecated alias for [useSelector](useSelector.md).
 
