@@ -27,10 +27,6 @@ export const AtomTuple: ComponentBody<{
   atom: Atom<number>
 }>
 
-export const LegacyStore: ComponentBody<{
-  store: Store<{ value: number; meta: number }>
-}>
-
 export const NestedProviders: ComponentBody<{
   outer: Atom<number>
   inner: Atom<number>

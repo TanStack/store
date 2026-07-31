@@ -1,7 +1,7 @@
 import { createRoot } from 'octane'
 import { createStore, useSelector } from '@tanstack/octane-store'
 
-// You can use instantiate a Store outside of Octane components too!
+// You can instantiate a Store outside of Octane components too!
 export const store = createStore({
   dogs: 0,
   cats: 0,
@@ -13,7 +13,7 @@ interface DisplayProps {
 
 // This will only re-render when `state[animal]` changes. If an unrelated store property changes, it won't re-render
 function Display(props: DisplayProps) @{
-  const count = useSelector(store, (state) => state[props.animal]) // formerly, useStore. Now renamed to useSelector.
+  const count = useSelector(store, (state) => state[props.animal])
   <div>{`${props.animal}: ${count}`}</div>
 }
 

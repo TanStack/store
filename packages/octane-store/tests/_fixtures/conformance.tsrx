@@ -5,7 +5,6 @@ import {
   useCreateAtom,
   useCreateStore,
   useSelector,
-  useStore,
 } from '@tanstack/octane-store'
 import type {
   Atom,
@@ -52,7 +51,7 @@ export function SwitchingSource(props: {
   const value = useSelector(useSecond ? props.second : props.first)
 
   <div>
-    <p id="switched">{value as string}</p>
+    <p id="switched">{String(value)}</p>
     <button id="switch" onClick={() => setUseSecond(true)}>switch</button>
   </div>
 }
@@ -115,7 +114,7 @@ export function AtomTuple(props: { atom: Atom<number> }) @{
   const [value, setValue] = useAtom(props.atom)
 
   <div>
-    <p id="atom-tuple">{value as string}</p>
+    <p id="atom-tuple">{String(value)}</p>
     <button
       id="set-atom"
       onClick={() => setValue((previous) => previous + 2)}
@@ -125,27 +124,15 @@ export function AtomTuple(props: { atom: Atom<number> }) @{
   </div>
 }
 
-export function LegacyStore(props: {
-  store: Store<{ value: number; meta: number }>
-}) @{
-  const value = useStore(
-    props.store,
-    (state) => state,
-    (previous, next) => previous.value === next.value,
-  )
-
-  <p id="legacy">{value.value + '/' + value.meta}</p>
-}
-
 type ContextValue = { atom: Atom<number> }
 const { StoreProvider, useStoreContext } =
   createStoreContext<ContextValue>()
 
-function ContextValue() @{
+function ContextValueDisplay() @{
   const { atom } = useStoreContext()
   const value = useSelector(atom)
 
-  <p class="context-value">{value as string}</p>
+  <p class="context-value">{String(value)}</p>
 }
 
 export function NestedProviders(props: {
@@ -153,9 +140,9 @@ export function NestedProviders(props: {
   inner: Atom<number>
 }) @{
   <StoreProvider value={{ atom: props.outer }}>
-    <ContextValue />
+    <ContextValueDisplay />
     <StoreProvider value={{ atom: props.inner }}>
-      <ContextValue />
+      <ContextValueDisplay />
     </StoreProvider>
   </StoreProvider>
 }
@@ -163,7 +150,7 @@ export function NestedProviders(props: {
 export function MissingProvider() @{
   const { atom } = useStoreContext()
   const value = useSelector(atom)
-  <p>{value as string}</p>
+  <p>{String(value)}</p>
 }
 
 export function SubscriptionReader(props: {
@@ -175,5 +162,5 @@ export function SubscriptionReader(props: {
   }
 }) @{
   const value = useSelector(props.source)
-  <p id="subscription">{value as string}</p>
+  <p id="subscription">{String(value)}</p>
 }

@@ -1,8 +1,56 @@
 import { resolve } from 'node:path'
+import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { generateReferenceDocs } from '@tanstack/typedoc-config'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
+const octaneReferenceDir = resolve(
+  __dirname,
+  '../docs/framework/octane/reference',
+)
+
+async function replaceOverloadHeadings(
+  relativePath: string,
+  headings: Array<string>,
+) {
+  const path = resolve(octaneReferenceDir, relativePath)
+  let markdown = await readFile(path, 'utf8')
+
+  for (const heading of headings) {
+    markdown = markdown.replace('## Call Signature', `## ${heading}`)
+  }
+
+  await writeFile(path, markdown)
+}
+
+async function polishOctaneReferenceDocs() {
+  await replaceOverloadHeadings('functions/useCreateAtom.md', [
+    'Readonly atom',
+    'Writable atom',
+  ])
+  await replaceOverloadHeadings('functions/useCreateStore.md', [
+    'Readonly store',
+    'Writable store',
+    'Store with actions',
+  ])
+
+  const useAtomPath = resolve(octaneReferenceDir, 'functions/useAtom.md')
+  const useAtom = (await readFile(useAtomPath, 'utf8'))
+    .replace(
+      'function useAtom<TValue>(atom, options?): [TValue, (fn) => void & (value) => void];',
+      [
+        'function useAtom<TValue>(',
+        '  atom,',
+        '  options?,',
+        "): [TValue, Atom<TValue>['set']];",
+      ].join('\n'),
+    )
+    .replace(
+      '\\[`TValue`, (`fn`) => `void` & (`value`) => `void`\\]',
+      '\\[`TValue`, `Atom`\\<`TValue`\\>\\[`"set"`\\]\\]',
+    )
+  await writeFile(useAtomPath, useAtom)
+}
 
 await generateReferenceDocs({
   packages: [
@@ -98,6 +146,8 @@ await generateReferenceDocs({
     },
   ],
 })
+
+await polishOctaneReferenceDocs()
 
 console.log('\n✅ All markdown files have been processed!')
 

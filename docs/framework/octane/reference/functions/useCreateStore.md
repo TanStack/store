@@ -5,7 +5,7 @@ title: useCreateStore
 
 # Function: useCreateStore()
 
-## Call Signature
+## Readonly store
 
 ```ts
 function useCreateStore<T>(getValue): ReadonlyStore<T>;
@@ -41,7 +41,7 @@ createStore, but ensures the store is only created once per mount.
 const counterStore = useCreateStore({ count: 0 })
 ```
 
-## Call Signature
+## Writable store
 
 ```ts
 function useCreateStore<T>(initialValue): Store<T>;
@@ -77,7 +77,7 @@ createStore, but ensures the store is only created once per mount.
 const counterStore = useCreateStore({ count: 0 })
 ```
 
-## Call Signature
+## Store with actions
 
 ```ts
 function useCreateStore<T, TActions>(initialValue, actions): Store<T, TActions>;

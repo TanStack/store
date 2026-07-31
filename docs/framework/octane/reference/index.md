@@ -16,4 +16,3 @@ title: "@tanstack/octane-store"
 - [useCreateAtom](functions/useCreateAtom.md)
 - [useCreateStore](functions/useCreateStore.md)
 - [useSelector](functions/useSelector.md)
-- [~~useStore~~](functions/useStore.md)

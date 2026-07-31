@@ -69,7 +69,7 @@ function StoreButtons() @{
 function TotalCard() @{
   const total = useSelector(petStore, (state) => state.cats + state.dogs)
 
-  <p>Total votes: {total}</p>
+  <p>Total pets: {total}</p>
 }
 
 const target = document.getElementById('root')

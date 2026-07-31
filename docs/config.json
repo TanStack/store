@@ -525,6 +525,35 @@
               "to": "framework/lit/reference/interfaces/UseSelectorOptions"
             }
           ]
+        },
+        {
+          "label": "octane",
+          "children": [
+            {
+              "label": "createStoreContext",
+              "to": "framework/octane/reference/functions/createStoreContext"
+            },
+            {
+              "label": "useCreateAtom",
+              "to": "framework/octane/reference/functions/useCreateAtom"
+            },
+            {
+              "label": "useCreateStore",
+              "to": "framework/octane/reference/functions/useCreateStore"
+            },
+            {
+              "label": "useSelector",
+              "to": "framework/octane/reference/functions/useSelector"
+            },
+            {
+              "label": "useAtom",
+              "to": "framework/octane/reference/functions/useAtom"
+            },
+            {
+              "label": "UseSelectorOptions",
+              "to": "framework/octane/reference/interfaces/UseSelectorOptions"
+            }
+          ]
         }
       ]
     },
@@ -688,6 +717,31 @@
             {
               "label": "Simple",
               "to": "framework/lit/examples/simple"
+            }
+          ]
+        },
+        {
+          "label": "octane",
+          "children": [
+            {
+              "label": "Simple",
+              "to": "framework/octane/examples/simple"
+            },
+            {
+              "label": "Atoms",
+              "to": "framework/octane/examples/atoms"
+            },
+            {
+              "label": "Stores",
+              "to": "framework/octane/examples/stores"
+            },
+            {
+              "label": "Store Actions",
+              "to": "framework/octane/examples/store-actions"
+            },
+            {
+              "label": "Store Context",
+              "to": "framework/octane/examples/store-context"
             }
           ]
         }

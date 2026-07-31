@@ -7,7 +7,6 @@ import {
   CreatedAtoms,
   CreatedStores,
   DerivedPair,
-  LegacyStore,
   MissingProvider,
   NestedProviders,
   SelectorPair,
@@ -114,19 +113,6 @@ describe('creation and tuple hooks', () => {
     await nextPaint()
     expect(result.find('#atom-tuple').textContent).toBe('5')
     expect(atom.get()).toBe(5)
-    result.unmount()
-  })
-
-  it('keeps the deprecated useStore selector and comparator contract', async () => {
-    const store = createStore({ value: 1, meta: 0 })
-    const result = mount(LegacyStore, { store })
-
-    store.setState(() => ({ value: 1, meta: 1 }))
-    await nextPaint()
-    expect(result.find('#legacy').textContent).toBe('1/0')
-    store.setState(() => ({ value: 2, meta: 1 }))
-    await nextPaint()
-    expect(result.find('#legacy').textContent).toBe('2/1')
     result.unmount()
   })
 })

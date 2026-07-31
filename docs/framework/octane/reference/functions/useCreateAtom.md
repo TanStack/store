@@ -5,7 +5,7 @@ title: useCreateAtom
 
 # Function: useCreateAtom()
 
-## Call Signature
+## Readonly atom
 
 ```ts
 function useCreateAtom<T>(getValue, options?): ReadonlyAtom<T>;
@@ -45,7 +45,7 @@ createAtom, but ensures the atom is only created once per mount.
 const countAtom = useCreateAtom(0)
 ```
 
-## Call Signature
+## Writable atom
 
 ```ts
 function useCreateAtom<T>(initialValue, options?): Atom<T>;

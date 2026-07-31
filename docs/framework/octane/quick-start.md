@@ -82,5 +82,3 @@ const target = document.getElementById('root')
 if (!target) throw new Error('Missing #root')
 createRoot(target).render(App)
 ```
-
-`useStore` remains available as a deprecated alias to `useSelector`.

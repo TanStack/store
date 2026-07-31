@@ -6,13 +6,16 @@ import {
   useCreateAtom,
   useCreateStore,
   useSelector,
-  useStore,
 } from '../src'
 import * as binding from '../src'
 import type { Atom, ReadonlyStore } from '@tanstack/store'
 
 test('omits the upstream experimental _useStore hook', () => {
   expectTypeOf(binding).not.toHaveProperty('_useStore')
+})
+
+test('omits the deprecated useStore hook from the new adapter', () => {
+  expectTypeOf(binding).not.toHaveProperty('useStore')
 })
 
 test('useCreateAtom returns a writable atom for initial values', () => {
@@ -117,23 +120,6 @@ test('useSelector infers state and selected types for atoms', () => {
   })
 
   expectTypeOf(value).toExtend<number>()
-})
-
-test('useStore matches useSelector types for compatibility', () => {
-  const baseStore = createStore(12)
-  const derivedStore = createStore(() => {
-    return { value: baseStore.state * 2 }
-  })
-
-  const selectorValue = useSelector(derivedStore, (state) => state.value)
-  const compatValue = useStore(
-    derivedStore,
-    (state) => state.value,
-    (prev, next) => prev === next,
-  )
-
-  expectTypeOf(selectorValue).toExtend<number>()
-  expectTypeOf(compatValue).toExtend<number>()
 })
 
 test('createStoreContext preserves keyed atom and store types', () => {

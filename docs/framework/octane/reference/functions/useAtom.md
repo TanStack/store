@@ -6,7 +6,10 @@ title: useAtom
 # Function: useAtom()
 
 ```ts
-function useAtom<TValue>(atom, options?): [TValue, (fn) => void & (value) => void];
+function useAtom<TValue>(
+  atom,
+  options?,
+): [TValue, Atom<TValue>['set']];
 ```
 
 Defined in: [octane-store/src/useAtom.ts:17](https://github.com/TanStack/store/blob/main/packages/octane-store/src/useAtom.ts#L17)
@@ -34,7 +37,7 @@ read and update the same atom.
 
 ## Returns
 
-\[`TValue`, (`fn`) => `void` & (`value`) => `void`\]
+\[`TValue`, `Atom`\<`TValue`\>\[`"set"`\]\]
 
 ## Example
 

@@ -21,6 +21,10 @@ function defaultCompare<T>(a: T, b: T) {
   return a === b
 }
 
+function identity(snapshot: unknown) {
+  return snapshot
+}
+
 /**
  * Selects a slice of state from an atom or store and subscribes the component
  * to that selection.
@@ -57,7 +61,7 @@ export function useSelector<TSource, TSelected = NoInfer<TSource>>(
   const [user, slot] = splitSlot(rest)
   const selector =
     (user[0] as ((snapshot: TSource) => TSelected) | undefined) ??
-    ((snapshot: TSource) => snapshot as unknown as TSelected)
+    (identity as (snapshot: TSource) => TSelected)
   const options = user[1] as UseSelectorOptions<TSelected> | undefined
   const compare = options?.compare ?? defaultCompare
 

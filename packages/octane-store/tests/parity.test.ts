@@ -10,12 +10,12 @@ describe('export surface', () => {
       'useCreateAtom',
       'useCreateStore',
       'useSelector',
-      'useStore',
     ]
     const expected = [...Object.keys(core), ...adapterExports].sort()
 
     expect(Object.keys(binding).sort()).toEqual(expected)
     expect(binding).not.toHaveProperty('_useStore')
+    expect(binding).not.toHaveProperty('useStore')
   })
 
   it('re-exports the same @tanstack/store module instance', () => {
