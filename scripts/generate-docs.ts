@@ -84,6 +84,18 @@ await generateReferenceDocs({
       outputDir: resolve(__dirname, '../docs/framework/lit/reference'),
       exclude: ['packages/store/**/*'],
     },
+    {
+      name: 'octane-store',
+      entryPoints: [
+        resolve(__dirname, '../packages/octane-store/src/index.ts'),
+      ],
+      tsconfig: resolve(
+        __dirname,
+        '../packages/octane-store/tsconfig.docs.json',
+      ),
+      outputDir: resolve(__dirname, '../docs/framework/octane/reference'),
+      exclude: ['packages/store/**/*'],
+    },
   ],
 })
 

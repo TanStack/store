@@ -85,6 +85,15 @@
               "to": "framework/lit/quick-start"
             }
           ]
+        },
+        {
+          "label": "octane",
+          "children": [
+            {
+              "label": "Quick Start - Octane",
+              "to": "framework/octane/quick-start"
+            }
+          ]
         }
       ]
     },
@@ -157,6 +166,15 @@
             {
               "label": "Lit Reactive Controllers",
               "to": "framework/lit/reference/index"
+            }
+          ]
+        },
+        {
+          "label": "octane",
+          "children": [
+            {
+              "label": "Octane Hooks",
+              "to": "framework/octane/reference/index"
             }
           ]
         }
