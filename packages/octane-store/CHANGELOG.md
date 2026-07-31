@@ -1,5 +1,11 @@
 # @tanstack/octane-store
 
+## 0.12.1
+
+### Patch Changes
+
+- Ship the authored TypeScript source so applications compile the adapter with their Octane compiler and runtime. ([#347](https://github.com/TanStack/store/pull/347))
+
 ## 0.12.0
 
 ### Minor Changes
