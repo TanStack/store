@@ -354,7 +354,7 @@ importers:
   examples/octane/atoms:
     dependencies:
       '@tanstack/octane-store':
-        specifier: ^0.12.0
+        specifier: ^0.12.1
         version: link:../../../packages/octane-store
       octane:
         specifier: 0.1.21
@@ -373,7 +373,7 @@ importers:
   examples/octane/simple:
     dependencies:
       '@tanstack/octane-store':
-        specifier: ^0.12.0
+        specifier: ^0.12.1
         version: link:../../../packages/octane-store
       octane:
         specifier: 0.1.21
@@ -392,7 +392,7 @@ importers:
   examples/octane/store-actions:
     dependencies:
       '@tanstack/octane-store':
-        specifier: ^0.12.0
+        specifier: ^0.12.1
         version: link:../../../packages/octane-store
       octane:
         specifier: 0.1.21
@@ -411,7 +411,7 @@ importers:
   examples/octane/store-context:
     dependencies:
       '@tanstack/octane-store':
-        specifier: ^0.12.0
+        specifier: ^0.12.1
         version: link:../../../packages/octane-store
       octane:
         specifier: 0.1.21
@@ -430,7 +430,7 @@ importers:
   examples/octane/stores:
     dependencies:
       '@tanstack/octane-store':
-        specifier: ^0.12.0
+        specifier: ^0.12.1
         version: link:../../../packages/octane-store
       octane:
         specifier: 0.1.21
