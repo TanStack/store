@@ -2,7 +2,6 @@
 // Adapted from Alien Signals
 // https://github.com/stackblitz/alien-signals/
 
-import { createReactiveSystem } from './alien'
 import {
   DIRTY,
   MUTABLE,
@@ -11,7 +10,8 @@ import {
   RECURSED,
   RECURSED_CHECK,
   WATCHING,
-} from './flags'
+  createReactiveSystem,
+} from './alien'
 
 import type { ReactiveNode } from './alien'
 

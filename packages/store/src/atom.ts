@@ -1,4 +1,3 @@
-import { createReactiveSystem } from './alien'
 import {
   DIRTY,
   MUTABLE,
@@ -6,7 +5,8 @@ import {
   PENDING,
   RECURSED_CHECK,
   WATCHING,
-} from './flags'
+  createReactiveSystem,
+} from './alien'
 
 import type { ReactiveNode } from './alien'
 import type {
