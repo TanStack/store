@@ -67,7 +67,7 @@ Defined in: [types.ts:39](https://github.com/TanStack/store/blob/main/packages/s
 optional deps: Link;
 ```
 
-Defined in: [alien.ts:16](https://github.com/TanStack/store/blob/main/packages/store/src/alien.ts#L16)
+Defined in: [alien.ts:6](https://github.com/TanStack/store/blob/main/packages/store/src/alien.ts#L6)
 
 #### Inherited from
 
@@ -83,7 +83,7 @@ ReactiveNode.deps
 optional depsTail: Link;
 ```
 
-Defined in: [alien.ts:17](https://github.com/TanStack/store/blob/main/packages/store/src/alien.ts#L17)
+Defined in: [alien.ts:7](https://github.com/TanStack/store/blob/main/packages/store/src/alien.ts#L7)
 
 #### Inherited from
 
@@ -99,7 +99,7 @@ ReactiveNode.depsTail
 flags: number;
 ```
 
-Defined in: [alien.ts:20](https://github.com/TanStack/store/blob/main/packages/store/src/alien.ts#L20)
+Defined in: [alien.ts:10](https://github.com/TanStack/store/blob/main/packages/store/src/alien.ts#L10)
 
 #### Inherited from
 
@@ -133,7 +133,7 @@ Defined in: [types.ts:30](https://github.com/TanStack/store/blob/main/packages/s
 optional subs: Link;
 ```
 
-Defined in: [alien.ts:18](https://github.com/TanStack/store/blob/main/packages/store/src/alien.ts#L18)
+Defined in: [alien.ts:8](https://github.com/TanStack/store/blob/main/packages/store/src/alien.ts#L8)
 
 #### Inherited from
 
@@ -163,7 +163,7 @@ Defined in: [types.ts:21](https://github.com/TanStack/store/blob/main/packages/s
 optional subsTail: Link;
 ```
 
-Defined in: [alien.ts:19](https://github.com/TanStack/store/blob/main/packages/store/src/alien.ts#L19)
+Defined in: [alien.ts:9](https://github.com/TanStack/store/blob/main/packages/store/src/alien.ts#L9)
 
 #### Inherited from
 
