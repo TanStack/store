@@ -2,22 +2,21 @@
 // Adapted from Alien Signals
 // https://github.com/stackblitz/alien-signals/
 
+import { createReactiveSystem } from './alien'
 import {
   DIRTY,
   MUTABLE,
   NONE,
   PENDING,
+  RECURSED,
   RECURSED_CHECK,
   WATCHING,
-  createReactiveSystem,
-} from './alien'
+} from './flags'
 
 import type { ReactiveNode } from './alien'
 
 export { createReactiveSystem } from './alien'
 export type { Link, ReactiveFlags, ReactiveNode } from './alien'
-
-const RECURSED = 8
 
 interface EffectNode extends ReactiveNode {
   fn(): void
