@@ -1,5 +1,12 @@
 # @tanstack/octane-store
 
+## 0.12.2
+
+### Patch Changes
+
+- Updated dependencies [[`1d7c87e`](https://github.com/TanStack/store/commit/1d7c87e9a3e465fbc88d1a57c46e7b454ee3eb65)]:
+  - @tanstack/store@0.11.1
+
 ## 0.12.1
 
 ### Patch Changes

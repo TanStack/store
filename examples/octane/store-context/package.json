@@ -9,7 +9,7 @@
     "test:types": "tsrx-tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
-    "@tanstack/octane-store": "^0.12.1",
+    "@tanstack/octane-store": "^0.12.2",
     "octane": "0.1.21"
   },
   "devDependencies": {
