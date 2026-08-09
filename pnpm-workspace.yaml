@@ -28,6 +28,7 @@ packages:
   - 'examples/svelte/**'
   - 'examples/preact/**'
   - 'examples/lit/**'
+  - 'examples/octane/**'
 
 allowBuilds:
   # root dependency

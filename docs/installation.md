@@ -60,3 +60,11 @@ npm install @tanstack/lit-store
 ```
 
 TanStack Store is compatible with Lit 3.
+
+## Octane
+
+```sh
+npm install @tanstack/octane-store
+```
+
+TanStack Store is compatible with Octane 0.1.21.

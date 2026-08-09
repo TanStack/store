@@ -1,6 +1,6 @@
 {
   "name": "@tanstack/angular-store",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "description": "Framework agnostic type-safe store w/ reactive framework adapters",
   "author": "Tanner Linsley",
   "license": "MIT",
@@ -49,7 +49,7 @@
     "@tanstack/store": "workspace:*"
   },
   "devDependencies": {
-    "@analogjs/vite-plugin-angular": "^2.4.5",
+    "@analogjs/vite-plugin-angular": "^2.6.2",
     "@angular/common": "^21.2.8",
     "@angular/compiler": "^21.2.8",
     "@angular/core": "^21.2.8",
