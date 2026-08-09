@@ -27,7 +27,7 @@
           "label": "react",
           "children": [
             {
-              "label": "Quick Start",
+              "label": "Quick Start - React",
               "to": "framework/react/quick-start"
             }
           ]
@@ -36,7 +36,7 @@
           "label": "vue",
           "children": [
             {
-              "label": "Quick Start",
+              "label": "Quick Start - Vue",
               "to": "framework/vue/quick-start"
             }
           ]
@@ -45,7 +45,7 @@
           "label": "solid",
           "children": [
             {
-              "label": "Quick Start",
+              "label": "Quick Start - Solid",
               "to": "framework/solid/quick-start"
             }
           ]
@@ -54,7 +54,7 @@
           "label": "angular",
           "children": [
             {
-              "label": "Quick Start",
+              "label": "Quick Start - Angular",
               "to": "framework/angular/quick-start"
             }
           ]
@@ -63,7 +63,7 @@
           "label": "svelte",
           "children": [
             {
-              "label": "Quick Start",
+              "label": "Quick Start - Svelte",
               "to": "framework/svelte/quick-start"
             }
           ]
@@ -72,7 +72,7 @@
           "label": "preact",
           "children": [
             {
-              "label": "Quick Start",
+              "label": "Quick Start - Preact",
               "to": "framework/preact/quick-start"
             }
           ]
@@ -81,8 +81,17 @@
           "label": "lit",
           "children": [
             {
-              "label": "Quick Start",
+              "label": "Quick Start - Lit",
               "to": "framework/lit/quick-start"
+            }
+          ]
+        },
+        {
+          "label": "octane",
+          "children": [
+            {
+              "label": "Quick Start - Octane",
+              "to": "framework/octane/quick-start"
             }
           ]
         }
@@ -157,6 +166,15 @@
             {
               "label": "Lit Reactive Controllers",
               "to": "framework/lit/reference/index"
+            }
+          ]
+        },
+        {
+          "label": "octane",
+          "children": [
+            {
+              "label": "Octane Hooks",
+              "to": "framework/octane/reference/index"
             }
           ]
         }
@@ -507,6 +525,35 @@
               "to": "framework/lit/reference/interfaces/UseSelectorOptions"
             }
           ]
+        },
+        {
+          "label": "octane",
+          "children": [
+            {
+              "label": "createStoreContext",
+              "to": "framework/octane/reference/functions/createStoreContext"
+            },
+            {
+              "label": "useCreateAtom",
+              "to": "framework/octane/reference/functions/useCreateAtom"
+            },
+            {
+              "label": "useCreateStore",
+              "to": "framework/octane/reference/functions/useCreateStore"
+            },
+            {
+              "label": "useSelector",
+              "to": "framework/octane/reference/functions/useSelector"
+            },
+            {
+              "label": "useAtom",
+              "to": "framework/octane/reference/functions/useAtom"
+            },
+            {
+              "label": "UseSelectorOptions",
+              "to": "framework/octane/reference/interfaces/UseSelectorOptions"
+            }
+          ]
         }
       ]
     },
@@ -670,6 +717,31 @@
             {
               "label": "Simple",
               "to": "framework/lit/examples/simple"
+            }
+          ]
+        },
+        {
+          "label": "octane",
+          "children": [
+            {
+              "label": "Simple",
+              "to": "framework/octane/examples/simple"
+            },
+            {
+              "label": "Atoms",
+              "to": "framework/octane/examples/atoms"
+            },
+            {
+              "label": "Stores",
+              "to": "framework/octane/examples/stores"
+            },
+            {
+              "label": "Store Actions",
+              "to": "framework/octane/examples/store-actions"
+            },
+            {
+              "label": "Store Context",
+              "to": "framework/octane/examples/store-context"
             }
           ]
         }

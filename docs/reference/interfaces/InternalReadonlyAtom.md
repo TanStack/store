@@ -96,7 +96,7 @@ ReactiveNode.depsTail
 ### flags
 
 ```ts
-flags: ReactiveFlags;
+flags: number;
 ```
 
 Defined in: [alien.ts:10](https://github.com/TanStack/store/blob/main/packages/store/src/alien.ts#L10)

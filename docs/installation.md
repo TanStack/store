@@ -52,3 +52,19 @@ npm install @tanstack/svelte-store
 ```
 
 TanStack Store is compatible with Svelte 5.
+
+## Lit
+
+```sh
+npm install @tanstack/lit-store
+```
+
+TanStack Store is compatible with Lit 3.
+
+## Octane
+
+```sh
+npm install @tanstack/octane-store
+```
+
+TanStack Store is compatible with Octane 0.1.21.

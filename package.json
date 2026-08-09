@@ -5,7 +5,10 @@
     "type": "git",
     "url": "https://github.com/tanstack/store.git"
   },
-  "packageManager": "pnpm@10.33.0",
+  "packageManager": "pnpm@11.1.0",
+  "engines": {
+    "pnpm": ">=11.0.0"
+  },
   "type": "module",
   "scripts": {
     "clean": "pnpm --filter \"./packages/**\" run clean",
@@ -70,12 +73,14 @@
   },
   "overrides": {
     "@tanstack/angular-store": "workspace:*",
+    "@tanstack/octane-store": "workspace:*",
     "@tanstack/preact-store": "workspace:*",
     "@tanstack/react-store": "workspace:*",
     "@tanstack/solid-store": "workspace:*",
     "@tanstack/store": "workspace:*",
     "@tanstack/svelte-store": "workspace:*",
-    "@tanstack/vue-store": "workspace:*"
+    "@tanstack/vue-store": "workspace:*",
+    "@tanstack/lit-store": "workspace:*"
   },
   "pnpm": {
     "packageExtensions": {

@@ -5,6 +5,11 @@ id: quick-start
 
 The basic Lit app example to get started with TanStack `lit-store`.
 
+You can use `TanStackStoreSelector` in two ways:
+
+- Trigger rerenders when a selected slice changes
+- Access the selected value directly through `.value`
+
 ```ts
 import { LitElement, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
@@ -25,21 +30,31 @@ const updateState = (animal: Animal) => {
   }))
 }
 
-// This will only re-render when `state[animal]` changes. If an unrelated
-// store property changes, it won't re-render.
 @customElement('animal-display')
 export class AnimalDisplay extends LitElement {
   @property({ type: String }) animal: Animal = 'dogs'
 
-  // Subscribes the host to changes in `state[animal]` only.
-  _ = new TanStackStoreSelector(
+  // Subscribes only to `state[animal]`
+  counter = new TanStackStoreSelector(
     this,
     () => store,
     (state) => state[this.animal],
   )
 
   render() {
-    return html`<div>${this.animal}: ${store.state[this.animal]}</div>`
+    return html`
+      <div>
+        <p>
+          Using selector.value:
+          ${this.counter.value}
+        </p>
+
+        <p>
+          Reading directly from store.state:
+          ${store.state[this.animal]}
+        </p>
+      </div>
+    `
   }
 }
 
@@ -62,12 +77,15 @@ export class TanStackStoreDemo extends LitElement {
     return html`
       <div>
         <h1>How many of your friends like cats or dogs?</h1>
+
         <p>
-          Press one of the buttons to add a counter of how many of your
-          friends like cats or dogs
+          Press one of the buttons to increment how many of your friends
+          like cats or dogs.
         </p>
+
         <animal-increment animal="dogs"></animal-increment>
         <animal-display animal="dogs"></animal-display>
+
         <animal-increment animal="cats"></animal-increment>
         <animal-display animal="cats"></animal-display>
       </div>
@@ -75,6 +93,13 @@ export class TanStackStoreDemo extends LitElement {
   }
 }
 ```
+
+`selector.value` returns the latest selected value and only updates when
+that specific selection changes.
+
+Reading from `store.state` accesses the full store state directly. The
+component still rerenders because the selector subscription is active,
+but the rendered value itself comes from the store.
 
 Then mount the root element in your HTML:
 

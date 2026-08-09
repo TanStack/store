@@ -19,6 +19,43 @@ type SelectionSource<T> = {
   }
 }
 
+/**
+ * Subscribes a Lit host to a TanStack Store and exposes a selected slice of its state.
+ *
+ * The host will only re-render when the selected value actually changes
+ * (according to the configured `compare` function).
+ *
+ * @example
+ * ```ts
+ * class UserNameEl extends LitElement {
+ *   #name = new TanStackStoreSelector(
+ *     this,
+ *     () => userStore,
+ *     (snapshot) => snapshot.name,
+ *   )
+ *
+ *   render() {
+ *     return html`<p>${this.#name.value}</p>`
+ *   }
+ * }
+ * ```
+ *
+ * @example
+ * ```ts
+ * class UserNameEl extends LitElement {
+ *   _ = new TanStackStoreAtom(
+ *     this,
+ *     () => userStore,
+ *     (snapshot) => snapshot.name,
+ *   )
+ *
+ *   render() {
+ *     return html`<p>${userStore.state.name}</p>`
+ *   }
+ * }
+ * ```
+ *
+ */
 export class TanStackStoreSelector<
   TSource,
   TSelected = NoInfer<TSource>,
@@ -43,6 +80,10 @@ export class TanStackStoreSelector<
     this.#selector = selector
     this.#compare = options?.compare ?? defaultCompare
     host.addController(this)
+  }
+
+  get value(): TSelected | undefined {
+    return this.#lastSelected
   }
 
   hostUpdate() {
