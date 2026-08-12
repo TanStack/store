@@ -5,9 +5,9 @@
     "type": "git",
     "url": "https://github.com/tanstack/store.git"
   },
-  "packageManager": "pnpm@11.1.0",
+  "packageManager": "pnpm@11.9.0",
   "engines": {
-    "pnpm": ">=11.0.0"
+    "pnpm": ">=11.9.0"
   },
   "type": "module",
   "scripts": {
@@ -42,9 +42,9 @@
     ]
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.7.0",
     "@changesets/cli": "^2.30.0",
     "@eslint-react/eslint-plugin": "^4.2.3",
-    "@svitejs/changesets-changelog-github-compact": "^1.2.0",
     "@tanstack/eslint-config": "0.4.0",
     "@tanstack/typedoc-config": "0.3.3",
     "@testing-library/jest-dom": "^6.9.1",
@@ -73,6 +73,7 @@
   },
   "overrides": {
     "@tanstack/angular-store": "workspace:*",
+    "@tanstack/octane-store": "workspace:*",
     "@tanstack/preact-store": "workspace:*",
     "@tanstack/react-store": "workspace:*",
     "@tanstack/solid-store": "workspace:*",
@@ -80,15 +81,6 @@
     "@tanstack/svelte-store": "workspace:*",
     "@tanstack/vue-store": "workspace:*",
     "@tanstack/lit-store": "workspace:*"
-  },
-  "pnpm": {
-    "packageExtensions": {
-      "@vue/composition-api": {
-        "peerDependencies": {
-          "vue": ">= 2.5"
-        }
-      }
-    }
   },
   "sherif": {
     "ignorePackage": [

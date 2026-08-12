@@ -11,7 +11,7 @@ title: createAtom
 function createAtom<T>(getValue, options?): ReadonlyAtom<T>;
 ```
 
-Defined in: [atom.ts:138](https://github.com/TanStack/store/blob/main/packages/store/src/atom.ts#L138)
+Defined in: [atom.ts:146](https://github.com/TanStack/store/blob/main/packages/store/src/atom.ts#L146)
 
 ### Type Parameters
 
@@ -39,7 +39,7 @@ Defined in: [atom.ts:138](https://github.com/TanStack/store/blob/main/packages/s
 function createAtom<T>(initialValue, options?): Atom<T>;
 ```
 
-Defined in: [atom.ts:142](https://github.com/TanStack/store/blob/main/packages/store/src/atom.ts#L142)
+Defined in: [atom.ts:150](https://github.com/TanStack/store/blob/main/packages/store/src/atom.ts#L150)
 
 ### Type Parameters
 

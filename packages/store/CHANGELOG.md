@@ -1,5 +1,11 @@
 # @tanstack/store
 
+## 0.11.1
+
+### Patch Changes
+
+- Inline reactive flag constants in generated builds to improve tree-shaking. ([#350](https://github.com/TanStack/store/pull/350))
+
 ## 0.11.0
 
 ### Minor Changes

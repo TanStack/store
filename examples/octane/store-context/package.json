@@ -1,0 +1,20 @@
+{
+  "name": "@tanstack/store-example-octane-store-context",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port=3050",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test:types": "tsrx-tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@tanstack/octane-store": "^0.12.2",
+    "octane": "0.1.21"
+  },
+  "devDependencies": {
+    "@tsrx/typescript-plugin": "^0.3.118",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.16"
+  }
+}
