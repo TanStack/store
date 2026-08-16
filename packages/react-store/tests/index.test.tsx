@@ -1,4 +1,11 @@
-import { act, render, renderHook, waitFor } from '@testing-library/react'
+import { Suspense, startTransition, use, useState } from 'react'
+import {
+  act,
+  fireEvent,
+  render,
+  renderHook,
+  waitFor,
+} from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { describe, expect, it, test, vi } from 'vitest'
 import { createAtom, createStore } from '@tanstack/store'
@@ -139,6 +146,61 @@ describe('atom hooks', () => {
 
     await waitFor(() => expect(getByText('Value: 1')).toBeInTheDocument())
     expect(getByText('Renders: 2')).toBeInTheDocument()
+  })
+
+  it('useSelector keeps the committed selector active while a selector change suspends', async () => {
+    const atom = createAtom({ a: 0, b: 0 })
+    const never = new Promise<never>(() => {})
+
+    const selectA = (state: { a: number; b: number }) => state.a
+    const selectB = vi.fn((state: { a: number; b: number }) => state.b)
+
+    function Value({ mode }: { mode: 'a' | 'b' }) {
+      const value = useSelector(atom, mode === 'a' ? selectA : selectB)
+
+      // Suspend only after useSelector has rendered with the pending selector.
+      if (mode === 'b') {
+        use(never)
+      }
+
+      return <output data-testid="value">A:{value}</output>
+    }
+
+    function Comp() {
+      const [mode, setMode] = useState<'a' | 'b'>('a')
+
+      return (
+        <>
+          <button
+            type="button"
+            onClick={() => startTransition(() => setMode('b'))}
+          >
+            Switch
+          </button>
+          <Suspense fallback={<p>Loading</p>}>
+            <Value mode={mode} />
+          </Suspense>
+        </>
+      )
+    }
+
+    const { getByRole, getByTestId } = render(<Comp />)
+
+    expect(getByTestId('value')).toHaveTextContent('A:0')
+
+    fireEvent.click(getByRole('button', { name: 'Switch' }))
+
+    // The transition reached selectB but did not commit because it suspended.
+    await waitFor(() => expect(selectB).toHaveBeenCalled())
+    expect(getByTestId('value')).toHaveTextContent('A:0')
+
+    // Emulate a change to the atom while the transition is suspended.
+    act(() => {
+      atom.set({ a: 1, b: 0 })
+    })
+
+    // The committed selectA subscription must observe the synchronous update.
+    expect(getByTestId('value')).toHaveTextContent('A:1')
   })
 
   it('useAtom returns the current value and setter', () => {
