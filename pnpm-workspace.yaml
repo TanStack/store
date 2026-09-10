@@ -43,3 +43,6 @@ allowBuilds:
 
   # @tanstack/vue-store
   vue-demi: true # only required for vue 2 support
+minimumReleaseAgeExclude:
+  # Renovate security update: nx@22.7.7
+  - nx@22.7.7
