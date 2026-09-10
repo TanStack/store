@@ -3,8 +3,6 @@ id: WritableAtomSignal
 title: WritableAtomSignal
 ---
 
-# Interface: WritableAtomSignal()\<T\>
-
 Defined in: [packages/angular-store/src/injectAtom.ts:21](https://github.com/TanStack/store/blob/main/packages/angular-store/src/injectAtom.ts#L21)
 
 A callable signal that reads the current atom value when invoked and

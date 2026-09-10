@@ -3,8 +3,6 @@ id: useCreateAtom
 title: useCreateAtom
 ---
 
-# Function: useCreateAtom()
-
 ## Readonly atom
 
 ```ts

@@ -3,8 +3,6 @@ id: Store
 title: Store
 ---
 
-# Class: Store\<T, TActions\>
-
 Defined in: [store.ts:15](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L15)
 
 ## Type Parameters

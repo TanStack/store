@@ -3,8 +3,6 @@ id: "@tanstack/preact-store"
 title: "@tanstack/preact-store"
 ---
 
-# @tanstack/preact-store
-
 ## Interfaces
 
 - [UseSelectorOptions](interfaces/UseSelectorOptions.md)

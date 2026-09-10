@@ -3,8 +3,6 @@ id: SelectionSource
 title: SelectionSource
 ---
 
-# Type Alias: SelectionSource\<T\>
-
 ```ts
 type SelectionSource<T> = object;
 ```
