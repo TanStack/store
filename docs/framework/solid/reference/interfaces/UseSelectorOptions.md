@@ -3,8 +3,6 @@ id: UseSelectorOptions
 title: UseSelectorOptions
 ---
 
-# Interface: UseSelectorOptions\<TSelected\>
-
 Defined in: [solid-store/src/useSelector.ts:4](https://github.com/TanStack/store/blob/main/packages/solid-store/src/useSelector.ts#L4)
 
 ## Type Parameters
