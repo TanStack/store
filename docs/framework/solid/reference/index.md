@@ -3,6 +3,8 @@ id: "@tanstack/solid-store"
 title: "@tanstack/solid-store"
 ---
 
+# @tanstack/solid-store
+
 ## Interfaces
 
 - [UseSelectorOptions](interfaces/UseSelectorOptions.md)

@@ -3,6 +3,8 @@ id: useStore
 title: useStore
 ---
 
+# ~~Function: useStore()~~
+
 ```ts
 function useStore<TState, TSelected>(
    source, 

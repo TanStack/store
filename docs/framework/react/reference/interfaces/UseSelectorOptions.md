@@ -3,6 +3,8 @@ id: UseSelectorOptions
 title: UseSelectorOptions
 ---
 
+# Interface: UseSelectorOptions\<TSelected\>
+
 Defined in: [packages/react-store/src/useSelector.ts:4](https://github.com/TanStack/store/blob/main/packages/react-store/src/useSelector.ts#L4)
 
 ## Type Parameters

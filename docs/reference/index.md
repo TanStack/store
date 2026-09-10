@@ -3,6 +3,8 @@ id: "@tanstack/store"
 title: "@tanstack/store"
 ---
 
+# @tanstack/store
+
 ## Classes
 
 - [ReadonlyStore](classes/ReadonlyStore.md)

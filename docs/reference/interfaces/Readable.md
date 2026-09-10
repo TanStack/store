@@ -3,6 +3,8 @@ id: Readable
 title: Readable
 ---
 
+# Interface: Readable\<T\>
+
 Defined in: [types.ts:29](https://github.com/TanStack/store/blob/main/packages/store/src/types.ts#L29)
 
 ## Extends

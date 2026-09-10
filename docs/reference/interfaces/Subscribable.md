@@ -3,6 +3,8 @@ id: Subscribable
 title: Subscribable
 ---
 
+# Interface: Subscribable\<T\>
+
 Defined in: [types.ts:20](https://github.com/TanStack/store/blob/main/packages/store/src/types.ts#L20)
 
 ## Extends

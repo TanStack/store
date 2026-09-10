@@ -3,6 +3,8 @@ id: BaseAtom
 title: BaseAtom
 ---
 
+# Interface: BaseAtom\<T\>
+
 Defined in: [types.ts:33](https://github.com/TanStack/store/blob/main/packages/store/src/types.ts#L33)
 
 ## Extends

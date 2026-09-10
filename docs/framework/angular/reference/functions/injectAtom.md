@@ -3,6 +3,8 @@ id: injectAtom
 title: injectAtom
 ---
 
+# Function: injectAtom()
+
 ```ts
 function injectAtom<TValue>(atom, options?): WritableAtomSignal<TValue>;
 ```

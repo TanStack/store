@@ -3,6 +3,8 @@ id: AtomOptions
 title: AtomOptions
 ---
 
+# Interface: AtomOptions\<T\>
+
 Defined in: [types.ts:47](https://github.com/TanStack/store/blob/main/packages/store/src/types.ts#L47)
 
 ## Type Parameters

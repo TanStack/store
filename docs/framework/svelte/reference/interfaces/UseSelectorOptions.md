@@ -3,6 +3,8 @@ id: UseSelectorOptions
 title: UseSelectorOptions
 ---
 
+# Interface: UseSelectorOptions\<TSelected\>
+
 Defined in: [svelte-store/src/useSelector.svelte.ts:3](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/useSelector.svelte.ts#L3)
 
 ## Type Parameters
