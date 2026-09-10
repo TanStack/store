@@ -3,6 +3,8 @@ id: injectStore
 title: injectStore
 ---
 
+# ~~Function: injectStore()~~
+
 ```ts
 function injectStore<TState, TSelected>(
    store, 

@@ -3,6 +3,8 @@ id: _injectStore
 title: _injectStore
 ---
 
+# Function: \_injectStore()
+
 ```ts
 function _injectStore<TState, TActions, TSelected>(
    store, 

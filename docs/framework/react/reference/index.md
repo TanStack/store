@@ -3,6 +3,8 @@ id: "@tanstack/react-store"
 title: "@tanstack/react-store"
 ---
 
+# @tanstack/react-store
+
 ## Interfaces
 
 - [UseSelectorOptions](interfaces/UseSelectorOptions.md)

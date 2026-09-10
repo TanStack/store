@@ -3,6 +3,8 @@ id: UseSelectorOptions
 title: UseSelectorOptions
 ---
 
+# Interface: UseSelectorOptions\<TSelected\>
+
 Defined in: [vue-store/src/useSelector.ts:4](https://github.com/TanStack/store/blob/main/packages/vue-store/src/useSelector.ts#L4)
 
 ## Type Parameters

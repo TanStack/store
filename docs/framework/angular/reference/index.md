@@ -3,6 +3,8 @@ id: "@tanstack/angular-store"
 title: "@tanstack/angular-store"
 ---
 
+# @tanstack/angular-store
+
 ## Interfaces
 
 - [InjectSelectorOptions](interfaces/InjectSelectorOptions.md)

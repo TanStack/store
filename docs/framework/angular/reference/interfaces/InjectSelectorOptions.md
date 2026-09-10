@@ -3,6 +3,8 @@ id: InjectSelectorOptions
 title: InjectSelectorOptions
 ---
 
+# Interface: InjectSelectorOptions\<TSelected\>
+
 Defined in: [packages/angular-store/src/injectSelector.ts:11](https://github.com/TanStack/store/blob/main/packages/angular-store/src/injectSelector.ts#L11)
 
 ## Extends

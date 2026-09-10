@@ -3,6 +3,8 @@ id: "@tanstack/octane-store"
 title: "@tanstack/octane-store"
 ---
 
+# @tanstack/octane-store
+
 ## Interfaces
 
 - [UseSelectorOptions](interfaces/UseSelectorOptions.md)

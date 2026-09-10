@@ -3,6 +3,8 @@ id: InternalBaseAtom
 title: InternalBaseAtom
 ---
 
+# Interface: InternalBaseAtom\<T\>
+
 Defined in: [types.ts:35](https://github.com/TanStack/store/blob/main/packages/store/src/types.ts#L35)
 
 ## Extends

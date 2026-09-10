@@ -3,6 +3,8 @@ id: "@tanstack/svelte-store"
 title: "@tanstack/svelte-store"
 ---
 
+# @tanstack/svelte-store
+
 ## Interfaces
 
 - [UseSelectorOptions](interfaces/UseSelectorOptions.md)
