@@ -46,3 +46,5 @@ allowBuilds:
 minimumReleaseAgeExclude:
   # Renovate security update: nx@22.7.7
   - nx@22.7.7
+  # Renovate security update: vite@7.3.5
+  - vite@7.3.5
