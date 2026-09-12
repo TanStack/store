@@ -775,6 +775,47 @@ describe('useSelector selection memo', () => {
   })
 })
 
+describe('useSelector subscription cleanup', () => {
+  it('unsubscribes through the subscription object so `this`-based sources clean up', () => {
+    const listeners = new Set<(value: number) => void>()
+
+    class Subscription {
+      closed = false
+
+      constructor(private readonly listener: (value: number) => void) {}
+
+      // Throws if React calls it detached from the subscription object.
+      unsubscribe() {
+        this.closed = true
+        listeners.delete(this.listener)
+      }
+    }
+
+    const source = {
+      get: () => 1,
+      subscribe: (listener: (value: number) => void) => {
+        listeners.add(listener)
+        return new Subscription(listener)
+      },
+    }
+
+    function Comp() {
+      const value = useSelector(source)
+
+      return <p>Value: {value}</p>
+    }
+
+    const { getByText, unmount } = render(<Comp />)
+
+    expect(getByText('Value: 1')).toBeInTheDocument()
+    expect(listeners.size).toBe(1)
+
+    unmount()
+
+    expect(listeners.size).toBe(0)
+  })
+})
+
 describe('useStore', () => {
   it('is a compatibility alias for useSelector', async () => {
     const store = createStore(0)

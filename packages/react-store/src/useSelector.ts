@@ -58,8 +58,16 @@ export function useSelector<TSource, TSelected = NoInfer<TSource>>(
 
   // `useSyncExternalStore` re-subscribes in a passive effect whenever
   // `subscribe` changes identity, so it is the one callback worth memoizing.
+  // The cleanup calls `unsubscribe` on the subscription object so that sources
+  // whose `unsubscribe` relies on `this` keep working.
   const subscribe = useCallback(
-    (onStoreChange: () => void) => source.subscribe(onStoreChange).unsubscribe,
+    (onStoreChange: () => void) => {
+      const subscription = source.subscribe(onStoreChange)
+
+      return () => {
+        subscription.unsubscribe()
+      }
+    },
     [source],
   )
 
