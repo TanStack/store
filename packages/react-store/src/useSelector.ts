@@ -1,5 +1,4 @@
-import { useCallback, useRef } from 'react'
-import { useSyncExternalStore } from 'use-sync-external-store/shim'
+import { useCallback, useRef, useSyncExternalStore } from 'react'
 
 export interface UseSelectorOptions<TSelected> {
   compare?: (a: TSelected, b: TSelected) => boolean
@@ -98,10 +97,10 @@ export function useSelector<TSource, TSelected = NoInfer<TSource>>(
 
     // Keep the previous selection's identity when `compare` considers the new
     // one equal so that `useSyncExternalStore` does not re-render the component.
-    // Like `useSyncExternalStoreWithSelector`, this compares against the
-    // previous selection even when the selector identity changed: inline
-    // selectors are recreated on every render and must still return the same
-    // object when the selection is equal.
+    // Like the former `use-sync-external-store/shim/with-selector` helper, this
+    // compares against the previous selection even when the selector identity
+    // changed: inline selectors are recreated on every render and must still
+    // return the same object when the selection is equal.
     if (!compare(cached.selected, selected)) {
       cached.selected = selected
     }
