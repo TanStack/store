@@ -12,7 +12,7 @@ function useSelector<TSource, TSelected>(
    options?): TSelected;
 ```
 
-Defined in: [packages/react-store/src/useSelector.ts:52](https://github.com/TanStack/store/blob/main/packages/react-store/src/useSelector.ts#L52)
+Defined in: [packages/react-store/src/useSelector.ts:140](https://github.com/TanStack/store/blob/main/packages/react-store/src/useSelector.ts#L140)
 
 Selects a slice of state from an atom or store and subscribes the component
 to that selection.
@@ -41,7 +41,7 @@ Omit the selector to subscribe to the whole value.
 
 ### selector
 
-(`snapshot`) => `TSelected`
+`Selector`\<`TSource`, `TSelected`\> = `identity`
 
 ### options?
 
