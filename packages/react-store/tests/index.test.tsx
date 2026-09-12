@@ -814,6 +814,109 @@ describe('useSelector subscription cleanup', () => {
 
     expect(listeners.size).toBe(0)
   })
+
+  it('moves the subscription when the source changes', () => {
+    function createSource(initial: number) {
+      const listeners = new Set<(value: number) => void>()
+      let value = initial
+
+      return {
+        listeners,
+        get: () => value,
+        set: (next: number) => {
+          value = next
+          listeners.forEach((listener) => listener(next))
+        },
+        subscribe: (listener: (value: number) => void) => {
+          listeners.add(listener)
+          return {
+            unsubscribe: () => {
+              listeners.delete(listener)
+            },
+          }
+        },
+      }
+    }
+
+    const first = createSource(1)
+    const second = createSource(10)
+
+    function Comp({ source }: { source: typeof first }) {
+      const value = useSelector(source)
+
+      return <p>Value: {value}</p>
+    }
+
+    const { getByText, rerender } = render(<Comp source={first} />)
+
+    expect(getByText('Value: 1')).toBeInTheDocument()
+    expect(first.listeners.size).toBe(1)
+
+    rerender(<Comp source={second} />)
+
+    expect(getByText('Value: 10')).toBeInTheDocument()
+    expect(first.listeners.size).toBe(0)
+    expect(second.listeners.size).toBe(1)
+
+    act(() => {
+      second.set(20)
+    })
+
+    expect(getByText('Value: 20')).toBeInTheDocument()
+  })
+})
+
+describe('useSelector compare changes', () => {
+  it('uses the compare function from the latest render', () => {
+    type State = { a: number; b: number }
+    const store = createStore<State>({ a: 0, b: 0 })
+    const compareA = (x: State, y: State) => x.a === y.a
+    const compareB = (x: State, y: State) => x.b === y.b
+    const renderSpy = vi.fn()
+
+    function Comp({ compare }: { compare: typeof compareA }) {
+      const value = useSelector(store, undefined, { compare })
+      renderSpy()
+
+      return (
+        <p>
+          a{value.a} b{value.b}
+        </p>
+      )
+    }
+
+    const { getByText, rerender } = render(<Comp compare={compareA} />)
+
+    expect(getByText('a0 b0')).toBeInTheDocument()
+
+    // compareA ignores `b`, so this update does not re-render.
+    act(() => {
+      store.setState((prev) => ({ ...prev, b: 1 }))
+    })
+
+    expect(getByText('a0 b0')).toBeInTheDocument()
+    expect(renderSpy).toHaveBeenCalledTimes(1)
+
+    rerender(<Comp compare={compareB} />)
+
+    expect(getByText('a0 b1')).toBeInTheDocument()
+    expect(renderSpy).toHaveBeenCalledTimes(2)
+
+    // compareB ignores `a`, so this update does not re-render.
+    act(() => {
+      store.setState((prev) => ({ ...prev, a: 1 }))
+    })
+
+    expect(getByText('a0 b1')).toBeInTheDocument()
+    expect(renderSpy).toHaveBeenCalledTimes(2)
+
+    act(() => {
+      store.setState((prev) => ({ ...prev, b: 2 }))
+    })
+
+    expect(getByText('a1 b2')).toBeInTheDocument()
+    expect(renderSpy).toHaveBeenCalledTimes(3)
+  })
 })
 
 describe('useStore', () => {
