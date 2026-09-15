@@ -3,8 +3,6 @@ id: ReadonlyStore
 title: ReadonlyStore
 ---
 
-# Class: ReadonlyStore\<T\>
-
 Defined in: [store.ts:59](https://github.com/TanStack/store/blob/main/packages/store/src/store.ts#L59)
 
 ## Type Parameters

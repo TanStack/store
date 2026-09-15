@@ -3,8 +3,6 @@ id: InternalReadonlyAtom
 title: InternalReadonlyAtom
 ---
 
-# Interface: InternalReadonlyAtom\<T\>
-
 Defined in: [types.ts:53](https://github.com/TanStack/store/blob/main/packages/store/src/types.ts#L53)
 
 ## Extends

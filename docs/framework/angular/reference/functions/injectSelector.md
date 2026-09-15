@@ -3,8 +3,6 @@ id: injectSelector
 title: injectSelector
 ---
 
-# Function: injectSelector()
-
 ```ts
 function injectSelector<TState, TSelected>(
    source, 

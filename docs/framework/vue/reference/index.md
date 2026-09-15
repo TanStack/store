@@ -3,8 +3,6 @@ id: "@tanstack/vue-store"
 title: "@tanstack/vue-store"
 ---
 
-# @tanstack/vue-store
-
 ## Interfaces
 
 - [UseSelectorOptions](interfaces/UseSelectorOptions.md)
