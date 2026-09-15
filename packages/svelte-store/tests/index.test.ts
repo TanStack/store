@@ -3,6 +3,7 @@ import { render, waitFor } from '@testing-library/svelte'
 import { userEvent } from '@testing-library/user-event'
 import { shallow } from '../src/index.svelte.js'
 import TestBaseStore from './BaseStore.test.svelte'
+import TestObjectSelector from './ObjectSelector.test.svelte'
 import TestRerender from './Render.test.svelte'
 import TestValue from './Value.test.svelte'
 
@@ -26,6 +27,15 @@ describe('useSelector', () => {
 
     await user.click(getByText('Update ignored'))
     expect(getByText('Number rendered: 2')).toBeInTheDocument()
+  })
+
+  it('preserves object identity for unchanged selector state', async () => {
+    const { getByRole, getByText } = render(TestObjectSelector)
+    expect(getByText('Number rendered: 1')).toBeInTheDocument()
+
+    await user.click(getByRole('button', { name: 'Update ignored' }))
+
+    expect(getByText('Number rendered: 1')).toBeInTheDocument()
   })
 
   it('useSelector reads writable and readonly store state', async () => {

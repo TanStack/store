@@ -35,7 +35,7 @@ export function useSelector<TState, TSelected = NoInfer<TState>>(
   options: UseSelectorOptions<TSelected> = {},
 ): { readonly current: TSelected } {
   const compare = options.compare ?? defaultCompare
-  let slice = $state(selector(source.get()))
+  let slice = $state.raw(selector(source.get()))
 
   $effect(() => {
     const unsub = source.subscribe((s) => {
