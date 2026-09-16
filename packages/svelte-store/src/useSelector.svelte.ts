@@ -35,7 +35,9 @@ export function useSelector<TState, TSelected = NoInfer<TState>>(
   options: UseSelectorOptions<TSelected> = {},
 ): { readonly current: TSelected } {
   const compare = options.compare ?? defaultCompare
-  let slice = $state(selector(source.get()))
+  // `$state.raw` keeps the slice unproxied; a proxied value would never be `===`
+  // to the plain object the selector returns, defeating the equality check below.
+  let slice = $state.raw(selector(source.get()))
 
   $effect(() => {
     const unsub = source.subscribe((s) => {
