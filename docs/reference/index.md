@@ -33,6 +33,7 @@ title: "@tanstack/store"
 ## Functions
 
 - [batch](functions/batch.md)
+- [compare](functions/compare.md)
 - [createAsyncAtom](functions/createAsyncAtom.md)
 - [createAtom](functions/createAtom.md)
 - [createStore](functions/createStore.md)
