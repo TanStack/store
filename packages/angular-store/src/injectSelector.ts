@@ -1,10 +1,12 @@
 import {
-  DestroyRef,
   Injector,
   assertInInjectionContext,
+  computed,
+  effect,
   inject,
-  linkedSignal,
   runInInjectionContext,
+  signal,
+  untracked,
 } from '@angular/core'
 import type { CreateSignalOptions, Signal } from '@angular/core'
 
@@ -23,55 +25,19 @@ export type SelectionSource<T> = {
   }
 }
 
-function defaultCompare<T>(a: T, b: T) {
-  return a === b
-}
-
 function resolveInjector(
   fn: (...args: Array<never>) => unknown,
   injector?: Injector,
 ) {
   if (!injector) {
-    assertInInjectionContext(fn)
+    // Assertion removed in production builds
+    if (typeof ngDevMode === 'undefined' || ngDevMode) {
+      assertInInjectionContext(fn)
+    }
     return inject(Injector)
   }
 
   return injector
-}
-
-function createReadonlySelectionSignal<TSource, TSelected>(
-  source: SelectionSource<TSource>,
-  selector: (state: NoInfer<TSource>) => TSelected,
-  options?: InjectSelectorOptions<TSelected>,
-): Signal<TSelected> {
-  const injector = resolveInjector(
-    createReadonlySelectionSignal,
-    options?.injector,
-  )
-
-  return runInInjectionContext(injector, () => {
-    const destroyRef = inject(DestroyRef)
-    const compare = options?.compare ?? defaultCompare
-    const {
-      injector: _injector,
-      compare: _compare,
-      ...signalOptions
-    } = options ?? {}
-    const slice = linkedSignal(() => selector(source.get()), {
-      ...signalOptions,
-      equal: compare,
-    })
-
-    const { unsubscribe } = source.subscribe((state) => {
-      slice.set(selector(state))
-    })
-
-    destroyRef.onDestroy(() => {
-      unsubscribe()
-    })
-
-    return slice.asReadonly()
-  })
 }
 
 /**
@@ -91,10 +57,34 @@ function createReadonlySelectionSignal<TSource, TSelected>(
  * ```
  */
 export function injectSelector<TState, TSelected = NoInfer<TState>>(
-  source: SelectionSource<TState>,
+  source: SelectionSource<TState> | (() => SelectionSource<TState>),
   selector: (state: NoInfer<TState>) => TSelected = (d) =>
     d as unknown as TSelected,
   options?: InjectSelectorOptions<TSelected>,
 ): Signal<TSelected> {
-  return createReadonlySelectionSignal(source, selector, options)
+  const injector = resolveInjector(injectSelector, options?.injector)
+
+  return runInInjectionContext(injector, () => {
+    const _source = typeof source === 'function' ? source : () => source
+
+    const revision = signal(0)
+    const invalidate = () => untracked(() => revision.update((n) => n + 1))
+
+    effect((onCleanup) => {
+      // Effect owns the subscription so snapshot reads stay pure. Invalidate
+      // after connect so an early cached read cannot miss updates that happen
+      // between the first get() and subscription setup.
+      const { unsubscribe } = _source().subscribe(invalidate)
+      onCleanup(unsubscribe)
+      invalidate()
+    })
+
+    return computed(
+      () => {
+        revision()
+        return selector(_source().get())
+      },
+      { equal: options?.compare, debugName: options?.debugName },
+    )
+  })
 }
