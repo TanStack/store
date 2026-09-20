@@ -58,6 +58,7 @@ export function useSelector<TSource, TSelected = NoInfer<TSource>>(
       version()
       return selector(source.get())
     },
+    undefined,
     {
       equals: compare,
     },

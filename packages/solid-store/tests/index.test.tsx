@@ -1,5 +1,5 @@
 import { describe, expect, it, test, vi } from 'vitest'
-import { createSignal } from 'solid-js'
+import { createEffect, createSignal } from 'solid-js'
 import { render, renderHook } from '@solidjs/testing-library'
 import { createAtom, createStore } from '@tanstack/store'
 import {
@@ -103,7 +103,7 @@ describe('store hooks', () => {
         { select: 0, ignore: 1 },
       ],
     })
-    const renderSpy = vi.fn()
+    let updates = 0
 
     const { result } = renderHook(() => {
       const value = useSelector(
@@ -114,12 +114,15 @@ describe('store hooks', () => {
             JSON.stringify(prev) === JSON.stringify(next),
         },
       )
-      renderSpy()
+      createEffect(() => {
+        value()
+        updates++
+      })
       return value
     })
 
     expect(result().map((item) => item.select)).toEqual([0, 0])
-    expect(renderSpy).toHaveBeenCalledTimes(1)
+    expect(updates).toBe(1)
 
     store.setState((prev) => ({
       array: prev.array.map((item) => ({
@@ -127,7 +130,7 @@ describe('store hooks', () => {
         ignore: item.ignore + 1,
       })),
     }))
-    expect(renderSpy).toHaveBeenCalledTimes(1)
+    expect(updates).toBe(1)
 
     store.setState((prev) => ({
       array: prev.array.map((item) => ({
@@ -136,7 +139,7 @@ describe('store hooks', () => {
       })),
     }))
     expect(result().map((item) => item.select)).toEqual([1, 1])
-    expect(renderSpy).toHaveBeenCalledTimes(1)
+    expect(updates).toBe(2)
   })
 
   it('useSelector works with mounted derived stores', () => {
