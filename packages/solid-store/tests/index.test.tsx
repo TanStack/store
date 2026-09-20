@@ -1,4 +1,5 @@
 import { describe, expect, it, test, vi } from 'vitest'
+import { createSignal } from 'solid-js'
 import { render, renderHook } from '@solidjs/testing-library'
 import { createAtom, createStore } from '@tanstack/store'
 import {
@@ -150,6 +151,26 @@ describe('store hooks', () => {
     store.setState((prev) => prev + 1)
 
     expect(result()).toBe(2)
+  })
+
+  it('tracks reactive values used in the selector after the store notifies', () => {
+    const store = createStore({ width: 10, height: 20 })
+
+    const { result } = renderHook(() => {
+      const [useWidth, setUseWidth] = createSignal(true)
+      const selected = useSelector(store, (state) =>
+        useWidth() ? state.width : state.height,
+      )
+      return { selected, setUseWidth }
+    })
+
+    expect(result.selected()).toBe(10)
+
+    store.setState((prev) => ({ ...prev, width: 11 }))
+    expect(result.selected()).toBe(11)
+
+    result.setUseWidth(false)
+    expect(result.selected()).toBe(20)
   })
 })
 

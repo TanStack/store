@@ -635,6 +635,44 @@ describe('store hooks', () => {
 
     await waitFor(() => expect(getByText('Derived: 2')).toBeInTheDocument())
   })
+
+  it('tracks reactive values used in the selector after the store notifies', async () => {
+    const store = createStore({ width: 10, height: 20 })
+
+    function Comp() {
+      const [useWidth, setUseWidth] = useState(true)
+      const storeVal = useSelector(store, (state) =>
+        useWidth ? state.width : state.height,
+      )
+
+      return (
+        <div>
+          <p>Use width: {String(useWidth)}</p>
+          <p>Value: {storeVal}</p>
+          <button
+            type="button"
+            onClick={() =>
+              store.setState((prev) => ({ ...prev, width: prev.width + 1 }))
+            }
+          >
+            Update store
+          </button>
+          <button type="button" onClick={() => setUseWidth((prev) => !prev)}>
+            Toggle
+          </button>
+        </div>
+      )
+    }
+
+    const { getByText } = render(<Comp />)
+    expect(getByText('Value: 10')).toBeInTheDocument()
+
+    await user.click(getByText('Update store'))
+    await waitFor(() => expect(getByText('Value: 11')).toBeInTheDocument())
+
+    await user.click(getByText('Toggle'))
+    await waitFor(() => expect(getByText('Value: 20')).toBeInTheDocument())
+  })
 })
 
 describe('useStore', () => {
