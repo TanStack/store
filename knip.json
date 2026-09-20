@@ -1,6 +1,10 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
   "workspaces": {
+    "packages/angular-store": {
+      "entry": ["tests/test-setup.ts"],
+      "ignoreDependencies": ["@vitest/coverage-v8"]
+    },
     "packages/store": {
       "entry": ["src/signal.ts"]
     },
