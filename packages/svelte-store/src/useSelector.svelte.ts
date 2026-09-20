@@ -1,3 +1,4 @@
+import { onDestroy } from 'svelte'
 import type { Atom, ReadonlyAtom, ReadonlyStore, Store } from '@tanstack/store'
 
 export interface UseSelectorOptions<TSelected> {
@@ -7,6 +8,8 @@ export interface UseSelectorOptions<TSelected> {
 function defaultCompare<T>(a: T, b: T) {
   return a === b
 }
+
+const unset = Symbol()
 
 /**
  * Selects a slice of state from an atom or store and exposes it through a
@@ -35,23 +38,30 @@ export function useSelector<TState, TSelected = NoInfer<TState>>(
   options: UseSelectorOptions<TSelected> = {},
 ): { readonly current: TSelected } {
   const compare = options.compare ?? defaultCompare
-  let slice = $state(selector(source.get()))
+  let version = $state(0)
 
-  $effect(() => {
-    const unsub = source.subscribe((s) => {
-      const data = selector(s)
-      if (compare(slice, data)) {
-        return
-      }
-      slice = data
-    }).unsubscribe
+  const { unsubscribe } = source.subscribe(() => {
+    version += 1
+  })
+  onDestroy(unsubscribe)
 
-    return unsub
+  // $derived has no equals option. Returning the previous reference when
+  // compare matches keeps === stable so dependents do not update.
+  let previous: TSelected | typeof unset = unset
+
+  const selected = $derived.by(() => {
+    void version
+    const next = selector(source.get())
+    if (previous !== unset && compare(previous, next)) {
+      return previous
+    }
+    previous = next
+    return next
   })
 
   return {
     get current() {
-      return slice
+      return selected
     },
   }
 }
