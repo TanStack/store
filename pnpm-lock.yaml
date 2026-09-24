@@ -54,7 +54,7 @@ importers:
         version: 4.0.3
       nx:
         specifier: 22.7.7
-        version: 22.7.7
+        version: 22.7.7(debug@4.4.3)
       premove:
         specifier: ^4.0.0
         version: 4.0.0
@@ -451,7 +451,7 @@ importers:
   examples/preact/atoms:
     dependencies:
       '@tanstack/preact-store':
-        specifier: ^0.13.2
+        specifier: ^0.13.3
         version: link:../../../packages/preact-store
       preact:
         specifier: ^10.29.1
@@ -479,7 +479,7 @@ importers:
   examples/preact/simple:
     dependencies:
       '@tanstack/preact-store':
-        specifier: ^0.13.2
+        specifier: ^0.13.3
         version: link:../../../packages/preact-store
       preact:
         specifier: ^10.29.1
@@ -507,7 +507,7 @@ importers:
   examples/preact/store-actions:
     dependencies:
       '@tanstack/preact-store':
-        specifier: ^0.13.2
+        specifier: ^0.13.3
         version: link:../../../packages/preact-store
       preact:
         specifier: ^10.29.1
@@ -535,7 +535,7 @@ importers:
   examples/preact/store-context:
     dependencies:
       '@tanstack/preact-store':
-        specifier: ^0.13.2
+        specifier: ^0.13.3
         version: link:../../../packages/preact-store
       preact:
         specifier: ^10.29.1
@@ -563,7 +563,7 @@ importers:
   examples/preact/stores:
     dependencies:
       '@tanstack/preact-store':
-        specifier: ^0.13.2
+        specifier: ^0.13.3
         version: link:../../../packages/preact-store
       preact:
         specifier: ^10.29.1
@@ -13432,7 +13432,7 @@ snapshots:
     dependencies:
       possible-typed-array-names: 1.1.0
 
-  axios@1.16.0:
+  axios@1.16.0(debug@4.4.3):
     dependencies:
       follow-redirects: 1.16.0(debug@4.4.3)
       form-data: 4.0.6
@@ -16120,7 +16120,7 @@ snapshots:
     dependencies:
       boolbase: 1.0.0
 
-  nx@22.7.7:
+  nx@22.7.7(debug@4.4.3):
     dependencies:
       '@emnapi/core': 1.4.5
       '@emnapi/runtime': 1.4.5
@@ -16135,7 +16135,7 @@ snapshots:
       ansi-styles: 4.3.0
       argparse: 2.0.1
       asynckit: 0.4.0
-      axios: 1.16.0
+      axios: 1.16.0(debug@4.4.3)
       balanced-match: 4.0.3
       base64-js: 1.5.1
       bl: 4.1.0
