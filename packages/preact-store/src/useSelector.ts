@@ -2,6 +2,7 @@ import {
   useCallback,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from 'preact/hooks'
@@ -146,26 +147,24 @@ export function useSelector<TSource, TSelected = NoInfer<TSource>>(
   // returning a fresh reference each call (e.g. `(s) => [s.one, s.two]`) still
   // produce a stable reference for unchanged snapshots. Without this, the
   // shim's identity-based memo would always miss and trigger an update loop.
-  const selectorMemoRef = useRef<{
-    _hasMemo: boolean
-    _snapshot: TSource | undefined
-    _selected: TSelected | undefined
-  }>({ _hasMemo: false, _snapshot: undefined, _selected: undefined })
+  // Scope the cache to the selector so a new selector can read the same
+  // snapshot with updated props instead of reusing the previous selection.
+  const memoizedSelector = useMemo(() => {
+    let hasMemo = false
+    let previousSnapshot: TSource
+    let previousSelection: TSelected
 
-  const memoizedSelector = useCallback(
-    (snapshot: TSource): TSelected => {
-      const memo = selectorMemoRef.current
-      if (memo._hasMemo && Object.is(memo._snapshot, snapshot)) {
-        return memo._selected as TSelected
+    return (snapshot: TSource): TSelected => {
+      if (hasMemo && Object.is(previousSnapshot, snapshot)) {
+        return previousSelection
       }
       const next = selector(snapshot)
-      memo._hasMemo = true
-      memo._snapshot = snapshot
-      memo._selected = next
+      hasMemo = true
+      previousSnapshot = snapshot
+      previousSelection = next
       return next
-    },
-    [selector],
-  )
+    }
+  }, [selector])
 
   return useSyncExternalStoreWithSelector(
     subscribe,
