@@ -1,5 +1,11 @@
 # @tanstack/preact-store
 
+## 0.13.3
+
+### Patch Changes
+
+- [#367](https://github.com/TanStack/store/pull/367) [`43bb6ee`](https://github.com/TanStack/store/commit/43bb6ee86f217bf86667cb4c04258b7df1d32245) - Fix stale `useSelector` results when a selector changes while the store snapshot stays unchanged, including selectors that capture component props. Preserve snapshot caching for selectors that return fresh arrays or objects.
+
 ## 0.13.2
 
 ### Patch Changes
