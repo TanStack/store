@@ -1,4 +1,4 @@
-import { createSignal, onCleanup } from 'solid-js'
+import { createMemo, createSignal, onCleanup } from 'solid-js'
 import type { Accessor } from 'solid-js'
 
 export interface UseSelectorOptions<TSelected> {
@@ -43,17 +43,24 @@ export function useSelector<TSource, TSelected = NoInfer<TSource>>(
   options?: UseSelectorOptions<TSelected>,
 ): Accessor<TSelected> {
   const compare = options?.compare ?? defaultCompare
-  const [signal, setSignal] = createSignal(selector(source.get()), {
-    equals: compare,
-  })
+  const [version, setVersion] = createSignal(0)
 
-  const unsubscribe = source.subscribe((snapshot) => {
-    setSignal(() => selector(snapshot))
+  const unsubscribe = source.subscribe(() => {
+    setVersion((current) => current + 1)
   }).unsubscribe
 
   onCleanup(() => {
     unsubscribe()
   })
 
-  return signal
+  return createMemo(
+    () => {
+      version()
+      return selector(source.get())
+    },
+    undefined,
+    {
+      equals: compare,
+    },
+  )
 }
