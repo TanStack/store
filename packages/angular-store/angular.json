@@ -1,0 +1,35 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "projects": {
+    "angular-store": {
+      "projectType": "application",
+      "root": ".",
+      "sourceRoot": ".",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": "dist",
+            "browser": "tests/index.test.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "polyfills": []
+          }
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "buildTarget": "angular-store:build",
+            "tsConfig": "tsconfig.spec.json",
+            "runner": "vitest",
+            "include": ["tests/index.test.ts"],
+            "setupFiles": ["tests/test-setup.ts"],
+            "coverage": true,
+            "coverageInclude": ["src/**/*.ts"],
+            "watch": false
+          }
+        }
+      }
+    }
+  }
+}
