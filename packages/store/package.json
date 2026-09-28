@@ -27,7 +27,7 @@
     "test:types:ts58": "node ../../node_modules/typescript58/lib/tsc.js",
     "test:types:ts59": "tsc",
     "test:lib": "vitest",
-    "test:bench": "vitest bench",
+    "test:bench": "vitest bench --run --config vitest.bench.config.ts",
     "test:lib:dev": "pnpm run test:lib --watch",
     "test:build": "publint --strict",
     "build": "tsdown --tsconfig tsconfig.build.json"
@@ -50,6 +50,7 @@
   ],
   "devDependencies": {
     "@angular/core": "^21.2.8",
+    "@codspeed/vitest-plugin": "6.0.0-beta.2",
     "@preact/signals": "^2.9.0",
     "solid-js": "^1.9.12",
     "vue": "^3.5.32"
