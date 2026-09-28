@@ -1,5 +1,12 @@
 # @tanstack/angular-store
 
+## 0.11.2
+
+### Patch Changes
+
+- Updated dependencies [[`e06c28c`](https://github.com/TanStack/store/commit/e06c28cbdf3514c4edd5dfc29c4d05e396363605)]:
+  - @tanstack/store@0.11.2
+
 ## 0.11.1
 
 ### Patch Changes
