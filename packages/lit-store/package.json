@@ -1,6 +1,6 @@
 {
   "name": "@tanstack/lit-store",
-  "version": "0.14.1",
+  "version": "0.14.2",
   "description": "Framework agnostic type-safe store w/ reactive framework adapters",
   "author": "tannerlinsley",
   "license": "MIT",

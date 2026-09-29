@@ -1,5 +1,11 @@
 # @tanstack/store
 
+## 0.11.2
+
+### Patch Changes
+
+- [#369](https://github.com/TanStack/store/pull/369) [`e06c28c`](https://github.com/TanStack/store/commit/e06c28cbdf3514c4edd5dfc29c4d05e396363605) - Prevent atom reads inside subscription observers from becoming subscription dependencies and causing unrelated updates to notify the observer.
+
 ## 0.11.1
 
 ### Patch Changes
