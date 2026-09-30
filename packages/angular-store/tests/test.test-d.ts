@@ -73,22 +73,24 @@ test('createStoreContext preserves typed context shape', () => {
   expectTypeOf(ctx.petStore).toEqualTypeOf<Store<{ cats: number }>>()
 })
 
-test('_injectStore returns actions for stores with actions', () => {
+test('_injectStore returns callable slice with actions for stores with actions', () => {
   const store = createStore({ count: 0 }, ({ setState }) => ({
     inc: () => setState((prev) => ({ count: prev.count + 1 })),
   }))
 
-  const [selected, actions] = _injectStore(store, (state) => state.count)
+  const slice = _injectStore(store, (state) => state.count)
 
-  expectTypeOf(selected).toEqualTypeOf<Signal<number>>()
-  expectTypeOf(actions.inc).toBeFunction()
+  expectTypeOf(slice).toEqualTypeOf<
+    Signal<number> & { inc: () => void }
+  >()
 })
 
-test('_injectStore returns setState for plain stores', () => {
+test('_injectStore returns callable slice with setState for plain stores', () => {
   const store = createStore(0)
 
-  const [selected, setState] = _injectStore(store, (state) => state)
+  const slice = _injectStore(store, (state) => state)
 
-  expectTypeOf(selected).toEqualTypeOf<Signal<number>>()
-  expectTypeOf(setState).toEqualTypeOf<Store<number>['setState']>()
+  expectTypeOf(slice).toEqualTypeOf<
+    Signal<number> & { setState: Store<number>['setState'] }
+  >()
 })

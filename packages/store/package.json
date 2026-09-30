@@ -49,7 +49,7 @@
     "src"
   ],
   "devDependencies": {
-    "@angular/core": "^21.2.8",
+    "@angular/core": "22.0.7",
     "@preact/signals": "^2.9.0",
     "solid-js": "^1.9.12",
     "vue": "^3.5.32"

@@ -46,7 +46,7 @@ const petStore = createStore(
       </div>
       <div>
         <p>Dogs: {{ dogs() }}</p>
-        <button type="button" (click)="dogActions.addDog()">
+        <button type="button" (click)="dogs.addDog()">
           Vote for dogs
         </button>
       </div>
@@ -59,10 +59,8 @@ export class AppComponent {
   cats = injectSelector(petStore, (state) => state.cats)
   addCat = petStore.actions.addCat
 
-  // _injectStore gives both the selected signal and actions in a single tuple
-  private dogResult = _injectStore(petStore, (state) => state.dogs)
-  dogs = this.dogResult[0]
-  dogActions = this.dogResult[1]
+  // _injectStore: callable slice for reads; action methods for writes
+  dogs = _injectStore(petStore, (state) => state.dogs)
 
   total = injectSelector(petStore, (state) => state.cats + state.dogs)
 

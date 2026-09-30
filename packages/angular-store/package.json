@@ -24,8 +24,8 @@
     "clean": "premove ./dist ./coverage",
     "test:eslint": "eslint ./src ./tests",
     "test:types": "tsc",
-    "test:lib": "vitest",
-    "test:lib:dev": "pnpm run test:lib --watch",
+    "test:lib": "ng test --no-watch --coverage",
+    "test:lib:dev": "ng test --watch",
     "test:build": "publint --strict",
     "build": "tsdown --tsconfig tsconfig.build.json"
   },
@@ -49,12 +49,17 @@
     "@tanstack/store": "workspace:*"
   },
   "devDependencies": {
-    "@analogjs/vite-plugin-angular": "^2.6.2",
-    "@angular/common": "^21.2.8",
-    "@angular/compiler": "^21.2.8",
-    "@angular/core": "^21.2.8",
-    "@angular/platform-browser": "^21.2.8",
-    "@angular/platform-browser-dynamic": "^21.2.8",
+    "@angular/build": "22.0.7",
+    "@angular/cli": "22.0.7",
+    "@angular/common": "22.0.7",
+    "@angular/compiler": "22.0.7",
+    "@angular/compiler-cli": "22.0.7",
+    "@angular/core": "22.0.7",
+    "@angular/platform-browser": "22.0.7",
+    "@angular/router": "22.0.7",
+    "@testing-library/angular": "^19.1.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@vitest/coverage-v8": "4.1.4",
     "zone.js": "^0.16.1"
   },
   "peerDependencies": {

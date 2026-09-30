@@ -7,7 +7,7 @@ title: injectAtom
 function injectAtom<TValue>(atom, options?): WritableAtomSignal<TValue>;
 ```
 
-Defined in: [packages/angular-store/src/injectAtom.ts:44](https://github.com/TanStack/store/blob/main/packages/angular-store/src/injectAtom.ts#L44)
+Defined in: [packages/angular-store/src/injectAtom.ts:43](https://github.com/TanStack/store/blob/main/packages/angular-store/src/injectAtom.ts#L43)
 
 Returns a [WritableAtomSignal](../interfaces/WritableAtomSignal.md) that reads the current atom value when
 called and exposes a `.set` method for updates.
@@ -25,7 +25,7 @@ atom.
 
 ### atom
 
-`Atom`\<`TValue`\>
+`Atom`\<`TValue`\> | () => `Atom`\<`TValue`\>
 
 ### options?
 
