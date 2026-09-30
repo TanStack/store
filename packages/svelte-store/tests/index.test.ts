@@ -5,6 +5,7 @@ import { shallow } from '../src/index.svelte.js'
 import TestBaseStore from './BaseStore.test.svelte'
 import TestRerender from './Render.test.svelte'
 import TestValue from './Value.test.svelte'
+import TestReactiveSelector from './ReactiveSelector.test.svelte'
 
 const user = userEvent.setup()
 
@@ -37,6 +38,17 @@ describe('useSelector', () => {
 
     await waitFor(() => expect(getByText('Value: 2')).toBeInTheDocument())
     await waitFor(() => expect(getByText('Readonly: 4')).toBeInTheDocument())
+  })
+
+  it('tracks reactive values used in the selector after the store notifies', async () => {
+    const { getByText } = render(TestReactiveSelector)
+    expect(getByText('Value: 10')).toBeInTheDocument()
+
+    await user.click(getByText('Update store'))
+    await waitFor(() => expect(getByText('Value: 11')).toBeInTheDocument())
+
+    await user.click(getByText('Toggle'))
+    await waitFor(() => expect(getByText('Value: 20')).toBeInTheDocument())
   })
 })
 
