@@ -10,7 +10,7 @@ import {
   rm,
 } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
-import { resolve, join, isAbsolute, sep } from 'node:path'
+import { resolve, join, isAbsolute, relative, sep } from 'node:path'
 import { tmpdir } from 'node:os'
 import { gzipSync, brotliCompressSync, constants } from 'node:zlib'
 import { loadEsbuild } from './esbuild.mjs'
@@ -108,6 +108,10 @@ for (const input of inputs) {
     createAtom: `export {createAtom} from ${JSON.stringify(index)}`,
     fullStore: `export * from ${JSON.stringify(index)}`,
     reactSelector: `export {createAtom} from ${JSON.stringify(index)}; export {useSelector} from ${JSON.stringify(join(snapshot, 'packages/react-store/src/useSelector.ts'))}`,
+    batch: `export {batch} from ${JSON.stringify(index)}`,
+    flush: `export {flush} from ${JSON.stringify(index)}`,
+    toObserver: `export {toObserver} from ${JSON.stringify(index)}`,
+    shallow: `export {shallow} from ${JSON.stringify(index)}`,
   }
   for (const [entry, contents] of Object.entries(entries)) {
     const result = await esbuild.build({
@@ -124,6 +128,7 @@ for (const input of inputs) {
       target: 'es2022',
       format: 'esm',
       write: false,
+      metafile: true,
       external: ['react', 'use-sync-external-store/shim/with-selector'],
       plugins: [
         {
@@ -147,6 +152,15 @@ for (const input of inputs) {
       brotliBytes: brotliCompressSync(bytes, {
         params: { [constants.BROTLI_PARAM_QUALITY]: 11 },
       }).length,
+      // These minified contributions are additive; compressed totals are not.
+      moduleBytes: Object.fromEntries(
+        Object.entries(Object.values(result.metafile.outputs)[0].inputs)
+          .filter(([, input]) => input.bytesInOutput > 0)
+          .map(([file, input]) => [
+            relative(snapshot, resolve(file)).split(sep).join('/'),
+            input.bytesInOutput,
+          ]),
+      ),
     })
   }
   const hashes = {}

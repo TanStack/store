@@ -1,5 +1,7 @@
 # Final lifecycle design: observed updates and subscription churn
 
+This report is historical: it describes published commit `451be99` before the subsequent local size phase. Current source, actual built-package size and final performance guards are in [SIZE.md](SIZE.md). The 1924-byte source size below is the published baseline, not current local production.
+
 Actual production now uses explicit COLD lifecycle state, separate mutable/computed update functions, one common getter refresh path, a separate dormant validation loop, and a small link function that reuses attached dependencies before entering its slower helper. The public get function stays stable across lifecycle transitions. This phase prioritizes stable observed updates: depth 8/32 chains are now 3.9%/2.8% slower than main, and the diamond is 5.3% slower, while improving 16.7%/18.6%/15.6% over the previous implementation. The measured tradeoffs are dormant depth-128 updates +11.1%, unchanged-source churn +11.7%, and source-write churn +8.1% versus the previous implementation. It is not universally faster.
 
 The following measurements cover the final integrated source after comments, formatting, documentation and full correctness validation. Its minified runtime and all three consumer bundle hashes exactly match the selected prototype; comment changes did not alter shipped code.

@@ -9,13 +9,13 @@ export interface ReactiveNode {
   subsTail?: Link
   flags: ReactiveFlags
   /** @internal Stable tracking id for the current cold computation. */
-  coldRunId?: number
+  runId?: number
   /** @internal Last cold computation that read this dependency. */
-  lastColdRead?: number
+  lastRead?: number
 }
 
 interface VersionedDependency extends ReactiveNode {
-  _version: number
+  version: number
 }
 
 export interface Link {
@@ -89,23 +89,20 @@ export function createReactiveSystem({
     prevDep: Link | undefined,
     nextDep: Link | undefined,
   ): void {
-    if (sub.flags & COLD) {
+    const cold = sub.flags & COLD
+    if (cold) {
       // Numeric stamps deduplicate cold reads without retaining the subscriber.
       // Nested computations can overwrite stamps, allowing harmless duplicates.
-      if (dep.lastColdRead === sub.coldRunId) {
+      if (dep.lastRead === sub.runId) {
         return
       }
-      dep.lastColdRead = sub.coldRunId
-      version = (dep as VersionedDependency)._version
+      dep.lastRead = sub.runId
+      version = (dep as VersionedDependency).version
     }
     const prevSub = dep.subsTail
     if (nextDep !== undefined && nextDep.dep === dep) {
       nextDep.version = version
       sub.depsTail = nextDep
-      // A self pointer marks a retained link absent from the subscriber list.
-      if (sub.flags & COLD || nextDep.prevSub !== nextDep) {
-        return
-      }
     } else {
       if (
         prevSub !== undefined &&
@@ -132,10 +129,11 @@ export function createReactiveSystem({
         sub.deps = newLink
       }
       nextDep = newLink
-      if (sub.flags & COLD) {
-        nextDep.prevSub = nextDep
-        return
-      }
+    }
+    // A self pointer marks a retained link absent from the subscriber list.
+    if (cold) {
+      nextDep.prevSub = nextDep
+      return
     }
     dep.subsTail = nextDep
     nextDep.prevSub = prevSub
@@ -146,11 +144,8 @@ export function createReactiveSystem({
     }
   }
 
-  function unlink(
-    link: Link,
-    sub = link.sub,
-    keepDeps = false,
-  ): Link | undefined {
+  function unlink(link: Link, keepDeps = false): Link | undefined {
+    const sub = link.sub
     const dep = link.dep
     const prevDep = link.prevDep
     const nextDep = link.nextDep

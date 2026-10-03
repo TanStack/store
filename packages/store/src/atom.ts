@@ -37,7 +37,7 @@ export function toObserver<T>(
 
 interface InternalAtom<T> extends ReactiveNode {
   _snapshot: T
-  _version: number
+  version: number
   _update: (getValue?: T | ((snapshot: T) => T)) => boolean
   get: () => T
   subscribe: (observerOrFn: Observer<T> | ((value: T) => void)) => Subscription
@@ -47,18 +47,18 @@ const queuedEffects: Array<Effect | undefined> = []
 let cycle = 0
 // Only explicit writes advance this epoch; computed changes have local revisions.
 let writeVersion = 0
-const { link, unlink, propagate, checkDirty, shallowPropagate } =
-  createReactiveSystem({
-    update(atom: InternalAtom<any>): boolean {
-      return atom._update()
-    },
-    // eslint-disable-next-line no-shadow
-    notify(effect: Effect): void {
-      queuedEffects[queuedEffectsLength++] = effect
-      effect.flags &= ~WATCHING
-    },
-    unwatched,
-  })
+// Utility-only imports can discard the engine when none of its methods are used.
+const reactiveSystem = /* @__PURE__ */ createReactiveSystem({
+  update(atom: InternalAtom<any>): boolean {
+    return atom._update()
+  },
+  // eslint-disable-next-line no-shadow
+  notify(effect: Effect): void {
+    queuedEffects[queuedEffectsLength++] = effect
+    effect.flags &= ~WATCHING
+  },
+  unwatched,
+})
 
 let notifyIndex = 0
 let queuedEffectsLength = 0
@@ -80,7 +80,7 @@ function purgeDeps(sub: ReactiveNode) {
   const depsTail = sub.depsTail
   let dep = depsTail !== undefined ? depsTail.nextDep : sub.deps
   while (dep !== undefined) {
-    dep = unlink(dep, sub)
+    dep = reactiveSystem.unlink(dep)
   }
 }
 
@@ -92,15 +92,44 @@ function unwatched(atom: InternalAtom<any>): void {
   }
   atom.flags |= COLD
   // A getter may lose its last subscriber before reading more dependencies.
-  atom.coldRunId = ++cycle
+  atom.runId = ++cycle
   // Preserve pending changes before replacing tracking cycles with snapshots
   // of dependency versions. Detached nodes no longer receive invalidations.
   if (atom.flags & PENDING) {
     atom.flags = (atom.flags & ~PENDING) | DIRTY
   }
   for (let dep: Link | undefined = atom.deps; dep; dep = dep.nextDep) {
-    dep.version = (dep.dep as InternalAtom<any>)._version
-    unlink(dep, atom, true)
+    dep.version = (dep.dep as InternalAtom<any>).version
+    reactiveSystem.unlink(dep, true)
+  }
+}
+
+// Share dormant validation without allocating a helper for every computed atom.
+function validateCold(atom: InternalAtom<any>, observing: boolean): void {
+  const deps = atom.deps
+  if (observing) {
+    atom.flags &= ~COLD
+    atom.depsTail = undefined
+  }
+  if (deps === undefined || atom.flags & DIRTY) return
+  const prevSub = activeSub
+  activeSub = observing ? atom : undefined
+  try {
+    for (
+      let depLink: Link | undefined = deps;
+      depLink;
+      depLink = depLink.nextDep
+    ) {
+      const dep = depLink.dep as InternalAtom<any>
+      const version = depLink.version
+      dep.get()
+      if (dep.version !== version) {
+        atom.flags |= DIRTY
+        break
+      }
+    }
+  } finally {
+    activeSub = prevSub
   }
 }
 
@@ -127,36 +156,25 @@ export function createAsyncAtom<T>(
   getValue: () => Promise<T>,
   options?: AtomOptions<AsyncAtomState<T>>,
 ): ReadonlyAtom<AsyncAtomState<T>> {
-  const ref: { current?: InternalAtom<AsyncAtomState<T>> } = {}
   const atom = createAtom<AsyncAtomState<T>>(() => {
     getValue().then(
-      (data) => {
-        const internalAtom = ref.current!
-        if (internalAtom._update({ status: 'done', data })) {
-          const subs = internalAtom.subs
-          if (subs !== undefined) {
-            propagate(subs)
-            shallowPropagate(subs)
-            flush()
-          }
-        }
-      },
-      (error) => {
-        const internalAtom = ref.current!
-        if (internalAtom._update({ status: 'error', error })) {
-          const subs = internalAtom.subs
-          if (subs !== undefined) {
-            propagate(subs)
-            shallowPropagate(subs)
-            flush()
-          }
-        }
-      },
+      (data) => complete({ status: 'done', data }),
+      (error) => complete({ status: 'error', error }),
     )
 
     return { status: 'pending' }
-  }, options)
-  ref.current = atom as unknown as InternalAtom<AsyncAtomState<T>>
+  }, options) as InternalAtom<AsyncAtomState<T>>
+
+  function complete(state: AsyncAtomState<T>): void {
+    if (atom._update(state)) {
+      const subs = atom.subs
+      if (subs !== undefined) {
+        reactiveSystem.propagate(subs)
+        reactiveSystem.shallowPropagate(subs)
+        flush()
+      }
+    }
+  }
 
   return atom
 }
@@ -184,22 +202,22 @@ export function createAtom<T>(
     subsTail: undefined,
     deps: undefined,
     depsTail: undefined,
-    flags: isComputed ? NONE : MUTABLE,
+    flags: MUTABLE,
 
     get(): T {
       if (activeSub !== undefined) {
-        link(atom, activeSub, cycle)
+        reactiveSystem.link(atom, activeSub, cycle)
       }
       return atom._snapshot
     },
 
     subscribe(observerOrFn: Observer<T> | ((value: T) => void)) {
       const obs = toObserver(observerOrFn)
-      const observed = { current: false }
+      let observed = false
       const e = effect(() => {
         atom.get()
-        if (!observed.current) {
-          observed.current = true
+        if (!observed) {
+          observed = true
         } else {
           // Observer reads must not become dependencies of the subscription.
           // The enclosing effect restores activeSub in its finally block.
@@ -214,21 +232,15 @@ export function createAtom<T>(
         },
       }
     },
-    _update: undefined!,
-    _version: 0,
-    coldRunId: 0,
-    lastColdRead: 0,
-  }
-
-  if (isComputed) {
-    atom._update = function (getValue?: T | ((snapshot: T) => T)): boolean {
+    // Mutable atoms install their own updater below, keeping both paths direct.
+    _update(getValue?: T | ((snapshot: T) => T)): boolean {
       const prevSub = activeSub
       const compare = options?.compare ?? Object.is
       // Observation transitions choose the mode; updates preserve it.
       const cold = atom.flags & COLD
       activeSub = atom
       ++cycle
-      if (cold) atom.coldRunId = cycle
+      if (cold) atom.runId = cycle
       atom.depsTail = undefined
       atom.flags = MUTABLE | RECURSED_CHECK | cold
       try {
@@ -241,7 +253,7 @@ export function createAtom<T>(
               : getValue
         if (oldValue === undefined || !compare(oldValue, newValue)) {
           atom._snapshot = newValue
-          ++atom._version
+          ++atom.version
           if (getValue !== undefined) ++writeVersion
           return true
         }
@@ -254,66 +266,41 @@ export function createAtom<T>(
         atom.flags &= ~RECURSED_CHECK
         purgeDeps(atom)
       }
-    }
+    },
+    version: 0,
+    runId: 0,
+    lastRead: 0,
+  }
+
+  if (isComputed) {
     let checkedVersion = -1
     // A real observer activates tracking before validation or first evaluation.
     atom.flags = MUTABLE | COLD | DIRTY
-    const validateCold = (observing: boolean): void => {
-      const deps = atom.deps
-      if (observing) {
-        atom.flags &= ~COLD
-        atom.depsTail = undefined
-      }
-      if (deps === undefined || atom.flags & DIRTY) return
-      const prevSub = activeSub
-      activeSub = observing ? atom : undefined
-      try {
-        for (
-          let depLink: Link | undefined = deps;
-          depLink;
-          depLink = depLink.nextDep
-        ) {
-          const dep = depLink.dep as InternalAtom<any>
-          const version = depLink.version
-          dep.get()
-          if (dep._version !== version) {
-            atom.flags |= DIRTY
-            break
-          }
-        }
-      } finally {
-        activeSub = prevSub
-      }
-    }
     // Keep this reader stable across transitions: callers may capture it.
     atom.get = function (): T {
       const cold = atom.flags & COLD
-      const startVersion = cold ? writeVersion : 0
+      const startVersion = writeVersion
       try {
         if (cold) {
           const observing = activeSub !== undefined && !(activeSub.flags & COLD)
-          if (
-            atom.flags & DIRTY ||
-            checkedVersion !== writeVersion ||
-            observing
-          ) {
-            validateCold(observing)
+          if (checkedVersion !== writeVersion || observing) {
+            validateCold(atom, observing)
           }
         }
         const flags = atom.flags
         if (
           flags & DIRTY ||
-          (flags & PENDING && checkDirty(atom.deps!, atom))
+          (flags & PENDING && reactiveSystem.checkDirty(atom.deps!, atom))
         ) {
           if (atom._update()) {
             const subs = atom.subs
-            if (subs !== undefined) shallowPropagate(subs)
+            if (subs !== undefined) reactiveSystem.shallowPropagate(subs)
           }
         } else if (flags & PENDING) {
           atom.flags = flags & ~PENDING
         }
         if (activeSub !== undefined) {
-          link(atom, activeSub, cycle)
+          reactiveSystem.link(atom, activeSub, cycle)
         }
         if (cold) checkedVersion = startVersion
         return atom._snapshot
@@ -336,7 +323,7 @@ export function createAtom<T>(
           : getValue
       if (oldValue === undefined || !compare(oldValue, newValue)) {
         atom._snapshot = newValue
-        ++atom._version
+        ++atom.version
         ++writeVersion
         return true
       }
@@ -349,8 +336,8 @@ export function createAtom<T>(
       if (atom._update(valueOrFn)) {
         const subs = atom.subs
         if (subs !== undefined) {
-          propagate(subs)
-          shallowPropagate(subs)
+          reactiveSystem.propagate(subs)
+          reactiveSystem.shallowPropagate(subs)
           flush()
         }
       }
@@ -389,7 +376,10 @@ function effect<T>(fn: () => T): Effect {
 
     notify(): void {
       const flags = this.flags
-      if (flags & DIRTY || (flags & PENDING && checkDirty(this.deps!, this))) {
+      if (
+        flags & DIRTY ||
+        (flags & PENDING && reactiveSystem.checkDirty(this.deps!, this))
+      ) {
         run()
       } else {
         this.flags = WATCHING

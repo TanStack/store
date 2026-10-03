@@ -1,11 +1,11 @@
 {
   "date": "2026-10-03",
   "production_source_sha256": {
-    "alien.ts": "df98cfad925f14ef265103baec02f9c558e568d76908cb626be884990bf5fa52",
-    "atom.ts": "0785dbd35551b206edb243eaabdba32b72e9c18803625e917f8f7e96501c8f2b",
+    "alien.ts": "31f429d4706b58202278fb5a5dc479a0ce3273fd55f74da3e75ef9ff5272d885",
+    "atom.ts": "70a88586c2f773107463ede53a55f5e88caccd64ea1037dc1954b80fae7c11f9",
     "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
     "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
-    "signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+    "signal.ts": "6a9ce25bdb9f49ed2467c5e722b80da849abf5385a25f989240a8b33dbb2aa26",
     "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
     "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
   },
@@ -13,7 +13,7 @@
   "runtime": {
     "status": "passed",
     "counts": {
-      "store": 76,
+      "store": 78,
       "angular-store": 14,
       "lit-store": 4,
       "octane-store": 12,
@@ -24,7 +24,7 @@
       "svelte-store": 13,
       "vue-store": 27
     },
-    "total_passed": 254,
+    "total_passed": 256,
     "skipped": 1,
     "files": 19,
     "command": "../../node_modules/.bin/vitest run --coverage.enabled=false --typecheck.enabled=false",
@@ -55,12 +55,12 @@
       "svelte-store",
       "vue-store"
     ],
-    "additional": "Core+six adapters tsdown builds/publint completed individually; Svelte package build/publint completed individually; Octane build uses TypeScript --noEmit. Full Nx reached all library targets; no library lint/type/build targets listed as failures. Svelte-check reports 0 errors and 0 warnings."
+    "additional": "Historical broad library lint/type/build/publint checks passed as recorded by the prior implementation phase. This size-reduction phase reran core ESLint, all four core compilers, core tsdown/publint, and all adapter runtime tests against the newly built current core; unchanged adapter builds were not repeated."
   },
   "source_graph_oracle": {
     "status": "passed",
-    "preparation": "node .cache/retention-research/retention-tests/prepare-candidate.mjs production packages/store/src",
-    "command": "node .cache/retention-research/retention-tests/graph-fuzz.mjs production",
+    "preparation": "node .cache/retention-research/retention-tests/prepare-candidate.mjs size-production packages/store/src",
+    "command": "node .cache/retention-research/retention-tests/graph-fuzz.mjs size-production",
     "operations": 80000,
     "graphs": 40,
     "computed_nodes_per_graph": 35,
@@ -68,7 +68,7 @@
   },
   "focused_adversarial": {
     "status": "passed",
-    "command": "node .cache/retention-research/retention-tests/focused.mjs production",
+    "command": "node .cache/retention-research/retention-tests/focused.mjs size-production",
     "cases": 9
   },
   "new_production_regressions": {
@@ -76,12 +76,12 @@
       "packages/store/tests/unobserved-atoms.test.ts",
       "packages/store/tests/atom-lifecycle.test.ts"
     ],
-    "cases": 38,
+    "cases": 40,
     "counts": {
       "unobserved-atoms.test.ts": 30,
-      "atom-lifecycle.test.ts": 8
+      "atom-lifecycle.test.ts": 10
     },
-    "origin": "15 PR373 regressions plus 23 tests covering linear cold work, no transient retention, retained links, dependency and observer isolation, discarded handles, read deduplication, captured readers across lifecycle/throw/async transitions, mutable callback semantics, and activation/cleanup/error ordering."
+    "origin": "15 PR373 regressions plus 25 tests covering linear cold work, no transient retention, retained links, dependency and observer isolation, discarded handles, read deduplication, captured readers across lifecycle/throw/async transitions, mutable callback semantics, activation/cleanup/error ordering, and cached async rejection across cold and observed subscription changes."
   },
   "sherif": {
     "status": "passed",
@@ -128,7 +128,7 @@
     "esbuild_lock_update": "pnpm offline lock-only resolved the pin but attempted module relinking into read-only dependency tree and failed EPERM. Kept only the3line root importer reference to the already-resolved0.27.7 package, preserving all previous package/peer resolutions; local dependency symlink verifies0.27.7."
   },
   "notes": [
-    "No commits or pushes performed.",
+    "No commits or pushes performed by correctness agent; size-reduction phase leaves changes for user review.",
     "Production implementation is frozen; no changes made by correctness agent to production sources.",
     "Aggregate Nx run exited naturally before timeout; timeout termination was not needed.",
     "Previous research source snapshots and correctness harnesses are preserved under ignored .cache/retention-research; public benchmark results remain under scripts/retention-bench/results."
@@ -141,9 +141,9 @@
   },
   "final_source_validation": {
     "status": "passed",
-    "source_change": "Selected production uses explicit COLD state, distinct mutable/computed updaters, stable numeric metadata at the end of the atom literal, cold output-version choice inside the linker, and an attached-link fast wrapper with a private slow helper. Public get remains stable and keeps complete error/detach cleanup. Rejected reader-pointer, fast-get and boundary-cleanup experiments were not adopted.",
+    "source_change": "Selected size reduction preserves distinct mutable/computed updaters while placing the computed updater directly in the atom literal, moves cold validation to a shared helper, simplifies private link/unlink bookkeeping and closure state, shortens private numeric metadata names, and shares async completion handlers. Pure engine initialization remains removable from utility-only consumer bundles. Stable public get and all error/detachment cleanup are retained; unified-updater performance experiment was rejected.",
     "repeated_checks": [
-      "core76runtime +all8adapterruntime+OctaneSSR =254passed1skipped (19files)",
+      "core78runtime +all8adapterruntime+OctaneSSR =256passed1skipped (19files)",
       "actualproduction80kDAG oracle",
       "9focused adversarial cases",
       "coreTypeScript5.6/5.7/5.8/6.0",
@@ -155,30 +155,44 @@
       "Sherif"
     ],
     "oracle_commands": [
-      "node .cache/retention-research/retention-tests/prepare-candidate.mjs production packages/store/src",
-      "node .cache/retention-research/retention-tests/graph-fuzz.mjs production",
-      "node .cache/retention-research/retention-tests/focused.mjs production"
+      "node .cache/retention-research/retention-tests/prepare-candidate.mjs size-production packages/store/src",
+      "node .cache/retention-research/retention-tests/graph-fuzz.mjs size-production",
+      "node .cache/retention-research/retention-tests/focused.mjs size-production"
     ],
     "commands": [
       "../../node_modules/.bin/vitest run --coverage.enabled=false --typecheck.enabled=false (cwd each packages/<package>; Octane SSR also --config vitest.ssr.config.ts)",
       "../../node_modules/.bin/eslint ./src ./tests (cwd packages/store)",
-      "../../node_modules/.bin/tsdown --tsconfig tsconfig.build.json (cwd packages/store)",
+      "npm_config_cache=/private/tmp/store-retention-npm-cache ../../node_modules/.bin/tsdown --tsconfig tsconfig.build.json (cwd packages/store)",
       "node scripts/verify-links.ts",
       "node_modules/.bin/knip",
       "node_modules/.bin/sherif"
     ],
     "aggregate_nx_rerun": false,
-    "aggregate_nx_rerun_reason": "Prior aggregate environment limitations remain recorded separately with their historical source hashes. Final selected production runtime, compiler, lint/build/publint, oracle, focused, formatting and documentation checks were rerun separately; the known restricted install and example configuration issues did not justify another full Nx attempt."
+    "aggregate_nx_rerun_reason": "Historical aggregate environment limitations remain separately recorded with their original source hashes. Selected size-reduction production runtime, compiler, lint/build/publint, oracle, focused, formatting and documentation checks were rerun separately once; unchanged adapter builds and the known restricted install/example configuration aggregate were not repeated.",
+    "dist_annotations": {
+      "status": "verified",
+      "esm_atom": "/* @__PURE__ */ createReactiveSystem(...) preserved in packages/store/dist/atom.js",
+      "esm_alien": "/* @__NO_SIDE_EFFECTS__ */ factory annotation preserved in packages/store/dist/alien.js",
+      "commands": "rg -n \"@__PURE__|NO_SIDE_EFFECTS\" packages/store/dist/atom.js packages/store/dist/alien.js"
+    },
+    "published_dist_control": {
+      "revision": "451be99",
+      "directory": "/private/tmp/store-gzip-focused/published/packages/store",
+      "status": "tsdown ESM/CJS/declarations + strict publint passed",
+      "command": "npm_config_cache=/private/tmp/store-retention-npm-cache <worktree>/node_modules/.bin/tsdown --tsconfig tsconfig.build.json",
+      "provenance": "Exact committed package manifest and tsdown/TypeScript configs copied alongside the exact committed source snapshot; existing dependency overlay linked read-only.",
+      "environment_retry": "Initial build emitted all artifacts but npm pack failed EPERM on external ~/.npm cache. Repeated build with a writable temporary npm cache completed strict publint; no source/config changes."
+    }
   },
   "docs_links": {
     "status": "passed",
     "command": "node scripts/verify-links.ts",
     "files": 90,
-    "post_cleanup": "After removing four incidental generated Lit reference files, implementation agent reran verify-links:90files, no broken links. Production source hashes unchanged."
+    "post_cleanup": "Implementation agent removed incidental generated Lit references during this phase. Final independent verify-links:90files, no broken links."
   },
   "regression_tests_sha256": {
     "packages/store/tests/unobserved-atoms.test.ts": "4ecbde0c50454049333de6429cc23f197e6a3a0365a2534f7020765bec840ebe",
-    "packages/store/tests/atom-lifecycle.test.ts": "435d67f68b86d32bf6569b5514a9661fe39b666fb9819eea351979bcfde26e5c"
+    "packages/store/tests/atom-lifecycle.test.ts": "85890bab7bd77e1518bd4e056f8948c9e9edd7d369fa0a3458601be60fc8f08a"
   },
   "mutable_updater_behavior": {
     "status": "preserved",

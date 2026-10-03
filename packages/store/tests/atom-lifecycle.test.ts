@@ -2,6 +2,44 @@ import { describe, expect, test, vi } from 'vitest'
 import { batch, createAsyncAtom, createAtom } from '../src'
 
 describe('Atom readers across subscription changes', () => {
+  test.each([false, true])(
+    'an async rejection preserves the cached snapshot across subscription changes (observed: %s)',
+    async (observed) => {
+      let reject!: (error: unknown) => void
+      const request = vi.fn(
+        () =>
+          new Promise<number>((_resolve, fail) => {
+            reject = fail
+          }),
+      )
+      const atom = createAsyncAtom(request)
+      const read = atom.get
+      const pending = read()
+      const observer = vi.fn()
+      const subscription = observed ? atom.subscribe(observer) : undefined
+      expect(read()).toBe(pending)
+
+      const error = new Error('request failed')
+      reject(error)
+      await Promise.resolve()
+      const snapshot = read()
+      expect(snapshot).toEqual({ status: 'error', error })
+      expect(request).toHaveBeenCalledTimes(1)
+      if (observed) {
+        expect(observer).toHaveBeenCalledExactlyOnceWith(snapshot)
+      } else {
+        expect(observer).not.toHaveBeenCalled()
+      }
+
+      subscription?.unsubscribe()
+      const nextSubscription = atom.subscribe(observer)
+      expect(atom.get).toBe(read)
+      expect(read()).toBe(snapshot)
+      expect(request).toHaveBeenCalledTimes(1)
+      nextSubscription.unsubscribe()
+    },
+  )
+
   test('an extracted reader stays current across repeated subscribe and unsubscribe cycles', () => {
     const source = createAtom(0)
     const getter = vi.fn(() => ({ value: source.get() }))

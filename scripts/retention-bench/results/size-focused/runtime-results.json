@@ -1,0 +1,1282 @@
+{
+  "metadata": {
+    "node": "v25.8.1",
+    "cpu": "Apple M3 Max",
+    "logicalCpus": 14,
+    "rounds": 3,
+    "suite": "hot",
+    "selectedCases": [
+      "observed_mutable_callback_get",
+      "observed_chain8_write",
+      "observed_chain32_write",
+      "observed_diamond8_write",
+      "observed_chain8_clean_cached_get",
+      "chain8_churn_unchanged_source",
+      "chain8_churn_write_while_unmounted"
+    ],
+    "methodology": "2 full warmup workloads before each timed fresh graph; rotated sequential variants in isolated workers; forced GC between workloads; elapsed wall time excludes setup, cleanup, assertions and GC"
+  },
+  "manifest": {
+    "output": "recreate-with-prepare.mjs",
+    "node": "v25.8.1",
+    "platform": "darwin",
+    "arch": "arm64",
+    "esbuild": "0.27.7",
+    "target": "es2022",
+    "compression": "gzip level 9; Brotli quality 11",
+    "variants": [
+      {
+        "label": "published",
+        "source": "451be99bfd5b9f3295b829ef18ab7dd68d32ddfe",
+        "sourceHashes": {
+          "alien.ts": "df98cfad925f14ef265103baec02f9c558e568d76908cb626be884990bf5fa52",
+          "atom.ts": "0785dbd35551b206edb243eaabdba32b72e9c18803625e917f8f7e96501c8f2b",
+          "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+          "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+          "signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+          "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+          "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+        },
+        "artifactHashes": {
+          "runtime.mjs": "db5f458d493012b11fb3b350bba6dae1aa5b9c8053b68053f083fad462f04de7",
+          "createAtom.min.mjs": "2e5a57a1f09b448fe2fd98b5fcd07d047e81ca3e83724ad8a37f6892ac7aff2d",
+          "fullStore.min.mjs": "db5f458d493012b11fb3b350bba6dae1aa5b9c8053b68053f083fad462f04de7",
+          "reactSelector.min.mjs": "b57cd3b76cd7a7d2839148dc84e95af8a9fbc952e6cb0a816c335ec26f65cf5d",
+          "batch.min.mjs": "c89140bf8e16cb605057767758df7fddd69fd90c278b14c1bff1d005b6564fdd",
+          "flush.min.mjs": "51ec270bd4386dc64aaef7ab86d8a3a75492f879e2c46e73209c23e57a1bd54a",
+          "toObserver.min.mjs": "406e082a67bde53bc94dd8b135e3d3455d27a97b51b9d58edb387cefcf1995f5",
+          "shallow.min.mjs": "de2183901342980b2a99abb6573f506503131838607db6a2af079408b06f3be7"
+        },
+        "runtime": "published/runtime.mjs"
+      },
+      {
+        "label": "combined",
+        "source": "../../../../.cache/retention-research/results/size-focused/sources/combined",
+        "sourceHashes": {
+          "alien.ts": "31f429d4706b58202278fb5a5dc479a0ce3273fd55f74da3e75ef9ff5272d885",
+          "atom.ts": "4cb32a608f4cfb4eb20996dd487b7664dc44a8f5dd00d420fc085ed7ae200008",
+          "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+          "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+          "signal.ts": "6a9ce25bdb9f49ed2467c5e722b80da849abf5385a25f989240a8b33dbb2aa26",
+          "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+          "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+        },
+        "artifactHashes": {
+          "runtime.mjs": "7abbb448cbdb45899725ce910d2cfbb9a3cd371db5f259b01b643f93518e00db",
+          "createAtom.min.mjs": "be8ae1aad215e4e5753aca66cdeba0335bd303bf138122addff61789f2731867",
+          "fullStore.min.mjs": "7abbb448cbdb45899725ce910d2cfbb9a3cd371db5f259b01b643f93518e00db",
+          "reactSelector.min.mjs": "9d2017c32435b9ce62cc448653feea8cecf40a6c30e8e9e950a4c82753fde704",
+          "batch.min.mjs": "a53f67e0b109110b09bf36ff32d472f2ccd7f23acd3ec46337211688d1b85ff2",
+          "flush.min.mjs": "fd2d10b204438d60f03a0a3e85a112124257c2c3c92740da915e4024a0556487",
+          "toObserver.min.mjs": "362e6fe14778b8bae533e3783ee41f7952e90a16f167712f86c27931dc185f0b",
+          "shallow.min.mjs": "8c4fe533579687fbe56dbe1edd3ea72ff903864498b1de30bad7cb3a90cb4faa"
+        },
+        "runtime": "combined/runtime.mjs"
+      },
+      {
+        "label": "unified",
+        "source": "../../../../.cache/retention-research/results/size-focused/sources/unified",
+        "sourceHashes": {
+          "alien.ts": "31f429d4706b58202278fb5a5dc479a0ce3273fd55f74da3e75ef9ff5272d885",
+          "atom.ts": "75bb8c66c6292ec91bfabcf33ccf43b29ad9bca8aa03fc184dd7fc905e07cf89",
+          "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+          "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+          "signal.ts": "6a9ce25bdb9f49ed2467c5e722b80da849abf5385a25f989240a8b33dbb2aa26",
+          "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+          "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+        },
+        "artifactHashes": {
+          "runtime.mjs": "5f22321b826b05fedf874e47d3a802b105e58e6e40c87420b8b0c01bb3097bf0",
+          "createAtom.min.mjs": "32738de66f5af4a1174349af2662606485997515f005b85d8d8d281678d07b8b",
+          "fullStore.min.mjs": "6454d4c71bdd1cba0b574068f8f4957aabee422b35b21de57ab61815da2654ef",
+          "reactSelector.min.mjs": "e94629305d36ebb30d28666f61cf6074494af9f4b573d3376c96e9509da8a076",
+          "batch.min.mjs": "a53f67e0b109110b09bf36ff32d472f2ccd7f23acd3ec46337211688d1b85ff2",
+          "flush.min.mjs": "fd2d10b204438d60f03a0a3e85a112124257c2c3c92740da915e4024a0556487",
+          "toObserver.min.mjs": "362e6fe14778b8bae533e3783ee41f7952e90a16f167712f86c27931dc185f0b",
+          "shallow.min.mjs": "8c4fe533579687fbe56dbe1edd3ea72ff903864498b1de30bad7cb3a90cb4faa"
+        },
+        "runtime": "unified/runtime.mjs"
+      }
+    ],
+    "sizes": [
+      {
+        "variant": "published",
+        "entry": "createAtom",
+        "minifiedBytes": 4815,
+        "gzipBytes": 1924,
+        "brotliBytes": 1789,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2218,
+          "packages/store/src/atom.ts": 2572
+        }
+      },
+      {
+        "variant": "published",
+        "entry": "fullStore",
+        "minifiedBytes": 6511,
+        "gzipBytes": 2494,
+        "brotliBytes": 2321,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2218,
+          "packages/store/src/atom.ts": 2908,
+          "packages/store/src/store.ts": 554,
+          "packages/store/src/shallow.ts": 685
+        }
+      },
+      {
+        "variant": "published",
+        "entry": "reactSelector",
+        "minifiedBytes": 5132,
+        "gzipBytes": 2082,
+        "brotliBytes": 1928,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2218,
+          "packages/store/src/atom.ts": 2572,
+          "packages/react-store/src/useSelector.ts": 300
+        }
+      },
+      {
+        "variant": "published",
+        "entry": "batch",
+        "minifiedBytes": 2699,
+        "gzipBytes": 1141,
+        "brotliBytes": 1067,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2218,
+          "packages/store/src/atom.ts": 461
+        }
+      },
+      {
+        "variant": "published",
+        "entry": "flush",
+        "minifiedBytes": 2655,
+        "gzipBytes": 1116,
+        "brotliBytes": 1045,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2218,
+          "packages/store/src/atom.ts": 417
+        }
+      },
+      {
+        "variant": "published",
+        "entry": "toObserver",
+        "minifiedBytes": 2727,
+        "gzipBytes": 1149,
+        "brotliBytes": 1066,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2218,
+          "packages/store/src/atom.ts": 484
+        }
+      },
+      {
+        "variant": "published",
+        "entry": "shallow",
+        "minifiedBytes": 3253,
+        "gzipBytes": 1327,
+        "brotliBytes": 1236,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2218,
+          "packages/store/src/atom.ts": 329,
+          "packages/store/src/shallow.ts": 684
+        }
+      },
+      {
+        "variant": "combined",
+        "entry": "createAtom",
+        "minifiedBytes": 4702,
+        "gzipBytes": 1879,
+        "brotliBytes": 1754,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2162,
+          "packages/store/src/atom.ts": 2515
+        }
+      },
+      {
+        "variant": "combined",
+        "entry": "fullStore",
+        "minifiedBytes": 6333,
+        "gzipBytes": 2451,
+        "brotliBytes": 2276,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2162,
+          "packages/store/src/atom.ts": 2790,
+          "packages/store/src/store.ts": 553,
+          "packages/store/src/shallow.ts": 684
+        }
+      },
+      {
+        "variant": "combined",
+        "entry": "reactSelector",
+        "minifiedBytes": 5019,
+        "gzipBytes": 2040,
+        "brotliBytes": 1903,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2162,
+          "packages/store/src/atom.ts": 2515,
+          "packages/react-store/src/useSelector.ts": 300
+        }
+      },
+      {
+        "variant": "combined",
+        "entry": "batch",
+        "minifiedBytes": 173,
+        "gzipBytes": 158,
+        "brotliBytes": 137,
+        "moduleBytes": {
+          "packages/store/src/atom.ts": 153
+        }
+      },
+      {
+        "variant": "combined",
+        "entry": "flush",
+        "minifiedBytes": 129,
+        "gzipBytes": 130,
+        "brotliBytes": 114,
+        "moduleBytes": {
+          "packages/store/src/atom.ts": 109
+        }
+      },
+      {
+        "variant": "combined",
+        "entry": "toObserver",
+        "minifiedBytes": 180,
+        "gzipBytes": 145,
+        "brotliBytes": 130,
+        "moduleBytes": {
+          "packages/store/src/atom.ts": 155
+        }
+      },
+      {
+        "variant": "combined",
+        "entry": "shallow",
+        "minifiedBytes": 706,
+        "gzipBytes": 334,
+        "brotliBytes": 303,
+        "moduleBytes": {
+          "packages/store/src/shallow.ts": 684
+        }
+      },
+      {
+        "variant": "unified",
+        "entry": "createAtom",
+        "minifiedBytes": 4636,
+        "gzipBytes": 1842,
+        "brotliBytes": 1718,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2162,
+          "packages/store/src/atom.ts": 2449
+        }
+      },
+      {
+        "variant": "unified",
+        "entry": "fullStore",
+        "minifiedBytes": 6267,
+        "gzipBytes": 2416,
+        "brotliBytes": 2257,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2162,
+          "packages/store/src/atom.ts": 2724,
+          "packages/store/src/store.ts": 553,
+          "packages/store/src/shallow.ts": 684
+        }
+      },
+      {
+        "variant": "unified",
+        "entry": "reactSelector",
+        "minifiedBytes": 4953,
+        "gzipBytes": 2003,
+        "brotliBytes": 1863,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2162,
+          "packages/store/src/atom.ts": 2449,
+          "packages/react-store/src/useSelector.ts": 300
+        }
+      },
+      {
+        "variant": "unified",
+        "entry": "batch",
+        "minifiedBytes": 173,
+        "gzipBytes": 158,
+        "brotliBytes": 137,
+        "moduleBytes": {
+          "packages/store/src/atom.ts": 153
+        }
+      },
+      {
+        "variant": "unified",
+        "entry": "flush",
+        "minifiedBytes": 129,
+        "gzipBytes": 130,
+        "brotliBytes": 114,
+        "moduleBytes": {
+          "packages/store/src/atom.ts": 109
+        }
+      },
+      {
+        "variant": "unified",
+        "entry": "toObserver",
+        "minifiedBytes": 180,
+        "gzipBytes": 145,
+        "brotliBytes": 130,
+        "moduleBytes": {
+          "packages/store/src/atom.ts": 155
+        }
+      },
+      {
+        "variant": "unified",
+        "entry": "shallow",
+        "minifiedBytes": 706,
+        "gzipBytes": 334,
+        "brotliBytes": 303,
+        "moduleBytes": {
+          "packages/store/src/shallow.ts": 684
+        }
+      }
+    ]
+  },
+  "preflight": [
+    {
+      "variant": "published",
+      "rows": [
+        {
+          "name": "observed_mutable_callback_get",
+          "iterations": 5000,
+          "elapsedMs": 0.3801249999999996,
+          "nsPerIteration": 76.02499999999992,
+          "counters": {
+            "notifications": 5000
+          }
+        },
+        {
+          "name": "observed_chain8_write",
+          "iterations": 1000,
+          "elapsedMs": 0.5631249999999994,
+          "nsPerIteration": 563.1249999999994,
+          "counters": {
+            "computes": 8008,
+            "notifications": 1000
+          }
+        },
+        {
+          "name": "observed_chain32_write",
+          "iterations": 300,
+          "elapsedMs": 0.35633299999999934,
+          "nsPerIteration": 1187.7766666666646,
+          "counters": {
+            "computes": 9632,
+            "notifications": 300
+          }
+        },
+        {
+          "name": "observed_chain8_clean_cached_get",
+          "iterations": 50000,
+          "elapsedMs": 0.7500420000000005,
+          "nsPerIteration": 15.00084000000001,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "observed_diamond8_write",
+          "iterations": 700,
+          "elapsedMs": 0.4950839999999985,
+          "nsPerIteration": 707.2628571428551,
+          "counters": {
+            "computes": 6309,
+            "notifications": 700
+          }
+        },
+        {
+          "name": "chain8_churn_unchanged_source",
+          "iterations": 700,
+          "elapsedMs": 0.35016600000000153,
+          "nsPerIteration": 500.23714285714505,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "chain8_churn_write_while_unmounted",
+          "iterations": 600,
+          "elapsedMs": 0.4817499999999981,
+          "nsPerIteration": 802.9166666666636,
+          "counters": {
+            "computes": 4808,
+            "notifications": 0
+          }
+        }
+      ],
+      "sink": 44660568
+    },
+    {
+      "variant": "combined",
+      "rows": [
+        {
+          "name": "observed_mutable_callback_get",
+          "iterations": 5000,
+          "elapsedMs": 0.40095799999999926,
+          "nsPerIteration": 80.19159999999985,
+          "counters": {
+            "notifications": 5000
+          }
+        },
+        {
+          "name": "observed_chain8_write",
+          "iterations": 1000,
+          "elapsedMs": 0.5597080000000005,
+          "nsPerIteration": 559.7080000000005,
+          "counters": {
+            "computes": 8008,
+            "notifications": 1000
+          }
+        },
+        {
+          "name": "observed_chain32_write",
+          "iterations": 300,
+          "elapsedMs": 0.37154199999999804,
+          "nsPerIteration": 1238.4733333333268,
+          "counters": {
+            "computes": 9632,
+            "notifications": 300
+          }
+        },
+        {
+          "name": "observed_chain8_clean_cached_get",
+          "iterations": 50000,
+          "elapsedMs": 0.3184579999999997,
+          "nsPerIteration": 6.369159999999995,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "observed_diamond8_write",
+          "iterations": 700,
+          "elapsedMs": 0.5135000000000005,
+          "nsPerIteration": 733.5714285714294,
+          "counters": {
+            "computes": 6309,
+            "notifications": 700
+          }
+        },
+        {
+          "name": "chain8_churn_unchanged_source",
+          "iterations": 700,
+          "elapsedMs": 0.31662500000000193,
+          "nsPerIteration": 452.32142857143134,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "chain8_churn_write_while_unmounted",
+          "iterations": 600,
+          "elapsedMs": 0.46837499999999466,
+          "nsPerIteration": 780.624999999991,
+          "counters": {
+            "computes": 4808,
+            "notifications": 0
+          }
+        }
+      ],
+      "sink": 44660568
+    },
+    {
+      "variant": "unified",
+      "rows": [
+        {
+          "name": "observed_mutable_callback_get",
+          "iterations": 5000,
+          "elapsedMs": 0.37195799999999934,
+          "nsPerIteration": 74.39159999999987,
+          "counters": {
+            "notifications": 5000
+          }
+        },
+        {
+          "name": "observed_chain8_write",
+          "iterations": 1000,
+          "elapsedMs": 0.5059590000000007,
+          "nsPerIteration": 505.9590000000007,
+          "counters": {
+            "computes": 8008,
+            "notifications": 1000
+          }
+        },
+        {
+          "name": "observed_chain32_write",
+          "iterations": 300,
+          "elapsedMs": 0.33254199999999656,
+          "nsPerIteration": 1108.473333333322,
+          "counters": {
+            "computes": 9632,
+            "notifications": 300
+          }
+        },
+        {
+          "name": "observed_chain8_clean_cached_get",
+          "iterations": 50000,
+          "elapsedMs": 0.35054099999999977,
+          "nsPerIteration": 7.010819999999995,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "observed_diamond8_write",
+          "iterations": 700,
+          "elapsedMs": 0.5461250000000035,
+          "nsPerIteration": 780.1785714285764,
+          "counters": {
+            "computes": 6309,
+            "notifications": 700
+          }
+        },
+        {
+          "name": "chain8_churn_unchanged_source",
+          "iterations": 700,
+          "elapsedMs": 0.3149170000000012,
+          "nsPerIteration": 449.8814285714303,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "chain8_churn_write_while_unmounted",
+          "iterations": 600,
+          "elapsedMs": 0.4671250000000029,
+          "nsPerIteration": 778.5416666666715,
+          "counters": {
+            "computes": 4808,
+            "notifications": 0
+          }
+        }
+      ],
+      "sink": 44660568
+    }
+  ],
+  "summaries": [
+    {
+      "variant": "published",
+      "name": "observed_mutable_callback_get",
+      "medianNs": 37.19583399999999,
+      "minNs": 36.888915999999995,
+      "maxNs": 37.39250000000001,
+      "p25Ns": 36.888915999999995,
+      "p75Ns": 37.39250000000001,
+      "iterations": 500000
+    },
+    {
+      "variant": "published",
+      "name": "observed_chain8_write",
+      "medianNs": 256.77542000000005,
+      "minNs": 253.8191599999999,
+      "maxNs": 263.8379199999998,
+      "p25Ns": 253.8191599999999,
+      "p75Ns": 263.8379199999998,
+      "iterations": 100000
+    },
+    {
+      "variant": "published",
+      "name": "observed_chain32_write",
+      "medianNs": 915.2166666666668,
+      "minNs": 905.8819333333332,
+      "maxNs": 915.4472333333331,
+      "p25Ns": 905.8819333333332,
+      "p75Ns": 915.4472333333331,
+      "iterations": 30000
+    },
+    {
+      "variant": "published",
+      "name": "observed_chain8_clean_cached_get",
+      "medianNs": 4.140683200000001,
+      "minNs": 4.076741600000002,
+      "maxNs": 4.247950000000003,
+      "p25Ns": 4.076741600000002,
+      "p75Ns": 4.247950000000003,
+      "iterations": 5000000
+    },
+    {
+      "variant": "published",
+      "name": "observed_diamond8_write",
+      "medianNs": 359.74345714285744,
+      "minNs": 359.4482142857146,
+      "maxNs": 365.53810000000016,
+      "p25Ns": 359.4482142857146,
+      "p75Ns": 365.53810000000016,
+      "iterations": 70000
+    },
+    {
+      "variant": "published",
+      "name": "chain8_churn_unchanged_source",
+      "medianNs": 321.32737142857115,
+      "minNs": 319.75892857142867,
+      "maxNs": 327.29582857142856,
+      "p25Ns": 319.75892857142867,
+      "p75Ns": 327.29582857142856,
+      "iterations": 70000
+    },
+    {
+      "variant": "published",
+      "name": "chain8_churn_write_while_unmounted",
+      "medianNs": 509.5485999999994,
+      "minNs": 505.00416666666484,
+      "maxNs": 517.8284666666665,
+      "p25Ns": 505.00416666666484,
+      "p75Ns": 517.8284666666665,
+      "iterations": 60000
+    },
+    {
+      "variant": "combined",
+      "name": "observed_mutable_callback_get",
+      "medianNs": 38.049915999999996,
+      "minNs": 37.755583999999985,
+      "maxNs": 38.986084000000005,
+      "p25Ns": 37.755583999999985,
+      "p75Ns": 38.986084000000005,
+      "iterations": 500000
+    },
+    {
+      "variant": "combined",
+      "name": "observed_chain8_write",
+      "medianNs": 260.56749999999994,
+      "minNs": 258.83667,
+      "maxNs": 265.33375000000007,
+      "p25Ns": 258.83667,
+      "p75Ns": 265.33375000000007,
+      "iterations": 100000
+    },
+    {
+      "variant": "combined",
+      "name": "observed_chain32_write",
+      "medianNs": 927.0819333333341,
+      "minNs": 926.0041666666667,
+      "maxNs": 961.070833333334,
+      "p25Ns": 926.0041666666667,
+      "p75Ns": 961.070833333334,
+      "iterations": 30000
+    },
+    {
+      "variant": "combined",
+      "name": "observed_chain8_clean_cached_get",
+      "medianNs": 5.843025,
+      "minNs": 5.709683200000006,
+      "maxNs": 5.973358399999995,
+      "p25Ns": 5.709683200000006,
+      "p75Ns": 5.973358399999995,
+      "iterations": 5000000
+    },
+    {
+      "variant": "combined",
+      "name": "observed_diamond8_write",
+      "medianNs": 377.74524285714267,
+      "minNs": 376.5571428571426,
+      "maxNs": 384.174414285714,
+      "p25Ns": 376.5571428571426,
+      "p75Ns": 384.174414285714,
+      "iterations": 70000
+    },
+    {
+      "variant": "combined",
+      "name": "chain8_churn_unchanged_source",
+      "medianNs": 315.76368571428554,
+      "minNs": 310.651785714286,
+      "maxNs": 322.24345714285744,
+      "p25Ns": 310.651785714286,
+      "p75Ns": 322.24345714285744,
+      "iterations": 70000
+    },
+    {
+      "variant": "combined",
+      "name": "chain8_churn_write_while_unmounted",
+      "medianNs": 502.6958333333331,
+      "minNs": 500.3111166666656,
+      "maxNs": 511.4430666666673,
+      "p25Ns": 500.3111166666656,
+      "p75Ns": 511.4430666666673,
+      "iterations": 60000
+    },
+    {
+      "variant": "unified",
+      "name": "observed_mutable_callback_get",
+      "medianNs": 41.23849999999999,
+      "minNs": 39.943500000000014,
+      "maxNs": 41.712666,
+      "p25Ns": 39.943500000000014,
+      "p75Ns": 41.712666,
+      "iterations": 500000
+    },
+    {
+      "variant": "unified",
+      "name": "observed_chain8_write",
+      "medianNs": 259.85792000000004,
+      "minNs": 258.28417,
+      "maxNs": 268.2404200000002,
+      "p25Ns": 258.28417,
+      "p75Ns": 268.2404200000002,
+      "iterations": 100000
+    },
+    {
+      "variant": "unified",
+      "name": "observed_chain32_write",
+      "medianNs": 914.1458333333333,
+      "minNs": 913.7555666666667,
+      "maxNs": 922.5555333333338,
+      "p25Ns": 913.7555666666667,
+      "p75Ns": 922.5555333333338,
+      "iterations": 30000
+    },
+    {
+      "variant": "unified",
+      "name": "observed_chain8_clean_cached_get",
+      "medianNs": 6.2156834,
+      "minNs": 5.953091599999993,
+      "maxNs": 6.241066599999999,
+      "p25Ns": 5.953091599999993,
+      "p75Ns": 6.241066599999999,
+      "iterations": 5000000
+    },
+    {
+      "variant": "unified",
+      "name": "observed_diamond8_write",
+      "medianNs": 379.49584285714275,
+      "minNs": 374.0226142857141,
+      "maxNs": 383.5029714285708,
+      "p25Ns": 374.0226142857141,
+      "p75Ns": 383.5029714285708,
+      "iterations": 70000
+    },
+    {
+      "variant": "unified",
+      "name": "chain8_churn_unchanged_source",
+      "medianNs": 307.4904714285716,
+      "minNs": 303.0345285714288,
+      "maxNs": 316.80892857142857,
+      "p25Ns": 303.0345285714288,
+      "p75Ns": 316.80892857142857,
+      "iterations": 70000
+    },
+    {
+      "variant": "unified",
+      "name": "chain8_churn_write_while_unmounted",
+      "medianNs": 488.86388333333264,
+      "minNs": 487.9263833333331,
+      "maxNs": 518.4993166666667,
+      "p25Ns": 487.9263833333331,
+      "p75Ns": 518.4993166666667,
+      "iterations": 60000
+    }
+  ],
+  "samples": [
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 18.597916999999995,
+      "nsPerIteration": 37.19583399999999
+    },
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 25.38191599999999,
+      "nsPerIteration": 253.8191599999999
+    },
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 27.176457999999997,
+      "nsPerIteration": 905.8819333333332
+    },
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 20.383708000000013,
+      "nsPerIteration": 4.076741600000002
+    },
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 25.16137500000002,
+      "nsPerIteration": 359.4482142857146
+    },
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 22.49291599999998,
+      "nsPerIteration": 321.32737142857115
+    },
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 30.572915999999964,
+      "nsPerIteration": 509.5485999999994
+    },
+    {
+      "round": 0,
+      "variant": "combined",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 19.024957999999998,
+      "nsPerIteration": 38.049915999999996
+    },
+    {
+      "round": 0,
+      "variant": "combined",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 25.883667000000003,
+      "nsPerIteration": 258.83667
+    },
+    {
+      "round": 0,
+      "variant": "combined",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 28.83212500000002,
+      "nsPerIteration": 961.070833333334
+    },
+    {
+      "round": 0,
+      "variant": "combined",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 29.215125,
+      "nsPerIteration": 5.843025
+    },
+    {
+      "round": 0,
+      "variant": "combined",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 26.442166999999984,
+      "nsPerIteration": 377.74524285714267
+    },
+    {
+      "round": 0,
+      "variant": "combined",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 21.745625000000018,
+      "nsPerIteration": 310.651785714286
+    },
+    {
+      "round": 0,
+      "variant": "combined",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 30.161749999999984,
+      "nsPerIteration": 502.6958333333331
+    },
+    {
+      "round": 0,
+      "variant": "unified",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 20.619249999999994,
+      "nsPerIteration": 41.23849999999999
+    },
+    {
+      "round": 0,
+      "variant": "unified",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 25.985792000000004,
+      "nsPerIteration": 259.85792000000004
+    },
+    {
+      "round": 0,
+      "variant": "unified",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 27.67666600000001,
+      "nsPerIteration": 922.5555333333338
+    },
+    {
+      "round": 0,
+      "variant": "unified",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 29.765457999999967,
+      "nsPerIteration": 5.953091599999993
+    },
+    {
+      "round": 0,
+      "variant": "unified",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 26.845207999999957,
+      "nsPerIteration": 383.5029714285708
+    },
+    {
+      "round": 0,
+      "variant": "unified",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 22.176625,
+      "nsPerIteration": 316.80892857142857
+    },
+    {
+      "round": 0,
+      "variant": "unified",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 31.109959000000003,
+      "nsPerIteration": 518.4993166666667
+    },
+    {
+      "round": 1,
+      "variant": "combined",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 18.877791999999992,
+      "nsPerIteration": 37.755583999999985
+    },
+    {
+      "round": 1,
+      "variant": "combined",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 26.533375000000007,
+      "nsPerIteration": 265.33375000000007
+    },
+    {
+      "round": 1,
+      "variant": "combined",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 27.780124999999998,
+      "nsPerIteration": 926.0041666666667
+    },
+    {
+      "round": 1,
+      "variant": "combined",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 28.54841600000003,
+      "nsPerIteration": 5.709683200000006
+    },
+    {
+      "round": 1,
+      "variant": "combined",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 26.89220899999998,
+      "nsPerIteration": 384.174414285714
+    },
+    {
+      "round": 1,
+      "variant": "combined",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 22.557042000000024,
+      "nsPerIteration": 322.24345714285744
+    },
+    {
+      "round": 1,
+      "variant": "combined",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 30.018666999999937,
+      "nsPerIteration": 500.3111166666656
+    },
+    {
+      "round": 1,
+      "variant": "unified",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 20.856333,
+      "nsPerIteration": 41.712666
+    },
+    {
+      "round": 1,
+      "variant": "unified",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 26.82404200000002,
+      "nsPerIteration": 268.2404200000002
+    },
+    {
+      "round": 1,
+      "variant": "unified",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 27.412667,
+      "nsPerIteration": 913.7555666666667
+    },
+    {
+      "round": 1,
+      "variant": "unified",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 31.205332999999996,
+      "nsPerIteration": 6.241066599999999
+    },
+    {
+      "round": 1,
+      "variant": "unified",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 26.18158299999999,
+      "nsPerIteration": 374.0226142857141
+    },
+    {
+      "round": 1,
+      "variant": "unified",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 21.524333000000013,
+      "nsPerIteration": 307.4904714285716
+    },
+    {
+      "round": 1,
+      "variant": "unified",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 29.275582999999983,
+      "nsPerIteration": 487.9263833333331
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 18.696250000000006,
+      "nsPerIteration": 37.39250000000001
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 26.383791999999985,
+      "nsPerIteration": 263.8379199999998
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 27.463416999999993,
+      "nsPerIteration": 915.4472333333331
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 20.703416000000004,
+      "nsPerIteration": 4.140683200000001
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 25.58766700000001,
+      "nsPerIteration": 365.53810000000016
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 22.383125000000007,
+      "nsPerIteration": 319.75892857142867
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 30.30024999999989,
+      "nsPerIteration": 505.00416666666484
+    },
+    {
+      "round": 2,
+      "variant": "unified",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 19.971750000000007,
+      "nsPerIteration": 39.943500000000014
+    },
+    {
+      "round": 2,
+      "variant": "unified",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 25.828417,
+      "nsPerIteration": 258.28417
+    },
+    {
+      "round": 2,
+      "variant": "unified",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 27.424374999999998,
+      "nsPerIteration": 914.1458333333333
+    },
+    {
+      "round": 2,
+      "variant": "unified",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 31.078417,
+      "nsPerIteration": 6.2156834
+    },
+    {
+      "round": 2,
+      "variant": "unified",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 26.564708999999993,
+      "nsPerIteration": 379.49584285714275
+    },
+    {
+      "round": 2,
+      "variant": "unified",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 21.212417000000016,
+      "nsPerIteration": 303.0345285714288
+    },
+    {
+      "round": 2,
+      "variant": "unified",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 29.33183299999996,
+      "nsPerIteration": 488.86388333333264
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 18.444457999999997,
+      "nsPerIteration": 36.888915999999995
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 25.677542000000003,
+      "nsPerIteration": 256.77542000000005
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 27.456500000000005,
+      "nsPerIteration": 915.2166666666668
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 21.239750000000015,
+      "nsPerIteration": 4.247950000000003
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 25.182042000000024,
+      "nsPerIteration": 359.74345714285744
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 22.910708,
+      "nsPerIteration": 327.29582857142856
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 31.06970799999999,
+      "nsPerIteration": 517.8284666666665
+    },
+    {
+      "round": 2,
+      "variant": "combined",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 19.493042000000003,
+      "nsPerIteration": 38.986084000000005
+    },
+    {
+      "round": 2,
+      "variant": "combined",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 26.056749999999994,
+      "nsPerIteration": 260.56749999999994
+    },
+    {
+      "round": 2,
+      "variant": "combined",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 27.81245800000002,
+      "nsPerIteration": 927.0819333333341
+    },
+    {
+      "round": 2,
+      "variant": "combined",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 29.866791999999975,
+      "nsPerIteration": 5.973358399999995
+    },
+    {
+      "round": 2,
+      "variant": "combined",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 26.35899999999998,
+      "nsPerIteration": 376.5571428571426
+    },
+    {
+      "round": 2,
+      "variant": "combined",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 22.10345799999999,
+      "nsPerIteration": 315.76368571428554
+    },
+    {
+      "round": 2,
+      "variant": "combined",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 30.68658400000004,
+      "nsPerIteration": 511.4430666666673
+    }
+  ]
+}
