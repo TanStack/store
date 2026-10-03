@@ -1,0 +1,174 @@
+{
+  "output": "recreate-with-prepare.mjs",
+  "node": "v25.8.1",
+  "platform": "darwin",
+  "arch": "arm64",
+  "esbuild": "0.27.7",
+  "target": "es2022",
+  "compression": "gzip level 9; Brotli quality 11",
+  "variants": [
+    {
+      "label": "main",
+      "source": "a9cf2324b4a24a8190ed7981c3be1594e0446872",
+      "sourceHashes": {
+        "alien.ts": "a651f884d7cd8ad4da231c4de5334cce89ab6e73b32c3fd1d8d2f0c8f20a804b",
+        "atom.ts": "098dfdf21c63f46eba54e05ca12fd2f29ebbbc971886ac845be0747ab814b92e",
+        "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+        "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+        "signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+        "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+        "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+      },
+      "artifactHashes": {
+        "runtime.mjs": "348c01272f1ac3cd3d186c24755f2bf97eea30191081baf128092e8041d21bf0",
+        "createAtom.min.mjs": "97f0377c10248dfc73d9a316a765c02c50138f41dc266753a6e4ce17b3019fd7",
+        "fullStore.min.mjs": "348c01272f1ac3cd3d186c24755f2bf97eea30191081baf128092e8041d21bf0",
+        "reactSelector.min.mjs": "d6b6ed3031dc9014ca9229bccb4a280a4c34b83f19b25ec672b9ab26f9756a2f"
+      },
+      "runtime": "main/runtime.mjs"
+    },
+    {
+      "label": "control",
+      "source": "../../../../.cache/retention-research/results/lifecycle-screen/sources/control",
+      "sourceHashes": {
+        "alien.ts": "db042f5946f4fcded249d726389b311d6a402ef9298fc769d9a1911fb72df8ed",
+        "atom.ts": "ddd453ae9d78dcf8c4da0d6ca9bcf21437fdbfafdd82c97caa8e320765a1fe81",
+        "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+        "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+        "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+        "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+      },
+      "artifactHashes": {
+        "runtime.mjs": "6c2c3679bda26f2cc69393b56ff88df61b92394bc808f86897b1039a351e5eb9",
+        "createAtom.min.mjs": "4c0bdabfb761af0addfe0bf5b684329f2b29290f063dd92ecec3e2f472157cce",
+        "fullStore.min.mjs": "6c2c3679bda26f2cc69393b56ff88df61b92394bc808f86897b1039a351e5eb9",
+        "reactSelector.min.mjs": "8a00bf73572f5faecc8c270d8b838da736af23c419448f29d005914c3315416b"
+      },
+      "runtime": "control/runtime.mjs"
+    },
+    {
+      "label": "reader",
+      "source": "../../../../.cache/retention-research/results/lifecycle-screen/sources/reader",
+      "sourceHashes": {
+        "alien.ts": "db042f5946f4fcded249d726389b311d6a402ef9298fc769d9a1911fb72df8ed",
+        "atom.ts": "13ade5c971ec665dceebaa648c4eb325d2525596fd709073dd44aad99b6f9b96",
+        "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+        "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+        "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+        "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+      },
+      "artifactHashes": {
+        "runtime.mjs": "7038e7b5bc6eb72ebfa364d1ac7592804ebbbad070c1b75ff5e3ee400f1efea0",
+        "createAtom.min.mjs": "e9b41bbbd7b82dbd5852a02a5a9df386e9f7c52b8546dd22d220135fcaf2cdd6",
+        "fullStore.min.mjs": "d8ecd290d1811403f2928d267c2f7e8d9a59d655107e68c8a7ef5f17a55818a3",
+        "reactSelector.min.mjs": "4a7e63fd4be0646abac4b7bfd4b39f237fca559fd411f72204d899eeee89b28e"
+      },
+      "runtime": "reader/runtime.mjs"
+    },
+    {
+      "label": "updater",
+      "source": "../../../../.cache/retention-research/results/lifecycle-screen/sources/updater",
+      "sourceHashes": {
+        "alien.ts": "db042f5946f4fcded249d726389b311d6a402ef9298fc769d9a1911fb72df8ed",
+        "atom.ts": "1f54a6b86e2124df202d7da71e063bdcea558e294b4829d309a87bf2d8f71f86",
+        "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+        "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+        "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+        "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+      },
+      "artifactHashes": {
+        "runtime.mjs": "7fda1aa0fca8fa311d89def21f6544e554d0805289897707ff7ce439de1b5b72",
+        "createAtom.min.mjs": "8e83f53c874a53533922c2c7c969ab4999d98c33b157294581acbee9c601f488",
+        "fullStore.min.mjs": "0a39ac7b63095dcd64bbd887e77eae399db03a6aee4b8a2fb315768aa2bf00bd",
+        "reactSelector.min.mjs": "bfa5b1dc60351b0ba3d3100fbffa7556d6b84c0ce173dbc026488eae70c45b03"
+      },
+      "runtime": "updater/runtime.mjs"
+    }
+  ],
+  "sizes": [
+    {
+      "variant": "main",
+      "entry": "createAtom",
+      "minifiedBytes": 3661,
+      "gzipBytes": 1504,
+      "brotliBytes": 1403
+    },
+    {
+      "variant": "main",
+      "entry": "fullStore",
+      "minifiedBytes": 5353,
+      "gzipBytes": 2077,
+      "brotliBytes": 1939
+    },
+    {
+      "variant": "main",
+      "entry": "reactSelector",
+      "minifiedBytes": 3978,
+      "gzipBytes": 1661,
+      "brotliBytes": 1543
+    },
+    {
+      "variant": "control",
+      "entry": "createAtom",
+      "minifiedBytes": 4594,
+      "gzipBytes": 1863,
+      "brotliBytes": 1733
+    },
+    {
+      "variant": "control",
+      "entry": "fullStore",
+      "minifiedBytes": 6290,
+      "gzipBytes": 2440,
+      "brotliBytes": 2263
+    },
+    {
+      "variant": "control",
+      "entry": "reactSelector",
+      "minifiedBytes": 4911,
+      "gzipBytes": 2022,
+      "brotliBytes": 1870
+    },
+    {
+      "variant": "reader",
+      "entry": "createAtom",
+      "minifiedBytes": 4937,
+      "gzipBytes": 1945,
+      "brotliBytes": 1801
+    },
+    {
+      "variant": "reader",
+      "entry": "fullStore",
+      "minifiedBytes": 6633,
+      "gzipBytes": 2520,
+      "brotliBytes": 2339
+    },
+    {
+      "variant": "reader",
+      "entry": "reactSelector",
+      "minifiedBytes": 5254,
+      "gzipBytes": 2103,
+      "brotliBytes": 1940
+    },
+    {
+      "variant": "updater",
+      "entry": "createAtom",
+      "minifiedBytes": 4782,
+      "gzipBytes": 1903,
+      "brotliBytes": 1765
+    },
+    {
+      "variant": "updater",
+      "entry": "fullStore",
+      "minifiedBytes": 6478,
+      "gzipBytes": 2478,
+      "brotliBytes": 2301
+    },
+    {
+      "variant": "updater",
+      "entry": "reactSelector",
+      "minifiedBytes": 5099,
+      "gzipBytes": 2065,
+      "brotliBytes": 1907
+    }
+  ]
+}

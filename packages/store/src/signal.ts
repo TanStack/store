@@ -209,7 +209,7 @@ export function trigger(fn: () => void) {
     let link = sub.deps
     while (link !== undefined) {
       const dep = link.dep
-      link = unlink(link, sub)
+      link = unlink(link)
       const subs = dep.subs
       if (subs !== undefined) {
         sub.flags = NONE
@@ -362,6 +362,6 @@ function purgeDeps(sub: ReactiveNode) {
   const depsTail = sub.depsTail
   let dep = depsTail !== undefined ? depsTail.nextDep : sub.deps
   while (dep !== undefined) {
-    dep = unlink(dep, sub)
+    dep = unlink(dep)
   }
 }

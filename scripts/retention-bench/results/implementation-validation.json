@@ -1,0 +1,201 @@
+{
+  "date": "2026-10-03",
+  "production_source_sha256": {
+    "alien.ts": "31f429d4706b58202278fb5a5dc479a0ce3273fd55f74da3e75ef9ff5272d885",
+    "atom.ts": "70a88586c2f773107463ede53a55f5e88caccd64ea1037dc1954b80fae7c11f9",
+    "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+    "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+    "signal.ts": "6a9ce25bdb9f49ed2467c5e722b80da849abf5385a25f989240a8b33dbb2aa26",
+    "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+    "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+  },
+  "regression_test_sha256": "4ecbde0c50454049333de6429cc23f197e6a3a0365a2534f7020765bec840ebe",
+  "runtime": {
+    "status": "passed",
+    "counts": {
+      "store": 78,
+      "angular-store": 14,
+      "lit-store": 4,
+      "octane-store": 12,
+      "octane-store:ssr": 1,
+      "preact-store": 44,
+      "react-store": 34,
+      "solid-store": 29,
+      "svelte-store": 13,
+      "vue-store": 27
+    },
+    "total_passed": 256,
+    "skipped": 1,
+    "files": 19,
+    "command": "../../node_modules/.bin/vitest run --coverage.enabled=false --typecheck.enabled=false",
+    "cwd": "each packages/<package>; Octane SSR also --config vitest.ssr.config.ts",
+    "core_dependency_resolution": "Adapters @tanstack/store links resolve to current worktree packages/store/dist built from current source."
+  },
+  "core_compiler_matrix": {
+    "status": "passed",
+    "versions": ["5.6", "5.7", "5.8", "6.0"],
+    "commands": [
+      "node node_modules/typescript56/lib/tsc.js -p packages/store/tsconfig.json",
+      "node node_modules/typescript57/lib/tsc.js -p packages/store/tsconfig.json",
+      "node node_modules/typescript58/lib/tsc.js -p packages/store/tsconfig.json",
+      "node node_modules/typescript/lib/tsc.js -p packages/store/tsconfig.json"
+    ]
+  },
+  "library_checks": {
+    "status": "passed",
+    "targets": ["test:eslint", "test:types", "test:build", "build"],
+    "packages": [
+      "store",
+      "angular-store",
+      "lit-store",
+      "octane-store",
+      "preact-store",
+      "react-store",
+      "solid-store",
+      "svelte-store",
+      "vue-store"
+    ],
+    "additional": "Historical broad library lint/type/build/publint checks passed as recorded by the prior implementation phase. This size-reduction phase reran core ESLint, all four core compilers, core tsdown/publint, and all adapter runtime tests against the newly built current core; unchanged adapter builds were not repeated."
+  },
+  "source_graph_oracle": {
+    "status": "passed",
+    "preparation": "node .cache/retention-research/retention-tests/prepare-candidate.mjs size-production packages/store/src",
+    "command": "node .cache/retention-research/retention-tests/graph-fuzz.mjs size-production",
+    "operations": 80000,
+    "graphs": 40,
+    "computed_nodes_per_graph": 35,
+    "sources_per_graph": 5
+  },
+  "focused_adversarial": {
+    "status": "passed",
+    "command": "node .cache/retention-research/retention-tests/focused.mjs size-production",
+    "cases": 9
+  },
+  "new_production_regressions": {
+    "files": [
+      "packages/store/tests/unobserved-atoms.test.ts",
+      "packages/store/tests/atom-lifecycle.test.ts"
+    ],
+    "cases": 40,
+    "counts": {
+      "unobserved-atoms.test.ts": 30,
+      "atom-lifecycle.test.ts": 10
+    },
+    "origin": "15 PR373 regressions plus 25 tests covering linear cold work, no transient retention, retained links, dependency and observer isolation, discarded handles, read deduplication, captured readers across lifecycle/throw/async transitions, mutable callback semantics, activation/cleanup/error ordering, and cached async rejection across cold and observed subscription changes."
+  },
+  "sherif": {
+    "status": "passed",
+    "command": "pnpm_config_verify_deps_before_run=false npm_config_update_notifier=false COREPACK_ENABLE_NETWORK=0 pnpm run test:sherif"
+  },
+  "aggregate_nx": {
+    "status": "failed_environment_and_research_artifacts",
+    "exit_code": 1,
+    "timeout_seconds": 60,
+    "timed_out": false,
+    "command": "node node_modules/nx/dist/bin/nx.js affected --targets=test:sherif,test:knip,test:eslint,test:lib,test:types,test:build,build --base=e06c28c --skip-nx-cache --outputStyle=stream",
+    "environment": {
+      "NX_NO_CLOUD": "true",
+      "NX_DAEMON": "false",
+      "NX_WORKSPACE_ROOT_PATH": "current worktree",
+      "NX_WORKSPACE_DATA_DIRECTORY": "current worktree/.nx/workspace-data",
+      "NX_CACHE_DIRECTORY": "current worktree/.nx/cache",
+      "NX_NATIVE_FILE_CACHE_DIRECTORY": "/private/tmp/store-retention-nx-native",
+      "pnpm_config_verify_deps_before_run": "false",
+      "COREPACK_ENABLE_NETWORK": "0"
+    },
+    "log": "/private/tmp/store-retention-full-nx.log",
+    "failures": [
+      "Seven adapter test:lib tasks run assertions without type errors but exit1 because Vitest attempts writing tsconfig.tmp.tsbuildinfo inside the read-only external install. Separate runtime runs pass; separate package test:types targets pass.",
+      "Initial Knip failures concerned previous research artifacts only. These are now archived under ignored .cache/retention-research; final Knip check is clean.",
+      "Example projects lack local node_modules in this overlay. Five Angular examples use global CLI that rejects existing defaultConfiguration schema. These failures do not exercise the changed store logic."
+    ],
+    "source_when_executed": {
+      "atom.ts": "21dd85df561a0317f0ad7d248763f8ac97d64aadc4badb4ef45a79eed478898d",
+      "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7",
+      "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+      "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+      "alien.ts": "db042f5946f4fcded249d726389b311d6a402ef9298fc769d9a1911fb72df8ed",
+      "signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+      "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2"
+    }
+  },
+  "dependency_setup": {
+    "strategy": "External packages reused read-only by local symlink overlay; workspace package links point into the current checkout. No preexisting lockfile resolutions changed and no original-checkout writes. The root importer intentionally adds pinned esbuild0.27.7 using its existing lock snapshot. Svelte testing-library package copied into ignored local node_modules so its auto-cleanup setup path stays inside the worktree.",
+    "node": "25.8.1",
+    "installed_vitest": "4.1.11",
+    "installed_typescript": "6.0.2",
+    "limitation": "Available installation contains compatible dependency resolutions newer than some lower ranges in the repository lockfile; full pnpm verification/install disabled to preserve read-only reuse.",
+    "esbuild_lock_update": "pnpm offline lock-only resolved the pin but attempted module relinking into read-only dependency tree and failed EPERM. Kept only the3line root importer reference to the already-resolved0.27.7 package, preserving all previous package/peer resolutions; local dependency symlink verifies0.27.7."
+  },
+  "notes": [
+    "No commits or pushes performed by correctness agent; size-reduction phase leaves changes for user review.",
+    "Production implementation is frozen; no changes made by correctness agent to production sources.",
+    "Aggregate Nx run exited naturally before timeout; timeout termination was not needed.",
+    "Previous research source snapshots and correctness harnesses are preserved under ignored .cache/retention-research; public benchmark results remain under scripts/retention-bench/results."
+  ],
+  "knip": {
+    "status": "passed",
+    "command": "node_modules/.bin/knip",
+    "research_artifacts": "Earlier fixture directories and generated source snapshots archived under ignored .cache/retention-research; benchmark scripts registered as legitimate root entry points.",
+    "esbuild": "Pinned explicit devDependency0.27.7; root importer references preexisting lock snapshot."
+  },
+  "final_source_validation": {
+    "status": "passed",
+    "source_change": "Selected size reduction preserves distinct mutable/computed updaters while placing the computed updater directly in the atom literal, moves cold validation to a shared helper, simplifies private link/unlink bookkeeping and closure state, shortens private numeric metadata names, and shares async completion handlers. Pure engine initialization remains removable from utility-only consumer bundles. Stable public get and all error/detachment cleanup are retained; unified-updater performance experiment was rejected.",
+    "repeated_checks": [
+      "core78runtime +all8adapterruntime+OctaneSSR =256passed1skipped (19files)",
+      "actualproduction80kDAG oracle",
+      "9focused adversarial cases",
+      "coreTypeScript5.6/5.7/5.8/6.0",
+      "coreESLintsource+tests",
+      "coretsdownbuild+publint",
+      "Prettierchangedsource/tests/generateddocs/changeset",
+      "documentationrelative-linkverification (90files)",
+      "Knip",
+      "Sherif"
+    ],
+    "oracle_commands": [
+      "node .cache/retention-research/retention-tests/prepare-candidate.mjs size-production packages/store/src",
+      "node .cache/retention-research/retention-tests/graph-fuzz.mjs size-production",
+      "node .cache/retention-research/retention-tests/focused.mjs size-production"
+    ],
+    "commands": [
+      "../../node_modules/.bin/vitest run --coverage.enabled=false --typecheck.enabled=false (cwd each packages/<package>; Octane SSR also --config vitest.ssr.config.ts)",
+      "../../node_modules/.bin/eslint ./src ./tests (cwd packages/store)",
+      "npm_config_cache=/private/tmp/store-retention-npm-cache ../../node_modules/.bin/tsdown --tsconfig tsconfig.build.json (cwd packages/store)",
+      "node scripts/verify-links.ts",
+      "node_modules/.bin/knip",
+      "node_modules/.bin/sherif"
+    ],
+    "aggregate_nx_rerun": false,
+    "aggregate_nx_rerun_reason": "Historical aggregate environment limitations remain separately recorded with their original source hashes. Selected size-reduction production runtime, compiler, lint/build/publint, oracle, focused, formatting and documentation checks were rerun separately once; unchanged adapter builds and the known restricted install/example configuration aggregate were not repeated.",
+    "dist_annotations": {
+      "status": "verified",
+      "esm_atom": "/* @__PURE__ */ createReactiveSystem(...) preserved in packages/store/dist/atom.js",
+      "esm_alien": "/* @__NO_SIDE_EFFECTS__ */ factory annotation preserved in packages/store/dist/alien.js",
+      "commands": "rg -n \"@__PURE__|NO_SIDE_EFFECTS\" packages/store/dist/atom.js packages/store/dist/alien.js"
+    },
+    "published_dist_control": {
+      "revision": "451be99",
+      "directory": "/private/tmp/store-gzip-focused/published/packages/store",
+      "status": "tsdown ESM/CJS/declarations + strict publint passed",
+      "command": "npm_config_cache=/private/tmp/store-retention-npm-cache <worktree>/node_modules/.bin/tsdown --tsconfig tsconfig.build.json",
+      "provenance": "Exact committed package manifest and tsdown/TypeScript configs copied alongside the exact committed source snapshot; existing dependency overlay linked read-only.",
+      "environment_retry": "Initial build emitted all artifacts but npm pack failed EPERM on external ~/.npm cache. Repeated build with a writable temporary npm cache completed strict publint; no source/config changes."
+    }
+  },
+  "docs_links": {
+    "status": "passed",
+    "command": "node scripts/verify-links.ts",
+    "files": 90,
+    "post_cleanup": "Implementation agent removed incidental generated Lit references during this phase. Final independent verify-links:90files, no broken links."
+  },
+  "regression_tests_sha256": {
+    "packages/store/tests/unobserved-atoms.test.ts": "4ecbde0c50454049333de6429cc23f197e6a3a0365a2534f7020765bec840ebe",
+    "packages/store/tests/atom-lifecycle.test.ts": "85890bab7bd77e1518bd4e056f8948c9e9edd7d369fa0a3458601be60fc8f08a"
+  },
+  "mutable_updater_behavior": {
+    "status": "preserved",
+    "evidence": "Both exact e06c28c baseline and a9cf232 current-main shared updater assign activeSub=atom only inside if(isComputed). Dedicated mutable updater preserves enclosing updater/comparer dependency tracking; new tests lock existing behavior."
+  }
+}

@@ -1,0 +1,566 @@
+{
+  "metadata": {
+    "node": "v25.8.1",
+    "cpu": "Apple M3 Max",
+    "logicalCpus": 14,
+    "rounds": 3,
+    "suite": "retention",
+    "selectedCases": [
+      "unobserved_chain8_cached_get",
+      "unobserved_chain128_write_read",
+      "create_read_discard"
+    ],
+    "methodology": "2 full warmup workloads before each timed fresh graph; rotated sequential variants in isolated workers; forced GC between workloads; elapsed wall time excludes setup, cleanup, assertions and GC"
+  },
+  "manifest": {
+    "output": "recreate-with-prepare.mjs",
+    "node": "v25.8.1",
+    "platform": "darwin",
+    "arch": "arm64",
+    "esbuild": "0.27.7",
+    "target": "es2022",
+    "compression": "gzip level 9; Brotli quality 11",
+    "variants": [
+      {
+        "label": "main",
+        "source": "a9cf2324b4a24a8190ed7981c3be1594e0446872",
+        "sourceHashes": {
+          "alien.ts": "a651f884d7cd8ad4da231c4de5334cce89ab6e73b32c3fd1d8d2f0c8f20a804b",
+          "atom.ts": "098dfdf21c63f46eba54e05ca12fd2f29ebbbc971886ac845be0747ab814b92e",
+          "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+          "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+          "signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+          "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+          "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+        },
+        "artifactHashes": {
+          "runtime.mjs": "348c01272f1ac3cd3d186c24755f2bf97eea30191081baf128092e8041d21bf0",
+          "createAtom.min.mjs": "97f0377c10248dfc73d9a316a765c02c50138f41dc266753a6e4ce17b3019fd7",
+          "fullStore.min.mjs": "348c01272f1ac3cd3d186c24755f2bf97eea30191081baf128092e8041d21bf0",
+          "reactSelector.min.mjs": "d6b6ed3031dc9014ca9229bccb4a280a4c34b83f19b25ec672b9ab26f9756a2f"
+        },
+        "runtime": "main/runtime.mjs"
+      },
+      {
+        "label": "control",
+        "source": "../../../../.cache/retention-research/results/lifecycle-link-helper/sources/control",
+        "sourceHashes": {
+          "alien.ts": "db042f5946f4fcded249d726389b311d6a402ef9298fc769d9a1911fb72df8ed",
+          "atom.ts": "ddd453ae9d78dcf8c4da0d6ca9bcf21437fdbfafdd82c97caa8e320765a1fe81",
+          "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+          "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+          "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+          "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+        },
+        "artifactHashes": {
+          "runtime.mjs": "6c2c3679bda26f2cc69393b56ff88df61b92394bc808f86897b1039a351e5eb9",
+          "createAtom.min.mjs": "4c0bdabfb761af0addfe0bf5b684329f2b29290f063dd92ecec3e2f472157cce",
+          "fullStore.min.mjs": "6c2c3679bda26f2cc69393b56ff88df61b92394bc808f86897b1039a351e5eb9",
+          "reactSelector.min.mjs": "8a00bf73572f5faecc8c270d8b838da736af23c419448f29d005914c3315416b"
+        },
+        "runtime": "control/runtime.mjs"
+      },
+      {
+        "label": "helper",
+        "source": "../../../../.cache/retention-research/results/lifecycle-link-helper/sources/helper",
+        "sourceHashes": {
+          "alien.ts": "ba2b9fc02847916b884e8014f49d0f9f975091782a41894c0463909c84338b9a",
+          "atom.ts": "d00f7c85a8e1fdf7f645db8f4edf91000e0fc71bea2ba3e27fa6afa6c285a9dc",
+          "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+          "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+          "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+          "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+        },
+        "artifactHashes": {
+          "runtime.mjs": "db5f458d493012b11fb3b350bba6dae1aa5b9c8053b68053f083fad462f04de7",
+          "createAtom.min.mjs": "2e5a57a1f09b448fe2fd98b5fcd07d047e81ca3e83724ad8a37f6892ac7aff2d",
+          "fullStore.min.mjs": "db5f458d493012b11fb3b350bba6dae1aa5b9c8053b68053f083fad462f04de7",
+          "reactSelector.min.mjs": "b57cd3b76cd7a7d2839148dc84e95af8a9fbc952e6cb0a816c335ec26f65cf5d"
+        },
+        "runtime": "helper/runtime.mjs"
+      }
+    ],
+    "sizes": [
+      {
+        "variant": "main",
+        "entry": "createAtom",
+        "minifiedBytes": 3661,
+        "gzipBytes": 1504,
+        "brotliBytes": 1403
+      },
+      {
+        "variant": "main",
+        "entry": "fullStore",
+        "minifiedBytes": 5353,
+        "gzipBytes": 2077,
+        "brotliBytes": 1939
+      },
+      {
+        "variant": "main",
+        "entry": "reactSelector",
+        "minifiedBytes": 3978,
+        "gzipBytes": 1661,
+        "brotliBytes": 1543
+      },
+      {
+        "variant": "control",
+        "entry": "createAtom",
+        "minifiedBytes": 4594,
+        "gzipBytes": 1863,
+        "brotliBytes": 1733
+      },
+      {
+        "variant": "control",
+        "entry": "fullStore",
+        "minifiedBytes": 6290,
+        "gzipBytes": 2440,
+        "brotliBytes": 2263
+      },
+      {
+        "variant": "control",
+        "entry": "reactSelector",
+        "minifiedBytes": 4911,
+        "gzipBytes": 2022,
+        "brotliBytes": 1870
+      },
+      {
+        "variant": "helper",
+        "entry": "createAtom",
+        "minifiedBytes": 4815,
+        "gzipBytes": 1924,
+        "brotliBytes": 1789
+      },
+      {
+        "variant": "helper",
+        "entry": "fullStore",
+        "minifiedBytes": 6511,
+        "gzipBytes": 2494,
+        "brotliBytes": 2321
+      },
+      {
+        "variant": "helper",
+        "entry": "reactSelector",
+        "minifiedBytes": 5132,
+        "gzipBytes": 2082,
+        "brotliBytes": 1928
+      }
+    ]
+  },
+  "preflight": [
+    {
+      "variant": "main",
+      "rows": [
+        {
+          "name": "unobserved_chain8_cached_get",
+          "iterations": 5000,
+          "elapsedMs": 0.030125000000001734,
+          "nsPerIteration": 6.025000000000347,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "create_read_discard",
+          "iterations": 250,
+          "elapsedMs": 0.09587499999999949,
+          "nsPerIteration": 383.49999999999795,
+          "counters": {
+            "computes": 250
+          }
+        },
+        {
+          "name": "unobserved_chain128_write_read",
+          "iterations": 16,
+          "elapsedMs": 0.14424999999999955,
+          "nsPerIteration": 9015.62499999997,
+          "counters": {
+            "computes": 2176,
+            "notifications": 0
+          }
+        }
+      ],
+      "sink": 128052
+    },
+    {
+      "variant": "control",
+      "rows": [
+        {
+          "name": "unobserved_chain8_cached_get",
+          "iterations": 5000,
+          "elapsedMs": 0.1182079999999992,
+          "nsPerIteration": 23.64159999999984,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "create_read_discard",
+          "iterations": 250,
+          "elapsedMs": 0.11441699999999955,
+          "nsPerIteration": 457.6679999999982,
+          "counters": {
+            "computes": 250
+          }
+        },
+        {
+          "name": "unobserved_chain128_write_read",
+          "iterations": 16,
+          "elapsedMs": 0.1369589999999974,
+          "nsPerIteration": 8559.937499999836,
+          "counters": {
+            "computes": 2176,
+            "notifications": 0
+          }
+        }
+      ],
+      "sink": 128052
+    },
+    {
+      "variant": "helper",
+      "rows": [
+        {
+          "name": "unobserved_chain8_cached_get",
+          "iterations": 5000,
+          "elapsedMs": 0.09891700000000014,
+          "nsPerIteration": 19.78340000000003,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "create_read_discard",
+          "iterations": 250,
+          "elapsedMs": 0.12508400000000108,
+          "nsPerIteration": 500.33600000000433,
+          "counters": {
+            "computes": 250
+          }
+        },
+        {
+          "name": "unobserved_chain128_write_read",
+          "iterations": 16,
+          "elapsedMs": 0.18625000000000114,
+          "nsPerIteration": 11640.625000000071,
+          "counters": {
+            "computes": 2176,
+            "notifications": 0
+          }
+        }
+      ],
+      "sink": 128052
+    }
+  ],
+  "summaries": [
+    {
+      "variant": "main",
+      "name": "unobserved_chain8_cached_get",
+      "medianNs": 3.4823836,
+      "minNs": 3.437350000000001,
+      "maxNs": 3.506966399999999,
+      "p25Ns": 3.437350000000001,
+      "p75Ns": 3.506966399999999,
+      "iterations": 2500000
+    },
+    {
+      "variant": "main",
+      "name": "create_read_discard",
+      "medianNs": 58.33833600000003,
+      "minNs": 56.22499999999991,
+      "maxNs": 58.62699999999995,
+      "p25Ns": 56.22499999999991,
+      "p75Ns": 58.62699999999995,
+      "iterations": 125000
+    },
+    {
+      "variant": "main",
+      "name": "unobserved_chain128_write_read",
+      "medianNs": 3223.053870761356,
+      "minNs": 3214.128726807421,
+      "maxNs": 3272.142162507996,
+      "p25Ns": 3214.128726807421,
+      "p75Ns": 3272.142162507996,
+      "iterations": 7815
+    },
+    {
+      "variant": "control",
+      "name": "unobserved_chain8_cached_get",
+      "medianNs": 8.204316799999999,
+      "minNs": 8.163250000000001,
+      "maxNs": 8.321433200000001,
+      "p25Ns": 8.163250000000001,
+      "p75Ns": 8.321433200000001,
+      "iterations": 2500000
+    },
+    {
+      "variant": "control",
+      "name": "create_read_discard",
+      "medianNs": 71.32299999999998,
+      "minNs": 70.9023279999999,
+      "maxNs": 73.14099999999995,
+      "p25Ns": 70.9023279999999,
+      "p75Ns": 73.14099999999995,
+      "iterations": 125000
+    },
+    {
+      "variant": "control",
+      "name": "unobserved_chain128_write_read",
+      "medianNs": 5644.5297504798455,
+      "minNs": 5477.137939859245,
+      "maxNs": 5657.709532949456,
+      "p25Ns": 5477.137939859245,
+      "p75Ns": 5657.709532949456,
+      "iterations": 7815
+    },
+    {
+      "variant": "helper",
+      "name": "unobserved_chain8_cached_get",
+      "medianNs": 5.498033599999999,
+      "minNs": 5.492383599999999,
+      "maxNs": 5.59395,
+      "p25Ns": 5.492383599999999,
+      "p75Ns": 5.59395,
+      "iterations": 2500000
+    },
+    {
+      "variant": "helper",
+      "name": "create_read_discard",
+      "medianNs": 85.40867200000002,
+      "minNs": 55.5363359999999,
+      "maxNs": 85.90633600000001,
+      "p25Ns": 55.5363359999999,
+      "p75Ns": 85.90633600000001,
+      "iterations": 125000
+    },
+    {
+      "variant": "helper",
+      "name": "unobserved_chain128_write_read",
+      "medianNs": 5845.32412028151,
+      "minNs": 5827.831094049904,
+      "maxNs": 6258.57863083813,
+      "p25Ns": 5827.831094049904,
+      "p75Ns": 6258.57863083813,
+      "iterations": 7815
+    }
+  ],
+  "samples": [
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 2500000,
+      "elapsedMs": 8.767415999999997,
+      "nsPerIteration": 3.506966399999999
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "create_read_discard",
+      "iterations": 125000,
+      "elapsedMs": 7.028124999999989,
+      "nsPerIteration": 56.22499999999991
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 7815,
+      "elapsedMs": 25.188165999999995,
+      "nsPerIteration": 3223.053870761356
+    },
+    {
+      "round": 0,
+      "variant": "control",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 2500000,
+      "elapsedMs": 20.803583000000003,
+      "nsPerIteration": 8.321433200000001
+    },
+    {
+      "round": 0,
+      "variant": "control",
+      "name": "create_read_discard",
+      "iterations": 125000,
+      "elapsedMs": 8.915374999999997,
+      "nsPerIteration": 71.32299999999998
+    },
+    {
+      "round": 0,
+      "variant": "control",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 7815,
+      "elapsedMs": 44.215,
+      "nsPerIteration": 5657.709532949456
+    },
+    {
+      "round": 0,
+      "variant": "helper",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 2500000,
+      "elapsedMs": 13.984875000000002,
+      "nsPerIteration": 5.59395
+    },
+    {
+      "round": 0,
+      "variant": "helper",
+      "name": "create_read_discard",
+      "iterations": 125000,
+      "elapsedMs": 6.9420419999999865,
+      "nsPerIteration": 55.5363359999999
+    },
+    {
+      "round": 0,
+      "variant": "helper",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 7815,
+      "elapsedMs": 48.91079199999999,
+      "nsPerIteration": 6258.57863083813
+    },
+    {
+      "round": 1,
+      "variant": "control",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 2500000,
+      "elapsedMs": 20.408125000000005,
+      "nsPerIteration": 8.163250000000001
+    },
+    {
+      "round": 1,
+      "variant": "control",
+      "name": "create_read_discard",
+      "iterations": 125000,
+      "elapsedMs": 9.142624999999995,
+      "nsPerIteration": 73.14099999999995
+    },
+    {
+      "round": 1,
+      "variant": "control",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 7815,
+      "elapsedMs": 44.111999999999995,
+      "nsPerIteration": 5644.5297504798455
+    },
+    {
+      "round": 1,
+      "variant": "helper",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 2500000,
+      "elapsedMs": 13.745083999999999,
+      "nsPerIteration": 5.498033599999999
+    },
+    {
+      "round": 1,
+      "variant": "helper",
+      "name": "create_read_discard",
+      "iterations": 125000,
+      "elapsedMs": 10.676084000000003,
+      "nsPerIteration": 85.40867200000002
+    },
+    {
+      "round": 1,
+      "variant": "helper",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 7815,
+      "elapsedMs": 45.5445,
+      "nsPerIteration": 5827.831094049904
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 2500000,
+      "elapsedMs": 8.705959,
+      "nsPerIteration": 3.4823836
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "create_read_discard",
+      "iterations": 125000,
+      "elapsedMs": 7.292292000000003,
+      "nsPerIteration": 58.33833600000003
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 7815,
+      "elapsedMs": 25.118415999999996,
+      "nsPerIteration": 3214.128726807421
+    },
+    {
+      "round": 2,
+      "variant": "helper",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 2500000,
+      "elapsedMs": 13.730958999999999,
+      "nsPerIteration": 5.492383599999999
+    },
+    {
+      "round": 2,
+      "variant": "helper",
+      "name": "create_read_discard",
+      "iterations": 125000,
+      "elapsedMs": 10.738292000000001,
+      "nsPerIteration": 85.90633600000001
+    },
+    {
+      "round": 2,
+      "variant": "helper",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 7815,
+      "elapsedMs": 45.681208,
+      "nsPerIteration": 5845.32412028151
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 2500000,
+      "elapsedMs": 8.593375000000002,
+      "nsPerIteration": 3.437350000000001
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "create_read_discard",
+      "iterations": 125000,
+      "elapsedMs": 7.328374999999994,
+      "nsPerIteration": 58.62699999999995
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 7815,
+      "elapsedMs": 25.57179099999999,
+      "nsPerIteration": 3272.142162507996
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 2500000,
+      "elapsedMs": 20.510791999999995,
+      "nsPerIteration": 8.204316799999999
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "name": "create_read_discard",
+      "iterations": 125000,
+      "elapsedMs": 8.862790999999987,
+      "nsPerIteration": 70.9023279999999
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 7815,
+      "elapsedMs": 42.803833,
+      "nsPerIteration": 5477.137939859245
+    }
+  ]
+}

@@ -37,6 +37,9 @@ importers:
       '@vitest/coverage-istanbul':
         specifier: ^4.1.4
         version: 4.1.4(vitest@4.1.11)
+      esbuild:
+        specifier: 0.27.7
+        version: 0.27.7
       eslint:
         specifier: ^10.2.0
         version: 10.10.0(jiti@2.6.1)

@@ -1,0 +1,236 @@
+{
+  "node": "v25.8.1",
+  "esbuild": "0.27.7",
+  "tsdown": "0.21.7",
+  "target": "es2022",
+  "note": "Actual tsdown ESM package output, then identical minified consumer options. React adapter also imports built dist/index.js. Compression totals are non-additive.",
+  "variants": [
+    {
+      "label": "published",
+      "source": "../../../../.cache/retention-research/results/size-final/dist/published/core/index.js",
+      "builtFileHashes": {
+        "alien.js": "48085b9970b4b1eb35ba4a2b060b00ce2b835dc05809ca0f70158d958551af4d",
+        "atom.js": "0d4ae61d136d4143b8c8237ffe1994f4e96e4ad282bb1695906db3f8618816a8",
+        "index.js": "bc6cb4d20431d4a12ea073eb27b498c7f8f1301cc15647657bd8cf5f6caf8b22",
+        "shallow.js": "e15044cf2aa5db9b5004537ddd26a385eae3cedd23c68476166f38ad7a7d1d04",
+        "store.js": "0d9a9d892037fea34cb571dc9dc625e6d0d34824521240f833198622b54c28e0"
+      },
+      "artifactHashes": {
+        "createAtom": "d01c9d5dea4d6b65e137782db995dbac6f9e51ba282e0539149a28f0c4d0352d",
+        "batch": "76a802597a004fae3661f12386fb3432e9734cb0503716eaee2ecd26eaa74ea2",
+        "flush": "430056f1ce8f48418cf2c99884509fdaa20c0e360c2c5fa27359c81f61b9abeb",
+        "toObserver": "40e8944bd7b21297c5bfb803bdc2fbbc8d7dbc087f2dc4f910df2817d9618189",
+        "shallow": "4d44f0f1f68dde5989cc386e213d611e77116d9c5da9099bf238200167a950c9",
+        "fullStore": "f7c80f1dc0867a03cd630e55ab2cacf316624363265b24c43e500983fc7f0b5f",
+        "reactSelector": "ed3171030c9a9e36db4eb3c78b03e8b6a2f60748697d42f2314f4ec045b89265"
+      },
+      "sourceRef": "451be99bfd5b9f3295b829ef18ab7dd68d32ddfe",
+      "sourceHashes": {
+        "alien.ts": "df98cfad925f14ef265103baec02f9c558e568d76908cb626be884990bf5fa52",
+        "atom.ts": "0785dbd35551b206edb243eaabdba32b72e9c18803625e917f8f7e96501c8f2b",
+        "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+        "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+        "signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+        "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+        "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+      }
+    },
+    {
+      "label": "production",
+      "source": "../../../../.cache/retention-research/results/size-final/dist/production/core/index.js",
+      "builtFileHashes": {
+        "alien.js": "9e11754112932126870ec3bcb4c278ccdde1fa74414c31488a96980df3c3a1d4",
+        "atom.js": "382b6388c414b36774c47c7a564537b377a21b54ea246406dfa2f45b9b8a9e2f",
+        "index.js": "bc6cb4d20431d4a12ea073eb27b498c7f8f1301cc15647657bd8cf5f6caf8b22",
+        "shallow.js": "e15044cf2aa5db9b5004537ddd26a385eae3cedd23c68476166f38ad7a7d1d04",
+        "store.js": "0d9a9d892037fea34cb571dc9dc625e6d0d34824521240f833198622b54c28e0"
+      },
+      "artifactHashes": {
+        "createAtom": "673c186d75067ee00fbbffa0fdd23f4646ec17ebb44eda129bb70db0e1893c97",
+        "batch": "f212435fcb455437c683528a826ae0a6ad4f3d8b8600f509cd867cd20ae74c0e",
+        "flush": "ab0743198fede9005f8d67e495ae6ce95a6aece86ae5aa7675433fdf156b0cc0",
+        "toObserver": "074761e95886493cb8806f9da142bc2b5b69cd9e73fe4545035144472e865254",
+        "shallow": "4a4cd320d4d425b77adf6d3a09ef1eb7cea9c6c250b67e03dfc51a5fac691424",
+        "fullStore": "26e36938f4e12a09b97712875af1431ce11fb98b3991799bab26194e0ad44a35",
+        "reactSelector": "aa338ac70409e19d5ad5034e394d99192039ed544419d8ba187f35ad5235f7b5"
+      },
+      "sourceRef": "local integrated source",
+      "sourceHashes": {
+        "alien.ts": "31f429d4706b58202278fb5a5dc479a0ce3273fd55f74da3e75ef9ff5272d885",
+        "atom.ts": "70a88586c2f773107463ede53a55f5e88caccd64ea1037dc1954b80fae7c11f9",
+        "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+        "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+        "signal.ts": "6a9ce25bdb9f49ed2467c5e722b80da849abf5385a25f989240a8b33dbb2aa26",
+        "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+        "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+      }
+    }
+  ],
+  "sizes": [
+    {
+      "variant": "published",
+      "entry": "createAtom",
+      "minifiedBytes": 4815,
+      "gzipBytes": 1919,
+      "brotliBytes": 1782,
+      "moduleBytes": {
+        "core/alien.js": 2218,
+        "core/atom.js": 2572
+      }
+    },
+    {
+      "variant": "published",
+      "entry": "batch",
+      "minifiedBytes": 2699,
+      "gzipBytes": 1139,
+      "brotliBytes": 1071,
+      "moduleBytes": {
+        "core/alien.js": 2218,
+        "core/atom.js": 461
+      }
+    },
+    {
+      "variant": "published",
+      "entry": "flush",
+      "minifiedBytes": 2655,
+      "gzipBytes": 1112,
+      "brotliBytes": 1049,
+      "moduleBytes": {
+        "core/alien.js": 2218,
+        "core/atom.js": 417
+      }
+    },
+    {
+      "variant": "published",
+      "entry": "toObserver",
+      "minifiedBytes": 2727,
+      "gzipBytes": 1146,
+      "brotliBytes": 1063,
+      "moduleBytes": {
+        "core/alien.js": 2218,
+        "core/atom.js": 484
+      }
+    },
+    {
+      "variant": "published",
+      "entry": "shallow",
+      "minifiedBytes": 3253,
+      "gzipBytes": 1323,
+      "brotliBytes": 1240,
+      "moduleBytes": {
+        "core/alien.js": 2218,
+        "core/atom.js": 329,
+        "core/shallow.js": 684
+      }
+    },
+    {
+      "variant": "published",
+      "entry": "fullStore",
+      "minifiedBytes": 6489,
+      "gzipBytes": 2480,
+      "brotliBytes": 2305,
+      "moduleBytes": {
+        "core/alien.js": 2218,
+        "core/atom.js": 2908,
+        "core/store.js": 535,
+        "core/shallow.js": 684
+      }
+    },
+    {
+      "variant": "published",
+      "entry": "reactSelector",
+      "minifiedBytes": 5330,
+      "gzipBytes": 2137,
+      "brotliBytes": 1983,
+      "moduleBytes": {
+        "core/alien.js": 2218,
+        "core/atom.js": 2572,
+        "react/createStoreContext.js": 97,
+        "react/useCreateAtom.js": 34,
+        "react/useCreateStore.js": 34,
+        "react/useSelector.js": 300,
+        "react/_useStore.js": 33
+      }
+    },
+    {
+      "variant": "production",
+      "entry": "createAtom",
+      "minifiedBytes": 4699,
+      "gzipBytes": 1866,
+      "brotliBytes": 1745,
+      "moduleBytes": {
+        "core/alien.js": 2162,
+        "core/atom.js": 2512
+      }
+    },
+    {
+      "variant": "production",
+      "entry": "batch",
+      "minifiedBytes": 173,
+      "gzipBytes": 158,
+      "brotliBytes": 132,
+      "moduleBytes": {
+        "core/atom.js": 153
+      }
+    },
+    {
+      "variant": "production",
+      "entry": "flush",
+      "minifiedBytes": 129,
+      "gzipBytes": 130,
+      "brotliBytes": 114,
+      "moduleBytes": {
+        "core/atom.js": 109
+      }
+    },
+    {
+      "variant": "production",
+      "entry": "toObserver",
+      "minifiedBytes": 180,
+      "gzipBytes": 145,
+      "brotliBytes": 122,
+      "moduleBytes": {
+        "core/atom.js": 155
+      }
+    },
+    {
+      "variant": "production",
+      "entry": "shallow",
+      "minifiedBytes": 706,
+      "gzipBytes": 335,
+      "brotliBytes": 304,
+      "moduleBytes": {
+        "core/shallow.js": 684
+      }
+    },
+    {
+      "variant": "production",
+      "entry": "fullStore",
+      "minifiedBytes": 6312,
+      "gzipBytes": 2431,
+      "brotliBytes": 2263,
+      "moduleBytes": {
+        "core/alien.js": 2162,
+        "core/atom.js": 2787,
+        "core/store.js": 535,
+        "core/shallow.js": 684
+      }
+    },
+    {
+      "variant": "production",
+      "entry": "reactSelector",
+      "minifiedBytes": 5214,
+      "gzipBytes": 2088,
+      "brotliBytes": 1953,
+      "moduleBytes": {
+        "core/alien.js": 2162,
+        "core/atom.js": 2512,
+        "react/createStoreContext.js": 97,
+        "react/useCreateAtom.js": 34,
+        "react/useCreateStore.js": 34,
+        "react/useSelector.js": 300,
+        "react/_useStore.js": 33
+      }
+    }
+  ]
+}
