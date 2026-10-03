@@ -59,6 +59,26 @@ Defined in: [types.ts:39](https://github.com/TanStack/store/blob/main/packages/s
 
 ***
 
+### coldRunId?
+
+```ts
+optional coldRunId: number;
+```
+
+Defined in: [alien.ts:12](https://github.com/TanStack/store/blob/main/packages/store/src/alien.ts#L12)
+
+**`Internal`**
+
+Stable tracking id for the current cold computation.
+
+#### Inherited from
+
+```ts
+ReactiveNode.coldRunId
+```
+
+***
+
 ### deps?
 
 ```ts
@@ -122,6 +142,26 @@ Defined in: [types.ts:30](https://github.com/TanStack/store/blob/main/packages/s
 #### Inherited from
 
 [`InternalBaseAtom`](InternalBaseAtom.md).[`get`](InternalBaseAtom.md#get)
+
+***
+
+### lastColdRead?
+
+```ts
+optional lastColdRead: number;
+```
+
+Defined in: [alien.ts:14](https://github.com/TanStack/store/blob/main/packages/store/src/alien.ts#L14)
+
+**`Internal`**
+
+Last cold computation that read this dependency.
+
+#### Inherited from
+
+```ts
+ReactiveNode.lastColdRead
+```
 
 ***
 

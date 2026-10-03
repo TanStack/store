@@ -1,0 +1,34 @@
+{
+  "verified_utc": "2026-10-03T09:13:47.855671+00:00",
+  "command": "gh api repos/TanStack/store/commits/main --jq .sha",
+  "upstream_main": "a9cf2324b4a24a8190ed7981c3be1594e0446872",
+  "api_url": "https://api.github.com/repos/TanStack/store/commits/main",
+  "source_identical_to_prior_baseline": true,
+  "refs_changed": false,
+  "rows": [
+    {
+      "ref": "e06c28cbdf3514c4edd5dfc29c4d05e396363605",
+      "source_sha256": {
+        "packages/store/src/alien.ts": "a651f884d7cd8ad4da231c4de5334cce89ab6e73b32c3fd1d8d2f0c8f20a804b",
+        "packages/store/src/atom.ts": "098dfdf21c63f46eba54e05ca12fd2f29ebbbc971886ac845be0747ab814b92e",
+        "packages/store/src/index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+        "packages/store/src/shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+        "packages/store/src/signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+        "packages/store/src/store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+        "packages/store/src/types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+      }
+    },
+    {
+      "ref": "a9cf2324b4a24a8190ed7981c3be1594e0446872",
+      "source_sha256": {
+        "packages/store/src/alien.ts": "a651f884d7cd8ad4da231c4de5334cce89ab6e73b32c3fd1d8d2f0c8f20a804b",
+        "packages/store/src/atom.ts": "098dfdf21c63f46eba54e05ca12fd2f29ebbbc971886ac845be0747ab814b92e",
+        "packages/store/src/index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+        "packages/store/src/shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+        "packages/store/src/signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+        "packages/store/src/store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+        "packages/store/src/types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+      }
+    }
+  ]
+}

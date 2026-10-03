@@ -1,6 +1,9 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
   "workspaces": {
+    ".": {
+      "entry": ["scripts/retention-bench/*.mjs"]
+    },
     "packages/store": {
       "entry": ["src/signal.ts"]
     },
