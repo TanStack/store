@@ -48,3 +48,5 @@ minimumReleaseAgeExclude:
   - nx@22.7.7
   # Renovate security update: vitest@4.1.11
   - vitest@4.1.11
+  # Renovate security update: @angular/router@21.2.24
+  - '@angular/router@21.2.24'
