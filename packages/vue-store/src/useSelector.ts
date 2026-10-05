@@ -1,4 +1,4 @@
-import { onScopeDispose, readonly, shallowRef, toRaw } from 'vue-demi'
+import { computed, onScopeDispose, shallowRef, toRaw } from 'vue-demi'
 import type { Ref } from 'vue-demi'
 
 export interface UseSelectorOptions<TSelected> {
@@ -15,6 +15,8 @@ type SelectionSource<T> = {
 function defaultCompare<T>(a: T, b: T) {
   return a === b
 }
+
+const unset = Symbol()
 
 /**
  * Selects a slice of state from an atom or store and subscribes the component
@@ -42,18 +44,27 @@ export function useSelector<TSource, TSelected = NoInfer<TSource>>(
   options?: UseSelectorOptions<TSelected>,
 ): Readonly<Ref<TSelected>> {
   const compare = options?.compare ?? defaultCompare
-  const slice = shallowRef(selector(source.get())) as Ref<TSelected>
-  const unsubscribe = source.subscribe((snapshot) => {
-    const selected = selector(snapshot)
-    if (compare(toRaw(slice.value), selected)) {
-      return
-    }
-    slice.value = selected
+  const version = shallowRef(0)
+
+  const unsubscribe = source.subscribe(() => {
+    version.value++
   }).unsubscribe
 
   onScopeDispose(() => {
     unsubscribe()
   })
 
-  return readonly(slice) as Readonly<Ref<TSelected>>
+  // Vue computed has no equals option. Returning the previous reference when
+  // compare matches keeps Object.is stable so dependents do not update.
+  let previous: TSelected | typeof unset = unset
+
+  return computed(() => {
+    version.value
+    const next = selector(source.get())
+    if (previous !== unset && compare(toRaw(previous), next)) {
+      return previous
+    }
+    previous = next
+    return next
+  })
 }

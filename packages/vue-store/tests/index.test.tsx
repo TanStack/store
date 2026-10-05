@@ -1,5 +1,5 @@
 import { describe, expect, it, test, vi } from 'vitest'
-import { defineComponent, h } from 'vue-demi'
+import { defineComponent, h, ref } from 'vue-demi'
 import { render, waitFor } from '@testing-library/vue'
 import { createAtom, createStore } from '@tanstack/store'
 import { userEvent } from '@testing-library/user-event'
@@ -241,6 +241,49 @@ describe('store hooks', () => {
 
     await user.click(getByText('Update ignored'))
     expect(getByText('Number rendered: 2')).toBeInTheDocument()
+  })
+
+  it('tracks reactive values used in the selector after the store notifies', async () => {
+    const store = createStore({ width: 10, height: 20 })
+
+    const Comp = defineComponent(() => {
+      const useWidth = ref(true)
+      const storeVal = useSelector(store, (state) =>
+        useWidth.value ? state.width : state.height,
+      )
+
+      return () =>
+        h('div', [
+          h('p', `Use width: ${useWidth.value}`),
+          h('p', `Value: ${storeVal.value}`),
+          h(
+            'button',
+            {
+              onClick: () =>
+                store.setState((prev) => ({ ...prev, width: prev.width + 1 })),
+            },
+            'Update store',
+          ),
+          h(
+            'button',
+            {
+              onClick: () => {
+                useWidth.value = !useWidth.value
+              },
+            },
+            'Toggle',
+          ),
+        ])
+    })
+
+    const { getByText } = render(Comp)
+    expect(getByText('Value: 10')).toBeInTheDocument()
+
+    await user.click(getByText('Update store'))
+    await waitFor(() => expect(getByText('Value: 11')).toBeInTheDocument())
+
+    await user.click(getByText('Toggle'))
+    await waitFor(() => expect(getByText('Value: 20')).toBeInTheDocument())
   })
 
   it('useSelector works with mounted derived stores', async () => {
