@@ -5,9 +5,9 @@
     "type": "git",
     "url": "https://github.com/tanstack/store.git"
   },
-  "packageManager": "pnpm@11.9.0",
+  "packageManager": "pnpm@11.28.5",
   "engines": {
-    "pnpm": ">=11.9.0"
+    "pnpm": ">=11.28.5"
   },
   "type": "module",
   "scripts": {
