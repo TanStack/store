@@ -3,6 +3,7 @@ import { render, waitFor } from '@testing-library/svelte'
 import { userEvent } from '@testing-library/user-event'
 import { shallow } from '../src/index.svelte.js'
 import TestBaseStore from './BaseStore.test.svelte'
+import TestObjectRender from './ObjectRender.test.svelte'
 import TestRerender from './Render.test.svelte'
 import TestValue from './Value.test.svelte'
 
@@ -25,6 +26,21 @@ describe('useSelector', () => {
     expect(getByText('Number rendered: 2')).toBeInTheDocument()
 
     await user.click(getByText('Update ignored'))
+    expect(getByText('Number rendered: 2')).toBeInTheDocument()
+  })
+
+  it('preserves object identity and avoids re-render on untouched object selections', async () => {
+    const { getByText } = render(TestObjectRender)
+    expect(getByText('Store: 0')).toBeInTheDocument()
+    expect(getByText('Number rendered: 1')).toBeInTheDocument()
+    expect(getByText('Is raw reference: true')).toBeInTheDocument()
+
+    await user.click(getByText('Update ignored'))
+    expect(getByText('Number rendered: 1')).toBeInTheDocument()
+    expect(getByText('Is raw reference: true')).toBeInTheDocument()
+
+    await user.click(getByText('Update nested'))
+    await waitFor(() => expect(getByText('Store: 10')).toBeInTheDocument())
     expect(getByText('Number rendered: 2')).toBeInTheDocument()
   })
 
