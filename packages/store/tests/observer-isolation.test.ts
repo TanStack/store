@@ -106,4 +106,15 @@ describe('Subscription dependency isolation', () => {
     subscription.unsubscribe()
     derivedSubscription.unsubscribe()
   })
+
+  test('reading an unobserved computed atom does not retain it in source dependencies', () => {
+    const source = createAtom(0) as any
+    const derived = createAtom(() => source.get() + 1)
+    expect(derived.get()).toBe(1)
+    expect(source.subs).toBeUndefined()
+
+    source.set(10)
+    expect(derived.get()).toBe(11)
+    expect(source.subs).toBeUndefined()
+  })
 })

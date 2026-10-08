@@ -250,6 +250,12 @@ export function createAtom<T>(
       }
       if (activeSub !== undefined) {
         link(atom, activeSub, cycle)
+      } else if (atom.subs === undefined) {
+        if (atom.depsTail !== undefined) {
+          atom.depsTail = undefined
+          atom.flags = MUTABLE | DIRTY
+          purgeDeps(atom)
+        }
       }
       return atom._snapshot
     }
