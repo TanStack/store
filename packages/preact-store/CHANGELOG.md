@@ -1,5 +1,11 @@
 # @tanstack/preact-store
 
+## 0.13.5
+
+### Patch Changes
+
+- [#370](https://github.com/TanStack/store/pull/370) [`ad9a372`](https://github.com/TanStack/store/commit/ad9a3724643881dfe1fb75ed9c7e77a0b27e53cc) - Add Preact v11 to peerDependencies
+
 ## 0.13.4
 
 ### Patch Changes
