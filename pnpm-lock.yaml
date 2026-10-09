@@ -767,7 +767,7 @@ importers:
   examples/react/atoms:
     dependencies:
       '@tanstack/react-store':
-        specifier: ^0.11.2
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/react-store
       react:
         specifier: ^19.2.5
@@ -792,7 +792,7 @@ importers:
   examples/react/simple:
     dependencies:
       '@tanstack/react-store':
-        specifier: ^0.11.2
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/react-store
       react:
         specifier: ^19.2.5
@@ -817,7 +817,7 @@ importers:
   examples/react/store-actions:
     dependencies:
       '@tanstack/react-store':
-        specifier: ^0.11.2
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/react-store
       react:
         specifier: ^19.2.5
@@ -842,7 +842,7 @@ importers:
   examples/react/store-context:
     dependencies:
       '@tanstack/react-store':
-        specifier: ^0.11.2
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/react-store
       react:
         specifier: ^19.2.5
@@ -867,7 +867,7 @@ importers:
   examples/react/stores:
     dependencies:
       '@tanstack/react-store':
-        specifier: ^0.11.2
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/react-store
       react:
         specifier: ^19.2.5
@@ -1127,7 +1127,7 @@ importers:
   examples/vue/atoms:
     dependencies:
       '@tanstack/vue-store':
-        specifier: ^0.11.2
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/vue-store
       vue:
         specifier: ^3.5.32
@@ -1149,7 +1149,7 @@ importers:
   examples/vue/simple:
     dependencies:
       '@tanstack/vue-store':
-        specifier: ^0.11.2
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/vue-store
       vue:
         specifier: ^3.5.32
@@ -1171,7 +1171,7 @@ importers:
   examples/vue/store-actions:
     dependencies:
       '@tanstack/vue-store':
-        specifier: ^0.11.2
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/vue-store
       vue:
         specifier: ^3.5.32
@@ -1193,7 +1193,7 @@ importers:
   examples/vue/store-context:
     dependencies:
       '@tanstack/vue-store':
-        specifier: ^0.11.2
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/vue-store
       vue:
         specifier: ^3.5.32
@@ -1215,7 +1215,7 @@ importers:
   examples/vue/stores:
     dependencies:
       '@tanstack/vue-store':
-        specifier: ^0.11.2
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/vue-store
       vue:
         specifier: ^3.5.32
