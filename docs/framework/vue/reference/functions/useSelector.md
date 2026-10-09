@@ -6,11 +6,11 @@ title: useSelector
 ```ts
 function useSelector<TSource, TSelected>(
    source, 
-   selector, 
+   selector?, 
 options?): Readonly<Ref<TSelected>>;
 ```
 
-Defined in: [vue-store/src/useSelector.ts:39](https://github.com/TanStack/store/blob/main/packages/vue-store/src/useSelector.ts#L39)
+Defined in: [useSelector.ts:39](https://github.com/TanStack/store/blob/main/packages/vue-store/src/useSelector.ts#L39)
 
 Selects a slice of state from an atom or store and subscribes the component
 to that selection.
@@ -36,7 +36,7 @@ Omit the selector to subscribe to the whole value.
 
 `SelectionSource`\<`TSource`\>
 
-### selector
+### selector?
 
 (`snapshot`) => `TSelected`
 

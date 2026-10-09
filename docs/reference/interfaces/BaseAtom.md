@@ -22,7 +22,7 @@ Defined in: [types.ts:33](https://github.com/TanStack/store/blob/main/packages/s
 
 ## Properties
 
-### get()
+### get
 
 ```ts
 get: () => T;

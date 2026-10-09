@@ -7,7 +7,7 @@ title: useAtom
 function useAtom<TValue>(atom, options?): [TValue, (fn) => void & (value) => void];
 ```
 
-Defined in: [preact-store/src/useAtom.ts:22](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useAtom.ts#L22)
+Defined in: [useAtom.ts:22](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useAtom.ts#L22)
 
 Returns the current atom value together with a stable setter.
 

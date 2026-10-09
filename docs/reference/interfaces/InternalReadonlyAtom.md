@@ -33,7 +33,7 @@ Defined in: [types.ts:37](https://github.com/TanStack/store/blob/main/packages/s
 
 ***
 
-### \_update()
+### \_update
 
 ```ts
 _update: (getValue?) => boolean;
@@ -47,7 +47,7 @@ Defined in: [types.ts:39](https://github.com/TanStack/store/blob/main/packages/s
 
 ##### getValue?
 
-`T` | (`snapshot`) => `T`
+`T` \| ((`snapshot`) => `T`)
 
 #### Returns
 
@@ -62,7 +62,7 @@ Defined in: [types.ts:39](https://github.com/TanStack/store/blob/main/packages/s
 ### deps?
 
 ```ts
-optional deps: Link;
+optional deps?: Link;
 ```
 
 Defined in: [alien.ts:6](https://github.com/TanStack/store/blob/main/packages/store/src/alien.ts#L6)
@@ -78,7 +78,7 @@ ReactiveNode.deps
 ### depsTail?
 
 ```ts
-optional depsTail: Link;
+optional depsTail?: Link;
 ```
 
 Defined in: [alien.ts:7](https://github.com/TanStack/store/blob/main/packages/store/src/alien.ts#L7)
@@ -107,7 +107,7 @@ ReactiveNode.flags
 
 ***
 
-### get()
+### get
 
 ```ts
 get: () => T;
@@ -128,7 +128,7 @@ Defined in: [types.ts:30](https://github.com/TanStack/store/blob/main/packages/s
 ### subs?
 
 ```ts
-optional subs: Link;
+optional subs?: Link;
 ```
 
 Defined in: [alien.ts:8](https://github.com/TanStack/store/blob/main/packages/store/src/alien.ts#L8)
@@ -158,7 +158,7 @@ Defined in: [types.ts:21](https://github.com/TanStack/store/blob/main/packages/s
 ### subsTail?
 
 ```ts
-optional subsTail: Link;
+optional subsTail?: Link;
 ```
 
 Defined in: [alien.ts:9](https://github.com/TanStack/store/blob/main/packages/store/src/alien.ts#L9)

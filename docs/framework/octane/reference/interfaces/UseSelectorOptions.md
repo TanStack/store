@@ -3,7 +3,7 @@ id: UseSelectorOptions
 title: UseSelectorOptions
 ---
 
-Defined in: [octane-store/src/useSelector.ts:5](https://github.com/TanStack/store/blob/main/packages/octane-store/src/useSelector.ts#L5)
+Defined in: [useSelector.ts:5](https://github.com/TanStack/store/blob/main/packages/octane-store/src/useSelector.ts#L5)
 
 ## Type Parameters
 
@@ -13,13 +13,13 @@ Defined in: [octane-store/src/useSelector.ts:5](https://github.com/TanStack/stor
 
 ## Properties
 
-### compare()?
+### compare?
 
 ```ts
-optional compare: (a, b) => boolean;
+optional compare?: (a, b) => boolean;
 ```
 
-Defined in: [octane-store/src/useSelector.ts:6](https://github.com/TanStack/store/blob/main/packages/octane-store/src/useSelector.ts#L6)
+Defined in: [useSelector.ts:6](https://github.com/TanStack/store/blob/main/packages/octane-store/src/useSelector.ts#L6)
 
 #### Parameters
 

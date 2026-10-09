@@ -7,7 +7,7 @@ title: useAtom
 function useAtom<TValue>(atom, options?): [Readonly<Ref<TValue, TValue>>, (fn) => void & (value) => void];
 ```
 
-Defined in: [vue-store/src/useAtom.ts:20](https://github.com/TanStack/store/blob/main/packages/vue-store/src/useAtom.ts#L20)
+Defined in: [useAtom.ts:20](https://github.com/TanStack/store/blob/main/packages/vue-store/src/useAtom.ts#L20)
 
 Returns the current atom ref together with a setter.
 

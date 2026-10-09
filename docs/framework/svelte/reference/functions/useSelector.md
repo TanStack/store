@@ -6,11 +6,11 @@ title: useSelector
 ```ts
 function useSelector<TState, TSelected>(
    source, 
-   selector, 
-   options): object;
+   selector?, 
+   options?): object;
 ```
 
-Defined in: [svelte-store/src/useSelector.svelte.ts:28](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/useSelector.svelte.ts#L28)
+Defined in: [useSelector.svelte.ts:28](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/useSelector.svelte.ts#L28)
 
 Selects a slice of state from an atom or store and exposes it through a
 rune-friendly holder object.
@@ -31,13 +31,16 @@ Read the selected value from `.current`.
 
 ### source
 
-`Atom`\<`TState`\> | `ReadonlyAtom`\<`TState`\> | `Store`\<`TState`, `any`\> | `ReadonlyStore`\<`TState`\>
+  \| `Atom`\<`TState`\>
+  \| `ReadonlyAtom`\<`TState`\>
+  \| `Store`\<`TState`, `any`\>
+  \| `ReadonlyStore`\<`TState`\>
 
-### selector
+### selector?
 
 (`state`) => `TSelected`
 
-### options
+### options?
 
 [`UseSelectorOptions`](../interfaces/UseSelectorOptions.md)\<`TSelected`\> = `{}`
 

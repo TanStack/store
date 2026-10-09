@@ -12,7 +12,7 @@ function _useStore<TState, TActions, TSelected>(
 }, [TActions] extends [never] ? (updater) => void : TActions];
 ```
 
-Defined in: [svelte-store/src/\_useStore.ts:21](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/_useStore.ts#L21)
+Defined in: [\_useStore.ts:21](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/_useStore.ts#L21)
 
 Experimental combined read+write hook for stores, mirroring useAtom's tuple
 pattern.

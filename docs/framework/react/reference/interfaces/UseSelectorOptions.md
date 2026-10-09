@@ -13,10 +13,10 @@ Defined in: [packages/react-store/src/useSelector.ts:4](https://github.com/TanSt
 
 ## Properties
 
-### compare()?
+### compare?
 
 ```ts
-optional compare: (a, b) => boolean;
+optional compare?: (a, b) => boolean;
 ```
 
 Defined in: [packages/react-store/src/useSelector.ts:5](https://github.com/TanStack/store/blob/main/packages/react-store/src/useSelector.ts#L5)

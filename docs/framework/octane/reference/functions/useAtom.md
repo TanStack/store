@@ -10,7 +10,7 @@ function useAtom<TValue>(
 ): [TValue, Atom<TValue>['set']];
 ```
 
-Defined in: [octane-store/src/useAtom.ts:17](https://github.com/TanStack/store/blob/main/packages/octane-store/src/useAtom.ts#L17)
+Defined in: [useAtom.ts:17](https://github.com/TanStack/store/blob/main/packages/octane-store/src/useAtom.ts#L17)
 
 Returns the current atom value together with a stable setter.
 
