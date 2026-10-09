@@ -10,7 +10,7 @@ function toObserver<T>(
 completionHandler?): Observer<T>;
 ```
 
-Defined in: [atom.ts:20](https://github.com/TanStack/store/blob/main/packages/store/src/atom.ts#L20)
+Defined in: [atom.ts:21](https://github.com/TanStack/store/blob/main/packages/store/src/atom.ts#L21)
 
 ## Type Parameters
 

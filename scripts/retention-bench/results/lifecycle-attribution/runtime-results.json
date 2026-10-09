@@ -1,0 +1,1364 @@
+{
+  "metadata": {
+    "node": "v25.8.1",
+    "cpu": "Apple M3 Max",
+    "logicalCpus": 14,
+    "rounds": 3,
+    "suite": "hot",
+    "selectedCases": [
+      "observed_chain8_write",
+      "observed_diamond8_write",
+      "observed_fanout8_write",
+      "observed_mutable_callback_get",
+      "observed_chain8_clean_cached_get"
+    ],
+    "methodology": "2 full warmup workloads before each timed fresh graph; rotated sequential variants in isolated workers; forced GC between workloads; elapsed wall time excludes setup, cleanup, assertions and GC"
+  },
+  "manifest": {
+    "output": "recreate-with-prepare.mjs",
+    "node": "v25.8.1",
+    "platform": "darwin",
+    "arch": "arm64",
+    "esbuild": "0.27.7",
+    "target": "es2022",
+    "compression": "gzip level 9; Brotli quality 11",
+    "variants": [
+      {
+        "label": "main",
+        "source": "a9cf2324b4a24a8190ed7981c3be1594e0446872",
+        "sourceHashes": {
+          "alien.ts": "a651f884d7cd8ad4da231c4de5334cce89ab6e73b32c3fd1d8d2f0c8f20a804b",
+          "atom.ts": "098dfdf21c63f46eba54e05ca12fd2f29ebbbc971886ac845be0747ab814b92e",
+          "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+          "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+          "signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+          "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+          "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+        },
+        "artifactHashes": {
+          "runtime.mjs": "348c01272f1ac3cd3d186c24755f2bf97eea30191081baf128092e8041d21bf0",
+          "createAtom.min.mjs": "97f0377c10248dfc73d9a316a765c02c50138f41dc266753a6e4ce17b3019fd7",
+          "fullStore.min.mjs": "348c01272f1ac3cd3d186c24755f2bf97eea30191081baf128092e8041d21bf0",
+          "reactSelector.min.mjs": "d6b6ed3031dc9014ca9229bccb4a280a4c34b83f19b25ec672b9ab26f9756a2f"
+        },
+        "runtime": "main/runtime.mjs"
+      },
+      {
+        "label": "control",
+        "source": "../../../../.cache/retention-research/results/lifecycle-attribution/sources/control",
+        "sourceHashes": {
+          "alien.ts": "db042f5946f4fcded249d726389b311d6a402ef9298fc769d9a1911fb72df8ed",
+          "atom.ts": "ddd453ae9d78dcf8c4da0d6ca9bcf21437fdbfafdd82c97caa8e320765a1fe81",
+          "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+          "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+          "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+          "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+        },
+        "artifactHashes": {
+          "runtime.mjs": "6c2c3679bda26f2cc69393b56ff88df61b92394bc808f86897b1039a351e5eb9",
+          "createAtom.min.mjs": "4c0bdabfb761af0addfe0bf5b684329f2b29290f063dd92ecec3e2f472157cce",
+          "fullStore.min.mjs": "6c2c3679bda26f2cc69393b56ff88df61b92394bc808f86897b1039a351e5eb9",
+          "reactSelector.min.mjs": "8a00bf73572f5faecc8c270d8b838da736af23c419448f29d005914c3315416b"
+        },
+        "runtime": "control/runtime.mjs"
+      },
+      {
+        "label": "metadata",
+        "source": "../../../../.cache/retention-research/results/lifecycle-attribution/sources/metadata",
+        "sourceHashes": {
+          "alien.ts": "a651f884d7cd8ad4da231c4de5334cce89ab6e73b32c3fd1d8d2f0c8f20a804b",
+          "atom.ts": "dd55102efa28f6f12499771e3b053671dcb49b79d339377c4006c2421deb67ce",
+          "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+          "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+          "signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+          "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+          "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+        },
+        "artifactHashes": {
+          "runtime.mjs": "417a4a5efd7835559216597033072fe8bcb599e3723b3e7896698aeb25f0d995",
+          "createAtom.min.mjs": "bb9c9681413d0339068d954b7a99f7d8ab2da5a0e07d83a37788b057671aa561",
+          "fullStore.min.mjs": "417a4a5efd7835559216597033072fe8bcb599e3723b3e7896698aeb25f0d995",
+          "reactSelector.min.mjs": "1f4f9fb9f2530ead186d0e18428333c52fe01144f4c0eaa1cf87feec62a7e06d"
+        },
+        "runtime": "metadata/runtime.mjs"
+      },
+      {
+        "label": "revisions",
+        "source": "../../../../.cache/retention-research/results/lifecycle-attribution/sources/revisions",
+        "sourceHashes": {
+          "alien.ts": "a651f884d7cd8ad4da231c4de5334cce89ab6e73b32c3fd1d8d2f0c8f20a804b",
+          "atom.ts": "34e2be29f5e7561b45519f0a7be3d0253b6d554471e4a7a1499cd02416fa98a3",
+          "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+          "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+          "signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+          "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+          "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+        },
+        "artifactHashes": {
+          "runtime.mjs": "db9fbf02c7373484e2eb7f21f0aacd9815452e8bdd98bb407b53c102db0cddb4",
+          "createAtom.min.mjs": "7c3deafa4948b2800ec4a7bf127706879df48b6cc399c8bf9a094a801fe9fd52",
+          "fullStore.min.mjs": "db9fbf02c7373484e2eb7f21f0aacd9815452e8bdd98bb407b53c102db0cddb4",
+          "reactSelector.min.mjs": "c34cf9f5f05ea0bad789a444705d3784a7ec192a5e240be04b899d8db3d885e1"
+        },
+        "runtime": "revisions/runtime.mjs"
+      },
+      {
+        "label": "tail",
+        "source": "../../../../.cache/retention-research/results/lifecycle-attribution/sources/tail",
+        "sourceHashes": {
+          "alien.ts": "3e9db798de4784a80decfa8d79f4c25d9329bbfc1e1664adf5e58656ea87d573",
+          "atom.ts": "d00f7c85a8e1fdf7f645db8f4edf91000e0fc71bea2ba3e27fa6afa6c285a9dc",
+          "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+          "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+          "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+          "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+        },
+        "artifactHashes": {
+          "runtime.mjs": "be259252158d45a3ac54186229e670668c98530c4d3190d1e19b2c8ef9f1e7e1",
+          "createAtom.min.mjs": "79280b521e9b174de89b8b890fceb7ce1919a32ce5a2907d50da4e1227fb8916",
+          "fullStore.min.mjs": "be259252158d45a3ac54186229e670668c98530c4d3190d1e19b2c8ef9f1e7e1",
+          "reactSelector.min.mjs": "ae744371b55251eb8d04402db079c48dc22e6450a5eeeaaa832bb9e70d113ad8"
+        },
+        "runtime": "tail/runtime.mjs"
+      }
+    ],
+    "sizes": [
+      {
+        "variant": "main",
+        "entry": "createAtom",
+        "minifiedBytes": 3661,
+        "gzipBytes": 1504,
+        "brotliBytes": 1403
+      },
+      {
+        "variant": "main",
+        "entry": "fullStore",
+        "minifiedBytes": 5353,
+        "gzipBytes": 2077,
+        "brotliBytes": 1939
+      },
+      {
+        "variant": "main",
+        "entry": "reactSelector",
+        "minifiedBytes": 3978,
+        "gzipBytes": 1661,
+        "brotliBytes": 1543
+      },
+      {
+        "variant": "control",
+        "entry": "createAtom",
+        "minifiedBytes": 4594,
+        "gzipBytes": 1863,
+        "brotliBytes": 1733
+      },
+      {
+        "variant": "control",
+        "entry": "fullStore",
+        "minifiedBytes": 6290,
+        "gzipBytes": 2440,
+        "brotliBytes": 2263
+      },
+      {
+        "variant": "control",
+        "entry": "reactSelector",
+        "minifiedBytes": 4911,
+        "gzipBytes": 2022,
+        "brotliBytes": 1870
+      },
+      {
+        "variant": "metadata",
+        "entry": "createAtom",
+        "minifiedBytes": 3699,
+        "gzipBytes": 1526,
+        "brotliBytes": 1430
+      },
+      {
+        "variant": "metadata",
+        "entry": "fullStore",
+        "minifiedBytes": 5391,
+        "gzipBytes": 2098,
+        "brotliBytes": 1955
+      },
+      {
+        "variant": "metadata",
+        "entry": "reactSelector",
+        "minifiedBytes": 4016,
+        "gzipBytes": 1684,
+        "brotliBytes": 1566
+      },
+      {
+        "variant": "revisions",
+        "entry": "createAtom",
+        "minifiedBytes": 3732,
+        "gzipBytes": 1543,
+        "brotliBytes": 1444
+      },
+      {
+        "variant": "revisions",
+        "entry": "fullStore",
+        "minifiedBytes": 5426,
+        "gzipBytes": 2115,
+        "brotliBytes": 1967
+      },
+      {
+        "variant": "revisions",
+        "entry": "reactSelector",
+        "minifiedBytes": 4049,
+        "gzipBytes": 1700,
+        "brotliBytes": 1581
+      },
+      {
+        "variant": "tail",
+        "entry": "createAtom",
+        "minifiedBytes": 4780,
+        "gzipBytes": 1908,
+        "brotliBytes": 1768
+      },
+      {
+        "variant": "tail",
+        "entry": "fullStore",
+        "minifiedBytes": 6476,
+        "gzipBytes": 2478,
+        "brotliBytes": 2303
+      },
+      {
+        "variant": "tail",
+        "entry": "reactSelector",
+        "minifiedBytes": 5097,
+        "gzipBytes": 2069,
+        "brotliBytes": 1914
+      }
+    ]
+  },
+  "preflight": [
+    {
+      "variant": "main",
+      "rows": [
+        {
+          "name": "observed_mutable_callback_get",
+          "iterations": 5000,
+          "elapsedMs": 0.33187500000000014,
+          "nsPerIteration": 66.37500000000003,
+          "counters": {
+            "notifications": 5000
+          }
+        },
+        {
+          "name": "observed_chain8_write",
+          "iterations": 1000,
+          "elapsedMs": 0.528417000000001,
+          "nsPerIteration": 528.417000000001,
+          "counters": {
+            "computes": 8008,
+            "notifications": 1000
+          }
+        },
+        {
+          "name": "observed_chain8_clean_cached_get",
+          "iterations": 50000,
+          "elapsedMs": 0.7424170000000032,
+          "nsPerIteration": 14.848340000000066,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "observed_fanout8_write",
+          "iterations": 600,
+          "elapsedMs": 0.45145799999999525,
+          "nsPerIteration": 752.429999999992,
+          "counters": {
+            "computes": 4808,
+            "notifications": 4800
+          }
+        },
+        {
+          "name": "observed_diamond8_write",
+          "iterations": 700,
+          "elapsedMs": 0.4870829999999984,
+          "nsPerIteration": 695.8328571428548,
+          "counters": {
+            "computes": 6309,
+            "notifications": 700
+          }
+        }
+      ],
+      "sink": 49035324
+    },
+    {
+      "variant": "control",
+      "rows": [
+        {
+          "name": "observed_mutable_callback_get",
+          "iterations": 5000,
+          "elapsedMs": 0.4639160000000011,
+          "nsPerIteration": 92.78320000000022,
+          "counters": {
+            "notifications": 5000
+          }
+        },
+        {
+          "name": "observed_chain8_write",
+          "iterations": 1000,
+          "elapsedMs": 0.6134169999999983,
+          "nsPerIteration": 613.4169999999983,
+          "counters": {
+            "computes": 8008,
+            "notifications": 1000
+          }
+        },
+        {
+          "name": "observed_chain8_clean_cached_get",
+          "iterations": 50000,
+          "elapsedMs": 0.40450000000000585,
+          "nsPerIteration": 8.090000000000117,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "observed_fanout8_write",
+          "iterations": 600,
+          "elapsedMs": 0.47920900000000444,
+          "nsPerIteration": 798.681666666674,
+          "counters": {
+            "computes": 4808,
+            "notifications": 4800
+          }
+        },
+        {
+          "name": "observed_diamond8_write",
+          "iterations": 700,
+          "elapsedMs": 0.5342920000000007,
+          "nsPerIteration": 763.2742857142867,
+          "counters": {
+            "computes": 6309,
+            "notifications": 700
+          }
+        }
+      ],
+      "sink": 49035324
+    },
+    {
+      "variant": "metadata",
+      "rows": [
+        {
+          "name": "observed_mutable_callback_get",
+          "iterations": 5000,
+          "elapsedMs": 0.3426669999999987,
+          "nsPerIteration": 68.53339999999974,
+          "counters": {
+            "notifications": 5000
+          }
+        },
+        {
+          "name": "observed_chain8_write",
+          "iterations": 1000,
+          "elapsedMs": 0.532667,
+          "nsPerIteration": 532.667,
+          "counters": {
+            "computes": 8008,
+            "notifications": 1000
+          }
+        },
+        {
+          "name": "observed_chain8_clean_cached_get",
+          "iterations": 50000,
+          "elapsedMs": 0.7216669999999965,
+          "nsPerIteration": 14.43333999999993,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "observed_fanout8_write",
+          "iterations": 600,
+          "elapsedMs": 0.43591700000000344,
+          "nsPerIteration": 726.5283333333391,
+          "counters": {
+            "computes": 4808,
+            "notifications": 4800
+          }
+        },
+        {
+          "name": "observed_diamond8_write",
+          "iterations": 700,
+          "elapsedMs": 0.5011250000000018,
+          "nsPerIteration": 715.8928571428597,
+          "counters": {
+            "computes": 6309,
+            "notifications": 700
+          }
+        }
+      ],
+      "sink": 49035324
+    },
+    {
+      "variant": "revisions",
+      "rows": [
+        {
+          "name": "observed_mutable_callback_get",
+          "iterations": 5000,
+          "elapsedMs": 0.3369160000000022,
+          "nsPerIteration": 67.38320000000044,
+          "counters": {
+            "notifications": 5000
+          }
+        },
+        {
+          "name": "observed_chain8_write",
+          "iterations": 1000,
+          "elapsedMs": 0.536125000000002,
+          "nsPerIteration": 536.1250000000019,
+          "counters": {
+            "computes": 8008,
+            "notifications": 1000
+          }
+        },
+        {
+          "name": "observed_chain8_clean_cached_get",
+          "iterations": 50000,
+          "elapsedMs": 0.44387500000000557,
+          "nsPerIteration": 8.877500000000111,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "observed_fanout8_write",
+          "iterations": 600,
+          "elapsedMs": 0.451749999999997,
+          "nsPerIteration": 752.9166666666616,
+          "counters": {
+            "computes": 4808,
+            "notifications": 4800
+          }
+        },
+        {
+          "name": "observed_diamond8_write",
+          "iterations": 700,
+          "elapsedMs": 0.4935419999999979,
+          "nsPerIteration": 705.059999999997,
+          "counters": {
+            "computes": 6309,
+            "notifications": 700
+          }
+        }
+      ],
+      "sink": 49035324
+    },
+    {
+      "variant": "tail",
+      "rows": [
+        {
+          "name": "observed_mutable_callback_get",
+          "iterations": 5000,
+          "elapsedMs": 0.35608299999999815,
+          "nsPerIteration": 71.21659999999963,
+          "counters": {
+            "notifications": 5000
+          }
+        },
+        {
+          "name": "observed_chain8_write",
+          "iterations": 1000,
+          "elapsedMs": 0.5416250000000034,
+          "nsPerIteration": 541.6250000000034,
+          "counters": {
+            "computes": 8008,
+            "notifications": 1000
+          }
+        },
+        {
+          "name": "observed_chain8_clean_cached_get",
+          "iterations": 50000,
+          "elapsedMs": 0.7666249999999977,
+          "nsPerIteration": 15.332499999999953,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "observed_fanout8_write",
+          "iterations": 600,
+          "elapsedMs": 0.4478340000000003,
+          "nsPerIteration": 746.3900000000004,
+          "counters": {
+            "computes": 4808,
+            "notifications": 4800
+          }
+        },
+        {
+          "name": "observed_diamond8_write",
+          "iterations": 700,
+          "elapsedMs": 0.496417000000001,
+          "nsPerIteration": 709.1671428571443,
+          "counters": {
+            "computes": 6309,
+            "notifications": 700
+          }
+        }
+      ],
+      "sink": 49035324
+    }
+  ],
+  "summaries": [
+    {
+      "variant": "main",
+      "name": "observed_mutable_callback_get",
+      "medianNs": 41.86574999999999,
+      "minNs": 41.549583999999996,
+      "maxNs": 42.139084000000004,
+      "p25Ns": 41.549583999999996,
+      "p75Ns": 42.139084000000004,
+      "iterations": 500000
+    },
+    {
+      "variant": "main",
+      "name": "observed_chain8_write",
+      "medianNs": 245.09041999999994,
+      "minNs": 240.92040999999998,
+      "maxNs": 246.3425000000001,
+      "p25Ns": 240.92040999999998,
+      "p75Ns": 246.3425000000001,
+      "iterations": 100000
+    },
+    {
+      "variant": "main",
+      "name": "observed_chain8_clean_cached_get",
+      "medianNs": 3.281999999999999,
+      "minNs": 3.2599082000000013,
+      "maxNs": 3.2832665999999957,
+      "p25Ns": 3.2599082000000013,
+      "p75Ns": 3.2832665999999957,
+      "iterations": 5000000
+    },
+    {
+      "variant": "main",
+      "name": "observed_fanout8_write",
+      "medianNs": 442.91041666666615,
+      "minNs": 439.17153333333374,
+      "maxNs": 468.7604166666669,
+      "p25Ns": 439.17153333333374,
+      "p75Ns": 468.7604166666669,
+      "iterations": 60000
+    },
+    {
+      "variant": "main",
+      "name": "observed_diamond8_write",
+      "medianNs": 337.0625000000002,
+      "minNs": 329.4047714285715,
+      "maxNs": 338.7827285714293,
+      "p25Ns": 329.4047714285715,
+      "p75Ns": 338.7827285714293,
+      "iterations": 70000
+    },
+    {
+      "variant": "control",
+      "name": "observed_mutable_callback_get",
+      "medianNs": 44.907499999999985,
+      "minNs": 44.208084,
+      "maxNs": 45.133082,
+      "p25Ns": 44.208084,
+      "p75Ns": 45.133082,
+      "iterations": 500000
+    },
+    {
+      "variant": "control",
+      "name": "observed_chain8_write",
+      "medianNs": 290.19875000000013,
+      "minNs": 287.52375,
+      "maxNs": 292.5691599999999,
+      "p25Ns": 287.52375,
+      "p75Ns": 292.5691599999999,
+      "iterations": 100000
+    },
+    {
+      "variant": "control",
+      "name": "observed_chain8_clean_cached_get",
+      "medianNs": 6.7821166,
+      "minNs": 6.612900000000002,
+      "maxNs": 6.952233399999994,
+      "p25Ns": 6.612900000000002,
+      "p75Ns": 6.952233399999994,
+      "iterations": 5000000
+    },
+    {
+      "variant": "control",
+      "name": "observed_fanout8_write",
+      "medianNs": 533.9923666666664,
+      "minNs": 527.4326500000001,
+      "maxNs": 541.6930500000007,
+      "p25Ns": 527.4326500000001,
+      "p75Ns": 541.6930500000007,
+      "iterations": 60000
+    },
+    {
+      "variant": "control",
+      "name": "observed_diamond8_write",
+      "medianNs": 419.1684571428571,
+      "minNs": 407.55655714285695,
+      "maxNs": 419.88750000000033,
+      "p25Ns": 407.55655714285695,
+      "p75Ns": 419.88750000000033,
+      "iterations": 70000
+    },
+    {
+      "variant": "metadata",
+      "name": "observed_mutable_callback_get",
+      "medianNs": 42.59225000000001,
+      "minNs": 42.51041799999999,
+      "maxNs": 44.23899999999999,
+      "p25Ns": 42.51041799999999,
+      "p75Ns": 44.23899999999999,
+      "iterations": 500000
+    },
+    {
+      "variant": "metadata",
+      "name": "observed_chain8_write",
+      "medianNs": 242.28375000000014,
+      "minNs": 238.5462500000001,
+      "maxNs": 244.51250000000016,
+      "p25Ns": 238.5462500000001,
+      "p75Ns": 244.51250000000016,
+      "iterations": 100000
+    },
+    {
+      "variant": "metadata",
+      "name": "observed_chain8_clean_cached_get",
+      "medianNs": 3.281999999999999,
+      "minNs": 3.230766600000004,
+      "maxNs": 3.2945583999999997,
+      "p25Ns": 3.230766600000004,
+      "p75Ns": 3.2945583999999997,
+      "iterations": 5000000
+    },
+    {
+      "variant": "metadata",
+      "name": "observed_fanout8_write",
+      "medianNs": 433.1645833333331,
+      "minNs": 432.5000000000003,
+      "maxNs": 444.57708333333323,
+      "p25Ns": 432.5000000000003,
+      "p75Ns": 444.57708333333323,
+      "iterations": 60000
+    },
+    {
+      "variant": "metadata",
+      "name": "observed_diamond8_write",
+      "medianNs": 337.0345142857145,
+      "minNs": 335.20119999999935,
+      "maxNs": 341.6696428571421,
+      "p25Ns": 335.20119999999935,
+      "p75Ns": 341.6696428571421,
+      "iterations": 70000
+    },
+    {
+      "variant": "revisions",
+      "name": "observed_mutable_callback_get",
+      "medianNs": 43.906834,
+      "minNs": 43.02766599999998,
+      "maxNs": 44.03108399999999,
+      "p25Ns": 43.02766599999998,
+      "p75Ns": 44.03108399999999,
+      "iterations": 500000
+    },
+    {
+      "variant": "revisions",
+      "name": "observed_chain8_write",
+      "medianNs": 245.73791999999997,
+      "minNs": 242.0420799999999,
+      "maxNs": 245.8129200000002,
+      "p25Ns": 242.0420799999999,
+      "p75Ns": 245.8129200000002,
+      "iterations": 100000
+    },
+    {
+      "variant": "revisions",
+      "name": "observed_chain8_clean_cached_get",
+      "medianNs": 3.2726084000000015,
+      "minNs": 3.2221167999999976,
+      "maxNs": 3.306624999999997,
+      "p25Ns": 3.2221167999999976,
+      "p75Ns": 3.306624999999997,
+      "iterations": 5000000
+    },
+    {
+      "variant": "revisions",
+      "name": "observed_fanout8_write",
+      "medianNs": 440.55554999999913,
+      "minNs": 435.25833333333327,
+      "maxNs": 440.63333333333316,
+      "p25Ns": 435.25833333333327,
+      "p75Ns": 440.63333333333316,
+      "iterations": 60000
+    },
+    {
+      "variant": "revisions",
+      "name": "observed_diamond8_write",
+      "medianNs": 337.6898857142862,
+      "minNs": 337.68988571428537,
+      "maxNs": 340.48332857142896,
+      "p25Ns": 337.68988571428537,
+      "p75Ns": 340.48332857142896,
+      "iterations": 70000
+    },
+    {
+      "variant": "tail",
+      "name": "observed_mutable_callback_get",
+      "medianNs": 41.45141800000001,
+      "minNs": 41.341584,
+      "maxNs": 42.149834,
+      "p25Ns": 41.341584,
+      "p75Ns": 42.149834,
+      "iterations": 500000
+    },
+    {
+      "variant": "tail",
+      "name": "observed_chain8_write",
+      "medianNs": 251.96040999999983,
+      "minNs": 250.77625000000012,
+      "maxNs": 252.87290999999996,
+      "p25Ns": 250.77625000000012,
+      "p75Ns": 252.87290999999996,
+      "iterations": 100000
+    },
+    {
+      "variant": "tail",
+      "name": "observed_chain8_clean_cached_get",
+      "medianNs": 4.40915,
+      "minNs": 4.408525000000003,
+      "maxNs": 4.550441599999999,
+      "p25Ns": 4.408525000000003,
+      "p75Ns": 4.550441599999999,
+      "iterations": 5000000
+    },
+    {
+      "variant": "tail",
+      "name": "observed_fanout8_write",
+      "medianNs": 460.3680499999996,
+      "minNs": 458.7124999999996,
+      "maxNs": 477.37151666666665,
+      "p25Ns": 458.7124999999996,
+      "p75Ns": 477.37151666666665,
+      "iterations": 60000
+    },
+    {
+      "variant": "tail",
+      "name": "observed_diamond8_write",
+      "medianNs": 381.69107142857115,
+      "minNs": 380.94999999999976,
+      "maxNs": 390.97500000000065,
+      "p25Ns": 380.94999999999976,
+      "p75Ns": 390.97500000000065,
+      "iterations": 70000
+    }
+  ],
+  "samples": [
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 20.932874999999996,
+      "nsPerIteration": 41.86574999999999
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 24.509041999999994,
+      "nsPerIteration": 245.09041999999994
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 16.409999999999997,
+      "nsPerIteration": 3.281999999999999
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 26.350292000000024,
+      "nsPerIteration": 439.17153333333374
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 23.058334000000002,
+      "nsPerIteration": 329.4047714285715
+    },
+    {
+      "round": 0,
+      "variant": "control",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 22.104042,
+      "nsPerIteration": 44.208084
+    },
+    {
+      "round": 0,
+      "variant": "control",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 29.25691599999999,
+      "nsPerIteration": 292.5691599999999
+    },
+    {
+      "round": 0,
+      "variant": "control",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 33.910583,
+      "nsPerIteration": 6.7821166
+    },
+    {
+      "round": 0,
+      "variant": "control",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 32.50158300000004,
+      "nsPerIteration": 541.6930500000007
+    },
+    {
+      "round": 0,
+      "variant": "control",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 29.39212500000002,
+      "nsPerIteration": 419.88750000000033
+    },
+    {
+      "round": 0,
+      "variant": "metadata",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 22.119499999999995,
+      "nsPerIteration": 44.23899999999999
+    },
+    {
+      "round": 0,
+      "variant": "metadata",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 24.451250000000016,
+      "nsPerIteration": 244.51250000000016
+    },
+    {
+      "round": 0,
+      "variant": "metadata",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 16.472792,
+      "nsPerIteration": 3.2945583999999997
+    },
+    {
+      "round": 0,
+      "variant": "metadata",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 25.989874999999984,
+      "nsPerIteration": 433.1645833333331
+    },
+    {
+      "round": 0,
+      "variant": "metadata",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 23.464083999999957,
+      "nsPerIteration": 335.20119999999935
+    },
+    {
+      "round": 0,
+      "variant": "revisions",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 22.015541999999996,
+      "nsPerIteration": 44.03108399999999
+    },
+    {
+      "round": 0,
+      "variant": "revisions",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 24.58129200000002,
+      "nsPerIteration": 245.8129200000002
+    },
+    {
+      "round": 0,
+      "variant": "revisions",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 16.363042000000007,
+      "nsPerIteration": 3.2726084000000015
+    },
+    {
+      "round": 0,
+      "variant": "revisions",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 26.115499999999997,
+      "nsPerIteration": 435.25833333333327
+    },
+    {
+      "round": 0,
+      "variant": "revisions",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 23.63829199999998,
+      "nsPerIteration": 337.68988571428537
+    },
+    {
+      "round": 0,
+      "variant": "tail",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 20.670792,
+      "nsPerIteration": 41.341584
+    },
+    {
+      "round": 0,
+      "variant": "tail",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 25.287290999999996,
+      "nsPerIteration": 252.87290999999996
+    },
+    {
+      "round": 0,
+      "variant": "tail",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 22.752207999999996,
+      "nsPerIteration": 4.550441599999999
+    },
+    {
+      "round": 0,
+      "variant": "tail",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 27.622082999999975,
+      "nsPerIteration": 460.3680499999996
+    },
+    {
+      "round": 0,
+      "variant": "tail",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 26.666499999999985,
+      "nsPerIteration": 380.94999999999976
+    },
+    {
+      "round": 1,
+      "variant": "control",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 22.566541,
+      "nsPerIteration": 45.133082
+    },
+    {
+      "round": 1,
+      "variant": "control",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 29.019875000000013,
+      "nsPerIteration": 290.19875000000013
+    },
+    {
+      "round": 1,
+      "variant": "control",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 34.76116699999997,
+      "nsPerIteration": 6.952233399999994
+    },
+    {
+      "round": 1,
+      "variant": "control",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 31.645959000000005,
+      "nsPerIteration": 527.4326500000001
+    },
+    {
+      "round": 1,
+      "variant": "control",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 28.528958999999986,
+      "nsPerIteration": 407.55655714285695
+    },
+    {
+      "round": 1,
+      "variant": "metadata",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 21.255208999999994,
+      "nsPerIteration": 42.51041799999999
+    },
+    {
+      "round": 1,
+      "variant": "metadata",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 24.228375000000014,
+      "nsPerIteration": 242.28375000000014
+    },
+    {
+      "round": 1,
+      "variant": "metadata",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 16.409999999999997,
+      "nsPerIteration": 3.281999999999999
+    },
+    {
+      "round": 1,
+      "variant": "metadata",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 26.674624999999992,
+      "nsPerIteration": 444.57708333333323
+    },
+    {
+      "round": 1,
+      "variant": "metadata",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 23.592416000000014,
+      "nsPerIteration": 337.0345142857145
+    },
+    {
+      "round": 1,
+      "variant": "revisions",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 21.953417,
+      "nsPerIteration": 43.906834
+    },
+    {
+      "round": 1,
+      "variant": "revisions",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 24.573791999999997,
+      "nsPerIteration": 245.73791999999997
+    },
+    {
+      "round": 1,
+      "variant": "revisions",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 16.533124999999984,
+      "nsPerIteration": 3.306624999999997
+    },
+    {
+      "round": 1,
+      "variant": "revisions",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 26.437999999999988,
+      "nsPerIteration": 440.63333333333316
+    },
+    {
+      "round": 1,
+      "variant": "revisions",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 23.638292000000035,
+      "nsPerIteration": 337.6898857142862
+    },
+    {
+      "round": 1,
+      "variant": "tail",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 21.074917,
+      "nsPerIteration": 42.149834
+    },
+    {
+      "round": 1,
+      "variant": "tail",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 25.19604099999998,
+      "nsPerIteration": 251.96040999999983
+    },
+    {
+      "round": 1,
+      "variant": "tail",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 22.045749999999998,
+      "nsPerIteration": 4.40915
+    },
+    {
+      "round": 1,
+      "variant": "tail",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 27.522749999999974,
+      "nsPerIteration": 458.7124999999996
+    },
+    {
+      "round": 1,
+      "variant": "tail",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 26.71837499999998,
+      "nsPerIteration": 381.69107142857115
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 21.069542000000006,
+      "nsPerIteration": 42.139084000000004
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 24.63425000000001,
+      "nsPerIteration": 246.3425000000001
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 16.41633299999998,
+      "nsPerIteration": 3.2832665999999957
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 28.125625000000014,
+      "nsPerIteration": 468.7604166666669
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 23.594375000000014,
+      "nsPerIteration": 337.0625000000002
+    },
+    {
+      "round": 2,
+      "variant": "metadata",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 21.296125000000004,
+      "nsPerIteration": 42.59225000000001
+    },
+    {
+      "round": 2,
+      "variant": "metadata",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 23.854625000000013,
+      "nsPerIteration": 238.5462500000001
+    },
+    {
+      "round": 2,
+      "variant": "metadata",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 16.15383300000002,
+      "nsPerIteration": 3.230766600000004
+    },
+    {
+      "round": 2,
+      "variant": "metadata",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 25.950000000000017,
+      "nsPerIteration": 432.5000000000003
+    },
+    {
+      "round": 2,
+      "variant": "metadata",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 23.916874999999948,
+      "nsPerIteration": 341.6696428571421
+    },
+    {
+      "round": 2,
+      "variant": "revisions",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 21.51383299999999,
+      "nsPerIteration": 43.02766599999998
+    },
+    {
+      "round": 2,
+      "variant": "revisions",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 24.204207999999994,
+      "nsPerIteration": 242.0420799999999
+    },
+    {
+      "round": 2,
+      "variant": "revisions",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 16.11058399999999,
+      "nsPerIteration": 3.2221167999999976
+    },
+    {
+      "round": 2,
+      "variant": "revisions",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 26.433332999999948,
+      "nsPerIteration": 440.55554999999913
+    },
+    {
+      "round": 2,
+      "variant": "revisions",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 23.833833000000027,
+      "nsPerIteration": 340.48332857142896
+    },
+    {
+      "round": 2,
+      "variant": "tail",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 20.725709000000002,
+      "nsPerIteration": 41.45141800000001
+    },
+    {
+      "round": 2,
+      "variant": "tail",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 25.077625000000012,
+      "nsPerIteration": 250.77625000000012
+    },
+    {
+      "round": 2,
+      "variant": "tail",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 22.042625000000015,
+      "nsPerIteration": 4.408525000000003
+    },
+    {
+      "round": 2,
+      "variant": "tail",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 28.642291,
+      "nsPerIteration": 477.37151666666665
+    },
+    {
+      "round": 2,
+      "variant": "tail",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 27.368250000000046,
+      "nsPerIteration": 390.97500000000065
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 20.774791999999998,
+      "nsPerIteration": 41.549583999999996
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 24.092040999999995,
+      "nsPerIteration": 240.92040999999998
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 16.299541000000005,
+      "nsPerIteration": 3.2599082000000013
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 26.57462499999997,
+      "nsPerIteration": 442.91041666666615
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 23.714791000000048,
+      "nsPerIteration": 338.7827285714293
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 22.453749999999992,
+      "nsPerIteration": 44.907499999999985
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 28.752375,
+      "nsPerIteration": 287.52375
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 33.06450000000001,
+      "nsPerIteration": 6.612900000000002
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 32.03954199999998,
+      "nsPerIteration": 533.9923666666664
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 29.341791999999998,
+      "nsPerIteration": 419.1684571428571
+    }
+  ]
+}

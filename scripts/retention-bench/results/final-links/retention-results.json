@@ -1,0 +1,4361 @@
+{
+  "node": "v25.8.1",
+  "results": [
+    {
+      "variant": "baseline",
+      "trial": 0,
+      "count": 4000,
+      "mode": "never-observed",
+      "liveAfterGc": 4000,
+      "linksBeforeGc": 4000,
+      "linksAfterGc": 4000,
+      "timing": {
+        "empty": {
+          "medianNs": 17.333499999999447,
+          "minNs": 16.18750000000091,
+          "maxNs": 69.52099999999817
+        },
+        "abandoned": {
+          "medianNs": 20249.458000000002,
+          "minNs": 20132.29149999998,
+          "maxNs": 20668.082999999995
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.13904199999999634,
+          "nsPerWrite": 69.52099999999817
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 41.33616599999999,
+          "nsPerWrite": 20668.082999999995
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 40.683583999999996,
+          "nsPerWrite": 20341.791999999998
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03379200000000537,
+          "nsPerWrite": 16.896000000002683
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03466699999999889,
+          "nsPerWrite": 17.333499999999447
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 40.69499999999999,
+          "nsPerWrite": 20347.499999999996
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 40.430082999999996,
+          "nsPerWrite": 20215.041499999996
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03804200000001856,
+          "nsPerWrite": 19.02100000000928
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.07066700000001447,
+          "nsPerWrite": 35.333500000007234
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 40.49891600000001,
+          "nsPerWrite": 20249.458000000002
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 40.343125000000015,
+          "nsPerWrite": 20171.562500000007
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03237500000000182,
+          "nsPerWrite": 16.18750000000091
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.034417000000019016,
+          "nsPerWrite": 17.20850000000951
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 40.26458299999996,
+          "nsPerWrite": 20132.29149999998
+        }
+      ]
+    },
+    {
+      "variant": "baseline",
+      "trial": 1,
+      "count": 4000,
+      "mode": "never-observed",
+      "liveAfterGc": 4000,
+      "linksBeforeGc": 4000,
+      "linksAfterGc": 4000,
+      "timing": {
+        "empty": {
+          "medianNs": 17.68750000000807,
+          "minNs": 15.8335000000136,
+          "maxNs": 71.02099999999822
+        },
+        "abandoned": {
+          "medianNs": 23502.625000000007,
+          "minNs": 22985.250000000007,
+          "maxNs": 23961.062500000004
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.14204199999999645,
+          "nsPerWrite": 71.02099999999822
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 47.537749999999996,
+          "nsPerWrite": 23768.874999999996
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 47.92212500000001,
+          "nsPerWrite": 23961.062500000004
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.0347500000000025,
+          "nsPerWrite": 17.37500000000125
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.035375000000016144,
+          "nsPerWrite": 17.68750000000807
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 47.788624999999996,
+          "nsPerWrite": 23894.312499999996
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 47.00525000000002,
+          "nsPerWrite": 23502.625000000007
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03383400000001302,
+          "nsPerWrite": 16.917000000006514
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.0752080000000035,
+          "nsPerWrite": 37.60400000000175
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 46.315417000000025,
+          "nsPerWrite": 23157.70850000001
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 46.62545799999998,
+          "nsPerWrite": 23312.72899999999
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.0316670000000272,
+          "nsPerWrite": 15.8335000000136
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.037082999999995536,
+          "nsPerWrite": 18.541499999997765
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 45.970500000000015,
+          "nsPerWrite": 22985.250000000007
+        }
+      ]
+    },
+    {
+      "variant": "baseline",
+      "trial": 2,
+      "count": 4000,
+      "mode": "never-observed",
+      "liveAfterGc": 4000,
+      "linksBeforeGc": 4000,
+      "linksAfterGc": 4000,
+      "timing": {
+        "empty": {
+          "medianNs": 17.458499999975174,
+          "minNs": 16.833000000005427,
+          "maxNs": 68.2709999999993
+        },
+        "abandoned": {
+          "medianNs": 24108.25,
+          "minNs": 23714.9375,
+          "maxNs": 24828.333500000015
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.1365419999999986,
+          "nsPerWrite": 68.2709999999993
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 47.429875,
+          "nsPerWrite": 23714.9375
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 47.966583,
+          "nsPerWrite": 23983.2915
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.033666000000010854,
+          "nsPerWrite": 16.833000000005427
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.034166999999996506,
+          "nsPerWrite": 17.083499999998253
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 48.31758400000001,
+          "nsPerWrite": 24158.792000000005
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 48.216499999999996,
+          "nsPerWrite": 24108.25
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03383400000001302,
+          "nsPerWrite": 16.917000000006514
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.0624170000000106,
+          "nsPerWrite": 31.2085000000053
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 49.45712499999999,
+          "nsPerWrite": 24728.562499999996
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 49.65666700000003,
+          "nsPerWrite": 24828.333500000015
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03491699999995035,
+          "nsPerWrite": 17.458499999975174
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04004200000002811,
+          "nsPerWrite": 20.02100000001406
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 47.86095799999998,
+          "nsPerWrite": 23930.478999999992
+        }
+      ]
+    },
+    {
+      "variant": "baseline",
+      "trial": 0,
+      "count": 100,
+      "mode": "never-observed",
+      "liveAfterGc": 100,
+      "linksBeforeGc": 100,
+      "linksAfterGc": 100,
+      "timing": {
+        "empty": {
+          "medianNs": 17.146000000000328,
+          "minNs": 17.06249999999976,
+          "maxNs": 88.10450000000003
+        },
+        "abandoned": {
+          "medianNs": 292.97949999999946,
+          "minNs": 285.9169999999995,
+          "maxNs": 397.4170000000008
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.17620900000000006,
+          "nsPerWrite": 88.10450000000003
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.7948340000000016,
+          "nsPerWrite": 397.4170000000008
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.5718339999999991,
+          "nsPerWrite": 285.9169999999995
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.034292000000000655,
+          "nsPerWrite": 17.146000000000328
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03445899999999824,
+          "nsPerWrite": 17.22949999999912
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.5720419999999997,
+          "nsPerWrite": 286.0209999999999
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.5747909999999976,
+          "nsPerWrite": 287.3954999999988
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03420799999999957,
+          "nsPerWrite": 17.103999999999786
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.048666000000000764,
+          "nsPerWrite": 24.333000000000382
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.6540420000000005,
+          "nsPerWrite": 327.02100000000024
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.6733329999999995,
+          "nsPerWrite": 336.66649999999976
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03412499999999952,
+          "nsPerWrite": 17.06249999999976
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03412499999999952,
+          "nsPerWrite": 17.06249999999976
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.585958999999999,
+          "nsPerWrite": 292.97949999999946
+        }
+      ]
+    },
+    {
+      "variant": "baseline",
+      "trial": 1,
+      "count": 100,
+      "mode": "never-observed",
+      "liveAfterGc": 100,
+      "linksBeforeGc": 100,
+      "linksAfterGc": 100,
+      "timing": {
+        "empty": {
+          "medianNs": 17.5415000000001,
+          "minNs": 16.979499999999703,
+          "maxNs": 93.75
+        },
+        "abandoned": {
+          "medianNs": 313.5835,
+          "minNs": 284.3544999999992,
+          "maxNs": 392.5834999999988
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.1875,
+          "nsPerWrite": 93.75
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.7851669999999977,
+          "nsPerWrite": 392.5834999999988
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.627167,
+          "nsPerWrite": 313.5835
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.0350830000000002,
+          "nsPerWrite": 17.5415000000001
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03554099999999849,
+          "nsPerWrite": 17.770499999999245
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.5985829999999979,
+          "nsPerWrite": 299.29149999999896
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.5687089999999984,
+          "nsPerWrite": 284.3544999999992
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03420799999999957,
+          "nsPerWrite": 17.103999999999786
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.045999999999999375,
+          "nsPerWrite": 22.999999999999687
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.6575829999999989,
+          "nsPerWrite": 328.7914999999995
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.6479579999999991,
+          "nsPerWrite": 323.9789999999996
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03399999999999892,
+          "nsPerWrite": 16.99999999999946
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.033958999999999406,
+          "nsPerWrite": 16.979499999999703
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.5857920000000014,
+          "nsPerWrite": 292.8960000000007
+        }
+      ]
+    },
+    {
+      "variant": "baseline",
+      "trial": 2,
+      "count": 100,
+      "mode": "never-observed",
+      "liveAfterGc": 100,
+      "linksBeforeGc": 100,
+      "linksAfterGc": 100,
+      "timing": {
+        "empty": {
+          "medianNs": 20.14600000000044,
+          "minNs": 17.50000000000007,
+          "maxNs": 97.93749999999868
+        },
+        "abandoned": {
+          "medianNs": 321.396,
+          "minNs": 303.0834999999996,
+          "maxNs": 401.4790000000001
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.19587499999999736,
+          "nsPerWrite": 97.93749999999868
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.8029580000000003,
+          "nsPerWrite": 401.4790000000001
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.6202080000000016,
+          "nsPerWrite": 310.10400000000084
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03500000000000014,
+          "nsPerWrite": 17.50000000000007
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03645799999999966,
+          "nsPerWrite": 18.22899999999983
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.6202500000000022,
+          "nsPerWrite": 310.1250000000011
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.6061669999999992,
+          "nsPerWrite": 303.0834999999996
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.035042000000000684,
+          "nsPerWrite": 17.521000000000342
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04812499999999886,
+          "nsPerWrite": 24.06249999999943
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.651374999999998,
+          "nsPerWrite": 325.68749999999903
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.6430420000000012,
+          "nsPerWrite": 321.52100000000064
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.053834000000001936,
+          "nsPerWrite": 26.917000000000968
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04029200000000088,
+          "nsPerWrite": 20.14600000000044
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.642792,
+          "nsPerWrite": 321.396
+        }
+      ]
+    },
+    {
+      "variant": "baseline",
+      "trial": 0,
+      "count": 100,
+      "mode": "unsubscribed",
+      "liveAfterGc": 0,
+      "linksBeforeGc": 0,
+      "linksAfterGc": 0,
+      "timing": {
+        "empty": {
+          "medianNs": 18.520999999999788,
+          "minNs": 18.208500000000072,
+          "maxNs": 91.37499999999932
+        },
+        "abandoned": {
+          "medianNs": 19.97900000000108,
+          "minNs": 18.104499999999746,
+          "maxNs": 67.45849999999898
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.18274999999999864,
+          "nsPerWrite": 91.37499999999932
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.10062500000000085,
+          "nsPerWrite": 50.312500000000426
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.06599999999999895,
+          "nsPerWrite": 32.999999999999474
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.036417000000000144,
+          "nsPerWrite": 18.208500000000072
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.037041999999999575,
+          "nsPerWrite": 18.520999999999788
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03620899999999949,
+          "nsPerWrite": 18.104499999999746
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.036417000000000144,
+          "nsPerWrite": 18.208500000000072
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.036417000000000144,
+          "nsPerWrite": 18.208500000000072
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.036417000000000144,
+          "nsPerWrite": 18.208500000000072
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.13491699999999796,
+          "nsPerWrite": 67.45849999999898
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03995800000000216,
+          "nsPerWrite": 19.97900000000108
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03983299999999801,
+          "nsPerWrite": 19.916499999999004
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.039749999999997954,
+          "nsPerWrite": 19.874999999998977
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03958399999999784,
+          "nsPerWrite": 19.79199999999892
+        }
+      ]
+    },
+    {
+      "variant": "baseline",
+      "trial": 1,
+      "count": 100,
+      "mode": "unsubscribed",
+      "liveAfterGc": 0,
+      "linksBeforeGc": 0,
+      "linksAfterGc": 0,
+      "timing": {
+        "empty": {
+          "medianNs": 19.249999999999545,
+          "minNs": 19.000000000000128,
+          "maxNs": 86.31250000000001
+        },
+        "abandoned": {
+          "medianNs": 23.791499999999743,
+          "minNs": 18.93749999999983,
+          "maxNs": 68.27100000000108
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.17262500000000003,
+          "nsPerWrite": 86.31250000000001
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.10545800000000227,
+          "nsPerWrite": 52.729000000001136
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.0904580000000017,
+          "nsPerWrite": 45.22900000000085
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03849999999999909,
+          "nsPerWrite": 19.249999999999545
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03854199999999963,
+          "nsPerWrite": 19.270999999999816
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03787499999999966,
+          "nsPerWrite": 18.93749999999983
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03795800000000327,
+          "nsPerWrite": 18.979000000001633
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03804099999999977,
+          "nsPerWrite": 19.020499999999885
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.038000000000000256,
+          "nsPerWrite": 19.000000000000128
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.13654200000000216,
+          "nsPerWrite": 68.27100000000108
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.04758299999999949,
+          "nsPerWrite": 23.791499999999743
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.045916000000001844,
+          "nsPerWrite": 22.958000000000922
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.038333000000001505,
+          "nsPerWrite": 19.166500000000752
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.0379999999999967,
+          "nsPerWrite": 18.99999999999835
+        }
+      ]
+    },
+    {
+      "variant": "baseline",
+      "trial": 2,
+      "count": 100,
+      "mode": "unsubscribed",
+      "liveAfterGc": 0,
+      "linksBeforeGc": 0,
+      "linksAfterGc": 0,
+      "timing": {
+        "empty": {
+          "medianNs": 19.083000000000183,
+          "minNs": 16.958000000000695,
+          "maxNs": 84.6455000000006
+        },
+        "abandoned": {
+          "medianNs": 22.333500000000228,
+          "minNs": 16.93749999999916,
+          "maxNs": 75.31250000000078
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.1692910000000012,
+          "nsPerWrite": 84.6455000000006
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.09058299999999875,
+          "nsPerWrite": 45.291499999999374
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.05641600000000224,
+          "nsPerWrite": 28.20800000000112
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.039958999999999634,
+          "nsPerWrite": 19.979499999999817
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03462499999999835,
+          "nsPerWrite": 17.312499999999176
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03412500000000307,
+          "nsPerWrite": 17.062500000001535
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03387499999999832,
+          "nsPerWrite": 16.93749999999916
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03391600000000139,
+          "nsPerWrite": 16.958000000000695
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.034292000000000655,
+          "nsPerWrite": 17.146000000000328
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.15062500000000156,
+          "nsPerWrite": 75.31250000000078
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.044667000000000456,
+          "nsPerWrite": 22.333500000000228
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.040124999999999744,
+          "nsPerWrite": 20.062499999999872
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.038166000000000366,
+          "nsPerWrite": 19.083000000000183
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03791599999999917,
+          "nsPerWrite": 18.957999999999586
+        }
+      ]
+    },
+    {
+      "variant": "baseline",
+      "trial": 0,
+      "count": 100,
+      "mode": "handle-discarded",
+      "liveAfterGc": 100,
+      "linksBeforeGc": 100,
+      "linksAfterGc": 100,
+      "timing": {
+        "empty": {
+          "medianNs": 21.87499999999787,
+          "minNs": 18.124999999997726,
+          "maxNs": 139.1699999999929
+        },
+        "abandoned": {
+          "medianNs": 4896.250000000002,
+          "minNs": 4441.875000000017,
+          "maxNs": 8278.540000000003
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.027833999999998582,
+          "nsPerWrite": 139.1699999999929
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.6557080000000006,
+          "nsPerWrite": 8278.540000000003
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.2686250000000001,
+          "nsPerWrite": 6343.125
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.003917000000001281,
+          "nsPerWrite": 19.585000000006403
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.004374999999999574,
+          "nsPerWrite": 21.87499999999787
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 0.9792500000000004,
+          "nsPerWrite": 4896.250000000002
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 0.8883750000000035,
+          "nsPerWrite": 4441.875000000017
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0036249999999995453,
+          "nsPerWrite": 18.124999999997726
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0037080000000031532,
+          "nsPerWrite": 18.540000000015766
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 0.9367079999999959,
+          "nsPerWrite": 4683.53999999998
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 0.9945830000000058,
+          "nsPerWrite": 4972.915000000029
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.00491699999999895,
+          "nsPerWrite": 24.584999999994753
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.00445900000000421,
+          "nsPerWrite": 22.295000000021044
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 0.9274169999999984,
+          "nsPerWrite": 4637.084999999992
+        }
+      ]
+    },
+    {
+      "variant": "baseline",
+      "trial": 1,
+      "count": 100,
+      "mode": "handle-discarded",
+      "liveAfterGc": 100,
+      "linksBeforeGc": 100,
+      "linksAfterGc": 100,
+      "timing": {
+        "empty": {
+          "medianNs": 17.91499999999502,
+          "minNs": 17.500000000012506,
+          "maxNs": 122.49999999999872
+        },
+        "abandoned": {
+          "medianNs": 5130.205000000032,
+          "minNs": 4345.829999999999,
+          "maxNs": 7490.624999999991
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.024499999999999744,
+          "nsPerWrite": 122.49999999999872
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.4981249999999982,
+          "nsPerWrite": 7490.624999999991
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.2951669999999993,
+          "nsPerWrite": 6475.834999999996
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.005959000000000714,
+          "nsPerWrite": 29.79500000000357
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.006249999999997868,
+          "nsPerWrite": 31.249999999989342
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.0337090000000018,
+          "nsPerWrite": 5168.545000000009
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 0.9380000000000024,
+          "nsPerWrite": 4690.000000000012
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0035829999999990036,
+          "nsPerWrite": 17.91499999999502
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0035419999999959373,
+          "nsPerWrite": 17.709999999979686
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 0.8691659999999999,
+          "nsPerWrite": 4345.829999999999
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.0260410000000064,
+          "nsPerWrite": 5130.205000000032
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.003500000000002501,
+          "nsPerWrite": 17.500000000012506
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0035829999999990036,
+          "nsPerWrite": 17.91499999999502
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 0.994334000000002,
+          "nsPerWrite": 4971.67000000001
+        }
+      ]
+    },
+    {
+      "variant": "baseline",
+      "trial": 2,
+      "count": 100,
+      "mode": "handle-discarded",
+      "liveAfterGc": 100,
+      "linksBeforeGc": 100,
+      "linksAfterGc": 100,
+      "timing": {
+        "empty": {
+          "medianNs": 19.374999999968168,
+          "minNs": 17.49999999997698,
+          "maxNs": 137.91500000001733
+        },
+        "abandoned": {
+          "medianNs": 5016.874999999992,
+          "minNs": 4294.78999999997,
+          "maxNs": 7329.790000000003
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.027583000000003466,
+          "nsPerWrite": 137.91500000001733
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.4659580000000005,
+          "nsPerWrite": 7329.790000000003
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.1611670000000025,
+          "nsPerWrite": 5805.835000000013
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0054160000000003095,
+          "nsPerWrite": 27.080000000001547
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.005958999999997161,
+          "nsPerWrite": 29.7949999999858
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.007125000000002,
+          "nsPerWrite": 5035.625000000011
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 0.938875000000003,
+          "nsPerWrite": 4694.3750000000155
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.003834000000004778,
+          "nsPerWrite": 19.17000000002389
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0038749999999936335,
+          "nsPerWrite": 19.374999999968168
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 0.9605409999999992,
+          "nsPerWrite": 4802.704999999996
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.0033749999999984,
+          "nsPerWrite": 5016.874999999992
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0035419999999959373,
+          "nsPerWrite": 17.709999999979686
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0034999999999953957,
+          "nsPerWrite": 17.49999999997698
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 0.8589579999999941,
+          "nsPerWrite": 4294.78999999997
+        }
+      ]
+    },
+    {
+      "variant": "pr",
+      "trial": 0,
+      "count": 4000,
+      "mode": "never-observed",
+      "liveAfterGc": 0,
+      "linksBeforeGc": 0,
+      "linksAfterGc": 0,
+      "timing": {
+        "empty": {
+          "medianNs": 40.541499999999786,
+          "minNs": 17.000000000001236,
+          "maxNs": 62.4374999999997
+        },
+        "abandoned": {
+          "medianNs": 40.604000000000084,
+          "minNs": 17.02099999999973,
+          "maxNs": 66.791499999999
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.1248749999999994,
+          "nsPerWrite": 62.4374999999997
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.133582999999998,
+          "nsPerWrite": 66.791499999999
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.09212499999999935,
+          "nsPerWrite": 46.06249999999967
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.08108299999999957,
+          "nsPerWrite": 40.541499999999786
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.08162499999999895,
+          "nsPerWrite": 40.812499999999474
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.08120800000000017,
+          "nsPerWrite": 40.604000000000084
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.08854200000000034,
+          "nsPerWrite": 44.27100000000017
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.11141699999999943,
+          "nsPerWrite": 55.70849999999972
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04529199999999989,
+          "nsPerWrite": 22.645999999999944
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.04587500000000233,
+          "nsPerWrite": 22.937500000001165
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03416700000000006,
+          "nsPerWrite": 17.08350000000003
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03400000000000247,
+          "nsPerWrite": 17.000000000001236
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.034292000000000655,
+          "nsPerWrite": 17.146000000000328
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03404199999999946,
+          "nsPerWrite": 17.02099999999973
+        }
+      ]
+    },
+    {
+      "variant": "pr",
+      "trial": 1,
+      "count": 4000,
+      "mode": "never-observed",
+      "liveAfterGc": 0,
+      "linksBeforeGc": 0,
+      "linksAfterGc": 0,
+      "timing": {
+        "empty": {
+          "medianNs": 40.124999999999744,
+          "minNs": 17.12499999999828,
+          "maxNs": 64.0420000000006
+        },
+        "abandoned": {
+          "medianNs": 39.87500000000033,
+          "minNs": 17.374999999999474,
+          "maxNs": 64.95850000000125
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.1280840000000012,
+          "nsPerWrite": 64.0420000000006
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.1299170000000025,
+          "nsPerWrite": 64.95850000000125
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.09295799999999943,
+          "nsPerWrite": 46.478999999999715
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.08158300000000196,
+          "nsPerWrite": 40.79150000000098
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.08024999999999949,
+          "nsPerWrite": 40.124999999999744
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.07975000000000065,
+          "nsPerWrite": 39.87500000000033
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.08941699999999742,
+          "nsPerWrite": 44.70849999999871
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.0944160000000025,
+          "nsPerWrite": 47.20800000000125
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.06666699999999892,
+          "nsPerWrite": 33.33349999999946
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.04612499999999997,
+          "nsPerWrite": 23.062499999999986
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03474999999999895,
+          "nsPerWrite": 17.374999999999474
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03424999999999656,
+          "nsPerWrite": 17.12499999999828
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.039540999999999826,
+          "nsPerWrite": 19.770499999999913
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03983399999999904,
+          "nsPerWrite": 19.91699999999952
+        }
+      ]
+    },
+    {
+      "variant": "pr",
+      "trial": 2,
+      "count": 4000,
+      "mode": "never-observed",
+      "liveAfterGc": 0,
+      "linksBeforeGc": 0,
+      "linksAfterGc": 0,
+      "timing": {
+        "empty": {
+          "medianNs": 40.833499999999745,
+          "minNs": 18.583500000000086,
+          "maxNs": 65.31249999999922
+        },
+        "abandoned": {
+          "medianNs": 46.64600000000085,
+          "minNs": 18.60400000000162,
+          "maxNs": 61.45850000000053
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.13062499999999844,
+          "nsPerWrite": 65.31249999999922
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.12291700000000105,
+          "nsPerWrite": 61.45850000000053
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.0932920000000017,
+          "nsPerWrite": 46.64600000000085
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.08166699999999949,
+          "nsPerWrite": 40.833499999999745
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.0820830000000008,
+          "nsPerWrite": 41.0415000000004
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.09566699999999884,
+          "nsPerWrite": 47.83349999999942
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.09933400000000248,
+          "nsPerWrite": 49.66700000000124
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.09495899999999935,
+          "nsPerWrite": 47.479499999999675
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.05566699999999969,
+          "nsPerWrite": 27.833499999999844
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.05004200000000125,
+          "nsPerWrite": 25.021000000000626
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.040542000000002076,
+          "nsPerWrite": 20.271000000001038
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03716700000000017,
+          "nsPerWrite": 18.583500000000086
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03758399999999895,
+          "nsPerWrite": 18.791999999999476
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03720800000000324,
+          "nsPerWrite": 18.60400000000162
+        }
+      ]
+    },
+    {
+      "variant": "pr",
+      "trial": 0,
+      "count": 100,
+      "mode": "never-observed",
+      "liveAfterGc": 0,
+      "linksBeforeGc": 0,
+      "linksAfterGc": 0,
+      "timing": {
+        "empty": {
+          "medianNs": 18.646000000000384,
+          "minNs": 16.603999999999175,
+          "maxNs": 86.49999999999913
+        },
+        "abandoned": {
+          "medianNs": 23.97900000000064,
+          "minNs": 16.645999999999717,
+          "maxNs": 60.56249999999963
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.17299999999999827,
+          "nsPerWrite": 86.49999999999913
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.11762500000000031,
+          "nsPerWrite": 58.812500000000156
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.05258399999999952,
+          "nsPerWrite": 26.29199999999976
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.045458,
+          "nsPerWrite": 22.729
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03370899999999821,
+          "nsPerWrite": 16.854499999999106
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03329199999999943,
+          "nsPerWrite": 16.645999999999717
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03645799999999966,
+          "nsPerWrite": 18.22899999999983
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03324999999999889,
+          "nsPerWrite": 16.624999999999446
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03320799999999835,
+          "nsPerWrite": 16.603999999999175
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.12112499999999926,
+          "nsPerWrite": 60.56249999999963
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.04795800000000128,
+          "nsPerWrite": 23.97900000000064
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03737499999999727,
+          "nsPerWrite": 18.687499999998636
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03729200000000077,
+          "nsPerWrite": 18.646000000000384
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.037209000000000714,
+          "nsPerWrite": 18.604500000000357
+        }
+      ]
+    },
+    {
+      "variant": "pr",
+      "trial": 1,
+      "count": 100,
+      "mode": "never-observed",
+      "liveAfterGc": 0,
+      "linksBeforeGc": 0,
+      "linksAfterGc": 0,
+      "timing": {
+        "empty": {
+          "medianNs": 18.708499999998907,
+          "minNs": 16.85400000000037,
+          "maxNs": 86.9579999999992
+        },
+        "abandoned": {
+          "medianNs": 24.229000000000056,
+          "minNs": 16.85400000000037,
+          "maxNs": 52.895499999999984
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.1739159999999984,
+          "nsPerWrite": 86.9579999999992
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.09662499999999952,
+          "nsPerWrite": 48.31249999999976
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.05333299999999852,
+          "nsPerWrite": 26.66649999999926
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04558400000000162,
+          "nsPerWrite": 22.79200000000081
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03412499999999952,
+          "nsPerWrite": 17.06249999999976
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03375000000000128,
+          "nsPerWrite": 16.87500000000064
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03370800000000074,
+          "nsPerWrite": 16.85400000000037
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03370800000000074,
+          "nsPerWrite": 16.85400000000037
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.033749999999997726,
+          "nsPerWrite": 16.874999999998867
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.10579099999999997,
+          "nsPerWrite": 52.895499999999984
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.04845800000000011,
+          "nsPerWrite": 24.229000000000056
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03741699999999781,
+          "nsPerWrite": 18.708499999998907
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.037417000000001366,
+          "nsPerWrite": 18.708500000000683
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.037207999999999686,
+          "nsPerWrite": 18.603999999999843
+        }
+      ]
+    },
+    {
+      "variant": "pr",
+      "trial": 2,
+      "count": 100,
+      "mode": "never-observed",
+      "liveAfterGc": 0,
+      "linksBeforeGc": 0,
+      "linksAfterGc": 0,
+      "timing": {
+        "empty": {
+          "medianNs": 18.66650000000014,
+          "minNs": 17.250000000000654,
+          "maxNs": 93.83349999999879
+        },
+        "abandoned": {
+          "medianNs": 18.81250000000101,
+          "minNs": 18.04150000000071,
+          "maxNs": 64.83300000000014
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.18766699999999759,
+          "nsPerWrite": 93.83349999999879
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.10370799999999747,
+          "nsPerWrite": 51.853999999998734
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.05170799999999787,
+          "nsPerWrite": 25.853999999998933
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03770899999999955,
+          "nsPerWrite": 18.854499999999774
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03812500000000085,
+          "nsPerWrite": 19.062500000000426
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03762500000000202,
+          "nsPerWrite": 18.81250000000101
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03608300000000142,
+          "nsPerWrite": 18.04150000000071
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03450000000000131,
+          "nsPerWrite": 17.250000000000654
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.034541999999998296,
+          "nsPerWrite": 17.270999999999148
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.12966600000000028,
+          "nsPerWrite": 64.83300000000014
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03745800000000088,
+          "nsPerWrite": 18.72900000000044
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03725000000000023,
+          "nsPerWrite": 18.625000000000114
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03733300000000028,
+          "nsPerWrite": 18.66650000000014
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03725000000000023,
+          "nsPerWrite": 18.625000000000114
+        }
+      ]
+    },
+    {
+      "variant": "pr",
+      "trial": 0,
+      "count": 100,
+      "mode": "unsubscribed",
+      "liveAfterGc": 0,
+      "linksBeforeGc": 0,
+      "linksAfterGc": 0,
+      "timing": {
+        "empty": {
+          "medianNs": 19.83300000000021,
+          "minNs": 17.958500000000654,
+          "maxNs": 89.35400000000016
+        },
+        "abandoned": {
+          "medianNs": 21.666999999998993,
+          "minNs": 17.85450000000033,
+          "maxNs": 59.583500000000456
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.1787080000000003,
+          "nsPerWrite": 89.35400000000016
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.09529099999999957,
+          "nsPerWrite": 47.645499999999785
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.05504099999999923,
+          "nsPerWrite": 27.520499999999615
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03966600000000042,
+          "nsPerWrite": 19.83300000000021
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03612500000000196,
+          "nsPerWrite": 18.06250000000098
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03570900000000066,
+          "nsPerWrite": 17.85450000000033
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03587500000000077,
+          "nsPerWrite": 17.937500000000384
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03595800000000082,
+          "nsPerWrite": 17.97900000000041
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03591700000000131,
+          "nsPerWrite": 17.958500000000654
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.11916700000000091,
+          "nsPerWrite": 59.583500000000456
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.043333999999997985,
+          "nsPerWrite": 21.666999999998993
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.0402079999999998,
+          "nsPerWrite": 20.1039999999999
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04008400000000023,
+          "nsPerWrite": 20.042000000000115
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.04025000000000034,
+          "nsPerWrite": 20.12500000000017
+        }
+      ]
+    },
+    {
+      "variant": "pr",
+      "trial": 1,
+      "count": 100,
+      "mode": "unsubscribed",
+      "liveAfterGc": 0,
+      "linksBeforeGc": 0,
+      "linksAfterGc": 0,
+      "timing": {
+        "empty": {
+          "medianNs": 17.208000000000112,
+          "minNs": 17.125000000000057,
+          "maxNs": 121.60450000000012
+        },
+        "abandoned": {
+          "medianNs": 17.187500000000355,
+          "minNs": 17.125000000000057,
+          "maxNs": 68.58300000000028
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.24320900000000023,
+          "nsPerWrite": 121.60450000000012
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.09687500000000071,
+          "nsPerWrite": 48.437500000000355
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.038000000000000256,
+          "nsPerWrite": 19.000000000000128
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.034416000000000224,
+          "nsPerWrite": 17.208000000000112
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03608300000000142,
+          "nsPerWrite": 18.04150000000071
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03433300000000017,
+          "nsPerWrite": 17.166500000000084
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03437500000000071,
+          "nsPerWrite": 17.187500000000355
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.034458000000000766,
+          "nsPerWrite": 17.229000000000383
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03437500000000071,
+          "nsPerWrite": 17.187500000000355
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.13716600000000057,
+          "nsPerWrite": 68.58300000000028
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.034250000000000114,
+          "nsPerWrite": 17.125000000000057
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.034250000000000114,
+          "nsPerWrite": 17.125000000000057
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03433300000000017,
+          "nsPerWrite": 17.166500000000084
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.034292000000000655,
+          "nsPerWrite": 17.146000000000328
+        }
+      ]
+    },
+    {
+      "variant": "pr",
+      "trial": 2,
+      "count": 100,
+      "mode": "unsubscribed",
+      "liveAfterGc": 0,
+      "linksBeforeGc": 0,
+      "linksAfterGc": 0,
+      "timing": {
+        "empty": {
+          "medianNs": 19.396000000000416,
+          "minNs": 17.33300000000071,
+          "maxNs": 91.77100000000138
+        },
+        "abandoned": {
+          "medianNs": 21.854499999999888,
+          "minNs": 17.312499999999176,
+          "maxNs": 79.14599999999972
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.18354200000000276,
+          "nsPerWrite": 91.77100000000138
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.10108299999999915,
+          "nsPerWrite": 50.54149999999957
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.05787499999999923,
+          "nsPerWrite": 28.937499999999616
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.045249999999999346,
+          "nsPerWrite": 22.624999999999673
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.0359589999999983,
+          "nsPerWrite": 17.97949999999915
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.035415999999997894,
+          "nsPerWrite": 17.707999999998943
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03462499999999835,
+          "nsPerWrite": 17.312499999999176
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03474999999999895,
+          "nsPerWrite": 17.374999999999474
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03466600000000142,
+          "nsPerWrite": 17.33300000000071
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.15829199999999943,
+          "nsPerWrite": 79.14599999999972
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.043708999999999776,
+          "nsPerWrite": 21.854499999999888
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03883400000000137,
+          "nsPerWrite": 19.417000000000684
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.038792000000000826,
+          "nsPerWrite": 19.396000000000416
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03887500000000088,
+          "nsPerWrite": 19.43750000000044
+        }
+      ]
+    },
+    {
+      "variant": "pr",
+      "trial": 0,
+      "count": 100,
+      "mode": "handle-discarded",
+      "liveAfterGc": 100,
+      "linksBeforeGc": 100,
+      "linksAfterGc": 100,
+      "timing": {
+        "empty": {
+          "medianNs": 25.414999999995302,
+          "minNs": 18.749999999982947,
+          "maxNs": 148.3299999999943
+        },
+        "abandoned": {
+          "medianNs": 5718.540000000019,
+          "minNs": 5352.704999999993,
+          "maxNs": 8697.710000000001
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.02966599999999886,
+          "nsPerWrite": 148.3299999999943
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.7395420000000001,
+          "nsPerWrite": 8697.710000000001
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.4464170000000003,
+          "nsPerWrite": 7232.085000000001
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.006041999999997216,
+          "nsPerWrite": 30.20999999998608
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.006665999999999173,
+          "nsPerWrite": 33.32999999999586
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.1017500000000027,
+          "nsPerWrite": 5508.750000000013
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.2167090000000016,
+          "nsPerWrite": 6083.545000000008
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0037499999999965894,
+          "nsPerWrite": 18.749999999982947
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0037909999999996558,
+          "nsPerWrite": 18.95499999999828
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.0705409999999986,
+          "nsPerWrite": 5352.704999999993
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.1262919999999994,
+          "nsPerWrite": 5631.459999999996
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.003916000000003805,
+          "nsPerWrite": 19.580000000019027
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0050829999999990605,
+          "nsPerWrite": 25.414999999995302
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.1437080000000037,
+          "nsPerWrite": 5718.540000000019
+        }
+      ]
+    },
+    {
+      "variant": "pr",
+      "trial": 1,
+      "count": 100,
+      "mode": "handle-discarded",
+      "liveAfterGc": 100,
+      "linksBeforeGc": 100,
+      "linksAfterGc": 100,
+      "timing": {
+        "empty": {
+          "medianNs": 19.375000000003695,
+          "minNs": 19.165000000000987,
+          "maxNs": 156.04000000001506
+        },
+        "abandoned": {
+          "medianNs": 6247.499999999988,
+          "minNs": 6132.2900000000045,
+          "maxNs": 9045.415000000006
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.03120800000000301,
+          "nsPerWrite": 156.04000000001506
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.809083000000001,
+          "nsPerWrite": 9045.415000000006
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.5464999999999982,
+          "nsPerWrite": 7732.499999999991
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.005375000000000796,
+          "nsPerWrite": 26.87500000000398
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.02108300000000085,
+          "nsPerWrite": 105.41500000000426
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.2425420000000003,
+          "nsPerWrite": 6212.710000000001
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.2298749999999998,
+          "nsPerWrite": 6149.374999999999
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0038330000000001974,
+          "nsPerWrite": 19.165000000000987
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.003875000000000739,
+          "nsPerWrite": 19.375000000003695
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.2494999999999976,
+          "nsPerWrite": 6247.499999999988
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.2899579999999986,
+          "nsPerWrite": 6449.789999999993
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.003875000000000739,
+          "nsPerWrite": 19.375000000003695
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0038330000000001974,
+          "nsPerWrite": 19.165000000000987
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.226458000000001,
+          "nsPerWrite": 6132.2900000000045
+        }
+      ]
+    },
+    {
+      "variant": "pr",
+      "trial": 2,
+      "count": 100,
+      "mode": "handle-discarded",
+      "liveAfterGc": 100,
+      "linksBeforeGc": 100,
+      "linksAfterGc": 100,
+      "timing": {
+        "empty": {
+          "medianNs": 19.375000000003695,
+          "minNs": 17.91499999999502,
+          "maxNs": 147.91499999999402
+        },
+        "abandoned": {
+          "medianNs": 5182.499999999983,
+          "minNs": 5018.749999999983,
+          "maxNs": 8419.374999999985
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.029582999999998805,
+          "nsPerWrite": 147.91499999999402
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.683874999999997,
+          "nsPerWrite": 8419.374999999985
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.5285420000000016,
+          "nsPerWrite": 7642.710000000008
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.005790999999994995,
+          "nsPerWrite": 28.95499999997497
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.006249999999994316,
+          "nsPerWrite": 31.24999999997158
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.0364999999999966,
+          "nsPerWrite": 5182.499999999983
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.0287080000000017,
+          "nsPerWrite": 5143.540000000009
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.003875000000000739,
+          "nsPerWrite": 19.375000000003695
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0037499999999965894,
+          "nsPerWrite": 18.749999999982947
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.1830830000000034,
+          "nsPerWrite": 5915.415000000017
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.0067079999999962,
+          "nsPerWrite": 5033.539999999981
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0036249999999995453,
+          "nsPerWrite": 18.124999999997726
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0035829999999990036,
+          "nsPerWrite": 17.91499999999502
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.0037499999999966,
+          "nsPerWrite": 5018.749999999983
+        }
+      ]
+    },
+    {
+      "variant": "links",
+      "trial": 0,
+      "count": 4000,
+      "mode": "never-observed",
+      "liveAfterGc": 0,
+      "linksBeforeGc": 0,
+      "linksAfterGc": 0,
+      "timing": {
+        "empty": {
+          "medianNs": 20.770999999999873,
+          "minNs": 20.271000000001038,
+          "maxNs": 87.54149999999683
+        },
+        "abandoned": {
+          "medianNs": 20.66650000000081,
+          "minNs": 20.041499999997825,
+          "maxNs": 71.83349999999677
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.17508299999999366,
+          "nsPerWrite": 87.54149999999683
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.14366699999999355,
+          "nsPerWrite": 71.83349999999677
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.04008299999999565,
+          "nsPerWrite": 20.041499999997825
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04141599999999812,
+          "nsPerWrite": 20.70799999999906
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.0417500000000004,
+          "nsPerWrite": 20.8750000000002
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.04133300000000162,
+          "nsPerWrite": 20.66650000000081
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.04104199999999736,
+          "nsPerWrite": 20.52099999999868
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04124999999999801,
+          "nsPerWrite": 20.624999999999005
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.041541999999999746,
+          "nsPerWrite": 20.770999999999873
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.05850000000000222,
+          "nsPerWrite": 29.25000000000111
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.040540999999997496,
+          "nsPerWrite": 20.270499999998748
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.040542000000002076,
+          "nsPerWrite": 20.271000000001038
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04204199999999503,
+          "nsPerWrite": 21.020999999997514
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.0417500000000004,
+          "nsPerWrite": 20.8750000000002
+        }
+      ]
+    },
+    {
+      "variant": "links",
+      "trial": 1,
+      "count": 4000,
+      "mode": "never-observed",
+      "liveAfterGc": 0,
+      "linksBeforeGc": 0,
+      "linksAfterGc": 0,
+      "timing": {
+        "empty": {
+          "medianNs": 18.062499999999204,
+          "minNs": 17.89599999999858,
+          "maxNs": 93.14599999999906
+        },
+        "abandoned": {
+          "medianNs": 20.041500000001378,
+          "minNs": 17.916500000000113,
+          "maxNs": 66.85449999999982
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.18629199999999813,
+          "nsPerWrite": 93.14599999999906
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.13370899999999963,
+          "nsPerWrite": 66.85449999999982
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03991699999999909,
+          "nsPerWrite": 19.958499999999546
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03579200000000071,
+          "nsPerWrite": 17.896000000000356
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03612499999999841,
+          "nsPerWrite": 18.062499999999204
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.035833000000000226,
+          "nsPerWrite": 17.916500000000113
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.035833000000000226,
+          "nsPerWrite": 17.916500000000113
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03579199999999716,
+          "nsPerWrite": 17.89599999999858
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.035833000000000226,
+          "nsPerWrite": 17.916500000000113
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.05658300000000338,
+          "nsPerWrite": 28.29150000000169
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.04299999999999926,
+          "nsPerWrite": 21.49999999999963
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.0400829999999992,
+          "nsPerWrite": 20.0414999999996
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.040333000000000396,
+          "nsPerWrite": 20.166500000000198
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.040083000000002755,
+          "nsPerWrite": 20.041500000001378
+        }
+      ]
+    },
+    {
+      "variant": "links",
+      "trial": 2,
+      "count": 4000,
+      "mode": "never-observed",
+      "liveAfterGc": 0,
+      "linksBeforeGc": 0,
+      "linksAfterGc": 0,
+      "timing": {
+        "empty": {
+          "medianNs": 19.43750000000044,
+          "minNs": 19.04149999999838,
+          "maxNs": 82.02100000000101
+        },
+        "abandoned": {
+          "medianNs": 21.145499999999373,
+          "minNs": 19.041500000000156,
+          "maxNs": 69.99999999999851
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.16404200000000202,
+          "nsPerWrite": 82.02100000000101
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.13999999999999702,
+          "nsPerWrite": 69.99999999999851
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.042290999999998746,
+          "nsPerWrite": 21.145499999999373
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03808299999999676,
+          "nsPerWrite": 19.04149999999838
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03887500000000088,
+          "nsPerWrite": 19.43750000000044
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03808300000000031,
+          "nsPerWrite": 19.041500000000156
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.038167000000001394,
+          "nsPerWrite": 19.083500000000697
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03808300000000031,
+          "nsPerWrite": 19.041500000000156
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03808300000000031,
+          "nsPerWrite": 19.041500000000156
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.05424999999999969,
+          "nsPerWrite": 27.124999999999844
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.042916999999999206,
+          "nsPerWrite": 21.458499999999603
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.0400829999999992,
+          "nsPerWrite": 20.0414999999996
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04037500000000094,
+          "nsPerWrite": 20.18750000000047
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.0400000000000027,
+          "nsPerWrite": 20.00000000000135
+        }
+      ]
+    },
+    {
+      "variant": "links",
+      "trial": 0,
+      "count": 100,
+      "mode": "never-observed",
+      "liveAfterGc": 0,
+      "linksBeforeGc": 0,
+      "linksAfterGc": 0,
+      "timing": {
+        "empty": {
+          "medianNs": 20.124999999998394,
+          "minNs": 17.958499999998878,
+          "maxNs": 94.64550000000038
+        },
+        "abandoned": {
+          "medianNs": 21.187499999999915,
+          "minNs": 17.85400000000159,
+          "maxNs": 69.56249999999997
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.18929100000000076,
+          "nsPerWrite": 94.64550000000038
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.13912499999999994,
+          "nsPerWrite": 69.56249999999997
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.04237499999999983,
+          "nsPerWrite": 21.187499999999915
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04045800000000099,
+          "nsPerWrite": 20.229000000000493
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.037541000000000935,
+          "nsPerWrite": 18.770500000000467
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.038999999999997925,
+          "nsPerWrite": 19.499999999998963
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03570800000000318,
+          "nsPerWrite": 17.85400000000159
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.035916999999997756,
+          "nsPerWrite": 17.958499999998878
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.036000000000001364,
+          "nsPerWrite": 18.000000000000686
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.12566599999999895,
+          "nsPerWrite": 62.83299999999947
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.044042000000001025,
+          "nsPerWrite": 22.021000000000512
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04024999999999679,
+          "nsPerWrite": 20.124999999998394
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04029200000000088,
+          "nsPerWrite": 20.14600000000044
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.039958999999999634,
+          "nsPerWrite": 19.979499999999817
+        }
+      ]
+    },
+    {
+      "variant": "links",
+      "trial": 1,
+      "count": 100,
+      "mode": "never-observed",
+      "liveAfterGc": 0,
+      "linksBeforeGc": 0,
+      "linksAfterGc": 0,
+      "timing": {
+        "empty": {
+          "medianNs": 20.375000000001364,
+          "minNs": 18.12500000000128,
+          "maxNs": 95.91700000000003
+        },
+        "abandoned": {
+          "medianNs": 24.916499999999786,
+          "minNs": 18.083499999999475,
+          "maxNs": 58.24999999999925
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.19183400000000006,
+          "nsPerWrite": 95.91700000000003
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.11349999999999838,
+          "nsPerWrite": 56.74999999999919
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.054583000000000936,
+          "nsPerWrite": 27.291500000000468
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04295899999999975,
+          "nsPerWrite": 21.479499999999874
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03670900000000188,
+          "nsPerWrite": 18.35450000000094
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03620899999999949,
+          "nsPerWrite": 18.104499999999746
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03616699999999895,
+          "nsPerWrite": 18.083499999999475
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03633300000000261,
+          "nsPerWrite": 18.166500000001307
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03625000000000256,
+          "nsPerWrite": 18.12500000000128
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.1164999999999985,
+          "nsPerWrite": 58.24999999999925
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.04983299999999957,
+          "nsPerWrite": 24.916499999999786
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04083299999999923,
+          "nsPerWrite": 20.416499999999616
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04075000000000273,
+          "nsPerWrite": 20.375000000001364
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.040541999999998524,
+          "nsPerWrite": 20.270999999999262
+        }
+      ]
+    },
+    {
+      "variant": "links",
+      "trial": 2,
+      "count": 100,
+      "mode": "never-observed",
+      "liveAfterGc": 0,
+      "linksBeforeGc": 0,
+      "linksAfterGc": 0,
+      "timing": {
+        "empty": {
+          "medianNs": 20.14600000000044,
+          "minNs": 18.020999999999177,
+          "maxNs": 98.97899999999993
+        },
+        "abandoned": {
+          "medianNs": 22.603999999999402,
+          "minNs": 17.896000000000356,
+          "maxNs": 64.16699999999942
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.19795799999999986,
+          "nsPerWrite": 98.97899999999993
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.12833399999999884,
+          "nsPerWrite": 64.16699999999942
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.05329199999999901,
+          "nsPerWrite": 26.645999999999507
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.05116599999999849,
+          "nsPerWrite": 25.582999999999245
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03658400000000128,
+          "nsPerWrite": 18.29200000000064
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03579200000000071,
+          "nsPerWrite": 17.896000000000356
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.035833000000000226,
+          "nsPerWrite": 17.916500000000113
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.05000000000000071,
+          "nsPerWrite": 25.000000000000355
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03604199999999835,
+          "nsPerWrite": 18.020999999999177
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.1161670000000008,
+          "nsPerWrite": 58.0835000000004
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.045207999999998805,
+          "nsPerWrite": 22.603999999999402
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04029200000000088,
+          "nsPerWrite": 20.14600000000044
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04025000000000034,
+          "nsPerWrite": 20.12500000000017
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.04008400000000023,
+          "nsPerWrite": 20.042000000000115
+        }
+      ]
+    },
+    {
+      "variant": "links",
+      "trial": 0,
+      "count": 100,
+      "mode": "unsubscribed",
+      "liveAfterGc": 0,
+      "linksBeforeGc": 0,
+      "linksAfterGc": 0,
+      "timing": {
+        "empty": {
+          "medianNs": 20.39550000000112,
+          "minNs": 18.291500000000127,
+          "maxNs": 96.5000000000007
+        },
+        "abandoned": {
+          "medianNs": 23.625000000000895,
+          "minNs": 18.16649999999953,
+          "maxNs": 61.521000000000825
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.1930000000000014,
+          "nsPerWrite": 96.5000000000007
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.11724999999999852,
+          "nsPerWrite": 58.62499999999926
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.06979200000000318,
+          "nsPerWrite": 34.89600000000159
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04079100000000224,
+          "nsPerWrite": 20.39550000000112
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03695900000000307,
+          "nsPerWrite": 18.479500000001536
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03633299999999906,
+          "nsPerWrite": 18.16649999999953
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03633300000000261,
+          "nsPerWrite": 18.166500000001307
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03658399999999773,
+          "nsPerWrite": 18.291999999998865
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.036583000000000254,
+          "nsPerWrite": 18.291500000000127
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.12304200000000165,
+          "nsPerWrite": 61.521000000000825
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.04725000000000179,
+          "nsPerWrite": 23.625000000000895
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04087499999999977,
+          "nsPerWrite": 20.437499999999886
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.040959000000000856,
+          "nsPerWrite": 20.479500000000428
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.04062499999999858,
+          "nsPerWrite": 20.31249999999929
+        }
+      ]
+    },
+    {
+      "variant": "links",
+      "trial": 1,
+      "count": 100,
+      "mode": "unsubscribed",
+      "liveAfterGc": 0,
+      "linksBeforeGc": 0,
+      "linksAfterGc": 0,
+      "timing": {
+        "empty": {
+          "medianNs": 18.478999999999246,
+          "minNs": 18.1874999999998,
+          "maxNs": 103.68749999999949
+        },
+        "abandoned": {
+          "medianNs": 23.249999999999105,
+          "minNs": 18.124999999999503,
+          "maxNs": 82.5414999999996
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.20737499999999898,
+          "nsPerWrite": 103.68749999999949
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.1650829999999992,
+          "nsPerWrite": 82.5414999999996
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.05466600000000099,
+          "nsPerWrite": 27.333000000000496
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.036666999999997785,
+          "nsPerWrite": 18.333499999998892
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03695799999999849,
+          "nsPerWrite": 18.478999999999246
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.036249999999999005,
+          "nsPerWrite": 18.124999999999503
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03629199999999955,
+          "nsPerWrite": 18.145999999999773
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03645799999999966,
+          "nsPerWrite": 18.22899999999983
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.0363749999999996,
+          "nsPerWrite": 18.1874999999998
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.12416599999999889,
+          "nsPerWrite": 62.082999999999444
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.04649999999999821,
+          "nsPerWrite": 23.249999999999105
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04087499999999977,
+          "nsPerWrite": 20.437499999999886
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04070899999999966,
+          "nsPerWrite": 20.35449999999983
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.04079199999999972,
+          "nsPerWrite": 20.39599999999986
+        }
+      ]
+    },
+    {
+      "variant": "links",
+      "trial": 2,
+      "count": 100,
+      "mode": "unsubscribed",
+      "liveAfterGc": 0,
+      "linksBeforeGc": 0,
+      "linksAfterGc": 0,
+      "timing": {
+        "empty": {
+          "medianNs": 21.08349999999959,
+          "minNs": 18.812499999999233,
+          "maxNs": 95.31250000000036
+        },
+        "abandoned": {
+          "medianNs": 27.833000000001107,
+          "minNs": 18.77100000000098,
+          "maxNs": 62.95849999999881
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.1906250000000007,
+          "nsPerWrite": 95.31250000000036
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.11970799999999926,
+          "nsPerWrite": 59.85399999999963
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.075959000000001,
+          "nsPerWrite": 37.9795000000005
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.048791999999998836,
+          "nsPerWrite": 24.395999999999418
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.037624999999998465,
+          "nsPerWrite": 18.812499999999233
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03754200000000196,
+          "nsPerWrite": 18.77100000000098
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.03774999999999906,
+          "nsPerWrite": 18.87499999999953
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03770799999999852,
+          "nsPerWrite": 18.85399999999926
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.03783299999999912,
+          "nsPerWrite": 18.91649999999956
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.12591699999999761,
+          "nsPerWrite": 62.95849999999881
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.055666000000002214,
+          "nsPerWrite": 27.833000000001107
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04237499999999983,
+          "nsPerWrite": 21.187499999999915
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 2000,
+          "elapsedMs": 0.04216699999999918,
+          "nsPerWrite": 21.08349999999959
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 2000,
+          "elapsedMs": 0.04204199999999858,
+          "nsPerWrite": 21.02099999999929
+        }
+      ]
+    },
+    {
+      "variant": "links",
+      "trial": 0,
+      "count": 100,
+      "mode": "handle-discarded",
+      "liveAfterGc": 100,
+      "linksBeforeGc": 100,
+      "linksAfterGc": 100,
+      "timing": {
+        "empty": {
+          "medianNs": 20.209999999991624,
+          "minNs": 19.585000000006403,
+          "maxNs": 152.08499999999958
+        },
+        "abandoned": {
+          "medianNs": 5766.460000000003,
+          "minNs": 5688.335000000003,
+          "maxNs": 9026.664999999986
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.030416999999999916,
+          "nsPerWrite": 152.08499999999958
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.8053329999999974,
+          "nsPerWrite": 9026.664999999986
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.4618750000000027,
+          "nsPerWrite": 7309.375000000014
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.004167000000002474,
+          "nsPerWrite": 20.835000000012368
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0045000000000001705,
+          "nsPerWrite": 22.500000000000856
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.183957999999997,
+          "nsPerWrite": 5919.7899999999845
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.1532920000000004,
+          "nsPerWrite": 5766.460000000003
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.003958000000004347,
+          "nsPerWrite": 19.790000000021735
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.003958000000004347,
+          "nsPerWrite": 19.790000000021735
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.1415840000000017,
+          "nsPerWrite": 5707.920000000008
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.146334000000003,
+          "nsPerWrite": 5731.6700000000155
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.003917000000001281,
+          "nsPerWrite": 19.585000000006403
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.004041999999998325,
+          "nsPerWrite": 20.209999999991624
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.1376670000000004,
+          "nsPerWrite": 5688.335000000003
+        }
+      ]
+    },
+    {
+      "variant": "links",
+      "trial": 1,
+      "count": 100,
+      "mode": "handle-discarded",
+      "liveAfterGc": 100,
+      "linksBeforeGc": 100,
+      "linksAfterGc": 100,
+      "timing": {
+        "empty": {
+          "medianNs": 20.420000000012095,
+          "minNs": 18.335000000000434,
+          "maxNs": 145.41499999999985
+        },
+        "abandoned": {
+          "medianNs": 5825.420000000001,
+          "minNs": 5125.625000000014,
+          "maxNs": 9116.875000000011
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.02908299999999997,
+          "nsPerWrite": 145.41499999999985
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.8233750000000022,
+          "nsPerWrite": 9116.875000000011
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.547708,
+          "nsPerWrite": 7738.54
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0037090000000006285,
+          "nsPerWrite": 18.545000000003142
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.004084000000002419,
+          "nsPerWrite": 20.420000000012095
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.2072920000000025,
+          "nsPerWrite": 6036.460000000013
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.0251250000000027,
+          "nsPerWrite": 5125.625000000014
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.003667000000000087,
+          "nsPerWrite": 18.335000000000434
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.003667000000000087,
+          "nsPerWrite": 18.335000000000434
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.0998749999999973,
+          "nsPerWrite": 5499.374999999986
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.1650840000000002,
+          "nsPerWrite": 5825.420000000001
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.004208000000005541,
+          "nsPerWrite": 21.040000000027703
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.005124999999999602,
+          "nsPerWrite": 25.624999999998007
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.0963750000000019,
+          "nsPerWrite": 5481.875000000009
+        }
+      ]
+    },
+    {
+      "variant": "links",
+      "trial": 2,
+      "count": 100,
+      "mode": "handle-discarded",
+      "liveAfterGc": 100,
+      "linksBeforeGc": 100,
+      "linksAfterGc": 100,
+      "timing": {
+        "empty": {
+          "medianNs": 18.960000000021182,
+          "minNs": 18.540000000015766,
+          "maxNs": 141.0400000000145
+        },
+        "abandoned": {
+          "medianNs": 5851.459999999981,
+          "minNs": 5231.250000000003,
+          "maxNs": 9685.62500000001
+        }
+      },
+      "samples": [
+        {
+          "round": 0,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.028208000000002897,
+          "nsPerWrite": 141.0400000000145
+        },
+        {
+          "round": 0,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.9371250000000018,
+          "nsPerWrite": 9685.62500000001
+        },
+        {
+          "round": 1,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.5750829999999993,
+          "nsPerWrite": 7875.414999999996
+        },
+        {
+          "round": 1,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.004082999999997838,
+          "nsPerWrite": 20.414999999989192
+        },
+        {
+          "round": 2,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.004459000000000657,
+          "nsPerWrite": 22.295000000003284
+        },
+        {
+          "round": 2,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.181833000000001,
+          "nsPerWrite": 5909.1650000000045
+        },
+        {
+          "round": 3,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.1517920000000004,
+          "nsPerWrite": 5758.960000000003
+        },
+        {
+          "round": 3,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0037080000000031532,
+          "nsPerWrite": 18.540000000015766
+        },
+        {
+          "round": 4,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0037090000000006285,
+          "nsPerWrite": 18.545000000003142
+        },
+        {
+          "round": 4,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.1702919999999963,
+          "nsPerWrite": 5851.459999999981
+        },
+        {
+          "round": 5,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.0462500000000006,
+          "nsPerWrite": 5231.250000000003
+        },
+        {
+          "round": 5,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0037920000000042364,
+          "nsPerWrite": 18.960000000021182
+        },
+        {
+          "round": 6,
+          "label": "empty",
+          "iterations": 200,
+          "elapsedMs": 0.0037499999999965894,
+          "nsPerWrite": 18.749999999982947
+        },
+        {
+          "round": 6,
+          "label": "abandoned",
+          "iterations": 200,
+          "elapsedMs": 1.1461249999999978,
+          "nsPerWrite": 5730.624999999989
+        }
+      ]
+    }
+  ]
+}

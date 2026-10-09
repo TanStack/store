@@ -125,6 +125,46 @@ Defined in: [types.ts:30](https://github.com/TanStack/store/blob/main/packages/s
 
 ***
 
+### lastRead?
+
+```ts
+optional lastRead: number;
+```
+
+Defined in: [alien.ts:14](https://github.com/TanStack/store/blob/main/packages/store/src/alien.ts#L14)
+
+**`Internal`**
+
+Last cold computation that read this dependency.
+
+#### Inherited from
+
+```ts
+ReactiveNode.lastRead
+```
+
+***
+
+### runId?
+
+```ts
+optional runId: number;
+```
+
+Defined in: [alien.ts:12](https://github.com/TanStack/store/blob/main/packages/store/src/alien.ts#L12)
+
+**`Internal`**
+
+Stable tracking id for the current cold computation.
+
+#### Inherited from
+
+```ts
+ReactiveNode.runId
+```
+
+***
+
 ### subs?
 
 ```ts

@@ -1,0 +1,2784 @@
+{
+  "metadata": {
+    "node": "v25.8.1",
+    "cpu": "Apple M3 Max",
+    "logicalCpus": 14,
+    "rounds": 7,
+    "methodology": "2 full warmup workloads before each timed fresh graph; rotated sequential variants in isolated workers; forced GC between workloads; elapsed wall time excludes setup, cleanup, assertions and GC"
+  },
+  "manifest": {
+    "output": "recreate-with-prepare.mjs",
+    "node": "v25.8.1",
+    "platform": "darwin",
+    "arch": "arm64",
+    "esbuild": "0.27.7",
+    "target": "es2022",
+    "compression": "gzip level 9; Brotli quality 11",
+    "variants": [
+      {
+        "label": "baseline",
+        "source": "e06c28cbdf3514c4edd5dfc29c4d05e396363605",
+        "sourceHashes": {
+          "alien.ts": "a651f884d7cd8ad4da231c4de5334cce89ab6e73b32c3fd1d8d2f0c8f20a804b",
+          "atom.ts": "098dfdf21c63f46eba54e05ca12fd2f29ebbbc971886ac845be0747ab814b92e",
+          "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+          "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+          "signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+          "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+          "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+        },
+        "runtime": "baseline/runtime.mjs"
+      },
+      {
+        "label": "pr",
+        "source": "a7cc518cdbbd9ae7d6c60ed579bfaec42c7bce34",
+        "sourceHashes": {
+          "alien.ts": "424b876f84b386e6daaede7347d1fb6b2ddef64def80043586cfd7a59c49b66f",
+          "atom.ts": "5e61d40dac9ab832376e9ed260b5bf0fdb53f57b3603e97c9324d1a295b6f98c",
+          "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+          "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+          "signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+          "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+          "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+        },
+        "runtime": "pr/runtime.mjs"
+      },
+      {
+        "label": "links",
+        "source": ".cache/retention-research/results/final-links/sources/links",
+        "sourceHashes": {
+          "alien.ts": "41b3e33ab6f3fa033a01c1d76e0a2bc89557191e552a86bc91b3075cb8acace0",
+          "atom.ts": "c3447c86af0e93d11611efce4267046ee9f84ee327803ea640cd74c9c95a27b5",
+          "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+          "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+          "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+          "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+        },
+        "runtime": "links/runtime.mjs"
+      }
+    ],
+    "sizes": [
+      {
+        "variant": "baseline",
+        "entry": "createAtom",
+        "minifiedBytes": 3661,
+        "gzipBytes": 1504,
+        "brotliBytes": 1403
+      },
+      {
+        "variant": "baseline",
+        "entry": "fullStore",
+        "minifiedBytes": 5353,
+        "gzipBytes": 2077,
+        "brotliBytes": 1939
+      },
+      {
+        "variant": "baseline",
+        "entry": "reactSelector",
+        "minifiedBytes": 3978,
+        "gzipBytes": 1661,
+        "brotliBytes": 1543
+      },
+      {
+        "variant": "pr",
+        "entry": "createAtom",
+        "minifiedBytes": 4311,
+        "gzipBytes": 1754,
+        "brotliBytes": 1630
+      },
+      {
+        "variant": "pr",
+        "entry": "fullStore",
+        "minifiedBytes": 6005,
+        "gzipBytes": 2331,
+        "brotliBytes": 2158
+      },
+      {
+        "variant": "pr",
+        "entry": "reactSelector",
+        "minifiedBytes": 4628,
+        "gzipBytes": 1917,
+        "brotliBytes": 1774
+      },
+      {
+        "variant": "links",
+        "entry": "createAtom",
+        "minifiedBytes": 4451,
+        "gzipBytes": 1808,
+        "brotliBytes": 1679
+      },
+      {
+        "variant": "links",
+        "entry": "fullStore",
+        "minifiedBytes": 6147,
+        "gzipBytes": 2386,
+        "brotliBytes": 2210
+      },
+      {
+        "variant": "links",
+        "entry": "reactSelector",
+        "minifiedBytes": 4768,
+        "gzipBytes": 1971,
+        "brotliBytes": 1823
+      }
+    ]
+  },
+  "preflight": [
+    {
+      "variant": "baseline",
+      "rows": [
+        {
+          "name": "plain_read",
+          "iterations": 10000,
+          "elapsedMs": 0.12158299999999755,
+          "nsPerIteration": 12.158299999999755
+        },
+        {
+          "name": "plain_write",
+          "iterations": 4000,
+          "elapsedMs": 0.16058299999999903,
+          "nsPerIteration": 40.14574999999976
+        },
+        {
+          "name": "observed_chain8_write",
+          "iterations": 250,
+          "elapsedMs": 0.16250000000000142,
+          "nsPerIteration": 650.0000000000057,
+          "counters": {
+            "computes": 2008,
+            "notifications": 250
+          }
+        },
+        {
+          "name": "observed_diamond8_write",
+          "iterations": 200,
+          "elapsedMs": 0.2448750000000004,
+          "nsPerIteration": 1224.375000000002,
+          "counters": {
+            "computes": 1809,
+            "notifications": 200
+          }
+        },
+        {
+          "name": "unobserved_chain8_cached_get",
+          "iterations": 5000,
+          "elapsedMs": 0.06854200000000077,
+          "nsPerIteration": 13.708400000000154,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "unrelated_write_chain8_cached_get",
+          "iterations": 1000,
+          "elapsedMs": 0.038375000000002046,
+          "nsPerIteration": 38.375000000002046,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "unrelated_write_fanin64_cached_get",
+          "iterations": 250,
+          "elapsedMs": 0.02695800000000048,
+          "nsPerIteration": 107.83200000000193,
+          "counters": {
+            "computes": 1
+          }
+        },
+        {
+          "name": "unobserved_chain8_write_read",
+          "iterations": 250,
+          "elapsedMs": 0.12191700000000338,
+          "nsPerIteration": 487.66800000001354,
+          "counters": {
+            "computes": 2008,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "create_read_discard",
+          "iterations": 250,
+          "elapsedMs": 0.054959000000003755,
+          "nsPerIteration": 219.83600000001502,
+          "counters": {
+            "computes": 250
+          }
+        },
+        {
+          "name": "computed_subscribe_unsubscribe",
+          "iterations": 200,
+          "elapsedMs": 0.18891699999999645,
+          "nsPerIteration": 944.5849999999823,
+          "counters": {
+            "computes": 1608,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "unobserved_chain32_write_read",
+          "iterations": 63,
+          "elapsedMs": 0.0991250000000008,
+          "nsPerIteration": 1573.412698412711,
+          "counters": {
+            "computes": 2048,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "unobserved_chain128_write_read",
+          "iterations": 16,
+          "elapsedMs": 0.09545800000000071,
+          "nsPerIteration": 5966.125000000045,
+          "counters": {
+            "computes": 2176,
+            "notifications": 0
+          }
+        }
+      ],
+      "sink": 539955
+    },
+    {
+      "variant": "pr",
+      "rows": [
+        {
+          "name": "plain_read",
+          "iterations": 10000,
+          "elapsedMs": 0.04720800000000125,
+          "nsPerIteration": 4.720800000000125
+        },
+        {
+          "name": "plain_write",
+          "iterations": 4000,
+          "elapsedMs": 0.0970419999999983,
+          "nsPerIteration": 24.260499999999574
+        },
+        {
+          "name": "observed_chain8_write",
+          "iterations": 250,
+          "elapsedMs": 0.2197090000000017,
+          "nsPerIteration": 878.8360000000068,
+          "counters": {
+            "computes": 2008,
+            "notifications": 250
+          }
+        },
+        {
+          "name": "observed_diamond8_write",
+          "iterations": 200,
+          "elapsedMs": 0.1843749999999993,
+          "nsPerIteration": 921.8749999999965,
+          "counters": {
+            "computes": 1809,
+            "notifications": 200
+          }
+        },
+        {
+          "name": "unobserved_chain8_cached_get",
+          "iterations": 5000,
+          "elapsedMs": 0.11216699999999946,
+          "nsPerIteration": 22.433399999999892,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "unrelated_write_chain8_cached_get",
+          "iterations": 1000,
+          "elapsedMs": 0.2241250000000008,
+          "nsPerIteration": 224.1250000000008,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "unrelated_write_fanin64_cached_get",
+          "iterations": 250,
+          "elapsedMs": 0.1074169999999981,
+          "nsPerIteration": 429.6679999999924,
+          "counters": {
+            "computes": 1
+          }
+        },
+        {
+          "name": "unobserved_chain8_write_read",
+          "iterations": 250,
+          "elapsedMs": 0.5365409999999997,
+          "nsPerIteration": 2146.163999999999,
+          "counters": {
+            "computes": 2008,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "create_read_discard",
+          "iterations": 250,
+          "elapsedMs": 0.06112499999999699,
+          "nsPerIteration": 244.49999999998795,
+          "counters": {
+            "computes": 250
+          }
+        },
+        {
+          "name": "computed_subscribe_unsubscribe",
+          "iterations": 200,
+          "elapsedMs": 0.14008400000000165,
+          "nsPerIteration": 700.4200000000083,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "unobserved_chain32_write_read",
+          "iterations": 63,
+          "elapsedMs": 0.9286249999999967,
+          "nsPerIteration": 14740.079365079313,
+          "counters": {
+            "computes": 2048,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "unobserved_chain128_write_read",
+          "iterations": 16,
+          "elapsedMs": 4.267708000000013,
+          "nsPerIteration": 266731.7500000008,
+          "counters": {
+            "computes": 2176,
+            "notifications": 0
+          }
+        }
+      ],
+      "sink": 539955
+    },
+    {
+      "variant": "links",
+      "rows": [
+        {
+          "name": "plain_read",
+          "iterations": 10000,
+          "elapsedMs": 0.042916999999999206,
+          "nsPerIteration": 4.291699999999921
+        },
+        {
+          "name": "plain_write",
+          "iterations": 4000,
+          "elapsedMs": 0.09333300000000122,
+          "nsPerIteration": 23.333250000000305
+        },
+        {
+          "name": "observed_chain8_write",
+          "iterations": 250,
+          "elapsedMs": 0.20550000000000068,
+          "nsPerIteration": 822.0000000000027,
+          "counters": {
+            "computes": 2008,
+            "notifications": 250
+          }
+        },
+        {
+          "name": "observed_diamond8_write",
+          "iterations": 200,
+          "elapsedMs": 0.1757080000000002,
+          "nsPerIteration": 878.540000000001,
+          "counters": {
+            "computes": 1809,
+            "notifications": 200
+          }
+        },
+        {
+          "name": "unobserved_chain8_cached_get",
+          "iterations": 5000,
+          "elapsedMs": 0.10862499999999642,
+          "nsPerIteration": 21.724999999999284,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "unrelated_write_chain8_cached_get",
+          "iterations": 1000,
+          "elapsedMs": 0.24416699999999736,
+          "nsPerIteration": 244.16699999999736,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "unrelated_write_fanin64_cached_get",
+          "iterations": 250,
+          "elapsedMs": 0.13262499999999733,
+          "nsPerIteration": 530.4999999999893,
+          "counters": {
+            "computes": 1
+          }
+        },
+        {
+          "name": "unobserved_chain8_write_read",
+          "iterations": 250,
+          "elapsedMs": 0.3286250000000024,
+          "nsPerIteration": 1314.5000000000095,
+          "counters": {
+            "computes": 2008,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "create_read_discard",
+          "iterations": 250,
+          "elapsedMs": 0.08370899999999892,
+          "nsPerIteration": 334.8359999999957,
+          "counters": {
+            "computes": 250
+          }
+        },
+        {
+          "name": "computed_subscribe_unsubscribe",
+          "iterations": 200,
+          "elapsedMs": 0.21795799999999588,
+          "nsPerIteration": 1089.7899999999793,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "unobserved_chain32_write_read",
+          "iterations": 63,
+          "elapsedMs": 0.17604200000000247,
+          "nsPerIteration": 2794.3174603175,
+          "counters": {
+            "computes": 2048,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "unobserved_chain128_write_read",
+          "iterations": 16,
+          "elapsedMs": 0.18233299999999986,
+          "nsPerIteration": 11395.81249999999,
+          "counters": {
+            "computes": 2176,
+            "notifications": 0
+          }
+        }
+      ],
+      "sink": 539955
+    }
+  ],
+  "summaries": [
+    {
+      "variant": "baseline",
+      "name": "plain_read",
+      "medianNs": 2.330666000000001,
+      "minNs": 2.229125,
+      "maxNs": 2.4247080000000025,
+      "iterations": 1000000
+    },
+    {
+      "variant": "baseline",
+      "name": "plain_write",
+      "medianNs": 10.14885249999999,
+      "minNs": 9.769792499999994,
+      "maxNs": 10.296040000000009,
+      "iterations": 400000
+    },
+    {
+      "variant": "baseline",
+      "name": "observed_chain8_write",
+      "medianNs": 249.52667999999989,
+      "minNs": 244.96331999999995,
+      "maxNs": 253.2250000000002,
+      "iterations": 25000
+    },
+    {
+      "variant": "baseline",
+      "name": "observed_diamond8_write",
+      "medianNs": 385.59375000000034,
+      "minNs": 369.0062500000003,
+      "maxNs": 408.6458499999999,
+      "iterations": 20000
+    },
+    {
+      "variant": "baseline",
+      "name": "unobserved_chain8_cached_get",
+      "medianNs": 3.1945840000000203,
+      "minNs": 3.0519999999999925,
+      "maxNs": 3.288083999999998,
+      "iterations": 500000
+    },
+    {
+      "variant": "baseline",
+      "name": "unrelated_write_chain8_cached_get",
+      "medianNs": 26.64500000000004,
+      "minNs": 25.240420000000086,
+      "maxNs": 27.0341599999999,
+      "iterations": 100000
+    },
+    {
+      "variant": "baseline",
+      "name": "unrelated_write_fanin64_cached_get",
+      "medianNs": 24.93668000000014,
+      "minNs": 24.366640000000075,
+      "maxNs": 26.6816799999998,
+      "iterations": 25000
+    },
+    {
+      "variant": "baseline",
+      "name": "unobserved_chain8_write_read",
+      "medianNs": 233.7683200000004,
+      "minNs": 229.43831999999986,
+      "maxNs": 241.13499999999928,
+      "iterations": 25000
+    },
+    {
+      "variant": "baseline",
+      "name": "create_read_discard",
+      "medianNs": 79.00499999999965,
+      "minNs": 66.19331999999986,
+      "maxNs": 82.87331999999992,
+      "iterations": 25000
+    },
+    {
+      "variant": "baseline",
+      "name": "computed_subscribe_unsubscribe",
+      "medianNs": 382.76460000000014,
+      "minNs": 368.84165000000024,
+      "maxNs": 396.38749999999874,
+      "iterations": 20000
+    },
+    {
+      "variant": "baseline",
+      "name": "unobserved_chain32_write_read",
+      "medianNs": 893.9200000000028,
+      "minNs": 851.40672,
+      "maxNs": 918.3334400000012,
+      "iterations": 6250
+    },
+    {
+      "variant": "baseline",
+      "name": "unobserved_chain128_write_read",
+      "medianNs": 3432.5015994881696,
+      "minNs": 3191.9385796545134,
+      "maxNs": 3495.0153550863656,
+      "iterations": 1563
+    },
+    {
+      "variant": "pr",
+      "name": "plain_read",
+      "medianNs": 2.351749999999999,
+      "minNs": 2.2568749999999973,
+      "maxNs": 2.425833000000001,
+      "iterations": 1000000
+    },
+    {
+      "variant": "pr",
+      "name": "plain_write",
+      "medianNs": 10.337812500000005,
+      "minNs": 10.219582500000008,
+      "maxNs": 10.949790000000005,
+      "iterations": 400000
+    },
+    {
+      "variant": "pr",
+      "name": "observed_chain8_write",
+      "medianNs": 279.45168000000024,
+      "minNs": 274.0149999999997,
+      "maxNs": 283.93336000000033,
+      "iterations": 25000
+    },
+    {
+      "variant": "pr",
+      "name": "observed_diamond8_write",
+      "medianNs": 425.21460000000036,
+      "minNs": 422.64580000000007,
+      "maxNs": 432.9250000000002,
+      "iterations": 20000
+    },
+    {
+      "variant": "pr",
+      "name": "unobserved_chain8_cached_get",
+      "medianNs": 10.351249999999993,
+      "minNs": 9.894083999999992,
+      "maxNs": 11.669584000000015,
+      "iterations": 500000
+    },
+    {
+      "variant": "pr",
+      "name": "unrelated_write_chain8_cached_get",
+      "medianNs": 140.63834000000014,
+      "minNs": 140.25500000000022,
+      "maxNs": 142.66291999999993,
+      "iterations": 100000
+    },
+    {
+      "variant": "pr",
+      "name": "unrelated_write_fanin64_cached_get",
+      "medianNs": 375.21167999999983,
+      "minNs": 368.7199999999996,
+      "maxNs": 378.79000000000025,
+      "iterations": 25000
+    },
+    {
+      "variant": "pr",
+      "name": "unobserved_chain8_write_read",
+      "medianNs": 1164.8433599999998,
+      "minNs": 1150.8666400000004,
+      "maxNs": 1202.6016400000003,
+      "iterations": 25000
+    },
+    {
+      "variant": "pr",
+      "name": "create_read_discard",
+      "medianNs": 90.66000000000032,
+      "minNs": 89.65168000000178,
+      "maxNs": 96.46000000000187,
+      "iterations": 25000
+    },
+    {
+      "variant": "pr",
+      "name": "computed_subscribe_unsubscribe",
+      "medianNs": 291.87914999999975,
+      "minNs": 288.4687499999984,
+      "maxNs": 300.5895500000008,
+      "iterations": 20000
+    },
+    {
+      "variant": "pr",
+      "name": "unobserved_chain32_write_read",
+      "medianNs": 13762.94656,
+      "minNs": 13624.713439999996,
+      "maxNs": 14088.893440000013,
+      "iterations": 6250
+    },
+    {
+      "variant": "pr",
+      "name": "unobserved_chain128_write_read",
+      "medianNs": 245404.2968650032,
+      "minNs": 242338.63851567503,
+      "maxNs": 251597.48880358273,
+      "iterations": 1563
+    },
+    {
+      "variant": "links",
+      "name": "plain_read",
+      "medianNs": 2.2650419999999976,
+      "minNs": 2.208957999999999,
+      "maxNs": 2.307417000000001,
+      "iterations": 1000000
+    },
+    {
+      "variant": "links",
+      "name": "plain_write",
+      "medianNs": 10.807395,
+      "minNs": 10.603542499999996,
+      "maxNs": 11.023230000000002,
+      "iterations": 400000
+    },
+    {
+      "variant": "links",
+      "name": "observed_chain8_write",
+      "medianNs": 288.5433200000003,
+      "minNs": 285.0200000000001,
+      "maxNs": 309.9266400000002,
+      "iterations": 25000
+    },
+    {
+      "variant": "links",
+      "name": "observed_diamond8_write",
+      "medianNs": 438.1146000000001,
+      "minNs": 417.31669999999997,
+      "maxNs": 446.89165000000054,
+      "iterations": 20000
+    },
+    {
+      "variant": "links",
+      "name": "unobserved_chain8_cached_get",
+      "medianNs": 8.751083999999993,
+      "minNs": 8.320000000000022,
+      "maxNs": 9.144333999999986,
+      "iterations": 500000
+    },
+    {
+      "variant": "links",
+      "name": "unrelated_write_chain8_cached_get",
+      "medianNs": 121.76958999999984,
+      "minNs": 119.95083000000022,
+      "maxNs": 131.14542,
+      "iterations": 100000
+    },
+    {
+      "variant": "links",
+      "name": "unrelated_write_fanin64_cached_get",
+      "medianNs": 371.5416800000003,
+      "minNs": 370.3116799999998,
+      "maxNs": 375.12332000000015,
+      "iterations": 25000
+    },
+    {
+      "variant": "links",
+      "name": "unobserved_chain8_write_read",
+      "medianNs": 368.9799999999991,
+      "minNs": 354.04331999999954,
+      "maxNs": 371.6666399999997,
+      "iterations": 25000
+    },
+    {
+      "variant": "links",
+      "name": "create_read_discard",
+      "medianNs": 93.07831999999962,
+      "minNs": 90.9050000000002,
+      "maxNs": 97.65331999999944,
+      "iterations": 25000
+    },
+    {
+      "variant": "links",
+      "name": "computed_subscribe_unsubscribe",
+      "medianNs": 300.4937499999997,
+      "minNs": 293.2562500000003,
+      "maxNs": 324.24999999999926,
+      "iterations": 20000
+    },
+    {
+      "variant": "links",
+      "name": "unobserved_chain32_write_read",
+      "medianNs": 1403.1665599999997,
+      "minNs": 1368.1532799999968,
+      "maxNs": 1450.3332800000044,
+      "iterations": 6250
+    },
+    {
+      "variant": "links",
+      "name": "unobserved_chain128_write_read",
+      "medianNs": 6270.926423544445,
+      "minNs": 5948.470249520156,
+      "maxNs": 6479.099808061442,
+      "iterations": 1563
+    }
+  ],
+  "samples": [
+    {
+      "round": 0,
+      "variant": "baseline",
+      "name": "plain_read",
+      "iterations": 1000000,
+      "elapsedMs": 2.2332500000000017,
+      "nsPerIteration": 2.2332500000000017
+    },
+    {
+      "round": 0,
+      "variant": "baseline",
+      "name": "plain_write",
+      "iterations": 400000,
+      "elapsedMs": 3.9079169999999976,
+      "nsPerIteration": 9.769792499999994
+    },
+    {
+      "round": 0,
+      "variant": "baseline",
+      "name": "observed_chain8_write",
+      "iterations": 25000,
+      "elapsedMs": 6.1815,
+      "nsPerIteration": 247.26
+    },
+    {
+      "round": 0,
+      "variant": "baseline",
+      "name": "observed_diamond8_write",
+      "iterations": 20000,
+      "elapsedMs": 7.5626669999999905,
+      "nsPerIteration": 378.13334999999955
+    },
+    {
+      "round": 0,
+      "variant": "baseline",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 500000,
+      "elapsedMs": 1.5259999999999962,
+      "nsPerIteration": 3.0519999999999925
+    },
+    {
+      "round": 0,
+      "variant": "baseline",
+      "name": "unrelated_write_chain8_cached_get",
+      "iterations": 100000,
+      "elapsedMs": 2.5240420000000086,
+      "nsPerIteration": 25.240420000000086
+    },
+    {
+      "round": 0,
+      "variant": "baseline",
+      "name": "unrelated_write_fanin64_cached_get",
+      "iterations": 25000,
+      "elapsedMs": 0.6234170000000034,
+      "nsPerIteration": 24.93668000000014
+    },
+    {
+      "round": 0,
+      "variant": "baseline",
+      "name": "unobserved_chain8_write_read",
+      "iterations": 25000,
+      "elapsedMs": 5.735957999999997,
+      "nsPerIteration": 229.43831999999986
+    },
+    {
+      "round": 0,
+      "variant": "baseline",
+      "name": "create_read_discard",
+      "iterations": 25000,
+      "elapsedMs": 1.9585830000000044,
+      "nsPerIteration": 78.34332000000018
+    },
+    {
+      "round": 0,
+      "variant": "baseline",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 20000,
+      "elapsedMs": 7.911417,
+      "nsPerIteration": 395.57085
+    },
+    {
+      "round": 0,
+      "variant": "baseline",
+      "name": "unobserved_chain32_write_read",
+      "iterations": 6250,
+      "elapsedMs": 5.321292,
+      "nsPerIteration": 851.40672
+    },
+    {
+      "round": 0,
+      "variant": "baseline",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 1563,
+      "elapsedMs": 5.192416000000009,
+      "nsPerIteration": 3322.0831733845225
+    },
+    {
+      "round": 0,
+      "variant": "pr",
+      "name": "plain_read",
+      "iterations": 1000000,
+      "elapsedMs": 2.351749999999999,
+      "nsPerIteration": 2.351749999999999
+    },
+    {
+      "round": 0,
+      "variant": "pr",
+      "name": "plain_write",
+      "iterations": 400000,
+      "elapsedMs": 4.135125000000002,
+      "nsPerIteration": 10.337812500000005
+    },
+    {
+      "round": 0,
+      "variant": "pr",
+      "name": "observed_chain8_write",
+      "iterations": 25000,
+      "elapsedMs": 6.8503749999999926,
+      "nsPerIteration": 274.0149999999997
+    },
+    {
+      "round": 0,
+      "variant": "pr",
+      "name": "observed_diamond8_write",
+      "iterations": 20000,
+      "elapsedMs": 8.652749999999997,
+      "nsPerIteration": 432.63749999999993
+    },
+    {
+      "round": 0,
+      "variant": "pr",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 500000,
+      "elapsedMs": 5.7402079999999955,
+      "nsPerIteration": 11.480415999999991
+    },
+    {
+      "round": 0,
+      "variant": "pr",
+      "name": "unrelated_write_chain8_cached_get",
+      "iterations": 100000,
+      "elapsedMs": 14.025500000000022,
+      "nsPerIteration": 140.25500000000022
+    },
+    {
+      "round": 0,
+      "variant": "pr",
+      "name": "unrelated_write_fanin64_cached_get",
+      "iterations": 25000,
+      "elapsedMs": 9.243875000000003,
+      "nsPerIteration": 369.75500000000005
+    },
+    {
+      "round": 0,
+      "variant": "pr",
+      "name": "unobserved_chain8_write_read",
+      "iterations": 25000,
+      "elapsedMs": 28.77166600000001,
+      "nsPerIteration": 1150.8666400000004
+    },
+    {
+      "round": 0,
+      "variant": "pr",
+      "name": "create_read_discard",
+      "iterations": 25000,
+      "elapsedMs": 2.250499999999988,
+      "nsPerIteration": 90.01999999999954
+    },
+    {
+      "round": 0,
+      "variant": "pr",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 20000,
+      "elapsedMs": 5.801625000000001,
+      "nsPerIteration": 290.08125000000007
+    },
+    {
+      "round": 0,
+      "variant": "pr",
+      "name": "unobserved_chain32_write_read",
+      "iterations": 6250,
+      "elapsedMs": 85.63287500000007,
+      "nsPerIteration": 13701.260000000011
+    },
+    {
+      "round": 0,
+      "variant": "pr",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 1563,
+      "elapsedMs": 393.2468749999998,
+      "nsPerIteration": 251597.48880358273
+    },
+    {
+      "round": 0,
+      "variant": "links",
+      "name": "plain_read",
+      "iterations": 1000000,
+      "elapsedMs": 2.2739580000000004,
+      "nsPerIteration": 2.2739580000000004
+    },
+    {
+      "round": 0,
+      "variant": "links",
+      "name": "plain_write",
+      "iterations": 400000,
+      "elapsedMs": 4.409292000000001,
+      "nsPerIteration": 11.023230000000002
+    },
+    {
+      "round": 0,
+      "variant": "links",
+      "name": "observed_chain8_write",
+      "iterations": 25000,
+      "elapsedMs": 7.125500000000002,
+      "nsPerIteration": 285.0200000000001
+    },
+    {
+      "round": 0,
+      "variant": "links",
+      "name": "observed_diamond8_write",
+      "iterations": 20000,
+      "elapsedMs": 8.346333999999999,
+      "nsPerIteration": 417.31669999999997
+    },
+    {
+      "round": 0,
+      "variant": "links",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 500000,
+      "elapsedMs": 4.160000000000011,
+      "nsPerIteration": 8.320000000000022
+    },
+    {
+      "round": 0,
+      "variant": "links",
+      "name": "unrelated_write_chain8_cached_get",
+      "iterations": 100000,
+      "elapsedMs": 11.995083000000022,
+      "nsPerIteration": 119.95083000000022
+    },
+    {
+      "round": 0,
+      "variant": "links",
+      "name": "unrelated_write_fanin64_cached_get",
+      "iterations": 25000,
+      "elapsedMs": 9.321416,
+      "nsPerIteration": 372.85664
+    },
+    {
+      "round": 0,
+      "variant": "links",
+      "name": "unobserved_chain8_write_read",
+      "iterations": 25000,
+      "elapsedMs": 9.291665999999992,
+      "nsPerIteration": 371.6666399999997
+    },
+    {
+      "round": 0,
+      "variant": "links",
+      "name": "create_read_discard",
+      "iterations": 25000,
+      "elapsedMs": 2.295625000000001,
+      "nsPerIteration": 91.82500000000003
+    },
+    {
+      "round": 0,
+      "variant": "links",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 20000,
+      "elapsedMs": 6.02241699999999,
+      "nsPerIteration": 301.1208499999995
+    },
+    {
+      "round": 0,
+      "variant": "links",
+      "name": "unobserved_chain32_write_read",
+      "iterations": 6250,
+      "elapsedMs": 8.646916000000033,
+      "nsPerIteration": 1383.5065600000053
+    },
+    {
+      "round": 0,
+      "variant": "links",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 1563,
+      "elapsedMs": 9.297459000000003,
+      "nsPerIteration": 5948.470249520156
+    },
+    {
+      "round": 1,
+      "variant": "pr",
+      "name": "plain_read",
+      "iterations": 1000000,
+      "elapsedMs": 2.270709,
+      "nsPerIteration": 2.270709
+    },
+    {
+      "round": 1,
+      "variant": "pr",
+      "name": "plain_write",
+      "iterations": 400000,
+      "elapsedMs": 4.3550830000000005,
+      "nsPerIteration": 10.887707500000003
+    },
+    {
+      "round": 1,
+      "variant": "pr",
+      "name": "observed_chain8_write",
+      "iterations": 25000,
+      "elapsedMs": 6.982500000000002,
+      "nsPerIteration": 279.30000000000007
+    },
+    {
+      "round": 1,
+      "variant": "pr",
+      "name": "observed_diamond8_write",
+      "iterations": 20000,
+      "elapsedMs": 8.482375000000005,
+      "nsPerIteration": 424.11875000000026
+    },
+    {
+      "round": 1,
+      "variant": "pr",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 500000,
+      "elapsedMs": 5.79008300000001,
+      "nsPerIteration": 11.58016600000002
+    },
+    {
+      "round": 1,
+      "variant": "pr",
+      "name": "unrelated_write_chain8_cached_get",
+      "iterations": 100000,
+      "elapsedMs": 14.026167000000015,
+      "nsPerIteration": 140.26167000000015
+    },
+    {
+      "round": 1,
+      "variant": "pr",
+      "name": "unrelated_write_fanin64_cached_get",
+      "iterations": 25000,
+      "elapsedMs": 9.21799999999999,
+      "nsPerIteration": 368.7199999999996
+    },
+    {
+      "round": 1,
+      "variant": "pr",
+      "name": "unobserved_chain8_write_read",
+      "iterations": 25000,
+      "elapsedMs": 29.121083999999996,
+      "nsPerIteration": 1164.8433599999998
+    },
+    {
+      "round": 1,
+      "variant": "pr",
+      "name": "create_read_discard",
+      "iterations": 25000,
+      "elapsedMs": 2.2937499999999886,
+      "nsPerIteration": 91.74999999999956
+    },
+    {
+      "round": 1,
+      "variant": "pr",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 20000,
+      "elapsedMs": 5.769374999999968,
+      "nsPerIteration": 288.4687499999984
+    },
+    {
+      "round": 1,
+      "variant": "pr",
+      "name": "unobserved_chain32_write_read",
+      "iterations": 6250,
+      "elapsedMs": 86.09045800000007,
+      "nsPerIteration": 13774.473280000011
+    },
+    {
+      "round": 1,
+      "variant": "pr",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 1563,
+      "elapsedMs": 385.65383399999996,
+      "nsPerIteration": 246739.49712092127
+    },
+    {
+      "round": 1,
+      "variant": "links",
+      "name": "plain_read",
+      "iterations": 1000000,
+      "elapsedMs": 2.261458000000001,
+      "nsPerIteration": 2.261458000000001
+    },
+    {
+      "round": 1,
+      "variant": "links",
+      "name": "plain_write",
+      "iterations": 400000,
+      "elapsedMs": 4.241416999999998,
+      "nsPerIteration": 10.603542499999996
+    },
+    {
+      "round": 1,
+      "variant": "links",
+      "name": "observed_chain8_write",
+      "iterations": 25000,
+      "elapsedMs": 7.219124999999998,
+      "nsPerIteration": 288.76499999999993
+    },
+    {
+      "round": 1,
+      "variant": "links",
+      "name": "observed_diamond8_write",
+      "iterations": 20000,
+      "elapsedMs": 8.654167000000001,
+      "nsPerIteration": 432.7083500000001
+    },
+    {
+      "round": 1,
+      "variant": "links",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 500000,
+      "elapsedMs": 4.425792000000001,
+      "nsPerIteration": 8.851584000000003
+    },
+    {
+      "round": 1,
+      "variant": "links",
+      "name": "unrelated_write_chain8_cached_get",
+      "iterations": 100000,
+      "elapsedMs": 12.84383299999999,
+      "nsPerIteration": 128.4383299999999
+    },
+    {
+      "round": 1,
+      "variant": "links",
+      "name": "unrelated_write_fanin64_cached_get",
+      "iterations": 25000,
+      "elapsedMs": 9.257791999999995,
+      "nsPerIteration": 370.3116799999998
+    },
+    {
+      "round": 1,
+      "variant": "links",
+      "name": "unobserved_chain8_write_read",
+      "iterations": 25000,
+      "elapsedMs": 9.238957999999997,
+      "nsPerIteration": 369.55831999999987
+    },
+    {
+      "round": 1,
+      "variant": "links",
+      "name": "create_read_discard",
+      "iterations": 25000,
+      "elapsedMs": 2.353541999999976,
+      "nsPerIteration": 94.14167999999906
+    },
+    {
+      "round": 1,
+      "variant": "links",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 20000,
+      "elapsedMs": 6.484999999999985,
+      "nsPerIteration": 324.24999999999926
+    },
+    {
+      "round": 1,
+      "variant": "links",
+      "name": "unobserved_chain32_write_read",
+      "iterations": 6250,
+      "elapsedMs": 8.769790999999998,
+      "nsPerIteration": 1403.1665599999997
+    },
+    {
+      "round": 1,
+      "variant": "links",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 1563,
+      "elapsedMs": 9.801457999999968,
+      "nsPerIteration": 6270.926423544445
+    },
+    {
+      "round": 1,
+      "variant": "baseline",
+      "name": "plain_read",
+      "iterations": 1000000,
+      "elapsedMs": 2.330666000000001,
+      "nsPerIteration": 2.330666000000001
+    },
+    {
+      "round": 1,
+      "variant": "baseline",
+      "name": "plain_write",
+      "iterations": 400000,
+      "elapsedMs": 3.9439160000000015,
+      "nsPerIteration": 9.859790000000004
+    },
+    {
+      "round": 1,
+      "variant": "baseline",
+      "name": "observed_chain8_write",
+      "iterations": 25000,
+      "elapsedMs": 6.277292000000003,
+      "nsPerIteration": 251.0916800000001
+    },
+    {
+      "round": 1,
+      "variant": "baseline",
+      "name": "observed_diamond8_write",
+      "iterations": 20000,
+      "elapsedMs": 7.711875000000006,
+      "nsPerIteration": 385.59375000000034
+    },
+    {
+      "round": 1,
+      "variant": "baseline",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 500000,
+      "elapsedMs": 1.5344170000000048,
+      "nsPerIteration": 3.0688340000000096
+    },
+    {
+      "round": 1,
+      "variant": "baseline",
+      "name": "unrelated_write_chain8_cached_get",
+      "iterations": 100000,
+      "elapsedMs": 2.668999999999997,
+      "nsPerIteration": 26.689999999999966
+    },
+    {
+      "round": 1,
+      "variant": "baseline",
+      "name": "unrelated_write_fanin64_cached_get",
+      "iterations": 25000,
+      "elapsedMs": 0.667041999999995,
+      "nsPerIteration": 26.6816799999998
+    },
+    {
+      "round": 1,
+      "variant": "baseline",
+      "name": "unobserved_chain8_write_read",
+      "iterations": 25000,
+      "elapsedMs": 5.813749999999999,
+      "nsPerIteration": 232.54999999999995
+    },
+    {
+      "round": 1,
+      "variant": "baseline",
+      "name": "create_read_discard",
+      "iterations": 25000,
+      "elapsedMs": 1.6548329999999964,
+      "nsPerIteration": 66.19331999999986
+    },
+    {
+      "round": 1,
+      "variant": "baseline",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 20000,
+      "elapsedMs": 7.5368330000000014,
+      "nsPerIteration": 376.8416500000001
+    },
+    {
+      "round": 1,
+      "variant": "baseline",
+      "name": "unobserved_chain32_write_read",
+      "iterations": 6250,
+      "elapsedMs": 5.671999999999997,
+      "nsPerIteration": 907.5199999999995
+    },
+    {
+      "round": 1,
+      "variant": "baseline",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 1563,
+      "elapsedMs": 5.365000000000009,
+      "nsPerIteration": 3432.5015994881696
+    },
+    {
+      "round": 2,
+      "variant": "links",
+      "name": "plain_read",
+      "iterations": 1000000,
+      "elapsedMs": 2.307417000000001,
+      "nsPerIteration": 2.307417000000001
+    },
+    {
+      "round": 2,
+      "variant": "links",
+      "name": "plain_write",
+      "iterations": 400000,
+      "elapsedMs": 4.315583000000004,
+      "nsPerIteration": 10.78895750000001
+    },
+    {
+      "round": 2,
+      "variant": "links",
+      "name": "observed_chain8_write",
+      "iterations": 25000,
+      "elapsedMs": 7.213583000000007,
+      "nsPerIteration": 288.5433200000003
+    },
+    {
+      "round": 2,
+      "variant": "links",
+      "name": "observed_diamond8_write",
+      "iterations": 20000,
+      "elapsedMs": 8.937833000000012,
+      "nsPerIteration": 446.89165000000054
+    },
+    {
+      "round": 2,
+      "variant": "links",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 500000,
+      "elapsedMs": 4.284041000000002,
+      "nsPerIteration": 8.568082000000004
+    },
+    {
+      "round": 2,
+      "variant": "links",
+      "name": "unrelated_write_chain8_cached_get",
+      "iterations": 100000,
+      "elapsedMs": 12.176958999999982,
+      "nsPerIteration": 121.76958999999984
+    },
+    {
+      "round": 2,
+      "variant": "links",
+      "name": "unrelated_write_fanin64_cached_get",
+      "iterations": 25000,
+      "elapsedMs": 9.378083000000004,
+      "nsPerIteration": 375.12332000000015
+    },
+    {
+      "round": 2,
+      "variant": "links",
+      "name": "unobserved_chain8_write_read",
+      "iterations": 25000,
+      "elapsedMs": 9.183208000000008,
+      "nsPerIteration": 367.3283200000003
+    },
+    {
+      "round": 2,
+      "variant": "links",
+      "name": "create_read_discard",
+      "iterations": 25000,
+      "elapsedMs": 2.337874999999997,
+      "nsPerIteration": 93.51499999999987
+    },
+    {
+      "round": 2,
+      "variant": "links",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 20000,
+      "elapsedMs": 5.971165999999982,
+      "nsPerIteration": 298.5582999999991
+    },
+    {
+      "round": 2,
+      "variant": "links",
+      "name": "unobserved_chain32_write_read",
+      "iterations": 6250,
+      "elapsedMs": 8.58729199999999,
+      "nsPerIteration": 1373.9667199999985
+    },
+    {
+      "round": 2,
+      "variant": "links",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 1563,
+      "elapsedMs": 9.341166999999984,
+      "nsPerIteration": 5976.434420985275
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "name": "plain_read",
+      "iterations": 1000000,
+      "elapsedMs": 2.229125,
+      "nsPerIteration": 2.229125
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "name": "plain_write",
+      "iterations": 400000,
+      "elapsedMs": 4.052042,
+      "nsPerIteration": 10.130105
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "name": "observed_chain8_write",
+      "iterations": 25000,
+      "elapsedMs": 6.236874999999998,
+      "nsPerIteration": 249.47499999999994
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "name": "observed_diamond8_write",
+      "iterations": 20000,
+      "elapsedMs": 7.608958000000001,
+      "nsPerIteration": 380.44790000000006
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 500000,
+      "elapsedMs": 1.5394170000000003,
+      "nsPerIteration": 3.0788340000000005
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "name": "unrelated_write_chain8_cached_get",
+      "iterations": 100000,
+      "elapsedMs": 2.593082999999993,
+      "nsPerIteration": 25.93082999999993
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "name": "unrelated_write_fanin64_cached_get",
+      "iterations": 25000,
+      "elapsedMs": 0.666041000000007,
+      "nsPerIteration": 26.64164000000028
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "name": "unobserved_chain8_write_read",
+      "iterations": 25000,
+      "elapsedMs": 5.963250000000002,
+      "nsPerIteration": 238.5300000000001
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "name": "create_read_discard",
+      "iterations": 25000,
+      "elapsedMs": 2.071832999999998,
+      "nsPerIteration": 82.87331999999992
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 20000,
+      "elapsedMs": 7.750958999999995,
+      "nsPerIteration": 387.54794999999973
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "name": "unobserved_chain32_write_read",
+      "iterations": 6250,
+      "elapsedMs": 5.426208000000003,
+      "nsPerIteration": 868.1932800000004
+    },
+    {
+      "round": 2,
+      "variant": "baseline",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 1563,
+      "elapsedMs": 4.989000000000004,
+      "nsPerIteration": 3191.9385796545134
+    },
+    {
+      "round": 2,
+      "variant": "pr",
+      "name": "plain_read",
+      "iterations": 1000000,
+      "elapsedMs": 2.2568749999999973,
+      "nsPerIteration": 2.2568749999999973
+    },
+    {
+      "round": 2,
+      "variant": "pr",
+      "name": "plain_write",
+      "iterations": 400000,
+      "elapsedMs": 4.16675,
+      "nsPerIteration": 10.416875000000001
+    },
+    {
+      "round": 2,
+      "variant": "pr",
+      "name": "observed_chain8_write",
+      "iterations": 25000,
+      "elapsedMs": 7.056291999999999,
+      "nsPerIteration": 282.25167999999996
+    },
+    {
+      "round": 2,
+      "variant": "pr",
+      "name": "observed_diamond8_write",
+      "iterations": 20000,
+      "elapsedMs": 8.504292000000007,
+      "nsPerIteration": 425.21460000000036
+    },
+    {
+      "round": 2,
+      "variant": "pr",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 500000,
+      "elapsedMs": 5.175624999999997,
+      "nsPerIteration": 10.351249999999993
+    },
+    {
+      "round": 2,
+      "variant": "pr",
+      "name": "unrelated_write_chain8_cached_get",
+      "iterations": 100000,
+      "elapsedMs": 14.063834000000014,
+      "nsPerIteration": 140.63834000000014
+    },
+    {
+      "round": 2,
+      "variant": "pr",
+      "name": "unrelated_write_fanin64_cached_get",
+      "iterations": 25000,
+      "elapsedMs": 9.469750000000005,
+      "nsPerIteration": 378.79000000000025
+    },
+    {
+      "round": 2,
+      "variant": "pr",
+      "name": "unobserved_chain8_write_read",
+      "iterations": 25000,
+      "elapsedMs": 29.308458,
+      "nsPerIteration": 1172.33832
+    },
+    {
+      "round": 2,
+      "variant": "pr",
+      "name": "create_read_discard",
+      "iterations": 25000,
+      "elapsedMs": 2.2665000000000077,
+      "nsPerIteration": 90.66000000000032
+    },
+    {
+      "round": 2,
+      "variant": "pr",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 20000,
+      "elapsedMs": 5.837582999999995,
+      "nsPerIteration": 291.87914999999975
+    },
+    {
+      "round": 2,
+      "variant": "pr",
+      "name": "unobserved_chain32_write_read",
+      "iterations": 6250,
+      "elapsedMs": 85.54954099999998,
+      "nsPerIteration": 13687.926559999994
+    },
+    {
+      "round": 2,
+      "variant": "pr",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 1563,
+      "elapsedMs": 382.16387499999996,
+      "nsPerIteration": 244506.63787587968
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "name": "plain_read",
+      "iterations": 1000000,
+      "elapsedMs": 2.358542,
+      "nsPerIteration": 2.358542
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "name": "plain_write",
+      "iterations": 400000,
+      "elapsedMs": 4.094583,
+      "nsPerIteration": 10.2364575
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "name": "observed_chain8_write",
+      "iterations": 25000,
+      "elapsedMs": 6.330625000000005,
+      "nsPerIteration": 253.2250000000002
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "name": "observed_diamond8_write",
+      "iterations": 20000,
+      "elapsedMs": 7.380125000000007,
+      "nsPerIteration": 369.0062500000003
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 500000,
+      "elapsedMs": 1.5972920000000101,
+      "nsPerIteration": 3.1945840000000203
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "name": "unrelated_write_chain8_cached_get",
+      "iterations": 100000,
+      "elapsedMs": 2.70341599999999,
+      "nsPerIteration": 27.0341599999999
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "name": "unrelated_write_fanin64_cached_get",
+      "iterations": 25000,
+      "elapsedMs": 0.6269999999999953,
+      "nsPerIteration": 25.079999999999814
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "name": "unobserved_chain8_write_read",
+      "iterations": 25000,
+      "elapsedMs": 5.837124999999986,
+      "nsPerIteration": 233.48499999999945
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "name": "create_read_discard",
+      "iterations": 25000,
+      "elapsedMs": 2.009707999999989,
+      "nsPerIteration": 80.38831999999957
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 20000,
+      "elapsedMs": 7.376833000000005,
+      "nsPerIteration": 368.84165000000024
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "name": "unobserved_chain32_write_read",
+      "iterations": 6250,
+      "elapsedMs": 5.739584000000008,
+      "nsPerIteration": 918.3334400000012
+    },
+    {
+      "round": 3,
+      "variant": "baseline",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 1563,
+      "elapsedMs": 5.46270899999999,
+      "nsPerIteration": 3495.0153550863656
+    },
+    {
+      "round": 3,
+      "variant": "pr",
+      "name": "plain_read",
+      "iterations": 1000000,
+      "elapsedMs": 2.3811660000000003,
+      "nsPerIteration": 2.3811660000000003
+    },
+    {
+      "round": 3,
+      "variant": "pr",
+      "name": "plain_write",
+      "iterations": 400000,
+      "elapsedMs": 4.119208,
+      "nsPerIteration": 10.298020000000001
+    },
+    {
+      "round": 3,
+      "variant": "pr",
+      "name": "observed_chain8_write",
+      "iterations": 25000,
+      "elapsedMs": 6.986292000000006,
+      "nsPerIteration": 279.45168000000024
+    },
+    {
+      "round": 3,
+      "variant": "pr",
+      "name": "observed_diamond8_write",
+      "iterations": 20000,
+      "elapsedMs": 8.658500000000004,
+      "nsPerIteration": 432.9250000000002
+    },
+    {
+      "round": 3,
+      "variant": "pr",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 500000,
+      "elapsedMs": 5.834792000000007,
+      "nsPerIteration": 11.669584000000015
+    },
+    {
+      "round": 3,
+      "variant": "pr",
+      "name": "unrelated_write_chain8_cached_get",
+      "iterations": 100000,
+      "elapsedMs": 14.041624999999982,
+      "nsPerIteration": 140.41624999999982
+    },
+    {
+      "round": 3,
+      "variant": "pr",
+      "name": "unrelated_write_fanin64_cached_get",
+      "iterations": 25000,
+      "elapsedMs": 9.409458999999998,
+      "nsPerIteration": 376.37835999999993
+    },
+    {
+      "round": 3,
+      "variant": "pr",
+      "name": "unobserved_chain8_write_read",
+      "iterations": 25000,
+      "elapsedMs": 28.960833000000036,
+      "nsPerIteration": 1158.4333200000015
+    },
+    {
+      "round": 3,
+      "variant": "pr",
+      "name": "create_read_discard",
+      "iterations": 25000,
+      "elapsedMs": 2.241292000000044,
+      "nsPerIteration": 89.65168000000178
+    },
+    {
+      "round": 3,
+      "variant": "pr",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 20000,
+      "elapsedMs": 5.926125000000013,
+      "nsPerIteration": 296.30625000000066
+    },
+    {
+      "round": 3,
+      "variant": "pr",
+      "name": "unobserved_chain32_write_read",
+      "iterations": 6250,
+      "elapsedMs": 86.018416,
+      "nsPerIteration": 13762.94656
+    },
+    {
+      "round": 3,
+      "variant": "pr",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 1563,
+      "elapsedMs": 378.77529200000004,
+      "nsPerIteration": 242338.63851567503
+    },
+    {
+      "round": 3,
+      "variant": "links",
+      "name": "plain_read",
+      "iterations": 1000000,
+      "elapsedMs": 2.2650419999999976,
+      "nsPerIteration": 2.2650419999999976
+    },
+    {
+      "round": 3,
+      "variant": "links",
+      "name": "plain_write",
+      "iterations": 400000,
+      "elapsedMs": 4.241458999999999,
+      "nsPerIteration": 10.603647499999997
+    },
+    {
+      "round": 3,
+      "variant": "links",
+      "name": "observed_chain8_write",
+      "iterations": 25000,
+      "elapsedMs": 7.297833000000004,
+      "nsPerIteration": 291.91332000000017
+    },
+    {
+      "round": 3,
+      "variant": "links",
+      "name": "observed_diamond8_write",
+      "iterations": 20000,
+      "elapsedMs": 8.901624999999996,
+      "nsPerIteration": 445.08124999999984
+    },
+    {
+      "round": 3,
+      "variant": "links",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 500000,
+      "elapsedMs": 4.253917000000001,
+      "nsPerIteration": 8.507834000000003
+    },
+    {
+      "round": 3,
+      "variant": "links",
+      "name": "unrelated_write_chain8_cached_get",
+      "iterations": 100000,
+      "elapsedMs": 12.564834000000019,
+      "nsPerIteration": 125.64834000000019
+    },
+    {
+      "round": 3,
+      "variant": "links",
+      "name": "unrelated_write_fanin64_cached_get",
+      "iterations": 25000,
+      "elapsedMs": 9.258958000000007,
+      "nsPerIteration": 370.3583200000003
+    },
+    {
+      "round": 3,
+      "variant": "links",
+      "name": "unobserved_chain8_write_read",
+      "iterations": 25000,
+      "elapsedMs": 9.224499999999978,
+      "nsPerIteration": 368.9799999999991
+    },
+    {
+      "round": 3,
+      "variant": "links",
+      "name": "create_read_discard",
+      "iterations": 25000,
+      "elapsedMs": 2.301042000000024,
+      "nsPerIteration": 92.04168000000095
+    },
+    {
+      "round": 3,
+      "variant": "links",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 20000,
+      "elapsedMs": 6.009874999999994,
+      "nsPerIteration": 300.4937499999997
+    },
+    {
+      "round": 3,
+      "variant": "links",
+      "name": "unobserved_chain32_write_read",
+      "iterations": 6250,
+      "elapsedMs": 8.877375000000029,
+      "nsPerIteration": 1420.3800000000047
+    },
+    {
+      "round": 3,
+      "variant": "links",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 1563,
+      "elapsedMs": 9.862625000000037,
+      "nsPerIteration": 6310.060780550248
+    },
+    {
+      "round": 4,
+      "variant": "pr",
+      "name": "plain_read",
+      "iterations": 1000000,
+      "elapsedMs": 2.3401250000000005,
+      "nsPerIteration": 2.3401250000000005
+    },
+    {
+      "round": 4,
+      "variant": "pr",
+      "name": "plain_write",
+      "iterations": 400000,
+      "elapsedMs": 4.3799160000000015,
+      "nsPerIteration": 10.949790000000005
+    },
+    {
+      "round": 4,
+      "variant": "pr",
+      "name": "observed_chain8_write",
+      "iterations": 25000,
+      "elapsedMs": 7.098334000000008,
+      "nsPerIteration": 283.93336000000033
+    },
+    {
+      "round": 4,
+      "variant": "pr",
+      "name": "observed_diamond8_write",
+      "iterations": 20000,
+      "elapsedMs": 8.618458000000004,
+      "nsPerIteration": 430.9229000000002
+    },
+    {
+      "round": 4,
+      "variant": "pr",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 500000,
+      "elapsedMs": 4.960916999999995,
+      "nsPerIteration": 9.92183399999999
+    },
+    {
+      "round": 4,
+      "variant": "pr",
+      "name": "unrelated_write_chain8_cached_get",
+      "iterations": 100000,
+      "elapsedMs": 14.125292000000002,
+      "nsPerIteration": 141.25292000000002
+    },
+    {
+      "round": 4,
+      "variant": "pr",
+      "name": "unrelated_write_fanin64_cached_get",
+      "iterations": 25000,
+      "elapsedMs": 9.346542,
+      "nsPerIteration": 373.86168
+    },
+    {
+      "round": 4,
+      "variant": "pr",
+      "name": "unobserved_chain8_write_read",
+      "iterations": 25000,
+      "elapsedMs": 29.075165999999996,
+      "nsPerIteration": 1163.0066399999998
+    },
+    {
+      "round": 4,
+      "variant": "pr",
+      "name": "create_read_discard",
+      "iterations": 25000,
+      "elapsedMs": 2.4115000000000464,
+      "nsPerIteration": 96.46000000000187
+    },
+    {
+      "round": 4,
+      "variant": "pr",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 20000,
+      "elapsedMs": 6.0117910000000165,
+      "nsPerIteration": 300.5895500000008
+    },
+    {
+      "round": 4,
+      "variant": "pr",
+      "name": "unobserved_chain32_write_read",
+      "iterations": 6250,
+      "elapsedMs": 87.81299999999993,
+      "nsPerIteration": 14050.079999999987
+    },
+    {
+      "round": 4,
+      "variant": "pr",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 1563,
+      "elapsedMs": 387.50479199999995,
+      "nsPerIteration": 247923.73128598844
+    },
+    {
+      "round": 4,
+      "variant": "links",
+      "name": "plain_read",
+      "iterations": 1000000,
+      "elapsedMs": 2.252917,
+      "nsPerIteration": 2.252917
+    },
+    {
+      "round": 4,
+      "variant": "links",
+      "name": "plain_write",
+      "iterations": 400000,
+      "elapsedMs": 4.399499999999996,
+      "nsPerIteration": 10.99874999999999
+    },
+    {
+      "round": 4,
+      "variant": "links",
+      "name": "observed_chain8_write",
+      "iterations": 25000,
+      "elapsedMs": 7.199832999999998,
+      "nsPerIteration": 287.9933199999999
+    },
+    {
+      "round": 4,
+      "variant": "links",
+      "name": "observed_diamond8_write",
+      "iterations": 20000,
+      "elapsedMs": 8.762292000000002,
+      "nsPerIteration": 438.1146000000001
+    },
+    {
+      "round": 4,
+      "variant": "links",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 500000,
+      "elapsedMs": 4.375541999999996,
+      "nsPerIteration": 8.751083999999993
+    },
+    {
+      "round": 4,
+      "variant": "links",
+      "name": "unrelated_write_chain8_cached_get",
+      "iterations": 100000,
+      "elapsedMs": 12.049459000000013,
+      "nsPerIteration": 120.49459000000013
+    },
+    {
+      "round": 4,
+      "variant": "links",
+      "name": "unrelated_write_fanin64_cached_get",
+      "iterations": 25000,
+      "elapsedMs": 9.274417,
+      "nsPerIteration": 370.97668
+    },
+    {
+      "round": 4,
+      "variant": "links",
+      "name": "unobserved_chain8_write_read",
+      "iterations": 25000,
+      "elapsedMs": 8.989541000000003,
+      "nsPerIteration": 359.58164000000005
+    },
+    {
+      "round": 4,
+      "variant": "links",
+      "name": "create_read_discard",
+      "iterations": 25000,
+      "elapsedMs": 2.272625000000005,
+      "nsPerIteration": 90.9050000000002
+    },
+    {
+      "round": 4,
+      "variant": "links",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 20000,
+      "elapsedMs": 6.2735409999999945,
+      "nsPerIteration": 313.6770499999997
+    },
+    {
+      "round": 4,
+      "variant": "links",
+      "name": "unobserved_chain32_write_read",
+      "iterations": 6250,
+      "elapsedMs": 9.064583000000027,
+      "nsPerIteration": 1450.3332800000044
+    },
+    {
+      "round": 4,
+      "variant": "links",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 1563,
+      "elapsedMs": 10.085500000000025,
+      "nsPerIteration": 6452.655150351903
+    },
+    {
+      "round": 4,
+      "variant": "baseline",
+      "name": "plain_read",
+      "iterations": 1000000,
+      "elapsedMs": 2.384708,
+      "nsPerIteration": 2.384708
+    },
+    {
+      "round": 4,
+      "variant": "baseline",
+      "name": "plain_write",
+      "iterations": 400000,
+      "elapsedMs": 4.059540999999996,
+      "nsPerIteration": 10.14885249999999
+    },
+    {
+      "round": 4,
+      "variant": "baseline",
+      "name": "observed_chain8_write",
+      "iterations": 25000,
+      "elapsedMs": 6.124082999999999,
+      "nsPerIteration": 244.96331999999995
+    },
+    {
+      "round": 4,
+      "variant": "baseline",
+      "name": "observed_diamond8_write",
+      "iterations": 20000,
+      "elapsedMs": 8.172916999999998,
+      "nsPerIteration": 408.6458499999999
+    },
+    {
+      "round": 4,
+      "variant": "baseline",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 500000,
+      "elapsedMs": 1.644041999999999,
+      "nsPerIteration": 3.288083999999998
+    },
+    {
+      "round": 4,
+      "variant": "baseline",
+      "name": "unrelated_write_chain8_cached_get",
+      "iterations": 100000,
+      "elapsedMs": 2.6364579999999904,
+      "nsPerIteration": 26.3645799999999
+    },
+    {
+      "round": 4,
+      "variant": "baseline",
+      "name": "unrelated_write_fanin64_cached_get",
+      "iterations": 25000,
+      "elapsedMs": 0.6219590000000039,
+      "nsPerIteration": 24.878360000000157
+    },
+    {
+      "round": 4,
+      "variant": "baseline",
+      "name": "unobserved_chain8_write_read",
+      "iterations": 25000,
+      "elapsedMs": 5.875208000000015,
+      "nsPerIteration": 235.0083200000006
+    },
+    {
+      "round": 4,
+      "variant": "baseline",
+      "name": "create_read_discard",
+      "iterations": 25000,
+      "elapsedMs": 1.9867920000000083,
+      "nsPerIteration": 79.47168000000033
+    },
+    {
+      "round": 4,
+      "variant": "baseline",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 20000,
+      "elapsedMs": 7.927749999999975,
+      "nsPerIteration": 396.38749999999874
+    },
+    {
+      "round": 4,
+      "variant": "baseline",
+      "name": "unobserved_chain32_write_read",
+      "iterations": 6250,
+      "elapsedMs": 5.559334000000007,
+      "nsPerIteration": 889.493440000001
+    },
+    {
+      "round": 4,
+      "variant": "baseline",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 1563,
+      "elapsedMs": 5.436125000000004,
+      "nsPerIteration": 3478.007037747923
+    },
+    {
+      "round": 5,
+      "variant": "links",
+      "name": "plain_read",
+      "iterations": 1000000,
+      "elapsedMs": 2.208957999999999,
+      "nsPerIteration": 2.208957999999999
+    },
+    {
+      "round": 5,
+      "variant": "links",
+      "name": "plain_write",
+      "iterations": 400000,
+      "elapsedMs": 4.322958,
+      "nsPerIteration": 10.807395
+    },
+    {
+      "round": 5,
+      "variant": "links",
+      "name": "observed_chain8_write",
+      "iterations": 25000,
+      "elapsedMs": 7.208666999999998,
+      "nsPerIteration": 288.34667999999994
+    },
+    {
+      "round": 5,
+      "variant": "links",
+      "name": "observed_diamond8_write",
+      "iterations": 20000,
+      "elapsedMs": 8.459583999999992,
+      "nsPerIteration": 422.97919999999965
+    },
+    {
+      "round": 5,
+      "variant": "links",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 500000,
+      "elapsedMs": 4.572166999999993,
+      "nsPerIteration": 9.144333999999986
+    },
+    {
+      "round": 5,
+      "variant": "links",
+      "name": "unrelated_write_chain8_cached_get",
+      "iterations": 100000,
+      "elapsedMs": 13.114542,
+      "nsPerIteration": 131.14542
+    },
+    {
+      "round": 5,
+      "variant": "links",
+      "name": "unrelated_write_fanin64_cached_get",
+      "iterations": 25000,
+      "elapsedMs": 9.367750000000001,
+      "nsPerIteration": 374.71
+    },
+    {
+      "round": 5,
+      "variant": "links",
+      "name": "unobserved_chain8_write_read",
+      "iterations": 25000,
+      "elapsedMs": 9.286083999999988,
+      "nsPerIteration": 371.44335999999953
+    },
+    {
+      "round": 5,
+      "variant": "links",
+      "name": "create_read_discard",
+      "iterations": 25000,
+      "elapsedMs": 2.441332999999986,
+      "nsPerIteration": 97.65331999999944
+    },
+    {
+      "round": 5,
+      "variant": "links",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 20000,
+      "elapsedMs": 5.865125000000006,
+      "nsPerIteration": 293.2562500000003
+    },
+    {
+      "round": 5,
+      "variant": "links",
+      "name": "unobserved_chain32_write_read",
+      "iterations": 6250,
+      "elapsedMs": 8.847125000000005,
+      "nsPerIteration": 1415.5400000000009
+    },
+    {
+      "round": 5,
+      "variant": "links",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 1563,
+      "elapsedMs": 10.126833000000033,
+      "nsPerIteration": 6479.099808061442
+    },
+    {
+      "round": 5,
+      "variant": "baseline",
+      "name": "plain_read",
+      "iterations": 1000000,
+      "elapsedMs": 2.4247080000000025,
+      "nsPerIteration": 2.4247080000000025
+    },
+    {
+      "round": 5,
+      "variant": "baseline",
+      "name": "plain_write",
+      "iterations": 400000,
+      "elapsedMs": 4.061124999999997,
+      "nsPerIteration": 10.152812499999992
+    },
+    {
+      "round": 5,
+      "variant": "baseline",
+      "name": "observed_chain8_write",
+      "iterations": 25000,
+      "elapsedMs": 6.238791999999997,
+      "nsPerIteration": 249.55167999999986
+    },
+    {
+      "round": 5,
+      "variant": "baseline",
+      "name": "observed_diamond8_write",
+      "iterations": 20000,
+      "elapsedMs": 8.070666000000003,
+      "nsPerIteration": 403.53330000000017
+    },
+    {
+      "round": 5,
+      "variant": "baseline",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 500000,
+      "elapsedMs": 1.615000000000009,
+      "nsPerIteration": 3.230000000000018
+    },
+    {
+      "round": 5,
+      "variant": "baseline",
+      "name": "unrelated_write_chain8_cached_get",
+      "iterations": 100000,
+      "elapsedMs": 2.6981249999999903,
+      "nsPerIteration": 26.981249999999903
+    },
+    {
+      "round": 5,
+      "variant": "baseline",
+      "name": "unrelated_write_fanin64_cached_get",
+      "iterations": 25000,
+      "elapsedMs": 0.6091660000000019,
+      "nsPerIteration": 24.366640000000075
+    },
+    {
+      "round": 5,
+      "variant": "baseline",
+      "name": "unobserved_chain8_write_read",
+      "iterations": 25000,
+      "elapsedMs": 6.028374999999983,
+      "nsPerIteration": 241.13499999999928
+    },
+    {
+      "round": 5,
+      "variant": "baseline",
+      "name": "create_read_discard",
+      "iterations": 25000,
+      "elapsedMs": 1.9751249999999914,
+      "nsPerIteration": 79.00499999999965
+    },
+    {
+      "round": 5,
+      "variant": "baseline",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 20000,
+      "elapsedMs": 7.655292000000003,
+      "nsPerIteration": 382.76460000000014
+    },
+    {
+      "round": 5,
+      "variant": "baseline",
+      "name": "unobserved_chain32_write_read",
+      "iterations": 6250,
+      "elapsedMs": 5.647291999999993,
+      "nsPerIteration": 903.566719999999
+    },
+    {
+      "round": 5,
+      "variant": "baseline",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 1563,
+      "elapsedMs": 5.215666999999996,
+      "nsPerIteration": 3336.959053103005
+    },
+    {
+      "round": 5,
+      "variant": "pr",
+      "name": "plain_read",
+      "iterations": 1000000,
+      "elapsedMs": 2.425833000000001,
+      "nsPerIteration": 2.425833000000001
+    },
+    {
+      "round": 5,
+      "variant": "pr",
+      "name": "plain_write",
+      "iterations": 400000,
+      "elapsedMs": 4.110790999999999,
+      "nsPerIteration": 10.276977499999997
+    },
+    {
+      "round": 5,
+      "variant": "pr",
+      "name": "observed_chain8_write",
+      "iterations": 25000,
+      "elapsedMs": 7.084208999999994,
+      "nsPerIteration": 283.36835999999977
+    },
+    {
+      "round": 5,
+      "variant": "pr",
+      "name": "observed_diamond8_write",
+      "iterations": 20000,
+      "elapsedMs": 8.495125000000002,
+      "nsPerIteration": 424.7562500000001
+    },
+    {
+      "round": 5,
+      "variant": "pr",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 500000,
+      "elapsedMs": 4.992499999999993,
+      "nsPerIteration": 9.984999999999985
+    },
+    {
+      "round": 5,
+      "variant": "pr",
+      "name": "unrelated_write_chain8_cached_get",
+      "iterations": 100000,
+      "elapsedMs": 14.235584000000017,
+      "nsPerIteration": 142.35584000000017
+    },
+    {
+      "round": 5,
+      "variant": "pr",
+      "name": "unrelated_write_fanin64_cached_get",
+      "iterations": 25000,
+      "elapsedMs": 9.436582999999985,
+      "nsPerIteration": 377.4633199999994
+    },
+    {
+      "round": 5,
+      "variant": "pr",
+      "name": "unobserved_chain8_write_read",
+      "iterations": 25000,
+      "elapsedMs": 30.065041000000008,
+      "nsPerIteration": 1202.6016400000003
+    },
+    {
+      "round": 5,
+      "variant": "pr",
+      "name": "create_read_discard",
+      "iterations": 25000,
+      "elapsedMs": 2.392166999999972,
+      "nsPerIteration": 95.68667999999889
+    },
+    {
+      "round": 5,
+      "variant": "pr",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 20000,
+      "elapsedMs": 6.010417000000018,
+      "nsPerIteration": 300.5208500000009
+    },
+    {
+      "round": 5,
+      "variant": "pr",
+      "name": "unobserved_chain32_write_read",
+      "iterations": 6250,
+      "elapsedMs": 88.05558400000007,
+      "nsPerIteration": 14088.893440000013
+    },
+    {
+      "round": 5,
+      "variant": "pr",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 1563,
+      "elapsedMs": 383.566916,
+      "nsPerIteration": 245404.2968650032
+    },
+    {
+      "round": 6,
+      "variant": "baseline",
+      "name": "plain_read",
+      "iterations": 1000000,
+      "elapsedMs": 2.288792000000001,
+      "nsPerIteration": 2.288792000000001
+    },
+    {
+      "round": 6,
+      "variant": "baseline",
+      "name": "plain_write",
+      "iterations": 400000,
+      "elapsedMs": 4.118416000000003,
+      "nsPerIteration": 10.296040000000009
+    },
+    {
+      "round": 6,
+      "variant": "baseline",
+      "name": "observed_chain8_write",
+      "iterations": 25000,
+      "elapsedMs": 6.238166999999997,
+      "nsPerIteration": 249.52667999999989
+    },
+    {
+      "round": 6,
+      "variant": "baseline",
+      "name": "observed_diamond8_write",
+      "iterations": 20000,
+      "elapsedMs": 7.884292000000002,
+      "nsPerIteration": 394.2146000000001
+    },
+    {
+      "round": 6,
+      "variant": "baseline",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 500000,
+      "elapsedMs": 1.6241659999999882,
+      "nsPerIteration": 3.2483319999999765
+    },
+    {
+      "round": 6,
+      "variant": "baseline",
+      "name": "unrelated_write_chain8_cached_get",
+      "iterations": 100000,
+      "elapsedMs": 2.664500000000004,
+      "nsPerIteration": 26.64500000000004
+    },
+    {
+      "round": 6,
+      "variant": "baseline",
+      "name": "unrelated_write_fanin64_cached_get",
+      "iterations": 25000,
+      "elapsedMs": 0.6206669999999974,
+      "nsPerIteration": 24.826679999999897
+    },
+    {
+      "round": 6,
+      "variant": "baseline",
+      "name": "unobserved_chain8_write_read",
+      "iterations": 25000,
+      "elapsedMs": 5.844208000000009,
+      "nsPerIteration": 233.7683200000004
+    },
+    {
+      "round": 6,
+      "variant": "baseline",
+      "name": "create_read_discard",
+      "iterations": 25000,
+      "elapsedMs": 1.6951660000000004,
+      "nsPerIteration": 67.80664000000002
+    },
+    {
+      "round": 6,
+      "variant": "baseline",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 20000,
+      "elapsedMs": 7.539208000000002,
+      "nsPerIteration": 376.9604000000001
+    },
+    {
+      "round": 6,
+      "variant": "baseline",
+      "name": "unobserved_chain32_write_read",
+      "iterations": 6250,
+      "elapsedMs": 5.5870000000000175,
+      "nsPerIteration": 893.9200000000028
+    },
+    {
+      "round": 6,
+      "variant": "baseline",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 1563,
+      "elapsedMs": 5.456249999999983,
+      "nsPerIteration": 3490.8829174664
+    },
+    {
+      "round": 6,
+      "variant": "pr",
+      "name": "plain_read",
+      "iterations": 1000000,
+      "elapsedMs": 2.3626250000000013,
+      "nsPerIteration": 2.3626250000000013
+    },
+    {
+      "round": 6,
+      "variant": "pr",
+      "name": "plain_write",
+      "iterations": 400000,
+      "elapsedMs": 4.087833000000003,
+      "nsPerIteration": 10.219582500000008
+    },
+    {
+      "round": 6,
+      "variant": "pr",
+      "name": "observed_chain8_write",
+      "iterations": 25000,
+      "elapsedMs": 6.945665999999996,
+      "nsPerIteration": 277.8266399999998
+    },
+    {
+      "round": 6,
+      "variant": "pr",
+      "name": "observed_diamond8_write",
+      "iterations": 20000,
+      "elapsedMs": 8.452916000000002,
+      "nsPerIteration": 422.64580000000007
+    },
+    {
+      "round": 6,
+      "variant": "pr",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 500000,
+      "elapsedMs": 4.947041999999996,
+      "nsPerIteration": 9.894083999999992
+    },
+    {
+      "round": 6,
+      "variant": "pr",
+      "name": "unrelated_write_chain8_cached_get",
+      "iterations": 100000,
+      "elapsedMs": 14.266291999999993,
+      "nsPerIteration": 142.66291999999993
+    },
+    {
+      "round": 6,
+      "variant": "pr",
+      "name": "unrelated_write_fanin64_cached_get",
+      "iterations": 25000,
+      "elapsedMs": 9.380291999999997,
+      "nsPerIteration": 375.21167999999983
+    },
+    {
+      "round": 6,
+      "variant": "pr",
+      "name": "unobserved_chain8_write_read",
+      "iterations": 25000,
+      "elapsedMs": 29.25845800000002,
+      "nsPerIteration": 1170.3383200000007
+    },
+    {
+      "round": 6,
+      "variant": "pr",
+      "name": "create_read_discard",
+      "iterations": 25000,
+      "elapsedMs": 2.265041999999994,
+      "nsPerIteration": 90.60167999999976
+    },
+    {
+      "round": 6,
+      "variant": "pr",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 20000,
+      "elapsedMs": 5.773500000000013,
+      "nsPerIteration": 288.67500000000064
+    },
+    {
+      "round": 6,
+      "variant": "pr",
+      "name": "unobserved_chain32_write_read",
+      "iterations": 6250,
+      "elapsedMs": 85.15445899999997,
+      "nsPerIteration": 13624.713439999996
+    },
+    {
+      "round": 6,
+      "variant": "pr",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 1563,
+      "elapsedMs": 380.336458,
+      "nsPerIteration": 243337.46513115804
+    },
+    {
+      "round": 6,
+      "variant": "links",
+      "name": "plain_read",
+      "iterations": 1000000,
+      "elapsedMs": 2.277916000000001,
+      "nsPerIteration": 2.2779160000000007
+    },
+    {
+      "round": 6,
+      "variant": "links",
+      "name": "plain_write",
+      "iterations": 400000,
+      "elapsedMs": 4.331208000000004,
+      "nsPerIteration": 10.82802000000001
+    },
+    {
+      "round": 6,
+      "variant": "links",
+      "name": "observed_chain8_write",
+      "iterations": 25000,
+      "elapsedMs": 7.748166000000005,
+      "nsPerIteration": 309.9266400000002
+    },
+    {
+      "round": 6,
+      "variant": "links",
+      "name": "observed_diamond8_write",
+      "iterations": 20000,
+      "elapsedMs": 8.831625000000003,
+      "nsPerIteration": 441.58125000000007
+    },
+    {
+      "round": 6,
+      "variant": "links",
+      "name": "unobserved_chain8_cached_get",
+      "iterations": 500000,
+      "elapsedMs": 4.523833999999994,
+      "nsPerIteration": 9.047667999999987
+    },
+    {
+      "round": 6,
+      "variant": "links",
+      "name": "unrelated_write_chain8_cached_get",
+      "iterations": 100000,
+      "elapsedMs": 12.134625,
+      "nsPerIteration": 121.34625
+    },
+    {
+      "round": 6,
+      "variant": "links",
+      "name": "unrelated_write_fanin64_cached_get",
+      "iterations": 25000,
+      "elapsedMs": 9.288542000000007,
+      "nsPerIteration": 371.5416800000003
+    },
+    {
+      "round": 6,
+      "variant": "links",
+      "name": "unobserved_chain8_write_read",
+      "iterations": 25000,
+      "elapsedMs": 8.851082999999988,
+      "nsPerIteration": 354.04331999999954
+    },
+    {
+      "round": 6,
+      "variant": "links",
+      "name": "create_read_discard",
+      "iterations": 25000,
+      "elapsedMs": 2.3269579999999905,
+      "nsPerIteration": 93.07831999999962
+    },
+    {
+      "round": 6,
+      "variant": "links",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 20000,
+      "elapsedMs": 5.9744579999999985,
+      "nsPerIteration": 298.7228999999999
+    },
+    {
+      "round": 6,
+      "variant": "links",
+      "name": "unobserved_chain32_write_read",
+      "iterations": 6250,
+      "elapsedMs": 8.55095799999998,
+      "nsPerIteration": 1368.1532799999968
+    },
+    {
+      "round": 6,
+      "variant": "links",
+      "name": "unobserved_chain128_write_read",
+      "iterations": 1563,
+      "elapsedMs": 9.598874999999964,
+      "nsPerIteration": 6141.31477927061
+    }
+  ]
+}

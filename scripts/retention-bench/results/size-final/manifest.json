@@ -1,0 +1,323 @@
+{
+  "output": "recreate-with-prepare.mjs",
+  "node": "v25.8.1",
+  "platform": "darwin",
+  "arch": "arm64",
+  "esbuild": "0.27.7",
+  "target": "es2022",
+  "compression": "gzip level 9; Brotli quality 11",
+  "variants": [
+    {
+      "label": "main",
+      "source": "a9cf2324b4a24a8190ed7981c3be1594e0446872",
+      "sourceHashes": {
+        "alien.ts": "a651f884d7cd8ad4da231c4de5334cce89ab6e73b32c3fd1d8d2f0c8f20a804b",
+        "atom.ts": "098dfdf21c63f46eba54e05ca12fd2f29ebbbc971886ac845be0747ab814b92e",
+        "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+        "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+        "signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+        "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+        "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+      },
+      "artifactHashes": {
+        "runtime.mjs": "348c01272f1ac3cd3d186c24755f2bf97eea30191081baf128092e8041d21bf0",
+        "createAtom.min.mjs": "97f0377c10248dfc73d9a316a765c02c50138f41dc266753a6e4ce17b3019fd7",
+        "fullStore.min.mjs": "348c01272f1ac3cd3d186c24755f2bf97eea30191081baf128092e8041d21bf0",
+        "reactSelector.min.mjs": "d6b6ed3031dc9014ca9229bccb4a280a4c34b83f19b25ec672b9ab26f9756a2f",
+        "batch.min.mjs": "3d1b018b50f7efd5d8271276b07d841d3ede3b6cf31af37f7d27a9fe6a475bda",
+        "flush.min.mjs": "8c7cdec1ac10bd95f7133683a7491544e5b9e427e49eb8f1c775ef9707289de8",
+        "toObserver.min.mjs": "30aee927e95dfb9d1b8a8c0f95efc2d3a15bd9eb23b51d5d0fd47dabddd4624f",
+        "shallow.min.mjs": "744495cd9f1f4d130a672bb9bcfa2e96ea58c0e80ce73b4fe09b80545ca31da3"
+      },
+      "runtime": "main/runtime.mjs"
+    },
+    {
+      "label": "published",
+      "source": "451be99bfd5b9f3295b829ef18ab7dd68d32ddfe",
+      "sourceHashes": {
+        "alien.ts": "df98cfad925f14ef265103baec02f9c558e568d76908cb626be884990bf5fa52",
+        "atom.ts": "0785dbd35551b206edb243eaabdba32b72e9c18803625e917f8f7e96501c8f2b",
+        "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+        "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+        "signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+        "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+        "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+      },
+      "artifactHashes": {
+        "runtime.mjs": "db5f458d493012b11fb3b350bba6dae1aa5b9c8053b68053f083fad462f04de7",
+        "createAtom.min.mjs": "2e5a57a1f09b448fe2fd98b5fcd07d047e81ca3e83724ad8a37f6892ac7aff2d",
+        "fullStore.min.mjs": "db5f458d493012b11fb3b350bba6dae1aa5b9c8053b68053f083fad462f04de7",
+        "reactSelector.min.mjs": "b57cd3b76cd7a7d2839148dc84e95af8a9fbc952e6cb0a816c335ec26f65cf5d",
+        "batch.min.mjs": "c89140bf8e16cb605057767758df7fddd69fd90c278b14c1bff1d005b6564fdd",
+        "flush.min.mjs": "51ec270bd4386dc64aaef7ab86d8a3a75492f879e2c46e73209c23e57a1bd54a",
+        "toObserver.min.mjs": "406e082a67bde53bc94dd8b135e3d3455d27a97b51b9d58edb387cefcf1995f5",
+        "shallow.min.mjs": "de2183901342980b2a99abb6573f506503131838607db6a2af079408b06f3be7"
+      },
+      "runtime": "published/runtime.mjs"
+    },
+    {
+      "label": "production",
+      "source": "../../../../.cache/retention-research/results/size-final/sources/production",
+      "sourceHashes": {
+        "alien.ts": "31f429d4706b58202278fb5a5dc479a0ce3273fd55f74da3e75ef9ff5272d885",
+        "atom.ts": "70a88586c2f773107463ede53a55f5e88caccd64ea1037dc1954b80fae7c11f9",
+        "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+        "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+        "signal.ts": "6a9ce25bdb9f49ed2467c5e722b80da849abf5385a25f989240a8b33dbb2aa26",
+        "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+        "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+      },
+      "artifactHashes": {
+        "runtime.mjs": "ecebbf80adf76cda9beab06fc733c6c8376a3dc199144ce5f9f57d5d77307993",
+        "createAtom.min.mjs": "095f775a3a6f1409bbe63ba94d2a15f49f072e196991a4942abd722cdf6ab3fb",
+        "fullStore.min.mjs": "ecebbf80adf76cda9beab06fc733c6c8376a3dc199144ce5f9f57d5d77307993",
+        "reactSelector.min.mjs": "02fafd4e9ee49dae7e9eb97c8a1a141a1599c6c7f612ef185f966b0cdc732a31",
+        "batch.min.mjs": "a53f67e0b109110b09bf36ff32d472f2ccd7f23acd3ec46337211688d1b85ff2",
+        "flush.min.mjs": "fd2d10b204438d60f03a0a3e85a112124257c2c3c92740da915e4024a0556487",
+        "toObserver.min.mjs": "362e6fe14778b8bae533e3783ee41f7952e90a16f167712f86c27931dc185f0b",
+        "shallow.min.mjs": "8c4fe533579687fbe56dbe1edd3ea72ff903864498b1de30bad7cb3a90cb4faa"
+      },
+      "runtime": "production/runtime.mjs"
+    }
+  ],
+  "sizes": [
+    {
+      "variant": "main",
+      "entry": "createAtom",
+      "minifiedBytes": 3661,
+      "gzipBytes": 1504,
+      "brotliBytes": 1403,
+      "moduleBytes": {
+        "packages/store/src/alien.ts": 1881,
+        "packages/store/src/atom.ts": 1755
+      }
+    },
+    {
+      "variant": "main",
+      "entry": "fullStore",
+      "minifiedBytes": 5353,
+      "gzipBytes": 2077,
+      "brotliBytes": 1939,
+      "moduleBytes": {
+        "packages/store/src/alien.ts": 1881,
+        "packages/store/src/atom.ts": 2091,
+        "packages/store/src/store.ts": 553,
+        "packages/store/src/shallow.ts": 684
+      }
+    },
+    {
+      "variant": "main",
+      "entry": "reactSelector",
+      "minifiedBytes": 3978,
+      "gzipBytes": 1661,
+      "brotliBytes": 1543,
+      "moduleBytes": {
+        "packages/store/src/alien.ts": 1881,
+        "packages/store/src/atom.ts": 1755,
+        "packages/react-store/src/useSelector.ts": 300
+      }
+    },
+    {
+      "variant": "main",
+      "entry": "batch",
+      "minifiedBytes": 2340,
+      "gzipBytes": 1001,
+      "brotliBytes": 936,
+      "moduleBytes": {
+        "packages/store/src/alien.ts": 1881,
+        "packages/store/src/atom.ts": 439
+      }
+    },
+    {
+      "variant": "main",
+      "entry": "flush",
+      "minifiedBytes": 2296,
+      "gzipBytes": 972,
+      "brotliBytes": 914,
+      "moduleBytes": {
+        "packages/store/src/alien.ts": 1881,
+        "packages/store/src/atom.ts": 395
+      }
+    },
+    {
+      "variant": "main",
+      "entry": "toObserver",
+      "minifiedBytes": 2368,
+      "gzipBytes": 1009,
+      "brotliBytes": 938,
+      "moduleBytes": {
+        "packages/store/src/alien.ts": 1881,
+        "packages/store/src/atom.ts": 462
+      }
+    },
+    {
+      "variant": "main",
+      "entry": "shallow",
+      "minifiedBytes": 2894,
+      "gzipBytes": 1187,
+      "brotliBytes": 1114,
+      "moduleBytes": {
+        "packages/store/src/alien.ts": 1881,
+        "packages/store/src/atom.ts": 307,
+        "packages/store/src/shallow.ts": 684
+      }
+    },
+    {
+      "variant": "published",
+      "entry": "createAtom",
+      "minifiedBytes": 4815,
+      "gzipBytes": 1924,
+      "brotliBytes": 1789,
+      "moduleBytes": {
+        "packages/store/src/alien.ts": 2218,
+        "packages/store/src/atom.ts": 2572
+      }
+    },
+    {
+      "variant": "published",
+      "entry": "fullStore",
+      "minifiedBytes": 6511,
+      "gzipBytes": 2494,
+      "brotliBytes": 2321,
+      "moduleBytes": {
+        "packages/store/src/alien.ts": 2218,
+        "packages/store/src/atom.ts": 2908,
+        "packages/store/src/store.ts": 554,
+        "packages/store/src/shallow.ts": 685
+      }
+    },
+    {
+      "variant": "published",
+      "entry": "reactSelector",
+      "minifiedBytes": 5132,
+      "gzipBytes": 2082,
+      "brotliBytes": 1928,
+      "moduleBytes": {
+        "packages/store/src/alien.ts": 2218,
+        "packages/store/src/atom.ts": 2572,
+        "packages/react-store/src/useSelector.ts": 300
+      }
+    },
+    {
+      "variant": "published",
+      "entry": "batch",
+      "minifiedBytes": 2699,
+      "gzipBytes": 1141,
+      "brotliBytes": 1067,
+      "moduleBytes": {
+        "packages/store/src/alien.ts": 2218,
+        "packages/store/src/atom.ts": 461
+      }
+    },
+    {
+      "variant": "published",
+      "entry": "flush",
+      "minifiedBytes": 2655,
+      "gzipBytes": 1116,
+      "brotliBytes": 1045,
+      "moduleBytes": {
+        "packages/store/src/alien.ts": 2218,
+        "packages/store/src/atom.ts": 417
+      }
+    },
+    {
+      "variant": "published",
+      "entry": "toObserver",
+      "minifiedBytes": 2727,
+      "gzipBytes": 1149,
+      "brotliBytes": 1066,
+      "moduleBytes": {
+        "packages/store/src/alien.ts": 2218,
+        "packages/store/src/atom.ts": 484
+      }
+    },
+    {
+      "variant": "published",
+      "entry": "shallow",
+      "minifiedBytes": 3253,
+      "gzipBytes": 1327,
+      "brotliBytes": 1236,
+      "moduleBytes": {
+        "packages/store/src/alien.ts": 2218,
+        "packages/store/src/atom.ts": 329,
+        "packages/store/src/shallow.ts": 684
+      }
+    },
+    {
+      "variant": "production",
+      "entry": "createAtom",
+      "minifiedBytes": 4699,
+      "gzipBytes": 1872,
+      "brotliBytes": 1753,
+      "moduleBytes": {
+        "packages/store/src/alien.ts": 2162,
+        "packages/store/src/atom.ts": 2512
+      }
+    },
+    {
+      "variant": "production",
+      "entry": "fullStore",
+      "minifiedBytes": 6332,
+      "gzipBytes": 2443,
+      "brotliBytes": 2272,
+      "moduleBytes": {
+        "packages/store/src/alien.ts": 2162,
+        "packages/store/src/atom.ts": 2787,
+        "packages/store/src/store.ts": 553,
+        "packages/store/src/shallow.ts": 685
+      }
+    },
+    {
+      "variant": "production",
+      "entry": "reactSelector",
+      "minifiedBytes": 5016,
+      "gzipBytes": 2033,
+      "brotliBytes": 1896,
+      "moduleBytes": {
+        "packages/store/src/alien.ts": 2162,
+        "packages/store/src/atom.ts": 2512,
+        "packages/react-store/src/useSelector.ts": 300
+      }
+    },
+    {
+      "variant": "production",
+      "entry": "batch",
+      "minifiedBytes": 173,
+      "gzipBytes": 158,
+      "brotliBytes": 137,
+      "moduleBytes": {
+        "packages/store/src/atom.ts": 153
+      }
+    },
+    {
+      "variant": "production",
+      "entry": "flush",
+      "minifiedBytes": 129,
+      "gzipBytes": 130,
+      "brotliBytes": 114,
+      "moduleBytes": {
+        "packages/store/src/atom.ts": 109
+      }
+    },
+    {
+      "variant": "production",
+      "entry": "toObserver",
+      "minifiedBytes": 180,
+      "gzipBytes": 145,
+      "brotliBytes": 130,
+      "moduleBytes": {
+        "packages/store/src/atom.ts": 155
+      }
+    },
+    {
+      "variant": "production",
+      "entry": "shallow",
+      "minifiedBytes": 706,
+      "gzipBytes": 334,
+      "brotliBytes": 303,
+      "moduleBytes": {
+        "packages/store/src/shallow.ts": 684
+      }
+    }
+  ]
+}

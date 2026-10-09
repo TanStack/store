@@ -7,7 +7,7 @@ title: batch
 function batch(fn): void;
 ```
 
-Defined in: [atom.ts:70](https://github.com/TanStack/store/blob/main/packages/store/src/atom.ts#L70)
+Defined in: [atom.ts:68](https://github.com/TanStack/store/blob/main/packages/store/src/atom.ts#L68)
 
 ## Parameters
 

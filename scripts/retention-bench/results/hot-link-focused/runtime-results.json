@@ -1,0 +1,1436 @@
+{
+  "metadata": {
+    "node": "v25.8.1",
+    "cpu": "Apple M3 Max",
+    "logicalCpus": 14,
+    "rounds": 7,
+    "suite": "retention",
+    "selectedCases": [
+      "observed_chain8_write",
+      "observed_diamond8_write",
+      "observed_chain8_after_cold_read_write",
+      "computed_subscribe_unsubscribe"
+    ],
+    "methodology": "2 full warmup workloads before each timed fresh graph; rotated sequential variants in isolated workers; forced GC between workloads; elapsed wall time excludes setup, cleanup, assertions and GC"
+  },
+  "manifest": {
+    "output": "recreate-with-prepare.mjs",
+    "node": "v25.8.1",
+    "platform": "darwin",
+    "arch": "arm64",
+    "esbuild": "0.27.7",
+    "target": "es2022",
+    "compression": "gzip level 9; Brotli quality 11",
+    "variants": [
+      {
+        "label": "main",
+        "source": "a9cf2324b4a24a8190ed7981c3be1594e0446872",
+        "sourceHashes": {
+          "alien.ts": "a651f884d7cd8ad4da231c4de5334cce89ab6e73b32c3fd1d8d2f0c8f20a804b",
+          "atom.ts": "098dfdf21c63f46eba54e05ca12fd2f29ebbbc971886ac845be0747ab814b92e",
+          "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+          "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+          "signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+          "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+          "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+        },
+        "artifactHashes": {
+          "runtime.mjs": "348c01272f1ac3cd3d186c24755f2bf97eea30191081baf128092e8041d21bf0",
+          "createAtom.min.mjs": "97f0377c10248dfc73d9a316a765c02c50138f41dc266753a6e4ce17b3019fd7",
+          "fullStore.min.mjs": "348c01272f1ac3cd3d186c24755f2bf97eea30191081baf128092e8041d21bf0",
+          "reactSelector.min.mjs": "d6b6ed3031dc9014ca9229bccb4a280a4c34b83f19b25ec672b9ab26f9756a2f"
+        },
+        "runtime": "main/runtime.mjs"
+      },
+      {
+        "label": "control",
+        "source": "../../../../.cache/retention-research/results/hot-link-focused/sources/control",
+        "sourceHashes": {
+          "alien.ts": "db042f5946f4fcded249d726389b311d6a402ef9298fc769d9a1911fb72df8ed",
+          "atom.ts": "ddd453ae9d78dcf8c4da0d6ca9bcf21437fdbfafdd82c97caa8e320765a1fe81",
+          "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+          "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+          "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+          "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+        },
+        "artifactHashes": {
+          "runtime.mjs": "6c2c3679bda26f2cc69393b56ff88df61b92394bc808f86897b1039a351e5eb9",
+          "createAtom.min.mjs": "4c0bdabfb761af0addfe0bf5b684329f2b29290f063dd92ecec3e2f472157cce",
+          "fullStore.min.mjs": "6c2c3679bda26f2cc69393b56ff88df61b92394bc808f86897b1039a351e5eb9",
+          "reactSelector.min.mjs": "8a00bf73572f5faecc8c270d8b838da736af23c419448f29d005914c3315416b"
+        },
+        "runtime": "control/runtime.mjs"
+      },
+      {
+        "label": "split_link",
+        "source": "../../../../.cache/retention-research/results/hot-link-focused/sources/split_link",
+        "sourceHashes": {
+          "alien.ts": "3607b340a4808b22a0c75ccd0b815b0b1432f73c13c7ffd54f6a39b5d74d7330",
+          "atom.ts": "090288475930cca342f892e4240e882d503937c88e89b54dcc019f1133ca68ef",
+          "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+          "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+          "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+          "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+        },
+        "artifactHashes": {
+          "runtime.mjs": "60f17fcad22ebbdd3a19c28d27b9cc9d387f143bc3eb09255075bfcdfe49b4b7",
+          "createAtom.min.mjs": "4adbc093b51fa4f351761c513bf58eeae784b7a2aa7bde72e39ab339317f4894",
+          "fullStore.min.mjs": "60f17fcad22ebbdd3a19c28d27b9cc9d387f143bc3eb09255075bfcdfe49b4b7",
+          "reactSelector.min.mjs": "9e0057a0b35556e51410cd80cb7b0b78cf49664fd3afe332adcbe01e5a070aa4"
+        },
+        "runtime": "split_link/runtime.mjs"
+      },
+      {
+        "label": "attached_fast",
+        "source": "../../../../.cache/retention-research/results/hot-link-focused/sources/attached_fast",
+        "sourceHashes": {
+          "alien.ts": "170d46a94cc34d8877999cf4ad7916fbf5b662a4f0b981b7fabacff198ff637d",
+          "atom.ts": "ddd453ae9d78dcf8c4da0d6ca9bcf21437fdbfafdd82c97caa8e320765a1fe81",
+          "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+          "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+          "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+          "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+        },
+        "artifactHashes": {
+          "runtime.mjs": "62e3fc7bc556b6521b402e79f208d027b648dbd634a499d79e43d3b75031f909",
+          "createAtom.min.mjs": "5668706d11b85c5b8af56f9d16c6cd3703393553bb433d13c80444fec40f69ca",
+          "fullStore.min.mjs": "62e3fc7bc556b6521b402e79f208d027b648dbd634a499d79e43d3b75031f909",
+          "reactSelector.min.mjs": "6308774d3d0b657dc0a2822eac0ebcbc90a37386139362c404f1ef1b8d5495bc"
+        },
+        "runtime": "attached_fast/runtime.mjs"
+      }
+    ],
+    "sizes": [
+      {
+        "variant": "main",
+        "entry": "createAtom",
+        "minifiedBytes": 3661,
+        "gzipBytes": 1504,
+        "brotliBytes": 1403
+      },
+      {
+        "variant": "main",
+        "entry": "fullStore",
+        "minifiedBytes": 5353,
+        "gzipBytes": 2077,
+        "brotliBytes": 1939
+      },
+      {
+        "variant": "main",
+        "entry": "reactSelector",
+        "minifiedBytes": 3978,
+        "gzipBytes": 1661,
+        "brotliBytes": 1543
+      },
+      {
+        "variant": "control",
+        "entry": "createAtom",
+        "minifiedBytes": 4594,
+        "gzipBytes": 1863,
+        "brotliBytes": 1733
+      },
+      {
+        "variant": "control",
+        "entry": "fullStore",
+        "minifiedBytes": 6290,
+        "gzipBytes": 2440,
+        "brotliBytes": 2263
+      },
+      {
+        "variant": "control",
+        "entry": "reactSelector",
+        "minifiedBytes": 4911,
+        "gzipBytes": 2022,
+        "brotliBytes": 1870
+      },
+      {
+        "variant": "split_link",
+        "entry": "createAtom",
+        "minifiedBytes": 4913,
+        "gzipBytes": 1905,
+        "brotliBytes": 1766
+      },
+      {
+        "variant": "split_link",
+        "entry": "fullStore",
+        "minifiedBytes": 6609,
+        "gzipBytes": 2476,
+        "brotliBytes": 2303
+      },
+      {
+        "variant": "split_link",
+        "entry": "reactSelector",
+        "minifiedBytes": 5230,
+        "gzipBytes": 2064,
+        "brotliBytes": 1912
+      },
+      {
+        "variant": "attached_fast",
+        "entry": "createAtom",
+        "minifiedBytes": 4671,
+        "gzipBytes": 1873,
+        "brotliBytes": 1746
+      },
+      {
+        "variant": "attached_fast",
+        "entry": "fullStore",
+        "minifiedBytes": 6367,
+        "gzipBytes": 2452,
+        "brotliBytes": 2277
+      },
+      {
+        "variant": "attached_fast",
+        "entry": "reactSelector",
+        "minifiedBytes": 4988,
+        "gzipBytes": 2035,
+        "brotliBytes": 1893
+      }
+    ]
+  },
+  "preflight": [
+    {
+      "variant": "main",
+      "rows": [
+        {
+          "name": "observed_chain8_write",
+          "iterations": 250,
+          "elapsedMs": 0.13837499999999991,
+          "nsPerIteration": 553.4999999999997,
+          "counters": {
+            "computes": 2008,
+            "notifications": 250
+          }
+        },
+        {
+          "name": "observed_diamond8_write",
+          "iterations": 200,
+          "elapsedMs": 0.152667000000001,
+          "nsPerIteration": 763.3350000000049,
+          "counters": {
+            "computes": 1809,
+            "notifications": 200
+          }
+        },
+        {
+          "name": "computed_subscribe_unsubscribe",
+          "iterations": 200,
+          "elapsedMs": 0.17120800000000003,
+          "nsPerIteration": 856.0400000000002,
+          "counters": {
+            "computes": 1608,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "observed_chain8_after_cold_read_write",
+          "iterations": 250,
+          "elapsedMs": 0.12250000000000227,
+          "nsPerIteration": 490.0000000000091,
+          "counters": {
+            "computes": 2008,
+            "notifications": 250
+          }
+        }
+      ],
+      "sink": 6456
+    },
+    {
+      "variant": "control",
+      "rows": [
+        {
+          "name": "observed_chain8_write",
+          "iterations": 250,
+          "elapsedMs": 0.30541700000000205,
+          "nsPerIteration": 1221.668000000008,
+          "counters": {
+            "computes": 2008,
+            "notifications": 250
+          }
+        },
+        {
+          "name": "observed_diamond8_write",
+          "iterations": 200,
+          "elapsedMs": 0.21595900000000157,
+          "nsPerIteration": 1079.7950000000078,
+          "counters": {
+            "computes": 1809,
+            "notifications": 200
+          }
+        },
+        {
+          "name": "computed_subscribe_unsubscribe",
+          "iterations": 200,
+          "elapsedMs": 0.2611660000000029,
+          "nsPerIteration": 1305.8300000000145,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "observed_chain8_after_cold_read_write",
+          "iterations": 250,
+          "elapsedMs": 0.13483300000000042,
+          "nsPerIteration": 539.3320000000017,
+          "counters": {
+            "computes": 2008,
+            "notifications": 250
+          }
+        }
+      ],
+      "sink": 6456
+    },
+    {
+      "variant": "split_link",
+      "rows": [
+        {
+          "name": "observed_chain8_write",
+          "iterations": 250,
+          "elapsedMs": 0.3450419999999994,
+          "nsPerIteration": 1380.1679999999976,
+          "counters": {
+            "computes": 2008,
+            "notifications": 250
+          }
+        },
+        {
+          "name": "observed_diamond8_write",
+          "iterations": 200,
+          "elapsedMs": 0.19841699999999918,
+          "nsPerIteration": 992.084999999996,
+          "counters": {
+            "computes": 1809,
+            "notifications": 200
+          }
+        },
+        {
+          "name": "computed_subscribe_unsubscribe",
+          "iterations": 200,
+          "elapsedMs": 0.18666699999999992,
+          "nsPerIteration": 933.3349999999996,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "observed_chain8_after_cold_read_write",
+          "iterations": 250,
+          "elapsedMs": 0.1303750000000008,
+          "nsPerIteration": 521.5000000000032,
+          "counters": {
+            "computes": 2008,
+            "notifications": 250
+          }
+        }
+      ],
+      "sink": 6456
+    },
+    {
+      "variant": "attached_fast",
+      "rows": [
+        {
+          "name": "observed_chain8_write",
+          "iterations": 250,
+          "elapsedMs": 0.3001669999999983,
+          "nsPerIteration": 1200.6679999999933,
+          "counters": {
+            "computes": 2008,
+            "notifications": 250
+          }
+        },
+        {
+          "name": "observed_diamond8_write",
+          "iterations": 200,
+          "elapsedMs": 0.1622090000000007,
+          "nsPerIteration": 811.0450000000036,
+          "counters": {
+            "computes": 1809,
+            "notifications": 200
+          }
+        },
+        {
+          "name": "computed_subscribe_unsubscribe",
+          "iterations": 200,
+          "elapsedMs": 0.2581249999999997,
+          "nsPerIteration": 1290.6249999999986,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "observed_chain8_after_cold_read_write",
+          "iterations": 250,
+          "elapsedMs": 0.1295420000000007,
+          "nsPerIteration": 518.1680000000028,
+          "counters": {
+            "computes": 2008,
+            "notifications": 250
+          }
+        }
+      ],
+      "sink": 6456
+    }
+  ],
+  "summaries": [
+    {
+      "variant": "main",
+      "name": "observed_chain8_write",
+      "medianNs": 249.59333600000002,
+      "minNs": 239.914,
+      "maxNs": 263.35133600000006,
+      "p25Ns": 241.713664,
+      "p75Ns": 251.37599999999998,
+      "iterations": 125000
+    },
+    {
+      "variant": "main",
+      "name": "observed_diamond8_write",
+      "medianNs": 317.9233400000001,
+      "minNs": 313.14459,
+      "maxNs": 323.3266599999999,
+      "p25Ns": 314.4345900000002,
+      "p75Ns": 320.68749999999994,
+      "iterations": 100000
+    },
+    {
+      "variant": "main",
+      "name": "computed_subscribe_unsubscribe",
+      "medianNs": 419.71542,
+      "minNs": 409.15957999999995,
+      "maxNs": 450.06125,
+      "p25Ns": 412.68624999999986,
+      "p75Ns": 427.7270799999996,
+      "iterations": 100000
+    },
+    {
+      "variant": "main",
+      "name": "observed_chain8_after_cold_read_write",
+      "medianNs": 256.28300000000036,
+      "minNs": 250.75866399999995,
+      "maxNs": 262.65567199999987,
+      "p25Ns": 251.4423280000001,
+      "p75Ns": 260.9826640000001,
+      "iterations": 125000
+    },
+    {
+      "variant": "control",
+      "name": "observed_chain8_write",
+      "medianNs": 279.95000000000005,
+      "minNs": 278.90300000000013,
+      "maxNs": 299.499,
+      "p25Ns": 279.38033600000006,
+      "p75Ns": 294.3823360000001,
+      "iterations": 125000
+    },
+    {
+      "variant": "control",
+      "name": "observed_diamond8_write",
+      "medianNs": 399.82791999999995,
+      "minNs": 395.09041999999994,
+      "maxNs": 412.1825000000002,
+      "p25Ns": 398.69500000000016,
+      "p75Ns": 406.79624999999953,
+      "iterations": 100000
+    },
+    {
+      "variant": "control",
+      "name": "computed_subscribe_unsubscribe",
+      "medianNs": 292.6691699999998,
+      "minNs": 288.5504199999997,
+      "maxNs": 295.33457999999996,
+      "p25Ns": 288.97666000000015,
+      "p75Ns": 294.1533400000003,
+      "iterations": 100000
+    },
+    {
+      "variant": "control",
+      "name": "observed_chain8_after_cold_read_write",
+      "medianNs": 312.629672,
+      "minNs": 298.15033600000015,
+      "maxNs": 335.43833600000016,
+      "p25Ns": 300.71900000000005,
+      "p75Ns": 321.4850000000001,
+      "iterations": 125000
+    },
+    {
+      "variant": "split_link",
+      "name": "observed_chain8_write",
+      "medianNs": 272.927,
+      "minNs": 269.02833599999997,
+      "maxNs": 278.3399999999999,
+      "p25Ns": 269.83166399999993,
+      "p75Ns": 276.45332799999994,
+      "iterations": 125000
+    },
+    {
+      "variant": "split_link",
+      "name": "observed_diamond8_write",
+      "medianNs": 379.28708,
+      "minNs": 374.6549999999999,
+      "maxNs": 395.2158399999999,
+      "p25Ns": 376.98582999999985,
+      "p75Ns": 385.8737500000001,
+      "iterations": 100000
+    },
+    {
+      "variant": "split_link",
+      "name": "computed_subscribe_unsubscribe",
+      "medianNs": 286.4737500000001,
+      "minNs": 280.7149999999996,
+      "maxNs": 304.1666700000002,
+      "p25Ns": 281.6058400000003,
+      "p75Ns": 294.82167000000004,
+      "iterations": 100000
+    },
+    {
+      "variant": "split_link",
+      "name": "observed_chain8_after_cold_read_write",
+      "medianNs": 299.42066399999976,
+      "minNs": 288.27267200000006,
+      "maxNs": 306.32800000000043,
+      "p25Ns": 291.8383359999998,
+      "p75Ns": 305.8116719999998,
+      "iterations": 125000
+    },
+    {
+      "variant": "attached_fast",
+      "name": "observed_chain8_write",
+      "medianNs": 272.521336,
+      "minNs": 271.41499999999996,
+      "maxNs": 277.3503360000001,
+      "p25Ns": 272.4170000000001,
+      "p75Ns": 273.3233359999999,
+      "iterations": 125000
+    },
+    {
+      "variant": "attached_fast",
+      "name": "observed_diamond8_write",
+      "medianNs": 372.66333,
+      "minNs": 368.08209000000005,
+      "maxNs": 410.57582999999994,
+      "p25Ns": 369.94583000000006,
+      "p75Ns": 383.89167000000015,
+      "iterations": 100000
+    },
+    {
+      "variant": "attached_fast",
+      "name": "computed_subscribe_unsubscribe",
+      "medianNs": 299.8345900000004,
+      "minNs": 289.8037499999998,
+      "maxNs": 308.82916999999964,
+      "p25Ns": 296.43125,
+      "p75Ns": 304.1754199999997,
+      "iterations": 100000
+    },
+    {
+      "variant": "attached_fast",
+      "name": "observed_chain8_after_cold_read_write",
+      "medianNs": 299.9489999999996,
+      "minNs": 294.96932800000013,
+      "maxNs": 328.8766639999999,
+      "p25Ns": 295.3380000000002,
+      "p75Ns": 307.747664,
+      "iterations": 125000
+    }
+  ],
+  "samples": [
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 32.91891700000001,
+      "nsPerIteration": 263.35133600000006
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 32.064250000000015,
+      "nsPerIteration": 320.64250000000015
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 45.006125,
+      "nsPerIteration": 450.06125
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 32.111042,
+      "nsPerIteration": 256.888336
+    },
+    {
+      "round": 0,
+      "variant": "control",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 37.437375,
+      "nsPerIteration": 299.499
+    },
+    {
+      "round": 0,
+      "variant": "control",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 39.869500000000016,
+      "nsPerIteration": 398.69500000000016
+    },
+    {
+      "round": 0,
+      "variant": "control",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 28.85504199999997,
+      "nsPerIteration": 288.5504199999997
+    },
+    {
+      "round": 0,
+      "variant": "control",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 40.185625000000016,
+      "nsPerIteration": 321.4850000000001
+    },
+    {
+      "round": 0,
+      "variant": "split_link",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 34.79249999999999,
+      "nsPerIteration": 278.3399999999999
+    },
+    {
+      "round": 0,
+      "variant": "split_link",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 37.698582999999985,
+      "nsPerIteration": 376.98582999999985
+    },
+    {
+      "round": 0,
+      "variant": "split_link",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 29.482167000000004,
+      "nsPerIteration": 294.82167000000004
+    },
+    {
+      "round": 0,
+      "variant": "split_link",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 36.479791999999975,
+      "nsPerIteration": 291.8383359999998
+    },
+    {
+      "round": 0,
+      "variant": "attached_fast",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 34.084917000000004,
+      "nsPerIteration": 272.67933600000003
+    },
+    {
+      "round": 0,
+      "variant": "attached_fast",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 36.808209000000005,
+      "nsPerIteration": 368.08209000000005
+    },
+    {
+      "round": 0,
+      "variant": "attached_fast",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 28.98037499999998,
+      "nsPerIteration": 289.8037499999998
+    },
+    {
+      "round": 0,
+      "variant": "attached_fast",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 36.917250000000024,
+      "nsPerIteration": 295.3380000000002
+    },
+    {
+      "round": 1,
+      "variant": "control",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 34.993750000000006,
+      "nsPerIteration": 279.95000000000005
+    },
+    {
+      "round": 1,
+      "variant": "control",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 40.04441700000001,
+      "nsPerIteration": 400.4441700000001
+    },
+    {
+      "round": 1,
+      "variant": "control",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 29.02491600000002,
+      "nsPerIteration": 290.2491600000002
+    },
+    {
+      "round": 1,
+      "variant": "control",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 37.589875000000006,
+      "nsPerIteration": 300.71900000000005
+    },
+    {
+      "round": 1,
+      "variant": "split_link",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 33.628541999999996,
+      "nsPerIteration": 269.02833599999997
+    },
+    {
+      "round": 1,
+      "variant": "split_link",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 37.766999999999996,
+      "nsPerIteration": 377.6699999999999
+    },
+    {
+      "round": 1,
+      "variant": "split_link",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 28.071499999999958,
+      "nsPerIteration": 280.7149999999996
+    },
+    {
+      "round": 1,
+      "variant": "split_link",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 36.03408400000001,
+      "nsPerIteration": 288.27267200000006
+    },
+    {
+      "round": 1,
+      "variant": "attached_fast",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 34.061499999999995,
+      "nsPerIteration": 272.49199999999996
+    },
+    {
+      "round": 1,
+      "variant": "attached_fast",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 36.994583000000006,
+      "nsPerIteration": 369.94583000000006
+    },
+    {
+      "round": 1,
+      "variant": "attached_fast",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 30.882916999999964,
+      "nsPerIteration": 308.82916999999964
+    },
+    {
+      "round": 1,
+      "variant": "attached_fast",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 36.87116600000002,
+      "nsPerIteration": 294.96932800000013
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 29.98925,
+      "nsPerIteration": 239.914
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 32.068749999999994,
+      "nsPerIteration": 320.68749999999994
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 41.71445900000003,
+      "nsPerIteration": 417.1445900000003
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 31.576667000000043,
+      "nsPerIteration": 252.61333600000034
+    },
+    {
+      "round": 2,
+      "variant": "split_link",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 34.098665999999994,
+      "nsPerIteration": 272.78932799999995
+    },
+    {
+      "round": 2,
+      "variant": "split_link",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 38.58737500000001,
+      "nsPerIteration": 385.8737500000001
+    },
+    {
+      "round": 2,
+      "variant": "split_link",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 28.16058400000003,
+      "nsPerIteration": 281.6058400000003
+    },
+    {
+      "round": 2,
+      "variant": "split_link",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 38.22645899999998,
+      "nsPerIteration": 305.8116719999998
+    },
+    {
+      "round": 2,
+      "variant": "attached_fast",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 34.052125000000004,
+      "nsPerIteration": 272.4170000000001
+    },
+    {
+      "round": 2,
+      "variant": "attached_fast",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 37.421875,
+      "nsPerIteration": 374.21875
+    },
+    {
+      "round": 2,
+      "variant": "attached_fast",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 29.643124999999998,
+      "nsPerIteration": 296.43125
+    },
+    {
+      "round": 2,
+      "variant": "attached_fast",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 37.49362499999995,
+      "nsPerIteration": 299.9489999999996
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 31.199167000000003,
+      "nsPerIteration": 249.59333600000002
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 31.79233400000001,
+      "nsPerIteration": 317.9233400000001
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 42.50204099999996,
+      "nsPerIteration": 425.02040999999963
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 32.83195899999998,
+      "nsPerIteration": 262.65567199999987
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 34.97737499999998,
+      "nsPerIteration": 279.81899999999985
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 39.509041999999994,
+      "nsPerIteration": 395.09041999999994
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 29.41533400000003,
+      "nsPerIteration": 294.1533400000003
+    },
+    {
+      "round": 2,
+      "variant": "control",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 39.756125,
+      "nsPerIteration": 318.049
+    },
+    {
+      "round": 3,
+      "variant": "attached_fast",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 33.926874999999995,
+      "nsPerIteration": 271.41499999999996
+    },
+    {
+      "round": 3,
+      "variant": "attached_fast",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 38.389167000000015,
+      "nsPerIteration": 383.89167000000015
+    },
+    {
+      "round": 3,
+      "variant": "attached_fast",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 30.151292000000012,
+      "nsPerIteration": 301.5129200000001
+    },
+    {
+      "round": 3,
+      "variant": "attached_fast",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 37.155250000000024,
+      "nsPerIteration": 297.2420000000002
+    },
+    {
+      "round": 3,
+      "variant": "main",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 31.142207999999997,
+      "nsPerIteration": 249.13766399999997
+    },
+    {
+      "round": 3,
+      "variant": "main",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 31.44345900000002,
+      "nsPerIteration": 314.4345900000002
+    },
+    {
+      "round": 3,
+      "variant": "main",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 41.268624999999986,
+      "nsPerIteration": 412.68624999999986
+    },
+    {
+      "round": 3,
+      "variant": "main",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 32.622833000000014,
+      "nsPerIteration": 260.9826640000001
+    },
+    {
+      "round": 3,
+      "variant": "control",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 34.92254200000001,
+      "nsPerIteration": 279.38033600000006
+    },
+    {
+      "round": 3,
+      "variant": "control",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 39.98279199999999,
+      "nsPerIteration": 399.82791999999995
+    },
+    {
+      "round": 3,
+      "variant": "control",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 29.266916999999978,
+      "nsPerIteration": 292.6691699999998
+    },
+    {
+      "round": 3,
+      "variant": "control",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 39.078709,
+      "nsPerIteration": 312.629672
+    },
+    {
+      "round": 3,
+      "variant": "split_link",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 34.115875,
+      "nsPerIteration": 272.927
+    },
+    {
+      "round": 3,
+      "variant": "split_link",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 37.928708,
+      "nsPerIteration": 379.28708
+    },
+    {
+      "round": 3,
+      "variant": "split_link",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 30.416667000000018,
+      "nsPerIteration": 304.1666700000002
+    },
+    {
+      "round": 3,
+      "variant": "split_link",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 38.291000000000054,
+      "nsPerIteration": 306.32800000000043
+    },
+    {
+      "round": 4,
+      "variant": "main",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 30.214208,
+      "nsPerIteration": 241.713664
+    },
+    {
+      "round": 4,
+      "variant": "main",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 31.577083999999985,
+      "nsPerIteration": 315.77083999999985
+    },
+    {
+      "round": 4,
+      "variant": "main",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 40.91595799999999,
+      "nsPerIteration": 409.15957999999995
+    },
+    {
+      "round": 4,
+      "variant": "main",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 31.344832999999994,
+      "nsPerIteration": 250.75866399999995
+    },
+    {
+      "round": 4,
+      "variant": "control",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 36.797792000000015,
+      "nsPerIteration": 294.3823360000001
+    },
+    {
+      "round": 4,
+      "variant": "control",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 41.21825000000001,
+      "nsPerIteration": 412.1825000000002
+    },
+    {
+      "round": 4,
+      "variant": "control",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 28.897666000000015,
+      "nsPerIteration": 288.97666000000015
+    },
+    {
+      "round": 4,
+      "variant": "control",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 41.92979200000002,
+      "nsPerIteration": 335.43833600000016
+    },
+    {
+      "round": 4,
+      "variant": "split_link",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 34.12100000000001,
+      "nsPerIteration": 272.9680000000001
+    },
+    {
+      "round": 4,
+      "variant": "split_link",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 39.52158399999999,
+      "nsPerIteration": 395.2158399999999
+    },
+    {
+      "round": 4,
+      "variant": "split_link",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 29.245834000000002,
+      "nsPerIteration": 292.45834
+    },
+    {
+      "round": 4,
+      "variant": "split_link",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 37.42758299999997,
+      "nsPerIteration": 299.42066399999976
+    },
+    {
+      "round": 4,
+      "variant": "attached_fast",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 34.065167,
+      "nsPerIteration": 272.521336
+    },
+    {
+      "round": 4,
+      "variant": "attached_fast",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 41.057582999999994,
+      "nsPerIteration": 410.57582999999994
+    },
+    {
+      "round": 4,
+      "variant": "attached_fast",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 30.41754199999997,
+      "nsPerIteration": 304.1754199999997
+    },
+    {
+      "round": 4,
+      "variant": "attached_fast",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 38.468458,
+      "nsPerIteration": 307.747664
+    },
+    {
+      "round": 5,
+      "variant": "control",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 35.235417,
+      "nsPerIteration": 281.883336
+    },
+    {
+      "round": 5,
+      "variant": "control",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 40.67962499999996,
+      "nsPerIteration": 406.79624999999953
+    },
+    {
+      "round": 5,
+      "variant": "control",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 29.533457999999996,
+      "nsPerIteration": 295.33457999999996
+    },
+    {
+      "round": 5,
+      "variant": "control",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 37.26879200000002,
+      "nsPerIteration": 298.15033600000015
+    },
+    {
+      "round": 5,
+      "variant": "split_link",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 34.55666599999999,
+      "nsPerIteration": 276.45332799999994
+    },
+    {
+      "round": 5,
+      "variant": "split_link",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 37.46549999999999,
+      "nsPerIteration": 374.6549999999999
+    },
+    {
+      "round": 5,
+      "variant": "split_link",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 28.225209000000007,
+      "nsPerIteration": 282.25209000000007
+    },
+    {
+      "round": 5,
+      "variant": "split_link",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 37.95629200000002,
+      "nsPerIteration": 303.65033600000015
+    },
+    {
+      "round": 5,
+      "variant": "attached_fast",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 34.66879200000001,
+      "nsPerIteration": 277.3503360000001
+    },
+    {
+      "round": 5,
+      "variant": "attached_fast",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 37.21170799999999,
+      "nsPerIteration": 372.1170799999999
+    },
+    {
+      "round": 5,
+      "variant": "attached_fast",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 29.98345900000004,
+      "nsPerIteration": 299.8345900000004
+    },
+    {
+      "round": 5,
+      "variant": "attached_fast",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 37.964541999999994,
+      "nsPerIteration": 303.71633599999996
+    },
+    {
+      "round": 5,
+      "variant": "main",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 31.281374999999997,
+      "nsPerIteration": 250.25099999999998
+    },
+    {
+      "round": 5,
+      "variant": "main",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 32.33266599999999,
+      "nsPerIteration": 323.3266599999999
+    },
+    {
+      "round": 5,
+      "variant": "main",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 42.772707999999966,
+      "nsPerIteration": 427.7270799999996
+    },
+    {
+      "round": 5,
+      "variant": "main",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 32.035375000000045,
+      "nsPerIteration": 256.28300000000036
+    },
+    {
+      "round": 6,
+      "variant": "split_link",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 33.72895799999999,
+      "nsPerIteration": 269.83166399999993
+    },
+    {
+      "round": 6,
+      "variant": "split_link",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 37.971750000000014,
+      "nsPerIteration": 379.71750000000014
+    },
+    {
+      "round": 6,
+      "variant": "split_link",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 28.64737500000001,
+      "nsPerIteration": 286.4737500000001
+    },
+    {
+      "round": 6,
+      "variant": "split_link",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 37.181667000000004,
+      "nsPerIteration": 297.45333600000004
+    },
+    {
+      "round": 6,
+      "variant": "attached_fast",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 34.16541699999999,
+      "nsPerIteration": 273.3233359999999
+    },
+    {
+      "round": 6,
+      "variant": "attached_fast",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 37.266333,
+      "nsPerIteration": 372.66333
+    },
+    {
+      "round": 6,
+      "variant": "attached_fast",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 29.95712500000002,
+      "nsPerIteration": 299.5712500000002
+    },
+    {
+      "round": 6,
+      "variant": "attached_fast",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 41.109582999999986,
+      "nsPerIteration": 328.8766639999999
+    },
+    {
+      "round": 6,
+      "variant": "main",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 31.421999999999997,
+      "nsPerIteration": 251.37599999999998
+    },
+    {
+      "round": 6,
+      "variant": "main",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 31.314459,
+      "nsPerIteration": 313.14459
+    },
+    {
+      "round": 6,
+      "variant": "main",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 41.971542,
+      "nsPerIteration": 419.71542
+    },
+    {
+      "round": 6,
+      "variant": "main",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 31.43029100000001,
+      "nsPerIteration": 251.4423280000001
+    },
+    {
+      "round": 6,
+      "variant": "control",
+      "name": "observed_chain8_write",
+      "iterations": 125000,
+      "elapsedMs": 34.86287500000002,
+      "nsPerIteration": 278.90300000000013
+    },
+    {
+      "round": 6,
+      "variant": "control",
+      "name": "observed_diamond8_write",
+      "iterations": 100000,
+      "elapsedMs": 39.93025,
+      "nsPerIteration": 399.3025
+    },
+    {
+      "round": 6,
+      "variant": "control",
+      "name": "computed_subscribe_unsubscribe",
+      "iterations": 100000,
+      "elapsedMs": 29.312874999999963,
+      "nsPerIteration": 293.1287499999996
+    },
+    {
+      "round": 6,
+      "variant": "control",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 125000,
+      "elapsedMs": 38.96291600000001,
+      "nsPerIteration": 311.70332800000006
+    }
+  ]
+}

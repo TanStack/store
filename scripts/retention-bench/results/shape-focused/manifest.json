@@ -1,0 +1,135 @@
+{
+  "output": "recreate-with-prepare.mjs",
+  "node": "v25.8.1",
+  "platform": "darwin",
+  "arch": "arm64",
+  "esbuild": "0.27.7",
+  "target": "es2022",
+  "compression": "gzip level 9; Brotli quality 11",
+  "variants": [
+    {
+      "label": "proposal",
+      "source": "../../../../.cache/retention-research/results/shape-focused/sources/proposal",
+      "sourceHashes": {
+        "alien.ts": "41b3e33ab6f3fa033a01c1d76e0a2bc89557191e552a86bc91b3075cb8acace0",
+        "atom.ts": "c3447c86af0e93d11611efce4267046ee9f84ee327803ea640cd74c9c95a27b5",
+        "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+        "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+        "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+        "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+      },
+      "artifactHashes": {
+        "runtime.mjs": "59fc5e2f4eab7de328eb7319733eb2800747d1b771cf65e9c76ab4f937c68e4e",
+        "createAtom.min.mjs": "10b8ae926e3ec2d5aee1fd3c83b3e8358a348bd36e051530c3c82e262bec04b1",
+        "fullStore.min.mjs": "59fc5e2f4eab7de328eb7319733eb2800747d1b771cf65e9c76ab4f937c68e4e",
+        "reactSelector.min.mjs": "687ddc6d1ea12ead5d77dd42ebac10e94a5967ce0384ab0de759858ab72a7245"
+      },
+      "runtime": "proposal/runtime.mjs"
+    },
+    {
+      "label": "lazy",
+      "source": "../../../../.cache/retention-research/results/shape-focused/sources/lazy",
+      "sourceHashes": {
+        "alien.ts": "db042f5946f4fcded249d726389b311d6a402ef9298fc769d9a1911fb72df8ed",
+        "atom.ts": "21dd85df561a0317f0ad7d248763f8ac97d64aadc4badb4ef45a79eed478898d",
+        "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+        "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+        "signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+        "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+        "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+      },
+      "artifactHashes": {
+        "runtime.mjs": "e0bc4daba6a2d5056ae5ee8c4ce545b800204adc77f42dfe30d28ea480c7b7d4",
+        "createAtom.min.mjs": "214c0774a3f39dd5139d5bb61bb3286bb363f2354079ca5a98b14a48d7889317",
+        "fullStore.min.mjs": "e0bc4daba6a2d5056ae5ee8c4ce545b800204adc77f42dfe30d28ea480c7b7d4",
+        "reactSelector.min.mjs": "a0fb636519e0dd2f7086dd0e271119eb8f30db723501ca5a41f9b73e1cf82b9a"
+      },
+      "runtime": "lazy/runtime.mjs"
+    },
+    {
+      "label": "production",
+      "source": "../../../../.cache/retention-research/results/shape-focused/sources/production",
+      "sourceHashes": {
+        "alien.ts": "db042f5946f4fcded249d726389b311d6a402ef9298fc769d9a1911fb72df8ed",
+        "atom.ts": "26bf5d9fbca710fc56b0a4f79d9a44266d108dec31a7c988e32ea054eed73d82",
+        "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+        "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+        "signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+        "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+        "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+      },
+      "artifactHashes": {
+        "runtime.mjs": "e704721c935c02758fe6960821bdb7c4c1913de1b40aacb3446a45dd65ea06c4",
+        "createAtom.min.mjs": "5167375085e5d10f56034553d7eadf8b4a42bfe9c8e3691afcce72540c78aefa",
+        "fullStore.min.mjs": "e704721c935c02758fe6960821bdb7c4c1913de1b40aacb3446a45dd65ea06c4",
+        "reactSelector.min.mjs": "4405d8c16b0fe4428b0939629c5b27d58db846921d6721edcda9358d77b9573d"
+      },
+      "runtime": "production/runtime.mjs"
+    }
+  ],
+  "sizes": [
+    {
+      "variant": "proposal",
+      "entry": "createAtom",
+      "minifiedBytes": 4451,
+      "gzipBytes": 1808,
+      "brotliBytes": 1679
+    },
+    {
+      "variant": "proposal",
+      "entry": "fullStore",
+      "minifiedBytes": 6147,
+      "gzipBytes": 2386,
+      "brotliBytes": 2210
+    },
+    {
+      "variant": "proposal",
+      "entry": "reactSelector",
+      "minifiedBytes": 4768,
+      "gzipBytes": 1971,
+      "brotliBytes": 1823
+    },
+    {
+      "variant": "lazy",
+      "entry": "createAtom",
+      "minifiedBytes": 4551,
+      "gzipBytes": 1849,
+      "brotliBytes": 1720
+    },
+    {
+      "variant": "lazy",
+      "entry": "fullStore",
+      "minifiedBytes": 6247,
+      "gzipBytes": 2426,
+      "brotliBytes": 2251
+    },
+    {
+      "variant": "lazy",
+      "entry": "reactSelector",
+      "minifiedBytes": 4868,
+      "gzipBytes": 2010,
+      "brotliBytes": 1862
+    },
+    {
+      "variant": "production",
+      "entry": "createAtom",
+      "minifiedBytes": 4578,
+      "gzipBytes": 1859,
+      "brotliBytes": 1727
+    },
+    {
+      "variant": "production",
+      "entry": "fullStore",
+      "minifiedBytes": 6274,
+      "gzipBytes": 2435,
+      "brotliBytes": 2256
+    },
+    {
+      "variant": "production",
+      "entry": "reactSelector",
+      "minifiedBytes": 4895,
+      "gzipBytes": 2019,
+      "brotliBytes": 1869
+    }
+  ]
+}

@@ -1,0 +1,3750 @@
+{
+  "metadata": {
+    "node": "v25.8.1",
+    "cpu": "Apple M3 Max",
+    "logicalCpus": 14,
+    "rounds": 7,
+    "suite": "hot",
+    "methodology": "2 full warmup workloads before each timed fresh graph; rotated sequential variants in isolated workers; forced GC between workloads; elapsed wall time excludes setup, cleanup, assertions and GC"
+  },
+  "manifest": {
+    "output": "recreate-with-prepare.mjs",
+    "node": "v25.8.1",
+    "platform": "darwin",
+    "arch": "arm64",
+    "esbuild": "0.27.7",
+    "target": "es2022",
+    "compression": "gzip level 9; Brotli quality 11",
+    "variants": [
+      {
+        "label": "main",
+        "source": "a9cf2324b4a24a8190ed7981c3be1594e0446872",
+        "sourceHashes": {
+          "alien.ts": "a651f884d7cd8ad4da231c4de5334cce89ab6e73b32c3fd1d8d2f0c8f20a804b",
+          "atom.ts": "098dfdf21c63f46eba54e05ca12fd2f29ebbbc971886ac845be0747ab814b92e",
+          "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+          "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+          "signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+          "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+          "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+        },
+        "artifactHashes": {
+          "runtime.mjs": "348c01272f1ac3cd3d186c24755f2bf97eea30191081baf128092e8041d21bf0",
+          "createAtom.min.mjs": "97f0377c10248dfc73d9a316a765c02c50138f41dc266753a6e4ce17b3019fd7",
+          "fullStore.min.mjs": "348c01272f1ac3cd3d186c24755f2bf97eea30191081baf128092e8041d21bf0",
+          "reactSelector.min.mjs": "d6b6ed3031dc9014ca9229bccb4a280a4c34b83f19b25ec672b9ab26f9756a2f",
+          "batch.min.mjs": "3d1b018b50f7efd5d8271276b07d841d3ede3b6cf31af37f7d27a9fe6a475bda",
+          "flush.min.mjs": "8c7cdec1ac10bd95f7133683a7491544e5b9e427e49eb8f1c775ef9707289de8",
+          "toObserver.min.mjs": "30aee927e95dfb9d1b8a8c0f95efc2d3a15bd9eb23b51d5d0fd47dabddd4624f",
+          "shallow.min.mjs": "744495cd9f1f4d130a672bb9bcfa2e96ea58c0e80ce73b4fe09b80545ca31da3"
+        },
+        "runtime": "main/runtime.mjs"
+      },
+      {
+        "label": "published",
+        "source": "451be99bfd5b9f3295b829ef18ab7dd68d32ddfe",
+        "sourceHashes": {
+          "alien.ts": "df98cfad925f14ef265103baec02f9c558e568d76908cb626be884990bf5fa52",
+          "atom.ts": "0785dbd35551b206edb243eaabdba32b72e9c18803625e917f8f7e96501c8f2b",
+          "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+          "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+          "signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+          "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+          "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+        },
+        "artifactHashes": {
+          "runtime.mjs": "db5f458d493012b11fb3b350bba6dae1aa5b9c8053b68053f083fad462f04de7",
+          "createAtom.min.mjs": "2e5a57a1f09b448fe2fd98b5fcd07d047e81ca3e83724ad8a37f6892ac7aff2d",
+          "fullStore.min.mjs": "db5f458d493012b11fb3b350bba6dae1aa5b9c8053b68053f083fad462f04de7",
+          "reactSelector.min.mjs": "b57cd3b76cd7a7d2839148dc84e95af8a9fbc952e6cb0a816c335ec26f65cf5d",
+          "batch.min.mjs": "c89140bf8e16cb605057767758df7fddd69fd90c278b14c1bff1d005b6564fdd",
+          "flush.min.mjs": "51ec270bd4386dc64aaef7ab86d8a3a75492f879e2c46e73209c23e57a1bd54a",
+          "toObserver.min.mjs": "406e082a67bde53bc94dd8b135e3d3455d27a97b51b9d58edb387cefcf1995f5",
+          "shallow.min.mjs": "de2183901342980b2a99abb6573f506503131838607db6a2af079408b06f3be7"
+        },
+        "runtime": "published/runtime.mjs"
+      },
+      {
+        "label": "production",
+        "source": "../../../../.cache/retention-research/results/size-final/sources/production",
+        "sourceHashes": {
+          "alien.ts": "31f429d4706b58202278fb5a5dc479a0ce3273fd55f74da3e75ef9ff5272d885",
+          "atom.ts": "70a88586c2f773107463ede53a55f5e88caccd64ea1037dc1954b80fae7c11f9",
+          "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+          "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+          "signal.ts": "6a9ce25bdb9f49ed2467c5e722b80da849abf5385a25f989240a8b33dbb2aa26",
+          "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+          "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+        },
+        "artifactHashes": {
+          "runtime.mjs": "ecebbf80adf76cda9beab06fc733c6c8376a3dc199144ce5f9f57d5d77307993",
+          "createAtom.min.mjs": "095f775a3a6f1409bbe63ba94d2a15f49f072e196991a4942abd722cdf6ab3fb",
+          "fullStore.min.mjs": "ecebbf80adf76cda9beab06fc733c6c8376a3dc199144ce5f9f57d5d77307993",
+          "reactSelector.min.mjs": "02fafd4e9ee49dae7e9eb97c8a1a141a1599c6c7f612ef185f966b0cdc732a31",
+          "batch.min.mjs": "a53f67e0b109110b09bf36ff32d472f2ccd7f23acd3ec46337211688d1b85ff2",
+          "flush.min.mjs": "fd2d10b204438d60f03a0a3e85a112124257c2c3c92740da915e4024a0556487",
+          "toObserver.min.mjs": "362e6fe14778b8bae533e3783ee41f7952e90a16f167712f86c27931dc185f0b",
+          "shallow.min.mjs": "8c4fe533579687fbe56dbe1edd3ea72ff903864498b1de30bad7cb3a90cb4faa"
+        },
+        "runtime": "production/runtime.mjs"
+      }
+    ],
+    "sizes": [
+      {
+        "variant": "main",
+        "entry": "createAtom",
+        "minifiedBytes": 3661,
+        "gzipBytes": 1504,
+        "brotliBytes": 1403,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 1881,
+          "packages/store/src/atom.ts": 1755
+        }
+      },
+      {
+        "variant": "main",
+        "entry": "fullStore",
+        "minifiedBytes": 5353,
+        "gzipBytes": 2077,
+        "brotliBytes": 1939,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 1881,
+          "packages/store/src/atom.ts": 2091,
+          "packages/store/src/store.ts": 553,
+          "packages/store/src/shallow.ts": 684
+        }
+      },
+      {
+        "variant": "main",
+        "entry": "reactSelector",
+        "minifiedBytes": 3978,
+        "gzipBytes": 1661,
+        "brotliBytes": 1543,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 1881,
+          "packages/store/src/atom.ts": 1755,
+          "packages/react-store/src/useSelector.ts": 300
+        }
+      },
+      {
+        "variant": "main",
+        "entry": "batch",
+        "minifiedBytes": 2340,
+        "gzipBytes": 1001,
+        "brotliBytes": 936,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 1881,
+          "packages/store/src/atom.ts": 439
+        }
+      },
+      {
+        "variant": "main",
+        "entry": "flush",
+        "minifiedBytes": 2296,
+        "gzipBytes": 972,
+        "brotliBytes": 914,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 1881,
+          "packages/store/src/atom.ts": 395
+        }
+      },
+      {
+        "variant": "main",
+        "entry": "toObserver",
+        "minifiedBytes": 2368,
+        "gzipBytes": 1009,
+        "brotliBytes": 938,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 1881,
+          "packages/store/src/atom.ts": 462
+        }
+      },
+      {
+        "variant": "main",
+        "entry": "shallow",
+        "minifiedBytes": 2894,
+        "gzipBytes": 1187,
+        "brotliBytes": 1114,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 1881,
+          "packages/store/src/atom.ts": 307,
+          "packages/store/src/shallow.ts": 684
+        }
+      },
+      {
+        "variant": "published",
+        "entry": "createAtom",
+        "minifiedBytes": 4815,
+        "gzipBytes": 1924,
+        "brotliBytes": 1789,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2218,
+          "packages/store/src/atom.ts": 2572
+        }
+      },
+      {
+        "variant": "published",
+        "entry": "fullStore",
+        "minifiedBytes": 6511,
+        "gzipBytes": 2494,
+        "brotliBytes": 2321,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2218,
+          "packages/store/src/atom.ts": 2908,
+          "packages/store/src/store.ts": 554,
+          "packages/store/src/shallow.ts": 685
+        }
+      },
+      {
+        "variant": "published",
+        "entry": "reactSelector",
+        "minifiedBytes": 5132,
+        "gzipBytes": 2082,
+        "brotliBytes": 1928,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2218,
+          "packages/store/src/atom.ts": 2572,
+          "packages/react-store/src/useSelector.ts": 300
+        }
+      },
+      {
+        "variant": "published",
+        "entry": "batch",
+        "minifiedBytes": 2699,
+        "gzipBytes": 1141,
+        "brotliBytes": 1067,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2218,
+          "packages/store/src/atom.ts": 461
+        }
+      },
+      {
+        "variant": "published",
+        "entry": "flush",
+        "minifiedBytes": 2655,
+        "gzipBytes": 1116,
+        "brotliBytes": 1045,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2218,
+          "packages/store/src/atom.ts": 417
+        }
+      },
+      {
+        "variant": "published",
+        "entry": "toObserver",
+        "minifiedBytes": 2727,
+        "gzipBytes": 1149,
+        "brotliBytes": 1066,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2218,
+          "packages/store/src/atom.ts": 484
+        }
+      },
+      {
+        "variant": "published",
+        "entry": "shallow",
+        "minifiedBytes": 3253,
+        "gzipBytes": 1327,
+        "brotliBytes": 1236,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2218,
+          "packages/store/src/atom.ts": 329,
+          "packages/store/src/shallow.ts": 684
+        }
+      },
+      {
+        "variant": "production",
+        "entry": "createAtom",
+        "minifiedBytes": 4699,
+        "gzipBytes": 1872,
+        "brotliBytes": 1753,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2162,
+          "packages/store/src/atom.ts": 2512
+        }
+      },
+      {
+        "variant": "production",
+        "entry": "fullStore",
+        "minifiedBytes": 6332,
+        "gzipBytes": 2443,
+        "brotliBytes": 2272,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2162,
+          "packages/store/src/atom.ts": 2787,
+          "packages/store/src/store.ts": 553,
+          "packages/store/src/shallow.ts": 685
+        }
+      },
+      {
+        "variant": "production",
+        "entry": "reactSelector",
+        "minifiedBytes": 5016,
+        "gzipBytes": 2033,
+        "brotliBytes": 1896,
+        "moduleBytes": {
+          "packages/store/src/alien.ts": 2162,
+          "packages/store/src/atom.ts": 2512,
+          "packages/react-store/src/useSelector.ts": 300
+        }
+      },
+      {
+        "variant": "production",
+        "entry": "batch",
+        "minifiedBytes": 173,
+        "gzipBytes": 158,
+        "brotliBytes": 137,
+        "moduleBytes": {
+          "packages/store/src/atom.ts": 153
+        }
+      },
+      {
+        "variant": "production",
+        "entry": "flush",
+        "minifiedBytes": 129,
+        "gzipBytes": 130,
+        "brotliBytes": 114,
+        "moduleBytes": {
+          "packages/store/src/atom.ts": 109
+        }
+      },
+      {
+        "variant": "production",
+        "entry": "toObserver",
+        "minifiedBytes": 180,
+        "gzipBytes": 145,
+        "brotliBytes": 130,
+        "moduleBytes": {
+          "packages/store/src/atom.ts": 155
+        }
+      },
+      {
+        "variant": "production",
+        "entry": "shallow",
+        "minifiedBytes": 706,
+        "gzipBytes": 334,
+        "brotliBytes": 303,
+        "moduleBytes": {
+          "packages/store/src/shallow.ts": 684
+        }
+      }
+    ]
+  },
+  "preflight": [
+    {
+      "variant": "main",
+      "rows": [
+        {
+          "name": "plain_mutable_read",
+          "iterations": 100000,
+          "elapsedMs": 0.5066659999999992,
+          "nsPerIteration": 5.066659999999992
+        },
+        {
+          "name": "plain_mutable_write",
+          "iterations": 20000,
+          "elapsedMs": 0.4294579999999968,
+          "nsPerIteration": 21.47289999999984
+        },
+        {
+          "name": "observed_mutable_callback_get",
+          "iterations": 5000,
+          "elapsedMs": 0.37658299999999656,
+          "nsPerIteration": 75.31659999999931,
+          "counters": {
+            "notifications": 5000
+          }
+        },
+        {
+          "name": "observed_chain1_write",
+          "iterations": 4000,
+          "elapsedMs": 0.5692499999999967,
+          "nsPerIteration": 142.31249999999918,
+          "counters": {
+            "computes": 4001,
+            "notifications": 4000
+          }
+        },
+        {
+          "name": "observed_chain8_write",
+          "iterations": 1000,
+          "elapsedMs": 0.41466599999999687,
+          "nsPerIteration": 414.66599999999687,
+          "counters": {
+            "computes": 8008,
+            "notifications": 1000
+          }
+        },
+        {
+          "name": "observed_chain32_write",
+          "iterations": 300,
+          "elapsedMs": 0.3399169999999998,
+          "nsPerIteration": 1133.0566666666662,
+          "counters": {
+            "computes": 9632,
+            "notifications": 300
+          }
+        },
+        {
+          "name": "observed_chain8_after_cold_read_write",
+          "iterations": 1000,
+          "elapsedMs": 0.3230000000000004,
+          "nsPerIteration": 323.0000000000004,
+          "counters": {
+            "computes": 8008,
+            "notifications": 1000
+          }
+        },
+        {
+          "name": "observed_chain8_batched_three_writes",
+          "iterations": 800,
+          "elapsedMs": 0.39829199999999787,
+          "nsPerIteration": 497.8649999999973,
+          "counters": {
+            "computes": 6408,
+            "notifications": 800
+          }
+        },
+        {
+          "name": "observed_expensive_computed1_write",
+          "iterations": 1500,
+          "elapsedMs": 0.838791999999998,
+          "nsPerIteration": 559.1946666666654,
+          "counters": {
+            "computes": 1501,
+            "notifications": 1500
+          }
+        },
+        {
+          "name": "observed_chain8_clean_cached_get",
+          "iterations": 50000,
+          "elapsedMs": 0.7102079999999944,
+          "nsPerIteration": 14.204159999999888,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "observed_fanout8_write",
+          "iterations": 600,
+          "elapsedMs": 0.42150000000000887,
+          "nsPerIteration": 702.5000000000148,
+          "counters": {
+            "computes": 4808,
+            "notifications": 4800
+          }
+        },
+        {
+          "name": "observed_diamond8_write",
+          "iterations": 700,
+          "elapsedMs": 0.47320799999999963,
+          "nsPerIteration": 676.011428571428,
+          "counters": {
+            "computes": 6309,
+            "notifications": 700
+          }
+        },
+        {
+          "name": "observed_equality_suppressed_computed_write",
+          "iterations": 2500,
+          "elapsedMs": 0.21095800000000509,
+          "nsPerIteration": 84.38320000000203,
+          "counters": {
+            "computes": 2501,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "chain8_churn_unchanged_source",
+          "iterations": 700,
+          "elapsedMs": 0.449458000000007,
+          "nsPerIteration": 642.0828571428672,
+          "counters": {
+            "computes": 5608,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "chain8_churn_write_while_unmounted",
+          "iterations": 600,
+          "elapsedMs": 0.37837499999999125,
+          "nsPerIteration": 630.6249999999854,
+          "counters": {
+            "computes": 4816,
+            "notifications": 0
+          }
+        }
+      ],
+      "sink": 6074290455
+    },
+    {
+      "variant": "published",
+      "rows": [
+        {
+          "name": "plain_mutable_read",
+          "iterations": 100000,
+          "elapsedMs": 0.5101249999999986,
+          "nsPerIteration": 5.101249999999986
+        },
+        {
+          "name": "plain_mutable_write",
+          "iterations": 20000,
+          "elapsedMs": 0.3292919999999988,
+          "nsPerIteration": 16.46459999999994
+        },
+        {
+          "name": "observed_mutable_callback_get",
+          "iterations": 5000,
+          "elapsedMs": 0.31170900000000046,
+          "nsPerIteration": 62.34180000000009,
+          "counters": {
+            "notifications": 5000
+          }
+        },
+        {
+          "name": "observed_chain1_write",
+          "iterations": 4000,
+          "elapsedMs": 0.5812910000000002,
+          "nsPerIteration": 145.32275000000007,
+          "counters": {
+            "computes": 4001,
+            "notifications": 4000
+          }
+        },
+        {
+          "name": "observed_chain8_write",
+          "iterations": 1000,
+          "elapsedMs": 0.4085420000000042,
+          "nsPerIteration": 408.5420000000042,
+          "counters": {
+            "computes": 8008,
+            "notifications": 1000
+          }
+        },
+        {
+          "name": "observed_chain32_write",
+          "iterations": 300,
+          "elapsedMs": 0.373584000000001,
+          "nsPerIteration": 1245.2800000000034,
+          "counters": {
+            "computes": 9632,
+            "notifications": 300
+          }
+        },
+        {
+          "name": "observed_chain8_after_cold_read_write",
+          "iterations": 1000,
+          "elapsedMs": 0.33516699999999844,
+          "nsPerIteration": 335.16699999999844,
+          "counters": {
+            "computes": 8008,
+            "notifications": 1000
+          }
+        },
+        {
+          "name": "observed_chain8_batched_three_writes",
+          "iterations": 800,
+          "elapsedMs": 0.37658299999999656,
+          "nsPerIteration": 470.7287499999957,
+          "counters": {
+            "computes": 6408,
+            "notifications": 800
+          }
+        },
+        {
+          "name": "observed_expensive_computed1_write",
+          "iterations": 1500,
+          "elapsedMs": 0.805958000000004,
+          "nsPerIteration": 537.305333333336,
+          "counters": {
+            "computes": 1501,
+            "notifications": 1500
+          }
+        },
+        {
+          "name": "observed_chain8_clean_cached_get",
+          "iterations": 50000,
+          "elapsedMs": 0.7497499999999917,
+          "nsPerIteration": 14.994999999999834,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "observed_fanout8_write",
+          "iterations": 600,
+          "elapsedMs": 0.3877920000000046,
+          "nsPerIteration": 646.3200000000077,
+          "counters": {
+            "computes": 4808,
+            "notifications": 4800
+          }
+        },
+        {
+          "name": "observed_diamond8_write",
+          "iterations": 700,
+          "elapsedMs": 0.46666700000000105,
+          "nsPerIteration": 666.6671428571443,
+          "counters": {
+            "computes": 6309,
+            "notifications": 700
+          }
+        },
+        {
+          "name": "observed_equality_suppressed_computed_write",
+          "iterations": 2500,
+          "elapsedMs": 0.19112499999999955,
+          "nsPerIteration": 76.44999999999982,
+          "counters": {
+            "computes": 2501,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "chain8_churn_unchanged_source",
+          "iterations": 700,
+          "elapsedMs": 0.35233399999999904,
+          "nsPerIteration": 503.3342857142843,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "chain8_churn_write_while_unmounted",
+          "iterations": 600,
+          "elapsedMs": 0.44616700000000264,
+          "nsPerIteration": 743.611666666671,
+          "counters": {
+            "computes": 4808,
+            "notifications": 0
+          }
+        }
+      ],
+      "sink": 6074290455
+    },
+    {
+      "variant": "production",
+      "rows": [
+        {
+          "name": "plain_mutable_read",
+          "iterations": 100000,
+          "elapsedMs": 0.4450420000000008,
+          "nsPerIteration": 4.450420000000008
+        },
+        {
+          "name": "plain_mutable_write",
+          "iterations": 20000,
+          "elapsedMs": 0.3209169999999979,
+          "nsPerIteration": 16.045849999999895
+        },
+        {
+          "name": "observed_mutable_callback_get",
+          "iterations": 5000,
+          "elapsedMs": 0.3178750000000008,
+          "nsPerIteration": 63.575000000000166,
+          "counters": {
+            "notifications": 5000
+          }
+        },
+        {
+          "name": "observed_chain1_write",
+          "iterations": 4000,
+          "elapsedMs": 0.5087919999999997,
+          "nsPerIteration": 127.19799999999992,
+          "counters": {
+            "computes": 4001,
+            "notifications": 4000
+          }
+        },
+        {
+          "name": "observed_chain8_write",
+          "iterations": 1000,
+          "elapsedMs": 0.4564589999999953,
+          "nsPerIteration": 456.4589999999953,
+          "counters": {
+            "computes": 8008,
+            "notifications": 1000
+          }
+        },
+        {
+          "name": "observed_chain32_write",
+          "iterations": 300,
+          "elapsedMs": 0.3327500000000043,
+          "nsPerIteration": 1109.166666666681,
+          "counters": {
+            "computes": 9632,
+            "notifications": 300
+          }
+        },
+        {
+          "name": "observed_chain8_after_cold_read_write",
+          "iterations": 1000,
+          "elapsedMs": 0.3572500000000005,
+          "nsPerIteration": 357.2500000000005,
+          "counters": {
+            "computes": 8008,
+            "notifications": 1000
+          }
+        },
+        {
+          "name": "observed_chain8_batched_three_writes",
+          "iterations": 800,
+          "elapsedMs": 0.35029199999999605,
+          "nsPerIteration": 437.86499999999506,
+          "counters": {
+            "computes": 6408,
+            "notifications": 800
+          }
+        },
+        {
+          "name": "observed_expensive_computed1_write",
+          "iterations": 1500,
+          "elapsedMs": 0.8027920000000037,
+          "nsPerIteration": 535.1946666666691,
+          "counters": {
+            "computes": 1501,
+            "notifications": 1500
+          }
+        },
+        {
+          "name": "observed_chain8_clean_cached_get",
+          "iterations": 50000,
+          "elapsedMs": 0.7530409999999961,
+          "nsPerIteration": 15.060819999999921,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "observed_fanout8_write",
+          "iterations": 600,
+          "elapsedMs": 0.41662499999999625,
+          "nsPerIteration": 694.3749999999937,
+          "counters": {
+            "computes": 4808,
+            "notifications": 4800
+          }
+        },
+        {
+          "name": "observed_diamond8_write",
+          "iterations": 700,
+          "elapsedMs": 0.5576670000000092,
+          "nsPerIteration": 796.667142857156,
+          "counters": {
+            "computes": 6309,
+            "notifications": 700
+          }
+        },
+        {
+          "name": "observed_equality_suppressed_computed_write",
+          "iterations": 2500,
+          "elapsedMs": 0.16279199999999605,
+          "nsPerIteration": 65.11679999999842,
+          "counters": {
+            "computes": 2501,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "chain8_churn_unchanged_source",
+          "iterations": 700,
+          "elapsedMs": 0.3287079999999918,
+          "nsPerIteration": 469.5828571428454,
+          "counters": {
+            "computes": 8,
+            "notifications": 0
+          }
+        },
+        {
+          "name": "chain8_churn_write_while_unmounted",
+          "iterations": 600,
+          "elapsedMs": 0.45220799999999883,
+          "nsPerIteration": 753.679999999998,
+          "counters": {
+            "computes": 4808,
+            "notifications": 0
+          }
+        }
+      ],
+      "sink": 6074290455
+    }
+  ],
+  "summaries": [
+    {
+      "variant": "main",
+      "name": "plain_mutable_read",
+      "medianNs": 2.2480125,
+      "minNs": 2.1884333999999996,
+      "maxNs": 2.4563125,
+      "p25Ns": 2.2263416999999994,
+      "p75Ns": 2.446341600000001,
+      "iterations": 10000000
+    },
+    {
+      "variant": "main",
+      "name": "plain_mutable_write",
+      "medianNs": 8.877187500000005,
+      "minNs": 8.772020499999996,
+      "maxNs": 8.987541499999999,
+      "p25Ns": 8.788729000000004,
+      "p75Ns": 8.913083,
+      "iterations": 2000000
+    },
+    {
+      "variant": "main",
+      "name": "observed_mutable_callback_get",
+      "medianNs": 42.86166800000001,
+      "minNs": 41.996249999999975,
+      "maxNs": 44.598915999999974,
+      "p25Ns": 42.492834000000016,
+      "p75Ns": 43.434083999999984,
+      "iterations": 500000
+    },
+    {
+      "variant": "main",
+      "name": "observed_chain1_write",
+      "medianNs": 71.75677000000007,
+      "minNs": 70.10854250000001,
+      "maxNs": 73.96833500000007,
+      "p25Ns": 70.64656250000006,
+      "p75Ns": 72.85697999999996,
+      "iterations": 400000
+    },
+    {
+      "variant": "main",
+      "name": "observed_chain8_write",
+      "medianNs": 245.74417000000042,
+      "minNs": 244.33165999999972,
+      "maxNs": 249.90415999999982,
+      "p25Ns": 244.90917000000027,
+      "p75Ns": 249.67041999999992,
+      "iterations": 100000
+    },
+    {
+      "variant": "main",
+      "name": "observed_chain32_write",
+      "medianNs": 867.1152666666671,
+      "minNs": 854.2889000000002,
+      "maxNs": 903.4902666666671,
+      "p25Ns": 860.1208333333337,
+      "p75Ns": 886.7750000000001,
+      "iterations": 30000
+    },
+    {
+      "variant": "main",
+      "name": "observed_chain8_after_cold_read_write",
+      "medianNs": 244.8112500000002,
+      "minNs": 240.19791999999995,
+      "maxNs": 246.19500000000014,
+      "p25Ns": 243.06415999999956,
+      "p75Ns": 245.88957999999994,
+      "iterations": 100000
+    },
+    {
+      "variant": "main",
+      "name": "observed_chain8_batched_three_writes",
+      "medianNs": 304.1489624999997,
+      "minNs": 302.80990000000116,
+      "maxNs": 312.65573750000044,
+      "p25Ns": 303.4010375000008,
+      "p75Ns": 305.91562499999867,
+      "iterations": 80000
+    },
+    {
+      "variant": "main",
+      "name": "observed_expensive_computed1_write",
+      "medianNs": 636.2327733333328,
+      "minNs": 631.3736133333335,
+      "maxNs": 651.7055600000003,
+      "p25Ns": 632.6888866666665,
+      "p75Ns": 641.1280600000002,
+      "iterations": 150000
+    },
+    {
+      "variant": "main",
+      "name": "observed_chain8_clean_cached_get",
+      "medianNs": 3.2980584000000133,
+      "minNs": 3.2820167999999965,
+      "maxNs": 3.3138000000000147,
+      "p25Ns": 3.2863916000000017,
+      "p75Ns": 3.307058400000005,
+      "iterations": 5000000
+    },
+    {
+      "variant": "main",
+      "name": "observed_fanout8_write",
+      "medianNs": 442.9645833333325,
+      "minNs": 434.134016666665,
+      "maxNs": 465.83333333333405,
+      "p25Ns": 441.2409666666671,
+      "p75Ns": 449.20000000000186,
+      "iterations": 60000
+    },
+    {
+      "variant": "main",
+      "name": "observed_diamond8_write",
+      "medianNs": 339.21370000000155,
+      "minNs": 336.29464285714414,
+      "maxNs": 361.8684428571409,
+      "p25Ns": 336.9535714285705,
+      "p75Ns": 343.9351142857114,
+      "iterations": 70000
+    },
+    {
+      "variant": "main",
+      "name": "observed_equality_suppressed_computed_write",
+      "medianNs": 47.911832000000686,
+      "minNs": 46.925836000000345,
+      "maxNs": 49.16616400000021,
+      "p25Ns": 47.204164000000674,
+      "p75Ns": 48.81966399999965,
+      "iterations": 250000
+    },
+    {
+      "variant": "main",
+      "name": "chain8_churn_unchanged_source",
+      "medianNs": 445.1113142857139,
+      "minNs": 429.89165714285656,
+      "maxNs": 451.6845142857132,
+      "p25Ns": 430.651785714284,
+      "p75Ns": 446.8922714285717,
+      "iterations": 70000
+    },
+    {
+      "variant": "main",
+      "name": "chain8_churn_write_while_unmounted",
+      "medianNs": 466.31319999999806,
+      "minNs": 445.8812500000022,
+      "maxNs": 471.30416666666787,
+      "p25Ns": 457.53333333333336,
+      "p75Ns": 467.92640000000273,
+      "iterations": 60000
+    },
+    {
+      "variant": "published",
+      "name": "plain_mutable_read",
+      "medianNs": 2.193833299999999,
+      "minNs": 2.1696291000000003,
+      "maxNs": 2.250937500000001,
+      "p25Ns": 2.1833083,
+      "p75Ns": 2.2491375,
+      "iterations": 10000000
+    },
+    {
+      "variant": "published",
+      "name": "plain_mutable_write",
+      "medianNs": 6.433104,
+      "minNs": 6.374978999999996,
+      "maxNs": 7.0375625,
+      "p25Ns": 6.409374999999997,
+      "p75Ns": 6.5933955,
+      "iterations": 2000000
+    },
+    {
+      "variant": "published",
+      "name": "observed_mutable_callback_get",
+      "medianNs": 38.512,
+      "minNs": 37.20925,
+      "maxNs": 42.24566600000003,
+      "p25Ns": 38.17866600000002,
+      "p75Ns": 40.39308200000005,
+      "iterations": 500000
+    },
+    {
+      "variant": "published",
+      "name": "observed_chain1_write",
+      "medianNs": 71.01010249999995,
+      "minNs": 67.95739499999996,
+      "maxNs": 72.0075,
+      "p25Ns": 68.34083499999998,
+      "p75Ns": 71.40250000000002,
+      "iterations": 400000
+    },
+    {
+      "variant": "published",
+      "name": "observed_chain8_write",
+      "medianNs": 261.55125,
+      "minNs": 255.2533299999999,
+      "maxNs": 267.9087499999997,
+      "p25Ns": 259.19708999999955,
+      "p75Ns": 262.75124999999946,
+      "iterations": 100000
+    },
+    {
+      "variant": "published",
+      "name": "observed_chain32_write",
+      "medianNs": 914.5389000000004,
+      "minNs": 907.2736333333334,
+      "maxNs": 943.3861333333331,
+      "p25Ns": 908.4444333333332,
+      "p75Ns": 918.8291666666657,
+      "iterations": 30000
+    },
+    {
+      "variant": "published",
+      "name": "observed_chain8_after_cold_read_write",
+      "medianNs": 258.09916999999984,
+      "minNs": 254.17082999999994,
+      "maxNs": 262.19374999999957,
+      "p25Ns": 256.36792000000014,
+      "p75Ns": 259.5387499999998,
+      "iterations": 100000
+    },
+    {
+      "variant": "published",
+      "name": "observed_chain8_batched_three_writes",
+      "medianNs": 309.41353750000076,
+      "minNs": 299.23541250000056,
+      "maxNs": 311.33593749999875,
+      "p25Ns": 304.2822874999999,
+      "p75Ns": 310.70832500000023,
+      "iterations": 80000
+    },
+    {
+      "variant": "published",
+      "name": "observed_expensive_computed1_write",
+      "medianNs": 637.821386666667,
+      "minNs": 634.5208333333327,
+      "maxNs": 701.5697266666674,
+      "p25Ns": 636.3566666666671,
+      "p75Ns": 639.1919399999999,
+      "iterations": 150000
+    },
+    {
+      "variant": "published",
+      "name": "observed_chain8_clean_cached_get",
+      "medianNs": 4.625633399999993,
+      "minNs": 4.575233200000002,
+      "maxNs": 4.6561418,
+      "p25Ns": 4.5884168000000045,
+      "p75Ns": 4.652050000000008,
+      "iterations": 5000000
+    },
+    {
+      "variant": "published",
+      "name": "observed_fanout8_write",
+      "medianNs": 487.8520833333331,
+      "minNs": 478.22776666666874,
+      "maxNs": 499.4652833333324,
+      "p25Ns": 478.8777666666666,
+      "p75Ns": 493.49026666666873,
+      "iterations": 60000
+    },
+    {
+      "variant": "published",
+      "name": "observed_diamond8_write",
+      "medianNs": 378.50417142856907,
+      "minNs": 366.83274285714367,
+      "maxNs": 387.0107142857153,
+      "p25Ns": 371.20594285714304,
+      "p75Ns": 386.82024285714243,
+      "iterations": 70000
+    },
+    {
+      "variant": "published",
+      "name": "observed_equality_suppressed_computed_write",
+      "medianNs": 45.242331999999806,
+      "minNs": 44.9853320000002,
+      "maxNs": 47.255331999999726,
+      "p25Ns": 45.01550000000043,
+      "p75Ns": 47.111667999999554,
+      "iterations": 250000
+    },
+    {
+      "variant": "published",
+      "name": "chain8_churn_unchanged_source",
+      "medianNs": 341.4982142857135,
+      "minNs": 335.27559999999994,
+      "maxNs": 366.64821428571486,
+      "p25Ns": 338.6702428571425,
+      "p75Ns": 348.88690000000224,
+      "iterations": 70000
+    },
+    {
+      "variant": "published",
+      "name": "chain8_churn_write_while_unmounted",
+      "medianNs": 535.7124999999996,
+      "minNs": 532.0125,
+      "maxNs": 555.5402833333346,
+      "p25Ns": 533.0284666666633,
+      "p75Ns": 550.799299999998,
+      "iterations": 60000
+    },
+    {
+      "variant": "production",
+      "name": "plain_mutable_read",
+      "medianNs": 2.196425000000001,
+      "minNs": 2.1745916,
+      "maxNs": 2.2371000000000003,
+      "p25Ns": 2.1748415999999993,
+      "p75Ns": 2.199758300000001,
+      "iterations": 10000000
+    },
+    {
+      "variant": "production",
+      "name": "plain_mutable_write",
+      "medianNs": 6.278541500000003,
+      "minNs": 6.234270500000001,
+      "maxNs": 6.383604000000005,
+      "p25Ns": 6.271603999999996,
+      "p75Ns": 6.346812499999999,
+      "iterations": 2000000
+    },
+    {
+      "variant": "production",
+      "name": "observed_mutable_callback_get",
+      "medianNs": 38.74549999999999,
+      "minNs": 37.833166000000006,
+      "maxNs": 39.26766799999996,
+      "p25Ns": 38.31708400000002,
+      "p75Ns": 39.174166000000014,
+      "iterations": 500000
+    },
+    {
+      "variant": "production",
+      "name": "observed_chain1_write",
+      "medianNs": 68.96687500000006,
+      "minNs": 68.25041750000004,
+      "maxNs": 70.025415,
+      "p25Ns": 68.36458499999999,
+      "p75Ns": 69.80916750000006,
+      "iterations": 400000
+    },
+    {
+      "variant": "production",
+      "name": "observed_chain8_write",
+      "medianNs": 252.74958000000026,
+      "minNs": 251.66165999999973,
+      "maxNs": 258.37874999999997,
+      "p25Ns": 251.75749999999994,
+      "p75Ns": 257.6291600000002,
+      "iterations": 100000
+    },
+    {
+      "variant": "production",
+      "name": "observed_chain32_write",
+      "medianNs": 903.4638666666657,
+      "minNs": 894.5902666666655,
+      "maxNs": 925.5625000000009,
+      "p25Ns": 900.198633333332,
+      "p75Ns": 909.4791666666652,
+      "iterations": 30000
+    },
+    {
+      "variant": "production",
+      "name": "observed_chain8_after_cold_read_write",
+      "medianNs": 254.88833999999997,
+      "minNs": 250.19790999999995,
+      "maxNs": 257.9645799999997,
+      "p25Ns": 252.68374999999992,
+      "p75Ns": 256.1016699999999,
+      "iterations": 100000
+    },
+    {
+      "variant": "production",
+      "name": "observed_chain8_batched_three_writes",
+      "medianNs": 298.7052124999991,
+      "minNs": 296.53593750000056,
+      "maxNs": 301.1015625000013,
+      "p25Ns": 297.94635000000085,
+      "p75Ns": 300.54478749999873,
+      "iterations": 80000
+    },
+    {
+      "variant": "production",
+      "name": "observed_expensive_computed1_write",
+      "medianNs": 635.8813866666666,
+      "minNs": 627.2008333333338,
+      "maxNs": 723.9466666666666,
+      "p25Ns": 629.1141666666666,
+      "p75Ns": 712.863333333333,
+      "iterations": 150000
+    },
+    {
+      "variant": "production",
+      "name": "observed_chain8_clean_cached_get",
+      "medianNs": 4.648433399999999,
+      "minNs": 4.587866600000007,
+      "maxNs": 4.994533200000024,
+      "p25Ns": 4.62824999999998,
+      "p75Ns": 4.738566599999991,
+      "iterations": 5000000
+    },
+    {
+      "variant": "production",
+      "name": "observed_fanout8_write",
+      "medianNs": 481.19721666666726,
+      "minNs": 472.9930499999985,
+      "maxNs": 558.8958333333343,
+      "p25Ns": 475.5395833333333,
+      "p75Ns": 489.8937499999988,
+      "iterations": 60000
+    },
+    {
+      "variant": "production",
+      "name": "observed_diamond8_write",
+      "medianNs": 366.730357142855,
+      "minNs": 359.80357142857105,
+      "maxNs": 386.4815428571416,
+      "p25Ns": 360.1696428571423,
+      "p75Ns": 378.0892857142849,
+      "iterations": 70000
+    },
+    {
+      "variant": "production",
+      "name": "observed_equality_suppressed_computed_write",
+      "medianNs": 44.90300000000025,
+      "minNs": 43.89649999999983,
+      "maxNs": 47.10100000000057,
+      "p25Ns": 44.554832000000715,
+      "p75Ns": 45.412499999999454,
+      "iterations": 250000
+    },
+    {
+      "variant": "production",
+      "name": "chain8_churn_unchanged_source",
+      "medianNs": 321.1755999999988,
+      "minNs": 312.0011857142864,
+      "maxNs": 329.88035714285746,
+      "p25Ns": 316.4321428571416,
+      "p75Ns": 327.3833428571444,
+      "iterations": 70000
+    },
+    {
+      "variant": "production",
+      "name": "chain8_churn_write_while_unmounted",
+      "medianNs": 514.7020833333347,
+      "minNs": 502.7624999999981,
+      "maxNs": 550.1722333333342,
+      "p25Ns": 510.0354166666648,
+      "p75Ns": 519.8840333333313,
+      "iterations": 60000
+    }
+  ],
+  "samples": [
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "plain_mutable_read",
+      "iterations": 10000000,
+      "elapsedMs": 22.513166999999996,
+      "nsPerIteration": 2.2513167
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "plain_mutable_write",
+      "iterations": 2000000,
+      "elapsedMs": 17.826166,
+      "nsPerIteration": 8.913083
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 21.717041999999992,
+      "nsPerIteration": 43.434083999999984
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "observed_chain1_write",
+      "iterations": 400000,
+      "elapsedMs": 28.043417000000005,
+      "nsPerIteration": 70.10854250000001
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 24.43316599999997,
+      "nsPerIteration": 244.33165999999972
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 25.80362500000001,
+      "nsPerIteration": 860.1208333333337
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 100000,
+      "elapsedMs": 24.019791999999995,
+      "nsPerIteration": 240.19791999999995
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "observed_chain8_batched_three_writes",
+      "iterations": 80000,
+      "elapsedMs": 24.297541000000024,
+      "nsPerIteration": 303.7192625000003
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "observed_expensive_computed1_write",
+      "iterations": 150000,
+      "elapsedMs": 97.75583400000005,
+      "nsPerIteration": 651.7055600000003
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 16.45679199999995,
+      "nsPerIteration": 3.29135839999999
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 26.4826250000001,
+      "nsPerIteration": 441.37708333333495
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 23.60345899999993,
+      "nsPerIteration": 337.1922714285704
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "observed_equality_suppressed_computed_write",
+      "iterations": 250000,
+      "elapsedMs": 12.204915999999912,
+      "nsPerIteration": 48.81966399999965
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 31.16662499999984,
+      "nsPerIteration": 445.23749999999774
+    },
+    {
+      "round": 0,
+      "variant": "main",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 26.75287500000013,
+      "nsPerIteration": 445.8812500000022
+    },
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "plain_mutable_read",
+      "iterations": 10000000,
+      "elapsedMs": 21.833083000000002,
+      "nsPerIteration": 2.1833083
+    },
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "plain_mutable_write",
+      "iterations": 2000000,
+      "elapsedMs": 12.818749999999994,
+      "nsPerIteration": 6.409374999999997
+    },
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 19.70420899999999,
+      "nsPerIteration": 39.40841799999998
+    },
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "observed_chain1_write",
+      "iterations": 400000,
+      "elapsedMs": 28.404040999999978,
+      "nsPerIteration": 71.01010249999995
+    },
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 26.275124999999946,
+      "nsPerIteration": 262.75124999999946
+    },
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 27.316666999999995,
+      "nsPerIteration": 910.5555666666666
+    },
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 100000,
+      "elapsedMs": 25.809916999999984,
+      "nsPerIteration": 258.09916999999984
+    },
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "observed_chain8_batched_three_writes",
+      "iterations": 80000,
+      "elapsedMs": 23.938833000000045,
+      "nsPerIteration": 299.23541250000056
+    },
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "observed_expensive_computed1_write",
+      "iterations": 150000,
+      "elapsedMs": 95.67320800000005,
+      "nsPerIteration": 637.821386666667
+    },
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 23.034999999999968,
+      "nsPerIteration": 4.606999999999993
+    },
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 29.967916999999943,
+      "nsPerIteration": 499.4652833333324
+    },
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 27.09075000000007,
+      "nsPerIteration": 387.0107142857153
+    },
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "observed_equality_suppressed_computed_write",
+      "iterations": 250000,
+      "elapsedMs": 11.557042000000138,
+      "nsPerIteration": 46.22816800000055
+    },
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 23.73370799999998,
+      "nsPerIteration": 339.0529714285711
+    },
+    {
+      "round": 0,
+      "variant": "published",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 32.37683300000003,
+      "nsPerIteration": 539.6138833333339
+    },
+    {
+      "round": 0,
+      "variant": "production",
+      "name": "plain_mutable_read",
+      "iterations": 10000000,
+      "elapsedMs": 21.964250000000007,
+      "nsPerIteration": 2.196425000000001
+    },
+    {
+      "round": 0,
+      "variant": "production",
+      "name": "plain_mutable_write",
+      "iterations": 2000000,
+      "elapsedMs": 12.543207999999993,
+      "nsPerIteration": 6.271603999999996
+    },
+    {
+      "round": 0,
+      "variant": "production",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 19.63383399999998,
+      "nsPerIteration": 39.26766799999996
+    },
+    {
+      "round": 0,
+      "variant": "production",
+      "name": "observed_chain1_write",
+      "iterations": 400000,
+      "elapsedMs": 27.586750000000023,
+      "nsPerIteration": 68.96687500000006
+    },
+    {
+      "round": 0,
+      "variant": "production",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 25.528208000000006,
+      "nsPerIteration": 255.28208000000006
+    },
+    {
+      "round": 0,
+      "variant": "production",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 27.258375,
+      "nsPerIteration": 908.6125
+    },
+    {
+      "round": 0,
+      "variant": "production",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 100000,
+      "elapsedMs": 25.796457999999973,
+      "nsPerIteration": 257.9645799999997
+    },
+    {
+      "round": 0,
+      "variant": "production",
+      "name": "observed_chain8_batched_three_writes",
+      "iterations": 80000,
+      "elapsedMs": 24.0435829999999,
+      "nsPerIteration": 300.54478749999873
+    },
+    {
+      "round": 0,
+      "variant": "production",
+      "name": "observed_expensive_computed1_write",
+      "iterations": 150000,
+      "elapsedMs": 94.99137499999995,
+      "nsPerIteration": 633.275833333333
+    },
+    {
+      "round": 0,
+      "variant": "production",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 23.219084000000066,
+      "nsPerIteration": 4.643816800000013
+    },
+    {
+      "round": 0,
+      "variant": "production",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 28.532375000000002,
+      "nsPerIteration": 475.5395833333333
+    },
+    {
+      "round": 0,
+      "variant": "production",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 25.186249999999973,
+      "nsPerIteration": 359.80357142857105
+    },
+    {
+      "round": 0,
+      "variant": "production",
+      "name": "observed_equality_suppressed_computed_write",
+      "iterations": 250000,
+      "elapsedMs": 10.974124999999958,
+      "nsPerIteration": 43.89649999999983
+    },
+    {
+      "round": 0,
+      "variant": "production",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 22.482291999999916,
+      "nsPerIteration": 321.1755999999988
+    },
+    {
+      "round": 0,
+      "variant": "production",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 31.193041999999878,
+      "nsPerIteration": 519.8840333333313
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "plain_mutable_read",
+      "iterations": 10000000,
+      "elapsedMs": 22.284625,
+      "nsPerIteration": 2.2284625
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "plain_mutable_write",
+      "iterations": 2000000,
+      "elapsedMs": 13.186791,
+      "nsPerIteration": 6.5933955
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 19.256,
+      "nsPerIteration": 38.512
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "observed_chain1_write",
+      "iterations": 400000,
+      "elapsedMs": 27.819874999999996,
+      "nsPerIteration": 69.54968749999999
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 25.919708999999955,
+      "nsPerIteration": 259.19708999999955
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 27.43616700000001,
+      "nsPerIteration": 914.5389000000004
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 100000,
+      "elapsedMs": 25.746000000000038,
+      "nsPerIteration": 257.4600000000004
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "observed_chain8_batched_three_writes",
+      "iterations": 80000,
+      "elapsedMs": 24.9068749999999,
+      "nsPerIteration": 311.33593749999875
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "observed_expensive_computed1_write",
+      "iterations": 150000,
+      "elapsedMs": 95.45350000000008,
+      "nsPerIteration": 636.3566666666671
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 22.942084000000023,
+      "nsPerIteration": 4.5884168000000045
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 28.99158399999999,
+      "nsPerIteration": 483.1930666666665
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 25.98441600000001,
+      "nsPerIteration": 371.20594285714304
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "observed_equality_suppressed_computed_write",
+      "iterations": 250000,
+      "elapsedMs": 11.310582999999951,
+      "nsPerIteration": 45.242331999999806
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 25.66537500000004,
+      "nsPerIteration": 366.64821428571486
+    },
+    {
+      "round": 1,
+      "variant": "published",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 31.920749999999998,
+      "nsPerIteration": 532.0125
+    },
+    {
+      "round": 1,
+      "variant": "production",
+      "name": "plain_mutable_read",
+      "iterations": 10000000,
+      "elapsedMs": 22.371000000000002,
+      "nsPerIteration": 2.2371000000000003
+    },
+    {
+      "round": 1,
+      "variant": "production",
+      "name": "plain_mutable_write",
+      "iterations": 2000000,
+      "elapsedMs": 12.54625,
+      "nsPerIteration": 6.273125
+    },
+    {
+      "round": 1,
+      "variant": "production",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 19.54595900000001,
+      "nsPerIteration": 39.09191800000002
+    },
+    {
+      "round": 1,
+      "variant": "production",
+      "name": "observed_chain1_write",
+      "iterations": 400000,
+      "elapsedMs": 27.647666999999984,
+      "nsPerIteration": 69.11916749999996
+    },
+    {
+      "round": 1,
+      "variant": "production",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 25.837874999999997,
+      "nsPerIteration": 258.37874999999997
+    },
+    {
+      "round": 1,
+      "variant": "production",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 27.766875000000027,
+      "nsPerIteration": 925.5625000000009
+    },
+    {
+      "round": 1,
+      "variant": "production",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 100000,
+      "elapsedMs": 25.488833999999997,
+      "nsPerIteration": 254.88833999999997
+    },
+    {
+      "round": 1,
+      "variant": "production",
+      "name": "observed_chain8_batched_three_writes",
+      "iterations": 80000,
+      "elapsedMs": 23.985250000000065,
+      "nsPerIteration": 299.8156250000008
+    },
+    {
+      "round": 1,
+      "variant": "production",
+      "name": "observed_expensive_computed1_write",
+      "iterations": 150000,
+      "elapsedMs": 96.67641600000002,
+      "nsPerIteration": 644.5094400000002
+    },
+    {
+      "round": 1,
+      "variant": "production",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 23.286249999999995,
+      "nsPerIteration": 4.6572499999999994
+    },
+    {
+      "round": 1,
+      "variant": "production",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 29.130374999999958,
+      "nsPerIteration": 485.50624999999934
+    },
+    {
+      "round": 1,
+      "variant": "production",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 26.466249999999945,
+      "nsPerIteration": 378.0892857142849
+    },
+    {
+      "round": 1,
+      "variant": "production",
+      "name": "observed_equality_suppressed_computed_write",
+      "iterations": 250000,
+      "elapsedMs": 11.333750000000009,
+      "nsPerIteration": 45.335000000000036
+    },
+    {
+      "round": 1,
+      "variant": "production",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 22.150249999999915,
+      "nsPerIteration": 316.4321428571416
+    },
+    {
+      "round": 1,
+      "variant": "production",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 30.602124999999887,
+      "nsPerIteration": 510.0354166666648
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "plain_mutable_read",
+      "iterations": 10000000,
+      "elapsedMs": 22.263416999999997,
+      "nsPerIteration": 2.2263416999999994
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "plain_mutable_write",
+      "iterations": 2000000,
+      "elapsedMs": 17.75437500000001,
+      "nsPerIteration": 8.877187500000005
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 21.430834000000004,
+      "nsPerIteration": 42.86166800000001
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "observed_chain1_write",
+      "iterations": 400000,
+      "elapsedMs": 29.587334000000027,
+      "nsPerIteration": 73.96833500000007
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 24.57441700000004,
+      "nsPerIteration": 245.74417000000042
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 25.628667000000007,
+      "nsPerIteration": 854.2889000000002
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 100000,
+      "elapsedMs": 24.306415999999956,
+      "nsPerIteration": 243.06415999999956
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "observed_chain8_batched_three_writes",
+      "iterations": 80000,
+      "elapsedMs": 24.41420800000003,
+      "nsPerIteration": 305.1776000000004
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "observed_expensive_computed1_write",
+      "iterations": 150000,
+      "elapsedMs": 94.70604200000002,
+      "nsPerIteration": 631.3736133333335
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 16.569000000000074,
+      "nsPerIteration": 3.3138000000000147
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 27.950000000000045,
+      "nsPerIteration": 465.83333333333405
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 25.330790999999863,
+      "nsPerIteration": 361.8684428571409
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "observed_equality_suppressed_computed_write",
+      "iterations": 250000,
+      "elapsedMs": 12.291541000000052,
+      "nsPerIteration": 49.16616400000021
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 31.617915999999923,
+      "nsPerIteration": 451.6845142857132
+    },
+    {
+      "round": 1,
+      "variant": "main",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 27.978791999999885,
+      "nsPerIteration": 466.31319999999806
+    },
+    {
+      "round": 2,
+      "variant": "production",
+      "name": "plain_mutable_read",
+      "iterations": 10000000,
+      "elapsedMs": 21.74841599999999,
+      "nsPerIteration": 2.1748415999999993
+    },
+    {
+      "round": 2,
+      "variant": "production",
+      "name": "plain_mutable_write",
+      "iterations": 2000000,
+      "elapsedMs": 12.693624999999997,
+      "nsPerIteration": 6.346812499999999
+    },
+    {
+      "round": 2,
+      "variant": "production",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 19.360040999999995,
+      "nsPerIteration": 38.72008199999999
+    },
+    {
+      "round": 2,
+      "variant": "production",
+      "name": "observed_chain1_write",
+      "iterations": 400000,
+      "elapsedMs": 27.345833999999996,
+      "nsPerIteration": 68.36458499999999
+    },
+    {
+      "round": 2,
+      "variant": "production",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 25.247000000000014,
+      "nsPerIteration": 252.47000000000014
+    },
+    {
+      "round": 2,
+      "variant": "production",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 27.015917,
+      "nsPerIteration": 900.5305666666667
+    },
+    {
+      "round": 2,
+      "variant": "production",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 100000,
+      "elapsedMs": 25.284875,
+      "nsPerIteration": 252.84875
+    },
+    {
+      "round": 2,
+      "variant": "production",
+      "name": "observed_chain8_batched_three_writes",
+      "iterations": 80000,
+      "elapsedMs": 23.89641699999993,
+      "nsPerIteration": 298.7052124999991
+    },
+    {
+      "round": 2,
+      "variant": "production",
+      "name": "observed_expensive_computed1_write",
+      "iterations": 150000,
+      "elapsedMs": 94.08012500000007,
+      "nsPerIteration": 627.2008333333338
+    },
+    {
+      "round": 2,
+      "variant": "production",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 22.939333000000033,
+      "nsPerIteration": 4.587866600000007
+    },
+    {
+      "round": 2,
+      "variant": "production",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 28.549333000000047,
+      "nsPerIteration": 475.8222166666675
+    },
+    {
+      "round": 2,
+      "variant": "production",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 25.58358300000009,
+      "nsPerIteration": 365.47975714285843
+    },
+    {
+      "round": 2,
+      "variant": "production",
+      "name": "observed_equality_suppressed_computed_write",
+      "iterations": 250000,
+      "elapsedMs": 11.206041000000141,
+      "nsPerIteration": 44.824164000000565
+    },
+    {
+      "round": 2,
+      "variant": "production",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 21.84008300000005,
+      "nsPerIteration": 312.0011857142864
+    },
+    {
+      "round": 2,
+      "variant": "production",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 30.770250000000033,
+      "nsPerIteration": 512.8375000000005
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "plain_mutable_read",
+      "iterations": 10000000,
+      "elapsedMs": 21.884333999999996,
+      "nsPerIteration": 2.1884333999999996
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "plain_mutable_write",
+      "iterations": 2000000,
+      "elapsedMs": 17.544040999999993,
+      "nsPerIteration": 8.772020499999996
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 21.246417000000008,
+      "nsPerIteration": 42.492834000000016
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "observed_chain1_write",
+      "iterations": 400000,
+      "elapsedMs": 29.142791999999986,
+      "nsPerIteration": 72.85697999999996
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 24.662416999999948,
+      "nsPerIteration": 246.62416999999948
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 25.967583999999988,
+      "nsPerIteration": 865.586133333333
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 100000,
+      "elapsedMs": 24.324707999999987,
+      "nsPerIteration": 243.24707999999984
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "observed_chain8_batched_three_writes",
+      "iterations": 80000,
+      "elapsedMs": 25.012459000000035,
+      "nsPerIteration": 312.65573750000044
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "observed_expensive_computed1_write",
+      "iterations": 150000,
+      "elapsedMs": 95.31770800000004,
+      "nsPerIteration": 635.451386666667
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 16.43195800000001,
+      "nsPerIteration": 3.2863916000000017
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 26.0480409999999,
+      "nsPerIteration": 434.134016666665
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 23.586749999999938,
+      "nsPerIteration": 336.9535714285705
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "observed_equality_suppressed_computed_write",
+      "iterations": 250000,
+      "elapsedMs": 11.801041000000168,
+      "nsPerIteration": 47.204164000000674
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 30.092415999999957,
+      "nsPerIteration": 429.89165714285656
+    },
+    {
+      "round": 2,
+      "variant": "main",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 27.98354100000006,
+      "nsPerIteration": 466.392350000001
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "plain_mutable_read",
+      "iterations": 10000000,
+      "elapsedMs": 22.509375000000006,
+      "nsPerIteration": 2.250937500000001
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "plain_mutable_write",
+      "iterations": 2000000,
+      "elapsedMs": 14.075125,
+      "nsPerIteration": 7.0375625
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 19.24366599999999,
+      "nsPerIteration": 38.48733199999998
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "observed_chain1_write",
+      "iterations": 400000,
+      "elapsedMs": 27.182957999999985,
+      "nsPerIteration": 67.95739499999996
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 26.155124999999998,
+      "nsPerIteration": 261.55125
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 27.253332999999998,
+      "nsPerIteration": 908.4444333333332
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 100000,
+      "elapsedMs": 25.816125,
+      "nsPerIteration": 258.16125
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "observed_chain8_batched_three_writes",
+      "iterations": 80000,
+      "elapsedMs": 24.362540999999965,
+      "nsPerIteration": 304.53176249999956
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "observed_expensive_computed1_write",
+      "iterations": 150000,
+      "elapsedMs": 95.66991699999994,
+      "nsPerIteration": 637.7994466666663
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 23.260250000000042,
+      "nsPerIteration": 4.652050000000008
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 29.509583999999904,
+      "nsPerIteration": 491.8263999999984
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 26.208624999999984,
+      "nsPerIteration": 374.40892857142836
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "observed_equality_suppressed_computed_write",
+      "iterations": 250000,
+      "elapsedMs": 11.27712500000007,
+      "nsPerIteration": 45.10850000000028
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 24.422083000000157,
+      "nsPerIteration": 348.88690000000224
+    },
+    {
+      "round": 2,
+      "variant": "published",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 32.14274999999998,
+      "nsPerIteration": 535.7124999999996
+    },
+    {
+      "round": 3,
+      "variant": "main",
+      "name": "plain_mutable_read",
+      "iterations": 10000000,
+      "elapsedMs": 24.563125,
+      "nsPerIteration": 2.4563125
+    },
+    {
+      "round": 3,
+      "variant": "main",
+      "name": "plain_mutable_write",
+      "iterations": 2000000,
+      "elapsedMs": 17.577458000000007,
+      "nsPerIteration": 8.788729000000004
+    },
+    {
+      "round": 3,
+      "variant": "main",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 21.451375000000013,
+      "nsPerIteration": 42.90275000000002
+    },
+    {
+      "round": 3,
+      "variant": "main",
+      "name": "observed_chain1_write",
+      "iterations": 400000,
+      "elapsedMs": 28.258625000000023,
+      "nsPerIteration": 70.64656250000006
+    },
+    {
+      "round": 3,
+      "variant": "main",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 24.490917000000024,
+      "nsPerIteration": 244.90917000000027
+    },
+    {
+      "round": 3,
+      "variant": "main",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 27.104708000000016,
+      "nsPerIteration": 903.4902666666671
+    },
+    {
+      "round": 3,
+      "variant": "main",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 100000,
+      "elapsedMs": 24.619500000000016,
+      "nsPerIteration": 246.19500000000014
+    },
+    {
+      "round": 3,
+      "variant": "main",
+      "name": "observed_chain8_batched_three_writes",
+      "iterations": 80000,
+      "elapsedMs": 24.224792000000093,
+      "nsPerIteration": 302.80990000000116
+    },
+    {
+      "round": 3,
+      "variant": "main",
+      "name": "observed_expensive_computed1_write",
+      "iterations": 150000,
+      "elapsedMs": 95.49450000000002,
+      "nsPerIteration": 636.6300000000001
+    },
+    {
+      "round": 3,
+      "variant": "main",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 16.410083999999983,
+      "nsPerIteration": 3.2820167999999965
+    },
+    {
+      "round": 3,
+      "variant": "main",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 26.474458000000027,
+      "nsPerIteration": 441.2409666666671
+    },
+    {
+      "round": 3,
+      "variant": "main",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 23.54062500000009,
+      "nsPerIteration": 336.29464285714414
+    },
+    {
+      "round": 3,
+      "variant": "main",
+      "name": "observed_equality_suppressed_computed_write",
+      "iterations": 250000,
+      "elapsedMs": 11.977958000000172,
+      "nsPerIteration": 47.911832000000686
+    },
+    {
+      "round": 3,
+      "variant": "main",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 31.157791999999972,
+      "nsPerIteration": 445.1113142857139
+    },
+    {
+      "round": 3,
+      "variant": "main",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 27.83445800000004,
+      "nsPerIteration": 463.907633333334
+    },
+    {
+      "round": 3,
+      "variant": "published",
+      "name": "plain_mutable_read",
+      "iterations": 10000000,
+      "elapsedMs": 21.90316599999999,
+      "nsPerIteration": 2.190316599999999
+    },
+    {
+      "round": 3,
+      "variant": "published",
+      "name": "plain_mutable_write",
+      "iterations": 2000000,
+      "elapsedMs": 12.749957999999992,
+      "nsPerIteration": 6.374978999999996
+    },
+    {
+      "round": 3,
+      "variant": "published",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 20.196541000000025,
+      "nsPerIteration": 40.39308200000005
+    },
+    {
+      "round": 3,
+      "variant": "published",
+      "name": "observed_chain1_write",
+      "iterations": 400000,
+      "elapsedMs": 28.561000000000007,
+      "nsPerIteration": 71.40250000000002
+    },
+    {
+      "round": 3,
+      "variant": "published",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 25.52533299999999,
+      "nsPerIteration": 255.2533299999999
+    },
+    {
+      "round": 3,
+      "variant": "published",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 27.449250000000006,
+      "nsPerIteration": 914.9750000000003
+    },
+    {
+      "round": 3,
+      "variant": "published",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 100000,
+      "elapsedMs": 25.41708299999999,
+      "nsPerIteration": 254.17082999999994
+    },
+    {
+      "round": 3,
+      "variant": "published",
+      "name": "observed_chain8_batched_three_writes",
+      "iterations": 80000,
+      "elapsedMs": 24.771959000000038,
+      "nsPerIteration": 309.6494875000005
+    },
+    {
+      "round": 3,
+      "variant": "published",
+      "name": "observed_expensive_computed1_write",
+      "iterations": 150000,
+      "elapsedMs": 95.81491700000004,
+      "nsPerIteration": 638.7661133333336
+    },
+    {
+      "round": 3,
+      "variant": "published",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 23.151875000000018,
+      "nsPerIteration": 4.6303750000000035
+    },
+    {
+      "round": 3,
+      "variant": "published",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 29.609416000000124,
+      "nsPerIteration": 493.49026666666873
+    },
+    {
+      "round": 3,
+      "variant": "published",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 26.76633300000003,
+      "nsPerIteration": 382.3761857142861
+    },
+    {
+      "round": 3,
+      "variant": "published",
+      "name": "observed_equality_suppressed_computed_write",
+      "iterations": 250000,
+      "elapsedMs": 11.777916999999889,
+      "nsPerIteration": 47.111667999999554
+    },
+    {
+      "round": 3,
+      "variant": "published",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 23.706916999999976,
+      "nsPerIteration": 338.6702428571425
+    },
+    {
+      "round": 3,
+      "variant": "published",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 32.053750000000036,
+      "nsPerIteration": 534.2291666666673
+    },
+    {
+      "round": 3,
+      "variant": "production",
+      "name": "plain_mutable_read",
+      "iterations": 10000000,
+      "elapsedMs": 21.997583000000006,
+      "nsPerIteration": 2.199758300000001
+    },
+    {
+      "round": 3,
+      "variant": "production",
+      "name": "plain_mutable_write",
+      "iterations": 2000000,
+      "elapsedMs": 12.76720800000001,
+      "nsPerIteration": 6.383604000000005
+    },
+    {
+      "round": 3,
+      "variant": "production",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 19.587083000000007,
+      "nsPerIteration": 39.174166000000014
+    },
+    {
+      "round": 3,
+      "variant": "production",
+      "name": "observed_chain1_write",
+      "iterations": 400000,
+      "elapsedMs": 27.300167000000016,
+      "nsPerIteration": 68.25041750000004
+    },
+    {
+      "round": 3,
+      "variant": "production",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 25.166165999999976,
+      "nsPerIteration": 251.66165999999973
+    },
+    {
+      "round": 3,
+      "variant": "production",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 26.837707999999964,
+      "nsPerIteration": 894.5902666666655
+    },
+    {
+      "round": 3,
+      "variant": "production",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 100000,
+      "elapsedMs": 25.019790999999998,
+      "nsPerIteration": 250.19790999999995
+    },
+    {
+      "round": 3,
+      "variant": "production",
+      "name": "observed_chain8_batched_three_writes",
+      "iterations": 80000,
+      "elapsedMs": 23.835708000000068,
+      "nsPerIteration": 297.94635000000085
+    },
+    {
+      "round": 3,
+      "variant": "production",
+      "name": "observed_expensive_computed1_write",
+      "iterations": 150000,
+      "elapsedMs": 94.36712499999999,
+      "nsPerIteration": 629.1141666666666
+    },
+    {
+      "round": 3,
+      "variant": "production",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 23.1412499999999,
+      "nsPerIteration": 4.62824999999998
+    },
+    {
+      "round": 3,
+      "variant": "production",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 28.37958299999991,
+      "nsPerIteration": 472.9930499999985
+    },
+    {
+      "round": 3,
+      "variant": "production",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 25.79300000000012,
+      "nsPerIteration": 368.4714285714303
+    },
+    {
+      "round": 3,
+      "variant": "production",
+      "name": "observed_equality_suppressed_computed_write",
+      "iterations": 250000,
+      "elapsedMs": 11.138708000000179,
+      "nsPerIteration": 44.554832000000715
+    },
+    {
+      "round": 3,
+      "variant": "production",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 22.916834000000108,
+      "nsPerIteration": 327.3833428571444
+    },
+    {
+      "round": 3,
+      "variant": "production",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 30.999374999999873,
+      "nsPerIteration": 516.6562499999978
+    },
+    {
+      "round": 4,
+      "variant": "published",
+      "name": "plain_mutable_read",
+      "iterations": 10000000,
+      "elapsedMs": 22.491374999999998,
+      "nsPerIteration": 2.2491375
+    },
+    {
+      "round": 4,
+      "variant": "published",
+      "name": "plain_mutable_write",
+      "iterations": 2000000,
+      "elapsedMs": 12.866208,
+      "nsPerIteration": 6.433104
+    },
+    {
+      "round": 4,
+      "variant": "published",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 21.122833000000014,
+      "nsPerIteration": 42.24566600000003
+    },
+    {
+      "round": 4,
+      "variant": "published",
+      "name": "observed_chain1_write",
+      "iterations": 400000,
+      "elapsedMs": 28.802999999999997,
+      "nsPerIteration": 72.0075
+    },
+    {
+      "round": 4,
+      "variant": "published",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 26.237416999999994,
+      "nsPerIteration": 262.37416999999994
+    },
+    {
+      "round": 4,
+      "variant": "published",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 27.564874999999972,
+      "nsPerIteration": 918.8291666666657
+    },
+    {
+      "round": 4,
+      "variant": "published",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 100000,
+      "elapsedMs": 25.953874999999982,
+      "nsPerIteration": 259.5387499999998
+    },
+    {
+      "round": 4,
+      "variant": "published",
+      "name": "observed_chain8_batched_three_writes",
+      "iterations": 80000,
+      "elapsedMs": 24.85666600000002,
+      "nsPerIteration": 310.70832500000023
+    },
+    {
+      "round": 4,
+      "variant": "published",
+      "name": "observed_expensive_computed1_write",
+      "iterations": 150000,
+      "elapsedMs": 95.87879099999998,
+      "nsPerIteration": 639.1919399999999
+    },
+    {
+      "round": 4,
+      "variant": "published",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 23.280709,
+      "nsPerIteration": 4.6561418
+    },
+    {
+      "round": 4,
+      "variant": "published",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 28.69366600000012,
+      "nsPerIteration": 478.22776666666874
+    },
+    {
+      "round": 4,
+      "variant": "published",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 25.678292000000056,
+      "nsPerIteration": 366.83274285714367
+    },
+    {
+      "round": 4,
+      "variant": "published",
+      "name": "observed_equality_suppressed_computed_write",
+      "iterations": 250000,
+      "elapsedMs": 11.24633300000005,
+      "nsPerIteration": 44.9853320000002
+    },
+    {
+      "round": 4,
+      "variant": "published",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 24.126625000000104,
+      "nsPerIteration": 344.66607142857293
+    },
+    {
+      "round": 4,
+      "variant": "published",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 33.33241700000008,
+      "nsPerIteration": 555.5402833333346
+    },
+    {
+      "round": 4,
+      "variant": "production",
+      "name": "plain_mutable_read",
+      "iterations": 10000000,
+      "elapsedMs": 21.988374999999998,
+      "nsPerIteration": 2.1988375
+    },
+    {
+      "round": 4,
+      "variant": "production",
+      "name": "plain_mutable_write",
+      "iterations": 2000000,
+      "elapsedMs": 12.557083000000006,
+      "nsPerIteration": 6.278541500000003
+    },
+    {
+      "round": 4,
+      "variant": "production",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 19.372749999999996,
+      "nsPerIteration": 38.74549999999999
+    },
+    {
+      "round": 4,
+      "variant": "production",
+      "name": "observed_chain1_write",
+      "iterations": 400000,
+      "elapsedMs": 28.010165999999998,
+      "nsPerIteration": 70.025415
+    },
+    {
+      "round": 4,
+      "variant": "production",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 25.274958000000026,
+      "nsPerIteration": 252.74958000000026
+    },
+    {
+      "round": 4,
+      "variant": "production",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 27.10391599999997,
+      "nsPerIteration": 903.4638666666657
+    },
+    {
+      "round": 4,
+      "variant": "production",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 100000,
+      "elapsedMs": 25.61016699999999,
+      "nsPerIteration": 256.1016699999999
+    },
+    {
+      "round": 4,
+      "variant": "production",
+      "name": "observed_chain8_batched_three_writes",
+      "iterations": 80000,
+      "elapsedMs": 23.839040999999952,
+      "nsPerIteration": 297.9880124999994
+    },
+    {
+      "round": 4,
+      "variant": "production",
+      "name": "observed_expensive_computed1_write",
+      "iterations": 150000,
+      "elapsedMs": 106.92949999999996,
+      "nsPerIteration": 712.863333333333
+    },
+    {
+      "round": 4,
+      "variant": "production",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 23.242166999999995,
+      "nsPerIteration": 4.648433399999999
+    },
+    {
+      "round": 4,
+      "variant": "production",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 29.39362499999993,
+      "nsPerIteration": 489.8937499999988
+    },
+    {
+      "round": 4,
+      "variant": "production",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 25.671124999999847,
+      "nsPerIteration": 366.730357142855
+    },
+    {
+      "round": 4,
+      "variant": "production",
+      "name": "observed_equality_suppressed_computed_write",
+      "iterations": 250000,
+      "elapsedMs": 11.225750000000062,
+      "nsPerIteration": 44.90300000000025
+    },
+    {
+      "round": 4,
+      "variant": "production",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 22.27216700000008,
+      "nsPerIteration": 318.1738142857155
+    },
+    {
+      "round": 4,
+      "variant": "production",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 30.16574999999989,
+      "nsPerIteration": 502.7624999999981
+    },
+    {
+      "round": 4,
+      "variant": "main",
+      "name": "plain_mutable_read",
+      "iterations": 10000000,
+      "elapsedMs": 22.314000000000007,
+      "nsPerIteration": 2.2314000000000007
+    },
+    {
+      "round": 4,
+      "variant": "main",
+      "name": "plain_mutable_write",
+      "iterations": 2000000,
+      "elapsedMs": 17.79525000000001,
+      "nsPerIteration": 8.897625000000005
+    },
+    {
+      "round": 4,
+      "variant": "main",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 21.338334000000003,
+      "nsPerIteration": 42.67666800000001
+    },
+    {
+      "round": 4,
+      "variant": "main",
+      "name": "observed_chain1_write",
+      "iterations": 400000,
+      "elapsedMs": 28.70270800000003,
+      "nsPerIteration": 71.75677000000007
+    },
+    {
+      "round": 4,
+      "variant": "main",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 24.52529099999998,
+      "nsPerIteration": 245.25290999999982
+    },
+    {
+      "round": 4,
+      "variant": "main",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 26.214707999999973,
+      "nsPerIteration": 873.8235999999991
+    },
+    {
+      "round": 4,
+      "variant": "main",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 100000,
+      "elapsedMs": 24.48112500000002,
+      "nsPerIteration": 244.8112500000002
+    },
+    {
+      "round": 4,
+      "variant": "main",
+      "name": "observed_chain8_batched_three_writes",
+      "iterations": 80000,
+      "elapsedMs": 24.473249999999894,
+      "nsPerIteration": 305.91562499999867
+    },
+    {
+      "round": 4,
+      "variant": "main",
+      "name": "observed_expensive_computed1_write",
+      "iterations": 150000,
+      "elapsedMs": 95.43491599999993,
+      "nsPerIteration": 636.2327733333328
+    },
+    {
+      "round": 4,
+      "variant": "main",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 16.490292000000068,
+      "nsPerIteration": 3.2980584000000133
+    },
+    {
+      "round": 4,
+      "variant": "main",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 26.57787499999995,
+      "nsPerIteration": 442.9645833333325
+    },
+    {
+      "round": 4,
+      "variant": "main",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 23.744959000000108,
+      "nsPerIteration": 339.21370000000155
+    },
+    {
+      "round": 4,
+      "variant": "main",
+      "name": "observed_equality_suppressed_computed_write",
+      "iterations": 250000,
+      "elapsedMs": 11.731459000000086,
+      "nsPerIteration": 46.925836000000345
+    },
+    {
+      "round": 4,
+      "variant": "main",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 31.282459000000017,
+      "nsPerIteration": 446.8922714285717
+    },
+    {
+      "round": 4,
+      "variant": "main",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 28.075584000000163,
+      "nsPerIteration": 467.92640000000273
+    },
+    {
+      "round": 5,
+      "variant": "production",
+      "name": "plain_mutable_read",
+      "iterations": 10000000,
+      "elapsedMs": 21.838,
+      "nsPerIteration": 2.1838
+    },
+    {
+      "round": 5,
+      "variant": "production",
+      "name": "plain_mutable_write",
+      "iterations": 2000000,
+      "elapsedMs": 12.468541000000002,
+      "nsPerIteration": 6.234270500000001
+    },
+    {
+      "round": 5,
+      "variant": "production",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 18.916583000000003,
+      "nsPerIteration": 37.833166000000006
+    },
+    {
+      "round": 5,
+      "variant": "production",
+      "name": "observed_chain1_write",
+      "iterations": 400000,
+      "elapsedMs": 27.923667000000023,
+      "nsPerIteration": 69.80916750000006
+    },
+    {
+      "round": 5,
+      "variant": "production",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 25.76291600000002,
+      "nsPerIteration": 257.6291600000002
+    },
+    {
+      "round": 5,
+      "variant": "production",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 27.00595899999996,
+      "nsPerIteration": 900.198633333332
+    },
+    {
+      "round": 5,
+      "variant": "production",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 100000,
+      "elapsedMs": 25.498958000000016,
+      "nsPerIteration": 254.98958000000016
+    },
+    {
+      "round": 5,
+      "variant": "production",
+      "name": "observed_chain8_batched_three_writes",
+      "iterations": 80000,
+      "elapsedMs": 24.088125000000105,
+      "nsPerIteration": 301.1015625000013
+    },
+    {
+      "round": 5,
+      "variant": "production",
+      "name": "observed_expensive_computed1_write",
+      "iterations": 150000,
+      "elapsedMs": 95.38220799999999,
+      "nsPerIteration": 635.8813866666666
+    },
+    {
+      "round": 5,
+      "variant": "production",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 23.69283299999995,
+      "nsPerIteration": 4.738566599999991
+    },
+    {
+      "round": 5,
+      "variant": "production",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 28.871833000000038,
+      "nsPerIteration": 481.19721666666726
+    },
+    {
+      "round": 5,
+      "variant": "production",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 25.211874999999964,
+      "nsPerIteration": 360.1696428571423
+    },
+    {
+      "round": 5,
+      "variant": "production",
+      "name": "observed_equality_suppressed_computed_write",
+      "iterations": 250000,
+      "elapsedMs": 11.353124999999864,
+      "nsPerIteration": 45.412499999999454
+    },
+    {
+      "round": 5,
+      "variant": "production",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 22.88104199999998,
+      "nsPerIteration": 326.87202857142825
+    },
+    {
+      "round": 5,
+      "variant": "production",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 30.882125000000087,
+      "nsPerIteration": 514.7020833333347
+    },
+    {
+      "round": 5,
+      "variant": "main",
+      "name": "plain_mutable_read",
+      "iterations": 10000000,
+      "elapsedMs": 22.480125,
+      "nsPerIteration": 2.2480125
+    },
+    {
+      "round": 5,
+      "variant": "main",
+      "name": "plain_mutable_write",
+      "iterations": 2000000,
+      "elapsedMs": 17.975082999999998,
+      "nsPerIteration": 8.987541499999999
+    },
+    {
+      "round": 5,
+      "variant": "main",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 22.299457999999987,
+      "nsPerIteration": 44.598915999999974
+    },
+    {
+      "round": 5,
+      "variant": "main",
+      "name": "observed_chain1_write",
+      "iterations": 400000,
+      "elapsedMs": 28.317958000000033,
+      "nsPerIteration": 70.79489500000008
+    },
+    {
+      "round": 5,
+      "variant": "main",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 24.967041999999992,
+      "nsPerIteration": 249.67041999999992
+    },
+    {
+      "round": 5,
+      "variant": "main",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 26.013458000000014,
+      "nsPerIteration": 867.1152666666671
+    },
+    {
+      "round": 5,
+      "variant": "main",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 100000,
+      "elapsedMs": 24.530374999999992,
+      "nsPerIteration": 245.30374999999992
+    },
+    {
+      "round": 5,
+      "variant": "main",
+      "name": "observed_chain8_batched_three_writes",
+      "iterations": 80000,
+      "elapsedMs": 24.331916999999976,
+      "nsPerIteration": 304.1489624999997
+    },
+    {
+      "round": 5,
+      "variant": "main",
+      "name": "observed_expensive_computed1_write",
+      "iterations": 150000,
+      "elapsedMs": 94.90333299999998,
+      "nsPerIteration": 632.6888866666665
+    },
+    {
+      "round": 5,
+      "variant": "main",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 16.510832999999934,
+      "nsPerIteration": 3.3021665999999867
+    },
+    {
+      "round": 5,
+      "variant": "main",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 26.598666999999978,
+      "nsPerIteration": 443.3111166666663
+    },
+    {
+      "round": 5,
+      "variant": "main",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 23.846166999999923,
+      "nsPerIteration": 340.6595285714275
+    },
+    {
+      "round": 5,
+      "variant": "main",
+      "name": "observed_equality_suppressed_computed_write",
+      "iterations": 250000,
+      "elapsedMs": 11.889541999999892,
+      "nsPerIteration": 47.55816799999957
+    },
+    {
+      "round": 5,
+      "variant": "main",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 30.14562499999988,
+      "nsPerIteration": 430.651785714284
+    },
+    {
+      "round": 5,
+      "variant": "main",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 27.451999999999998,
+      "nsPerIteration": 457.53333333333336
+    },
+    {
+      "round": 5,
+      "variant": "published",
+      "name": "plain_mutable_read",
+      "iterations": 10000000,
+      "elapsedMs": 21.696291000000002,
+      "nsPerIteration": 2.1696291000000003
+    },
+    {
+      "round": 5,
+      "variant": "published",
+      "name": "plain_mutable_write",
+      "iterations": 2000000,
+      "elapsedMs": 12.941665999999998,
+      "nsPerIteration": 6.470832999999999
+    },
+    {
+      "round": 5,
+      "variant": "published",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 19.08933300000001,
+      "nsPerIteration": 38.17866600000002
+    },
+    {
+      "round": 5,
+      "variant": "published",
+      "name": "observed_chain1_write",
+      "iterations": 400000,
+      "elapsedMs": 28.415290999999996,
+      "nsPerIteration": 71.03822749999999
+    },
+    {
+      "round": 5,
+      "variant": "published",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 26.79087499999997,
+      "nsPerIteration": 267.9087499999997
+    },
+    {
+      "round": 5,
+      "variant": "published",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 28.30158399999999,
+      "nsPerIteration": 943.3861333333331
+    },
+    {
+      "round": 5,
+      "variant": "published",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 100000,
+      "elapsedMs": 25.636792000000014,
+      "nsPerIteration": 256.36792000000014
+    },
+    {
+      "round": 5,
+      "variant": "published",
+      "name": "observed_chain8_batched_three_writes",
+      "iterations": 80000,
+      "elapsedMs": 24.34258299999999,
+      "nsPerIteration": 304.2822874999999
+    },
+    {
+      "round": 5,
+      "variant": "published",
+      "name": "observed_expensive_computed1_write",
+      "iterations": 150000,
+      "elapsedMs": 105.2354590000001,
+      "nsPerIteration": 701.5697266666674
+    },
+    {
+      "round": 5,
+      "variant": "published",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 23.128166999999962,
+      "nsPerIteration": 4.625633399999993
+    },
+    {
+      "round": 5,
+      "variant": "published",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 29.271124999999984,
+      "nsPerIteration": 487.8520833333331
+    },
+    {
+      "round": 5,
+      "variant": "published",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 27.07741699999997,
+      "nsPerIteration": 386.82024285714243
+    },
+    {
+      "round": 5,
+      "variant": "published",
+      "name": "observed_equality_suppressed_computed_write",
+      "iterations": 250000,
+      "elapsedMs": 11.813832999999931,
+      "nsPerIteration": 47.255331999999726
+    },
+    {
+      "round": 5,
+      "variant": "published",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 23.469291999999996,
+      "nsPerIteration": 335.27559999999994
+    },
+    {
+      "round": 5,
+      "variant": "published",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 31.9817079999998,
+      "nsPerIteration": 533.0284666666633
+    },
+    {
+      "round": 6,
+      "variant": "main",
+      "name": "plain_mutable_read",
+      "iterations": 10000000,
+      "elapsedMs": 24.46341600000001,
+      "nsPerIteration": 2.446341600000001
+    },
+    {
+      "round": 6,
+      "variant": "main",
+      "name": "plain_mutable_write",
+      "iterations": 2000000,
+      "elapsedMs": 17.66987499999999,
+      "nsPerIteration": 8.834937499999995
+    },
+    {
+      "round": 6,
+      "variant": "main",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 20.998124999999987,
+      "nsPerIteration": 41.996249999999975
+    },
+    {
+      "round": 6,
+      "variant": "main",
+      "name": "observed_chain1_write",
+      "iterations": 400000,
+      "elapsedMs": 28.955084,
+      "nsPerIteration": 72.38771
+    },
+    {
+      "round": 6,
+      "variant": "main",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 24.990415999999982,
+      "nsPerIteration": 249.90415999999982
+    },
+    {
+      "round": 6,
+      "variant": "main",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 26.603250000000003,
+      "nsPerIteration": 886.7750000000001
+    },
+    {
+      "round": 6,
+      "variant": "main",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 100000,
+      "elapsedMs": 24.58895799999999,
+      "nsPerIteration": 245.88957999999994
+    },
+    {
+      "round": 6,
+      "variant": "main",
+      "name": "observed_chain8_batched_three_writes",
+      "iterations": 80000,
+      "elapsedMs": 24.272083000000066,
+      "nsPerIteration": 303.4010375000008
+    },
+    {
+      "round": 6,
+      "variant": "main",
+      "name": "observed_expensive_computed1_write",
+      "iterations": 150000,
+      "elapsedMs": 96.16920900000002,
+      "nsPerIteration": 641.1280600000002
+    },
+    {
+      "round": 6,
+      "variant": "main",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 16.535292000000027,
+      "nsPerIteration": 3.307058400000005
+    },
+    {
+      "round": 6,
+      "variant": "main",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 26.952000000000112,
+      "nsPerIteration": 449.20000000000186
+    },
+    {
+      "round": 6,
+      "variant": "main",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 24.0754579999998,
+      "nsPerIteration": 343.9351142857114
+    },
+    {
+      "round": 6,
+      "variant": "main",
+      "name": "observed_equality_suppressed_computed_write",
+      "iterations": 250000,
+      "elapsedMs": 11.990167000000156,
+      "nsPerIteration": 47.960668000000624
+    },
+    {
+      "round": 6,
+      "variant": "main",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 30.377915999999914,
+      "nsPerIteration": 433.97022857142736
+    },
+    {
+      "round": 6,
+      "variant": "main",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 28.27825000000007,
+      "nsPerIteration": 471.30416666666787
+    },
+    {
+      "round": 6,
+      "variant": "published",
+      "name": "plain_mutable_read",
+      "iterations": 10000000,
+      "elapsedMs": 21.938332999999993,
+      "nsPerIteration": 2.193833299999999
+    },
+    {
+      "round": 6,
+      "variant": "published",
+      "name": "plain_mutable_write",
+      "iterations": 2000000,
+      "elapsedMs": 12.850291999999996,
+      "nsPerIteration": 6.425145999999998
+    },
+    {
+      "round": 6,
+      "variant": "published",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 18.604625,
+      "nsPerIteration": 37.20925
+    },
+    {
+      "round": 6,
+      "variant": "published",
+      "name": "observed_chain1_write",
+      "iterations": 400000,
+      "elapsedMs": 27.336333999999994,
+      "nsPerIteration": 68.34083499999998
+    },
+    {
+      "round": 6,
+      "variant": "published",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 26.074332999999967,
+      "nsPerIteration": 260.7433299999997
+    },
+    {
+      "round": 6,
+      "variant": "published",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 27.218209,
+      "nsPerIteration": 907.2736333333334
+    },
+    {
+      "round": 6,
+      "variant": "published",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 100000,
+      "elapsedMs": 26.219374999999957,
+      "nsPerIteration": 262.19374999999957
+    },
+    {
+      "round": 6,
+      "variant": "published",
+      "name": "observed_chain8_batched_three_writes",
+      "iterations": 80000,
+      "elapsedMs": 24.75308300000006,
+      "nsPerIteration": 309.41353750000076
+    },
+    {
+      "round": 6,
+      "variant": "published",
+      "name": "observed_expensive_computed1_write",
+      "iterations": 150000,
+      "elapsedMs": 95.17812499999991,
+      "nsPerIteration": 634.5208333333327
+    },
+    {
+      "round": 6,
+      "variant": "published",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 22.876166000000012,
+      "nsPerIteration": 4.575233200000002
+    },
+    {
+      "round": 6,
+      "variant": "published",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 28.732665999999995,
+      "nsPerIteration": 478.8777666666666
+    },
+    {
+      "round": 6,
+      "variant": "published",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 26.495291999999836,
+      "nsPerIteration": 378.50417142856907
+    },
+    {
+      "round": 6,
+      "variant": "published",
+      "name": "observed_equality_suppressed_computed_write",
+      "iterations": 250000,
+      "elapsedMs": 11.253875000000107,
+      "nsPerIteration": 45.01550000000043
+    },
+    {
+      "round": 6,
+      "variant": "published",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 23.904874999999947,
+      "nsPerIteration": 341.4982142857135
+    },
+    {
+      "round": 6,
+      "variant": "published",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 33.04795799999988,
+      "nsPerIteration": 550.799299999998
+    },
+    {
+      "round": 6,
+      "variant": "production",
+      "name": "plain_mutable_read",
+      "iterations": 10000000,
+      "elapsedMs": 21.745916,
+      "nsPerIteration": 2.1745916
+    },
+    {
+      "round": 6,
+      "variant": "production",
+      "name": "plain_mutable_write",
+      "iterations": 2000000,
+      "elapsedMs": 12.641625000000005,
+      "nsPerIteration": 6.320812500000002
+    },
+    {
+      "round": 6,
+      "variant": "production",
+      "name": "observed_mutable_callback_get",
+      "iterations": 500000,
+      "elapsedMs": 19.15854200000001,
+      "nsPerIteration": 38.31708400000002
+    },
+    {
+      "round": 6,
+      "variant": "production",
+      "name": "observed_chain1_write",
+      "iterations": 400000,
+      "elapsedMs": 27.434875000000005,
+      "nsPerIteration": 68.58718750000001
+    },
+    {
+      "round": 6,
+      "variant": "production",
+      "name": "observed_chain8_write",
+      "iterations": 100000,
+      "elapsedMs": 25.175749999999994,
+      "nsPerIteration": 251.75749999999994
+    },
+    {
+      "round": 6,
+      "variant": "production",
+      "name": "observed_chain32_write",
+      "iterations": 30000,
+      "elapsedMs": 27.284374999999955,
+      "nsPerIteration": 909.4791666666652
+    },
+    {
+      "round": 6,
+      "variant": "production",
+      "name": "observed_chain8_after_cold_read_write",
+      "iterations": 100000,
+      "elapsedMs": 25.268374999999992,
+      "nsPerIteration": 252.68374999999992
+    },
+    {
+      "round": 6,
+      "variant": "production",
+      "name": "observed_chain8_batched_three_writes",
+      "iterations": 80000,
+      "elapsedMs": 23.722875000000045,
+      "nsPerIteration": 296.53593750000056
+    },
+    {
+      "round": 6,
+      "variant": "production",
+      "name": "observed_expensive_computed1_write",
+      "iterations": 150000,
+      "elapsedMs": 108.59199999999998,
+      "nsPerIteration": 723.9466666666666
+    },
+    {
+      "round": 6,
+      "variant": "production",
+      "name": "observed_chain8_clean_cached_get",
+      "iterations": 5000000,
+      "elapsedMs": 24.972666000000117,
+      "nsPerIteration": 4.994533200000024
+    },
+    {
+      "round": 6,
+      "variant": "production",
+      "name": "observed_fanout8_write",
+      "iterations": 60000,
+      "elapsedMs": 33.533750000000055,
+      "nsPerIteration": 558.8958333333343
+    },
+    {
+      "round": 6,
+      "variant": "production",
+      "name": "observed_diamond8_write",
+      "iterations": 70000,
+      "elapsedMs": 27.053707999999915,
+      "nsPerIteration": 386.4815428571416
+    },
+    {
+      "round": 6,
+      "variant": "production",
+      "name": "observed_equality_suppressed_computed_write",
+      "iterations": 250000,
+      "elapsedMs": 11.775250000000142,
+      "nsPerIteration": 47.10100000000057
+    },
+    {
+      "round": 6,
+      "variant": "production",
+      "name": "chain8_churn_unchanged_source",
+      "iterations": 70000,
+      "elapsedMs": 23.091625000000022,
+      "nsPerIteration": 329.88035714285746
+    },
+    {
+      "round": 6,
+      "variant": "production",
+      "name": "chain8_churn_write_while_unmounted",
+      "iterations": 60000,
+      "elapsedMs": 33.01033400000006,
+      "nsPerIteration": 550.1722333333342
+    }
+  ]
+}

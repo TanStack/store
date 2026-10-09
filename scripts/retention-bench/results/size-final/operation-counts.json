@@ -1,0 +1,328 @@
+{
+  "note": "Instrumented extracted source only; never used for timing or size",
+  "injections": [
+    {
+      "variant": "main",
+      "sites": {
+        "link": 1,
+        "unlink": 1,
+        "link allocation": 1,
+        "reverse detachment": 1,
+        "public get": 2,
+        "update": 1
+      }
+    },
+    {
+      "variant": "published",
+      "sites": {
+        "link": 1,
+        "unlink": 1,
+        "link allocation": 1,
+        "reverse detachment": 1,
+        "public get": 2,
+        "update": 2
+      }
+    },
+    {
+      "variant": "production",
+      "sites": {
+        "link": 1,
+        "unlink": 1,
+        "link allocation": 1,
+        "reverse detachment": 1,
+        "public get": 2,
+        "update": 2
+      }
+    }
+  ],
+  "rows": [
+    {
+      "variant": "main",
+      "depth": 8,
+      "workload": "one warmed relevant source write + final computed read",
+      "links": 8,
+      "unlinks": 0,
+      "allocations": 0,
+      "gets": 9,
+      "updates": 9,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "main",
+      "depth": 8,
+      "workload": "one unrelated source write + final computed read",
+      "links": 0,
+      "unlinks": 0,
+      "allocations": 0,
+      "gets": 1,
+      "updates": 1,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "main",
+      "depth": 32,
+      "workload": "one warmed relevant source write + final computed read",
+      "links": 32,
+      "unlinks": 0,
+      "allocations": 0,
+      "gets": 33,
+      "updates": 33,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "main",
+      "depth": 32,
+      "workload": "one unrelated source write + final computed read",
+      "links": 0,
+      "unlinks": 0,
+      "allocations": 0,
+      "gets": 1,
+      "updates": 1,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "main",
+      "depth": 128,
+      "workload": "one warmed relevant source write + final computed read",
+      "links": 128,
+      "unlinks": 0,
+      "allocations": 0,
+      "gets": 129,
+      "updates": 129,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "main",
+      "depth": 128,
+      "workload": "one unrelated source write + final computed read",
+      "links": 0,
+      "unlinks": 0,
+      "allocations": 0,
+      "gets": 1,
+      "updates": 1,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "main",
+      "workload": "initial cold getter alternating a.get() and b.get() 1000 times",
+      "retainedDependencyRecords": 2,
+      "links": 2000,
+      "unlinks": 0,
+      "allocations": 2,
+      "gets": 2001,
+      "updates": 1,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "main",
+      "workload": "relevant write + cold getter alternating a.get() and b.get() 1000 times",
+      "retainedDependencyRecords": 2,
+      "links": 2000,
+      "unlinks": 0,
+      "allocations": 0,
+      "gets": 2001,
+      "updates": 2,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "published",
+      "depth": 8,
+      "workload": "one warmed relevant source write + final computed read",
+      "links": 8,
+      "unlinks": 0,
+      "allocations": 0,
+      "gets": 17,
+      "updates": 9,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "published",
+      "depth": 8,
+      "workload": "one unrelated source write + final computed read",
+      "links": 0,
+      "unlinks": 0,
+      "allocations": 0,
+      "gets": 9,
+      "updates": 1,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "published",
+      "depth": 32,
+      "workload": "one warmed relevant source write + final computed read",
+      "links": 32,
+      "unlinks": 0,
+      "allocations": 0,
+      "gets": 65,
+      "updates": 33,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "published",
+      "depth": 32,
+      "workload": "one unrelated source write + final computed read",
+      "links": 0,
+      "unlinks": 0,
+      "allocations": 0,
+      "gets": 33,
+      "updates": 1,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "published",
+      "depth": 128,
+      "workload": "one warmed relevant source write + final computed read",
+      "links": 128,
+      "unlinks": 0,
+      "allocations": 0,
+      "gets": 257,
+      "updates": 129,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "published",
+      "depth": 128,
+      "workload": "one unrelated source write + final computed read",
+      "links": 0,
+      "unlinks": 0,
+      "allocations": 0,
+      "gets": 129,
+      "updates": 1,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "published",
+      "workload": "initial cold getter alternating a.get() and b.get() 1000 times",
+      "retainedDependencyRecords": 2,
+      "links": 2000,
+      "unlinks": 0,
+      "allocations": 2,
+      "gets": 2001,
+      "updates": 1,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "published",
+      "workload": "relevant write + cold getter alternating a.get() and b.get() 1000 times",
+      "retainedDependencyRecords": 2,
+      "links": 2000,
+      "unlinks": 0,
+      "allocations": 0,
+      "gets": 2002,
+      "updates": 2,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "production",
+      "depth": 8,
+      "workload": "one warmed relevant source write + final computed read",
+      "links": 8,
+      "unlinks": 0,
+      "allocations": 0,
+      "gets": 17,
+      "updates": 9,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "production",
+      "depth": 8,
+      "workload": "one unrelated source write + final computed read",
+      "links": 0,
+      "unlinks": 0,
+      "allocations": 0,
+      "gets": 9,
+      "updates": 1,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "production",
+      "depth": 32,
+      "workload": "one warmed relevant source write + final computed read",
+      "links": 32,
+      "unlinks": 0,
+      "allocations": 0,
+      "gets": 65,
+      "updates": 33,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "production",
+      "depth": 32,
+      "workload": "one unrelated source write + final computed read",
+      "links": 0,
+      "unlinks": 0,
+      "allocations": 0,
+      "gets": 33,
+      "updates": 1,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "production",
+      "depth": 128,
+      "workload": "one warmed relevant source write + final computed read",
+      "links": 128,
+      "unlinks": 0,
+      "allocations": 0,
+      "gets": 257,
+      "updates": 129,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "production",
+      "depth": 128,
+      "workload": "one unrelated source write + final computed read",
+      "links": 0,
+      "unlinks": 0,
+      "allocations": 0,
+      "gets": 129,
+      "updates": 1,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "production",
+      "workload": "initial cold getter alternating a.get() and b.get() 1000 times",
+      "retainedDependencyRecords": 2,
+      "links": 2000,
+      "unlinks": 0,
+      "allocations": 2,
+      "gets": 2001,
+      "updates": 1,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    },
+    {
+      "variant": "production",
+      "workload": "relevant write + cold getter alternating a.get() and b.get() 1000 times",
+      "retainedDependencyRecords": 2,
+      "links": 2000,
+      "unlinks": 0,
+      "allocations": 0,
+      "gets": 2002,
+      "updates": 2,
+      "reverseReattachments": 0,
+      "reverseDetachments": 0
+    }
+  ]
+}

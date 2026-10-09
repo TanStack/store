@@ -8,9 +8,18 @@ export interface ReactiveNode {
   subs?: Link
   subsTail?: Link
   flags: ReactiveFlags
+  /** @internal Stable tracking id for the current cold computation. */
+  runId?: number
+  /** @internal Last cold computation that read this dependency. */
+  lastRead?: number
+}
+
+interface VersionedDependency extends ReactiveNode {
+  version: number
 }
 
 export interface Link {
+  // Tracking cycle while linked, dependency output revision while cold.
   version: number
   dep: ReactiveNode
   sub: ReactiveNode
@@ -34,6 +43,8 @@ export const RECURSED_CHECK = 4
 export const RECURSED = 8
 export const DIRTY = 16
 export const PENDING = 32
+// Cold computeds keep forward dependencies without subscribing to them.
+export const COLD = 64
 /*@__NO_SIDE_EFFECTS__*/
 export function createReactiveSystem({
   update,
@@ -52,67 +63,109 @@ export function createReactiveSystem({
     shallowPropagate,
   }
 
+  // Keep stable attached reads separate from cold tracking and reconnection.
   function link(dep: ReactiveNode, sub: ReactiveNode, version: number): void {
     const prevDep = sub.depsTail
     if (prevDep !== undefined && prevDep.dep === dep) {
       return
     }
     const nextDep = prevDep !== undefined ? prevDep.nextDep : sub.deps
-    if (nextDep !== undefined && nextDep.dep === dep) {
+    if (
+      nextDep !== undefined &&
+      nextDep.dep === dep &&
+      nextDep.prevSub !== nextDep
+    ) {
       nextDep.version = version
       sub.depsTail = nextDep
       return
     }
+    linkSlow(dep, sub, version, prevDep, nextDep)
+  }
+
+  function linkSlow(
+    dep: ReactiveNode,
+    sub: ReactiveNode,
+    version: number,
+    prevDep: Link | undefined,
+    nextDep: Link | undefined,
+  ): void {
+    const cold = sub.flags & COLD
+    if (cold) {
+      // Numeric stamps deduplicate cold reads without retaining the subscriber.
+      // Nested computations can overwrite stamps, allowing harmless duplicates.
+      if (dep.lastRead === sub.runId) {
+        return
+      }
+      dep.lastRead = sub.runId
+      version = (dep as VersionedDependency).version
+    }
     const prevSub = dep.subsTail
-    if (
-      prevSub !== undefined &&
-      prevSub.version === version &&
-      prevSub.sub === sub
-    ) {
+    if (nextDep !== undefined && nextDep.dep === dep) {
+      nextDep.version = version
+      sub.depsTail = nextDep
+    } else {
+      if (
+        prevSub !== undefined &&
+        prevSub.version === version &&
+        prevSub.sub === sub
+      ) {
+        return
+      }
+      const newLink = (sub.depsTail = {
+        version,
+        dep,
+        sub,
+        prevDep,
+        nextDep,
+        prevSub,
+        nextSub: undefined,
+      })
+      if (nextDep !== undefined) {
+        nextDep.prevDep = newLink
+      }
+      if (prevDep !== undefined) {
+        prevDep.nextDep = newLink
+      } else {
+        sub.deps = newLink
+      }
+      nextDep = newLink
+    }
+    // A self pointer marks a retained link absent from the subscriber list.
+    if (cold) {
+      nextDep.prevSub = nextDep
       return
     }
-    const newLink =
-      (sub.depsTail =
-      dep.subsTail =
-        {
-          version,
-          dep,
-          sub,
-          prevDep,
-          nextDep,
-          prevSub,
-          nextSub: undefined,
-        })
-    if (nextDep !== undefined) {
-      nextDep.prevDep = newLink
-    }
-    if (prevDep !== undefined) {
-      prevDep.nextDep = newLink
-    } else {
-      sub.deps = newLink
-    }
+    dep.subsTail = nextDep
+    nextDep.prevSub = prevSub
     if (prevSub !== undefined) {
-      prevSub.nextSub = newLink
+      prevSub.nextSub = nextDep
     } else {
-      dep.subs = newLink
+      dep.subs = nextDep
     }
   }
 
-  function unlink(link: Link, sub = link.sub): Link | undefined {
+  function unlink(link: Link, keepDeps = false): Link | undefined {
+    const sub = link.sub
     const dep = link.dep
     const prevDep = link.prevDep
     const nextDep = link.nextDep
     const nextSub = link.nextSub
     const prevSub = link.prevSub
-    if (nextDep !== undefined) {
-      nextDep.prevDep = prevDep
-    } else {
-      sub.depsTail = prevDep
+    // Unobserved atoms retain their forward links for validation and reuse.
+    if (!keepDeps) {
+      if (nextDep !== undefined) {
+        nextDep.prevDep = prevDep
+      } else {
+        sub.depsTail = prevDep
+      }
+      if (prevDep !== undefined) {
+        prevDep.nextDep = nextDep
+      } else {
+        sub.deps = nextDep
+      }
     }
-    if (prevDep !== undefined) {
-      prevDep.nextDep = nextDep
-    } else {
-      sub.deps = nextDep
+    if (prevSub === link) {
+      return nextDep
     }
     if (nextSub !== undefined) {
       nextSub.prevSub = prevSub
@@ -124,6 +177,8 @@ export function createReactiveSystem({
     } else if ((dep.subs = nextSub) === undefined) {
       unwatched(dep)
     }
+    link.prevSub = link
+    link.nextSub = undefined
     return nextDep
   }
 

@@ -1,0 +1,117 @@
+{
+  "output": "recreate-with-prepare.mjs",
+  "node": "v25.8.1",
+  "platform": "darwin",
+  "arch": "arm64",
+  "esbuild": "0.27.7",
+  "target": "es2022",
+  "compression": "gzip level 9; Brotli quality 11",
+  "variants": [
+    {
+      "label": "baseline",
+      "source": "e06c28cbdf3514c4edd5dfc29c4d05e396363605",
+      "runtime": "baseline/runtime.mjs",
+      "sourceHashes": {
+        "alien.ts": "a651f884d7cd8ad4da231c4de5334cce89ab6e73b32c3fd1d8d2f0c8f20a804b",
+        "atom.ts": "098dfdf21c63f46eba54e05ca12fd2f29ebbbc971886ac845be0747ab814b92e",
+        "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+        "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+        "signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+        "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+        "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+      }
+    },
+    {
+      "label": "pr",
+      "source": "a7cc518cdbbd9ae7d6c60ed579bfaec42c7bce34",
+      "runtime": "pr/runtime.mjs",
+      "sourceHashes": {
+        "alien.ts": "424b876f84b386e6daaede7347d1fb6b2ddef64def80043586cfd7a59c49b66f",
+        "atom.ts": "5e61d40dac9ab832376e9ed260b5bf0fdb53f57b3603e97c9324d1a295b6f98c",
+        "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+        "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+        "signal.ts": "6d930397e6287d466aa070851d4dbcd30de1fcce63658c75ca81adffe8f7f07d",
+        "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+        "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+      }
+    },
+    {
+      "label": "candidate",
+      "source": ".cache/retention-research/results/first-array-candidate/sources/candidate",
+      "runtime": "candidate/runtime.mjs",
+      "sourceHashes": {
+        "alien.ts": "a651f884d7cd8ad4da231c4de5334cce89ab6e73b32c3fd1d8d2f0c8f20a804b",
+        "atom.ts": "fd444e96a51e1a00aec67a773c4e7abd9b4e9167abd0c92ad6452f3e87fa9c1e",
+        "index.ts": "a77bf3452075cfc36e6d08c0bd7c03aa7aff9e6fec92b244444e14f6ad1c73d5",
+        "shallow.ts": "9b2f011084843b49cbfb0eec0ffe2ad24493f321d72454879244c4beaddd692f",
+        "store.ts": "5860ce3684bdb5217fc7202ecac9b4bf9eed5d6301c2889eb88dacb9d9760dc2",
+        "types.ts": "acf15579b01f787bd4004e98a3d827a6c1bad1fe4cd4806f3d64faa9b6629db7"
+      }
+    }
+  ],
+  "sizes": [
+    {
+      "variant": "baseline",
+      "entry": "createAtom",
+      "minifiedBytes": 3661,
+      "gzipBytes": 1504,
+      "brotliBytes": 1403
+    },
+    {
+      "variant": "baseline",
+      "entry": "fullStore",
+      "minifiedBytes": 5353,
+      "gzipBytes": 2077,
+      "brotliBytes": 1939
+    },
+    {
+      "variant": "baseline",
+      "entry": "reactSelector",
+      "minifiedBytes": 3978,
+      "gzipBytes": 1661,
+      "brotliBytes": 1543
+    },
+    {
+      "variant": "pr",
+      "entry": "createAtom",
+      "minifiedBytes": 4311,
+      "gzipBytes": 1754,
+      "brotliBytes": 1630
+    },
+    {
+      "variant": "pr",
+      "entry": "fullStore",
+      "minifiedBytes": 6005,
+      "gzipBytes": 2331,
+      "brotliBytes": 2158
+    },
+    {
+      "variant": "pr",
+      "entry": "reactSelector",
+      "minifiedBytes": 4628,
+      "gzipBytes": 1917,
+      "brotliBytes": 1774
+    },
+    {
+      "variant": "candidate",
+      "entry": "createAtom",
+      "minifiedBytes": 4332,
+      "gzipBytes": 1751,
+      "brotliBytes": 1628
+    },
+    {
+      "variant": "candidate",
+      "entry": "fullStore",
+      "minifiedBytes": 6026,
+      "gzipBytes": 2323,
+      "brotliBytes": 2156
+    },
+    {
+      "variant": "candidate",
+      "entry": "reactSelector",
+      "minifiedBytes": 4649,
+      "gzipBytes": 1909,
+      "brotliBytes": 1766
+    }
+  ]
+}
