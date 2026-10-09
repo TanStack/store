@@ -3,7 +3,7 @@ id: UseSelectorOptions
 title: UseSelectorOptions
 ---
 
-Defined in: [packages/react-store/src/useSelector.ts:4](https://github.com/TanStack/store/blob/main/packages/react-store/src/useSelector.ts#L4)
+Defined in: [packages/react-store/src/useSelector.ts:3](https://github.com/TanStack/store/blob/main/packages/react-store/src/useSelector.ts#L3)
 
 ## Type Parameters
 
@@ -19,7 +19,7 @@ Defined in: [packages/react-store/src/useSelector.ts:4](https://github.com/TanSt
 optional compare?: (a, b) => boolean;
 ```
 
-Defined in: [packages/react-store/src/useSelector.ts:5](https://github.com/TanStack/store/blob/main/packages/react-store/src/useSelector.ts#L5)
+Defined in: [packages/react-store/src/useSelector.ts:4](https://github.com/TanStack/store/blob/main/packages/react-store/src/useSelector.ts#L4)
 
 #### Parameters
 
