@@ -1,4 +1,12 @@
-import { ReactiveFlags, createReactiveSystem } from './alien'
+import {
+  DIRTY,
+  MUTABLE,
+  NONE,
+  PENDING,
+  RECURSED_CHECK,
+  WATCHING,
+  createReactiveSystem,
+} from './alien'
 
 import type { ReactiveNode } from './alien'
 import type {
@@ -43,12 +51,12 @@ const { link, unlink, propagate, checkDirty, shallowPropagate } =
     // eslint-disable-next-line no-shadow
     notify(effect: Effect): void {
       queuedEffects[queuedEffectsLength++] = effect
-      effect.flags &= ~ReactiveFlags.Watching
+      effect.flags &= ~WATCHING
     },
     unwatched(atom: InternalAtom<any>): void {
       if (atom.depsTail !== undefined) {
         atom.depsTail = undefined
-        atom.flags = ReactiveFlags.Mutable | ReactiveFlags.Dirty
+        atom.flags = MUTABLE | DIRTY
         purgeDeps(atom)
       }
     },
@@ -158,7 +166,7 @@ export function createAtom<T>(
     subsTail: undefined,
     deps: undefined,
     depsTail: undefined,
-    flags: isComputed ? ReactiveFlags.None : ReactiveFlags.Mutable,
+    flags: isComputed ? NONE : MUTABLE,
 
     get(): T {
       if (activeSub !== undefined) {
@@ -175,6 +183,9 @@ export function createAtom<T>(
         if (!observed.current) {
           observed.current = true
         } else {
+          // Observer reads must not become dependencies of the subscription.
+          // The enclosing effect restores activeSub in its finally block.
+          activeSub = undefined
           obs.next?.(atom._snapshot)
         }
       })
@@ -198,7 +209,7 @@ export function createAtom<T>(
         return false
       }
       if (isComputed) {
-        atom.flags = ReactiveFlags.Mutable | ReactiveFlags.RecursedCheck
+        atom.flags = MUTABLE | RECURSED_CHECK
       }
       try {
         const oldValue = atom._snapshot
@@ -216,7 +227,7 @@ export function createAtom<T>(
       } finally {
         activeSub = prevSub
         if (isComputed) {
-          atom.flags &= ~ReactiveFlags.RecursedCheck
+          atom.flags &= ~RECURSED_CHECK
         }
         purgeDeps(atom)
       }
@@ -224,21 +235,18 @@ export function createAtom<T>(
   }
 
   if (isComputed) {
-    atom.flags = ReactiveFlags.Mutable | ReactiveFlags.Dirty
+    atom.flags = MUTABLE | DIRTY
     atom.get = function (): T {
       const flags = atom.flags
-      if (
-        flags & ReactiveFlags.Dirty ||
-        (flags & ReactiveFlags.Pending && checkDirty(atom.deps!, atom))
-      ) {
+      if (flags & DIRTY || (flags & PENDING && checkDirty(atom.deps!, atom))) {
         if (atom._update()) {
           const subs = atom.subs
           if (subs !== undefined) {
             shallowPropagate(subs)
           }
         }
-      } else if (flags & ReactiveFlags.Pending) {
-        atom.flags = flags & ~ReactiveFlags.Pending
+      } else if (flags & PENDING) {
+        atom.flags = flags & ~PENDING
       }
       if (activeSub !== undefined) {
         link(atom, activeSub, cycle)
@@ -275,12 +283,12 @@ function effect<T>(fn: () => T): Effect {
     activeSub = effectObj
     ++cycle
     effectObj.depsTail = undefined
-    effectObj.flags = ReactiveFlags.Watching | ReactiveFlags.RecursedCheck
+    effectObj.flags = WATCHING | RECURSED_CHECK
     try {
       return fn()
     } finally {
       activeSub = prevSub
-      effectObj.flags &= ~ReactiveFlags.RecursedCheck
+      effectObj.flags &= ~RECURSED_CHECK
       purgeDeps(effectObj)
     }
   }
@@ -289,22 +297,19 @@ function effect<T>(fn: () => T): Effect {
     depsTail: undefined,
     subs: undefined,
     subsTail: undefined,
-    flags: ReactiveFlags.Watching | ReactiveFlags.RecursedCheck,
+    flags: WATCHING | RECURSED_CHECK,
 
     notify(): void {
       const flags = this.flags
-      if (
-        flags & ReactiveFlags.Dirty ||
-        (flags & ReactiveFlags.Pending && checkDirty(this.deps!, this))
-      ) {
+      if (flags & DIRTY || (flags & PENDING && checkDirty(this.deps!, this))) {
         run()
       } else {
-        this.flags = ReactiveFlags.Watching
+        this.flags = WATCHING
       }
     },
 
     stop(): void {
-      this.flags = ReactiveFlags.None
+      this.flags = NONE
       this.depsTail = undefined
       purgeDeps(this)
     },

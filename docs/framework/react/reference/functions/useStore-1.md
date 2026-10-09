@@ -3,12 +3,10 @@ id: useStore
 title: useStore
 ---
 
-# ~~Function: useStore()~~
-
 ```ts
 function useStore<TSource, TSelected>(
    source, 
-   selector, 
+   selector?, 
    compare?): TSelected;
 ```
 
@@ -38,7 +36,7 @@ Deprecated alias for [useSelector](useSelector.md).
 
 (`listener`) => `object`
 
-### selector
+### selector?
 
 (`snapshot`) => `TSelected`
 

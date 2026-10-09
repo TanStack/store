@@ -2,12 +2,21 @@
 // Adapted from Alien Signals
 // https://github.com/stackblitz/alien-signals/
 
-import { ReactiveFlags, createReactiveSystem } from './alien'
+import {
+  DIRTY,
+  MUTABLE,
+  NONE,
+  PENDING,
+  RECURSED,
+  RECURSED_CHECK,
+  WATCHING,
+  createReactiveSystem,
+} from './alien'
 
 import type { ReactiveNode } from './alien'
 
-export { ReactiveFlags, createReactiveSystem } from './alien'
-export type { Link, ReactiveNode } from './alien'
+export { createReactiveSystem } from './alien'
+export type { Link, ReactiveFlags, ReactiveNode } from './alien'
 
 interface EffectNode extends ReactiveNode {
   fn(): void
@@ -45,9 +54,9 @@ const { link, unlink, propagate, checkDirty, shallowPropagate } =
 
       do {
         queued[insertIndex++] = effect
-        effect.flags &= ~ReactiveFlags.Watching
+        effect.flags &= ~WATCHING
         effect = effect.subs?.sub as EffectNode
-        if (effect === undefined || !(effect.flags & ReactiveFlags.Watching)) {
+        if (effect === undefined || !(effect.flags & WATCHING)) {
           break
         }
       } while (true)
@@ -61,11 +70,11 @@ const { link, unlink, propagate, checkDirty, shallowPropagate } =
       }
     },
     unwatched(node) {
-      if (!(node.flags & ReactiveFlags.Mutable)) {
+      if (!(node.flags & MUTABLE)) {
         effectScopeOper.call(node)
       } else if (node.depsTail !== undefined) {
         node.depsTail = undefined
-        node.flags = ReactiveFlags.Mutable | ReactiveFlags.Dirty
+        node.flags = MUTABLE | DIRTY
         purgeDeps(node)
       }
     },
@@ -128,7 +137,7 @@ export function signal<T>(initialValue?: T): {
     pendingValue: initialValue,
     subs: undefined,
     subsTail: undefined,
-    flags: ReactiveFlags.Mutable,
+    flags: MUTABLE,
   }) as () => T | undefined
 }
 
@@ -139,7 +148,7 @@ export function computed<T>(getter: (previousValue?: T) => T): () => T {
     subsTail: undefined,
     deps: undefined,
     depsTail: undefined,
-    flags: ReactiveFlags.None,
+    flags: NONE,
     getter: getter as (previousValue?: unknown) => unknown,
   }) as () => T
 }
@@ -151,7 +160,7 @@ export function effect(fn: () => void): () => void {
     subsTail: undefined,
     deps: undefined,
     depsTail: undefined,
-    flags: ReactiveFlags.Watching | ReactiveFlags.RecursedCheck,
+    flags: WATCHING | RECURSED_CHECK,
   }
   const prevSub = setActiveSub(e)
   if (prevSub !== undefined) {
@@ -161,7 +170,7 @@ export function effect(fn: () => void): () => void {
     e.fn()
   } finally {
     activeSub = prevSub
-    e.flags &= ~ReactiveFlags.RecursedCheck
+    e.flags &= ~RECURSED_CHECK
   }
   return effectOper.bind(e)
 }
@@ -172,7 +181,7 @@ export function effectScope(fn: () => void): () => void {
     depsTail: undefined,
     subs: undefined,
     subsTail: undefined,
-    flags: ReactiveFlags.None,
+    flags: NONE,
   }
   const prevSub = setActiveSub(e)
   if (prevSub !== undefined) {
@@ -190,7 +199,7 @@ export function trigger(fn: () => void) {
   const sub: ReactiveNode = {
     deps: undefined,
     depsTail: undefined,
-    flags: ReactiveFlags.Watching,
+    flags: WATCHING,
   }
   const prevSub = setActiveSub(sub)
   try {
@@ -203,7 +212,7 @@ export function trigger(fn: () => void) {
       link = unlink(link, sub)
       const subs = dep.subs
       if (subs !== undefined) {
-        sub.flags = ReactiveFlags.None
+        sub.flags = NONE
         propagate(subs)
         shallowPropagate(subs)
       }
@@ -217,42 +226,39 @@ export function trigger(fn: () => void) {
 function updateComputed(c: ComputedNode): boolean {
   ++cycle
   c.depsTail = undefined
-  c.flags = ReactiveFlags.Mutable | ReactiveFlags.RecursedCheck
+  c.flags = MUTABLE | RECURSED_CHECK
   const prevSub = setActiveSub(c)
   try {
     const oldValue = c.value
     return oldValue !== (c.value = c.getter(oldValue))
   } finally {
     activeSub = prevSub
-    c.flags &= ~ReactiveFlags.RecursedCheck
+    c.flags &= ~RECURSED_CHECK
     purgeDeps(c)
   }
 }
 
 function updateSignal(s: SignalNode): boolean {
-  s.flags = ReactiveFlags.Mutable
+  s.flags = MUTABLE
   return s.currentValue !== (s.currentValue = s.pendingValue)
 }
 
 function run(e: EffectNode): void {
   const flags = e.flags
-  if (
-    flags & ReactiveFlags.Dirty ||
-    (flags & ReactiveFlags.Pending && checkDirty(e.deps!, e))
-  ) {
+  if (flags & DIRTY || (flags & PENDING && checkDirty(e.deps!, e))) {
     ++cycle
     e.depsTail = undefined
-    e.flags = ReactiveFlags.Watching | ReactiveFlags.RecursedCheck
+    e.flags = WATCHING | RECURSED_CHECK
     const prevSub = setActiveSub(e)
     try {
       ;(e as EffectNode).fn()
     } finally {
       activeSub = prevSub
-      e.flags &= ~ReactiveFlags.RecursedCheck
+      e.flags &= ~RECURSED_CHECK
       purgeDeps(e)
     }
   } else {
-    e.flags = ReactiveFlags.Watching
+    e.flags = WATCHING
   }
 }
 
@@ -267,7 +273,7 @@ function flush(): void {
     while (notifyIndex < queuedLength) {
       const effect = queued[notifyIndex]!
       queued[notifyIndex++] = undefined
-      effect.flags |= ReactiveFlags.Watching | ReactiveFlags.Recursed
+      effect.flags |= WATCHING | RECURSED
     }
     notifyIndex = 0
     queuedLength = 0
@@ -277,10 +283,10 @@ function flush(): void {
 function computedOper<T>(this: ComputedNode<T>): T {
   const flags = this.flags
   if (
-    flags & ReactiveFlags.Dirty ||
-    (flags & ReactiveFlags.Pending &&
+    flags & DIRTY ||
+    (flags & PENDING &&
       (checkDirty(this.deps!, this) ||
-        ((this.flags = flags & ~ReactiveFlags.Pending), false)))
+        ((this.flags = flags & ~PENDING), false)))
   ) {
     if (updateComputed(this)) {
       const subs = this.subs
@@ -289,13 +295,13 @@ function computedOper<T>(this: ComputedNode<T>): T {
       }
     }
   } else if (!flags) {
-    this.flags = ReactiveFlags.Mutable | ReactiveFlags.RecursedCheck
+    this.flags = MUTABLE | RECURSED_CHECK
     const prevSub = setActiveSub(this)
     try {
       this.value = this.getter()
     } finally {
       activeSub = prevSub
-      this.flags &= ~ReactiveFlags.RecursedCheck
+      this.flags &= ~RECURSED_CHECK
     }
   }
   const sub = activeSub
@@ -308,7 +314,7 @@ function computedOper<T>(this: ComputedNode<T>): T {
 function signalOper<T>(this: SignalNode<T>, ...value: [T]): T | void {
   if (value.length) {
     if (this.pendingValue !== (this.pendingValue = value[0])) {
-      this.flags = ReactiveFlags.Mutable | ReactiveFlags.Dirty
+      this.flags = MUTABLE | DIRTY
       const subs = this.subs
       if (subs !== undefined) {
         propagate(subs)
@@ -318,7 +324,7 @@ function signalOper<T>(this: SignalNode<T>, ...value: [T]): T | void {
       }
     }
   } else {
-    if (this.flags & ReactiveFlags.Dirty) {
+    if (this.flags & DIRTY) {
       if (updateSignal(this)) {
         const subs = this.subs
         if (subs !== undefined) {
@@ -328,7 +334,7 @@ function signalOper<T>(this: SignalNode<T>, ...value: [T]): T | void {
     }
     let sub = activeSub
     while (sub !== undefined) {
-      if (sub.flags & (ReactiveFlags.Mutable | ReactiveFlags.Watching)) {
+      if (sub.flags & (MUTABLE | WATCHING)) {
         link(this, sub, cycle)
         break
       }
@@ -344,7 +350,7 @@ function effectOper(this: EffectNode): void {
 
 function effectScopeOper(this: ReactiveNode): void {
   this.depsTail = undefined
-  this.flags = ReactiveFlags.None
+  this.flags = NONE
   purgeDeps(this)
   const sub = this.subs
   if (sub !== undefined) {

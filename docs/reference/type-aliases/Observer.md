@@ -3,8 +3,6 @@ id: Observer
 title: Observer
 ---
 
-# Type Alias: Observer\<T\>
-
 ```ts
 type Observer<T> = object;
 ```
@@ -19,10 +17,10 @@ Defined in: [types.ts:10](https://github.com/TanStack/store/blob/main/packages/s
 
 ## Properties
 
-### complete()?
+### complete?
 
 ```ts
-optional complete: () => void;
+optional complete?: () => void;
 ```
 
 Defined in: [types.ts:13](https://github.com/TanStack/store/blob/main/packages/store/src/types.ts#L13)
@@ -33,10 +31,10 @@ Defined in: [types.ts:13](https://github.com/TanStack/store/blob/main/packages/s
 
 ***
 
-### error()?
+### error?
 
 ```ts
-optional error: (err) => void;
+optional error?: (err) => void;
 ```
 
 Defined in: [types.ts:12](https://github.com/TanStack/store/blob/main/packages/store/src/types.ts#L12)
@@ -53,10 +51,10 @@ Defined in: [types.ts:12](https://github.com/TanStack/store/blob/main/packages/s
 
 ***
 
-### next()?
+### next?
 
 ```ts
-optional next: (value) => void;
+optional next?: (value) => void;
 ```
 
 Defined in: [types.ts:11](https://github.com/TanStack/store/blob/main/packages/store/src/types.ts#L11)

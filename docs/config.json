@@ -94,6 +94,15 @@
               "to": "framework/marko/quick-start"
             }
           ]
+        },
+        {
+          "label": "octane",
+          "children": [
+            {
+              "label": "Quick Start - Octane",
+              "to": "framework/octane/quick-start"
+            }
+          ]
         }
       ]
     },
@@ -172,7 +181,19 @@
         {
           "label": "marko",
           "children": [
-            { "label": "Marko Tags", "to": "framework/marko/reference/index" }
+            {
+              "label": "Marko Tags",
+              "to": "framework/marko/reference/index"
+            }
+          ]
+        },
+        {
+          "label": "octane",
+          "children": [
+            {
+              "label": "Octane Hooks",
+              "to": "framework/octane/reference/index"
+            }
           ]
         }
       ]
@@ -526,11 +547,55 @@
         {
           "label": "marko",
           "children": [
-            { "label": "<store-provider>", "to": "framework/marko/reference/tags/store-provider" },
-            { "label": "<store-context>", "to": "framework/marko/reference/tags/store-context" },
-            { "label": "<store-selector>", "to": "framework/marko/reference/tags/store-selector" },
-            { "label": "<store-atom>", "to": "framework/marko/reference/tags/store-atom" },
-            { "label": "<stream-store-provider>", "to": "framework/marko/reference/tags/stream-store-provider" }
+            {
+              "label": "<store-provider>",
+              "to": "framework/marko/reference/tags/store-provider"
+            },
+            {
+              "label": "<store-context>",
+              "to": "framework/marko/reference/tags/store-context"
+            },
+            {
+              "label": "<store-selector>",
+              "to": "framework/marko/reference/tags/store-selector"
+            },
+            {
+              "label": "<store-atom>",
+              "to": "framework/marko/reference/tags/store-atom"
+            },
+            {
+              "label": "<stream-store-provider>",
+              "to": "framework/marko/reference/tags/stream-store-provider"
+            }
+          ]
+        },
+        {
+          "label": "octane",
+          "children": [
+            {
+              "label": "createStoreContext",
+              "to": "framework/octane/reference/functions/createStoreContext"
+            },
+            {
+              "label": "useCreateAtom",
+              "to": "framework/octane/reference/functions/useCreateAtom"
+            },
+            {
+              "label": "useCreateStore",
+              "to": "framework/octane/reference/functions/useCreateStore"
+            },
+            {
+              "label": "useSelector",
+              "to": "framework/octane/reference/functions/useSelector"
+            },
+            {
+              "label": "useAtom",
+              "to": "framework/octane/reference/functions/useAtom"
+            },
+            {
+              "label": "UseSelectorOptions",
+              "to": "framework/octane/reference/interfaces/UseSelectorOptions"
+            }
           ]
         }
       ]
@@ -701,11 +766,51 @@
         {
           "label": "marko",
           "children": [
-            { "label": "Simple", "to": "framework/marko/examples/simple" },
-            { "label": "Atoms", "to": "framework/marko/examples/atoms" },
-            { "label": "Stores", "to": "framework/marko/examples/stores" },
-            { "label": "Store Actions", "to": "framework/marko/examples/store-actions" },
-            { "label": "Store Context", "to": "framework/marko/examples/store-context" }
+            {
+              "label": "Simple",
+              "to": "framework/marko/examples/simple"
+            },
+            {
+              "label": "Atoms",
+              "to": "framework/marko/examples/atoms"
+            },
+            {
+              "label": "Stores",
+              "to": "framework/marko/examples/stores"
+            },
+            {
+              "label": "Store Actions",
+              "to": "framework/marko/examples/store-actions"
+            },
+            {
+              "label": "Store Context",
+              "to": "framework/marko/examples/store-context"
+            }
+          ]
+        },
+        {
+          "label": "octane",
+          "children": [
+            {
+              "label": "Simple",
+              "to": "framework/octane/examples/simple"
+            },
+            {
+              "label": "Atoms",
+              "to": "framework/octane/examples/atoms"
+            },
+            {
+              "label": "Stores",
+              "to": "framework/octane/examples/stores"
+            },
+            {
+              "label": "Store Actions",
+              "to": "framework/octane/examples/store-actions"
+            },
+            {
+              "label": "Store Context",
+              "to": "framework/octane/examples/store-context"
+            }
           ]
         }
       ]

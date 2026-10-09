@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "Bundler",
+    "paths": {
+      "@tanstack/store": ["../../../packages/store/src/index.ts"],
+      "@tanstack/octane-store": ["../../../packages/octane-store/src/index.ts"]
+    },
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "octane",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "plugins": [{ "name": "@tsrx/typescript-plugin" }]
+  },
+  "include": ["src", "vite.config.ts"]
+}

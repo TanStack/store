@@ -3,12 +3,10 @@ id: useSelector
 title: useSelector
 ---
 
-# Function: useSelector()
-
 ```ts
 function useSelector<TSource, TSelected>(
    source, 
-   selector, 
+   selector?, 
    options?): TSelected;
 ```
 
@@ -39,7 +37,7 @@ Omit the selector to subscribe to the whole value.
 
 `SelectionSource`\<`TSource`\>
 
-### selector
+### selector?
 
 (`snapshot`) => `TSelected`
 

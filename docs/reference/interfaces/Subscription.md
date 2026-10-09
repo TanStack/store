@@ -3,13 +3,11 @@ id: Subscription
 title: Subscription
 ---
 
-# Interface: Subscription
-
 Defined in: [types.ts:16](https://github.com/TanStack/store/blob/main/packages/store/src/types.ts#L16)
 
 ## Properties
 
-### unsubscribe()
+### unsubscribe
 
 ```ts
 unsubscribe: () => void;

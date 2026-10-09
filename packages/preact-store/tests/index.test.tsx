@@ -1,5 +1,6 @@
 import { act, render, renderHook, waitFor } from '@testing-library/preact'
 import { userEvent } from '@testing-library/user-event'
+import { useCallback } from 'preact/hooks'
 import { describe, expect, it, test, vi } from 'vitest'
 import { createAtom, createStore } from '@tanstack/store'
 import {
@@ -388,6 +389,89 @@ describe('store hooks', () => {
 
     const { getByText } = render(<Comp />)
     expect(getByText('Store: 0')).toBeInTheDocument()
+  })
+
+  it.each([false, true])(
+    'useSelector updates when captured props change (memoized: %s)',
+    (memoized) => {
+      const store = createStore({ alt: true, control: false })
+      const snapshot = store.get()
+      const { result, rerender } = renderHook(
+        ({ modifier }: { modifier: 'alt' | 'control' }) => {
+          const selector = (state: typeof snapshot) => state[modifier]
+          const stableSelector = useCallback(selector, [modifier])
+          return useSelector(store, memoized ? stableSelector : selector)
+        },
+        { initialProps: { modifier: 'alt' } },
+      )
+
+      expect(result.current).toBe(true)
+      rerender({ modifier: 'control' })
+      expect(result.current).toBe(false)
+      rerender({ modifier: 'alt' })
+      expect(result.current).toBe(true)
+      expect(store.get()).toBe(snapshot)
+
+      act(() => {
+        store.setState(() => ({ alt: false, control: true }))
+      })
+      expect(result.current).toBe(false)
+    },
+  )
+
+  it('useSelector caches unchanged snapshots for a stable selector', () => {
+    const store = createStore({ count: 1 })
+    const selector = vi.fn((state: { count: number }) => [state.count])
+    const { result, rerender } = renderHook(() => useSelector(store, selector))
+    const selection = result.current
+
+    expect(selection).toEqual([1])
+    expect(selector).toHaveBeenCalledTimes(1)
+    rerender()
+    expect(result.current).toBe(selection)
+    expect(selector).toHaveBeenCalledTimes(1)
+
+    act(() => {
+      store.setState(() => ({ count: 2 }))
+    })
+    expect(result.current).toEqual([2])
+    expect(selector).toHaveBeenCalledTimes(2)
+  })
+
+  it('useSelector compares selections across selector changes', () => {
+    const store = createStore({ one: 1, two: 1, three: 3 })
+    const { result, rerender } = renderHook(
+      ({ key }: { key: 'one' | 'two' | 'three' }) =>
+        useSelector(store, (state) => [state[key]], { compare: shallow }),
+      { initialProps: { key: 'one' } },
+    )
+    const selection = result.current
+
+    expect(selection).toEqual([1])
+    rerender({ key: 'two' })
+    expect(result.current).toBe(selection)
+    rerender({ key: 'three' })
+    expect(result.current).toEqual([3])
+    expect(result.current).not.toBe(selection)
+  })
+
+  it('useSelector supports fresh array selections across parent rerenders', () => {
+    const store = createStore({ count: 1 })
+    const { result, rerender } = renderHook(
+      ({ offset }) => useSelector(store, (state) => [state.count + offset]),
+      { initialProps: { offset: 0 } },
+    )
+
+    expect(result.current).toEqual([1])
+    rerender({ offset: 0 })
+    expect(result.current).toEqual([1])
+    rerender({ offset: 2 })
+    expect(result.current).toEqual([3])
+
+    act(() => {
+      store.setState(() => ({ count: 2 }))
+    })
+    expect(result.current).toEqual([4])
   })
 
   it('useSelector reads writable and readonly store state', async () => {

@@ -1,5 +1,25 @@
 # @tanstack/svelte-store
 
+## 0.12.3
+
+### Patch Changes
+
+- [#364](https://github.com/TanStack/store/pull/364) [`b1107ef`](https://github.com/TanStack/store/commit/b1107eff535258a567fd98c933f402ade449aadc) - Fix `useSelector` object selection comparisons by preserving raw value identity.
+
+## 0.12.2
+
+### Patch Changes
+
+- Updated dependencies [[`e06c28c`](https://github.com/TanStack/store/commit/e06c28cbdf3514c4edd5dfc29c4d05e396363605)]:
+  - @tanstack/store@0.11.2
+
+## 0.12.1
+
+### Patch Changes
+
+- Updated dependencies [[`1d7c87e`](https://github.com/TanStack/store/commit/1d7c87e9a3e465fbc88d1a57c46e7b454ee3eb65)]:
+  - @tanstack/store@0.11.1
+
 ## 0.12.0
 
 ### Minor Changes

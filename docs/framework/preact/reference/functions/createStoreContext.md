@@ -3,13 +3,11 @@ id: createStoreContext
 title: createStoreContext
 ---
 
-# Function: createStoreContext()
-
 ```ts
 function createStoreContext<TValue>(): object;
 ```
 
-Defined in: [preact-store/src/createStoreContext.tsx:44](https://github.com/TanStack/store/blob/main/packages/preact-store/src/createStoreContext.tsx#L44)
+Defined in: [createStoreContext.tsx:44](https://github.com/TanStack/store/blob/main/packages/preact-store/src/createStoreContext.tsx#L44)
 
 Creates a typed Preact context for sharing a bundle of atoms and stores with
 a subtree.
@@ -32,7 +30,7 @@ typed when read back with `useStoreContext()`.
 
 `object`
 
-### StoreProvider()
+### StoreProvider
 
 ```ts
 StoreProvider: (__namedParameters) => Element;
@@ -54,7 +52,7 @@ StoreProvider: (__namedParameters) => Element;
 
 `Element`
 
-### useStoreContext()
+### useStoreContext
 
 ```ts
 useStoreContext: () => TValue;

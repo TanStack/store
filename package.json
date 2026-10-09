@@ -5,9 +5,9 @@
     "type": "git",
     "url": "https://github.com/tanstack/store.git"
   },
-  "packageManager": "pnpm@11.1.0",
+  "packageManager": "pnpm@12.10.1+sha512.ba40a37eb1a370d60fea8c4cf1d364c13bcccef518e98ad2bcee954f539d38da37458e58261a3fa55e06523450ea0ffff9f497b135be41f2c15c1642bacace6c",
   "engines": {
-    "pnpm": ">=11.0.0"
+    "pnpm": ">=11.28.5"
   },
   "type": "module",
   "scripts": {
@@ -42,38 +42,40 @@
     ]
   },
   "devDependencies": {
-    "@changesets/cli": "^2.30.0",
+    "@changesets/changelog-github": "^1.0.1",
+    "@changesets/cli": "^3.0.3",
     "@eslint-react/eslint-plugin": "^4.2.3",
-    "@svitejs/changesets-changelog-github-compact": "^1.2.0",
     "@tanstack/eslint-config": "0.4.0",
-    "@tanstack/typedoc-config": "0.3.3",
+    "@tanstack/typedoc-config": "0.3.4",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/user-event": "^14.6.1",
-    "@types/node": "^25.6.0",
+    "@types/node": "^26.6.4",
     "@vitest/coverage-istanbul": "^4.1.4",
     "eslint": "^10.2.0",
     "eslint-plugin-react-hooks": "^7.0.1",
     "jsdom": "^29.0.2",
-    "knip": "^6.4.0",
+    "knip": "^6.40.0",
     "markdown-link-extractor": "^4.0.3",
-    "nx": "22.6.5",
+    "nx": "23.3.0",
     "premove": "^4.0.0",
     "prettier": "^3.8.2",
     "prettier-plugin-marko": "^4.0.9",
     "prettier-plugin-svelte": "^3.5.1",
-    "publint": "^0.3.18",
-    "sherif": "^1.11.1",
+    "publint": "^0.3.25",
+    "sherif": "^1.13.0",
     "tinyglobby": "^0.2.16",
     "tsdown": "^0.21.7",
-    "typescript": "6.0.2",
+    "typescript": "6.0.3",
     "typescript56": "npm:typescript@5.6",
     "typescript57": "npm:typescript@5.7",
     "typescript58": "npm:typescript@5.8",
     "vite": "^8.0.8",
-    "vitest": "^4.1.4"
+    "vitest": "^4.1.4",
+    "vue": "^3.5.43"
   },
   "overrides": {
     "@tanstack/angular-store": "workspace:*",
+    "@tanstack/octane-store": "workspace:*",
     "@tanstack/preact-store": "workspace:*",
     "@tanstack/react-store": "workspace:*",
     "@tanstack/solid-store": "workspace:*",
@@ -81,15 +83,6 @@
     "@tanstack/svelte-store": "workspace:*",
     "@tanstack/vue-store": "workspace:*",
     "@tanstack/lit-store": "workspace:*"
-  },
-  "pnpm": {
-    "packageExtensions": {
-      "@vue/composition-api": {
-        "peerDependencies": {
-          "vue": ">= 2.5"
-        }
-      }
-    }
   },
   "sherif": {
     "ignorePackage": [

@@ -3,9 +3,7 @@ id: UseSelectorOptions
 title: UseSelectorOptions
 ---
 
-# Interface: UseSelectorOptions\<TSelected\>
-
-Defined in: [solid-store/src/useSelector.ts:4](https://github.com/TanStack/store/blob/main/packages/solid-store/src/useSelector.ts#L4)
+Defined in: [useSelector.ts:4](https://github.com/TanStack/store/blob/main/packages/solid-store/src/useSelector.ts#L4)
 
 ## Type Parameters
 
@@ -15,13 +13,13 @@ Defined in: [solid-store/src/useSelector.ts:4](https://github.com/TanStack/store
 
 ## Properties
 
-### compare()?
+### compare?
 
 ```ts
-optional compare: (a, b) => boolean;
+optional compare?: (a, b) => boolean;
 ```
 
-Defined in: [solid-store/src/useSelector.ts:5](https://github.com/TanStack/store/blob/main/packages/solid-store/src/useSelector.ts#L5)
+Defined in: [useSelector.ts:5](https://github.com/TanStack/store/blob/main/packages/solid-store/src/useSelector.ts#L5)
 
 #### Parameters
 

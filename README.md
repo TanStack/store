@@ -1,7 +1,21 @@
 <img src="https://static.scarf.sh/a.png?x-pxid=d988eb79-b0fc-4a2b-8514-6a1ab932d188" />
 
 <div align="center">
-  <img src="./media/header_store.png" alt="TanStack Store" />
+  <picture>
+    <source
+      media="(prefers-color-scheme: dark)"
+      srcset="https://tanstack.com/api/readme/store.png?theme=dark"
+    />
+    <source
+      media="(prefers-color-scheme: light)"
+      srcset="https://tanstack.com/api/readme/store.png"
+    />
+    <img
+      src="https://tanstack.com/api/readme/store.png"
+      alt="TanStack Store"
+      width="900"
+    />
+  </picture>
 </div>
 
 <br />
@@ -40,7 +54,7 @@ An immutable, reactive data store with framework adapters that powers the core o
 
 - Fine‑grained updates for performant state management
 - Flexible primitives for building custom state logic
-- Works across frameworks like React, Solid, Vue, Angular, Svelte & Lit
+- Works across frameworks like React, Solid, Vue, Angular, Svelte, Lit & Octane
 - Lightweight and standalone — use it in any app or as a library foundation
 
 ### <a href="https://tanstack.com/store">Read the docs →</b></a>
@@ -56,22 +70,22 @@ An immutable, reactive data store with framework adapters that powers the core o
 
 <table align="center">
   <tr>
-    <td>
-        <a href="https://www.coderabbit.ai/?via=tanstack&dub_id=aCcEEdAOqqutX6OS">
-			<picture>
-			  <source media="(prefers-color-scheme: dark)" srcset="https://tanstack.com/assets/coderabbit-dark-CMcuvjEy.svg" height="40" />
-			  <source media="(prefers-color-scheme: light)" srcset="https://tanstack.com/assets/coderabbit-light-DVMJ2jHi.svg" height="40" />
-			  <img src="https://tanstack.com/assets/coderabbit-light-DVMJ2jHi.svg" height="40" alt="CodeRabbit" />
-			</picture>        
-		</a>
+        <td>
+      <a href="https://www.coderabbit.ai/?via=tanstack&dub_id=aCcEEdAOqqutX6OS" >
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://tanstack.com/assets/coderabbit-dark-D643Zkrv.svg" />
+          <source media="(prefers-color-scheme: light)" srcset="https://tanstack.com/assets/coderabbit-light-CIzGLYU_.svg" />
+          <img src="https://tanstack.com/assets/coderabbit-light-CIzGLYU_.svg" height="40" alt="CodeRabbit" />
+        </picture>
+      </a>
     </td>
-    <td padding="20">
+    <td>
       <a href="https://www.cloudflare.com?utm_source=tanstack">
-         <picture>
-		  <source media="(prefers-color-scheme: dark)" srcset="https://tanstack.com/assets/cloudflare-white-DQDB7UaL.svg" height="60" />
-		  <source media="(prefers-color-scheme: light)" srcset="https://tanstack.com/assets/cloudflare-black-CPufaW0B.svg" height="60" />
-		  <img src="https://tanstack.com/assets/cloudflare-black-CPufaW0B.svg" height="60" alt="Cloudflare" />
-		</picture>
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://tanstack.com/assets/cloudflare-white-Co-Tyjbl.svg" />
+          <source media="(prefers-color-scheme: light)" srcset="https://tanstack.com/assets/cloudflare-black-6Ojsn8yh.svg" />
+          <img src="https://tanstack.com/assets/cloudflare-white-Co-Tyjbl.svg" height="60" alt="Cloudflare" />
+        </picture>
       </a>
     </td>
   </tr>

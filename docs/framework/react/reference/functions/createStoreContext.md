@@ -3,8 +3,6 @@ id: createStoreContext
 title: createStoreContext
 ---
 
-# Function: createStoreContext()
-
 ```ts
 function createStoreContext<TValue>(): object;
 ```
@@ -31,7 +29,7 @@ typed when read back with `useStoreContext()`.
 
 `object`
 
-### StoreProvider()
+### StoreProvider
 
 ```ts
 StoreProvider: (props) => ReactElement;
@@ -47,7 +45,7 @@ StoreProvider: (props) => ReactElement;
 
 `ReactElement`
 
-### useStoreContext()
+### useStoreContext
 
 ```ts
 useStoreContext: () => TValue;

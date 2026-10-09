@@ -25,15 +25,15 @@ interface Stack<T> {
   prev: Stack<T> | undefined
 }
 
-export const enum ReactiveFlags {
-  None = 0,
-  Mutable = 1,
-  Watching = 2,
-  RecursedCheck = 4,
-  Recursed = 8,
-  Dirty = 16,
-  Pending = 32,
-}
+export type ReactiveFlags = number
+
+export const NONE = 0
+export const MUTABLE = 1
+export const WATCHING = 2
+export const RECURSED_CHECK = 4
+export const RECURSED = 8
+export const DIRTY = 16
+export const PENDING = 32
 /*@__NO_SIDE_EFFECTS__*/
 export function createReactiveSystem({
   update,
@@ -135,37 +135,24 @@ export function createReactiveSystem({
       const sub = link.sub
       let flags = sub.flags
 
-      if (
-        !(
-          flags &
-          (ReactiveFlags.RecursedCheck |
-            ReactiveFlags.Recursed |
-            ReactiveFlags.Dirty |
-            ReactiveFlags.Pending)
-        )
-      ) {
-        sub.flags = flags | ReactiveFlags.Pending
-      } else if (
-        !(flags & (ReactiveFlags.RecursedCheck | ReactiveFlags.Recursed))
-      ) {
-        flags = ReactiveFlags.None
-      } else if (!(flags & ReactiveFlags.RecursedCheck)) {
-        sub.flags = (flags & ~ReactiveFlags.Recursed) | ReactiveFlags.Pending
-      } else if (
-        !(flags & (ReactiveFlags.Dirty | ReactiveFlags.Pending)) &&
-        isValidLink(link, sub)
-      ) {
-        sub.flags = flags | (ReactiveFlags.Recursed | ReactiveFlags.Pending)
-        flags &= ReactiveFlags.Mutable
+      if (!(flags & (RECURSED_CHECK | RECURSED | DIRTY | PENDING))) {
+        sub.flags = flags | PENDING
+      } else if (!(flags & (RECURSED_CHECK | RECURSED))) {
+        flags = NONE
+      } else if (!(flags & RECURSED_CHECK)) {
+        sub.flags = (flags & ~RECURSED) | PENDING
+      } else if (!(flags & (DIRTY | PENDING)) && isValidLink(link, sub)) {
+        sub.flags = flags | (RECURSED | PENDING)
+        flags &= MUTABLE
       } else {
-        flags = ReactiveFlags.None
+        flags = NONE
       }
 
-      if (flags & ReactiveFlags.Watching) {
+      if (flags & WATCHING) {
         notify(sub)
       }
 
-      if (flags & ReactiveFlags.Mutable) {
+      if (flags & MUTABLE) {
         const subSubs = sub.subs
         if (subSubs !== undefined) {
           const nextSub = (link = subSubs).nextSub
@@ -204,12 +191,9 @@ export function createReactiveSystem({
       const dep = link.dep
       const flags = dep.flags
 
-      if (sub.flags & ReactiveFlags.Dirty) {
+      if (sub.flags & DIRTY) {
         dirty = true
-      } else if (
-        (flags & (ReactiveFlags.Mutable | ReactiveFlags.Dirty)) ===
-        (ReactiveFlags.Mutable | ReactiveFlags.Dirty)
-      ) {
+      } else if ((flags & (MUTABLE | DIRTY)) === (MUTABLE | DIRTY)) {
         if (update(dep)) {
           const subs = dep.subs!
           if (subs.nextSub !== undefined) {
@@ -217,10 +201,7 @@ export function createReactiveSystem({
           }
           dirty = true
         }
-      } else if (
-        (flags & (ReactiveFlags.Mutable | ReactiveFlags.Pending)) ===
-        (ReactiveFlags.Mutable | ReactiveFlags.Pending)
-      ) {
+      } else if ((flags & (MUTABLE | PENDING)) === (MUTABLE | PENDING)) {
         if (link.nextSub !== undefined || link.prevSub !== undefined) {
           stack = { value: link, prev: stack }
         }
@@ -257,7 +238,7 @@ export function createReactiveSystem({
           }
           dirty = false
         } else {
-          sub.flags &= ~ReactiveFlags.Pending
+          sub.flags &= ~PENDING
         }
         sub = link.sub
         const nextDep = link.nextDep
@@ -275,15 +256,9 @@ export function createReactiveSystem({
     do {
       const sub = link.sub
       const flags = sub.flags
-      if (
-        (flags & (ReactiveFlags.Pending | ReactiveFlags.Dirty)) ===
-        ReactiveFlags.Pending
-      ) {
-        sub.flags = flags | ReactiveFlags.Dirty
-        if (
-          (flags & (ReactiveFlags.Watching | ReactiveFlags.RecursedCheck)) ===
-          ReactiveFlags.Watching
-        ) {
+      if ((flags & (PENDING | DIRTY)) === PENDING) {
+        sub.flags = flags | DIRTY
+        if ((flags & (WATCHING | RECURSED_CHECK)) === WATCHING) {
           notify(sub)
         }
       }

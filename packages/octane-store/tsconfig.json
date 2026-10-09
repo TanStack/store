@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@tanstack/octane-store": ["./src"],
+      "@tanstack/store": ["../store/src"]
+    }
+  },
+  "include": [
+    "src",
+    "tests",
+    "eslint.config.js",
+    "vitest.config.ts",
+    "vitest.ssr.config.ts"
+  ]
+}

@@ -1,8 +1,8 @@
 {
-  "$schema": "https://unpkg.com/@changesets/config@3.1.2/schema.json",
+  "$schema": "https://unpkg.com/@changesets/config@4.0.1/schema.json",
   "changelog": [
-    "@svitejs/changesets-changelog-github-compact",
-    { "repo": "TanStack/store" }
+    "@changesets/changelog-github",
+    { "repo": "TanStack/store", "disableThanks": true }
   ],
   "commit": false,
   "access": "public",
@@ -10,8 +10,5 @@
   "updateInternalDependencies": "patch",
   "fixed": [],
   "linked": [],
-  "ignore": ["@tanstack/store-example-*"],
-  "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
-    "onlyUpdatePeerDependentsWhenOutOfRange": true
-  }
+  "ignore": []
 }

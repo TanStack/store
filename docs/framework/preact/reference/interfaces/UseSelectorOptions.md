@@ -3,9 +3,7 @@ id: UseSelectorOptions
 title: UseSelectorOptions
 ---
 
-# Interface: UseSelectorOptions\<TSelected\>
-
-Defined in: [preact-store/src/useSelector.ts:9](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useSelector.ts#L9)
+Defined in: [useSelector.ts:10](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useSelector.ts#L10)
 
 ## Type Parameters
 
@@ -15,13 +13,13 @@ Defined in: [preact-store/src/useSelector.ts:9](https://github.com/TanStack/stor
 
 ## Properties
 
-### compare()?
+### compare?
 
 ```ts
-optional compare: (a, b) => boolean;
+optional compare?: (a, b) => boolean;
 ```
 
-Defined in: [preact-store/src/useSelector.ts:10](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useSelector.ts#L10)
+Defined in: [useSelector.ts:11](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useSelector.ts#L11)
 
 #### Parameters
 

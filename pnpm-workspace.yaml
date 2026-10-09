@@ -3,6 +3,12 @@ linkWorkspacePackages: true
 preferWorkspacePackages: true
 blockExoticSubdeps: true
 trustPolicy: 'no-downgrade'
+minimumReleaseAge: 1440
+
+trustPolicyExclude:
+  - 'chokidar@4.0.3' # Socket: popular, 193M weekly downloads; alerts page returned no alert entries
+  - 'semver@5.7.2' # Socket: popular legacy line, 673M weekly downloads; alerts page returned no alert entries
+  - 'semver@6.3.1' # Socket: popular latest-6 line, 673M weekly downloads; alerts page returned no alert entries
 
 overrides:
   # Exactly one @marko/compiler in the graph. marko, @marko/vite, @marko/run,
@@ -16,6 +22,15 @@ peerDependencyRules:
   allowedVersions:
     '@vue/composition-api>vue': '>= 2.5'
 
+packageExtensions:
+  '@vue/composition-api':
+    peerDependencies:
+      vue: '>= 2.5'
+  '@vue/test-utils@2.4.6':
+    peerDependencies:
+      # Use the consumer's Vue runtime for rendering and reactivity.
+      vue: '^3.0.0'
+
 packages:
   - 'packages/**'
   - 'examples/angular/**'
@@ -26,6 +41,7 @@ packages:
   - 'examples/preact/**'
   - 'examples/lit/**'
   - 'examples/marko/**'
+  - 'examples/octane/**'
 
 allowBuilds:
   # root dependency
@@ -40,3 +56,14 @@ allowBuilds:
 
   # @tanstack/vue-store
   vue-demi: true # only required for vue 2 support
+minimumReleaseAgeExclude:
+  # Renovate security update: nx@22.7.7 || 22.7.10
+  - nx@22.7.7 || 22.7.10
+  # Renovate security update: vitest@4.1.11
+  - vitest@4.1.11
+  # Renovate security update: @angular/router@21.2.24
+  - '@angular/router@21.2.24'
+  # octane adapter upgrade: octane@0.12.1
+  - octane@0.12.1
+  # Renovate security update: vite@7.3.5
+  - vite@7.3.5

@@ -3,16 +3,14 @@ id: useSelector
 title: useSelector
 ---
 
-# Function: useSelector()
-
 ```ts
 function useSelector<TSource, TSelected>(
    source, 
-   selector, 
+   selector?, 
    options?): TSelected;
 ```
 
-Defined in: [preact-store/src/useSelector.ts:128](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useSelector.ts#L128)
+Defined in: [useSelector.ts:129](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useSelector.ts#L129)
 
 Selects a slice of state from an atom or store and subscribes the component
 to that selection.
@@ -37,7 +35,7 @@ subscribe to the whole value.
 
 `SelectionSource`\<`TSource`\>
 
-### selector
+### selector?
 
 (`snapshot`) => `TSelected`
 
