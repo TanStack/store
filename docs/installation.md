@@ -27,7 +27,7 @@ TanStack Store is compatible with Preact 10+.
 npm install @tanstack/vue-store
 ```
 
-TanStack Store is compatible with Vue 2 and 3.
+TanStack Store is compatible with Vue 3.
 
 ## Angular
 
