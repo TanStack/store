@@ -61,9 +61,10 @@
     "@tanstack/store": "workspace:*"
   },
   "devDependencies": {
-    "octane": "0.1.21"
+    "@tsrx/oxc": "0.20.0",
+    "octane": "0.12.1"
   },
   "peerDependencies": {
-    "octane": "0.1.21"
+    "octane": "^0.12.0"
   }
 }
