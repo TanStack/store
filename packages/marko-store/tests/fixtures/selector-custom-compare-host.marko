@@ -1,0 +1,18 @@
+import StoreSelector from '../../src/tags/store-selector.marko'
+
+// Custom `compare`: a tolerance comparator that treats counts within 10 of each
+// other as equal. Exercises the `input.compare ?? defaultCompare` custom arm and
+// shows the supplied comparator (not ===) decides whether `value` updates.
+export interface Input {
+  from: () => {
+    get(): any
+    subscribe(listener: (value: any) => void): { unsubscribe(): void }
+  }
+}
+
+<StoreSelector/value
+  from=input.from
+  selector=(s: any) => s.count
+  compare=(a: any, b: any) => Math.abs(a - b) < 10
+/>
+<div data-testid='value'>${value}</div>

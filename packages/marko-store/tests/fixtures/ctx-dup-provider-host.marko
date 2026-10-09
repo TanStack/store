@@ -1,0 +1,7 @@
+import StoreProvider from '../../src/tags/store-provider.marko'
+import { counterStore } from './ctx-store'
+<StoreProvider value=() => ({ counter: counterStore })>
+  <StoreProvider value=() => ({ counter: counterStore })>
+    <div data-testid='x'>nested</div>
+  </StoreProvider>
+</StoreProvider>

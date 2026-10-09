@@ -1,0 +1,32 @@
+import { gateStore } from '../../gate-store'
+
+// THE SIDEEFFECTS HYDRATION GATE (render-only page).
+//
+// This page uses <store-selector> RENDER-ONLY: it displays a value and wires no
+// event handler that calls any package function. Marko tags register their client
+// renderers and resume effects via MODULE SIDE EFFECTS, so with a bad
+// `"sideEffects": false` in the package manifest a production bundler is licensed
+// to tree-shake the tag's client module out of exactly this kind of page — the
+// server HTML's resume payload then references registrations that never ran and
+// hydration dies on load (`effects[i++] is not a function`). Dev servers don't
+// tree-shake and handler-wired pages retain the modules, which is how the bug
+// stays invisible everywhere else; this page, under the PRODUCTION build the
+// harness runs, is the one place it must show up. The spec asserts resume, zero
+// page errors, and post-resume liveness driven externally (window.__gateStore,
+// exposed below — page code that touches only the store, never the tag).
+
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>render-only hydration gate</title></head>
+  <body>
+    <let/resumed='no'>
+    <lifecycle onMount() {
+      resumed = 'yes'
+      ;(globalThis as any).__gateStore = gateStore
+    }/>
+    <div data-testid='resumed'>${resumed}</div>
+
+    <store-selector/count from=() => gateStore selector=(s: any) => s.count/>
+    <div data-testid='count'>${count}</div>
+  </body>
+</html>

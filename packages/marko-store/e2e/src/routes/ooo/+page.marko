@@ -1,0 +1,29 @@
+import { createStore } from '@tanstack/store'
+<!-- Seeds inlined from the old harness route table: slow=33, fast=44. -->
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>helper out-of-order</title></head>
+  <body>
+    <let/resumed='no'>
+    <lifecycle onMount() { resumed = 'yes' }/>
+    <div data-testid='resumed'>${resumed}</div>
+    <try>
+      <await|ss|=new Promise((r) => setTimeout(() => r(33), 220))>
+        <stream-store-provider key='slowBox' value=() => ({ counter: createStore({ n: ss }) })>
+          <store-selector/vs key='slowBox' context=(c: any) => c.counter selector=(s: any) => s.n/>
+          <div data-testid='count-slow'>${vs}</div>
+        </stream-store-provider>
+      </await>
+      <@placeholder><div data-testid='ph-slow'>loading-slow</div></@placeholder>
+    </try>
+    <try>
+      <await|sf|=new Promise((r) => setTimeout(() => r(44), 50))>
+        <stream-store-provider key='fastBox' value=() => ({ counter: createStore({ n: sf }) })>
+          <store-selector/vf key='fastBox' context=(c: any) => c.counter selector=(s: any) => s.n/>
+          <div data-testid='count-fast'>${vf}</div>
+        </stream-store-provider>
+      </await>
+      <@placeholder><div data-testid='ph-fast'>loading-fast</div></@placeholder>
+    </try>
+  </body>
+</html>

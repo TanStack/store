@@ -1,0 +1,15 @@
+import { createStore } from '@tanstack/store'
+<!-- Seeds inlined from the old harness route table: v=88. -->
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>helper context-above</title></head>
+  <body>
+    <store-context/ctx key='ctxBox'/>
+    <div data-testid='ctx-has'>${ctx() ? 'has' : 'no'}</div>
+    <await|sv|=new Promise((r) => setTimeout(() => r(88), 50))>
+      <stream-store-provider key='ctxBox' value=() => ({ counter: createStore({ n: sv }) })>
+        <div data-testid='await-count'>${sv}</div>
+      </stream-store-provider>
+    </await>
+  </body>
+</html>

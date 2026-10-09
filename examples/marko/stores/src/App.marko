@@ -1,0 +1,44 @@
+import { shallow } from '@tanstack/marko-store'
+import { petStore } from './store'
+
+<main>
+  <h1>Marko Store</h1>
+  <p>
+    This example creates a module-level store. Components read state with a
+    selector and update it directly with store.setState.
+  </p>
+
+  <store-selector/cats from=(() => petStore) selector=(s => s.cats)/>
+  <p>Cats: ${cats}</p>
+
+  <store-selector/dogs from=(() => petStore) selector=(s => s.dogs)/>
+  <p>Dogs: ${dogs}</p>
+
+  <store-selector/total from=(() => petStore) selector=(s => s.cats + s.dogs)/>
+  <p>Total votes: ${total}</p>
+
+  <!--
+    An OBJECT slice needs shallow comparison: the selector builds a fresh object
+    on every store change, so the default === compare would re-render this
+    section on every change — shallow compares contents instead of identity.
+    On a server-rendered page pass it through an inline arrow (shown here): the
+    arrow is compiler-registered and crosses Marko's serialization boundary,
+    while the bare imported function does not. In a browser-only mount,
+    compare=shallow directly is fine.
+  -->
+  <store-selector/pair
+    from=(() => petStore)
+    selector=(s => ({ cats: s.cats, dogs: s.dogs }))
+    compare=((a, b) => shallow(a, b))
+  />
+  <p>As a pair: ${pair?.cats ?? 0} cats / ${pair?.dogs ?? 0} dogs</p>
+
+  <div>
+    <button type='button' onClick() { petStore.setState((prev) => ({ ...prev, cats: prev.cats + 1 })) }>
+      Add cat
+    </button>
+    <button type='button' onClick() { petStore.setState((prev) => ({ ...prev, dogs: prev.dogs + 1 })) }>
+      Add dog
+    </button>
+  </div>
+</main>

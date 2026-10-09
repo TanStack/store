@@ -1,0 +1,12 @@
+import StoreProvider from '../../src/tags/store-provider.marko'
+import StoreSelector from '../../src/tags/store-selector.marko'
+import StoreContext from '../../src/tags/store-context.marko'
+export interface Input { storeA: any; storeB: any }
+<StoreProvider value=() => ({ a: input.storeA, b: input.storeB })>
+  <StoreSelector/countA context=(c: any) => c.a selector=(s: any) => s.count/>
+  <StoreSelector/countB context=(c: any) => c.b selector=(s: any) => s.count/>
+  <div data-testid='count-a'>${countA}</div>
+  <div data-testid='count-b'>${countB}</div>
+  <StoreContext/ctx/>
+  <button data-testid='write-a' onClick() { (ctx() as { a: any; b: any }).a.setState(() => ({ count: 9 })) }>writeA</button>
+</StoreProvider>

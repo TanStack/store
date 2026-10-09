@@ -1,0 +1,7 @@
+import StoreProvider from '../../src/tags/store-provider.marko'
+import StoreSelector from '../../src/tags/store-selector.marko'
+import { counterStore } from './ctx-store'
+<StoreProvider value=() => ({ counter: counterStore })>
+  <StoreSelector/count context=(c: any) => c.counter selector=(s: any) => s.count/>
+  <div data-testid='count'>${count}</div>
+</StoreProvider>

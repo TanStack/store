@@ -1,0 +1,5 @@
+<store-context/ctx/>
+<div>
+  <button type='button' onClick() { (ctx() as any).votesStore.setState((p: any) => ({ ...p, cats: p.cats + 1 })) }>Add cat</button>
+  <button type='button' onClick() { (ctx() as any).votesStore.setState((p: any) => ({ ...p, dogs: p.dogs + 1 })) }>Add dog</button>
+</div>

@@ -1,0 +1,16 @@
+export interface Input {
+  key?: string
+}
+
+<const/contextKey=input.key ?? '__tanstack_store_context'>
+
+<const/_guard=(() => {
+  const g = ($global ?? {}) as unknown as Record<string, unknown>
+  if (g[contextKey] == null) {
+    throw new Error(
+      '<store-context> used without a <store-provider> above it (no bundle on the shelf at render).',
+    )
+  }
+})()>
+
+<return=(() => (($global ?? {}) as unknown as Record<string, unknown>)[contextKey])>

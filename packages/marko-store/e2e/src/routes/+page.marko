@@ -1,0 +1,56 @@
+import { counterStore, countAtom } from '../store'
+
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <title>marko-store resume liveness probe</title>
+  </head>
+  <body>
+    <!--
+      Resume marker, independent of the store tags: "no" on the server, set to "yes" by a client
+      onMount. It confirms the page actually resumed (client JS ran) before we interpret the tag
+      output, so a stale value can be read as "tag inert after resume" rather than "the page never
+      resumed at all".
+    -->
+    <let/resumed='no'>
+    <lifecycle onMount() {
+      resumed = 'yes'
+    }>
+    <div data-testid='resumed'>${resumed}</div>
+
+    <!--
+      SELECTOR liveness + external (non-tag) store mutation. counterStore is a module singleton;
+      the inline thunk () => counterStore closes over the compiler-registered reference -- the
+      keystone pattern from the SSR tests, where the store stays out of the serialized payload.
+      The selector subscribes on mount (resume); the button calls counterStore.setState from
+      OUTSIDE any tag, and the selector's live subscription must reflect it post-resume.
+    -->
+    <store-selector/count from=() => counterStore selector=(s) => s.count/>
+    <div data-testid='selector-count'>${count}</div>
+    <button
+      data-testid='external-inc'
+      onClick() {
+        counterStore.setState((s) => ({ count: s.count + 1 }))
+      }
+    >
+      external inc
+    </button>
+
+    <!--
+      ATOM two-way write-back. The tag returns a bindable value; mutating it (value++) flows
+      through the tag's valueChange into countAtom.set(next) and re-renders. Proves the write path
+      is live post-resume.
+    -->
+    <store-atom/value from=() => countAtom/>
+    <div data-testid='atom-value'>${value}</div>
+    <button
+      data-testid='atom-inc'
+      onClick() {
+        value++
+      }
+    >
+      atom inc
+    </button>
+  </body>
+</html>

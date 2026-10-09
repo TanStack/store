@@ -1,0 +1,33 @@
+import { ctxMultiA, ctxMultiB } from '../../context-store'
+
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>marko-store multi-store resume probe</title></head>
+  <body>
+    <let/resumed='no'>
+    <lifecycle onMount() {
+      resumed = 'yes'
+    }>
+    <div data-testid='resumed'>${resumed}</div>
+
+    <!--
+      One provider, a bundle of TWO stores. Each selector picks a different member; an external
+      mutation to one must move only its own selector, and a <store-context> write must target
+      only the named member.
+    -->
+    <store-provider value=() => ({ a: ctxMultiA, b: ctxMultiB })>
+      <store-selector/countA context=(c: { a: typeof ctxMultiA; b: typeof ctxMultiB }) => c.a selector=(s) => s.count/>
+      <store-selector/countB context=(c: { a: typeof ctxMultiA; b: typeof ctxMultiB }) => c.b selector=(s) => s.count/>
+      <div data-testid='selector-a'>${countA}</div>
+      <div data-testid='selector-b'>${countB}</div>
+
+      <store-context/ctx/>
+      <button data-testid='ctx-reset-a' onClick() { (ctx() as { a: typeof ctxMultiA; b: typeof ctxMultiB }).a.setState(() => ({ count: 0 })) }>
+        reset a via context
+      </button>
+    </store-provider>
+
+    <button data-testid='external-inc-a' onClick() { ctxMultiA.setState((s) => ({ count: s.count + 1 })) }>inc a</button>
+    <button data-testid='external-inc-b' onClick() { ctxMultiB.setState((s) => ({ count: s.count + 1 })) }>inc b</button>
+  </body>
+</html>

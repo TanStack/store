@@ -1,0 +1,56 @@
+import { createStore } from '@tanstack/store'
+import type { Store } from '@tanstack/store'
+
+// Rich-payload resume probe. Every other store crossing SSR in this suite is a
+// small object of numbers; this page proves the tags stay live over the payloads
+// real apps carry, through both provision channels:
+//   - <store-provider>: a string + a NESTED ARRAY OF OBJECTS, plus Date/Map/Set
+//     (all supported built-ins per Marko's serializer) built in the value thunk.
+//   - <stream-store-provider>: a Date arriving inside an <await>.
+// The data below is inline plain data — exactly what a route handler would pass.
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>rich payload resume</title></head>
+  <body>
+    <let/resumed='no'>
+    <lifecycle onMount() { resumed = 'yes' }/>
+    <div data-testid='resumed'>${resumed}</div>
+
+    <store-provider value=() => ({
+      report: createStore({
+        title: 'quarterly report',
+        rows: [
+          { id: 1, tags: ['a', 'b'] },
+          { id: 2, tags: [] },
+        ],
+        when: new Date('2026-07-14T00:00:00.000Z'),
+        labels: new Map([['a', 'alpha']]),
+        ids: new Set([1, 2, 3]),
+      }),
+    })>
+      <store-selector/title context=(c: any) => c.report selector=(s: any) => s.title/>
+      <div data-testid='title'>${title}</div>
+      <store-selector/rows context=(c: any) => c.report selector=(s: any) => JSON.stringify(s.rows)/>
+      <div data-testid='rows'>${rows}</div>
+      <store-selector/when context=(c: any) => c.report selector=(s: any) => (s.when instanceof Date ? s.when.toISOString() : 'not-a-date')/>
+      <div data-testid='date'>${when}</div>
+      <store-selector/label context=(c: any) => c.report selector=(s: any) => (s.labels instanceof Map ? String(s.labels.get('a')) : 'not-a-map')/>
+      <div data-testid='map'>${label}</div>
+      <store-selector/hasTwo context=(c: any) => c.report selector=(s: any) => (s.ids instanceof Set ? String(s.ids.has(2)) : 'not-a-set')/>
+      <div data-testid='set'>${hasTwo}</div>
+
+      <store-context/ctx/>
+      <button data-testid='add-row' onClick() {
+        const report = (ctx() as any)?.report as Store<any> | undefined
+        report?.setState((s: any) => ({ ...s, rows: [...s.rows, { id: 3, tags: ['c'] }] }))
+      }>add row</button>
+    </store-provider>
+
+    <await|when|=new Promise((r: (v: Date) => void) => setTimeout(() => r(new Date('2026-01-02T03:04:05.000Z')), 80))>
+      <stream-store-provider key='streamed' value=() => ({ clock: createStore({ when }) })>
+        <store-selector/streamed key='streamed' context=(c: any) => c.clock selector=(s: any) => (s.when instanceof Date ? s.when.toISOString() : 'not-a-date')/>
+        <div data-testid='streamed-date'>${streamed}</div>
+      </stream-store-provider>
+    </await>
+  </body>
+</html>

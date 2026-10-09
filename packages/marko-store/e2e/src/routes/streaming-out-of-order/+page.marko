@@ -1,0 +1,36 @@
+import { streamOooStore } from '../../streaming-store'
+
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>marko-store streaming liveness (out-of-order)</title></head>
+  <body>
+    <!--
+      OUT-OF-ORDER streaming. Marko 6 has NO client-reorder attribute on <await> -- the await tag
+      only accepts value= (any other attribute is a compile error). Out-of-order is opted into by
+      wrapping the async content in <try> with an <@placeholder>: the placeholder renders in
+      document position immediately, content AFTER it (the footer) flushes early, and the real
+      content is reordered into place by a client script when its promise resolves.
+      This page asserts the store stays LIVE inside that reordered subtree after resume.
+    -->
+    <store-provider value=() => ({ counter: streamOooStore })>
+      <store-selector/shellCount context=(c: { counter: typeof streamOooStore }) => c.counter selector=(s) => s.count/>
+      <div data-testid='shell-count'>${shellCount}</div>
+
+      <try>
+        <@placeholder><div data-testid='x-placeholder'>loading</div></@placeholder>
+        <await=new Promise((r) => setTimeout(() => r('X'), 500))>
+          <let/xResumed='no'>
+          <lifecycle onMount() { xResumed = 'yes' }>
+          <div data-testid='x-resumed'>${xResumed}</div>
+          <store-selector/xCount context=(c: { counter: typeof streamOooStore }) => c.counter selector=(s) => s.count/>
+          <div data-testid='x-count'>${xCount}</div>
+        </await>
+      </try>
+    </store-provider>
+
+    <div data-testid='footer'>FOOTER</div>
+    <button data-testid='external-inc' onClick() { streamOooStore.setState((s) => ({ count: s.count + 1 })) }>
+      external inc
+    </button>
+  </body>
+</html>

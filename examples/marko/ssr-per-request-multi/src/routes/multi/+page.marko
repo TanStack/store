@@ -1,0 +1,28 @@
+import { a, b } from '../../stores'
+
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>Multiple stores in one provider</title></head>
+  <body>
+    <main>
+      <h1>Multiple stores in one provider</h1>
+      <p>One provider parks a bundle of two stores. Each selector picks a different member; a write to one moves only its own selector.</p>
+
+      <let/resumed='no'>
+      <lifecycle onMount() { resumed = 'yes' }/>
+      <p>Resumed in browser: ${resumed}</p>
+
+      <store-provider value=() => ({ a, b })>
+        <store-selector/countA context=((c: any) => c.a) selector=((s: any) => s.count)/>
+        <store-selector/countB context=((c: any) => c.b) selector=((s: any) => s.count)/>
+        <p>A: ${countA}</p>
+        <p>B: ${countB}</p>
+        <store-context/ctx/>
+        <button type='button' onClick() { (ctx() as any).a.setState(() => ({ count: 0 })) }>reset A via context</button>
+      </store-provider>
+
+      <button type='button' onClick() { a.setState((s) => ({ count: s.count + 1 })) }>inc A</button>
+      <button type='button' onClick() { b.setState((s) => ({ count: s.count + 1 })) }>inc B</button>
+    </main>
+  </body>
+</html>

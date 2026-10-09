@@ -1,0 +1,17 @@
+import { buildInstrumented } from '../../helper-eo'
+<!-- Seeds inlined from the old harness route table: v=66. -->
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>helper effect-order</title></head>
+  <body>
+    <let/resumed='no'>
+    <lifecycle onMount() { resumed = 'yes' }/>
+    <div data-testid='resumed'>${resumed}</div>
+    <await|sv|=new Promise((r) => setTimeout(() => r(66), 120))>
+      <stream-store-provider key='eoBox' value=() => buildInstrumented(sv as number)>
+        <store-selector/ev key='eoBox' context=(c: any) => c.counter selector=(s: any) => s.n/>
+        <div data-testid='count-eo'>${ev}</div>
+      </stream-store-provider>
+    </await>
+  </body>
+</html>

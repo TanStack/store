@@ -1,0 +1,24 @@
+import { counterStore, countAtom } from '../store'
+
+<!doctype html>
+<html lang='en'>
+  <head><meta charset='utf-8'><title>SSR resume</title></head>
+  <body>
+    <main>
+      <h1>Server render and resume</h1>
+      <p>The server paints the store's values; the page then resumes and the store stays live in the browser.</p>
+
+      <let/resumed='no'>
+      <lifecycle onMount() { resumed = 'yes' }/>
+      <p>Resumed in browser: ${resumed}</p>
+
+      <store-selector/count from=(() => counterStore) selector=((s: { count: number }) => s.count)/>
+      <p>Count: ${count}</p>
+      <button type='button' onClick() { counterStore.setState((s) => ({ count: s.count + 1 })) }>External inc</button>
+
+      <store-atom/atom from=(() => countAtom)/>
+      <p>Atom: ${atom}</p>
+      <button type='button' onClick() { atom++ }>Atom inc</button>
+    </main>
+  </body>
+</html>

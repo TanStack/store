@@ -1,0 +1,27 @@
+// Serialization-boundary probe. `input.payload` is held in a <let> and captured
+// by a client-resumable lifecycle closure, which forces Marko's serializer to
+// walk it (the same forcing pattern as ssr-object-antipattern). The probes below
+// are inline (compiler-registered) so nothing test-file-defined crosses the wire.
+//
+// Fed a payload of supported built-ins (Date, Map, Set, strings, nested arrays
+// of plain objects) the render resolves and the probes print real values. Fed a
+// custom class instance, the serializer rejects with its "Unable to serialize"
+// error — in debug builds; production silently drops the value (see serializer
+// source: `MARKO_DEBUG && throwUnserializable`).
+export interface Input {
+  payload: any
+}
+
+<let/value=input.payload>
+<lifecycle<{ touched?: boolean }>
+  onMount() {
+    // Capturing `value` here is what makes the scope resumable and the payload
+    // subject to serialization.
+    this.touched = value != null
+  }
+>
+<div data-testid='title'>${value.title ?? ''}</div>
+<div data-testid='date'>${value.when instanceof Date ? value.when.toISOString() : 'not-a-date'}</div>
+<div data-testid='map'>${value.tags instanceof Map ? String(value.tags.get('a')) : 'not-a-map'}</div>
+<div data-testid='set'>${value.ids instanceof Set ? String(value.ids.has(2)) : 'not-a-set'}</div>
+<div data-testid='rows'>${JSON.stringify(value.rows ?? null)}</div>
