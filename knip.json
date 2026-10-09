@@ -3,9 +3,6 @@
   "workspaces": {
     "packages/store": {
       "entry": ["src/signal.ts"]
-    },
-    "packages/vue-store": {
-      "ignoreDependencies": ["vue2", "vue2.7"]
     }
   },
   "ignoreWorkspaces": ["examples/**"]
