@@ -183,6 +183,9 @@ export function createAtom<T>(
         if (!observed.current) {
           observed.current = true
         } else {
+          // Observer reads must not become dependencies of the subscription.
+          // The enclosing effect restores activeSub in its finally block.
+          activeSub = undefined
           obs.next?.(atom._snapshot)
         }
       })

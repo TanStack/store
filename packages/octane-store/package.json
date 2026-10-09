@@ -1,6 +1,6 @@
 {
   "name": "@tanstack/octane-store",
-  "version": "0.12.2",
+  "version": "0.13.0",
   "description": "Framework agnostic type-safe store w/ reactive framework adapters",
   "author": "Tanner Linsley",
   "license": "MIT",
@@ -61,9 +61,10 @@
     "@tanstack/store": "workspace:*"
   },
   "devDependencies": {
-    "octane": "0.1.21"
+    "@tsrx/oxc": "0.20.0",
+    "octane": "0.12.1"
   },
   "peerDependencies": {
-    "octane": "0.1.21"
+    "octane": ">=0.12.0"
   }
 }

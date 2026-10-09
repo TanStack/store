@@ -3,8 +3,6 @@ id: InternalBaseAtom
 title: InternalBaseAtom
 ---
 
-# Interface: InternalBaseAtom\<T\>
-
 Defined in: [types.ts:35](https://github.com/TanStack/store/blob/main/packages/store/src/types.ts#L35)
 
 ## Extends
@@ -35,7 +33,7 @@ Defined in: [types.ts:37](https://github.com/TanStack/store/blob/main/packages/s
 
 ***
 
-### \_update()
+### \_update
 
 ```ts
 _update: (getValue?) => boolean;
@@ -49,7 +47,7 @@ Defined in: [types.ts:39](https://github.com/TanStack/store/blob/main/packages/s
 
 ##### getValue?
 
-`T` | (`snapshot`) => `T`
+`T` \| ((`snapshot`) => `T`)
 
 #### Returns
 
@@ -57,7 +55,7 @@ Defined in: [types.ts:39](https://github.com/TanStack/store/blob/main/packages/s
 
 ***
 
-### get()
+### get
 
 ```ts
 get: () => T;

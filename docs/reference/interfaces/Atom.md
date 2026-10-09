@@ -3,8 +3,6 @@ id: Atom
 title: Atom
 ---
 
-# Interface: Atom\<T\>
-
 Defined in: [types.ts:42](https://github.com/TanStack/store/blob/main/packages/store/src/types.ts#L42)
 
 ## Extends
@@ -19,7 +17,7 @@ Defined in: [types.ts:42](https://github.com/TanStack/store/blob/main/packages/s
 
 ## Properties
 
-### get()
+### get
 
 ```ts
 get: () => T;

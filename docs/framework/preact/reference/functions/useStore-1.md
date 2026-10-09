@@ -3,16 +3,14 @@ id: useStore
 title: useStore
 ---
 
-# ~~Function: useStore()~~
-
 ```ts
 function useStore<TSource, TSelected>(
    source, 
-   selector, 
+   selector?, 
    compare?): TSelected;
 ```
 
-Defined in: [preact-store/src/useStore.ts:13](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useStore.ts#L13)
+Defined in: [useStore.ts:13](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useStore.ts#L13)
 
 Deprecated alias for [useSelector](useSelector.md).
 
@@ -38,7 +36,7 @@ Deprecated alias for [useSelector](useSelector.md).
 
 (`listener`) => `object`
 
-### selector
+### selector?
 
 (`snapshot`) => `TSelected`
 

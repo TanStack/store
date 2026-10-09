@@ -1,6 +1,6 @@
 {
   "name": "@tanstack/preact-store",
-  "version": "0.13.2",
+  "version": "0.13.5",
   "description": "Framework agnostic type-safe store w/ reactive framework adapters",
   "author": "Tanner Linsley",
   "license": "MIT",
@@ -61,6 +61,6 @@
     "vitest": "^4.1.4"
   },
   "peerDependencies": {
-    "preact": "^10.0.0"
+    "preact": "^10.0.0 || ^11.0.0-0"
   }
 }

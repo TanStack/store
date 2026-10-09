@@ -1,5 +1,24 @@
 # @tanstack/preact-store
 
+## 0.13.5
+
+### Patch Changes
+
+- [#370](https://github.com/TanStack/store/pull/370) [`ad9a372`](https://github.com/TanStack/store/commit/ad9a3724643881dfe1fb75ed9c7e77a0b27e53cc) - Add Preact v11 to peerDependencies
+
+## 0.13.4
+
+### Patch Changes
+
+- Updated dependencies [[`e06c28c`](https://github.com/TanStack/store/commit/e06c28cbdf3514c4edd5dfc29c4d05e396363605)]:
+  - @tanstack/store@0.11.2
+
+## 0.13.3
+
+### Patch Changes
+
+- [#367](https://github.com/TanStack/store/pull/367) [`43bb6ee`](https://github.com/TanStack/store/commit/43bb6ee86f217bf86667cb4c04258b7df1d32245) - Fix stale `useSelector` results when a selector changes while the store snapshot stays unchanged, including selectors that capture component props. Preserve snapshot caching for selectors that return fresh arrays or objects.
+
 ## 0.13.2
 
 ### Patch Changes

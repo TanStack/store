@@ -3,8 +3,6 @@ id: toObserver
 title: toObserver
 ---
 
-# Function: toObserver()
-
 ```ts
 function toObserver<T>(
    nextHandler?, 
@@ -24,7 +22,7 @@ Defined in: [atom.ts:20](https://github.com/TanStack/store/blob/main/packages/st
 
 ### nextHandler?
 
-[`Observer`](../type-aliases/Observer.md)\<`T`\> | (`value`) => `void`
+[`Observer`](../type-aliases/Observer.md)\<`T`\> \| ((`value`) => `void`)
 
 ### errorHandler?
 

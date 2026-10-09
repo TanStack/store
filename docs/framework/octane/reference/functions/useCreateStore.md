@@ -3,15 +3,13 @@ id: useCreateStore
 title: useCreateStore
 ---
 
-# Function: useCreateStore()
-
 ## Readonly store
 
 ```ts
 function useCreateStore<T>(getValue): ReadonlyStore<T>;
 ```
 
-Defined in: [octane-store/src/useCreateStore.ts:25](https://github.com/TanStack/store/blob/main/packages/octane-store/src/useCreateStore.ts#L25)
+Defined in: [useCreateStore.ts:25](https://github.com/TanStack/store/blob/main/packages/octane-store/src/useCreateStore.ts#L25)
 
 Creates a stable store instance for the lifetime of the component.
 
@@ -47,7 +45,7 @@ const counterStore = useCreateStore({ count: 0 })
 function useCreateStore<T>(initialValue): Store<T>;
 ```
 
-Defined in: [octane-store/src/useCreateStore.ts:28](https://github.com/TanStack/store/blob/main/packages/octane-store/src/useCreateStore.ts#L28)
+Defined in: [useCreateStore.ts:28](https://github.com/TanStack/store/blob/main/packages/octane-store/src/useCreateStore.ts#L28)
 
 Creates a stable store instance for the lifetime of the component.
 
@@ -83,7 +81,7 @@ const counterStore = useCreateStore({ count: 0 })
 function useCreateStore<T, TActions>(initialValue, actions): Store<T, TActions>;
 ```
 
-Defined in: [octane-store/src/useCreateStore.ts:29](https://github.com/TanStack/store/blob/main/packages/octane-store/src/useCreateStore.ts#L29)
+Defined in: [useCreateStore.ts:29](https://github.com/TanStack/store/blob/main/packages/octane-store/src/useCreateStore.ts#L29)
 
 Creates a stable store instance for the lifetime of the component.
 

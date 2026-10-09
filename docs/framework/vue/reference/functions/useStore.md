@@ -3,8 +3,6 @@ id: _useStore
 title: _useStore
 ---
 
-# Function: \_useStore()
-
 ```ts
 function _useStore<TState, TActions, TSelected>(
    store, 
@@ -12,7 +10,7 @@ function _useStore<TState, TActions, TSelected>(
    options?): [Readonly<Ref<TSelected, TSelected>>, [TActions] extends [never] ? (updater) => void : TActions];
 ```
 
-Defined in: [vue-store/src/\_useStore.ts:24](https://github.com/TanStack/store/blob/main/packages/vue-store/src/_useStore.ts#L24)
+Defined in: [\_useStore.ts:24](https://github.com/TanStack/store/blob/main/packages/vue-store/src/_useStore.ts#L24)
 
 Experimental combined read+write hook for stores, mirroring useAtom's tuple
 pattern.
