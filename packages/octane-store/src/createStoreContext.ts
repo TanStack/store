@@ -59,7 +59,7 @@ export function createStoreContext<TValue extends object>(): {
     value: TValue
     children?: unknown
   }) {
-    return createElement(Context.Provider, { value, children })
+    return createElement(Context, { value, children })
   }
 
   function useStoreContext() {

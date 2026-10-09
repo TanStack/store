@@ -10,9 +10,10 @@
   },
   "dependencies": {
     "@tanstack/octane-store": "^0.12.3",
-    "octane": "0.1.21"
+    "octane": "0.12.1"
   },
   "devDependencies": {
+    "@tsrx/oxc": "0.20.0",
     "@tsrx/typescript-plugin": "^0.3.118",
     "typescript": "^5.9.3",
     "vite": "^8.0.16"
