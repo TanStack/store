@@ -52,3 +52,5 @@ minimumReleaseAgeExclude:
   - '@angular/router@21.2.24'
   # octane adapter upgrade: octane@0.12.1
   - octane@0.12.1
+  # Renovate security update: vite@7.3.5
+  - vite@7.3.5
