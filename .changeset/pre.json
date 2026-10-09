@@ -1,0 +1,16 @@
+{
+  "mode": "pre",
+  "tag": "alpha",
+  "initialVersions": {
+    "@tanstack/angular-store": "0.11.2",
+    "@tanstack/lit-store": "0.14.2",
+    "@tanstack/octane-store": "0.13.0",
+    "@tanstack/preact-store": "0.13.5",
+    "@tanstack/react-store": "0.11.2",
+    "@tanstack/solid-store": "0.11.2",
+    "@tanstack/store": "0.11.2",
+    "@tanstack/svelte-store": "0.12.3",
+    "@tanstack/vue-store": "0.11.2"
+  },
+  "changesets": []
+}
