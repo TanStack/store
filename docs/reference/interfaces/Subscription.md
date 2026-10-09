@@ -7,7 +7,7 @@ Defined in: [types.ts:16](https://github.com/TanStack/store/blob/main/packages/s
 
 ## Properties
 
-### unsubscribe()
+### unsubscribe
 
 ```ts
 unsubscribe: () => void;

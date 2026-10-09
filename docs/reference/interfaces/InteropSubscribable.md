@@ -17,7 +17,7 @@ Defined in: [types.ts:5](https://github.com/TanStack/store/blob/main/packages/st
 
 ## Properties
 
-### subscribe()
+### subscribe
 
 ```ts
 subscribe: (observer) => Subscription;

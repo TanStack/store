@@ -6,7 +6,7 @@ title: injectSelector
 ```ts
 function injectSelector<TState, TSelected>(
    source, 
-   selector, 
+   selector?, 
 options?): Signal<TSelected>;
 ```
 
@@ -33,7 +33,7 @@ This is the primary Angular read hook for TanStack Store.
 
 [`SelectionSource`](../type-aliases/SelectionSource.md)\<`TState`\>
 
-### selector
+### selector?
 
 (`state`) => `TSelected`
 

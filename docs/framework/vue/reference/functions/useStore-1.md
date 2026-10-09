@@ -6,11 +6,11 @@ title: useStore
 ```ts
 function useStore<TSource, TSelected>(
    source, 
-   selector, 
+   selector?, 
 compare?): Readonly<Ref<TSelected>>;
 ```
 
-Defined in: [vue-store/src/useStore.ts:14](https://github.com/TanStack/store/blob/main/packages/vue-store/src/useStore.ts#L14)
+Defined in: [useStore.ts:14](https://github.com/TanStack/store/blob/main/packages/vue-store/src/useStore.ts#L14)
 
 Deprecated alias for [useSelector](useSelector.md).
 
@@ -36,7 +36,7 @@ Deprecated alias for [useSelector](useSelector.md).
 
 (`listener`) => `object`
 
-### selector
+### selector?
 
 (`snapshot`) => `TSelected`
 

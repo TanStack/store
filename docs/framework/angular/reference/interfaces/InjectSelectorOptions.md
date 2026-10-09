@@ -17,10 +17,10 @@ Defined in: [packages/angular-store/src/injectSelector.ts:11](https://github.com
 
 ## Properties
 
-### compare()?
+### compare?
 
 ```ts
-optional compare: (a, b) => boolean;
+optional compare?: (a, b) => boolean;
 ```
 
 Defined in: [packages/angular-store/src/injectSelector.ts:15](https://github.com/TanStack/store/blob/main/packages/angular-store/src/injectSelector.ts#L15)
@@ -44,10 +44,10 @@ Defined in: [packages/angular-store/src/injectSelector.ts:15](https://github.com
 ### debugName?
 
 ```ts
-optional debugName: string;
+optional debugName?: string;
 ```
 
-Defined in: node\_modules/.pnpm/@angular+core@21.2.8\_@angular+compiler@21.2.8\_rxjs@7.8.2\_zone.js@0.16.1/node\_modules/@angular/core/types/\_chrome\_dev\_tools\_performance-chunk.d.ts:54
+Defined in: node\_modules/.pnpm/@angular+core@22.2.2\_@angular+compiler@22.2.2\_rxjs@7.8.2\_zone.js@0.16.1/node\_modules/@angular/core/types/\_chrome\_dev\_tools\_performance-chunk.d.ts:54
 
 A debug name for the signal. Used in Angular DevTools to identify the signal.
 
@@ -62,7 +62,7 @@ Omit.debugName
 ### injector?
 
 ```ts
-optional injector: Injector;
+optional injector?: Injector;
 ```
 
 Defined in: [packages/angular-store/src/injectSelector.ts:16](https://github.com/TanStack/store/blob/main/packages/angular-store/src/injectSelector.ts#L16)

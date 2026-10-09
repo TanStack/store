@@ -9,7 +9,7 @@ title: useCreateAtom
 function useCreateAtom<T>(getValue, options?): ReadonlyAtom<T>;
 ```
 
-Defined in: [octane-store/src/useCreateAtom.ts:18](https://github.com/TanStack/store/blob/main/packages/octane-store/src/useCreateAtom.ts#L18)
+Defined in: [useCreateAtom.ts:18](https://github.com/TanStack/store/blob/main/packages/octane-store/src/useCreateAtom.ts#L18)
 
 Creates a stable atom instance for the lifetime of the component.
 
@@ -49,7 +49,7 @@ const countAtom = useCreateAtom(0)
 function useCreateAtom<T>(initialValue, options?): Atom<T>;
 ```
 
-Defined in: [octane-store/src/useCreateAtom.ts:22](https://github.com/TanStack/store/blob/main/packages/octane-store/src/useCreateAtom.ts#L22)
+Defined in: [useCreateAtom.ts:22](https://github.com/TanStack/store/blob/main/packages/octane-store/src/useCreateAtom.ts#L22)
 
 Creates a stable atom instance for the lifetime of the component.
 

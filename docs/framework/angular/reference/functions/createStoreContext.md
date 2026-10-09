@@ -32,7 +32,7 @@ then compose them with existing hooks like [injectSelector](injectSelector.md),
 
 `object`
 
-### injectStoreContext()
+### injectStoreContext
 
 ```ts
 injectStoreContext: () => TValue;
@@ -42,7 +42,7 @@ injectStoreContext: () => TValue;
 
 `TValue`
 
-### provideStoreContext()
+### provideStoreContext
 
 ```ts
 provideStoreContext: (factory) => Provider;

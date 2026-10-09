@@ -3,7 +3,7 @@ id: UseSelectorOptions
 title: UseSelectorOptions
 ---
 
-Defined in: [svelte-store/src/useSelector.svelte.ts:3](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/useSelector.svelte.ts#L3)
+Defined in: [useSelector.svelte.ts:3](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/useSelector.svelte.ts#L3)
 
 ## Type Parameters
 
@@ -13,13 +13,13 @@ Defined in: [svelte-store/src/useSelector.svelte.ts:3](https://github.com/TanSta
 
 ## Properties
 
-### compare()?
+### compare?
 
 ```ts
-optional compare: (a, b) => boolean;
+optional compare?: (a, b) => boolean;
 ```
 
-Defined in: [svelte-store/src/useSelector.svelte.ts:4](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/useSelector.svelte.ts#L4)
+Defined in: [useSelector.svelte.ts:4](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/useSelector.svelte.ts#L4)
 
 #### Parameters
 

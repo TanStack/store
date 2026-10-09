@@ -9,7 +9,7 @@ title: useCreateAtom
 function useCreateAtom<T>(getValue, options?): ReadonlyAtom<T>;
 ```
 
-Defined in: [preact-store/src/useCreateAtom.ts:27](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useCreateAtom.ts#L27)
+Defined in: [useCreateAtom.ts:27](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useCreateAtom.ts#L27)
 
 Creates a stable atom instance for the lifetime of the component.
 
@@ -58,7 +58,7 @@ function Counter() {
 function useCreateAtom<T>(initialValue, options?): Atom<T>;
 ```
 
-Defined in: [preact-store/src/useCreateAtom.ts:31](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useCreateAtom.ts#L31)
+Defined in: [useCreateAtom.ts:31](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useCreateAtom.ts#L31)
 
 Creates a stable atom instance for the lifetime of the component.
 

@@ -7,7 +7,7 @@ title: useAtom
 function useAtom<TValue>(atom, options?): [Accessor<TValue>, (fn) => void & (value) => void];
 ```
 
-Defined in: [solid-store/src/useAtom.ts:23](https://github.com/TanStack/store/blob/main/packages/solid-store/src/useAtom.ts#L23)
+Defined in: [useAtom.ts:23](https://github.com/TanStack/store/blob/main/packages/solid-store/src/useAtom.ts#L23)
 
 Returns the current atom accessor together with a setter.
 

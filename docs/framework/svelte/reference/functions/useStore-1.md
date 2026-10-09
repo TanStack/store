@@ -6,11 +6,11 @@ title: useStore
 ```ts
 function useStore<TState, TSelected>(
    source, 
-   selector, 
+   selector?, 
    compare?): object;
 ```
 
-Defined in: [svelte-store/src/useStore.ts:15](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/useStore.ts#L15)
+Defined in: [useStore.ts:15](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/useStore.ts#L15)
 
 Deprecated alias for [useSelector](useSelector.md).
 
@@ -28,9 +28,12 @@ Deprecated alias for [useSelector](useSelector.md).
 
 ### source
 
-`Atom`\<`TState`\> | `ReadonlyAtom`\<`TState`\> | `Store`\<`TState`, `any`\> | `ReadonlyStore`\<`TState`\>
+  \| `Atom`\<`TState`\>
+  \| `ReadonlyAtom`\<`TState`\>
+  \| `Store`\<`TState`, `any`\>
+  \| `ReadonlyStore`\<`TState`\>
 
-### selector
+### selector?
 
 (`state`) => `TSelected`
 

@@ -149,7 +149,7 @@ Defined in: [store.ts:52](https://github.com/TanStack/store/blob/main/packages/s
 
 ##### observerOrFn
 
-[`Observer`](../type-aliases/Observer.md)\<`T`\> | (`value`) => `void`
+[`Observer`](../type-aliases/Observer.md)\<`T`\> \| ((`value`) => `void`)
 
 #### Returns
 
