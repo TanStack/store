@@ -1,3 +1,5 @@
+'use client'
+
 import { useRef, useSyncExternalStore } from 'react'
 
 export interface UseSelectorOptions<TSelected> {

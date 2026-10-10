@@ -1,3 +1,5 @@
+'use client'
+
 import { useMemo } from 'react'
 import { useSelector } from './useSelector'
 import type { Store, StoreActionMap } from '@tanstack/store'

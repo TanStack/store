@@ -10,7 +10,7 @@ function _useStore<TState, TActions, TSelected>(
    options?): [TSelected, [TActions] extends [never] ? (updater) => void : TActions];
 ```
 
-Defined in: [packages/react-store/src/\_useStore.ts:24](https://github.com/TanStack/store/blob/main/packages/react-store/src/_useStore.ts#L24)
+Defined in: [packages/react-store/src/\_useStore.ts:26](https://github.com/TanStack/store/blob/main/packages/react-store/src/_useStore.ts#L26)
 
 Experimental combined read+write hook for stores, mirroring useAtom's tuple
 pattern.
