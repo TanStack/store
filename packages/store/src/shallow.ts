@@ -12,7 +12,8 @@ export function shallow<T>(objA: T, objB: T) {
     return false
   }
 
-  if (objA instanceof Map && objB instanceof Map) {
+  if (objA instanceof Map || objB instanceof Map) {
+    if (!(objA instanceof Map) || !(objB instanceof Map)) return false
     if (objA.size !== objB.size) return false
     for (const [k, v] of objA) {
       if (!objB.has(k) || !Object.is(v, objB.get(k))) return false
@@ -20,7 +21,8 @@ export function shallow<T>(objA: T, objB: T) {
     return true
   }
 
-  if (objA instanceof Set && objB instanceof Set) {
+  if (objA instanceof Set || objB instanceof Set) {
+    if (!(objA instanceof Set) || !(objB instanceof Set)) return false
     if (objA.size !== objB.size) return false
     for (const v of objA) {
       if (!objB.has(v)) return false
@@ -28,9 +30,9 @@ export function shallow<T>(objA: T, objB: T) {
     return true
   }
 
-  if (objA instanceof Date && objB instanceof Date) {
-    if (objA.getTime() !== objB.getTime()) return false
-    return true
+  if (objA instanceof Date || objB instanceof Date) {
+    if (!(objA instanceof Date) || !(objB instanceof Date)) return false
+    return Object.is(objA.getTime(), objB.getTime())
   }
 
   const keysA = getOwnKeys(objA)
