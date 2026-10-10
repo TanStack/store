@@ -643,6 +643,63 @@ describe('store hooks', () => {
 describe('useSelector selection memo', () => {
   type State = { a: number; b: number }
 
+  it.each<[unknown, unknown]>([
+    [undefined, false],
+    [null, 0],
+    [false, null],
+    [0, undefined],
+  ])('caches a %s snapshot with a %s selection', (snapshot, selected) => {
+    const atom = createAtom(snapshot)
+    const selector = vi.fn((_snapshot: unknown) => selected)
+    const compare = vi.fn(Object.is)
+    const { result, rerender } = renderHook(() =>
+      useSelector(atom, selector, { compare }),
+    )
+
+    expect(result.current).toBe(selected)
+    expect(selector).toHaveBeenCalledTimes(1)
+    expect(selector).toHaveBeenCalledWith(snapshot)
+    expect(compare).not.toHaveBeenCalled()
+
+    rerender()
+
+    expect(result.current).toBe(selected)
+    expect(selector).toHaveBeenCalledTimes(1)
+    expect(compare).not.toHaveBeenCalled()
+  })
+
+  it('compares a cached undefined selection when the selector or comparator changes', () => {
+    type Selected = boolean | undefined
+    type Props = {
+      selector: (snapshot: number) => Selected
+      compare: (a: Selected, b: Selected) => boolean
+    }
+    const atom = createAtom(0)
+    const selectUndefined = vi.fn((_snapshot: number): Selected => undefined)
+    const selectFalse = vi.fn((_snapshot: number): Selected => false)
+    const equal = vi.fn((_a: Selected, _b: Selected) => true)
+    const strict = vi.fn((a: Selected, b: Selected) => a === b)
+    const { result, rerender } = renderHook(
+      ({ selector, compare }: Props) =>
+        useSelector(atom, selector, { compare }),
+      { initialProps: { selector: selectUndefined, compare: equal } },
+    )
+
+    expect(result.current).toBeUndefined()
+    expect(equal).not.toHaveBeenCalled()
+
+    rerender({ selector: selectFalse, compare: equal })
+
+    expect(selectFalse).toHaveBeenCalledWith(0)
+    expect(equal).toHaveBeenCalledWith(undefined, false)
+    expect(result.current).toBeUndefined()
+
+    rerender({ selector: selectFalse, compare: strict })
+
+    expect(strict).toHaveBeenCalledWith(undefined, false)
+    expect(result.current).toBe(false)
+  })
+
   it('does not re-run a stable selector when the component re-renders with an unchanged store value', () => {
     const store = createStore<State>({ a: 1, b: 2 })
     const selector = vi.fn((state: State) => state.a)
