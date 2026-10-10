@@ -7,7 +7,7 @@ title: createStoreContext
 function createStoreContext<TValue>(): object;
 ```
 
-Defined in: [packages/react-store/src/createStoreContext.tsx:40](https://github.com/TanStack/store/blob/main/packages/react-store/src/createStoreContext.tsx#L40)
+Defined in: [packages/react-store/src/createStoreContext.tsx:42](https://github.com/TanStack/store/blob/main/packages/react-store/src/createStoreContext.tsx#L42)
 
 Creates a typed React context for sharing a bundle of atoms and stores with a subtree.
 

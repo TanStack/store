@@ -1,3 +1,5 @@
+'use client'
+
 import { useSelector } from './useSelector'
 import type { Atom } from '@tanstack/store'
 import type { UseSelectorOptions } from './useSelector'
