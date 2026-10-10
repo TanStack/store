@@ -1,4 +1,7 @@
-import { Suspense, startTransition, use, useState } from 'react'
+import { execFile } from 'node:child_process'
+import { resolve } from 'node:path'
+import { promisify } from 'node:util'
+import { StrictMode, Suspense, startTransition, use, useState } from 'react'
 import {
   act,
   fireEvent,
@@ -776,6 +779,121 @@ describe('useSelector selection memo', () => {
 })
 
 describe('useSelector subscription cleanup', () => {
+  it('releases the first render selection while the component stays mounted', async () => {
+    await promisify(execFile)(
+      process.execPath,
+      ['--expose-gc', resolve('tests/fixtures/selector-retention.mts')],
+      { env: { ...process.env, NODE_ENV: 'production' } },
+    )
+  })
+
+  it('keeps the subscription through StrictMode replay and inline selector changes', () => {
+    class Source {
+      value = 1
+      listeners = new Set<(value: number) => void>()
+      subscriptions = 0
+      cleanups = 0
+
+      get() {
+        return this.value
+      }
+
+      subscribe(listener: (value: number) => void) {
+        this.subscriptions++
+        this.listeners.add(listener)
+        return {
+          unsubscribe: () => {
+            this.cleanups++
+            this.listeners.delete(listener)
+          },
+        }
+      }
+    }
+
+    const source = new Source()
+    function Comp({ offset }: { offset: number }) {
+      const value = useSelector(source, (state) => state + offset, {
+        compare: (a, b) => a === b,
+      })
+      return <p>Value: {value}</p>
+    }
+
+    const { getByText, rerender, unmount } = render(
+      <StrictMode>
+        <Comp offset={0} />
+      </StrictMode>,
+    )
+    expect(getByText('Value: 1')).toBeInTheDocument()
+    expect(source.listeners.size).toBe(1)
+    expect(source.subscriptions).toBe(source.cleanups + 1)
+    const subscriptions = source.subscriptions
+    const cleanups = source.cleanups
+
+    rerender(
+      <StrictMode>
+        <Comp offset={10} />
+      </StrictMode>,
+    )
+    expect(getByText('Value: 11')).toBeInTheDocument()
+    expect(source.subscriptions).toBe(subscriptions)
+    expect(source.cleanups).toBe(cleanups)
+
+    unmount()
+    expect(source.listeners.size).toBe(0)
+    expect(source.cleanups).toBe(source.subscriptions)
+  })
+
+  it('keeps the committed source subscribed while a source change suspends', async () => {
+    const first = createAtom(1)
+    const second = createAtom(10)
+    const subscribeFirst = vi.spyOn(first, 'subscribe')
+    const subscribeSecond = vi.spyOn(second, 'subscribe')
+    const pending = new Promise<never>(() => {})
+    const readSecond = vi.fn((value: number) => value)
+
+    function Value({ mode }: { mode: 'first' | 'second' }) {
+      const value = useSelector(
+        mode === 'first' ? first : second,
+        mode === 'first' ? undefined : readSecond,
+      )
+      if (mode === 'second') {
+        use(pending)
+      }
+      return <output data-testid="source-value">{value}</output>
+    }
+
+    function Comp() {
+      const [mode, setMode] = useState<'first' | 'second'>('first')
+      return (
+        <>
+          <button
+            type="button"
+            onClick={() => startTransition(() => setMode('second'))}
+          >
+            Switch source
+          </button>
+          <Suspense fallback={<p>Loading</p>}>
+            <Value mode={mode} />
+          </Suspense>
+        </>
+      )
+    }
+
+    const { getByRole, getByTestId } = render(<Comp />)
+    expect(subscribeFirst).toHaveBeenCalledTimes(1)
+    fireEvent.click(getByRole('button', { name: 'Switch source' }))
+    await waitFor(() => expect(readSecond).toHaveBeenCalled())
+    expect(subscribeSecond).not.toHaveBeenCalled()
+
+    act(() => {
+      first.set(2)
+      second.set(20)
+    })
+    expect(getByTestId('source-value')).toHaveTextContent('2')
+
+    expect(subscribeSecond).not.toHaveBeenCalled()
+  })
+
   it('unsubscribes through the subscription object so `this`-based sources clean up', () => {
     const listeners = new Set<(value: number) => void>()
 

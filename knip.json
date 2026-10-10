@@ -1,6 +1,9 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
   "workspaces": {
+    "packages/react-store": {
+      "entry": ["tests/fixtures/selector-retention.mts"]
+    },
     "packages/store": {
       "entry": ["src/signal.ts"]
     }

@@ -29,6 +29,7 @@
     "test:types:ts59": "tsc",
     "test:lib": "vitest",
     "test:lib:dev": "pnpm run test:lib --watch",
+    "test:perf": "NODE_ENV=production vitest bench --run --coverage.enabled=false --typecheck.enabled=false",
     "test:build": "publint --strict",
     "build": "tsdown --tsconfig tsconfig.build.json"
   },
