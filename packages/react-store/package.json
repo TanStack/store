@@ -1,6 +1,6 @@
 {
   "name": "@tanstack/react-store",
-  "version": "0.11.2",
+  "version": "1.0.0-alpha.0",
   "description": "Framework agnostic type-safe store w/ reactive framework adapters",
   "author": "Tanner Linsley",
   "license": "MIT",
@@ -29,6 +29,7 @@
     "test:types:ts59": "tsc",
     "test:lib": "vitest",
     "test:lib:dev": "pnpm run test:lib --watch",
+    "test:perf": "NODE_ENV=production vitest bench --run --coverage.enabled=false --typecheck.enabled=false",
     "test:build": "publint --strict",
     "build": "tsdown --tsconfig tsconfig.build.json"
   },
@@ -49,20 +50,18 @@
     "src"
   ],
   "dependencies": {
-    "@tanstack/store": "workspace:*",
-    "use-sync-external-store": "^1.6.0"
+    "@tanstack/store": "workspace:*"
   },
   "devDependencies": {
     "@testing-library/react": "^16.3.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@types/use-sync-external-store": "^1.5.0",
     "@vitejs/plugin-react": "^6.0.1",
     "react": "^19.2.5",
     "react-dom": "^19.2.5"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
-    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
   }
 }
