@@ -22,9 +22,10 @@ type Instance<TSource, TSelected> = {
   compare?: (a: TSelected, b: TSelected) => boolean
   subscribe?: (onStoreChange: () => void) => () => void
   getSnapshot?: () => TSelected
-  owner: (() => TSelected) | null
-  snapshot?: TSource
-  selected?: TSelected
+  // Private cache keys stay short because property names survive minification.
+  o: (() => TSelected) | null // selection owner
+  s?: TSource // snapshot
+  v?: TSelected // selected value
 }
 
 function identity<TSource, TSelected>(snapshot: TSource): TSelected {
@@ -46,7 +47,7 @@ function createGetSnapshot<TSource, TSelected>(
   const getSnapshot = () => {
     const snapshot = source.get()
 
-    if (instance.owner !== getSnapshot || instance.snapshot !== snapshot) {
+    if (instance.o !== getSnapshot || instance.s !== snapshot) {
       const selected = selector(snapshot)
 
       // Keep the previous selection's identity when `compare` considers the
@@ -56,18 +57,15 @@ function createGetSnapshot<TSource, TSelected>(
       // selector identity changed: inline selectors are recreated on every
       // render and must still return the same object when the selection is
       // equal.
-      if (
-        instance.owner === null ||
-        !compare(instance.selected as TSelected, selected)
-      ) {
-        instance.selected = selected
+      if (instance.o === null || !compare(instance.v as TSelected, selected)) {
+        instance.v = selected
       }
 
-      instance.owner = getSnapshot
-      instance.snapshot = snapshot
+      instance.o = getSnapshot
+      instance.s = snapshot
     }
 
-    return instance.selected as TSelected
+    return instance.v as TSelected
   }
 
   return getSnapshot
@@ -106,8 +104,7 @@ export function useSelector<TSource, TSelected = NoInfer<TSource>>(
   // when their inputs change. With a stable selector, a re-render that leaves
   // the store untouched costs no allocations and no effects.
   const instanceRef = useRef<Instance<TSource, TSelected> | null>(null)
-  const instance =
-    instanceRef.current ?? (instanceRef.current = { owner: null })
+  const instance = instanceRef.current ?? (instanceRef.current = { o: null })
   const sourceChanged = instance.source !== source
 
   if (sourceChanged) {
