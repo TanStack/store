@@ -1,6 +1,9 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
   "workspaces": {
+    "packages/react-store": {
+      "entry": ["src/index.ts", "tests/fixtures/rsc-loader.mjs"]
+    },
     "packages/store": {
       "entry": ["src/signal.ts"]
     }
