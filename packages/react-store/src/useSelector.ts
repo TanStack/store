@@ -35,6 +35,44 @@ function defaultCompare<T>(a: T, b: T) {
   return a === b
 }
 
+// Keep snapshot inputs out of the subscription's closure scope. This also
+// avoids nesting the snapshot callback inside a render's conditional scope.
+function createGetSnapshot<TSource, TSelected>(
+  source: SelectionSource<TSource>,
+  selector: (snapshot: TSource) => TSelected,
+  compare: (a: TSelected, b: TSelected) => boolean,
+  instance: Instance<TSource, TSelected>,
+): () => TSelected {
+  const getSnapshot = () => {
+    const snapshot = source.get()
+
+    if (instance.owner !== getSnapshot || instance.snapshot !== snapshot) {
+      const selected = selector(snapshot)
+
+      // Keep the previous selection's identity when `compare` considers the
+      // new one equal so that `useSyncExternalStore` does not re-render the
+      // component. Like the former `use-sync-external-store/shim/with-selector`
+      // helper, this compares against the previous selection even when the
+      // selector identity changed: inline selectors are recreated on every
+      // render and must still return the same object when the selection is
+      // equal.
+      if (
+        instance.owner === null ||
+        !compare(instance.selected as TSelected, selected)
+      ) {
+        instance.selected = selected
+      }
+
+      instance.owner = getSnapshot
+      instance.snapshot = snapshot
+    }
+
+    return instance.selected as TSelected
+  }
+
+  return getSnapshot
+}
+
 /**
  * Selects a slice of state from an atom or store and subscribes the component
  * to that selection.
@@ -95,34 +133,12 @@ export function useSelector<TSource, TSelected = NoInfer<TSource>>(
     // instance so that a render which suspends with a different selector
     // cannot change what the committed subscription selects. The selection is
     // keyed on the closure for the same reason.
-    const getSnapshot = () => {
-      const snapshot = source.get()
-
-      if (instance.owner !== getSnapshot || instance.snapshot !== snapshot) {
-        const selected = selector(snapshot)
-
-        // Keep the previous selection's identity when `compare` considers the
-        // new one equal so that `useSyncExternalStore` does not re-render the
-        // component. Like the former `use-sync-external-store/shim/with-selector`
-        // helper, this compares against the previous selection even when the
-        // selector identity changed: inline selectors are recreated on every
-        // render and must still return the same object when the selection is
-        // equal.
-        if (
-          instance.owner === null ||
-          !compare(instance.selected as TSelected, selected)
-        ) {
-          instance.selected = selected
-        }
-
-        instance.owner = getSnapshot
-        instance.snapshot = snapshot
-      }
-
-      return instance.selected as TSelected
-    }
-
-    instance.getSnapshot = getSnapshot
+    instance.getSnapshot = createGetSnapshot(
+      source,
+      selector,
+      compare,
+      instance,
+    )
   }
 
   return useSyncExternalStore(
