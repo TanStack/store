@@ -67,10 +67,10 @@ let queuedEffectsLength = 0
 let activeSub: ReactiveNode | undefined
 let batchDepth = 0
 
-export function batch(fn: () => void) {
+export function batch<T>(fn: () => T): T {
   try {
     ++batchDepth
-    fn()
+    return fn()
   } finally {
     if (!--batchDepth) {
       flush()
