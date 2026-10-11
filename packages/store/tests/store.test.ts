@@ -116,4 +116,22 @@ describe('store', () => {
     expect(atom._update()).toBe(false)
     expect(store.state).toEqual({ pageIndex: 1 })
   })
+
+  test('get() method returns current state and remains bound on destructuring', () => {
+    const store = createStore(42)
+    expect(store.get()).toBe(42)
+
+    const { get, setState } = store
+    setState(() => 100)
+    expect(get()).toBe(100)
+  })
+
+  test('ReadonlyStore get() method returns current state and tracks updates', () => {
+    const base = createStore(10)
+    const readonlyStore = createStore(() => base.state * 2)
+
+    expect(readonlyStore.get()).toBe(20)
+    base.setState(() => 15)
+    expect(readonlyStore.get()).toBe(30)
+  })
 })
