@@ -1,13 +1,8 @@
-import { useCallback } from 'react'
-import { useSyncExternalStoreWithSelector } from 'use-sync-external-store/shim/with-selector'
+import { useRef, useSyncExternalStore } from 'react'
 
 export interface UseSelectorOptions<TSelected> {
   compare?: (a: TSelected, b: TSelected) => boolean
 }
-
-type SyncExternalStoreSubscribe = Parameters<
-  typeof useSyncExternalStoreWithSelector
->[0]
 
 type SelectionSource<T> = {
   get: () => T
@@ -16,8 +11,64 @@ type SelectionSource<T> = {
   }
 }
 
+/**
+ * Per-component state, mutated in place. The inputs and the callbacks built
+ * for them are written during render; the selection is written by whichever
+ * `getSnapshot` closure computed it last and is keyed on that closure.
+ */
+type Instance<TSource, TSelected> = {
+  source?: SelectionSource<TSource>
+  selector?: (snapshot: TSource) => TSelected
+  compare?: (a: TSelected, b: TSelected) => boolean
+  subscribe?: (onStoreChange: () => void) => () => void
+  getSnapshot?: () => TSelected
+  // Private cache keys stay short because property names survive minification.
+  o: (() => TSelected) | null // selection owner
+  s?: TSource // snapshot
+  v?: TSelected // selected value
+}
+
+function identity<TSource, TSelected>(snapshot: TSource): TSelected {
+  return snapshot as unknown as TSelected
+}
+
 function defaultCompare<T>(a: T, b: T) {
   return a === b
+}
+
+// Keep snapshot inputs out of the subscription's closure scope. This also
+// avoids nesting the snapshot callback inside a render's conditional scope.
+function createGetSnapshot<TSource, TSelected>(
+  source: SelectionSource<TSource>,
+  selector: (snapshot: TSource) => TSelected,
+  compare: (a: TSelected, b: TSelected) => boolean,
+  instance: Instance<TSource, TSelected>,
+): () => TSelected {
+  const getSnapshot = () => {
+    const snapshot = source.get()
+
+    if (instance.o !== getSnapshot || instance.s !== snapshot) {
+      const selected = selector(snapshot)
+
+      // Keep the previous selection's identity when `compare` considers the
+      // new one equal so that `useSyncExternalStore` does not re-render the
+      // component. Like the former `use-sync-external-store/shim/with-selector`
+      // helper, this compares against the previous selection even when the
+      // selector identity changed: inline selectors are recreated on every
+      // render and must still return the same object when the selection is
+      // equal.
+      if (instance.o === null || !compare(instance.v as TSelected, selected)) {
+        instance.v = selected
+      }
+
+      instance.o = getSnapshot
+      instance.s = snapshot
+    }
+
+    return instance.v as TSelected
+  }
+
+  return getSnapshot
 }
 
 /**
@@ -42,26 +93,54 @@ function defaultCompare<T>(a: T, b: T) {
  */
 export function useSelector<TSource, TSelected = NoInfer<TSource>>(
   source: SelectionSource<TSource>,
-  selector: (snapshot: TSource) => TSelected = (s) => s as unknown as TSelected,
+  selector: (snapshot: TSource) => TSelected = identity,
   options?: UseSelectorOptions<TSelected>,
 ): TSelected {
   const compare = options?.compare ?? defaultCompare
 
-  const subscribe: SyncExternalStoreSubscribe = useCallback(
-    (handleStoreChange) => {
-      const { unsubscribe } = source.subscribe(handleStoreChange)
-      return unsubscribe
-    },
-    [source],
-  )
+  // One ref instead of `useCallback`s. `useSyncExternalStore` re-subscribes
+  // whenever `subscribe` changes identity and schedules a passive effect plus
+  // a consistency check whenever `getSnapshot` does, so both are only rebuilt
+  // when their inputs change. With a stable selector, a re-render that leaves
+  // the store untouched costs no allocations and no effects.
+  const instanceRef = useRef<Instance<TSource, TSelected> | null>(null)
+  const instance = instanceRef.current ?? (instanceRef.current = { o: null })
+  const sourceChanged = instance.source !== source
 
-  const getSnapshot = useCallback(() => source.get(), [source])
+  if (sourceChanged) {
+    instance.subscribe = (onStoreChange) => {
+      const subscription = source.subscribe(onStoreChange)
 
-  return useSyncExternalStoreWithSelector(
-    subscribe,
-    getSnapshot,
-    getSnapshot,
-    selector,
-    compare,
+      // Call `unsubscribe` on the subscription so sources that rely on `this`
+      // keep working.
+      return () => subscription.unsubscribe()
+    }
+  }
+
+  if (
+    sourceChanged ||
+    instance.selector !== selector ||
+    instance.compare !== compare
+  ) {
+    instance.source = source
+    instance.selector = selector
+    instance.compare = compare
+
+    // The closure captures its inputs instead of reading them from the
+    // instance so that a render which suspends with a different selector
+    // cannot change what the committed subscription selects. The selection is
+    // keyed on the closure for the same reason.
+    instance.getSnapshot = createGetSnapshot(
+      source,
+      selector,
+      compare,
+      instance,
+    )
+  }
+
+  return useSyncExternalStore(
+    instance.subscribe!,
+    instance.getSnapshot!,
+    instance.getSnapshot,
   )
 }

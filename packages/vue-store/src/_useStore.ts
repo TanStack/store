@@ -1,5 +1,5 @@
 import { useSelector } from './useSelector'
-import type { Ref } from 'vue-demi'
+import type { Ref } from 'vue'
 import type { Store, StoreActionMap } from '@tanstack/store'
 import type { UseSelectorOptions } from './useSelector'
 

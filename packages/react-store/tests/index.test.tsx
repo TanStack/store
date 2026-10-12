@@ -1,4 +1,7 @@
-import { Suspense, startTransition, use, useState } from 'react'
+import { execFile } from 'node:child_process'
+import { resolve } from 'node:path'
+import { promisify } from 'node:util'
+import { StrictMode, Suspense, startTransition, use, useState } from 'react'
 import {
   act,
   fireEvent,
@@ -634,6 +637,460 @@ describe('store hooks', () => {
     await user.click(getByText('Update select'))
 
     await waitFor(() => expect(getByText('Derived: 2')).toBeInTheDocument())
+  })
+})
+
+describe('useSelector selection memo', () => {
+  type State = { a: number; b: number }
+
+  it.each<[unknown, unknown]>([
+    [undefined, false],
+    [null, 0],
+    [false, null],
+    [0, undefined],
+  ])('caches a %s snapshot with a %s selection', (snapshot, selected) => {
+    const atom = createAtom(snapshot)
+    const selector = vi.fn((_snapshot: unknown) => selected)
+    const compare = vi.fn(Object.is)
+    const { result, rerender } = renderHook(() =>
+      useSelector(atom, selector, { compare }),
+    )
+
+    expect(result.current).toBe(selected)
+    expect(selector).toHaveBeenCalledTimes(1)
+    expect(selector).toHaveBeenCalledWith(snapshot)
+    expect(compare).not.toHaveBeenCalled()
+
+    rerender()
+
+    expect(result.current).toBe(selected)
+    expect(selector).toHaveBeenCalledTimes(1)
+    expect(compare).not.toHaveBeenCalled()
+  })
+
+  it('compares a cached undefined selection when the selector or comparator changes', () => {
+    type Selected = boolean | undefined
+    type Props = {
+      selector: (snapshot: number) => Selected
+      compare: (a: Selected, b: Selected) => boolean
+    }
+    const atom = createAtom(0)
+    const selectUndefined = vi.fn((_snapshot: number): Selected => undefined)
+    const selectFalse = vi.fn((_snapshot: number): Selected => false)
+    const equal = vi.fn((_a: Selected, _b: Selected) => true)
+    const strict = vi.fn((a: Selected, b: Selected) => a === b)
+    const { result, rerender } = renderHook(
+      ({ selector, compare }: Props) =>
+        useSelector(atom, selector, { compare }),
+      { initialProps: { selector: selectUndefined, compare: equal } },
+    )
+
+    expect(result.current).toBeUndefined()
+    expect(equal).not.toHaveBeenCalled()
+
+    rerender({ selector: selectFalse, compare: equal })
+
+    expect(selectFalse).toHaveBeenCalledWith(0)
+    expect(equal).toHaveBeenCalledWith(undefined, false)
+    expect(result.current).toBeUndefined()
+
+    rerender({ selector: selectFalse, compare: strict })
+
+    expect(strict).toHaveBeenCalledWith(undefined, false)
+    expect(result.current).toBe(false)
+  })
+
+  it('does not re-run a stable selector when the component re-renders with an unchanged store value', () => {
+    const store = createStore<State>({ a: 1, b: 2 })
+    const selector = vi.fn((state: State) => state.a)
+
+    function Comp({ label }: { label: string }) {
+      const value = useSelector(store, selector)
+
+      return (
+        <p>
+          {label}: {value}
+        </p>
+      )
+    }
+
+    const { getByText, rerender } = render(<Comp label="First" />)
+
+    expect(getByText('First: 1')).toBeInTheDocument()
+    expect(selector).toHaveBeenCalledTimes(1)
+
+    rerender(<Comp label="Second" />)
+
+    expect(getByText('Second: 1')).toBeInTheDocument()
+    expect(selector).toHaveBeenCalledTimes(1)
+  })
+
+  it('keeps the previous selection identity when compare returns true', () => {
+    const store = createStore({ items: [1, 2], other: 0 })
+    const selections: Array<{ items: Array<number> }> = []
+
+    function Comp() {
+      const selected = useSelector(store, (state) => ({ items: state.items }), {
+        compare: shallow,
+      })
+      selections.push(selected)
+
+      return <p>Items: {selected.items.join(',')}</p>
+    }
+
+    const { getByText, rerender } = render(<Comp />)
+
+    expect(getByText('Items: 1,2')).toBeInTheDocument()
+    expect(selections).toHaveLength(1)
+
+    // The selection is shallowly equal, so the component must not re-render.
+    act(() => {
+      store.setState((prev) => ({ ...prev, other: 1 }))
+    })
+
+    expect(selections).toHaveLength(1)
+
+    // The inline selector has a new identity on every render; compare still
+    // runs against the previous selection so the component receives the same
+    // object.
+    rerender(<Comp />)
+
+    expect(selections).toHaveLength(2)
+    expect(selections[1]).toBe(selections[0])
+
+    act(() => {
+      store.setState((prev) => ({ ...prev, items: [...prev.items, 3] }))
+    })
+
+    expect(getByText('Items: 1,2,3')).toBeInTheDocument()
+    expect(selections).toHaveLength(3)
+    expect(selections[2]).not.toBe(selections[0])
+  })
+
+  it('re-runs a new selector and returns its selection', () => {
+    const store = createStore<State>({ a: 1, b: 2 })
+    const selectA = vi.fn((state: State) => state.a)
+    const selectB = vi.fn((state: State) => state.b)
+
+    function Comp({ selector }: { selector: (state: State) => number }) {
+      const value = useSelector(store, selector)
+
+      return <p>Value: {value}</p>
+    }
+
+    const { getByText, rerender } = render(<Comp selector={selectA} />)
+
+    expect(getByText('Value: 1')).toBeInTheDocument()
+    expect(selectA).toHaveBeenCalledTimes(1)
+    expect(selectB).not.toHaveBeenCalled()
+
+    rerender(<Comp selector={selectB} />)
+
+    expect(getByText('Value: 2')).toBeInTheDocument()
+    expect(selectA).toHaveBeenCalledTimes(1)
+    expect(selectB).toHaveBeenCalledTimes(1)
+
+    rerender(<Comp selector={selectA} />)
+
+    expect(getByText('Value: 1')).toBeInTheDocument()
+    expect(selectA).toHaveBeenCalledTimes(2)
+    expect(selectB).toHaveBeenCalledTimes(1)
+  })
+
+  it('re-runs the installed selector exactly once per store update', () => {
+    const store = createStore<State>({ a: 1, b: 2 })
+    const selector = vi.fn((state: State) => state.a)
+    const renderSpy = vi.fn()
+
+    function Comp() {
+      const value = useSelector(store, selector)
+      renderSpy()
+
+      return <p>Value: {value}</p>
+    }
+
+    const { getByText } = render(<Comp />)
+
+    expect(getByText('Value: 1')).toBeInTheDocument()
+    expect(selector).toHaveBeenCalledTimes(1)
+    expect(renderSpy).toHaveBeenCalledTimes(1)
+
+    act(() => {
+      store.setState((prev) => ({ ...prev, a: 10 }))
+    })
+
+    expect(getByText('Value: 10')).toBeInTheDocument()
+    expect(selector).toHaveBeenCalledTimes(2)
+    expect(renderSpy).toHaveBeenCalledTimes(2)
+
+    // An update that leaves the selection unchanged still runs the selector once
+    // to find that out, but does not re-render.
+    act(() => {
+      store.setState((prev) => ({ ...prev, b: 20 }))
+    })
+
+    expect(getByText('Value: 10')).toBeInTheDocument()
+    expect(selector).toHaveBeenCalledTimes(3)
+    expect(renderSpy).toHaveBeenCalledTimes(2)
+  })
+})
+
+describe('useSelector subscription cleanup', () => {
+  it('releases the first render selection while the component stays mounted', async () => {
+    await promisify(execFile)(
+      process.execPath,
+      ['--expose-gc', resolve('tests/fixtures/selector-retention.mts')],
+      { env: { ...process.env, NODE_ENV: 'production' } },
+    )
+  })
+
+  it('keeps the subscription through StrictMode replay and inline selector changes', () => {
+    class Source {
+      value = 1
+      listeners = new Set<(value: number) => void>()
+      subscriptions = 0
+      cleanups = 0
+
+      get() {
+        return this.value
+      }
+
+      subscribe(listener: (value: number) => void) {
+        this.subscriptions++
+        this.listeners.add(listener)
+        return {
+          unsubscribe: () => {
+            this.cleanups++
+            this.listeners.delete(listener)
+          },
+        }
+      }
+    }
+
+    const source = new Source()
+    function Comp({ offset }: { offset: number }) {
+      const value = useSelector(source, (state) => state + offset, {
+        compare: (a, b) => a === b,
+      })
+      return <p>Value: {value}</p>
+    }
+
+    const { getByText, rerender, unmount } = render(
+      <StrictMode>
+        <Comp offset={0} />
+      </StrictMode>,
+    )
+    expect(getByText('Value: 1')).toBeInTheDocument()
+    expect(source.listeners.size).toBe(1)
+    expect(source.subscriptions).toBe(source.cleanups + 1)
+    const subscriptions = source.subscriptions
+    const cleanups = source.cleanups
+
+    rerender(
+      <StrictMode>
+        <Comp offset={10} />
+      </StrictMode>,
+    )
+    expect(getByText('Value: 11')).toBeInTheDocument()
+    expect(source.subscriptions).toBe(subscriptions)
+    expect(source.cleanups).toBe(cleanups)
+
+    unmount()
+    expect(source.listeners.size).toBe(0)
+    expect(source.cleanups).toBe(source.subscriptions)
+  })
+
+  it('keeps the committed source subscribed while a source change suspends', async () => {
+    const first = createAtom(1)
+    const second = createAtom(10)
+    const subscribeFirst = vi.spyOn(first, 'subscribe')
+    const subscribeSecond = vi.spyOn(second, 'subscribe')
+    const pending = new Promise<never>(() => {})
+    const readSecond = vi.fn((value: number) => value)
+
+    function Value({ mode }: { mode: 'first' | 'second' }) {
+      const value = useSelector(
+        mode === 'first' ? first : second,
+        mode === 'first' ? undefined : readSecond,
+      )
+      if (mode === 'second') {
+        use(pending)
+      }
+      return <output data-testid="source-value">{value}</output>
+    }
+
+    function Comp() {
+      const [mode, setMode] = useState<'first' | 'second'>('first')
+      return (
+        <>
+          <button
+            type="button"
+            onClick={() => startTransition(() => setMode('second'))}
+          >
+            Switch source
+          </button>
+          <Suspense fallback={<p>Loading</p>}>
+            <Value mode={mode} />
+          </Suspense>
+        </>
+      )
+    }
+
+    const { getByRole, getByTestId } = render(<Comp />)
+    expect(subscribeFirst).toHaveBeenCalledTimes(1)
+    fireEvent.click(getByRole('button', { name: 'Switch source' }))
+    await waitFor(() => expect(readSecond).toHaveBeenCalled())
+    expect(subscribeSecond).not.toHaveBeenCalled()
+
+    act(() => {
+      first.set(2)
+      second.set(20)
+    })
+    expect(getByTestId('source-value')).toHaveTextContent('2')
+
+    expect(subscribeSecond).not.toHaveBeenCalled()
+  })
+
+  it('unsubscribes through the subscription object so `this`-based sources clean up', () => {
+    const listeners = new Set<(value: number) => void>()
+
+    class Subscription {
+      closed = false
+
+      constructor(private readonly listener: (value: number) => void) {}
+
+      // Throws if React calls it detached from the subscription object.
+      unsubscribe() {
+        this.closed = true
+        listeners.delete(this.listener)
+      }
+    }
+
+    const source = {
+      get: () => 1,
+      subscribe: (listener: (value: number) => void) => {
+        listeners.add(listener)
+        return new Subscription(listener)
+      },
+    }
+
+    function Comp() {
+      const value = useSelector(source)
+
+      return <p>Value: {value}</p>
+    }
+
+    const { getByText, unmount } = render(<Comp />)
+
+    expect(getByText('Value: 1')).toBeInTheDocument()
+    expect(listeners.size).toBe(1)
+
+    unmount()
+
+    expect(listeners.size).toBe(0)
+  })
+
+  it('moves the subscription when the source changes', () => {
+    function createSource(initial: number) {
+      const listeners = new Set<(value: number) => void>()
+      let value = initial
+
+      return {
+        listeners,
+        get: () => value,
+        set: (next: number) => {
+          value = next
+          listeners.forEach((listener) => listener(next))
+        },
+        subscribe: (listener: (value: number) => void) => {
+          listeners.add(listener)
+          return {
+            unsubscribe: () => {
+              listeners.delete(listener)
+            },
+          }
+        },
+      }
+    }
+
+    const first = createSource(1)
+    const second = createSource(10)
+
+    function Comp({ source }: { source: typeof first }) {
+      const value = useSelector(source)
+
+      return <p>Value: {value}</p>
+    }
+
+    const { getByText, rerender } = render(<Comp source={first} />)
+
+    expect(getByText('Value: 1')).toBeInTheDocument()
+    expect(first.listeners.size).toBe(1)
+
+    rerender(<Comp source={second} />)
+
+    expect(getByText('Value: 10')).toBeInTheDocument()
+    expect(first.listeners.size).toBe(0)
+    expect(second.listeners.size).toBe(1)
+
+    act(() => {
+      second.set(20)
+    })
+
+    expect(getByText('Value: 20')).toBeInTheDocument()
+  })
+})
+
+describe('useSelector compare changes', () => {
+  it('uses the compare function from the latest render', () => {
+    type State = { a: number; b: number }
+    const store = createStore<State>({ a: 0, b: 0 })
+    const compareA = (x: State, y: State) => x.a === y.a
+    const compareB = (x: State, y: State) => x.b === y.b
+    const renderSpy = vi.fn()
+
+    function Comp({ compare }: { compare: typeof compareA }) {
+      const value = useSelector(store, undefined, { compare })
+      renderSpy()
+
+      return (
+        <p>
+          a{value.a} b{value.b}
+        </p>
+      )
+    }
+
+    const { getByText, rerender } = render(<Comp compare={compareA} />)
+
+    expect(getByText('a0 b0')).toBeInTheDocument()
+
+    // compareA ignores `b`, so this update does not re-render.
+    act(() => {
+      store.setState((prev) => ({ ...prev, b: 1 }))
+    })
+
+    expect(getByText('a0 b0')).toBeInTheDocument()
+    expect(renderSpy).toHaveBeenCalledTimes(1)
+
+    rerender(<Comp compare={compareB} />)
+
+    expect(getByText('a0 b1')).toBeInTheDocument()
+    expect(renderSpy).toHaveBeenCalledTimes(2)
+
+    // compareB ignores `a`, so this update does not re-render.
+    act(() => {
+      store.setState((prev) => ({ ...prev, a: 1 }))
+    })
+
+    expect(getByText('a0 b1')).toBeInTheDocument()
+    expect(renderSpy).toHaveBeenCalledTimes(2)
+
+    act(() => {
+      store.setState((prev) => ({ ...prev, b: 2 }))
+    })
+
+    expect(getByText('a1 b2')).toBeInTheDocument()
+    expect(renderSpy).toHaveBeenCalledTimes(3)
   })
 })
 

@@ -1,5 +1,5 @@
 import { useSelector } from './useSelector'
-import type { Ref } from 'vue-demi'
+import type { Ref } from 'vue'
 
 /**
  * Deprecated alias for {@link useSelector}.
