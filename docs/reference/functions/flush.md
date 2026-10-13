@@ -7,7 +7,7 @@ title: flush
 function flush(): void;
 ```
 
-Defined in: [atom.ts:89](https://github.com/TanStack/store/blob/main/packages/store/src/atom.ts#L89)
+Defined in: [atom.ts:102](https://github.com/TanStack/store/blob/main/packages/store/src/atom.ts#L102)
 
 ## Returns
 
