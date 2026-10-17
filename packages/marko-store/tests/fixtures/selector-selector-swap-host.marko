@@ -1,0 +1,24 @@
+import StoreSelector from '../../src/tags/store-selector.marko'
+
+// Keeps one source but toggles the selector. Flipping it leaves the source equal
+// (source === this.src) and changes input.selector, so the tag's onUpdate takes
+// the re-seed branch (input.selector !== this.sel).
+export interface Input {
+  from: () => {
+    get(): any
+    subscribe(listener: (value: any) => void): { unsubscribe(): void }
+  }
+}
+
+<let/useOther=false>
+<const/selector=useOther ? (s: any) => s.other : (s: any) => s.count>
+<StoreSelector/value from=input.from selector=selector/>
+<div data-testid='value'>${value}</div>
+<button
+  data-testid='swap-selector'
+  onClick() {
+    useOther = !useOther
+  }
+>
+  swap selector
+</button>

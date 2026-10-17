@@ -1,0 +1,23 @@
+{
+  "name": "@tanstack/store-example-marko-simple",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "marko-run dev",
+    "build": "marko-run build",
+    "preview": "marko-run preview",
+    "test:e2e": "playwright test",
+    "test:types": "marko-type-check -p tsconfig.json"
+  },
+  "dependencies": {
+    "@marko/run": "^0.10.0",
+    "@tanstack/marko-store": "^0.11.0",
+    "marko": "^6"
+  },
+  "devDependencies": {
+    "@marko/language-tools": "^2.6.0",
+    "@marko/type-check": "^3.1.0",
+    "@playwright/test": "^1.53.1",
+    "vite": "^8.0.8"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "tanstack-marko-store-e2e",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "marko-run dev",
+    "preview": "marko-run preview",
+    "test:e2e": "playwright test",
+    "test:types": "marko-type-check"
+  },
+  "dependencies": {
+    "@marko/run": "^0.10.0",
+    "@tanstack/store": "workspace:*",
+    "marko": "^6"
+  },
+  "devDependencies": {
+    "@marko/language-tools": "^2.6.0",
+    "@marko/type-check": "^3.1.0",
+    "@playwright/test": "^1.53.1",
+    "typescript": "^5.6.3",
+    "vite": "^6.4.2"
+  }
+}

@@ -1,0 +1,28 @@
+import StoreSelector from '../../src/tags/store-selector.marko'
+
+// Toggles which of two stores is passed to <store-selector> through `from`.
+// Flipping the toggle changes the resolved source, so the tag's onUpdate takes
+// the resubscribe-and-re-seed branch (source !== this.src).
+export interface Input {
+  storeA: {
+    get(): any
+    subscribe(listener: (value: any) => void): { unsubscribe(): void }
+  }
+  storeB: {
+    get(): any
+    subscribe(listener: (value: any) => void): { unsubscribe(): void }
+  }
+}
+
+<let/useB=false>
+<const/active=useB ? input.storeB : input.storeA>
+<StoreSelector/value from=() => active selector=(s: any) => s.count/>
+<div data-testid='value'>${value}</div>
+<button
+  data-testid='swap'
+  onClick() {
+    useB = !useB
+  }
+>
+  swap source
+</button>

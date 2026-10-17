@@ -1,0 +1,28 @@
+import StoreSelector from '../../src/tags/store-selector.marko'
+
+// No selector AND a source swap: flipping the source reaches onUpdate's
+// resubscribe branch while `selector` stays undefined, so it covers the identity
+// arm of `input.selector ?? ((s) => s)` inside onUpdate (not just onMount).
+export interface Input {
+  storeA: {
+    get(): any
+    subscribe(listener: (value: any) => void): { unsubscribe(): void }
+  }
+  storeB: {
+    get(): any
+    subscribe(listener: (value: any) => void): { unsubscribe(): void }
+  }
+}
+
+<let/useB=false>
+<const/active=useB ? input.storeB : input.storeA>
+<StoreSelector/value from=() => active/>
+<div data-testid='value'>${JSON.stringify(value)}</div>
+<button
+  data-testid='swap'
+  onClick() {
+    useB = !useB
+  }
+>
+  swap source
+</button>

@@ -1,0 +1,25 @@
+import StoreSelector from '../../src/tags/store-selector.marko'
+
+// Render-count probe. `track` is called from the interpolation that consumes the
+// selected value, so it re-runs exactly when `value` is reassigned — Marko's
+// fine-grained reactivity re-evaluates the expression only when its dependency
+// changes identity. That makes over-rendering OBSERVABLE: an object/array slice
+// is a fresh reference on every store change, so under the default `===` compare
+// the tag reassigns `value` (and `track` re-runs) even when the slice's contents
+// are unchanged. With `compare=shallow` the reassignment is suppressed.
+export interface Input {
+  from: () => {
+    get(): any
+    subscribe(listener: (value: any) => void): { unsubscribe(): void }
+  }
+  selector?: (snapshot: any) => any
+  compare?: (a: any, b: any) => boolean
+  track: (value: any) => string
+}
+
+<StoreSelector/value
+  from=input.from
+  selector=input.selector
+  compare=input.compare
+/>
+<div data-testid='value'>${input.track(value)}</div>
