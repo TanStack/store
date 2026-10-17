@@ -17,13 +17,16 @@ import { gateStore } from '../../gate-store'
 
 <!doctype html>
 <html lang='en'>
-  <head><meta charset='utf-8'><title>render-only hydration gate</title></head>
+  <head>
+    <meta charset='utf-8'>
+    <title>render-only hydration gate</title>
+  </head>
   <body>
     <let/resumed='no'>
     <lifecycle onMount() {
       resumed = 'yes'
       ;(globalThis as any).__gateStore = gateStore
-    }/>
+    }>
     <div data-testid='resumed'>${resumed}</div>
 
     <store-selector/count from=() => gateStore selector=(s: any) => s.count/>

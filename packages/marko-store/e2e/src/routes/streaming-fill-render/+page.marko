@@ -2,7 +2,10 @@ import { streamFillRenderStore } from '../../streaming-store'
 
 <!doctype html>
 <html lang='en'>
-  <head><meta charset='utf-8'><title>streaming fill: render-time side effect (server-only)</title></head>
+  <head>
+    <meta charset='utf-8'>
+    <title>streaming fill: render-time side effect (server-only)</title>
+  </head>
   <body>
     <!--
       CHARACTERIZATION -- documents Marko behavior, NOT a recommended pattern. A progressive fill
@@ -13,21 +16,34 @@ import { streamFillRenderStore } from '../../streaming-store'
       data delivery must serialize the awaited data rather than rely on a setState in the body.
     -->
     <store-provider value=() => ({ counter: streamFillRenderStore })>
-      <store-selector/shellCount context=(c: { counter: typeof streamFillRenderStore }) => c.counter selector=(s) => s.count/>
+      <store-selector/shellCount
+        context=(c: { counter: typeof streamFillRenderStore }) => c.counter
+        selector=(s) => s.count
+      />
       <div data-testid='shell-count'>${shellCount}</div>
 
       <await=new Promise((r) => setTimeout(() => r('A'), 100))>
         <let/aResumed='no'>
-        <lifecycle onMount() { aResumed = 'yes' }>
+        <lifecycle onMount() {
+          aResumed = 'yes'
+        }>
         <div data-testid='a-resumed'>${aResumed}</div>
         <!-- render-time side-effect fill; renders empty (the comma yields '') -->
         ${(streamFillRenderStore.setState(() => ({ count: 99 })), '')}
-        <store-selector/aCount context=(c: { counter: typeof streamFillRenderStore }) => c.counter selector=(s) => s.count/>
+        <store-selector/aCount
+          context=(c: { counter: typeof streamFillRenderStore }) => c.counter
+          selector=(s) => s.count
+        />
         <div data-testid='a-count'>${aCount}</div>
       </await>
     </store-provider>
 
-    <button data-testid='external-inc' onClick() { streamFillRenderStore.setState((s) => ({ count: s.count + 1 })) }>
+    <button
+      data-testid='external-inc'
+      onClick() {
+        streamFillRenderStore.setState((s) => ({ count: s.count + 1 }))
+      }
+    >
       external inc
     </button>
   </body>

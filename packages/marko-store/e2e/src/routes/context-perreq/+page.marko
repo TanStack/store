@@ -5,7 +5,10 @@ import type { Store } from '@tanstack/store'
 
 <!doctype html>
 <html lang='en'>
-  <head><meta charset='utf-8'><title>marko-store per-request resume probe</title></head>
+  <head>
+    <meta charset='utf-8'>
+    <title>marko-store per-request resume probe</title>
+  </head>
   <body>
     <let/resumed='no'>
     <lifecycle onMount() {
@@ -19,10 +22,20 @@ import type { Store } from '@tanstack/store'
       client -- no live store is ever serialized.
     -->
     <store-provider value=() => ({ counter: createStore({ count: 42 }) })>
-      <store-selector/count context=(c: { counter: Store<{ count: number }> }) => c.counter selector=(s) => s.count/>
+      <store-selector/count
+        context=(c: { counter: Store<{ count: number }> }) => c.counter
+        selector=(s) => s.count
+      />
       <div data-testid='selector-count'>${count}</div>
       <store-context/ctx/>
-      <button data-testid='ctx-inc' onClick() { (ctx() as { counter: Store<{ count: number }> }).counter.setState((s) => ({ count: s.count + 1 })) }>
+      <button
+        data-testid='ctx-inc'
+        onClick() {
+          ;(ctx() as { counter: Store<{ count: number }> }).counter.setState(
+            (s) => ({ count: s.count + 1 }),
+          )
+        }
+      >
         inc via context
       </button>
     </store-provider>

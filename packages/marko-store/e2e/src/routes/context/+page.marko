@@ -2,7 +2,10 @@ import { ctxCounterStore } from '../../context-store'
 
 <!doctype html>
 <html lang='en'>
-  <head><meta charset='utf-8'><title>marko-store context delivery resume probe</title></head>
+  <head>
+    <meta charset='utf-8'>
+    <title>marko-store context delivery resume probe</title>
+  </head>
   <body>
     <let/resumed='no'>
     <lifecycle onMount() {
@@ -17,16 +20,31 @@ import { ctxCounterStore } from '../../context-store'
       bundle in a handler to write.
     -->
     <store-provider value=() => ({ counter: ctxCounterStore })>
-      <store-selector/count context=(c: { counter: typeof ctxCounterStore }) => c.counter selector=(s) => s.count/>
+      <store-selector/count
+        context=(c: { counter: typeof ctxCounterStore }) => c.counter
+        selector=(s) => s.count
+      />
       <div data-testid='selector-count'>${count}</div>
 
       <store-context/ctx/>
-      <button data-testid='ctx-reset' onClick() { (ctx() as { counter: typeof ctxCounterStore }).counter.setState(() => ({ count: 0 })) }>
+      <button
+        data-testid='ctx-reset'
+        onClick() {
+          ;(ctx() as { counter: typeof ctxCounterStore }).counter.setState(
+            () => ({ count: 0 }),
+          )
+        }
+      >
         reset via context
       </button>
     </store-provider>
 
-    <button data-testid='external-inc' onClick() { ctxCounterStore.setState((s) => ({ count: s.count + 1 })) }>
+    <button
+      data-testid='external-inc'
+      onClick() {
+        ctxCounterStore.setState((s) => ({ count: s.count + 1 }))
+      }
+    >
       external inc
     </button>
   </body>

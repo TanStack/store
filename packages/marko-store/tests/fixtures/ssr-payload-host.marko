@@ -13,15 +13,19 @@ export interface Input {
 }
 
 <let/value=input.payload>
-<lifecycle<{ touched?: boolean }>
-  onMount() {
-    // Capturing `value` here is what makes the scope resumable and the payload
-    // subject to serialization.
-    this.touched = value != null
-  }
->
+<lifecycle<{ touched?: boolean }> onMount() {
+  // Capturing `value` here is what makes the scope resumable and the payload
+  // subject to serialization.
+  this.touched = value != null
+}>
 <div data-testid='title'>${value.title ?? ''}</div>
-<div data-testid='date'>${value.when instanceof Date ? value.when.toISOString() : 'not-a-date'}</div>
-<div data-testid='map'>${value.tags instanceof Map ? String(value.tags.get('a')) : 'not-a-map'}</div>
-<div data-testid='set'>${value.ids instanceof Set ? String(value.ids.has(2)) : 'not-a-set'}</div>
+<div data-testid='date'>
+  ${value.when instanceof Date ? value.when.toISOString() : 'not-a-date'}
+</div>
+<div data-testid='map'>
+  ${value.tags instanceof Map ? String(value.tags.get('a')) : 'not-a-map'}
+</div>
+<div data-testid='set'>
+  ${value.ids instanceof Set ? String(value.ids.has(2)) : 'not-a-set'}
+</div>
 <div data-testid='rows'>${JSON.stringify(value.rows ?? null)}</div>

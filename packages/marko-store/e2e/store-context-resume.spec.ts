@@ -5,7 +5,8 @@ import type { Page } from '@playwright/test'
 // proven here, in real Chromium, against the real @marko/vite dev-server resume pipeline.
 // A store-independent resume marker (data-testid="resumed") confirms the page resumed before
 // the tag output is judged: "yes" only after a client onMount runs.
-const isDevServerNoise = (e: string) => /websocket|ws:\/\/|\[vite\]|favicon/i.test(e)
+const isDevServerNoise = (e: string) =>
+  /websocket|ws:\/\/|\[vite\]|favicon/i.test(e)
 
 function trackErrors(page: Page) {
   const errors: Array<string> = []

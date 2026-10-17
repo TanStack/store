@@ -27,9 +27,13 @@ test('a render-only selector page hydrates and stays live under the production b
 
   // Liveness: the tag's subscription must be real, not just painted HTML.
   await page.evaluate(() => {
-    ;(globalThis as any).__gateStore.setState((s: any) => ({ count: s.count + 1 }))
+    ;(globalThis as any).__gateStore.setState((s: any) => ({
+      count: s.count + 1,
+    }))
   })
   await expect(page.getByTestId('count')).toHaveText('8')
 
-  expect(errors, 'zero client errors expected on the render-only page').toEqual([])
+  expect(errors, 'zero client errors expected on the render-only page').toEqual(
+    [],
+  )
 })

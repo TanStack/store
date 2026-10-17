@@ -9,7 +9,8 @@ test('store-actions: renders and votes through an action', async ({ page }) => {
     if (!ignore(e.message)) errors.push('pageerror: ' + e.message)
   })
   page.on('console', (m) => {
-    if (m.type() === 'error' && !ignore(m.text())) errors.push('console.error: ' + m.text())
+    if (m.type() === 'error' && !ignore(m.text()))
+      errors.push('console.error: ' + m.text())
   })
 
   await page.goto('/')

@@ -78,7 +78,6 @@ describe('<store-selector context> with multiple stores in one provider', () => 
     b.setState(() => ({ count: 101 }))
     await waitFor(() => expect(cell(el, 'count-b')).toBe('101'))
     expect(cell(el, 'count-a')).toBe('2') // a untouched by b's change
-
     ;(el.querySelector("[data-testid='write-a']") as HTMLButtonElement).click()
     await waitFor(() => expect(cell(el, 'count-a')).toBe('9'))
     expect(cell(el, 'count-b')).toBe('101') // the <store-context> write hit a only

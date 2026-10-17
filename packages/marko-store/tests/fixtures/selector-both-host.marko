@@ -1,5 +1,7 @@
 import StoreSelector from '../../src/tags/store-selector.marko'
-export interface Input { store: any }
+export interface Input {
+  store: any
+}
 <StoreSelector/count
   from=() => input.store
   context=(c: any) => c.counter

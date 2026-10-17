@@ -36,7 +36,12 @@ describe('<stream-store-provider> mounted client-only', () => {
   test('builds the store exactly once even though the const and onMount both run on the client', async () => {
     let builds = 0
     const store = createStore({ count: 7 })
-    const el = mount(BuildHost, { onBuild: () => { builds += 1 }, store })
+    const el = mount(BuildHost, {
+      onBuild: () => {
+        builds += 1
+      },
+      store,
+    })
 
     // Seeded from the one built store.
     expect(cell(el, 'count')).toBe('7')
@@ -68,7 +73,6 @@ describe('<stream-store-provider> with multiple stores in one bundle', () => {
     b.setState(() => ({ count: 23 }))
     await waitFor(() => expect(cell(el, 'count-b')).toBe('23'))
     expect(cell(el, 'count-a')).toBe('12') // a untouched by b
-
     ;(el.querySelector("[data-testid='write-a']") as HTMLButtonElement).click()
     await waitFor(() => expect(cell(el, 'count-a')).toBe('9'))
     expect(cell(el, 'count-b')).toBe('23') // the <store-context> write hit a only

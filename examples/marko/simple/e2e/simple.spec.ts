@@ -9,7 +9,8 @@ test('simple: renders and counts a click', async ({ page }) => {
     if (!ignore(e.message)) errors.push('pageerror: ' + e.message)
   })
   page.on('console', (m) => {
-    if (m.type() === 'error' && !ignore(m.text())) errors.push('console.error: ' + m.text())
+    if (m.type() === 'error' && !ignore(m.text()))
+      errors.push('console.error: ' + m.text())
   })
 
   await page.goto('/')

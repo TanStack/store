@@ -218,7 +218,6 @@ describe('<store-selector> onUpdate', () => {
     const store = createStore({ a: 1, b: 2 })
     const el = mount(SelectorSwapCompareHost, { from: () => store })
     expect(cell(el, 'value')).toBe('1')
-
     ;(
       el.querySelector("[data-testid='swap-selector']") as HTMLElement
     ).dispatchEvent(new MouseEvent('click', { bubbles: true }))

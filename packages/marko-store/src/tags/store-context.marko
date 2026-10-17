@@ -13,4 +13,5 @@ export interface Input {
   }
 })()>
 
-<return=(() => (($global ?? {}) as unknown as Record<string, unknown>)[contextKey])>
+<return=() =>
+  (($global ?? {}) as unknown as Record<string, unknown>)[contextKey]>

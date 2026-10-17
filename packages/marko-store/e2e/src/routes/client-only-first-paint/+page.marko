@@ -13,7 +13,10 @@ import { createStore } from '@tanstack/store'
 // blank, a later entry the recovered value.
 <!doctype html>
 <html lang='en'>
-  <head><meta charset='utf-8'><title>client-only first paint</title></head>
+  <head>
+    <meta charset='utf-8'>
+    <title>client-only first paint</title>
+  </head>
   <body>
     <let/resumed='no'>
     <let/show=false>
@@ -21,20 +24,21 @@ import { createStore } from '@tanstack/store'
       const s = v === undefined || v === null ? '' : String(v)
       const g = globalThis as any
       g.__paintHistory = g.__paintHistory ?? []
-      if (g.__paintHistory[g.__paintHistory.length - 1] !== s) g.__paintHistory.push(s)
+      if (g.__paintHistory[g.__paintHistory.length - 1] !== s)
+        g.__paintHistory.push(s)
       return s
     }>
     <lifecycle onMount() {
       resumed = 'yes'
       show = true
-    }/>
+    }>
     <div data-testid='resumed'>${resumed}</div>
 
     <if=show>
       <store-provider value=() => ({ counter: createStore({ count: 5 }) })>
         <store-context/ctx/>
         <store-selector/count
-          from=() => ((ctx() as any)?.counter ?? null)
+          from=() => (ctx() as any)?.counter ?? null
           selector=(s: any) => s.count
         />
         <div data-testid='count'>${observe(count)}</div>

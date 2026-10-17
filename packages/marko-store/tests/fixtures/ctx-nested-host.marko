@@ -9,10 +9,18 @@ export interface Input {
   inner: any
 }
 
-<StoreProvider key="outer" value=() => ({ app: input.outer })>
-  <StoreProvider key="inner" value=() => ({ section: input.inner })>
-    <StoreSelector/appCount key="outer" context=(c: any) => c.app selector=(s: any) => s.count/>
-    <StoreSelector/sectionCount key="inner" context=(c: any) => c.section selector=(s: any) => s.count/>
+<StoreProvider key='outer' value=() => ({ app: input.outer })>
+  <StoreProvider key='inner' value=() => ({ section: input.inner })>
+    <StoreSelector/appCount
+      key='outer'
+      context=(c: any) => c.app
+      selector=(s: any) => s.count
+    />
+    <StoreSelector/sectionCount
+      key='inner'
+      context=(c: any) => c.section
+      selector=(s: any) => s.count
+    />
     <div data-testid='app'>${appCount}</div>
     <div data-testid='section'>${sectionCount}</div>
   </StoreProvider>

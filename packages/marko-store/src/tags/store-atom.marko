@@ -23,13 +23,13 @@ export type Value<T> = unknown extends T ? any : T
   if (source != null && typeof source.set !== 'function') {
     throw new Error(
       '<store-atom> expects an atom from createAtom(); the provided value has no set() ' +
-      'method. A Store (createStore) uses setState — read it with <store-selector> instead.'
+        'method. A Store (createStore) uses setState — read it with <store-selector> instead.',
     )
   }
   return source
 }>
 
-<let/value: Value<T> =(() => {
+<let/value: Value<T>=(() => {
   const source = assertAtom(input.from())
   return source == null ? undefined : source.get()
 })()>

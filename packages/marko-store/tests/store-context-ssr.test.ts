@@ -9,7 +9,10 @@ import MissingProviderHost from './fixtures/ctx-missing-provider-host.marko'
 import DupProviderHost from './fixtures/ctx-dup-provider-host.marko'
 import { counterStore } from './fixtures/ctx-store'
 
-async function renderToString(t: any, input: Record<string, unknown>): Promise<string> {
+async function renderToString(
+  t: any,
+  input: Record<string, unknown>,
+): Promise<string> {
   let out = ''
   for await (const c of t.render(input)) out += String(c)
   return out
@@ -24,12 +27,14 @@ describe('SSR — <store-provider> + <store-selector context>', () => {
   })
 
   it('<store-context> used without a provider throws at server render', async () => {
-    await expect(renderToString(MissingProviderHost as any, {})).rejects.toThrow(
-      /store-provider/,
-    )
+    await expect(
+      renderToString(MissingProviderHost as any, {}),
+    ).rejects.toThrow(/store-provider/)
   })
 
   it('a duplicate <store-provider> for the same key throws at server render', async () => {
-    await expect(renderToString(DupProviderHost as any, {})).rejects.toThrow(/Duplicate/)
+    await expect(renderToString(DupProviderHost as any, {})).rejects.toThrow(
+      /Duplicate/,
+    )
   })
 })

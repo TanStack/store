@@ -5,5 +5,8 @@ export interface Input {
 }
 
 // Re-renders only when state[animal] changes; an unrelated change won't re-render it.
-<store-selector/count from=(() => store) selector=((s: { dogs: number; cats: number }) => s[input.animal])/>
+<store-selector/count
+  from=() => store
+  selector=(s: { dogs: number; cats: number }) => s[input.animal]
+/>
 <div>${input.animal}: ${count}</div>

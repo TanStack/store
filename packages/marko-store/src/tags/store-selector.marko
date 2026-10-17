@@ -18,11 +18,14 @@ export interface Input<TSource, TSelected = TSource> {
 <const/defaultCompare=(a: any, b: any) => a === b>
 // When no selector is given, TSelected defaults to TSource (see Input), so the identity
 // fallback is type-correct; the assertion only bridges TS's inability to narrow the `??`.
-<const/select=input.selector ?? ((snapshot: TSource) => snapshot as unknown as TSelected)>
+<const/select=input.selector ??
+((snapshot: TSource) => snapshot as unknown as TSelected)>
 
 <const/_modeGuard=(() => {
   if (input.from && input.context) {
-    throw new Error('<store-selector> takes either `from` or `context`, not both.')
+    throw new Error(
+      '<store-selector> takes either `from` or `context`, not both.',
+    )
   }
 })()>
 
@@ -38,7 +41,10 @@ export interface Input<TSource, TSelected = TSource> {
 }>
 
 // Seed at render — null-tolerant (empty shelf => undefined, no crash).
-<let/value=(() => { const s = resolveSource(); return s == null ? undefined : select(s.get()) })()>
+<let/value=(() => {
+  const s = resolveSource()
+  return s == null ? undefined : select(s.get())
+})()>
 
 <lifecycle<{
   unsub?: (() => void) | null
@@ -63,7 +69,10 @@ export interface Input<TSource, TSelected = TSource> {
       this.last = seeded
       this.unsub = source.subscribe((snapshot: any) => {
         const next = (input.selector ?? ((s: any) => s))(snapshot)
-        if (!cmp(this.last as any, next)) { this.last = next; value = next as any }
+        if (!cmp(this.last as any, next)) {
+          this.last = next
+          value = next as any
+        }
       }).unsubscribe
     }
     const source = resolveSource()
@@ -72,7 +81,10 @@ export interface Input<TSource, TSelected = TSource> {
     if (input.context) {
       this.busOff = subscribeStorePublish(() => {
         const s = resolveSource()
-        if (s != null && s !== this.src) { this.unsub?.(); subscribeTo(s) }
+        if (s != null && s !== this.src) {
+          this.unsub?.()
+          subscribeTo(s)
+        }
       })
     }
   }
@@ -87,7 +99,10 @@ export interface Input<TSource, TSelected = TSource> {
       this.unsub = source.subscribe((snapshot: any) => {
         const next = (input.selector ?? ((s: any) => s))(snapshot)
         const c = input.compare ?? defaultCompare
-        if (!c(this.last as any, next)) { this.last = next; value = next as any }
+        if (!c(this.last as any, next)) {
+          this.last = next
+          value = next as any
+        }
       }).unsubscribe
     } else if (input.selector !== this.sel && this.src != null) {
       // A deliberate selector swap always takes effect. `compare` exists to drop

@@ -5,6 +5,10 @@ export function subscribeStorePublish(fn: () => void): () => void {
 }
 export function publishStore(): void {
   subscribers.forEach((fn) => {
-    try { fn() } catch { /* torn-down subscriber */ }
+    try {
+      fn()
+    } catch {
+      /* torn-down subscriber */
+    }
   })
 }

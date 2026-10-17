@@ -8,7 +8,9 @@ import { expect, test } from '@playwright/test'
 // either way: the request fails, and the streamed value never reaches a body. The throw itself
 // stays pinned handler-independently by the unit fixture
 // (ssr-stream-ctx-above → "without a <store-provider> above it").
-test('store-context above the streamed helper fails fast', async ({ request }) => {
+test('store-context above the streamed helper fails fast', async ({
+  request,
+}) => {
   let failed = false
   let body = ''
   try {

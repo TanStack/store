@@ -14,4 +14,11 @@ export interface Input {
 
 <StoreAtom/value from=input.from/>
 <div data-testid='value'>${value ?? ''}</div>
-<button data-testid='inc' onClick() { value = (value ?? 0) + 1 }>inc</button>
+<button
+  data-testid='inc'
+  onClick() {
+    value = (value ?? 0) + 1
+  }
+>
+  inc
+</button>

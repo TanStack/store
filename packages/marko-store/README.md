@@ -32,15 +32,15 @@ The rest of the doc leans on these, so it's worth pinning them down first.
 
 - **Store** — an object that holds some state and lets you read it, change it, and
   listen for changes: `createStore({ count: 0, name: "Ada" })`.
-- **Snapshot** (the store's *value*) — the whole state object right now,
+- **Snapshot** (the store's _value_) — the whole state object right now,
   `{ count: 0, name: "Ada" }`. You read it with `store.state`.
 - **Slice** — the part of a store's snapshot you select to watch. It can be a single
   field or a few related fields grouped together: `s => s.count`, or
-  `s => ({ id: s.id, name: s.name })`. A slice is a portion of *one store's* state —
+  `s => ({ id: s.id, name: s.name })`. A slice is a portion of _one store's_ state —
   not the same as a bundle member, which is a whole store inside a bundle (see Bundle).
 - **Selector** — that picking function. `<store-selector>` re-renders only when the
   slice the selector returns changes, not on every store change.
-- **Atom** — a store for a *single value* (`createAtom(0)`) with a direct setter.
+- **Atom** — a store for a _single value_ (`createAtom(0)`) with a direct setter.
   Reach for it when the state is just one thing.
 - **Bundle** — one plain object that groups several stores under names,
   `{ user, cart }`. It's what `<store-provider>` shares. A bundle is one object
@@ -64,19 +64,25 @@ a whole.
 The same counter, written both ways:
 
 ```marko
-import { createStore, createAtom } from "@tanstack/store"
+import { createStore, createAtom } from '@tanstack/store'
 
 // Atom: the state IS the number. Read and set it directly.
 static const countAtom = createAtom(0)
-<store-atom/n from=(() => countAtom)>
-  <button onClick() { n++ }>${n}</button>
+<store-atom/n from=() => countAtom>
+  <button onClick() {
+    n++
+  }>
+    ${n}
+  </button>
 </store-atom>
 
 // Store: the number is one field of an object. Pick it with a selector,
 // change it with setState.
 static const countStore = createStore({ count: 0, updatedAt: 0 })
-<store-selector/count from=(() => countStore) selector=(s => s.count)>
-  <button onClick() { countStore.setState(s => ({ count: s.count + 1, updatedAt: Date.now() })) }>
+<store-selector/count from=() => countStore selector=(s) => s.count>
+  <button onClick() {
+    countStore.setState((s) => ({ count: s.count + 1, updatedAt: Date.now() }))
+  }>
     ${count}
   </button>
 </store-selector>
@@ -88,24 +94,24 @@ Rule of thumb: one value → atom; an object you slice → store.
 
 ### Why not just read the value directly?
 
-A store holds *live* state. Reading `store.state.count` once gives you the number at
+A store holds _live_ state. Reading `store.state.count` once gives you the number at
 that instant and nothing more — when the store changes later, your markup won't.
 `<store-selector>` subscribes to the store for you and re-renders only when the slice
 you selected changes. So `${store.state.count}` would show a stale `0` forever, while
 `<store-selector>` keeps it correct. In short, `<store-selector>` is the piece that
-makes your markup *reactive* to the store — a plain read is a one-off snapshot that
+makes your markup _reactive_ to the store — a plain read is a one-off snapshot that
 never updates.
 
 ### Basic use
 
 ```marko
-static const store = createStore({ count: 0, name: "Ada" })
-<store-selector/count from=(() => store) selector=(s => s.count)>
+static const store = createStore({ count: 0, name: 'Ada' })
+<store-selector/count from=() => store selector=(s) => s.count>
   <p>Count: ${count}</p>
 </store-selector>
 ```
 
-`from` is a *function* that returns the store, never the store itself. That keeps the
+`from` is a _function_ that returns the store, never the store itself. That keeps the
 store out of serialized component state, which is what lets the page resume after
 server rendering. It must return the same store every call — don't create the store
 inside it.
@@ -119,13 +125,13 @@ Module-level vs per-request stores.)
 
 ### Attributes
 
-| Attribute  | Required | Description                                                        |
-| ---------- | -------- | ------------------------------------------------------------------ |
-| `from`     | \*       | Function returning the store/atom (`() => store`).                 |
+| Attribute  | Required | Description                                                                        |
+| ---------- | -------- | ---------------------------------------------------------------------------------- |
+| `from`     | \*       | Function returning the store/atom (`() => store`).                                 |
 | `context`  | \*       | Pick a store out of a provided bundle (see Sharing stores). Use instead of `from`. |
-| `selector` | no       | Maps the snapshot to the slice you want. Defaults to the whole snapshot. |
-| `compare`  | no       | Decides what counts as "changed" for the slice. Defaults to `===`. |
-| `key`      | no       | Which provided bundle to read, when using `context`. Defaults to the shared key. |
+| `selector` | no       | Maps the snapshot to the slice you want. Defaults to the whole snapshot.           |
+| `compare`  | no       | Decides what counts as "changed" for the slice. Defaults to `===`.                 |
+| `key`      | no       | Which provided bundle to read, when using `context`. Defaults to the shared key.   |
 
 \* Supply exactly one of `from` or `context`. Passing both throws.
 
@@ -134,7 +140,7 @@ Module-level vs per-request stores.)
 No `selector` — track the whole snapshot:
 
 ```marko
-<store-selector/whole from=(() => store)>
+<store-selector/whole from=() => store>
   <pre>${JSON.stringify(whole)}</pre>
 </store-selector>
 ```
@@ -144,27 +150,27 @@ not re-render:
 
 ```marko
 <store-selector/name
-  from=(() => store)
-  selector=(s => s.name)
-  compare=((a, b) => a.toLowerCase() === b.toLowerCase())
+  from=() => store
+  selector=(s) => s.name
+  compare=(a, b) => a.toLowerCase() === b.toLowerCase()
 >
   <p>${name}</p>
 </store-selector>
 ```
 
 **Object and array slices need `compare=shallow`.** A selector that returns an object
-or array (`s => ({ id: s.id, name: s.name })`) builds a *fresh reference on every
-store change*, so the default `===` compare never sees two equal slices — the tag
+or array (`s => ({ id: s.id, name: s.name })`) builds a _fresh reference on every
+store change_, so the default `===` compare never sees two equal slices — the tag
 re-renders on every change to the store, even ones your slice doesn't care about.
 Pass `shallow` (re-exported from the core) to compare contents instead of identity:
 
 ```marko
-import { shallow } from "@tanstack/marko-store"
+import { shallow } from '@tanstack/marko-store'
 
 <store-selector/user
-  from=(() => store)
-  selector=(s => ({ id: s.id, name: s.name }))
-  compare=((a, b) => shallow(a, b))
+  from=() => store
+  selector=(s) => ({ id: s.id, name: s.name })
+  compare=(a, b) => shallow(a, b)
 >
   <p>${user.name}</p>
 </store-selector>
@@ -186,7 +192,7 @@ with "Unable to serialize … reading compare"). In a browser-only mount,
 a store you hold directly:
 
 ```marko
-<store-selector/name context=(c => c.user) selector=(s => s.name)>
+<store-selector/name context=(c) => c.user selector=(s) => s.name>
   <p>${name}</p>
 </store-selector>
 ```
@@ -207,13 +213,17 @@ atom's setter.
 
 ```marko
 static const count = createAtom(0)
-<store-atom/value from=(() => count)>
-  <button onClick() { value++ }>${value}</button>
+<store-atom/value from=() => count>
+  <button onClick() {
+    value++
+  }>
+    ${value}
+  </button>
 </store-atom>
 ```
 
-| Attribute | Required | Description                          |
-| --------- | -------- | ------------------------------------ |
+| Attribute | Required | Description                              |
+| --------- | -------- | ---------------------------------------- |
 | `from`    | yes      | Function returning the atom (`() => a`). |
 
 `<store-atom>` is for atoms — it writes through the atom's `.set`. Hand it a `Store`
@@ -240,11 +250,11 @@ mechanism is worth knowing.
 
 First, two ideas worth separating, since both involve "sharing." A **store** is the
 live, changing state itself — you read it, write it, and subscribe to it, and it lasts
-as long as you hold a reference to it. **Context** is only a *delivery* mechanism: a way
+as long as you hold a reference to it. **Context** is only a _delivery_ mechanism: a way
 for a value to reach a deep child without threading it through every tag in between. On
 its own, context says nothing about reactivity or how long something lives — it just
 gets a value from an ancestor to its descendants. `<store-provider>` combines the two:
-it delivers a *store* through a context-style channel, so children get both the reach
+it delivers a _store_ through a context-style channel, so children get both the reach
 of context and the reactivity of a store.
 
 "Context" usually means sharing a value down the tree without threading it through
@@ -264,12 +274,12 @@ nonce). Plain reads of those serialized values are available as `out.global` /
 
 `<store-provider>` is built on `$global` but is **store-specific**, not a general value
 carrier. It groups stores as a bundle; because a live store can't be serialized it does
-*not* put stores in `serializedGlobals` — instead it rebuilds the stores per request on
+_not_ put stores in `serializedGlobals` — instead it rebuilds the stores per request on
 each side from data (the data rides the normal serialized input), so server and client
 end up with matching stores. And since `$global` isn't reactive, the provider rings a
 small internal signal when it mounts so selectors notice the bundle. So the rule of
 thumb: to share a plain value, use `$global` / `serializedGlobals` directly; to share
-*stores*, use `<store-provider>`.
+_stores_, use `<store-provider>`.
 
 ### Can providers be nested?
 
@@ -277,17 +287,25 @@ Yes. Give each provider a distinct `key`, and a child reads whichever bundle it 
 by passing the matching key. Two providers sharing a key throw on purpose — that's
 what stops two features from clobbering each other. (Verified by tests.)
 
-The two `key`s play different roles: the **provider's** `key` *names* the bundle (the
-slot it parks under), while a **selector's** or **`<store-context>`'s** `key` *chooses*
+The two `key`s play different roles: the **provider's** `key` _names_ the bundle (the
+slot it parks under), while a **selector's** or **`<store-context>`'s** `key` _chooses_
 which named bundle to read. It's the same name seen from the writing side and the
 reading side, so set them to match. Omit `key` everywhere and they all use one shared
 default name.
 
 ```marko
-<store-provider key="app" value=(() => ({ session }))>
-  <store-provider key="cart" value=(() => ({ cart }))>
-    <store-selector/user  key="app"  context=(c => c.session) selector=(s => s.user)/>
-    <store-selector/items key="cart" context=(c => c.cart)    selector=(s => s.items)/>
+<store-provider key='app' value=() => ({ session })>
+  <store-provider key='cart' value=() => ({ cart })>
+    <store-selector/user
+      key='app'
+      context=(c) => c.session
+      selector=(s) => s.user
+    />
+    <store-selector/items
+      key='cart'
+      context=(c) => c.cart
+      selector=(s) => s.items
+    />
   </store-provider>
 </store-provider>
 ```
@@ -301,29 +319,34 @@ with nothing non-serializable crossing. A bundle can hold any number of stores; 
 is read by its own selector and resumes on its own.
 
 ```marko
-import { createStore } from "@tanstack/store"
+import { createStore } from '@tanstack/store'
 
 export interface Input {
   user: { name: string }
   cart: { items: Array<string> }
 }
 
-<store-provider value=(() => ({
+<store-provider value=() => ({
   user: createStore(input.user),
   cart: createStore(input.cart),
-}))>
+})>
   <!-- two stores, two independent selectors -->
-  <store-selector/name context=(c => c.user) selector=(s => s.name)>
+  <store-selector/name context=(c) => c.user selector=(s) => s.name>
     <p>${name}</p>
   </store-selector>
 
-  <store-selector/itemCount context=(c => c.cart) selector=(s => s.items.length)>
+  <store-selector/itemCount
+    context=(c) => c.cart
+    selector=(s) => s.items.length
+  >
     <p>${itemCount} in cart</p>
   </store-selector>
 
   <!-- write a member by reaching the bundle through store-context -->
   <store-context/ctx>
-    <button onClick() { ctx().cart.setState(s => ({ ...s, items: [...s.items, "x"] })) }>
+    <button onClick() {
+      ctx().cart.setState((s) => ({ ...s, items: [...s.items, 'x'] }))
+    }>
       add to cart
     </button>
   </store-context>
@@ -334,17 +357,17 @@ export interface Input {
 per-request input, and resume independently on the client — incrementing the cart
 doesn't touch `user`, and either store rehydrates on its own.
 
-`<store-context>` returns a *getter* for the bundle, so write handlers call `ctx()`
+`<store-context>` returns a _getter_ for the bundle, so write handlers call `ctx()`
 and pick the member: `ctx().user.setState(...)`. It only works inside a
 `<store-provider>` — there has to be a bundle for it to read — so with no provider
 above it, it throws a clear error at render. (The selector's `context` mode is the
 same; only `from` mode works without a provider.)
 
-So when *do* you write through `<store-context>` versus directly? If you already hold a
+So when _do_ you write through `<store-context>` versus directly? If you already hold a
 store — imported or module-level — you write to it directly: `store.setState(...)`,
 right in the handler. There's no write tag for that case and you don't need one
-(`<store-selector>` only *reads*). `<store-context>` exists for the one case where you
-*don't* hold the store: a `<store-provider>` handed it down, so the child has no direct
+(`<store-selector>` only _reads_). `<store-context>` exists for the one case where you
+_don't_ hold the store: a `<store-provider>` handed it down, so the child has no direct
 reference, and `<store-context>` is how it reaches back to the bundle to call
 `setState`. (Atoms are the same idea: hold one directly and you use `<store-atom>` or
 `atom.set(...)`.)
@@ -356,12 +379,10 @@ render to match, so you don't need per-request data. Create the stores once when
 module loads and put those same stores in the bundle:
 
 ```marko
-static const user = createStore({ name: "Ada" })
+static const user = createStore({ name: 'Ada' })
 static const cart = createStore({ items: [] })
 
-<store-provider value=(() => ({ user, cart }))>
-  ...
-</store-provider>
+<store-provider value=() => ({ user, cart })>...</store-provider>
 ```
 
 The per-request version above exists only because server rendering needs a fresh set
@@ -373,7 +394,7 @@ stores are fine.
 A **module-level store** is created once, at the top of a module
 (`static const store = createStore(...)`), and there is a single shared instance for
 the whole process. In the browser that's exactly what you want, and here's why: each
-visitor loads the page in their *own* browser, so each gets their own copy of the
+visitor loads the page in their _own_ browser, so each gets their own copy of the
 module and their own store instance. Its state builds up over that one session, fully
 isolated from every other user. It's what the selector and atom examples above use.
 
@@ -381,14 +402,14 @@ A **per-request store** is created inside the provider's `value` from incoming d
 (`createStore(input.data)`), so a fresh instance is built for each request, and again
 on the client during resume.
 
-Why it matters: on a server a module-level store is shared by *every* request at once,
+Why it matters: on a server a module-level store is shared by _every_ request at once,
 so one visitor's state would leak into another's. Server rendering therefore needs
 per-request stores. A browser-only app doesn't have that problem, so either works.
 Rule of thumb: server-rendered → build the stores per request from data; browser-only
 → module-level stores are fine.
 
 There's a third shape that looks like a fix for the leak but is broken under server
-rendering: creating the store as a local `const` *inside a component*
+rendering: creating the store as a local `const` _inside a component_
 (`<const/store=createStore(...)>` or a plain `const` in the component's body). It's
 per-request on the server, but the client is dead: Marko's resume doesn't re-run the
 component's body in the browser, so that store is never recreated there — handlers
@@ -399,9 +420,9 @@ component and expect it to be live after resume.
 
 ### `<store-provider>` attributes
 
-| Attribute | Required | Description                                                       |
-| --------- | -------- | ----------------------------------------------------------------- |
-| `value`   | yes      | Function returning the bundle object (`() => ({ a, b })`).        |
+| Attribute | Required | Description                                                                      |
+| --------- | -------- | -------------------------------------------------------------------------------- |
+| `value`   | yes      | Function returning the bundle object (`() => ({ a, b })`).                       |
 | `key`     | no       | Name this bundle so a selector/context can target it. Defaults to a shared name. |
 
 ## Streaming data into a store: `<stream-store-provider>`
@@ -424,8 +445,8 @@ needs the placeholder slot. `<stream-store-provider>` behaves identically either
 
 `<store-provider>` builds its stores up front, in the shell, because their data is ready before the
 page renders. Streamed data isn't ready then — it only exists once the `<await>` resolves, which is
-*after* the shell (and the provider) have already rendered. So the provider can't build a store
-from streamed data: it runs too early. `<stream-store-provider>` is the provider you put *inside*
+_after_ the shell (and the provider) have already rendered. So the provider can't build a store
+from streamed data: it runs too early. `<stream-store-provider>` is the provider you put _inside_
 the awaited block, where the data finally exists. It builds the store there — on the server as the
 piece renders, and again in the browser as the piece resumes — so the store is **born with the
 data** on both sides. The value paints on the server (no empty first frame, no flash) and the store
@@ -454,15 +475,18 @@ Rule of thumb: data ready at render → `<store-provider>`; data that streams in
 ### Basic use
 
 ```marko
-import { createStore } from "@tanstack/store"
+import { createStore } from '@tanstack/store'
 
 export interface Input {
   userId: string
 }
 
 <await|profile|=fetchProfile(input.userId)>
-  <stream-store-provider key="profile" value=(() => ({ profile: createStore(profile) }))>
-    <store-selector/name context=(c => c.profile) selector=(s => s.name)>
+  <stream-store-provider
+    key='profile'
+    value=() => ({ profile: createStore(profile) })
+  >
+    <store-selector/name context=(c) => c.profile selector=(s) => s.name>
       <p>${name}</p>
     </store-selector>
   </stream-store-provider>
@@ -470,11 +494,11 @@ export interface Input {
 ```
 
 `profile` is the awaited data. The `value` thunk closes over it and builds the bundle right there.
-Because the thunk *names* `profile`, Marko ships that data with the block, so the same thunk
+Because the thunk _names_ `profile`, Marko ships that data with the block, so the same thunk
 rebuilds the store in the browser when the block resumes. Children read it with `<store-selector>`
 in `context` mode exactly as under `<store-provider>`, and write it through `<store-context>`. The
 `value` thunk and the bundle are identical to `<store-provider>` — a bundle can hold any number of
-stores, each read by its own selector. The only shape difference is *where* the tag goes: inside the
+stores, each read by its own selector. The only shape difference is _where_ the tag goes: inside the
 `<await>`, so it can see the data.
 
 ### Out-of-order, and catching errors: `<try>`
@@ -487,8 +511,11 @@ placeholder holding its slot until then:
 ```marko
 <try>
   <await|profile|=fetchProfile(input.userId)>
-    <stream-store-provider key="profile" value=(() => ({ profile: createStore(profile) }))>
-      <store-selector/name context=(c => c.profile) selector=(s => s.name)>
+    <stream-store-provider
+      key='profile'
+      value=() => ({ profile: createStore(profile) })
+    >
+      <store-selector/name context=(c) => c.profile selector=(s) => s.name>
         <p>${name}</p>
       </store-selector>
     </stream-store-provider>
@@ -506,8 +533,11 @@ the fallback instead of breaking the stream:
 ```marko
 <try>
   <await|profile|=fetchProfile(input.userId)>
-    <stream-store-provider key="profile" value=(() => ({ profile: createStore(profile) }))>
-      <store-selector/name context=(c => c.profile) selector=(s => s.name)>
+    <stream-store-provider
+      key='profile'
+      value=() => ({ profile: createStore(profile) })
+    >
+      <store-selector/name context=(c) => c.profile selector=(s) => s.name>
         <p>${name}</p>
       </store-selector>
     </stream-store-provider>
@@ -540,9 +570,9 @@ with a top-level provider's default name.
   `<const>` becomes part of the block's serialized state, a live store cannot be serialized, and the
   server render throws "Unable to serialize". The thunk keeps the store off that path. This is the
   one real trap, and the reason the tag exists instead of a one-liner.
-- **A selector *above* the block** cannot have the data yet — the block has not rendered. It shows
+- **A selector _above_ the block** cannot have the data yet — the block has not rendered. It shows
   its default (empty / `undefined`, since the selector is null-tolerant) and then updates the instant
-  the block lands and the store is parked. A selector *inside* the block shows the value immediately,
+  the block lands and the store is parked. A selector _inside_ the block shows the value immediately,
   with no flash. Put readers that must be correct on first paint inside the block.
 - **`<store-context>` above the block throws** at render, because the box is still empty at that
   point — you cannot grab a streamed store from above where it is created. Read or write the streamed
@@ -553,9 +583,9 @@ with a top-level provider's default name.
 
 ### `<stream-store-provider>` attributes
 
-| Attribute | Required | Description                                                                 |
-| --------- | -------- | --------------------------------------------------------------------------- |
-| `value`   | yes      | Function returning the bundle object (`() => ({ a, b })`), built from the awaited data. Same as `<store-provider>`. |
+| Attribute | Required | Description                                                                                                                                        |
+| --------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `value`   | yes      | Function returning the bundle object (`() => ({ a, b })`), built from the awaited data. Same as `<store-provider>`.                                |
 | `key`     | yes      | Names this bundle's box so a selector / `<store-context>` can target it. Required, and must be distinct per provider — there is no shared default. |
 
 Reading and writing the streamed stores is unchanged: `<store-selector>` in `context` mode reads a
@@ -578,12 +608,12 @@ The fix is to tell TypeScript the shape yourself, in two places:
 ```marko
 // 1) annotate the picker's parameter
 <store-selector/name
-  context=((c: { user: typeof user; cart: typeof cart }) => c.user)
-  selector=(s => s.name)
+  context=(c: { user: typeof user; cart: typeof cart }) => c.user
+  selector=(s) => s.name
 />
 
 // 2) assert the getter when writing
-(ctx() as { user: typeof user; cart: typeof cart }).user.setState(...)
+<(ctx() as { user: typeof user; cart: typeof cart }) .user.setState(...)/>
 ```
 
 `typeof user` just reuses the store's own type, so you don't retype its shape. Once
@@ -626,16 +656,16 @@ functionality one.)
 ## TypeScript configs
 
 These four `tsconfig` files are about building and type-checking this package
-itself — if you're only *using* `@tanstack/marko-store`, you can skip this. Each does
+itself — if you're only _using_ `@tanstack/marko-store`, you can skip this. Each does
 one job: two type-check, two emit, split across the two tools involved (`tsdown` for
 the plain-TypeScript index, `marko-type-check` for the `.marko` tags).
 
-| File | What it does | Why it's needed |
-| --- | --- | --- |
-| `tsconfig.json` | The base every other config extends. Holds the shared compiler settings and maps `@tanstack/store` to `../store/src`. | One place for the defaults, used by editors and inherited by the rest. The path mapping gives live types from the sibling `store` package with no build step. |
-| `tsconfig.build.json` | Used by `tsdown` to compile `src/index.ts` into `dist` (the ESM/CJS core re-export). Blanks the `@tanstack/store` path mapping. | The published index must resolve `@tanstack/store` as the real installed dependency — the way a consumer's build sees it — not as local workspace source. |
-| `tsconfig.marko.json` | Used by `marko-type-check` to type-check the package, `.marko` files included, writing nothing (`noEmit`). Covers `src` and `tests`. | Checking `.marko` needs Marko-aware resolution. This is the `test:types:marko` check; a check step should never emit output. The `e2e` app is its own nested package and runs its own `marko-type-check`. |
-| `tsconfig.tags.json` | Used by `marko-type-check` to *build* the tags: compiles `src/tags` into `dist/tags` (stripped `.marko` + generated `.d.marko` + the `store-bus` helper). Scoped to `src/tags` only. | Publishing ships built tags, not raw source. It's scoped so it doesn't rebuild the index (`tsdown` owns that), and unlike the check config it emits (`declaration` on, `noEmit` off). |
+| File                  | What it does                                                                                                                                                                         | Why it's needed                                                                                                                                                                                           |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `tsconfig.json`       | The base every other config extends. Holds the shared compiler settings and maps `@tanstack/store` to `../store/src`.                                                                | One place for the defaults, used by editors and inherited by the rest. The path mapping gives live types from the sibling `store` package with no build step.                                             |
+| `tsconfig.build.json` | Used by `tsdown` to compile `src/index.ts` into `dist` (the ESM/CJS core re-export). Blanks the `@tanstack/store` path mapping.                                                      | The published index must resolve `@tanstack/store` as the real installed dependency — the way a consumer's build sees it — not as local workspace source.                                                 |
+| `tsconfig.marko.json` | Used by `marko-type-check` to type-check the package, `.marko` files included, writing nothing (`noEmit`). Covers `src` and `tests`.                                                 | Checking `.marko` needs Marko-aware resolution. This is the `test:types:marko` check; a check step should never emit output. The `e2e` app is its own nested package and runs its own `marko-type-check`. |
+| `tsconfig.tags.json`  | Used by `marko-type-check` to _build_ the tags: compiles `src/tags` into `dist/tags` (stripped `.marko` + generated `.d.marko` + the `store-bus` helper). Scoped to `src/tags` only. | Publishing ships built tags, not raw source. It's scoped so it doesn't rebuild the index (`tsdown` owns that), and unlike the check config it emits (`declaration` on, `noEmit` off).                     |
 
 Why four rather than one: two things vary and can't share a file — **check vs emit**
 (a config has a single `noEmit` and `outDir`) and **which tool/scope** (`tsdown` for

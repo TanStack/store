@@ -1,2 +1,5 @@
-<store-selector/total context=((c: any) => c.votesStore) selector=((s: any) => s.cats + s.dogs)/>
+<store-selector/total
+  context=(c: any) => c.votesStore
+  selector=(s: any) => s.cats + s.dogs
+/>
 <p>Total votes: ${total}</p>

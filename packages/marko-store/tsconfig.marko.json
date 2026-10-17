@@ -4,9 +4,7 @@
     "moduleResolution": "Bundler",
     "noEmit": true,
     "paths": {},
-    "types": [
-      "node"
-    ]
+    "types": ["node"]
   },
   "include": [
     "src/**/*.ts",

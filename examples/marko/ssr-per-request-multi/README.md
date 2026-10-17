@@ -14,4 +14,5 @@ To run this example:
 
 It's an `@marko/run` app: the page is server-rendered, resumes in the browser,
 and stays live. `npm run test:e2e` runs its Playwright smoke test.
+
 - open `/` and `/multi`

@@ -15,7 +15,10 @@ import DeepAtomEditor from './DeepAtomEditor.marko'
 // component-local const store would be dead after resume (the component body
 // never re-runs in the browser); the thunk is rebuilt per request on the server
 // and again on the client, which is exactly the per-request pattern.
-<store-provider value=() => ({ votesStore: createStore({ cats: 0, dogs: 0 }), countAtom: createAtom(0) })>
+<store-provider value=() => ({
+  votesStore: createStore({ cats: 0, dogs: 0 }),
+  countAtom: createAtom(0),
+})>
   <main>
     <h1>Marko Store Context</h1>
     <p>
