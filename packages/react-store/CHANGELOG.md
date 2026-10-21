@@ -1,5 +1,11 @@
 # @tanstack/react-store
 
+## 1.0.0-alpha.1
+
+### Patch Changes
+
+- [#391](https://github.com/TanStack/store/pull/391) [`9559024`](https://github.com/TanStack/store/commit/9559024ca1f5f2793c4059b8da6fcca1bd1199cf) - Mark React hooks and context modules as client boundaries so RSC bundlers do not link them against React's server-only entry. Core Store reexports remain available to Server Components, and ordinary SSR continues using the real hooks.
+
 ## 1.0.0-alpha.0
 
 ### Major Changes

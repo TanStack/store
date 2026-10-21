@@ -767,7 +767,7 @@ importers:
   examples/react/atoms:
     dependencies:
       '@tanstack/react-store':
-        specifier: ^1.0.0-alpha.0
+        specifier: ^1.0.0-alpha.1
         version: link:../../../packages/react-store
       react:
         specifier: ^19.2.5
@@ -792,7 +792,7 @@ importers:
   examples/react/simple:
     dependencies:
       '@tanstack/react-store':
-        specifier: ^1.0.0-alpha.0
+        specifier: ^1.0.0-alpha.1
         version: link:../../../packages/react-store
       react:
         specifier: ^19.2.5
@@ -817,7 +817,7 @@ importers:
   examples/react/store-actions:
     dependencies:
       '@tanstack/react-store':
-        specifier: ^1.0.0-alpha.0
+        specifier: ^1.0.0-alpha.1
         version: link:../../../packages/react-store
       react:
         specifier: ^19.2.5
@@ -842,7 +842,7 @@ importers:
   examples/react/store-context:
     dependencies:
       '@tanstack/react-store':
-        specifier: ^1.0.0-alpha.0
+        specifier: ^1.0.0-alpha.1
         version: link:../../../packages/react-store
       react:
         specifier: ^19.2.5
@@ -867,7 +867,7 @@ importers:
   examples/react/stores:
     dependencies:
       '@tanstack/react-store':
-        specifier: ^1.0.0-alpha.0
+        specifier: ^1.0.0-alpha.1
         version: link:../../../packages/react-store
       react:
         specifier: ^19.2.5
@@ -14802,7 +14802,7 @@ snapshots:
       mime-db: 1.54.0
       minimizer-webpack-plugin: 5.13.0(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(webpack@5.111.1(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28))
       schema-utils: 4.5.0
-      tapable: 2.3.2
+      tapable: 2.3.3
       watchpack: 2.5.2
       webpack-sources: 3.6.0
     transitivePeerDependencies:
