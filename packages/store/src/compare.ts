@@ -1,16 +1,44 @@
 export function compareShallow<T>(objA: T, objB: T): boolean {
-  return _evaluate(objA, objB, { mode: 'shallow' }, new WeakMap())
+  return _evaluate(objA, objB, { mode: 'shallow' }, createSeen())
 }
 
 export function compareDeep<T>(objA: T, objB: T): boolean {
-  return _evaluate(objA, objB, { mode: 'deep' }, new WeakMap())
+  return _evaluate(objA, objB, { mode: 'deep' }, createSeen())
+}
+
+type PairSet = WeakMap<object, WeakSet<object>>
+
+interface Seen {
+  // pairs still being compared further up the stack
+  inProgress: PairSet
+  // pairs proven equal without assuming an in-progress pair
+  equal: PairSet
+  // how many times an in-progress pair was assumed equal
+  assumptions: number
+}
+
+function createSeen(): Seen {
+  return { inProgress: new WeakMap(), equal: new WeakMap(), assumptions: 0 }
+}
+
+function hasPair(pairs: PairSet, a: object, b: object): boolean {
+  return pairs.get(a)?.has(b) ?? false
+}
+
+function addPair(pairs: PairSet, a: object, b: object): void {
+  let set = pairs.get(a)
+  if (!set) {
+    set = new WeakSet()
+    pairs.set(a, set)
+  }
+  set.add(b)
 }
 
 function _evaluate<T>(
   objA: T,
   objB: T,
   config: { mode: 'shallow' | 'deep' },
-  seen: WeakMap<object, WeakSet<object>>,
+  seen: Seen,
 ): boolean {
   if (Object.is(objA, objB)) {
     return true
@@ -29,25 +57,28 @@ function _evaluate<T>(
     return _evaluateObjects(objA, objB, config, seen)
   }
 
+  if (hasPair(seen.equal, objA, objB)) return true
+
   // guards against circular references: a pair that is still being compared
-  // further up the stack is assumed equal. The pair is released afterwards so
-  // a failed comparison (e.g. while matching Set elements) is not remembered
-  // as a success.
-  let seenB = seen.get(objA as object)
-
-  if (seenB?.has(objB as object)) return true
-
-  if (!seenB) {
-    seenB = new WeakSet()
-    seen.set(objA as object, seenB)
+  // further up the stack is assumed equal. A result that relied on such an
+  // assumption is not cached, so a failed comparison (e.g. while matching Set
+  // elements) is never remembered as a success.
+  if (hasPair(seen.inProgress, objA, objB)) {
+    seen.assumptions++
+    return true
   }
 
-  seenB.add(objB as object)
+  addPair(seen.inProgress, objA, objB)
+  const assumptions = seen.assumptions
 
   try {
-    return _evaluateObjects(objA, objB, config, seen)
+    const result = _evaluateObjects(objA, objB, config, seen)
+    if (result && seen.assumptions === assumptions) {
+      addPair(seen.equal, objA, objB)
+    }
+    return result
   } finally {
-    seenB.delete(objB as object)
+    seen.inProgress.get(objA)?.delete(objB)
   }
 }
 
@@ -55,7 +86,7 @@ function _evaluateObjects<T>(
   objA: T & object,
   objB: T & object,
   config: { mode: 'shallow' | 'deep' },
-  seen: WeakMap<object, WeakSet<object>>,
+  seen: Seen,
 ): boolean {
   // guards against runtime cross type evaluation
   if (Object.getPrototypeOf(objA) !== Object.getPrototypeOf(objB)) {

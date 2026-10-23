@@ -455,6 +455,17 @@ describe('evaluate', () => {
       ).toEqual(false)
     })
 
+    it('should compare a shared child only once', () => {
+      const build = () => {
+        let node: object = { x: 1 }
+        for (let i = 0; i < 30; i++) node = { left: node, right: node }
+        return node
+      }
+
+      // 2^30 comparisons if completed pairs are not remembered
+      expect(compareDeep(build(), build())).toEqual(true)
+    })
+
     it('should test equality between File objects', () => {
       const file1 = new File(['hello'], 'hello.txt', {
         type: 'text/plain',
