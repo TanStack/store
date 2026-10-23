@@ -25,20 +25,38 @@ function _evaluate<T>(
     return false
   }
 
-  // guards against circular references
-  if (config.mode === 'deep') {
-    let seenB = seen.get(objA as object)
-
-    if (seenB?.has(objB as object)) return true
-
-    if (!seenB) {
-      seenB = new WeakSet()
-      seen.set(objA as object, seenB)
-    }
-
-    seenB.add(objB as object)
+  if (config.mode === 'shallow') {
+    return _evaluateObjects(objA, objB, config, seen)
   }
 
+  // guards against circular references: a pair that is still being compared
+  // further up the stack is assumed equal. The pair is released afterwards so
+  // a failed comparison (e.g. while matching Set elements) is not remembered
+  // as a success.
+  let seenB = seen.get(objA as object)
+
+  if (seenB?.has(objB as object)) return true
+
+  if (!seenB) {
+    seenB = new WeakSet()
+    seen.set(objA as object, seenB)
+  }
+
+  seenB.add(objB as object)
+
+  try {
+    return _evaluateObjects(objA, objB, config, seen)
+  } finally {
+    seenB.delete(objB as object)
+  }
+}
+
+function _evaluateObjects<T>(
+  objA: T & object,
+  objB: T & object,
+  config: { mode: 'shallow' | 'deep' },
+  seen: WeakMap<object, WeakSet<object>>,
+): boolean {
   // guards against runtime cross type evaluation
   if (Object.getPrototypeOf(objA) !== Object.getPrototypeOf(objB)) {
     return false
@@ -84,9 +102,15 @@ function _evaluate<T>(
     if (objA.size !== objB.size) return false
 
     if (config.mode === 'deep') {
+      // each element of objB may only be matched once
+      const unmatched = [...objB]
       for (const v of objA) {
-        if (![...objB].some((bv) => _evaluate(v, bv, config, seen)))
-          return false
+        let index = unmatched.indexOf(v)
+        if (index === -1) {
+          index = unmatched.findIndex((bv) => _evaluate(v, bv, config, seen))
+        }
+        if (index === -1) return false
+        unmatched.splice(index, 1)
       }
     }
 
