@@ -441,6 +441,30 @@ describe('evaluate', () => {
       ).toEqual(true)
     })
 
+    it('should find a Set matching that needs an earlier match to move', () => {
+      // `equals` that is not transitive: a1 equals b1 and b2, a2 only b1
+      class Item {
+        constructor(
+          readonly name: string,
+          readonly peers: Array<string>,
+        ) {}
+        equals(other: Item) {
+          return (
+            this.peers.includes(other.name) || other.peers.includes(this.name)
+          )
+        }
+      }
+      const a1 = new Item('a1', ['b1', 'b2'])
+      const a2 = new Item('a2', ['b1'])
+      const b1 = new Item('b1', [])
+      const b2 = new Item('b2', [])
+
+      expect(compareDeep(new Set([a1, a2]), new Set([b1, b2]))).toEqual(true)
+      expect(
+        compareDeep(new Set([a2, new Item('a3', ['b1'])]), new Set([b1, b2])),
+      ).toEqual(false)
+    })
+
     it('should not remember failed Set element comparisons as equal', () => {
       const p = { x: 1 }
       const q = { x: 2 }

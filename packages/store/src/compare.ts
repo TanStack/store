@@ -133,15 +133,50 @@ function _evaluateObjects<T>(
     if (objA.size !== objB.size) return false
 
     if (config.mode === 'deep') {
-      // each element of objB may only be matched once
-      const unmatched = [...objB]
-      for (const v of objA) {
-        let index = unmatched.indexOf(v)
-        if (index === -1) {
-          index = unmatched.findIndex((bv) => _evaluate(v, bv, config, seen))
+      // Match each element of objA to its own element of objB. A later
+      // element may take an earlier one's match if that one can move to
+      // another (augmenting paths), so a custom non-transitive `equals`
+      // cannot hide a valid matching. Pairs are compared lazily, once.
+      const values = [...objA]
+      const others = [...objB]
+      const owner: Array<number> = others.map(() => -1)
+      const compared = new Map<number, boolean>()
+      const matches = (value: number, index: number): boolean => {
+        const key = value * others.length + index
+        let result = compared.get(key)
+        if (result === undefined) {
+          result =
+            values[value] === others[index] ||
+            _evaluate(values[value], others[index], config, seen)
+          compared.set(key, result)
         }
-        if (index === -1) return false
-        unmatched.splice(index, 1)
+        return result
+      }
+      const assign = (value: number, visited: Array<boolean>): boolean => {
+        for (let index = 0; index < others.length; index++) {
+          if (visited[index] || !matches(value, index)) continue
+          visited[index] = true
+          const current = owner[index] ?? -1
+          if (current === -1 || assign(current, visited)) {
+            owner[index] = value
+            return true
+          }
+        }
+        return false
+      }
+      for (let value = 0; value < values.length; value++) {
+        const same = others.indexOf(values[value])
+        if (same !== -1 && owner[same] === -1) {
+          owner[same] = value
+          continue
+        }
+        if (
+          !assign(
+            value,
+            others.map(() => false),
+          )
+        )
+          return false
       }
     }
 
