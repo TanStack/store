@@ -1,16 +1,44 @@
 export function compareShallow<T>(objA: T, objB: T): boolean {
-  return _evaluate(objA, objB, { mode: 'shallow' }, new WeakMap())
+  return _evaluate(objA, objB, { mode: 'shallow' }, createSeen())
 }
 
 export function compareDeep<T>(objA: T, objB: T): boolean {
-  return _evaluate(objA, objB, { mode: 'deep' }, new WeakMap())
+  return _evaluate(objA, objB, { mode: 'deep' }, createSeen())
+}
+
+type PairSet = WeakMap<object, WeakSet<object>>
+
+interface Seen {
+  // pairs still being compared further up the stack
+  inProgress: PairSet
+  // pairs proven equal without assuming an in-progress pair
+  equal: PairSet
+  // how many times an in-progress pair was assumed equal
+  assumptions: number
+}
+
+function createSeen(): Seen {
+  return { inProgress: new WeakMap(), equal: new WeakMap(), assumptions: 0 }
+}
+
+function hasPair(pairs: PairSet, a: object, b: object): boolean {
+  return pairs.get(a)?.has(b) ?? false
+}
+
+function addPair(pairs: PairSet, a: object, b: object): void {
+  let set = pairs.get(a)
+  if (!set) {
+    set = new WeakSet()
+    pairs.set(a, set)
+  }
+  set.add(b)
 }
 
 function _evaluate<T>(
   objA: T,
   objB: T,
   config: { mode: 'shallow' | 'deep' },
-  seen: WeakMap<object, WeakSet<object>>,
+  seen: Seen,
 ): boolean {
   if (Object.is(objA, objB)) {
     return true
@@ -25,20 +53,41 @@ function _evaluate<T>(
     return false
   }
 
-  // guards against circular references
-  if (config.mode === 'deep') {
-    let seenB = seen.get(objA as object)
-
-    if (seenB?.has(objB as object)) return true
-
-    if (!seenB) {
-      seenB = new WeakSet()
-      seen.set(objA as object, seenB)
-    }
-
-    seenB.add(objB as object)
+  if (config.mode === 'shallow') {
+    return _evaluateObjects(objA, objB, config, seen)
   }
 
+  if (hasPair(seen.equal, objA, objB)) return true
+
+  // guards against circular references: a pair that is still being compared
+  // further up the stack is assumed equal. A result that relied on such an
+  // assumption is not cached, so a failed comparison (e.g. while matching Set
+  // elements) is never remembered as a success.
+  if (hasPair(seen.inProgress, objA, objB)) {
+    seen.assumptions++
+    return true
+  }
+
+  addPair(seen.inProgress, objA, objB)
+  const assumptions = seen.assumptions
+
+  try {
+    const result = _evaluateObjects(objA, objB, config, seen)
+    if (result && seen.assumptions === assumptions) {
+      addPair(seen.equal, objA, objB)
+    }
+    return result
+  } finally {
+    seen.inProgress.get(objA)?.delete(objB)
+  }
+}
+
+function _evaluateObjects<T>(
+  objA: T & object,
+  objB: T & object,
+  config: { mode: 'shallow' | 'deep' },
+  seen: Seen,
+): boolean {
   // guards against runtime cross type evaluation
   if (Object.getPrototypeOf(objA) !== Object.getPrototypeOf(objB)) {
     return false
@@ -84,8 +133,49 @@ function _evaluate<T>(
     if (objA.size !== objB.size) return false
 
     if (config.mode === 'deep') {
-      for (const v of objA) {
-        if (![...objB].some((bv) => _evaluate(v, bv, config, seen)))
+      // Match each element of objA to its own element of objB. A later
+      // element may take an earlier one's match if that one can move to
+      // another (augmenting paths), so a custom non-transitive `equals`
+      // cannot hide a valid matching. Pairs are compared lazily, once.
+      const values = [...objA]
+      const others = [...objB]
+      const owner: Array<number> = others.map(() => -1)
+      const compared = new Map<number, boolean>()
+      const matches = (value: number, index: number): boolean => {
+        const key = value * others.length + index
+        let result = compared.get(key)
+        if (result === undefined) {
+          result =
+            values[value] === others[index] ||
+            _evaluate(values[value], others[index], config, seen)
+          compared.set(key, result)
+        }
+        return result
+      }
+      const assign = (value: number, visited: Array<boolean>): boolean => {
+        for (let index = 0; index < others.length; index++) {
+          if (visited[index] || !matches(value, index)) continue
+          visited[index] = true
+          const current = owner[index] ?? -1
+          if (current === -1 || assign(current, visited)) {
+            owner[index] = value
+            return true
+          }
+        }
+        return false
+      }
+      for (let value = 0; value < values.length; value++) {
+        const same = others.indexOf(values[value])
+        if (same !== -1 && owner[same] === -1) {
+          owner[same] = value
+          continue
+        }
+        if (
+          !assign(
+            value,
+            others.map(() => false),
+          )
+        )
           return false
       }
     }

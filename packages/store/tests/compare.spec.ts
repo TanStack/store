@@ -420,6 +420,76 @@ describe('evaluate', () => {
       ).toEqual(true)
     })
 
+    it('should match each Set element at most once', () => {
+      expect(
+        compareDeep(
+          new Set([{ x: 1 }, { x: 1 }]),
+          new Set([{ x: 1 }, { x: 2 }]),
+        ),
+      ).toEqual(false)
+      expect(
+        compareDeep(
+          new Set([{ x: 1 }, { x: 2 }]),
+          new Set([{ x: 1 }, { x: 1 }]),
+        ),
+      ).toEqual(false)
+      expect(
+        compareDeep(
+          new Set([{ x: 2 }, { x: 1 }]),
+          new Set([{ x: 1 }, { x: 2 }]),
+        ),
+      ).toEqual(true)
+    })
+
+    it('should find a Set matching that needs an earlier match to move', () => {
+      // `equals` that is not transitive: a1 equals b1 and b2, a2 only b1
+      class Item {
+        constructor(
+          readonly name: string,
+          readonly peers: Array<string>,
+        ) {}
+        equals(other: Item) {
+          return (
+            this.peers.includes(other.name) || other.peers.includes(this.name)
+          )
+        }
+      }
+      const a1 = new Item('a1', ['b1', 'b2'])
+      const a2 = new Item('a2', ['b1'])
+      const b1 = new Item('b1', [])
+      const b2 = new Item('b2', [])
+
+      expect(compareDeep(new Set([a1, a2]), new Set([b1, b2]))).toEqual(true)
+      expect(
+        compareDeep(new Set([a2, new Item('a3', ['b1'])]), new Set([b1, b2])),
+      ).toEqual(false)
+    })
+
+    it('should not remember failed Set element comparisons as equal', () => {
+      const p = { x: 1 }
+      const q = { x: 2 }
+
+      // While matching the Sets, `p` is first tried against `q2` and fails.
+      // That failed attempt must not make the later `p` vs `q2` check pass.
+      const q2 = { x: 2 }
+      const p2 = { x: 1 }
+
+      expect(
+        compareDeep([new Set([p, q]), p], [new Set([q2, p2]), q2]),
+      ).toEqual(false)
+    })
+
+    it('should compare a shared child only once', () => {
+      const build = () => {
+        let node: object = { x: 1 }
+        for (let i = 0; i < 30; i++) node = { left: node, right: node }
+        return node
+      }
+
+      // 2^30 comparisons if completed pairs are not remembered
+      expect(compareDeep(build(), build())).toEqual(true)
+    })
+
     it('should test equality between File objects', () => {
       const file1 = new File(['hello'], 'hello.txt', {
         type: 'text/plain',
