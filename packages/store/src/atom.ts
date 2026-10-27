@@ -157,9 +157,7 @@ export function createAtom<T>(
 ): Atom<T> | ReadonlyAtom<T> {
   const isComputed = typeof valueOrFn === 'function'
   const getter = valueOrFn as (prev?: T) => T
-  // `undefined` is a valid snapshot, so it cannot also mean that a computed atom
-  // has nothing to compare against yet.
-  let hasSnapshot = !isComputed
+  let isFirstComputation = isComputed
 
   // Create plain object atom
   const atom: InternalAtom<T> = {
@@ -222,8 +220,8 @@ export function createAtom<T>(
             : getValue === undefined && isComputed
               ? getter(oldValue)
               : getValue!
-        if (!hasSnapshot || !compare(oldValue, newValue)) {
-          hasSnapshot = true
+        if (isFirstComputation || !compare(oldValue, newValue)) {
+          isFirstComputation = false
           atom._snapshot = newValue
           return true
         }
