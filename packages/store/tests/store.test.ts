@@ -123,6 +123,7 @@ describe('store', () => {
     atom.subscribe(fn)
 
     atom.set(undefined)
+    atom.set(undefined)
 
     expect(atom.get()).toBeUndefined()
     expect(fn).toHaveBeenCalledTimes(1)

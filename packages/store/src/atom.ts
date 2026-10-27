@@ -220,7 +220,12 @@ export function createAtom<T>(
             : getValue === undefined && isComputed
               ? getter(oldValue)
               : getValue!
-        if (oldValue === undefined || !compare(oldValue, newValue)) {
+        // A computed atom treats an `undefined` snapshot as not computed yet. A
+        // mutable atom's `undefined` is a value like any other.
+        if (
+          (isComputed && oldValue === undefined) ||
+          !compare(oldValue, newValue)
+        ) {
           atom._snapshot = newValue
           return true
         }
