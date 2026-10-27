@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from 'vitest'
 // import { Store } from '../src/index'
-import { createStore } from '../src'
+import { createAtom, createStore } from '../src'
 
 describe('store', () => {
   test(`should set the initial value`, () => {
@@ -115,5 +115,17 @@ describe('store', () => {
 
     expect(atom._update()).toBe(false)
     expect(store.state).toEqual({ pageIndex: 1 })
+  })
+
+  test('mutable atom can be set to undefined', () => {
+    const atom = createAtom<number | undefined>(1)
+    const fn = vi.fn()
+    atom.subscribe(fn)
+
+    atom.set(undefined)
+
+    expect(atom.get()).toBeUndefined()
+    expect(fn).toHaveBeenCalledTimes(1)
+    expect(fn).toHaveBeenCalledWith(undefined)
   })
 })

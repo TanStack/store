@@ -203,9 +203,10 @@ export function createAtom<T>(
         activeSub = atom
         ++cycle
         atom.depsTail = undefined
-      } else if (getValue === undefined) {
+      } else if (arguments.length === 0) {
         // Mutable atoms can be marked dirty by the reactive graph, but they should
-        // never be recomputed without an explicit value/updater.
+        // never be recomputed without an explicit value/updater. Check the argument
+        // count rather than `undefined`, which `set(undefined)` passes as a value.
         return false
       }
       if (isComputed) {
