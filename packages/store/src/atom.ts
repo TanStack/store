@@ -157,6 +157,7 @@ export function createAtom<T>(
 ): Atom<T> | ReadonlyAtom<T> {
   const isComputed = typeof valueOrFn === 'function'
   const getter = valueOrFn as (prev?: T) => T
+  let isFirstComputation = isComputed
 
   // Create plain object atom
   const atom: InternalAtom<T> = {
@@ -219,7 +220,8 @@ export function createAtom<T>(
             : getValue === undefined && isComputed
               ? getter(oldValue)
               : getValue!
-        if (oldValue === undefined || !compare(oldValue, newValue)) {
+        if (isFirstComputation || !compare(oldValue, newValue)) {
+          isFirstComputation = false
           atom._snapshot = newValue
           return true
         }
