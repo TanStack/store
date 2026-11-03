@@ -221,10 +221,6 @@
           "to": "reference/interfaces/ReadonlyAtom"
         },
         {
-          "label": "StoreActionsApi",
-          "to": "reference/interfaces/StoreActionsApi"
-        },
-        {
           "label": "Subscribable",
           "to": "reference/interfaces/Subscribable"
         },
