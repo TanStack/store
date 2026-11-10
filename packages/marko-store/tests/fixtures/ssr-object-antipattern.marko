@@ -1,0 +1,25 @@
+// Anti-pattern on purpose: the store arrives as a bare OBJECT attribute and is
+// captured in a client-resumable lifecycle closure. The serializer walks the
+// attribute value (a Store instance) and rejects. This is the failure the thunk
+// channel exists to avoid; the real tags never trigger it because they only ever
+// close over the registered `from` function.
+export interface Input {
+  store: {
+    get(): any
+    subscribe(listener: (value: any) => void): { unsubscribe(): void }
+  }
+}
+
+<let/value=input.store.get()>
+<lifecycle<{ unsub?: (() => void) | null }>
+  onMount() {
+    this.unsub = input.store.subscribe((next) => {
+      value = next
+    }).unsubscribe
+  }
+  onDestroy() {
+    this.unsub?.()
+    this.unsub = null
+  }
+>
+<div data-testid='x'>${JSON.stringify(value)}</div>

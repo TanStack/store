@@ -1,0 +1,5 @@
+import { counterStore } from './ssr-store'
+import StoreSelector from '../../src/tags/store-selector.marko'
+
+<StoreSelector/count from=() => counterStore selector=(s: any) => s.count/>
+<div data-testid='count'>${count}</div>

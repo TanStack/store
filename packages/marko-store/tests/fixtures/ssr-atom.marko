@@ -1,0 +1,5 @@
+import { countAtom } from './ssr-store'
+import StoreAtom from '../../src/tags/store-atom.marko'
+
+<StoreAtom/value from=() => countAtom/>
+<div data-testid='value'>${value}</div>
