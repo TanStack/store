@@ -199,7 +199,10 @@ export function createAtom<T>(
     _update(getValue?: T | ((snapshot: T) => T)): boolean {
       const prevSub = activeSub
       const compare = options?.compare ?? Object.is
-      if (isComputed) {
+      // Concrete async results keep the dependencies collected by the getter.
+      const shouldTrackDeps =
+        isComputed && (getValue === undefined || typeof getValue === 'function')
+      if (shouldTrackDeps) {
         activeSub = atom
         ++cycle
         atom.depsTail = undefined
@@ -229,7 +232,9 @@ export function createAtom<T>(
         if (isComputed) {
           atom.flags &= ~RECURSED_CHECK
         }
-        purgeDeps(atom)
+        if (shouldTrackDeps) {
+          purgeDeps(atom)
+        }
       }
     },
   }
