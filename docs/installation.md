@@ -43,7 +43,7 @@ TanStack Store is compatible with Angular 19+
 npm install @tanstack/solid-store
 ```
 
-TanStack Store is compatible with Solid and SolidStart.
+`@tanstack/solid-store` 0.12 and later work with Solid 2. For Solid 1, install `@tanstack/solid-store@0.11`.
 
 ## Svelte
 

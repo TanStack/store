@@ -1,4 +1,5 @@
 import { describe, expect, it, test, vi } from 'vitest'
+import { flush } from 'solid-js'
 import { render, renderHook } from '@solidjs/testing-library'
 import { createAtom, createStore } from '@tanstack/store'
 import {
@@ -18,6 +19,7 @@ describe('atom hooks', () => {
     expect(result()).toBe(0)
 
     atom.set((prev) => prev + 1)
+    flush()
 
     expect(result()).toBe(1)
   })
@@ -29,6 +31,7 @@ describe('atom hooks', () => {
     expect(result[0]()).toBe(0)
 
     result[1]((prev) => prev + 5)
+    flush()
 
     expect(result[0]()).toBe(5)
   })
@@ -60,6 +63,7 @@ describe('store hooks', () => {
     expect(readonlyValue().value).toBe(2)
 
     baseStore.setState((prev) => prev + 1)
+    flush()
 
     expect(writableValue()).toBe(2)
     expect(readonlyValue().value).toBe(4)
@@ -85,12 +89,16 @@ describe('store hooks', () => {
       ...prev,
       ignored: prev.ignored + 1,
     }))
+    flush()
+
     expect(renderSpy).toHaveBeenCalledTimes(1)
 
     store.setState((prev) => ({
       ...prev,
       select: prev.select + 1,
     }))
+    flush()
+
     expect(result()).toBe(1)
     expect(renderSpy).toHaveBeenCalledTimes(1)
   })
@@ -126,6 +134,8 @@ describe('store hooks', () => {
         ignore: item.ignore + 1,
       })),
     }))
+    flush()
+
     expect(renderSpy).toHaveBeenCalledTimes(1)
 
     store.setState((prev) => ({
@@ -134,8 +144,18 @@ describe('store hooks', () => {
         select: item.select + 1,
       })),
     }))
+    flush()
+
     expect(result().map((item) => item.select)).toEqual([1, 1])
     expect(renderSpy).toHaveBeenCalledTimes(1)
+  })
+
+  it('useSelector keeps a selected function as a plain value', () => {
+    const fn = () => 'hello'
+    const store = createStore({ fn })
+    const { result } = renderHook(() => useSelector(store, (state) => state.fn))
+
+    expect(result()).toBe(fn)
   })
 
   it('useSelector works with mounted derived stores', () => {
@@ -148,6 +168,7 @@ describe('store hooks', () => {
     expect(result()).toBe(0)
 
     store.setState((prev) => prev + 1)
+    flush()
 
     expect(result()).toBe(2)
   })
@@ -161,6 +182,7 @@ describe('useStore', () => {
     expect(result()).toBe(0)
 
     store.setState((prev) => prev + 1)
+    flush()
 
     expect(result()).toBe(1)
   })
@@ -172,6 +194,7 @@ describe('useStore', () => {
     expect(result()).toBe(0)
 
     atom.set((prev) => prev + 1)
+    flush()
 
     expect(result()).toBe(1)
   })
@@ -190,6 +213,7 @@ describe('_useStore', () => {
     expect(result[0]()).toBe(0)
 
     result[1].inc()
+    flush()
 
     expect(result[0]()).toBe(1)
   })
@@ -202,6 +226,7 @@ describe('_useStore', () => {
     expect(result[0]()).toBe(0)
 
     result[1]((prev) => prev + 1)
+    flush()
 
     expect(result[0]()).toBe(1)
   })
@@ -240,6 +265,7 @@ describe('createStoreContext', () => {
 
     countAtom.set((prev) => prev + 1)
     totalStore.setState((prev) => ({ ...prev, count: prev.count + 1 }))
+    flush()
 
     expect(getByText('Value: 1')).toBeInTheDocument()
     expect(getByText('Total: 1')).toBeInTheDocument()

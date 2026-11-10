@@ -43,9 +43,18 @@ export function useSelector<TSource, TSelected = NoInfer<TSource>>(
   options?: UseSelectorOptions<TSelected>,
 ): Accessor<TSelected> {
   const compare = options?.compare ?? defaultCompare
-  const [signal, setSignal] = createSignal(selector(source.get()), {
-    equals: compare,
-  })
+  const initial = selector(source.get())
+  // Solid 2 reads a function passed to `createSignal` as a compute function,
+  // so a selected function value is wrapped to stay a plain value.
+  const [signal, setSignal] = createSignal<TSelected>(
+    (typeof initial === 'function' ? () => initial : initial) as any,
+    {
+      equals: compare,
+      // Stores notify synchronously from wherever `setState` runs, which can
+      // be inside an owned scope such as an effect.
+      ownedWrite: true,
+    },
+  )
 
   const unsubscribe = source.subscribe((snapshot) => {
     setSignal(() => selector(snapshot))
