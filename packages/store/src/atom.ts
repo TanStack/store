@@ -8,7 +8,7 @@ import {
   createReactiveSystem,
 } from './alien'
 
-import type { ReactiveNode } from './alien'
+import type { Link, ReactiveNode } from './alien'
 import type {
   Atom,
   AtomOptions,
@@ -36,6 +36,8 @@ export function toObserver<T>(
 
 interface InternalAtom<T> extends ReactiveNode {
   _snapshot: T
+  _version: number
+  _unwatchedDeps?: boolean
   _update: (getValue?: T | ((snapshot: T) => T)) => boolean
   get: () => T
   subscribe: (observerOrFn: Observer<T> | ((value: T) => void)) => Subscription
@@ -43,6 +45,7 @@ interface InternalAtom<T> extends ReactiveNode {
 
 const queuedEffects: Array<Effect | undefined> = []
 let cycle = 0
+let writeVersion = 0
 const { link, unlink, propagate, checkDirty, shallowPropagate } =
   createReactiveSystem({
     update(atom: InternalAtom<any>): boolean {
@@ -53,13 +56,7 @@ const { link, unlink, propagate, checkDirty, shallowPropagate } =
       queuedEffects[queuedEffectsLength++] = effect
       effect.flags &= ~WATCHING
     },
-    unwatched(atom: InternalAtom<any>): void {
-      if (atom.depsTail !== undefined) {
-        atom.depsTail = undefined
-        atom.flags = MUTABLE | DIRTY
-        purgeDeps(atom)
-      }
-    },
+    unwatched,
   })
 
 let notifyIndex = 0
@@ -83,6 +80,22 @@ function purgeDeps(sub: ReactiveNode) {
   let dep = depsTail !== undefined ? depsTail.nextDep : sub.deps
   while (dep !== undefined) {
     dep = unlink(dep, sub)
+  }
+}
+
+function unwatched(atom: InternalAtom<any>): void {
+  if (atom.deps === undefined || atom._unwatchedDeps) {
+    return
+  }
+  atom._unwatchedDeps = true
+  // Preserve pending changes before replacing tracking cycles with snapshots
+  // of dependency versions. Detached nodes no longer receive invalidations.
+  if (atom.flags & PENDING) {
+    atom.flags = (atom.flags & ~PENDING) | DIRTY
+  }
+  for (let dep: Link | undefined = atom.deps; dep; dep = dep.nextDep) {
+    dep.version = (dep.dep as InternalAtom<any>)._version
+    unlink(dep, atom, true)
   }
 }
 
@@ -161,6 +174,7 @@ export function createAtom<T>(
   // Create plain object atom
   const atom: InternalAtom<T> = {
     _snapshot: isComputed ? undefined! : valueOrFn,
+    _version: 0,
 
     subs: undefined,
     subsTail: undefined,
@@ -200,6 +214,7 @@ export function createAtom<T>(
       const prevSub = activeSub
       const compare = options?.compare ?? Object.is
       if (isComputed) {
+        atom._unwatchedDeps = undefined
         activeSub = atom
         ++cycle
         atom.depsTail = undefined
@@ -221,9 +236,15 @@ export function createAtom<T>(
               : getValue!
         if (oldValue === undefined || !compare(oldValue, newValue)) {
           atom._snapshot = newValue
+          atom._version = ++writeVersion
           return true
         }
         return false
+      } catch (error) {
+        if (isComputed) {
+          atom.flags |= DIRTY
+        }
+        throw error
       } finally {
         activeSub = prevSub
         if (isComputed) {
@@ -235,23 +256,69 @@ export function createAtom<T>(
   }
 
   if (isComputed) {
+    let checkedVersion = -1
     atom.flags = MUTABLE | DIRTY
     atom.get = function (): T {
-      const flags = atom.flags
-      if (flags & DIRTY || (flags & PENDING && checkDirty(atom.deps!, atom))) {
-        if (atom._update()) {
-          const subs = atom.subs
-          if (subs !== undefined) {
-            shallowPropagate(subs)
+      try {
+        const deps = atom._unwatchedDeps && atom.deps
+        if (
+          deps &&
+          !(atom.flags & DIRTY) &&
+          (activeSub !== undefined || checkedVersion !== writeVersion)
+        ) {
+          const prevSub = activeSub
+          // Subscribing reconnects the cached dependencies without changing the
+          // snapshot. An untracked read validates them without retaining links.
+          activeSub = prevSub === undefined ? undefined : atom
+          if (activeSub !== undefined) {
+            atom._unwatchedDeps = undefined
+            atom.depsTail = undefined
+          }
+          try {
+            for (
+              let depLink: Link | undefined = deps;
+              depLink;
+              depLink = depLink.nextDep
+            ) {
+              const dep = depLink.dep as InternalAtom<any>
+              const version = depLink.version
+              dep.get()
+              if (dep._version !== version) {
+                atom.flags |= DIRTY
+                break
+              }
+            }
+          } finally {
+            activeSub = prevSub
           }
         }
-      } else if (flags & PENDING) {
-        atom.flags = flags & ~PENDING
+        const flags = atom.flags
+        if (
+          flags & DIRTY ||
+          (flags & PENDING && checkDirty(atom.deps!, atom))
+        ) {
+          if (atom._update()) {
+            const subs = atom.subs
+            if (subs !== undefined) {
+              shallowPropagate(subs)
+            }
+          }
+        } else if (flags & PENDING) {
+          atom.flags = flags & ~PENDING
+        }
+        if (activeSub !== undefined) {
+          link(atom, activeSub, cycle)
+        }
+        checkedVersion = writeVersion
+        return atom._snapshot
+      } catch (error) {
+        atom.flags |= DIRTY
+        throw error
+      } finally {
+        if (atom.subs === undefined) {
+          unwatched(atom)
+        }
       }
-      if (activeSub !== undefined) {
-        link(atom, activeSub, cycle)
-      }
-      return atom._snapshot
     }
   } else {
     ;(atom as unknown as Atom<T>).set = function (

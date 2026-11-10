@@ -7,7 +7,7 @@ title: createAsyncAtom
 function createAsyncAtom<T>(getValue, options?): ReadonlyAtom<AsyncAtomState<T, unknown>>;
 ```
 
-Defined in: [atom.ts:108](https://github.com/TanStack/store/blob/main/packages/store/src/atom.ts#L108)
+Defined in: [atom.ts:121](https://github.com/TanStack/store/blob/main/packages/store/src/atom.ts#L121)
 
 ## Type Parameters
 
