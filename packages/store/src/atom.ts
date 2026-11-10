@@ -110,9 +110,13 @@ export function createAsyncAtom<T>(
   options?: AtomOptions<AsyncAtomState<T>>,
 ): ReadonlyAtom<AsyncAtomState<T>> {
   const ref: { current?: InternalAtom<AsyncAtomState<T>> } = {}
+  let currentInvocation: symbol
   const atom = createAtom<AsyncAtomState<T>>(() => {
+    const invocation = Symbol()
+    currentInvocation = invocation
     getValue().then(
       (data) => {
+        if (invocation !== currentInvocation) return
         const internalAtom = ref.current!
         if (internalAtom._update({ status: 'done', data })) {
           const subs = internalAtom.subs
@@ -124,6 +128,7 @@ export function createAsyncAtom<T>(
         }
       },
       (error) => {
+        if (invocation !== currentInvocation) return
         const internalAtom = ref.current!
         if (internalAtom._update({ status: 'error', error })) {
           const subs = internalAtom.subs

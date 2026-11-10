@@ -124,6 +124,88 @@ describe('async atoms', () => {
     subscription.unsubscribe()
   })
 
+  describe.each(['done', 'error'] as const)(
+    'outdated %s results',
+    (outdatedStatus) => {
+      test.each(['pending', 'done', 'error'] as const)(
+        'does not replace the latest %s invocation',
+        async (latestStatus) => {
+          const input = createAtom(0)
+          const requests: Array<{
+            resolve: (value: string) => void
+            reject: (error: Error) => void
+          }> = []
+          const atom = createAsyncAtom(() => {
+            input.get()
+            return new Promise<string>((resolve, reject) => {
+              requests.push({ resolve, reject })
+            })
+          })
+          const observer = vi.fn()
+          const subscription = atom.subscribe(observer)
+          const latestError = new Error('latest')
+
+          input.set(1)
+          if (latestStatus === 'done') requests[1]!.resolve('latest')
+          if (latestStatus === 'error') requests[1]!.reject(latestError)
+          await Promise.resolve()
+          const expected = atom.get()
+          observer.mockClear()
+
+          if (outdatedStatus === 'done') requests[0]!.resolve('outdated')
+          else requests[0]!.reject(new Error('outdated'))
+          await Promise.resolve()
+
+          expect(atom.get()).toBe(expected)
+          expect(observer).not.toHaveBeenCalled()
+          if (latestStatus === 'pending') {
+            expect(atom.get()).toEqual({ status: 'pending' })
+            requests[1]!.resolve('latest')
+            await Promise.resolve()
+            expect(atom.get()).toEqual({ status: 'done', data: 'latest' })
+          } else if (latestStatus === 'error') {
+            expect(atom.get()).toEqual({ status: 'error', error: latestError })
+          } else {
+            expect(atom.get()).toEqual({ status: 'done', data: 'latest' })
+          }
+
+          input.set(2)
+          requests[2]!.resolve('recovered')
+          await Promise.resolve()
+          expect(atom.get()).toEqual({ status: 'done', data: 'recovered' })
+          subscription.unsubscribe()
+        },
+      )
+    },
+  )
+
+  test('ignores a pending invocation after unsubscribing and resubscribing', async () => {
+    const input = createAtom('first')
+    const requests: Array<(value: string) => void> = []
+    const atom = createAsyncAtom(() => {
+      input.get()
+      return new Promise<string>((resolve) => requests.push(resolve))
+    })
+    const firstSubscription = atom.subscribe(() => {})
+    firstSubscription.unsubscribe()
+    input.set('second')
+    const observer = vi.fn()
+    const subscription = atom.subscribe(observer)
+
+    requests[0]!('outdated')
+    await Promise.resolve()
+    expect(atom.get()).toEqual({ status: 'pending' })
+    expect(observer).not.toHaveBeenCalled()
+    requests[1]!('latest')
+    await Promise.resolve()
+    expect(atom.get()).toEqual({ status: 'done', data: 'latest' })
+    expect(observer).toHaveBeenLastCalledWith({
+      status: 'done',
+      data: 'latest',
+    })
+    subscription.unsubscribe()
+  })
+
   test('ordinary computed atoms still prune unused dependencies', () => {
     const useFirst = createAtom(true)
     const first = createAtom('alice')
