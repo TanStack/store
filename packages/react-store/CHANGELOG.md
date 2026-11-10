@@ -1,5 +1,11 @@
 # @tanstack/react-store
 
+## 0.11.3
+
+### Patch Changes
+
+- [#407](https://github.com/TanStack/store/pull/407) [`0e95a97`](https://github.com/TanStack/store/commit/0e95a975c62c414f55905582a9861fe057506f4b) - Declare `@types/react` as an optional peer dependency so React types resolve correctly under strict package layouts such as pnpm's global virtual store
+
 ## 0.11.2
 
 ### Patch Changes
