@@ -7,7 +7,7 @@ title: createStoreContext
 function createStoreContext<TValue>(): object;
 ```
 
-Defined in: [createStoreContext.tsx:43](https://github.com/TanStack/store/blob/main/packages/solid-store/src/createStoreContext.tsx#L43)
+Defined in: [createStoreContext.ts:43](https://github.com/TanStack/store/blob/main/packages/solid-store/src/createStoreContext.ts#L43)
 
 Creates a typed Solid context for sharing a bundle of atoms and stores with a
 subtree.
