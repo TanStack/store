@@ -43,9 +43,17 @@ export function useSelector<TSource, TSelected = NoInfer<TSource>>(
   options?: UseSelectorOptions<TSelected>,
 ): Accessor<TSelected> {
   const compare = options?.compare ?? defaultCompare
-  const [signal, setSignal] = createSignal(selector(source.get()), {
-    equals: compare,
-  })
+  // Derived: the selection is recomputed from the store's current state when
+  // a signal the selector reads changes, and written when the store notifies.
+  const [signal, setSignal] = createSignal<TSelected>(
+    () => selector(source.get()),
+    {
+      equals: compare,
+      // Stores notify synchronously from wherever `setState` runs, which can
+      // be inside an owned scope such as an effect.
+      ownedWrite: true,
+    },
+  )
 
   const unsubscribe = source.subscribe((snapshot) => {
     setSignal(() => selector(snapshot))

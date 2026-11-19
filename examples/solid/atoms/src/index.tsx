@@ -1,4 +1,4 @@
-import { render } from 'solid-js/web'
+import { render } from '@solidjs/web'
 import { createAtom, useAtom, useSelector } from '@tanstack/solid-store'
 
 // Optionally, you can create atoms outside of Solid components at module scope

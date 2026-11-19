@@ -1,4 +1,4 @@
-import { render } from 'solid-js/web'
+import { render } from '@solidjs/web'
 import { createStore, _useStore, useSelector } from '@tanstack/solid-store'
 
 // Optionally, you can create stores outside of Solid components at module scope

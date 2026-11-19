@@ -1,5 +1,5 @@
-import { createContext, useContext } from 'solid-js'
-import type { JSX, ParentProps } from 'solid-js'
+import { createComponent, createContext, useContext } from 'solid-js'
+import type { Element, ParentProps } from 'solid-js'
 
 /**
  * Creates a typed Solid context for sharing a bundle of atoms and stores with a
@@ -41,21 +41,30 @@ import type { JSX, ParentProps } from 'solid-js'
  * @throws When `useStoreContext()` is called outside the matching `StoreProvider`.
  */
 export function createStoreContext<TValue extends object>(): {
-  StoreProvider: (props: ParentProps<{ value: TValue }>) => JSX.Element
+  StoreProvider: (props: ParentProps<{ value: TValue }>) => Element
   useStoreContext: () => TValue
 } {
-  const Context = createContext<TValue>()
+  // `null` default: Solid 2 throws its own error for a default-less context,
+  // and this keeps the clearer message below.
+  const Context = createContext<TValue | null>(null)
 
+  // Built without JSX so the adapter only depends on `solid-js`, not on the
+  // `@solidjs/web` renderer that compiled JSX imports from.
   function StoreProvider(props: ParentProps<{ value: TValue }>) {
-    return (
-      <Context.Provider value={props.value}>{props.children}</Context.Provider>
-    )
+    return createComponent(Context, {
+      get value() {
+        return props.value
+      },
+      get children() {
+        return props.children
+      },
+    })
   }
 
   function useStoreContext(): TValue {
     const value = useContext(Context)
 
-    if (value === undefined) {
+    if (value === null) {
       throw new Error('Missing StoreProvider for StoreContext')
     }
 
