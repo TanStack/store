@@ -1,5 +1,5 @@
 import { describe, expect, it, test, vi } from 'vitest'
-import { flush } from 'solid-js'
+import { createSignal, flush } from 'solid-js'
 import { render, renderHook } from '@solidjs/testing-library'
 import { createAtom, createStore } from '@tanstack/store'
 import {
@@ -156,6 +156,22 @@ describe('store hooks', () => {
     const { result } = renderHook(() => useSelector(store, (state) => state.fn))
 
     expect(result()).toBe(fn)
+  })
+
+  it('useSelector re-selects when a signal its selector reads changes', () => {
+    const store = createStore({ a: 1, b: 2 })
+    const [key, setKey] = createSignal<'a' | 'b'>('a')
+    const { result } = renderHook(() =>
+      useSelector(store, (state) => state[key()]),
+    )
+
+    expect(result()).toBe(1)
+    setKey('b')
+    flush()
+    expect(result()).toBe(2)
+    store.setState((state) => ({ ...state, b: 3 }))
+    flush()
+    expect(result()).toBe(3)
   })
 
   it('useSelector works with mounted derived stores', () => {
