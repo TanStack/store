@@ -162,12 +162,7 @@
         },
         {
           "label": "lit",
-          "children": [
-            {
-              "label": "Lit Reactive Controllers",
-              "to": "framework/lit/reference/index"
-            }
-          ]
+          "children": []
         },
         {
           "label": "octane",
@@ -224,10 +219,6 @@
         {
           "label": "ReadonlyAtom",
           "to": "reference/interfaces/ReadonlyAtom"
-        },
-        {
-          "label": "StoreActionsApi",
-          "to": "reference/interfaces/StoreActionsApi"
         },
         {
           "label": "Subscribable",
@@ -311,16 +302,8 @@
               "to": "framework/react/reference/functions/useSelector"
             },
             {
-              "label": "useSetValue",
-              "to": "framework/react/reference/functions/useSetValue"
-            },
-            {
               "label": "useAtom",
               "to": "framework/react/reference/functions/useAtom"
-            },
-            {
-              "label": "useStoreActions",
-              "to": "framework/react/reference/functions/useStoreActions"
             },
             {
               "label": "_useStore (experimental)",
@@ -344,16 +327,8 @@
               "to": "framework/vue/reference/functions/useSelector"
             },
             {
-              "label": "useSetValue",
-              "to": "framework/vue/reference/functions/useSetValue"
-            },
-            {
               "label": "useAtom",
               "to": "framework/vue/reference/functions/useAtom"
-            },
-            {
-              "label": "useStoreActions",
-              "to": "framework/vue/reference/functions/useStoreActions"
             },
             {
               "label": "_useStore (experimental)",
@@ -377,16 +352,8 @@
               "to": "framework/solid/reference/functions/useSelector"
             },
             {
-              "label": "useSetValue",
-              "to": "framework/solid/reference/functions/useSetValue"
-            },
-            {
               "label": "useAtom",
               "to": "framework/solid/reference/functions/useAtom"
-            },
-            {
-              "label": "useStoreActions",
-              "to": "framework/solid/reference/functions/useStoreActions"
             },
             {
               "label": "_useStore (experimental)",
@@ -410,16 +377,8 @@
               "to": "framework/angular/reference/functions/injectSelector"
             },
             {
-              "label": "injectSetValue",
-              "to": "framework/angular/reference/functions/injectSetValue"
-            },
-            {
               "label": "injectAtom",
               "to": "framework/angular/reference/functions/injectAtom"
-            },
-            {
-              "label": "injectStoreActions",
-              "to": "framework/angular/reference/functions/injectStoreActions"
             },
             {
               "label": "injectStore (deprecated)",
@@ -439,16 +398,8 @@
               "to": "framework/svelte/reference/functions/useSelector"
             },
             {
-              "label": "useSetValue",
-              "to": "framework/svelte/reference/functions/useSetValue"
-            },
-            {
               "label": "useAtom",
               "to": "framework/svelte/reference/functions/useAtom"
-            },
-            {
-              "label": "useStoreActions",
-              "to": "framework/svelte/reference/functions/useStoreActions"
             },
             {
               "label": "_useStore (experimental)",
@@ -484,16 +435,8 @@
               "to": "framework/preact/reference/functions/useSelector"
             },
             {
-              "label": "useSetValue",
-              "to": "framework/preact/reference/functions/useSetValue"
-            },
-            {
               "label": "useAtom",
               "to": "framework/preact/reference/functions/useAtom"
-            },
-            {
-              "label": "useStoreActions",
-              "to": "framework/preact/reference/functions/useStoreActions"
             },
             {
               "label": "_useStore (experimental)",
@@ -511,20 +454,7 @@
         },
         {
           "label": "lit",
-          "children": [
-            {
-              "label": "TanStackStoreSelector",
-              "to": "framework/lit/reference/classes/TanStackStoreSelector"
-            },
-            {
-              "label": "TanStackStoreAtom",
-              "to": "framework/lit/reference/classes/TanStackStoreAtom"
-            },
-            {
-              "label": "UseSelectorOptions",
-              "to": "framework/lit/reference/interfaces/UseSelectorOptions"
-            }
-          ]
+          "children": []
         },
         {
           "label": "octane",
