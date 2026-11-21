@@ -203,9 +203,10 @@ export function createAtom<T>(
         activeSub = atom
         ++cycle
         atom.depsTail = undefined
-      } else if (getValue === undefined) {
+      } else if (arguments.length === 0) {
         // Mutable atoms can be marked dirty by the reactive graph, but they should
-        // never be recomputed without an explicit value/updater.
+        // never be recomputed without an explicit value/updater. Check the argument
+        // count rather than `undefined`, which `set(undefined)` passes as a value.
         return false
       }
       if (isComputed) {
@@ -219,7 +220,12 @@ export function createAtom<T>(
             : getValue === undefined && isComputed
               ? getter(oldValue)
               : getValue!
-        if (oldValue === undefined || !compare(oldValue, newValue)) {
+        // A computed atom treats an `undefined` snapshot as not computed yet. A
+        // mutable atom's `undefined` is a value like any other.
+        if (
+          (isComputed && oldValue === undefined) ||
+          !compare(oldValue, newValue)
+        ) {
           atom._snapshot = newValue
           return true
         }
