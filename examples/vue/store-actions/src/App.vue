@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { createStore, _useStore, useSelector } from '@tanstack/vue-store'
+import { createStore, useSelector } from '@tanstack/vue-store'
 
 // Optionally, you can create stores outside of Vue components at module scope
 const petStore = createStore(
@@ -28,8 +28,8 @@ const petStore = createStore(
 const cats = useSelector(petStore, (state) => state.cats)
 const { addCat } = petStore.actions
 
-// _useStore gives both the selected state and actions in a single tuple
-const [dogs, { addDog }] = _useStore(petStore, (state) => state.dogs)
+const dogs = useSelector(petStore, (state) => state.dogs)
+const { addDog } = petStore.actions
 
 const total = useSelector(petStore, (state) => state.cats + state.dogs)
 </script>
@@ -41,8 +41,7 @@ const total = useSelector(petStore, (state) => state.cats + state.dogs)
     <p>
       This example creates a module-level store with actions. Components read
       state with <code>useSelector</code> and call mutations through
-      <code>store.actions</code> or the experimental <code>_useStore</code>
-      hook.
+      <code>store.actions</code>.
     </p>
     <div>
       <p>Cats: {{ cats }}</p>

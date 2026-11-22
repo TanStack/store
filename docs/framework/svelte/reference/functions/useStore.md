@@ -12,10 +12,9 @@ function _useStore<TState, TActions, TSelected>(
 }, [TActions] extends [never] ? (updater) => void : TActions];
 ```
 
-Defined in: [\_useStore.ts:21](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/_useStore.ts#L21)
+Defined in: [\_useStore.ts:24](https://github.com/TanStack/store/blob/main/packages/svelte-store/src/_useStore.ts#L24)
 
-Experimental combined read+write hook for stores, mirroring useAtom's tuple
-pattern.
+Combined read+write hook for stores, mirroring useAtom's tuple pattern.
 
 Returns `[selected, actions]` when the store has an actions factory, or
 `[selected, setState]` for plain stores.
@@ -63,3 +62,9 @@ const [cats, { addCat }] = _useStore(petStore, (s) => s.cats)
 // Store without actions
 const [count, setState] = _useStore(plainStore, (s) => s)
 ```
+
+## Deprecated
+
+Read with `useSelector` and write through `store.actions` or
+`store.setState` instead. `_useStore` will be removed in the next major
+version.

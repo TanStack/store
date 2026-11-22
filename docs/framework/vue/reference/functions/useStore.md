@@ -10,10 +10,9 @@ function _useStore<TState, TActions, TSelected>(
    options?): [Readonly<Ref<TSelected, TSelected>>, [TActions] extends [never] ? (updater) => void : TActions];
 ```
 
-Defined in: [\_useStore.ts:24](https://github.com/TanStack/store/blob/main/packages/vue-store/src/_useStore.ts#L24)
+Defined in: [\_useStore.ts:27](https://github.com/TanStack/store/blob/main/packages/vue-store/src/_useStore.ts#L27)
 
-Experimental combined read+write hook for stores, mirroring useAtom's tuple
-pattern.
+Combined read+write hook for stores, mirroring useAtom's tuple pattern.
 
 Returns `[selected, actions]` when the store has an actions factory, or
 `[selected, setState]` for plain stores.
@@ -61,3 +60,9 @@ console.log(cats.value)
 const [count, setState] = _useStore(plainStore, (s) => s)
 setState((prev) => prev + 1)
 ```
+
+## Deprecated
+
+Read with `useSelector` and write through `store.actions` or
+`store.setState` instead. `_useStore` will be removed in the next major
+version.

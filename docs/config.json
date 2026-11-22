@@ -323,7 +323,7 @@
               "to": "framework/react/reference/functions/useStoreActions"
             },
             {
-              "label": "_useStore (experimental)",
+              "label": "_useStore (deprecated)",
               "to": "framework/react/reference/functions/useStore"
             },
             {
@@ -356,7 +356,7 @@
               "to": "framework/vue/reference/functions/useStoreActions"
             },
             {
-              "label": "_useStore (experimental)",
+              "label": "_useStore (deprecated)",
               "to": "framework/vue/reference/functions/useStore"
             },
             {
@@ -389,7 +389,7 @@
               "to": "framework/solid/reference/functions/useStoreActions"
             },
             {
-              "label": "_useStore (experimental)",
+              "label": "_useStore (deprecated)",
               "to": "framework/solid/reference/functions/useStore"
             },
             {
@@ -451,7 +451,7 @@
               "to": "framework/svelte/reference/functions/useStoreActions"
             },
             {
-              "label": "_useStore (experimental)",
+              "label": "_useStore (deprecated)",
               "to": "framework/svelte/reference/functions/useStore"
             },
             {
@@ -496,7 +496,7 @@
               "to": "framework/preact/reference/functions/useStoreActions"
             },
             {
-              "label": "_useStore (experimental)",
+              "label": "_useStore (deprecated)",
               "to": "framework/preact/reference/functions/useStore"
             },
             {
