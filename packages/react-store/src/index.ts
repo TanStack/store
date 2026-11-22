@@ -10,6 +10,6 @@ export * from './useSelector'
 
 // tuple hooks - [state, setState]
 export * from './useAtom'
-export * from './_useStore' // will replace old useStore hook in next major version
+export * from './_useStore' // @deprecated, removed in the next major version
 
 export * from './useStore' // @deprecated in favor of useSelector

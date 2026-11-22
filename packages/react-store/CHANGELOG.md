@@ -8,6 +8,20 @@
 
   `useSelector` builds on React's built-in `useSyncExternalStore` with a single memoized selection ref instead of the `use-sync-external-store/shim/with-selector` helper: fewer hook slots and allocations per subscribed component, no per-component passive effect, and the `use-sync-external-store` dependency is gone from consumer bundles. The public API and selection semantics of `useSelector`, `useAtom`, `_useStore` and `useStore` are unchanged.
 
+## 0.11.4
+
+### Patch Changes
+
+- [#415](https://github.com/TanStack/store/pull/415) [`75b976a`](https://github.com/TanStack/store/commit/75b976ae4d0773846cf0ba3501a876aecf9a131d) - Deprecate the experimental `_useStore` hook. Read state with `useSelector` and write through `store.actions` or `store.setState` instead. `_useStore` will be removed in the next major version.
+- Updated dependencies [[`75b976a`](https://github.com/TanStack/store/commit/75b976ae4d0773846cf0ba3501a876aecf9a131d)]:
+  - @tanstack/store@0.11.3
+
+## 0.11.3
+
+### Patch Changes
+
+- [#407](https://github.com/TanStack/store/pull/407) [`0e95a97`](https://github.com/TanStack/store/commit/0e95a975c62c414f55905582a9861fe057506f4b) - Declare `@types/react` as an optional peer dependency so React types resolve correctly under strict package layouts such as pnpm's global virtual store
+
 ## 0.11.2
 
 ### Patch Changes

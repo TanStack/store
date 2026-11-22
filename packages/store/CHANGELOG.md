@@ -1,5 +1,11 @@
 # @tanstack/store
 
+## 0.11.3
+
+### Patch Changes
+
+- [#415](https://github.com/TanStack/store/pull/415) [`75b976a`](https://github.com/TanStack/store/commit/75b976ae4d0773846cf0ba3501a876aecf9a131d) - Add `compareShallow` and `compareDeep` equality helpers. Pass either one as the `compare` option to `useSelector` (or `injectSelector`) to skip updates when a selector returns a new object or array with the same contents.
+
 ## 0.11.2
 
 ### Patch Changes
