@@ -504,6 +504,29 @@ describe('evaluate', () => {
       expect(compareDeep(left, right)).toEqual(false)
     })
 
+    it('should not finalize a provisional result while its ancestors are still in progress', () => {
+      // y -> x -> z -> back to x, and x also points back to y. While matching
+      // the Sets, `z` vs `z` is provisionally equal on the assumption that the
+      // `x` pair is equal, and the `x` pair assumes the `y` pair is equal. The
+      // `y` pair then fails, so `z` vs `z` must not be kept as equal.
+      const build = (value: number) => {
+        const z: Record<string, unknown> = {}
+        const x: Record<string, unknown> = { z }
+        const y = { k: x, value }
+        x.back = y
+        z.up = x
+        return { y, z }
+      }
+      const a = build(1)
+      const a2 = build(1)
+      const b = build(2)
+      const b2 = build(2)
+
+      expect(
+        compareDeep([new Set([a.y, b2.y]), a.z], [new Set([b.y, a2.y]), b.z]),
+      ).toEqual(false)
+    })
+
     it('should not cache a failure that relied on an in-progress pair', () => {
       // While `P` vs `Q` is in progress, Set matching pairs L's `{ parent: P }`
       // with R's `{ parent: Q }` and then fails. That failure must not be
@@ -670,6 +693,38 @@ describe('evaluate', () => {
         // `sharedB` past the max depth and fails. `e` then matches `c2`, which
         // compares the same pair near the top, where it fits.
         expect(compareDeep(new Set([e, c1]), new Set([c1, c2]))).toEqual(true)
+      })
+
+      it('should not repeat comparisons that failed at the max depth', () => {
+        let reads = 0
+        const build = () => {
+          let node: Set<unknown> = new Set([{ value: 1 }])
+          for (let i = 0; i < 25; i++) {
+            const child = node
+            // `c` comes before `t`, so both candidates compare the child first
+            const wrapper = (t: number) =>
+              Object.assign(
+                Object.defineProperty({}, 'c', {
+                  enumerable: true,
+                  get: () => {
+                    reads++
+                    return child
+                  },
+                }),
+                { t },
+              )
+            node = new Set([wrapper(1), wrapper(2)])
+          }
+          // start deep enough that the chain reaches the max depth
+          let root: unknown = node
+          for (let i = 0; i < 470; i++) root = { a: root }
+          return root
+        }
+
+        expect(compareDeep(build(), build())).toEqual(false)
+        // each level would double the work if failures at the max depth were
+        // compared again at the same depth
+        expect(reads).toBeLessThan(1000)
       })
 
       it('should report values nested past the max depth as unequal instead of overflowing the stack', () => {

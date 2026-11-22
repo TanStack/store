@@ -20,10 +20,17 @@ interface Provisional {
   lowest: number
 }
 
+// A pair that failed only because its comparison reached MAX_DEPTH. Reaching it
+// again at the same depth or deeper leaves no more room, so the failure is
+// reused there. Reaching it higher up compares it again.
+interface DepthLimited {
+  failedAt: number
+}
+
 // Each compared pair (a, b) has a state: its stack depth (a positive number)
 // while it is still being compared, EQUAL or NOT_EQUAL once it is final, or a
-// Provisional result.
-type PairState = number | Provisional
+// Provisional or DepthLimited result.
+type PairState = number | Provisional | DepthLimited
 type PairStates = Map<object, PairState>
 
 interface Seen {
@@ -87,13 +94,19 @@ function _evaluate<T>(
   // guards against circular references: a pair that is still being compared
   // further up the stack is assumed equal, and so is a provisional pair. Either
   // way, the current comparison now depends on the same in-progress pairs.
-  if (state !== undefined) {
-    const assumed = typeof state === 'number' ? state : state.lowest
-    seen.lowestAssumed = Math.min(seen.lowestAssumed, assumed)
+  if (typeof state === 'number') {
+    seen.lowestAssumed = Math.min(seen.lowestAssumed, state)
+    return true
+  }
+  if (state && 'lowest' in state) {
+    seen.lowestAssumed = Math.min(seen.lowestAssumed, state.lowest)
     return true
   }
 
-  if (seen.depth >= MAX_DEPTH) {
+  if (
+    seen.depth >= MAX_DEPTH ||
+    (state !== undefined && seen.depth + 1 >= state.failedAt)
+  ) {
     seen.depthLimitHits++
     return false
   }
@@ -126,8 +139,13 @@ function _evaluate<T>(
     if (dependents) {
       for (const entry of dependents) {
         const [states, b, provisional] = entry
-        if (!result) states.delete(b)
-        else if (provisional.lowest >= depth) states.set(b, EQUAL)
+        if (!result) {
+          states.delete(b)
+          continue
+        }
+        // it also depends on whatever this pair assumed
+        provisional.lowest = Math.min(provisional.lowest, innerLowestAssumed)
+        if (provisional.lowest >= depth) states.set(b, EQUAL)
         else addPending(seen, depth - 1, entry)
       }
     }
@@ -136,10 +154,12 @@ function _evaluate<T>(
       // A failure is final only if it assumed nothing above this pair and did
       // not stop at MAX_DEPTH. An assumption can make Set matching pick the
       // wrong candidate, and the same pair may fit within MAX_DEPTH elsewhere.
-      if (!assumedAbove && seen.depthLimitHits === depthLimitHitsBefore) {
-        pairs.set(objB, NOT_EQUAL)
-      } else {
+      if (assumedAbove) {
         pairs.delete(objB)
+      } else if (seen.depthLimitHits !== depthLimitHitsBefore) {
+        pairs.set(objB, { failedAt: depth })
+      } else {
+        pairs.set(objB, NOT_EQUAL)
       }
     } else if (!assumedAbove) {
       pairs.set(objB, EQUAL)
