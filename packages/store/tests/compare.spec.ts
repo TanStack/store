@@ -479,6 +479,31 @@ describe('evaluate', () => {
       expect(compareDeep(build(), build())).toEqual(true)
     })
 
+    it('should not repeat failed comparisons of shared children', () => {
+      const build = (leaf: number) => {
+        let node: Set<unknown> = new Set([{ v: leaf }])
+        for (let i = 0; i < 30; i++) {
+          node = new Set([
+            { c: node, t: 1 },
+            { c: node, t: 2 },
+          ])
+        }
+        return node
+      }
+
+      // 2^30 comparisons if failed pairs are compared again
+      expect(compareDeep(build(1), build(2))).toEqual(false)
+    })
+
+    it('should stop at the max depth instead of overflowing the stack', () => {
+      const nested = (depth: number) =>
+        JSON.parse('['.repeat(depth) + ']'.repeat(depth)) as unknown
+
+      expect(compareDeep(nested(400), nested(400))).toEqual(true)
+      // too deep to compare, so it reports a change instead of throwing
+      expect(compareDeep(nested(20_000), nested(20_000))).toEqual(false)
+    })
+
     it('should test equality between File objects', () => {
       const file1 = new File(['hello'], 'hello.txt', {
         type: 'text/plain',

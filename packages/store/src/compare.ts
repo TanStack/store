@@ -9,6 +9,11 @@ export function compareDeep<T>(objA: T, objB: T): boolean {
 // Marks a pair that was proven equal, as opposed to the positive stack depth of
 // a pair that is still being compared.
 const EQUAL = 0
+const NOT_EQUAL = -1
+
+// Past this nesting depth, values are reported as unequal instead of recursing
+// further, so hostile or accidental deep nesting cannot overflow the stack.
+const MAX_DEPTH = 500
 
 interface Seen {
   // for each pair (a, b): its stack depth while it is still being compared
@@ -54,6 +59,7 @@ function _evaluate<T>(
   let pairs = seen.pairs.get(objA)
   const state = pairs?.get(objB)
   if (state === EQUAL) return true
+  if (state === NOT_EQUAL) return false
 
   // guards against circular references: a pair that is still being compared
   // further up the stack is assumed equal. A pair is cached as equal only if
@@ -64,6 +70,8 @@ function _evaluate<T>(
     seen.lowestAssumed = Math.min(seen.lowestAssumed, state)
     return true
   }
+
+  if (seen.depth >= MAX_DEPTH) return false
 
   if (!pairs) {
     pairs = new Map()
@@ -81,7 +89,11 @@ function _evaluate<T>(
   } finally {
     seen.depth--
     const innerLowestAssumed = seen.lowestAssumed
-    if (result && innerLowestAssumed >= depth) {
+    if (!result) {
+      // a pair that fails even while every in-progress pair is assumed equal
+      // is unequal, so the result is safe to reuse
+      pairs.set(objB, NOT_EQUAL)
+    } else if (innerLowestAssumed >= depth) {
       pairs.set(objB, EQUAL)
     } else {
       pairs.delete(objB)
