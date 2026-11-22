@@ -6,23 +6,29 @@ export function compareDeep<T>(objA: T, objB: T): boolean {
   return _evaluate(objA, objB, { mode: 'deep' }, createSeen())
 }
 
-// Marks a pair that was proven equal, as opposed to the positive stack depth of
-// a pair that is still being compared.
+// Each compared pair (a, b) has a state:
+// - a positive number: the pair's stack depth while it is still being compared
+// - EQUAL or NOT_EQUAL: the pair's final result
+// - provisional(d), a number below NOT_EQUAL: the pair is equal as long as the
+//   in-progress pair at depth d turns out equal
 const EQUAL = 0
 const NOT_EQUAL = -1
+const provisional = (depth: number) => -depth - 1
 
 // Past this nesting depth, values are reported as unequal instead of recursing
 // further, so hostile or accidental deep nesting cannot overflow the stack.
 const MAX_DEPTH = 500
 
+type PairStates = Map<object, number>
+
 interface Seen {
-  // for each pair (a, b): its stack depth while it is still being compared
-  // further up the stack, or EQUAL once it is proven equal
-  pairs: Map<object, Map<object, number>>
+  pairs: Map<object, PairStates>
   // depth of the pair being compared
   depth: number
-  // shallowest in-progress pair assumed equal below the current one
+  // shallowest in-progress pair the current comparison depends on
   lowestAssumed: number
+  // provisional pairs, by the depth of the in-progress pair they depend on
+  pending: Array<Array<[PairStates, object]> | undefined>
 }
 
 function createSeen(): Seen {
@@ -30,6 +36,7 @@ function createSeen(): Seen {
     pairs: new Map(),
     depth: 0,
     lowestAssumed: Infinity,
+    pending: [],
   }
 }
 
@@ -62,12 +69,12 @@ function _evaluate<T>(
   if (state === NOT_EQUAL) return false
 
   // guards against circular references: a pair that is still being compared
-  // further up the stack is assumed equal. A pair is cached as equal only if
-  // every pair it assumed was itself or one below it, all now complete, so a
-  // failed comparison (e.g. while matching Set elements) is never remembered
-  // as a success.
+  // further up the stack is assumed equal, and so is a provisional pair that
+  // depends on one. Either way, the current comparison now depends on that
+  // in-progress pair too.
   if (state !== undefined) {
-    seen.lowestAssumed = Math.min(seen.lowestAssumed, state)
+    const assumedDepth = state > 0 ? state : -state - 1
+    seen.lowestAssumed = Math.min(seen.lowestAssumed, assumedDepth)
     return true
   }
 
@@ -89,15 +96,39 @@ function _evaluate<T>(
   } finally {
     seen.depth--
     const innerLowestAssumed = seen.lowestAssumed
+    // pairs that were provisionally equal on the assumption that this pair is
+    const dependents = seen.pending[depth]
+    seen.pending[depth] = undefined
+
     if (!result) {
       // a pair that fails even while every in-progress pair is assumed equal
-      // is unequal, so the result is safe to reuse
+      // is unequal, so the result is safe to reuse. Pairs that assumed this
+      // one was equal are dropped and will be compared again if needed.
       pairs.set(objB, NOT_EQUAL)
+      if (dependents) {
+        for (const [states, b] of dependents) states.delete(b)
+      }
     } else if (innerLowestAssumed >= depth) {
+      // proven without assuming anything above this pair
       pairs.set(objB, EQUAL)
+      if (dependents) {
+        for (const [states, b] of dependents) states.set(b, EQUAL)
+      }
     } else {
-      pairs.delete(objB)
+      // equal as long as the pair at innerLowestAssumed is, so keep it
+      // provisionally instead of comparing it again
+      const value = provisional(innerLowestAssumed)
+      const list = (seen.pending[innerLowestAssumed] ??= [])
+      pairs.set(objB, value)
+      list.push([pairs, objB])
+      if (dependents) {
+        for (const entry of dependents) {
+          entry[0].set(entry[1], value)
+          list.push(entry)
+        }
+      }
     }
+
     // assumptions about pairs above this one still apply to them
     seen.lowestAssumed = Math.min(
       outerLowestAssumed,
