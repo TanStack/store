@@ -6,13 +6,14 @@ export function compareDeep<T>(objA: T, objB: T): boolean {
   return _evaluate(objA, objB, { mode: 'deep' }, createSeen())
 }
 
-type PairSet = WeakMap<object, WeakSet<object>>
+// Marks a pair that was proven equal, as opposed to the positive stack depth of
+// a pair that is still being compared.
+const EQUAL = 0
 
 interface Seen {
-  // stack depth of each pair still being compared further up the stack
-  inProgress: WeakMap<object, Map<object, number>>
-  // pairs proven equal
-  equal: PairSet
+  // for each pair (a, b): its stack depth while it is still being compared
+  // further up the stack, or EQUAL once it is proven equal
+  pairs: Map<object, Map<object, number>>
   // depth of the pair being compared
   depth: number
   // shallowest in-progress pair assumed equal below the current one
@@ -21,24 +22,10 @@ interface Seen {
 
 function createSeen(): Seen {
   return {
-    inProgress: new WeakMap(),
-    equal: new WeakMap(),
+    pairs: new Map(),
     depth: 0,
     lowestAssumed: Infinity,
   }
-}
-
-function hasPair(pairs: PairSet, a: object, b: object): boolean {
-  return pairs.get(a)?.has(b) ?? false
-}
-
-function addPair(pairs: PairSet, a: object, b: object): void {
-  let set = pairs.get(a)
-  if (!set) {
-    set = new WeakSet()
-    pairs.set(a, set)
-  }
-  set.add(b)
 }
 
 function _evaluate<T>(
@@ -64,40 +51,42 @@ function _evaluate<T>(
     return _evaluateObjects(objA, objB, config, seen)
   }
 
-  if (hasPair(seen.equal, objA, objB)) return true
+  let pairs = seen.pairs.get(objA)
+  const state = pairs?.get(objB)
+  if (state === EQUAL) return true
 
   // guards against circular references: a pair that is still being compared
   // further up the stack is assumed equal. A pair is cached as equal only if
   // every pair it assumed was itself or one below it, all now complete, so a
   // failed comparison (e.g. while matching Set elements) is never remembered
   // as a success.
-  const assumedDepth = seen.inProgress.get(objA)?.get(objB)
-  if (assumedDepth !== undefined) {
-    seen.lowestAssumed = Math.min(seen.lowestAssumed, assumedDepth)
+  if (state !== undefined) {
+    seen.lowestAssumed = Math.min(seen.lowestAssumed, state)
     return true
   }
 
-  let pairs = seen.inProgress.get(objA)
   if (!pairs) {
     pairs = new Map()
-    seen.inProgress.set(objA, pairs)
+    seen.pairs.set(objA, pairs)
   }
   const depth = ++seen.depth
   pairs.set(objB, depth)
   const outerLowestAssumed = seen.lowestAssumed
   seen.lowestAssumed = Infinity
+  let result = false
 
   try {
-    const result = _evaluateObjects(objA, objB, config, seen)
-    if (result && seen.lowestAssumed >= depth) {
-      addPair(seen.equal, objA, objB)
-    }
+    result = _evaluateObjects(objA, objB, config, seen)
     return result
   } finally {
-    pairs.delete(objB)
     seen.depth--
-    // assumptions about pairs above this one still apply to them
     const innerLowestAssumed = seen.lowestAssumed
+    if (result && innerLowestAssumed >= depth) {
+      pairs.set(objB, EQUAL)
+    } else {
+      pairs.delete(objB)
+    }
+    // assumptions about pairs above this one still apply to them
     seen.lowestAssumed = Math.min(
       outerLowestAssumed,
       innerLowestAssumed < depth ? innerLowestAssumed : Infinity,
@@ -156,51 +145,19 @@ function _evaluateObjects<T>(
     if (objA.size !== objB.size) return false
 
     if (config.mode === 'deep') {
-      // Match each element of objA to its own element of objB. A later
-      // element may take an earlier one's match if that one can move to
-      // another (augmenting paths), so a custom non-transitive `equals`
-      // cannot hide a valid matching. Pairs are compared lazily, once.
-      const values = [...objA]
-      const others = [...objB]
-      const indexOfOther = new Map(others.map((other, index) => [other, index]))
-      const owner: Array<number> = others.map(() => -1)
-      const compared = new Map<number, boolean>()
-      const matches = (value: number, index: number): boolean => {
-        const key = value * others.length + index
-        let result = compared.get(key)
-        if (result === undefined) {
-          result =
-            values[value] === others[index] ||
-            _evaluate(values[value], others[index], config, seen)
-          compared.set(key, result)
-        }
-        return result
-      }
-      const assign = (value: number, visited: Array<boolean>): boolean => {
-        for (let index = 0; index < others.length; index++) {
-          if (visited[index] || !matches(value, index)) continue
-          visited[index] = true
-          const current = owner[index] ?? -1
-          if (current === -1 || assign(current, visited)) {
-            owner[index] = value
-            return true
-          }
-        }
-        return false
-      }
-      for (let value = 0; value < values.length; value++) {
-        const same = indexOfOther.get(values[value])
-        if (same !== undefined && owner[same] === -1) {
-          owner[same] = value
-          continue
-        }
-        if (
-          !assign(
-            value,
-            others.map(() => false),
+      // Match each element of objA to its own element of objB, preferring the
+      // same reference. Taking the first deep-equal match is enough because
+      // deep equality is transitive.
+      const unmatched = [...objB]
+      for (const v of objA) {
+        let index = unmatched.indexOf(v)
+        if (index === -1) {
+          index = unmatched.findIndex((other) =>
+            _evaluate(v, other, config, seen),
           )
-        )
-          return false
+        }
+        if (index === -1) return false
+        unmatched.splice(index, 1)
       }
     }
 
