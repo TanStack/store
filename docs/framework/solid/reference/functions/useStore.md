@@ -10,10 +10,9 @@ function _useStore<TState, TActions, TSelected>(
    options?): [Accessor<TSelected>, [TActions] extends [never] ? (updater) => void : TActions];
 ```
 
-Defined in: [\_useStore.ts:23](https://github.com/TanStack/store/blob/main/packages/solid-store/src/_useStore.ts#L23)
+Defined in: [\_useStore.ts:26](https://github.com/TanStack/store/blob/main/packages/solid-store/src/_useStore.ts#L26)
 
-Experimental combined read+write hook for stores, mirroring useAtom's tuple
-pattern.
+Combined read+write hook for stores, mirroring useAtom's tuple pattern.
 
 Returns `[selected, actions]` when the store has an actions factory, or
 `[selected, setState]` for plain stores.
@@ -60,3 +59,9 @@ const [cats, { addCat }] = _useStore(petStore, (s) => s.cats)
 const [count, setState] = _useStore(plainStore, (s) => s)
 setState((prev) => prev + 1)
 ```
+
+## Deprecated
+
+Read with `useSelector` and write through `store.actions` or
+`store.setState` instead. `_useStore` will be removed in the next major
+version.

@@ -1,5 +1,5 @@
 import { render } from 'solid-js/web'
-import { createStore, _useStore, useSelector } from '@tanstack/solid-store'
+import { createStore, useSelector } from '@tanstack/solid-store'
 
 // Optionally, you can create stores outside of Solid components at module scope
 const petStore = createStore(
@@ -34,8 +34,7 @@ function App() {
       <p>
         This example creates a module-level store with actions. Components read
         state with <code>useSelector</code> and call mutations through{' '}
-        <code>store.actions</code> or the experimental <code>_useStore</code>{' '}
-        hook.
+        <code>store.actions</code>.
       </p>
       <CatVoter />
       <DogVoter />
@@ -59,8 +58,8 @@ function CatVoter() {
 }
 
 function DogVoter() {
-  // _useStore gives both the selected state and actions in a single tuple
-  const [dogs, { addDog }] = _useStore(petStore, (state) => state.dogs)
+  const dogs = useSelector(petStore, (state) => state.dogs)
+  const { addDog } = petStore.actions
 
   return (
     <div>
