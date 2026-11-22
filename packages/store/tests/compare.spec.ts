@@ -480,6 +480,56 @@ describe('evaluate', () => {
       ).toEqual(false)
     })
 
+    it('should drop provisional results when any ancestor they assumed fails', () => {
+      const build = (x: number) => {
+        const child: Record<string, unknown> = {}
+        const parent = { child, x }
+        child.parent = parent
+        return { parent, child }
+      }
+      const a = build(1)
+      const a2 = build(1)
+      const b = build(2)
+      const b2 = build(2)
+      const left = [new Set([a.parent, b2.parent]), a.child]
+      const right = [new Set([b.parent, a2.parent]), b.child]
+      // Every child also points to its side's outer array, so the provisional
+      // result for `a.child` vs `b.child` depends on both the outer arrays and
+      // the failing parents.
+      a.child.outer = left
+      b2.child.outer = left
+      b.child.outer = right
+      a2.child.outer = right
+
+      expect(compareDeep(left, right)).toEqual(false)
+    })
+
+    it('should not cache a failure that relied on an in-progress pair', () => {
+      // While `P` vs `Q` is in progress, Set matching pairs L's `{ parent: P }`
+      // with R's `{ parent: Q }` and then fails. That failure must not be
+      // reused once `P` vs `Q` is done, because L and R do match one to one.
+      const L = new Set<{ parent: unknown }>()
+      const R = new Set<{ parent: unknown }>()
+      const P = { s: L, x: 1 }
+      const Q = { x: 2, s: R }
+      L.add({ parent: P }).add({ parent: Q })
+      R.add({ parent: Q }).add({ parent: P })
+
+      expect(
+        compareDeep([new Set([P, Q]), L], [new Set([Q, { ...P }]), R]),
+      ).toEqual(true)
+    })
+
+    it('should match Sets of the same references in linear time', () => {
+      const items = Array.from({ length: 200000 }, (_, i) => ({ id: i }))
+      const reversed = new Set([...items].reverse())
+
+      // a scan per element would take on the order of 2 * 10^10 steps here
+      const start = performance.now()
+      expect(compareDeep(new Set(items), reversed)).toEqual(true)
+      expect(performance.now() - start).toBeLessThan(1000)
+    })
+
     it('should match large Sets of objects in any order', () => {
       const items = (n: number) =>
         Array.from({ length: n }, (_, i) => ({ id: i, tags: [i % 3] }))
@@ -600,6 +650,26 @@ describe('evaluate', () => {
         expect(compareDeep(nestedObjects(400), nestedObjects(400))).toEqual(
           true,
         )
+      })
+
+      it('should not cache a failure caused by the max depth', () => {
+        const wrap = (value: unknown, depth: number) => {
+          let node = value
+          for (let i = 0; i < depth; i++) node = { a: node }
+          return node
+        }
+        const shared = () => wrap(1, 10)
+        const sharedA = shared()
+        const sharedB = shared()
+        const deepA = wrap(sharedA, 495)
+        const e = { y: deepA, x: sharedA }
+        const c1 = { y: wrap(sharedB, 495), x: sharedB }
+        const c2 = { y: deepA, x: sharedB }
+
+        // `e` is first tried against `c1`, which reaches `sharedA` vs
+        // `sharedB` past the max depth and fails. `e` then matches `c2`, which
+        // compares the same pair near the top, where it fits.
+        expect(compareDeep(new Set([e, c1]), new Set([c1, c2]))).toEqual(true)
       })
 
       it('should report values nested past the max depth as unequal instead of overflowing the stack', () => {
