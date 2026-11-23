@@ -174,6 +174,37 @@ describe('store hooks', () => {
     expect(result()).toBe(3)
   })
 
+  it('useSelector tracks signals a selector reads only after a store update', () => {
+    const store = createStore({ enabled: false })
+    const [count, setCount] = createSignal(1)
+    const { result } = renderHook(() =>
+      useSelector(store, (state) => (state.enabled ? count() : 0)),
+    )
+
+    expect(result()).toBe(0)
+    store.setState(() => ({ enabled: true }))
+    flush()
+    expect(result()).toBe(1)
+    setCount(2)
+    flush()
+    expect(result()).toBe(2)
+  })
+
+  it('useSelector keeps a selected Promise as a plain value', () => {
+    const request = Promise.resolve('done')
+    const store = createStore({ request })
+    const { result } = renderHook(() =>
+      useSelector(store, (state) => state.request),
+    )
+
+    expect(result()).toBe(request)
+
+    const next = Promise.resolve('next')
+    store.setState(() => ({ request: next }))
+    flush()
+    expect(result()).toBe(next)
+  })
+
   it('useSelector works with mounted derived stores', () => {
     const store = createStore(0)
     const derived = createStore(() => ({ val: store.state * 2 }))
