@@ -1,5 +1,5 @@
-import { defineConfig } from 'vitest/config'
 import marko from '@marko/vite'
+import { defineConfig } from 'vitest/config'
 import packageJson from './package.json'
 
 // @marko/vite is an app plugin (it sets up SSR + browser transforms) and is

@@ -3,7 +3,6 @@
 This example demonstrates:
 
 - `injectSelector`
-- `injectSetValue`
 - `injectAtom`
 
 To run this example:

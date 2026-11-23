@@ -12,7 +12,6 @@ import {
   WATCHING,
   createReactiveSystem,
 } from './alien'
-
 import type { ReactiveNode } from './alien'
 
 export { createReactiveSystem } from './alien'

@@ -71,7 +71,6 @@ export class Display {
 
 **increment.component.ts**
 ```angular-ts
-import { injectStore } from '@tanstack/angular-store';
 import { store, updateState } from './store';
 
 @Component({
@@ -86,5 +85,3 @@ export class Increment {
     updateState = updateState;
 }
 ```
-
-`injectStore` remains available as a deprecated alias to `injectSelector`.

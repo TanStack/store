@@ -21,12 +21,10 @@
   ],
   "scripts": {
     "clean": "premove ./dist ./coverage",
-    "test:eslint": "eslint ./src ./tests ./e2e",
-    "test:types": "pnpm run \"/^test:types:ts[0-9]{2}$/\" && pnpm run test:types:marko",
-    "test:types:ts56": "node ../../node_modules/typescript56/lib/tsc.js",
-    "test:types:ts57": "node ../../node_modules/typescript57/lib/tsc.js",
-    "test:types:ts58": "node ../../node_modules/typescript58/lib/tsc.js",
-    "test:types:ts59": "tsc",
+    "lint": "oxlint ./src ./tests ./e2e",
+    "lint:fix": "oxlint ./src ./tests ./e2e --fix",
+    "test:oxlint": "oxlint ./src ./tests ./e2e",
+    "test:types": "tsc && pnpm run test:types:marko",
     "test:types:marko": "marko-type-check -p tsconfig.marko.json",
     "test:lib": "vitest",
     "test:lib:dev": "pnpm run test:lib --watch",
@@ -65,11 +63,11 @@
     "@tanstack/store": "workspace:*"
   },
   "devDependencies": {
-    "@marko/language-tools": "^2.6.0",
-    "@marko/type-check": "^3.1.0",
-    "@marko/vite": "^6",
-    "@testing-library/dom": "^10.4.0",
-    "marko": "^6"
+    "@marko/language-tools": "^3.0.0",
+    "@marko/type-check": "^3.4.0",
+    "@marko/vite": "^6.1.14",
+    "@testing-library/dom": "^10.4.2",
+    "marko": "^6.5.2"
   },
   "peerDependencies": {
     "marko": "^6"

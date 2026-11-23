@@ -5,11 +5,5 @@
       "@tanstack/store": ["../store/src"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "tests/**/*.ts",
-    "e2e/**/*.ts",
-    "eslint.config.js",
-    "vitest.config.ts"
-  ]
+  "include": ["src/**/*.ts", "tests/**/*.ts", "e2e/**/*.ts", "vitest.config.ts"]
 }

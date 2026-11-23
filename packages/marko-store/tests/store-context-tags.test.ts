@@ -1,3 +1,4 @@
+import { waitFor } from '@testing-library/dom'
 /**
  * Client (jsdom) tests for the context delivery path: <store-provider> + the
  * <store-selector context=...> picker + <store-context> write handle. Mounts via
@@ -5,15 +6,14 @@
  * passes a FRESH store via input; client mounts never serialize, so that is safe.
  */
 import { afterEach, describe, expect, test } from 'vitest'
-import { waitFor } from '@testing-library/dom'
 import { createStore } from '../src/index'
-import SelectorHostTemplate from './fixtures/ctx-selector-host.marko'
-import WriteHostTemplate from './fixtures/ctx-write-host.marko'
-import NoProviderHostTemplate from './fixtures/ctx-no-provider-host.marko'
-import MultiHostTemplate from './fixtures/ctx-multi-host.marko'
-import NestedHostTemplate from './fixtures/ctx-nested-host.marko'
 import CustomKeyHostTemplate from './fixtures/ctx-customkey-host.marko'
 import GetterFedHostTemplate from './fixtures/ctx-getter-fed-host.marko'
+import MultiHostTemplate from './fixtures/ctx-multi-host.marko'
+import NestedHostTemplate from './fixtures/ctx-nested-host.marko'
+import NoProviderHostTemplate from './fixtures/ctx-no-provider-host.marko'
+import SelectorHostTemplate from './fixtures/ctx-selector-host.marko'
+import WriteHostTemplate from './fixtures/ctx-write-host.marko'
 
 const SelectorHost = SelectorHostTemplate as any
 const WriteHost = WriteHostTemplate as any

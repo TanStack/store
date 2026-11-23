@@ -56,8 +56,6 @@ export function updateState(animal: 'cats' | 'dogs') {
 <div>{ animal }: { count.current }</div>
 ```
 
-`useStore` remains available as a deprecated alias to `useSelector`.
-
 **Increment.svelte**
 ```html
 <script lang="ts">

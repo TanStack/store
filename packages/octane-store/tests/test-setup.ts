@@ -1,5 +1,5 @@
+import { drainPassiveEffects } from 'octane/internal/client'
 import { afterEach } from 'vitest'
-import { drainPassiveEffects } from 'octane'
 
 afterEach(() => {
   drainPassiveEffects()

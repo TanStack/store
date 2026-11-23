@@ -5,13 +5,13 @@
       "entry": ["src/tags/**/*"],
       "ignoreDependencies": ["@marko/language-tools", "marko"]
     },
-    "packages/vue-store": {
-      "ignoreDependencies": ["vue2", "vue2.7"]
-    },
     "packages/marko-store/e2e": {
       "entry": ["src/routes/**/+page.marko", "src/*.ts", "*.spec.ts"],
       "ignore": [".marko-run/**"],
       "ignoreDependencies": ["@marko/language-tools"]
+    },
+    "packages/react-store": {
+      "entry": ["src/index.ts", "tests/fixtures/rsc-loader.mjs"]
     },
     "packages/store": {
       "entry": ["src/signal.ts"]

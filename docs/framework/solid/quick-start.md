@@ -58,5 +58,3 @@ const App = () => {
 
 export default App;
 ```
-
-`useStore` remains available as a deprecated alias to `useSelector`.

@@ -1,4 +1,3 @@
-import ReactDOM from 'react-dom/client'
 import {
   useAtom,
   useCreateAtom,
@@ -6,6 +5,7 @@ import {
   useCreateStore,
   useSelector,
 } from '@tanstack/react-store'
+import ReactDOM from 'react-dom/client'
 import type { Atom, Store } from '@tanstack/react-store'
 
 // one drawback of storing stores and atoms in context is you have to define types for the context manually, instead of everything being inferred.

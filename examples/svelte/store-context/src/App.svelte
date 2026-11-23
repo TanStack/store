@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { setContext } from 'svelte'
   import { createAtom, createStore } from '@tanstack/svelte-store'
+  import { setContext } from 'svelte'
   import AtomSection from './AtomSection.svelte'
   import StoreSection from './StoreSection.svelte'
   import { STORE_CONTEXT } from './context'

@@ -1,5 +1,5 @@
-import { render } from 'preact'
 import { createStore, useSelector } from '@tanstack/preact-store'
+import { render } from 'preact'
 
 // You can instantiate a Store outside of Preact components too!
 export const store = createStore({
@@ -13,7 +13,7 @@ interface DisplayProps {
 
 // This will only re-render when `state[animal]` changes. If an unrelated store property changes, it won't re-render
 function Display({ animal }: DisplayProps) {
-  const count = useSelector(store, (state) => state[animal]) // formerly, useStore. Now renamed to useSelector.
+  const count = useSelector(store, (state) => state[animal])
   return <div>{`${animal}: ${count}`}</div>
 }
 

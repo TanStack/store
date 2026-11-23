@@ -1,6 +1,6 @@
 import { useSelector } from './useSelector'
 import type { Atom } from '@tanstack/store'
-import type { UseSelectorOptions } from './useSelector' // eslint-disable-line no-duplicate-imports
+import type { UseSelectorOptions } from './useSelector'
 
 /**
  * Returns the current atom value together with a stable setter.

@@ -52,5 +52,3 @@ function App() {
 
 render(<App />, document.getElementById("root"));
 ```
-
-`useStore` remains available as a deprecated alias to `useSelector`.

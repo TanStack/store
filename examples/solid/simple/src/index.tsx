@@ -1,5 +1,5 @@
+import { render } from '@solidjs/web'
 import { createStore, useSelector } from '@tanstack/solid-store'
-import { render } from 'solid-js/web'
 
 // You can instantiate a Store outside of Solid components too!
 export const store = createStore({
@@ -12,7 +12,7 @@ interface DisplayProps {
 }
 
 export const Display = (props: DisplayProps) => {
-  const count = useSelector(store, (state) => state[props.animals]) // formerly, useStore. Now renamed to useSelector.
+  const count = useSelector(store, (state) => state[props.animals])
   return (
     <div>
       {props.animals}: {count()}

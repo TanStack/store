@@ -1,5 +1,5 @@
-import { onScopeDispose, readonly, shallowRef, toRaw } from 'vue-demi'
-import type { Ref } from 'vue-demi'
+import { onScopeDispose, readonly, shallowRef, toRaw } from 'vue'
+import type { Ref } from 'vue'
 
 export interface UseSelectorOptions<TSelected> {
   compare?: (a: TSelected, b: TSelected) => boolean

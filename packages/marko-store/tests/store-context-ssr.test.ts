@@ -4,9 +4,9 @@
 // HTML (server) transform, so Marko's serializer actually executes -- a live store
 // reaching the payload would crash here. Mirrors the package's ssr.test.ts.
 import { describe, expect, it } from 'vitest'
-import SsrHost from './fixtures/ctx-ssr-host.marko'
-import MissingProviderHost from './fixtures/ctx-missing-provider-host.marko'
 import DupProviderHost from './fixtures/ctx-dup-provider-host.marko'
+import MissingProviderHost from './fixtures/ctx-missing-provider-host.marko'
+import SsrHost from './fixtures/ctx-ssr-host.marko'
 import { counterStore } from './fixtures/ctx-store'
 
 async function renderToString(

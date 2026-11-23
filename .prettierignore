@@ -1,9 +1,0 @@
-**/.next
-**/.nx/cache
-**/.svelte-kit
-**/build
-**/coverage
-**/dist
-**/docs
-**/codemods/**/__testfixtures__
-pnpm-lock.yaml

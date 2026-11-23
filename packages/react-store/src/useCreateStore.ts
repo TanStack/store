@@ -1,5 +1,7 @@
-import { useState } from 'react'
+'use client'
+
 import { createStore } from '@tanstack/store'
+import { useState } from 'react'
 import type {
   ReadonlyStore,
   Store,

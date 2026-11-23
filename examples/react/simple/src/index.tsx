@@ -1,5 +1,5 @@
-import ReactDOM from 'react-dom/client'
 import { createStore, useSelector } from '@tanstack/react-store'
+import ReactDOM from 'react-dom/client'
 
 // You can use instantiate a Store outside of React components too!
 export const store = createStore({
@@ -13,7 +13,7 @@ interface DisplayProps {
 
 // This will only re-render when `state[animal]` changes. If an unrelated store property changes, it won't re-render
 const Display = ({ animal }: DisplayProps) => {
-  const count = useSelector(store, (state) => state[animal]) // formerly, useStore. Now renamed to useSelector.
+  const count = useSelector(store, (state) => state[animal])
   return <div>{`${animal}: ${count}`}</div>
 }
 

@@ -1,15 +1,9 @@
-import { describe, expect, test } from 'vitest'
 import { Component, effect } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
 import { Store, createAtom, createStore } from '@tanstack/store'
-import {
-  _injectStore,
-  createStoreContext,
-  injectAtom,
-  injectSelector,
-  injectStore,
-} from '../src/index'
+import { describe, expect, test } from 'vitest'
+import { createStoreContext, injectAtom, injectSelector } from '../src/index'
 import type { Atom } from '@tanstack/store'
 
 describe('atom hooks', () => {
@@ -366,25 +360,6 @@ describe('selector hooks', () => {
   })
 })
 
-describe('injectStore', () => {
-  test('is a compatibility alias for injectSelector', () => {
-    const store = createStore({ select: 0 })
-
-    @Component({
-      template: `<p>Store: {{ storeVal() }}</p>`,
-      standalone: true,
-    })
-    class MyCmp {
-      storeVal = injectStore(store, (state) => state.select)
-    }
-
-    const fixture = TestBed.createComponent(MyCmp)
-    fixture.detectChanges()
-
-    expect(fixture.nativeElement.textContent).toContain('Store: 0')
-  })
-})
-
 describe('dataType', () => {
   test('date change trigger re-render', () => {
     const store = createStore({ date: new Date('2025-03-29T21:06:30.401Z') })
@@ -425,88 +400,6 @@ describe('dataType', () => {
       fixture.debugElement.query(By.css('p#displayStoreVal')).nativeElement
         .textContent,
     ).toContain(new Date('2025-03-29T21:06:40.401Z'))
-  })
-})
-
-describe('_injectStore', () => {
-  test('returns selected state and actions for stores with actions', () => {
-    const store = createStore({ count: 0 }, ({ setState }) => ({
-      inc: () => setState((prev) => ({ count: prev.count + 1 })),
-    }))
-
-    @Component({
-      template: `
-        <div>
-          <p id="count">{{ count() }}</p>
-          <button id="inc" (click)="inc()">Inc</button>
-        </div>
-      `,
-      standalone: true,
-    })
-    class MyCmp {
-      private result = _injectStore(store, (state) => state.count)
-      count = this.result[0]
-      actions = this.result[1]
-
-      inc() {
-        this.actions.inc()
-      }
-    }
-
-    const fixture = TestBed.createComponent(MyCmp)
-    fixture.detectChanges()
-
-    expect(
-      fixture.debugElement.query(By.css('p#count')).nativeElement.textContent,
-    ).toContain('0')
-
-    fixture.debugElement
-      .query(By.css('button#inc'))
-      .triggerEventHandler('click', null)
-    fixture.detectChanges()
-
-    expect(
-      fixture.debugElement.query(By.css('p#count')).nativeElement.textContent,
-    ).toContain('1')
-  })
-
-  test('returns selected state and setState for plain stores', () => {
-    const store = createStore(0)
-
-    @Component({
-      template: `
-        <div>
-          <p id="value">{{ value() }}</p>
-          <button id="inc" (click)="inc()">Inc</button>
-        </div>
-      `,
-      standalone: true,
-    })
-    class MyCmp {
-      private result = _injectStore(store, (state) => state)
-      value = this.result[0]
-      setState = this.result[1]
-
-      inc() {
-        this.setState((prev) => prev + 1)
-      }
-    }
-
-    const fixture = TestBed.createComponent(MyCmp)
-    fixture.detectChanges()
-
-    expect(
-      fixture.debugElement.query(By.css('p#value')).nativeElement.textContent,
-    ).toContain('0')
-
-    fixture.debugElement
-      .query(By.css('button#inc'))
-      .triggerEventHandler('click', null)
-    fixture.detectChanges()
-
-    expect(
-      fixture.debugElement.query(By.css('p#value')).nativeElement.textContent,
-    ).toContain('1')
   })
 })
 

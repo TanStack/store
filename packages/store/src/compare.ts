@@ -27,16 +27,16 @@ function _evaluate<T>(
 
   // guards against circular references
   if (config.mode === 'deep') {
-    let seenB = seen.get(objA as object)
+    let seenB = seen.get(objA)
 
-    if (seenB?.has(objB as object)) return true
+    if (seenB?.has(objB)) return true
 
     if (!seenB) {
       seenB = new WeakSet()
-      seen.set(objA as object, seenB)
+      seen.set(objA, seenB)
     }
 
-    seenB.add(objB as object)
+    seenB.add(objB)
   }
 
   // guards against runtime cross type evaluation
@@ -109,8 +109,8 @@ function _evaluate<T>(
     )
   }
 
-  const keysA = getOwnKeys(objA as object)
-  const keysB = getOwnKeys(objB as object)
+  const keysA = getOwnKeys(objA)
+  const keysB = getOwnKeys(objB)
 
   if (keysA.length !== keysB.length) {
     return false

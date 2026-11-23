@@ -17,10 +17,10 @@
 // the attribute value is walked, and serialization rejects.
 
 import { describe, expect, it } from 'vitest'
-import SsrSelector from './fixtures/ssr-selector.marko'
 import SsrAtom from './fixtures/ssr-atom.marko'
 import SsrObjectAntipattern from './fixtures/ssr-object-antipattern.marko'
 import SsrPayloadHost from './fixtures/ssr-payload-host.marko'
+import SsrSelector from './fixtures/ssr-selector.marko'
 import { countAtom, counterStore } from './fixtures/ssr-store'
 
 async function renderToString(

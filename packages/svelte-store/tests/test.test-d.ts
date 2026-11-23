@@ -1,12 +1,6 @@
-import { expectTypeOf, test } from 'vitest'
 import { createAtom, createStore } from '@tanstack/store'
-import {
-  _useStore,
-  useAtom,
-  useSelector,
-  useStore,
-} from '../src/index.svelte.js'
-import type { Store } from '@tanstack/store'
+import { expectTypeOf, test } from 'vitest'
+import { useAtom, useSelector } from '../src/index.svelte.js'
 
 test('useSelector works with derived state', () => {
   const store = createStore(12)
@@ -50,34 +44,4 @@ test('useAtom only accepts writable atoms', () => {
   expectTypeOf(setValue).toBeFunction()
   // @ts-expect-error readonly atoms cannot be used with useAtom
   useAtom(readonlyAtom)
-})
-
-test('useStore matches useSelector types for compatibility', () => {
-  const store = createStore(12)
-  const selectorValue = useSelector(store, (state) => state)
-  const compatValue = useStore(store, (state) => state)
-
-  expectTypeOf(selectorValue).toEqualTypeOf<{ readonly current: number }>()
-  expectTypeOf(compatValue).toEqualTypeOf<{ readonly current: number }>()
-})
-
-test('_useStore returns selected state and second tuple element for stores with actions', () => {
-  const store = createStore({ count: 0 }, ({ setState }) => ({
-    inc: () => setState((prev) => ({ count: prev.count + 1 })),
-  }))
-
-  const result = _useStore(store, (state) => state.count)
-
-  expectTypeOf(result[0]).toEqualTypeOf<{ readonly current: number }>()
-  // The second element should be the actions bag
-  expectTypeOf(result).toBeArray()
-})
-
-test('_useStore returns setState for plain stores', () => {
-  const store = createStore(0)
-
-  const [selected, setState] = _useStore(store, (state) => state)
-
-  expectTypeOf(selected).toEqualTypeOf<{ readonly current: number }>()
-  expectTypeOf(setState).toEqualTypeOf<Store<number>['setState']>()
 })

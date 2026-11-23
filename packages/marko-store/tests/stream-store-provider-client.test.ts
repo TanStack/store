@@ -1,3 +1,4 @@
+import { waitFor } from '@testing-library/dom'
 /**
  * Client (jsdom) tests for <stream-store-provider> mounted client-only (no SSR, no resume).
  * Mounts via Template.mount, same pattern as the package's store-context-tags.test.ts. These
@@ -9,7 +10,6 @@
  * Distinct keys per test; onDestroy (afterEach) clears the shelf + marker between mounts.
  */
 import { afterEach, describe, expect, test } from 'vitest'
-import { waitFor } from '@testing-library/dom'
 import { createStore } from '../src/index'
 import BuildHostTemplate from './fixtures/csr-stream-build-host.marko'
 import MultiHostTemplate from './fixtures/csr-stream-multi-host.marko'

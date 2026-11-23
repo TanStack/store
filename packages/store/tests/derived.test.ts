@@ -1,6 +1,5 @@
 import { afterEach, describe, expect, test, vi } from 'vitest'
 import { batch, createStore } from '../src'
-
 import type { ReadonlyStore, Store } from '../src'
 
 function viFnSubscribe(subscribable: Store<any> | ReadonlyStore<any>) {

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { defineComponent, h, inject, provide } from 'vue'
 import {
   createAtom,
   createStore,
   useAtom,
   useSelector,
 } from '@tanstack/vue-store'
+import { defineComponent, h, inject, provide } from 'vue'
 import type { Atom, Store } from '@tanstack/vue-store'
 import type { InjectionKey } from 'vue'
 

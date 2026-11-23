@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Increment from './Increment.svelte'
   import Display from './Display.svelte'
+  import Increment from './Increment.svelte'
 </script>
 
 <h1>How many of your friends like cats or dogs?</h1>

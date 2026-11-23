@@ -1,6 +1,5 @@
-import { useState } from 'preact/hooks'
 import { createStore } from '@tanstack/store'
-// eslint-disable-next-line no-duplicate-imports
+import { useState } from 'preact/hooks'
 import type {
   ReadonlyStore,
   Store,
@@ -22,12 +21,13 @@ type NonFunction<T> = T extends (...args: Array<any>) => any ? never : T
  * function Counter() {
  *   const counterStore = useCreateStore({ count: 0 })
  *   const count = useSelector(counterStore, (state) => state.count)
- *   const setState = useSetValue(counterStore)
  *
  *   return (
  *     <button
  *       type="button"
- *       onClick={() => setState((state) => ({ ...state, count: state.count + 1 }))}
+ *       onClick={() =>
+ *         counterStore.setState((state) => ({ ...state, count: state.count + 1 }))
+ *       }
  *     >
  *       {count}
  *     </button>

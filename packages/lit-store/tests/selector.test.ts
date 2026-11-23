@@ -1,9 +1,9 @@
-/// <reference lib="dom" />
-import { describe, expect, it } from 'vitest'
+import { createStore } from '@tanstack/store'
 import '@testing-library/jest-dom/vitest'
 import { userEvent } from '@testing-library/user-event'
 import { LitElement, html } from 'lit'
-import { createStore } from '@tanstack/store'
+/// <reference lib="dom" />
+import { describe, expect, it } from 'vitest'
 import { TanStackStoreSelector } from '../src'
 import { defineOnce, mount } from './utils'
 

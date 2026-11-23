@@ -7,7 +7,6 @@ import {
   WATCHING,
   createReactiveSystem,
 } from './alien'
-
 import type { ReactiveNode } from './alien'
 import type {
   Atom,
@@ -269,7 +268,7 @@ export function createAtom<T>(
     }
   }
 
-  return atom as unknown as Atom<T> | ReadonlyAtom<T>
+  return atom
 }
 
 interface Effect extends ReactiveNode {

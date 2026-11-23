@@ -1,6 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { createAtom, createStore } from '@tanstack/octane-store'
-import { mount, nextPaint } from '../_helpers'
+import { describe, expect, it } from 'vitest'
 import {
   AtomTuple,
   ComparedSelection,
@@ -13,6 +12,7 @@ import {
   SubscriptionReader,
   SwitchingSource,
 } from '../_fixtures/conformance.tsrx'
+import { mount, nextPaint } from '../_helpers'
 
 describe('selectors', () => {
   it('keeps multiple atom subscriptions independent', async () => {

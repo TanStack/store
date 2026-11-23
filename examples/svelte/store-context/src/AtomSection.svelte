@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { getContext } from 'svelte'
   import { useAtom } from '@tanstack/svelte-store'
+  import { getContext } from 'svelte'
   import { STORE_CONTEXT } from './context'
   import type { StoreContextValue } from './context'
 

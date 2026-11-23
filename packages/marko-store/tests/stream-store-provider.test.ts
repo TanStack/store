@@ -18,10 +18,10 @@
 // streamed page) and are covered by the e2e suite (streaming-helper-*.spec.ts).
 
 import { describe, expect, it } from 'vitest'
-import StreamHelper from './fixtures/ssr-stream-helper.marko'
 import StreamConstAntipattern from './fixtures/ssr-stream-const-antipattern.marko'
-import StreamDup from './fixtures/ssr-stream-dup.marko'
 import StreamCtxAbove from './fixtures/ssr-stream-ctx-above.marko'
+import StreamDup from './fixtures/ssr-stream-dup.marko'
+import StreamHelper from './fixtures/ssr-stream-helper.marko'
 
 async function renderToString(
   template: any,

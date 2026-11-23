@@ -14,21 +14,21 @@
  * tests (ssr.test.ts) cover the resume/serialization path separately.
  */
 
-import { afterEach, describe, expect, test } from 'vitest'
 import { waitFor } from '@testing-library/dom'
+import { afterEach, describe, expect, test } from 'vitest'
 import { batch, createAtom, createStore, shallow } from '../src/index'
 import { publishStore } from '../src/tags/store-bus'
-import SelectorHostTemplate from './fixtures/selector-host.marko'
-import RenderCountHostTemplate from './fixtures/selector-render-count-host.marko'
-import AtomLateContextHostTemplate from './fixtures/atom-late-context-host.marko'
 import AtomHostTemplate from './fixtures/atom-host.marko'
-import SourceSwapHostTemplate from './fixtures/selector-source-swap-host.marko'
-import SelectorSwapHostTemplate from './fixtures/selector-selector-swap-host.marko'
-import NoSelectorHostTemplate from './fixtures/selector-no-selector-host.marko'
-import CustomCompareHostTemplate from './fixtures/selector-custom-compare-host.marko'
-import NoSelectorSwapHostTemplate from './fixtures/selector-no-selector-swap-host.marko'
-import SelectorSwapCompareHostTemplate from './fixtures/selector-swap-compare-host.marko'
+import AtomLateContextHostTemplate from './fixtures/atom-late-context-host.marko'
 import SelectorBothHostTemplate from './fixtures/selector-both-host.marko'
+import CustomCompareHostTemplate from './fixtures/selector-custom-compare-host.marko'
+import SelectorHostTemplate from './fixtures/selector-host.marko'
+import NoSelectorHostTemplate from './fixtures/selector-no-selector-host.marko'
+import NoSelectorSwapHostTemplate from './fixtures/selector-no-selector-swap-host.marko'
+import RenderCountHostTemplate from './fixtures/selector-render-count-host.marko'
+import SelectorSwapHostTemplate from './fixtures/selector-selector-swap-host.marko'
+import SourceSwapHostTemplate from './fixtures/selector-source-swap-host.marko'
+import SelectorSwapCompareHostTemplate from './fixtures/selector-swap-compare-host.marko'
 
 const SelectorHost = SelectorHostTemplate as any
 const AtomHost = AtomHostTemplate as any

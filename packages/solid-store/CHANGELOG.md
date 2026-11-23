@@ -1,5 +1,25 @@
 # @tanstack/solid-store
 
+## 1.0.0-alpha.0
+
+### Major Changes
+
+- [#419](https://github.com/TanStack/store/pull/419) [`569f0a4`](https://github.com/TanStack/store/commit/569f0a43ac2a7b902ba2f600ced11f08b8d6e09f) - Remove the deprecated store hooks. Read state with `useSelector` (`injectSelector` in Angular) and update it through `store.actions` or `store.setState`.
+  - `useStore` and `injectStore` are removed. They were aliases for `useSelector` and `injectSelector`, so rename the calls.
+  - The experimental `_useStore` and `_injectStore` hooks are removed. Replace `const [value, actions] = _useStore(store, selector)` with `const value = useSelector(store, selector)` and `const actions = store.actions`. For a store without actions, call `store.setState` instead.
+
+- [#404](https://github.com/TanStack/store/pull/404) [`744dae5`](https://github.com/TanStack/store/commit/744dae53bee53f4f20a03e16d0858212e299ab4d) - Support Solid 2. `@tanstack/solid-store` now requires `solid-js` 2 (`^2.0.0`); stay on 0.11.x for Solid 1.
+  - `useSelector` and `useAtom` work unchanged. As with every Solid 2 signal, a value read right after a store write outside a reactive scope is not visible until Solid flushes. That usually happens on `flush()` from `solid-js` or the next microtask, but pending async work in the same update can hold it longer.
+  - `createStoreContext`'s `StoreProvider` renders the Solid 2 context directly and no longer needs a JSX runtime, so the adapter depends on `solid-js` only.
+
+## 0.11.3
+
+### Patch Changes
+
+- [#415](https://github.com/TanStack/store/pull/415) [`75b976a`](https://github.com/TanStack/store/commit/75b976ae4d0773846cf0ba3501a876aecf9a131d) - Deprecate the experimental `_useStore` hook. Read state with `useSelector` and write through `store.actions` or `store.setState` instead. `_useStore` will be removed in the next major version.
+- Updated dependencies [[`75b976a`](https://github.com/TanStack/store/commit/75b976ae4d0773846cf0ba3501a876aecf9a131d)]:
+  - @tanstack/store@0.11.3
+
 ## 0.11.2
 
 ### Patch Changes

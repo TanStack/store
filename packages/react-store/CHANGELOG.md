@@ -1,5 +1,39 @@
 # @tanstack/react-store
 
+## 1.0.0-alpha.1
+
+### Major Changes
+
+- [#419](https://github.com/TanStack/store/pull/419) [`569f0a4`](https://github.com/TanStack/store/commit/569f0a43ac2a7b902ba2f600ced11f08b8d6e09f) - Remove the deprecated store hooks. Read state with `useSelector` (`injectSelector` in Angular) and update it through `store.actions` or `store.setState`.
+  - `useStore` and `injectStore` are removed. They were aliases for `useSelector` and `injectSelector`, so rename the calls.
+  - The experimental `_useStore` and `_injectStore` hooks are removed. Replace `const [value, actions] = _useStore(store, selector)` with `const value = useSelector(store, selector)` and `const actions = store.actions`. For a store without actions, call `store.setState` instead.
+
+### Patch Changes
+
+- [#391](https://github.com/TanStack/store/pull/391) [`9559024`](https://github.com/TanStack/store/commit/9559024ca1f5f2793c4059b8da6fcca1bd1199cf) - Mark React hooks and context modules as client boundaries so RSC bundlers do not link them against React's server-only entry. Core Store reexports remain available to Server Components, and ordinary SSR continues using the real hooks.
+
+## 1.0.0-alpha.0
+
+### Major Changes
+
+- [#362](https://github.com/TanStack/store/pull/362) [`5567af4`](https://github.com/TanStack/store/commit/5567af42a4eee4b5befad3acd2f589d3f4deb5bd) - `@tanstack/react-store` now requires React 18 or newer (`peerDependencies` are `react` and `react-dom` `^18.0.0 || ^19.0.0`); support for React 16.8 and 17 has been dropped.
+
+  `useSelector` builds on React's built-in `useSyncExternalStore` with a single memoized selection ref instead of the `use-sync-external-store/shim/with-selector` helper: fewer hook slots and allocations per subscribed component, no per-component passive effect, and the `use-sync-external-store` dependency is gone from consumer bundles. The public API and selection semantics of `useSelector`, `useAtom`, `_useStore` and `useStore` are unchanged.
+
+## 0.11.4
+
+### Patch Changes
+
+- [#415](https://github.com/TanStack/store/pull/415) [`75b976a`](https://github.com/TanStack/store/commit/75b976ae4d0773846cf0ba3501a876aecf9a131d) - Deprecate the experimental `_useStore` hook. Read state with `useSelector` and write through `store.actions` or `store.setState` instead. `_useStore` will be removed in the next major version.
+- Updated dependencies [[`75b976a`](https://github.com/TanStack/store/commit/75b976ae4d0773846cf0ba3501a876aecf9a131d)]:
+  - @tanstack/store@0.11.3
+
+## 0.11.3
+
+### Patch Changes
+
+- [#407](https://github.com/TanStack/store/pull/407) [`0e95a97`](https://github.com/TanStack/store/commit/0e95a975c62c414f55905582a9861fe057506f4b) - Declare `@types/react` as an optional peer dependency so React types resolve correctly under strict package layouts such as pnpm's global virtual store
+
 ## 0.11.2
 
 ### Patch Changes
