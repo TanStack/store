@@ -1,9 +1,5 @@
 import { Component } from '@angular/core'
-import {
-  _injectStore,
-  createStore,
-  injectSelector,
-} from '@tanstack/angular-store'
+import { createStore, injectSelector } from '@tanstack/angular-store'
 
 // Optionally, you can create stores outside of Angular components at module scope
 const petStore = createStore(
@@ -38,7 +34,7 @@ const petStore = createStore(
       <p>
         This example creates a module-level store with actions. Components read
         state with \`injectSelector\` and call mutations through
-        \`store.actions\` or the experimental \`_injectStore\` hook.
+        \`store.actions\`.
       </p>
       <div>
         <p>Cats: {{ cats() }}</p>
@@ -46,9 +42,7 @@ const petStore = createStore(
       </div>
       <div>
         <p>Dogs: {{ dogs() }}</p>
-        <button type="button" (click)="dogActions.addDog()">
-          Vote for dogs
-        </button>
+        <button type="button" (click)="addDog()">Vote for dogs</button>
       </div>
       <p>Total votes: {{ total() }}</p>
     </main>
@@ -59,10 +53,8 @@ export class AppComponent {
   cats = injectSelector(petStore, (state) => state.cats)
   addCat = petStore.actions.addCat
 
-  // _injectStore gives both the selected signal and actions in a single tuple
-  private dogResult = _injectStore(petStore, (state) => state.dogs)
-  dogs = this.dogResult[0]
-  dogActions = this.dogResult[1]
+  dogs = injectSelector(petStore, (state) => state.dogs)
+  addDog = petStore.actions.addDog
 
   total = injectSelector(petStore, (state) => state.cats + state.dogs)
 

@@ -12,7 +12,7 @@ interface DisplayProps {
 }
 
 export const Display = (props: DisplayProps) => {
-  const count = useSelector(store, (state) => state[props.animals]) // formerly, useStore. Now renamed to useSelector.
+  const count = useSelector(store, (state) => state[props.animals])
   return (
     <div>
       {props.animals}: {count()}

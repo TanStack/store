@@ -3,13 +3,7 @@ import { defineComponent, h } from 'vue'
 import { render, waitFor } from '@testing-library/vue'
 import { createAtom, createStore } from '@tanstack/store'
 import { userEvent } from '@testing-library/user-event'
-import {
-  _useStore,
-  shallow,
-  useAtom,
-  useSelector,
-  useStore,
-} from '../src/index'
+import { shallow, useAtom, useSelector } from '../src/index'
 
 const user = userEvent.setup()
 
@@ -269,108 +263,6 @@ describe('store hooks', () => {
     await user.click(getByText('Update'))
 
     await waitFor(() => expect(getByText('Derived: 2')).toBeInTheDocument())
-  })
-})
-
-describe('useStore', () => {
-  it('is a compatibility alias for useSelector', async () => {
-    const store = createStore(0)
-
-    const Comp = defineComponent(() => {
-      const value = useStore(store, (state) => state)
-
-      return () =>
-        h('div', [
-          h('p', `Value: ${value.value}`),
-          h(
-            'button',
-            {
-              onClick: () => store.setState((prev) => prev + 1),
-            },
-            'Update',
-          ),
-        ])
-    })
-
-    const { getByText } = render(Comp)
-    expect(getByText('Value: 0')).toBeInTheDocument()
-
-    await user.click(getByText('Update'))
-
-    await waitFor(() => expect(getByText('Value: 1')).toBeInTheDocument())
-  })
-
-  it('supports atom sources through the deprecated alias', async () => {
-    const atom = createAtom(0)
-
-    const Comp = defineComponent(() => {
-      const value = useStore(atom, (state) => state)
-
-      return () =>
-        h('div', [
-          h('p', `Value: ${value.value}`),
-          h(
-            'button',
-            {
-              onClick: () => atom.set((prev) => prev + 1),
-            },
-            'Update',
-          ),
-        ])
-    })
-
-    const { getByText } = render(Comp)
-    expect(getByText('Value: 0')).toBeInTheDocument()
-
-    await user.click(getByText('Update'))
-
-    await waitFor(() => expect(getByText('Value: 1')).toBeInTheDocument())
-  })
-})
-
-describe('_useStore', () => {
-  it('returns selected state and actions for stores with actions', async () => {
-    const store = createStore({ count: 0 }, ({ setState }) => ({
-      inc: () => setState((prev) => ({ count: prev.count + 1 })),
-    }))
-
-    const Comp = defineComponent(() => {
-      const [count, { inc }] = _useStore(store, (state) => state.count)
-
-      return () =>
-        h('div', [
-          h('p', `Count: ${count.value}`),
-          h('button', { onClick: () => inc() }, 'Inc'),
-        ])
-    })
-
-    const { getByText } = render(Comp)
-    expect(getByText('Count: 0')).toBeInTheDocument()
-
-    await user.click(getByText('Inc'))
-
-    await waitFor(() => expect(getByText('Count: 1')).toBeInTheDocument())
-  })
-
-  it('returns selected state and setState for plain stores', async () => {
-    const store = createStore(0)
-
-    const Comp = defineComponent(() => {
-      const [value, setState] = _useStore(store, (state) => state)
-
-      return () =>
-        h('div', [
-          h('p', `Value: ${value.value}`),
-          h('button', { onClick: () => setState((prev) => prev + 1) }, 'Inc'),
-        ])
-    })
-
-    const { getByText } = render(Comp)
-    expect(getByText('Value: 0')).toBeInTheDocument()
-
-    await user.click(getByText('Inc'))
-
-    await waitFor(() => expect(getByText('Value: 1')).toBeInTheDocument())
   })
 })
 

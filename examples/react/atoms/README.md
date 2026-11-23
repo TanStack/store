@@ -4,7 +4,6 @@ This example demonstrates:
 
 - `useCreateAtom`
 - `useSelector`
-- `useSetValue`
 - `useAtom`
 
 To run this example:
