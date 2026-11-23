@@ -1,7 +1,7 @@
 import { expectTypeOf, test } from 'vitest'
 import { createAtom, createStore } from '@tanstack/store'
 import { _useStore, useAtom, useSelector, useStore } from '../src'
-import type { Ref } from 'vue-demi'
+import type { Ref } from 'vue'
 import type { Store } from '@tanstack/store'
 
 test('useSelector works with derived state', () => {

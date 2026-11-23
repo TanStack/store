@@ -1,6 +1,6 @@
 {
   "name": "@tanstack/vue-store",
-  "version": "0.11.2",
+  "version": "1.0.0-alpha.0",
   "description": "Framework agnostic type-safe store w/ reactive framework adapters",
   "author": "Tanner Linsley",
   "license": "MIT",
@@ -27,11 +27,7 @@
     "test:types:ts57": "node ../../node_modules/typescript57/lib/tsc.js",
     "test:types:ts58": "node ../../node_modules/typescript58/lib/tsc.js",
     "test:types:ts59": "tsc",
-    "test:lib": "pnpm run test:lib:3",
-    "test:lib:2": "vue-demi-switch 2 vue2 && vitest",
-    "test:lib:2.7": "vue-demi-switch 2.7 vue2.7 && vitest",
-    "test:lib:3": "vue-demi-switch 3 && vitest",
-    "test:lib:fixme": "pnpm run test:lib:2 && pnpm run test:lib:2.7 && pnpm run test:lib:3",
+    "test:lib": "vitest",
     "test:lib:dev": "pnpm run test:lib --watch",
     "test:build": "publint --strict",
     "build": "tsdown --tsconfig tsconfig.build.json"
@@ -53,24 +49,14 @@
     "src"
   ],
   "dependencies": {
-    "@tanstack/store": "workspace:*",
-    "vue-demi": "^0.14.10"
+    "@tanstack/store": "workspace:*"
   },
   "devDependencies": {
     "@testing-library/vue": "^8.1.0",
     "@vitejs/plugin-vue": "^6.0.5",
-    "@vue/composition-api": "^1.7.2",
-    "vue": "^3.5.43",
-    "vue2": "npm:vue@2.6",
-    "vue2.7": "npm:vue@2.7"
+    "vue": "^3.5.43"
   },
   "peerDependencies": {
-    "@vue/composition-api": "^1.2.1",
-    "vue": "^2.5.0 || ^3.0.0"
-  },
-  "peerDependenciesMeta": {
-    "@vue/composition-api": {
-      "optional": true
-    }
+    "vue": "^3.0.0"
   }
 }

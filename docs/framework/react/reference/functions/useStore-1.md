@@ -10,7 +10,7 @@ function useStore<TSource, TSelected>(
    compare?): TSelected;
 ```
 
-Defined in: [packages/react-store/src/useStore.ts:13](https://github.com/TanStack/store/blob/main/packages/react-store/src/useStore.ts#L13)
+Defined in: [packages/react-store/src/useStore.ts:15](https://github.com/TanStack/store/blob/main/packages/react-store/src/useStore.ts#L15)
 
 Deprecated alias for [useSelector](useSelector.md).
 

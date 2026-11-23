@@ -1,5 +1,21 @@
 # @tanstack/vue-store
 
+## 1.0.0-alpha.0
+
+### Major Changes
+
+- [#389](https://github.com/TanStack/store/pull/389) [`c9bef08`](https://github.com/TanStack/store/commit/c9bef08b7b5e5e458e41622cf030463361b2dac9) - Drop Vue 2 support from `@tanstack/vue-store`. The adapter now requires Vue 3 (`vue: ^3.0.0`) and imports Vue APIs and types directly, removing its `vue-demi` dependency and optional `@vue/composition-api` peer dependency.
+
+  Vue 2 applications must upgrade to Vue 3 or keep using a previous version of `@tanstack/vue-store`. The adapter's public hooks and their behavior are unchanged for Vue 3 applications.
+
+## 0.11.3
+
+### Patch Changes
+
+- [#415](https://github.com/TanStack/store/pull/415) [`75b976a`](https://github.com/TanStack/store/commit/75b976ae4d0773846cf0ba3501a876aecf9a131d) - Deprecate the experimental `_useStore` hook. Read state with `useSelector` and write through `store.actions` or `store.setState` instead. `_useStore` will be removed in the next major version.
+- Updated dependencies [[`75b976a`](https://github.com/TanStack/store/commit/75b976ae4d0773846cf0ba3501a876aecf9a131d)]:
+  - @tanstack/store@0.11.3
+
 ## 0.11.2
 
 ### Patch Changes

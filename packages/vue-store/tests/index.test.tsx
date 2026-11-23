@@ -1,5 +1,5 @@
 import { describe, expect, it, test, vi } from 'vitest'
-import { defineComponent, h } from 'vue-demi'
+import { defineComponent, h } from 'vue'
 import { render, waitFor } from '@testing-library/vue'
 import { createAtom, createStore } from '@tanstack/store'
 import { userEvent } from '@testing-library/user-event'
