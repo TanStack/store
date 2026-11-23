@@ -25,6 +25,7 @@ packages:
   - 'examples/svelte/**'
   - 'examples/preact/**'
   - 'examples/lit/**'
+  - 'examples/marko/**'
   - 'examples/octane/**'
 
 allowBuilds:
@@ -43,3 +44,9 @@ overrides:
   # mixed in a 2.0 alpha it doesn't accept.
   '@emnapi/core': ^1.11.3
   '@emnapi/runtime': ^1.11.3
+  # Exactly one @marko/compiler in the graph. marko, @marko/vite, @marko/run,
+  # and @marko/language-tools (via @marko/type-check) all accept ^5.39/^5.40
+  # ranges; letting the lockfile resolve them independently can split versions
+  # across entries, and two compiler instances in one process fail every .marko
+  # compile with "Unable to access Marko File outside of a compilation".
+  '@marko/compiler': 5.43.6

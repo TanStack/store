@@ -1,0 +1,75 @@
+{
+  "name": "@tanstack/marko-store",
+  "version": "0.11.0",
+  "description": "Framework agnostic type-safe store w/ reactive framework adapters",
+  "author": "Tanner Linsley",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TanStack/store.git",
+    "directory": "packages/marko-store"
+  },
+  "homepage": "https://tanstack.com/store",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/tannerlinsley"
+  },
+  "keywords": [
+    "store",
+    "marko",
+    "typescript"
+  ],
+  "scripts": {
+    "clean": "premove ./dist ./coverage",
+    "lint": "oxlint ./src ./tests ./e2e",
+    "lint:fix": "oxlint ./src ./tests ./e2e --fix",
+    "test:oxlint": "oxlint ./src ./tests ./e2e",
+    "test:types": "tsc && pnpm run test:types:marko",
+    "test:types:marko": "marko-type-check -p tsconfig.marko.json",
+    "test:lib": "vitest",
+    "test:lib:dev": "pnpm run test:lib --watch",
+    "test:build": "publint --strict",
+    "test:e2e": "pnpm -C e2e test:e2e",
+    "build": "tsdown --tsconfig tsconfig.build.json && marko-type-check -p tsconfig.tags.json"
+  },
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./package.json": "./package.json",
+    "./marko.json": "./marko.json",
+    "./dist/tags/*": "./dist/tags/*"
+  },
+  "sideEffects": [
+    "**/*.marko"
+  ],
+  "files": [
+    "dist",
+    "marko.json",
+    "README.md"
+  ],
+  "dependencies": {
+    "@tanstack/store": "workspace:*"
+  },
+  "devDependencies": {
+    "@marko/language-tools": "^3.0.0",
+    "@marko/type-check": "^3.4.0",
+    "@marko/vite": "^6.1.14",
+    "@testing-library/dom": "^10.4.2",
+    "marko": "^6.5.2"
+  },
+  "peerDependencies": {
+    "marko": "^6"
+  }
+}
