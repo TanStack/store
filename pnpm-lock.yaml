@@ -280,7 +280,7 @@ importers:
         specifier: ^22.2.1
         version: 22.2.2(@angular/common@22.2.2(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1))(rxjs@7.8.2))(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1))(@angular/platform-browser@22.2.2(@angular/animations@22.2.2(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1)))(@angular/common@22.2.2(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1))(rxjs@7.8.2))(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1)))(rxjs@7.8.2)
       '@tanstack/angular-store':
-        specifier: ^0.11.3
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/angular-store
       rxjs:
         specifier: ^7.8.2
@@ -329,7 +329,7 @@ importers:
         specifier: ^22.2.1
         version: 22.2.2(@angular/common@22.2.2(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1))(rxjs@7.8.2))(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1))(@angular/platform-browser@22.2.2(@angular/animations@22.2.2(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1)))(@angular/common@22.2.2(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1))(rxjs@7.8.2))(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1)))(rxjs@7.8.2)
       '@tanstack/angular-store':
-        specifier: ^0.11.3
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/angular-store
       rxjs:
         specifier: ^7.8.2
@@ -378,7 +378,7 @@ importers:
         specifier: ^22.2.1
         version: 22.2.2(@angular/common@22.2.2(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1))(rxjs@7.8.2))(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1))(@angular/platform-browser@22.2.2(@angular/animations@22.2.2(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1)))(@angular/common@22.2.2(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1))(rxjs@7.8.2))(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1)))(rxjs@7.8.2)
       '@tanstack/angular-store':
-        specifier: ^0.11.3
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/angular-store
       rxjs:
         specifier: ^7.8.2
@@ -427,7 +427,7 @@ importers:
         specifier: ^22.2.1
         version: 22.2.2(@angular/common@22.2.2(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1))(rxjs@7.8.2))(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1))(@angular/platform-browser@22.2.2(@angular/animations@22.2.2(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1)))(@angular/common@22.2.2(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1))(rxjs@7.8.2))(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1)))(rxjs@7.8.2)
       '@tanstack/angular-store':
-        specifier: ^0.11.3
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/angular-store
       rxjs:
         specifier: ^7.8.2
@@ -476,7 +476,7 @@ importers:
         specifier: ^22.2.1
         version: 22.2.2(@angular/common@22.2.2(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1))(rxjs@7.8.2))(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1))(@angular/platform-browser@22.2.2(@angular/animations@22.2.2(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1)))(@angular/common@22.2.2(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1))(rxjs@7.8.2))(@angular/core@22.2.2(@angular/compiler@22.2.2)(rxjs@7.8.2)(zone.js@0.16.1)))(rxjs@7.8.2)
       '@tanstack/angular-store':
-        specifier: ^0.11.3
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/angular-store
       rxjs:
         specifier: ^7.8.2
@@ -627,7 +627,7 @@ importers:
   examples/preact/atoms:
     dependencies:
       '@tanstack/preact-store':
-        specifier: ^0.13.6
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/preact-store
       preact:
         specifier: ^10.29.1
@@ -655,7 +655,7 @@ importers:
   examples/preact/simple:
     dependencies:
       '@tanstack/preact-store':
-        specifier: ^0.13.6
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/preact-store
       preact:
         specifier: ^10.29.1
@@ -683,7 +683,7 @@ importers:
   examples/preact/store-actions:
     dependencies:
       '@tanstack/preact-store':
-        specifier: ^0.13.6
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/preact-store
       preact:
         specifier: ^10.29.1
@@ -711,7 +711,7 @@ importers:
   examples/preact/store-context:
     dependencies:
       '@tanstack/preact-store':
-        specifier: ^0.13.6
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/preact-store
       preact:
         specifier: ^10.29.1
@@ -739,7 +739,7 @@ importers:
   examples/preact/stores:
     dependencies:
       '@tanstack/preact-store':
-        specifier: ^0.13.6
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/preact-store
       preact:
         specifier: ^10.29.1
@@ -767,7 +767,7 @@ importers:
   examples/react/atoms:
     dependencies:
       '@tanstack/react-store':
-        specifier: ^1.0.0-alpha.0
+        specifier: ^1.0.0-alpha.1
         version: link:../../../packages/react-store
       react:
         specifier: ^19.2.5
@@ -792,7 +792,7 @@ importers:
   examples/react/simple:
     dependencies:
       '@tanstack/react-store':
-        specifier: ^1.0.0-alpha.0
+        specifier: ^1.0.0-alpha.1
         version: link:../../../packages/react-store
       react:
         specifier: ^19.2.5
@@ -817,7 +817,7 @@ importers:
   examples/react/store-actions:
     dependencies:
       '@tanstack/react-store':
-        specifier: ^1.0.0-alpha.0
+        specifier: ^1.0.0-alpha.1
         version: link:../../../packages/react-store
       react:
         specifier: ^19.2.5
@@ -842,7 +842,7 @@ importers:
   examples/react/store-context:
     dependencies:
       '@tanstack/react-store':
-        specifier: ^1.0.0-alpha.0
+        specifier: ^1.0.0-alpha.1
         version: link:../../../packages/react-store
       react:
         specifier: ^19.2.5
@@ -867,7 +867,7 @@ importers:
   examples/react/stores:
     dependencies:
       '@tanstack/react-store':
-        specifier: ^1.0.0-alpha.0
+        specifier: ^1.0.0-alpha.1
         version: link:../../../packages/react-store
       react:
         specifier: ^19.2.5
@@ -895,7 +895,7 @@ importers:
         specifier: ^2.0.0
         version: 2.0.3(solid-js@2.0.3)
       '@tanstack/solid-store':
-        specifier: ^0.11.3
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/solid-store
       solid-js:
         specifier: ^2.0.0
@@ -917,7 +917,7 @@ importers:
         specifier: ^2.0.0
         version: 2.0.3(solid-js@2.0.3)
       '@tanstack/solid-store':
-        specifier: ^0.11.3
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/solid-store
       solid-js:
         specifier: ^2.0.0
@@ -939,7 +939,7 @@ importers:
         specifier: ^2.0.0
         version: 2.0.3(solid-js@2.0.3)
       '@tanstack/solid-store':
-        specifier: ^0.11.3
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/solid-store
       solid-js:
         specifier: ^2.0.0
@@ -961,7 +961,7 @@ importers:
         specifier: ^2.0.0
         version: 2.0.3(solid-js@2.0.3)
       '@tanstack/solid-store':
-        specifier: ^0.11.3
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/solid-store
       solid-js:
         specifier: ^2.0.0
@@ -983,7 +983,7 @@ importers:
         specifier: ^2.0.0
         version: 2.0.3(solid-js@2.0.3)
       '@tanstack/solid-store':
-        specifier: ^0.11.3
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/solid-store
       solid-js:
         specifier: ^2.0.0
@@ -1002,7 +1002,7 @@ importers:
   examples/svelte/atoms:
     dependencies:
       '@tanstack/svelte-store':
-        specifier: ^0.12.4
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/svelte-store
     devDependencies:
       '@sveltejs/vite-plugin-svelte':
@@ -1030,7 +1030,7 @@ importers:
   examples/svelte/simple:
     dependencies:
       '@tanstack/svelte-store':
-        specifier: ^0.12.4
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/svelte-store
     devDependencies:
       '@sveltejs/vite-plugin-svelte':
@@ -1058,7 +1058,7 @@ importers:
   examples/svelte/store-actions:
     dependencies:
       '@tanstack/svelte-store':
-        specifier: ^0.12.4
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/svelte-store
     devDependencies:
       '@sveltejs/vite-plugin-svelte':
@@ -1086,7 +1086,7 @@ importers:
   examples/svelte/store-context:
     dependencies:
       '@tanstack/svelte-store':
-        specifier: ^0.12.4
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/svelte-store
     devDependencies:
       '@sveltejs/vite-plugin-svelte':
@@ -1114,7 +1114,7 @@ importers:
   examples/svelte/stores:
     dependencies:
       '@tanstack/svelte-store':
-        specifier: ^0.12.4
+        specifier: ^1.0.0-alpha.0
         version: link:../../../packages/svelte-store
     devDependencies:
       '@sveltejs/vite-plugin-svelte':
@@ -1142,7 +1142,7 @@ importers:
   examples/vue/atoms:
     dependencies:
       '@tanstack/vue-store':
-        specifier: ^1.0.0-alpha.0
+        specifier: ^1.0.0-alpha.1
         version: link:../../../packages/vue-store
       vue:
         specifier: ^3.5.32
@@ -1164,7 +1164,7 @@ importers:
   examples/vue/simple:
     dependencies:
       '@tanstack/vue-store':
-        specifier: ^1.0.0-alpha.0
+        specifier: ^1.0.0-alpha.1
         version: link:../../../packages/vue-store
       vue:
         specifier: ^3.5.32
@@ -1186,7 +1186,7 @@ importers:
   examples/vue/store-actions:
     dependencies:
       '@tanstack/vue-store':
-        specifier: ^1.0.0-alpha.0
+        specifier: ^1.0.0-alpha.1
         version: link:../../../packages/vue-store
       vue:
         specifier: ^3.5.32
@@ -1208,7 +1208,7 @@ importers:
   examples/vue/store-context:
     dependencies:
       '@tanstack/vue-store':
-        specifier: ^1.0.0-alpha.0
+        specifier: ^1.0.0-alpha.1
         version: link:../../../packages/vue-store
       vue:
         specifier: ^3.5.32
@@ -1230,7 +1230,7 @@ importers:
   examples/vue/stores:
     dependencies:
       '@tanstack/vue-store':
-        specifier: ^1.0.0-alpha.0
+        specifier: ^1.0.0-alpha.1
         version: link:../../../packages/vue-store
       vue:
         specifier: ^3.5.32

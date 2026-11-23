@@ -19,6 +19,6 @@
     "vite": "^8.0.8"
   },
   "dependencies": {
-    "@tanstack/svelte-store": "^0.12.4"
+    "@tanstack/svelte-store": "^1.0.0-alpha.0"
   }
 }
