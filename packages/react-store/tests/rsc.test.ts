@@ -20,8 +20,6 @@ const assertions = `
     ['useCreateStore', () => store.useCreateStore({ count: 2 })],
     ['useSelector', () => store.useSelector(atom)],
     ['useAtom', () => store.useAtom(atom)],
-    ['_useStore', () => store._useStore(counter, (state) => state.count)],
-    ['useStore', () => store.useStore(atom)],
   ]) {
     assert.throws(
       call,

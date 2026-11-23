@@ -14,8 +14,6 @@ title: "@tanstack/angular-store"
 
 ## Functions
 
-- [\_injectStore](functions/injectStore.md)
 - [createStoreContext](functions/createStoreContext.md)
 - [injectAtom](functions/injectAtom.md)
 - [injectSelector](functions/injectSelector.md)
-- [~~injectStore~~](functions/injectStore-1.md)

@@ -55,5 +55,3 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<App />);
 
 ```
-
-`useStore` remains available as a deprecated alias to `useSelector`.

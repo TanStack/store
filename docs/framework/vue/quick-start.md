@@ -58,8 +58,6 @@ const count = useSelector(store, (state) => state[props.animal]);
 </template>
 ```
 
-`useStore` remains available as a deprecated alias to `useSelector`.
-
 **Increment.vue**
 ```vue
 <script setup>

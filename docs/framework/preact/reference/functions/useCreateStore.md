@@ -9,7 +9,7 @@ title: useCreateStore
 function useCreateStore<T>(getValue): ReadonlyStore<T>;
 ```
 
-Defined in: [useCreateStore.ts:38](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useCreateStore.ts#L38)
+Defined in: [useCreateStore.ts:39](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useCreateStore.ts#L39)
 
 Creates a stable store instance for the lifetime of the component.
 
@@ -39,12 +39,13 @@ creates the store once per component mount.
 function Counter() {
   const counterStore = useCreateStore({ count: 0 })
   const count = useSelector(counterStore, (state) => state.count)
-  const setState = useSetValue(counterStore)
 
   return (
     <button
       type="button"
-      onClick={() => setState((state) => ({ ...state, count: state.count + 1 }))}
+      onClick={() =>
+        counterStore.setState((state) => ({ ...state, count: state.count + 1 }))
+      }
     >
       {count}
     </button>
@@ -58,7 +59,7 @@ function Counter() {
 function useCreateStore<T>(initialValue): Store<T>;
 ```
 
-Defined in: [useCreateStore.ts:41](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useCreateStore.ts#L41)
+Defined in: [useCreateStore.ts:42](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useCreateStore.ts#L42)
 
 Creates a stable store instance for the lifetime of the component.
 
@@ -88,12 +89,13 @@ creates the store once per component mount.
 function Counter() {
   const counterStore = useCreateStore({ count: 0 })
   const count = useSelector(counterStore, (state) => state.count)
-  const setState = useSetValue(counterStore)
 
   return (
     <button
       type="button"
-      onClick={() => setState((state) => ({ ...state, count: state.count + 1 }))}
+      onClick={() =>
+        counterStore.setState((state) => ({ ...state, count: state.count + 1 }))
+      }
     >
       {count}
     </button>
@@ -107,7 +109,7 @@ function Counter() {
 function useCreateStore<T, TActions>(initialValue, actions): Store<T, TActions>;
 ```
 
-Defined in: [useCreateStore.ts:42](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useCreateStore.ts#L42)
+Defined in: [useCreateStore.ts:43](https://github.com/TanStack/store/blob/main/packages/preact-store/src/useCreateStore.ts#L43)
 
 Creates a stable store instance for the lifetime of the component.
 
@@ -145,12 +147,13 @@ creates the store once per component mount.
 function Counter() {
   const counterStore = useCreateStore({ count: 0 })
   const count = useSelector(counterStore, (state) => state.count)
-  const setState = useSetValue(counterStore)
 
   return (
     <button
       type="button"
-      onClick={() => setState((state) => ({ ...state, count: state.count + 1 }))}
+      onClick={() =>
+        counterStore.setState((state) => ({ ...state, count: state.count + 1 }))
+      }
     >
       {count}
     </button>

@@ -1,7 +1,6 @@
 import { renderToString } from 'react-dom/server'
 import { expect, it, vi } from 'vitest'
 import {
-  _useStore,
   createAtom,
   createStore,
   createStoreContext,
@@ -9,7 +8,6 @@ import {
   useCreateAtom,
   useCreateStore,
   useSelector,
-  useStore,
 } from '../src/index'
 
 it('renders every React API during ordinary SSR without subscribing', () => {
@@ -26,8 +24,6 @@ it('renders every React API during ordinary SSR without subscribing', () => {
     const createdStore = useCreateStore({ value: 5 })
     const [atomValue] = useAtom(atom)
     const selected = useSelector(store, (state) => state.count)
-    const alias = useStore(atom)
-    const [tuple] = _useStore(store, (state) => state.count)
     const context = useStoreContext()
 
     return (
@@ -37,8 +33,6 @@ it('renders every React API during ordinary SSR without subscribing', () => {
           selected,
           createdAtom.get(),
           createdStore.get().value,
-          alias,
-          tuple,
           context.value,
         ].join(',')}
       </output>
@@ -51,7 +45,7 @@ it('renders every React API during ordinary SSR without subscribing', () => {
         <Values />
       </StoreProvider>,
     ),
-  ).toBe('<output>2,3,4,5,2,3,7</output>')
+  ).toBe('<output>2,3,4,5,7</output>')
   expect(subscribeAtom).not.toHaveBeenCalled()
   expect(subscribeStore).not.toHaveBeenCalled()
 })

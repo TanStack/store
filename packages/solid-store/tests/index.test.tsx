@@ -2,12 +2,10 @@ import { describe, expect, it, test, vi } from 'vitest'
 import { render, renderHook } from '@solidjs/testing-library'
 import { createAtom, createStore } from '@tanstack/store'
 import {
-  _useStore,
   compareShallow,
   createStoreContext,
   useAtom,
   useSelector,
-  useStore,
 } from '../src/index'
 
 describe('atom hooks', () => {
@@ -150,60 +148,6 @@ describe('store hooks', () => {
     store.setState((prev) => prev + 1)
 
     expect(result()).toBe(2)
-  })
-})
-
-describe('useStore', () => {
-  it('is a compatibility alias for useSelector', () => {
-    const store = createStore(0)
-    const { result } = renderHook(() => useStore(store, (state) => state))
-
-    expect(result()).toBe(0)
-
-    store.setState((prev) => prev + 1)
-
-    expect(result()).toBe(1)
-  })
-
-  it('supports atom sources through the deprecated alias', () => {
-    const atom = createAtom(0)
-    const { result } = renderHook(() => useStore(atom, (state) => state))
-
-    expect(result()).toBe(0)
-
-    atom.set((prev) => prev + 1)
-
-    expect(result()).toBe(1)
-  })
-})
-
-describe('_useStore', () => {
-  it('returns selected state and actions for stores with actions', () => {
-    const store = createStore({ count: 0 }, ({ setState }) => ({
-      inc: () => setState((prev) => ({ count: prev.count + 1 })),
-    }))
-
-    const { result } = renderHook(() =>
-      _useStore(store, (state) => state.count),
-    )
-
-    expect(result[0]()).toBe(0)
-
-    result[1].inc()
-
-    expect(result[0]()).toBe(1)
-  })
-
-  it('returns selected state and setState for plain stores', () => {
-    const store = createStore(0)
-
-    const { result } = renderHook(() => _useStore(store, (state) => state))
-
-    expect(result[0]()).toBe(0)
-
-    result[1]((prev) => prev + 1)
-
-    expect(result[0]()).toBe(1)
   })
 })
 
