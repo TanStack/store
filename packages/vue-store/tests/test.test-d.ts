@@ -1,8 +1,7 @@
 import { expectTypeOf, test } from 'vitest'
 import { createAtom, createStore } from '@tanstack/store'
-import { _useStore, useAtom, useSelector, useStore } from '../src'
+import { useAtom, useSelector } from '../src'
 import type { Ref } from 'vue'
-import type { Store } from '@tanstack/store'
 
 test('useSelector works with derived state', () => {
   const store = createStore(12)
@@ -42,33 +41,4 @@ test('useAtom only accepts writable atoms', () => {
   expectTypeOf(setValue).toBeFunction()
   // @ts-expect-error readonly atoms cannot be used with useAtom
   useAtom(readonlyAtom)
-})
-
-test('useStore matches useSelector types for compatibility', () => {
-  const store = createStore(12)
-  const selectorValue = useSelector(store, (state) => state)
-  const compatValue = useStore(store, (state) => state)
-
-  expectTypeOf(selectorValue).toEqualTypeOf<Readonly<Ref<number>>>()
-  expectTypeOf(compatValue).toEqualTypeOf<Readonly<Ref<number>>>()
-})
-
-test('_useStore returns actions for stores with actions', () => {
-  const store = createStore({ count: 0 }, ({ setState }) => ({
-    inc: () => setState((prev) => ({ count: prev.count + 1 })),
-  }))
-
-  const [selected, actions] = _useStore(store, (state) => state.count)
-
-  expectTypeOf(selected).toEqualTypeOf<Readonly<Ref<number>>>()
-  expectTypeOf(actions.inc).toBeFunction()
-})
-
-test('_useStore returns setState for plain stores', () => {
-  const store = createStore(0)
-
-  const [selected, setState] = _useStore(store, (state) => state)
-
-  expectTypeOf(selected).toEqualTypeOf<Readonly<Ref<number>>>()
-  expectTypeOf(setState).toEqualTypeOf<Store<number>['setState']>()
 })

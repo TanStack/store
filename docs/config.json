@@ -323,14 +323,6 @@
               "to": "framework/react/reference/functions/useStoreActions"
             },
             {
-              "label": "_useStore (deprecated)",
-              "to": "framework/react/reference/functions/useStore"
-            },
-            {
-              "label": "useStore (deprecated)",
-              "to": "framework/react/reference/functions/useStore-1"
-            },
-            {
               "label": "UseSelectorOptions",
               "to": "framework/react/reference/interfaces/UseSelectorOptions"
             }
@@ -354,14 +346,6 @@
             {
               "label": "useStoreActions",
               "to": "framework/vue/reference/functions/useStoreActions"
-            },
-            {
-              "label": "_useStore (deprecated)",
-              "to": "framework/vue/reference/functions/useStore"
-            },
-            {
-              "label": "useStore (deprecated)",
-              "to": "framework/vue/reference/functions/useStore-1"
             },
             {
               "label": "UseSelectorOptions",
@@ -389,14 +373,6 @@
               "to": "framework/solid/reference/functions/useStoreActions"
             },
             {
-              "label": "_useStore (deprecated)",
-              "to": "framework/solid/reference/functions/useStore"
-            },
-            {
-              "label": "useStore (deprecated)",
-              "to": "framework/solid/reference/functions/useStore-1"
-            },
-            {
               "label": "UseSelectorOptions",
               "to": "framework/solid/reference/interfaces/UseSelectorOptions"
             }
@@ -422,10 +398,6 @@
               "to": "framework/angular/reference/functions/injectStoreActions"
             },
             {
-              "label": "injectStore (deprecated)",
-              "to": "framework/angular/reference/functions/injectStore"
-            },
-            {
               "label": "InjectSelectorOptions",
               "to": "framework/angular/reference/interfaces/InjectSelectorOptions"
             }
@@ -449,14 +421,6 @@
             {
               "label": "useStoreActions",
               "to": "framework/svelte/reference/functions/useStoreActions"
-            },
-            {
-              "label": "_useStore (deprecated)",
-              "to": "framework/svelte/reference/functions/useStore"
-            },
-            {
-              "label": "useStore (deprecated)",
-              "to": "framework/svelte/reference/functions/useStore-1"
             },
             {
               "label": "UseSelectorOptions",
@@ -494,14 +458,6 @@
             {
               "label": "useStoreActions",
               "to": "framework/preact/reference/functions/useStoreActions"
-            },
-            {
-              "label": "_useStore (deprecated)",
-              "to": "framework/preact/reference/functions/useStore"
-            },
-            {
-              "label": "useStore (deprecated)",
-              "to": "framework/preact/reference/functions/useStore-1"
             },
             {
               "label": "UseSelectorOptions",
