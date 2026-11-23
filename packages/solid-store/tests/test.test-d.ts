@@ -1,8 +1,8 @@
-import { expectTypeOf, test } from 'vitest'
 import { createAtom, createStore } from '@tanstack/store'
+import { expectTypeOf, test } from 'vitest'
 import { createStoreContext, useAtom, useSelector } from '../src'
-import type { Accessor } from 'solid-js'
 import type { Atom, ReadonlyStore } from '@tanstack/store'
+import type { Accessor } from 'solid-js'
 
 test('useSelector works with derived state', () => {
   const store = createStore(12)

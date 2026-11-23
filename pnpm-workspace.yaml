@@ -37,14 +37,9 @@ allowBuilds:
   '@parcel/watcher': false # optional dep of @angular/build
   lmdb: false # optional dep of @angular/build
   msgpackr-extract: false # optional dep of @angular/build
-minimumReleaseAgeExclude:
-  # Renovate security update: nx@22.7.7 || 22.7.10
-  - nx@22.7.7 || 22.7.10
-  # Renovate security update: vitest@4.1.11
-  - vitest@4.1.11
-  # Renovate security update: @angular/router@21.2.24
-  - '@angular/router@21.2.24'
-  # octane adapter upgrade: octane@0.12.1
-  - octane@0.12.1
-  # Renovate security update: vite@7.3.5
-  - vite@7.3.5
+
+overrides:
+  # @napi-rs/wasm-runtime accepts emnapi 1.x or 2.0 prereleases, and pnpm
+  # mixed in a 2.0 alpha it doesn't accept.
+  '@emnapi/core': ^1.11.3
+  '@emnapi/runtime': ^1.11.3

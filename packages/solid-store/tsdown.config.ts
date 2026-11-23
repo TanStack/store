@@ -1,5 +1,5 @@
-import { defineConfig } from 'tsdown'
 import solid from '@solidjs/vite-plugin'
+import { defineConfig } from 'tsdown'
 
 export default defineConfig({
   plugins: [solid()],

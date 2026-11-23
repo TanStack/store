@@ -34,10 +34,24 @@
       "cache": true,
       "inputs": ["{workspaceRoot}/**/package.json"]
     },
+    "test:oxlint": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["default", "^production", "{workspaceRoot}/oxlint.config.ts"]
+    },
+    "lint": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["default", "^production", "{workspaceRoot}/oxlint.config.ts"]
+    },
+    "lint:fix": {
+      "cache": false,
+      "inputs": ["default", "{workspaceRoot}/oxlint.config.ts"]
+    },
     "test:eslint": {
       "cache": true,
       "dependsOn": ["^build"],
-      "inputs": ["default", "^production", "{workspaceRoot}/eslint.config.js"]
+      "inputs": ["default", "^production"]
     },
     "test:lib": {
       "cache": true,

@@ -1,0 +1,17 @@
+import { tanstackConfig } from '@tanstack/oxfmt-config'
+import { defineConfig } from 'oxfmt'
+
+export default defineConfig({
+  ...tanstackConfig,
+  svelte: true,
+  ignorePatterns: [
+    ...tanstackConfig.ignorePatterns,
+    '**/.angular',
+    '**/.next',
+    '**/.nx',
+    '**/.svelte-kit',
+    '**/build',
+    '**/coverage',
+    '**/docs',
+  ],
+})

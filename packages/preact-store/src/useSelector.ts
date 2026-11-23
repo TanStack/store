@@ -77,7 +77,6 @@ function didSnapshotChange(inst: InternalStore): boolean {
   try {
     const nextValue = latestGetSnapshot()
     return !Object.is(prevValue, nextValue)
-    // eslint-disable-next-line no-unused-vars
   } catch (_error) {
     return true
   }

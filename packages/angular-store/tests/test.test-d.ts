@@ -1,5 +1,5 @@
-import { expectTypeOf, test } from 'vitest'
 import { createAtom, createStore } from '@tanstack/store'
+import { expectTypeOf, test } from 'vitest'
 import { createStoreContext, injectAtom, injectSelector } from '../src'
 import type { Signal } from '@angular/core'
 import type { Atom, Store } from '@tanstack/store'

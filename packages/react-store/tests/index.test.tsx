@@ -1,4 +1,4 @@
-import { Suspense, startTransition, use, useState } from 'react'
+import { createAtom, createStore } from '@tanstack/store'
 import {
   act,
   fireEvent,
@@ -7,8 +7,8 @@ import {
   waitFor,
 } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
+import { Suspense, startTransition, use, useState } from 'react'
 import { describe, expect, it, test, vi } from 'vitest'
-import { createAtom, createStore } from '@tanstack/store'
 import {
   compareShallow,
   createStoreContext,

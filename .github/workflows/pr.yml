@@ -31,7 +31,7 @@ jobs:
       - name: Setup Tools
         uses: TanStack/config/.github/setup@88949c60ce4973c0aea4395a6bafb37cd7390e3b # main
       - name: Get base and head commits for `nx affected`
-        uses: nrwl/nx-set-shas@afb73a62d26e41464e9254689e1fd6122ee683c1 # v5.0.1
+        uses: nrwl/nx-set-shas@e602fada7ad5987b0f7b1905e7a99ea1c661514c # v5.1.0
         with:
           main-branch-name: main
       - name: Run Checks

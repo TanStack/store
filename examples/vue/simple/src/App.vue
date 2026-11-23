@@ -1,6 +1,6 @@
 <script setup>
-import Increment from './Increment.vue'
 import Display from './Display.vue'
+import Increment from './Increment.vue'
 </script>
 
 <template>

@@ -50,7 +50,6 @@ export function createStoreContext<TValue extends object>(): {
   const Context = createContext<TValue | null>(null)
   Context.displayName = 'StoreContext'
 
-  // eslint-disable-next-line @eslint-react/component-hook-factories
   function StoreProvider({
     children,
     value,
@@ -61,7 +60,6 @@ export function createStoreContext<TValue extends object>(): {
     return <Context.Provider value={value}>{children}</Context.Provider>
   }
 
-  // eslint-disable-next-line @eslint-react/component-hook-factories
   function useStoreContext() {
     // eslint-disable-next-line @eslint-react/no-use-context
     const value = useContext(Context)

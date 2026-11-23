@@ -1,5 +1,5 @@
-import { injectSelector } from '@tanstack/angular-store'
 import { Component, input } from '@angular/core'
+import { injectSelector } from '@tanstack/angular-store'
 import { store } from './store'
 
 @Component({

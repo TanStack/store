@@ -1,5 +1,5 @@
-import { expectTypeOf, test } from 'vitest'
 import { createAtom, createStore } from '@tanstack/store'
+import { expectTypeOf, test } from 'vitest'
 import {
   createStoreContext,
   useAtom,
@@ -7,7 +7,6 @@ import {
   useCreateStore,
   useSelector,
 } from '../src'
-// eslint-disable-next-line no-duplicate-imports
 import type { Atom, ReadonlyStore } from '@tanstack/store'
 
 test('useCreateAtom returns a writable atom for initial values', () => {

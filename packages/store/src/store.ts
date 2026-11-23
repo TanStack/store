@@ -27,9 +27,7 @@ export class Store<T, TActions extends StoreActionMap = never> {
   ) {
     // createAtom has overloads that return ReadonlyAtom<T> for functions and Atom<T> for values
     // Store always needs Atom<T> for setState, so we assert the return type
-    this.atom = createAtom(
-      valueOrFn as T | ((prev?: NoInfer<T>) => T),
-    ) as Atom<T>
+    this.atom = createAtom(valueOrFn) as Atom<T>
 
     // bind for safe destructuring
     this.get = this.get.bind(this)
@@ -66,9 +64,7 @@ export class ReadonlyStore<T> implements Omit<
   constructor(valueOrFn: T | ((prev?: T) => T)) {
     // createAtom has overloads that return ReadonlyAtom<T> for functions and Atom<T> for values
     // Store always needs Atom<T> for setState, so we assert the return type
-    this.atom = createAtom(
-      valueOrFn as T | ((prev?: NoInfer<T>) => T),
-    ) as Atom<T>
+    this.atom = createAtom(valueOrFn) as Atom<T>
   }
   public get state() {
     return this.atom.get()

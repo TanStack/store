@@ -22,7 +22,9 @@
   ],
   "scripts": {
     "clean": "premove ./dist ./coverage",
-    "test:eslint": "eslint ./src ./tests",
+    "lint": "oxlint ./src ./tests",
+    "lint:fix": "oxlint ./src ./tests --fix",
+    "test:oxlint": "oxlint ./src ./tests",
     "test:types": "tsc",
     "test:lib": "vitest",
     "test:lib:dev": "pnpm run test:lib --watch",
@@ -49,13 +51,13 @@
     "@tanstack/store": "workspace:*"
   },
   "devDependencies": {
-    "@analogjs/vite-plugin-angular": "^2.8.0",
-    "@angular/common": "^22.2.1",
-    "@angular/compiler": "^22.2.1",
-    "@angular/core": "^22.2.1",
-    "@angular/platform-browser": "^22.2.1",
-    "@angular/platform-browser-dynamic": "^22.2.1",
-    "zone.js": "^0.16.1"
+    "@analogjs/vite-plugin-angular": "^2.9.7",
+    "@angular/common": "^22.3.0",
+    "@angular/compiler": "^22.3.0",
+    "@angular/core": "^22.3.0",
+    "@angular/platform-browser": "^22.3.0",
+    "@angular/platform-browser-dynamic": "^22.3.0",
+    "zone.js": "^0.16.3"
   },
   "peerDependencies": {
     "@angular/common": ">=19.0.0",

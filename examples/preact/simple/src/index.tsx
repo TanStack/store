@@ -1,5 +1,5 @@
-import { render } from 'preact'
 import { createStore, useSelector } from '@tanstack/preact-store'
+import { render } from 'preact'
 
 // You can instantiate a Store outside of Preact components too!
 export const store = createStore({

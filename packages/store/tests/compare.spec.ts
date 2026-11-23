@@ -487,13 +487,9 @@ describe('evaluate', () => {
     })
 
     it('does not delegate to equals() when only one operand exposes it', () => {
-      expect(
-        compareDeep({ equals: () => true } as unknown, {} as unknown),
-      ).toBe(false)
+      expect(compareDeep({ equals: () => true }, {})).toBe(false)
 
-      expect(
-        compareDeep({} as unknown, { equals: () => true } as unknown),
-      ).toBe(false)
+      expect(compareDeep({}, { equals: () => true })).toBe(false)
     })
 
     it('should handle circular references', () => {
