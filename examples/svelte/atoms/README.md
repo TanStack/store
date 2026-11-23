@@ -3,7 +3,6 @@
 This example demonstrates:
 
 - `useSelector`
-- `useSetValue`
 - `useAtom`
 
 To run this example:
