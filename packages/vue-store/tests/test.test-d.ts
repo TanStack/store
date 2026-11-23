@@ -1,5 +1,5 @@
-import { expectTypeOf, test } from 'vitest'
 import { createAtom, createStore } from '@tanstack/store'
+import { expectTypeOf, test } from 'vitest'
 import { useAtom, useSelector } from '../src'
 import type { Ref } from 'vue'
 

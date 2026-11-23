@@ -1,8 +1,8 @@
+import { createAtom, createStore } from '@tanstack/store'
 import { act, render, renderHook, waitFor } from '@testing-library/preact'
 import { userEvent } from '@testing-library/user-event'
 import { useCallback } from 'preact/hooks'
 import { describe, expect, it, test, vi } from 'vitest'
-import { createAtom, createStore } from '@tanstack/store'
 import {
   createStoreContext,
   shallow,

@@ -1,4 +1,3 @@
-import { render } from 'preact'
 import {
   useAtom,
   useCreateAtom,
@@ -6,6 +5,7 @@ import {
   useCreateStore,
   useSelector,
 } from '@tanstack/preact-store'
+import { render } from 'preact'
 import type { Atom, Store } from '@tanstack/preact-store'
 
 // one drawback of storing stores and atoms in context is you have to define types for the context manually, instead of everything being inferred.

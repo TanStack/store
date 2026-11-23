@@ -1,10 +1,10 @@
-import { render } from 'preact'
 import {
   createAtom,
   useAtom,
   // useCreateAtom,
   useSelector,
 } from '@tanstack/preact-store'
+import { render } from 'preact'
 
 // Optionally, you can create atoms outside of Preact components at module scope
 const countAtom = createAtom(0)

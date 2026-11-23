@@ -1,9 +1,6 @@
-import {
-  createRoot,
-  delegateEvents,
-  drainPassiveEffects,
-  flushSync,
-} from 'octane'
+import { createRoot, flushSync } from 'octane'
+// Octane 0.23 dropped these test-only helpers from its public entry.
+import { delegateEvents, drainPassiveEffects } from 'octane/internal/client'
 import type { ComponentBody, Root } from 'octane'
 
 delegateEvents(['click'])

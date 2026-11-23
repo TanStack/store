@@ -1,16 +1,22 @@
 // @ts-check
 
-import { defineConfig } from 'eslint/config'
+// Oxlint lints this package, including `<script>` blocks. ESLint runs only
+// the Svelte template rules, which need `svelte-eslint-parser`.
+import tsParser from '@typescript-eslint/parser'
 import pluginSvelte from 'eslint-plugin-svelte'
-import rootConfig from '../../eslint.config.js'
+import { defineConfig } from 'eslint/config'
+import svelteConfig from './svelte.config.js'
 
 export default defineConfig([
-  ...rootConfig,
-  ...pluginSvelte.configs['flat/recommended'],
+  ...pluginSvelte.configs['recommended'],
   {
-    files: ['src/**/*.svelte.ts'],
-    rules: {
-      'import/newline-after-import': 'off',
+    files: ['**/*.svelte', '**/*.svelte.ts', '**/*.svelte.js'],
+    languageOptions: {
+      parserOptions: {
+        parser: tsParser,
+        extraFileExtensions: ['.svelte'],
+        svelteConfig,
+      },
     },
   },
   {

@@ -1,17 +1,17 @@
 /* istanbul ignore file -- @preserve */
-import { bench, describe } from 'vitest'
-import { shallowRef, computed as vueComputed, watchEffect } from 'vue'
-import { createEffect, createMemo, createSignal } from 'solid-js'
-import {
-  computed as preactComputed,
-  effect as preactEffect,
-  signal as preactSignal,
-} from '@preact/signals'
 import {
   computed as angularComputed,
   signal as angularSignal,
 } from '@angular/core'
 import { createWatch } from '@angular/core/primitives/signals'
+import {
+  computed as preactComputed,
+  effect as preactEffect,
+  signal as preactSignal,
+} from '@preact/signals'
+import { createEffect, createMemo, createSignal } from 'solid-js'
+import { test } from 'vitest'
+import { shallowRef, computed as vueComputed, watchEffect } from 'vue'
 import { createStore } from '../src'
 
 function noop(val: any) {
@@ -28,8 +28,8 @@ function noop(val: any) {
  *       \ /
  *        G
  */
-describe('Derived', () => {
-  bench('TanStack', () => {
+test('Derived', async ({ bench }) => {
+  const tanstack = bench('TanStack', () => {
     const a = createStore(1)
     const b = createStore(() => a.state)
     const c = createStore(() => a.state)
@@ -43,7 +43,7 @@ describe('Derived', () => {
     a.setState(() => 2)
   })
 
-  bench('Vue', () => {
+  const vue = bench('Vue', () => {
     const a = shallowRef(1)
     const b = vueComputed(() => a.value)
     const c = vueComputed(() => a.value)
@@ -59,7 +59,7 @@ describe('Derived', () => {
     a.value = 2
   })
 
-  bench('Solid', () => {
+  const solid = bench('Solid', () => {
     const [a, setA] = createSignal(1)
     const b = createMemo(() => a())
     const c = createMemo(() => a())
@@ -75,7 +75,7 @@ describe('Derived', () => {
     setA(2)
   })
 
-  bench('Preact', () => {
+  const preact = bench('Preact', () => {
     const a = preactSignal(1)
     const b = preactComputed(() => a.value)
     const c = preactComputed(() => a.value)
@@ -91,7 +91,7 @@ describe('Derived', () => {
     a.value = 2
   })
 
-  bench('Angular', () => {
+  const angular = bench('Angular', () => {
     const a = angularSignal(1)
     const b = angularComputed(() => a())
     const c = angularComputed(() => a())
@@ -110,4 +110,6 @@ describe('Derived', () => {
 
     a.set(2)
   })
+
+  await bench.compare(tanstack, vue, solid, preact, angular)
 })

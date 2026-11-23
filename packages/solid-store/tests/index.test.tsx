@@ -1,7 +1,7 @@
-import { describe, expect, it, test, vi } from 'vitest'
-import { createSignal, flush } from 'solid-js'
 import { render, renderHook } from '@solidjs/testing-library'
 import { createAtom, createStore } from '@tanstack/store'
+import { createSignal, flush } from 'solid-js'
+import { describe, expect, it, test, vi } from 'vitest'
 import {
   compareShallow,
   createStoreContext,

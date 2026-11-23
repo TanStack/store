@@ -1,6 +1,6 @@
 import { useSelector } from './useSelector'
-import type { Ref } from 'vue'
 import type { Atom } from '@tanstack/store'
+import type { Ref } from 'vue'
 import type { UseSelectorOptions } from './useSelector'
 
 /**

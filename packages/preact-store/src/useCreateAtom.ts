@@ -1,6 +1,5 @@
-import { useState } from 'preact/hooks'
 import { createAtom } from '@tanstack/store'
-// eslint-disable-next-line no-duplicate-imports
+import { useState } from 'preact/hooks'
 import type { Atom, AtomOptions, ReadonlyAtom } from '@tanstack/store'
 
 /**

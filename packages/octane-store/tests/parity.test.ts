@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import * as core from '@tanstack/store'
+import { describe, expect, it } from 'vitest'
 import * as binding from '../src'
 
 describe('export surface', () => {

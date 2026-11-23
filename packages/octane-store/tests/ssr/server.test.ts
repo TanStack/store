@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest'
-import { renderToStaticMarkup } from 'octane/server'
 import { createAtom, createStore } from '@tanstack/octane-store'
+import { renderToStaticMarkup } from 'octane/server'
+import { describe, expect, it } from 'vitest'
 import { ServerView } from '../_fixtures/server.tsrx'
 
 describe('@tanstack/octane-store SSR', () => {

@@ -1,8 +1,8 @@
-import { describe, expect, test } from 'vitest'
 import { Component, effect } from '@angular/core'
 import { TestBed } from '@angular/core/testing'
 import { By } from '@angular/platform-browser'
 import { Store, createAtom, createStore } from '@tanstack/store'
+import { describe, expect, test } from 'vitest'
 import { createStoreContext, injectAtom, injectSelector } from '../src/index'
 import type { Atom } from '@tanstack/store'
 

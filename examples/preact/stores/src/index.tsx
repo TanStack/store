@@ -1,5 +1,5 @@
-import { render } from 'preact'
 import { createStore, useSelector } from '@tanstack/preact-store'
+import { render } from 'preact'
 
 // Optionally, you can create stores outside of Preact components at module scope
 const petStore = createStore({

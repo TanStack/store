@@ -1,10 +1,10 @@
-import ReactDOM from 'react-dom/client'
 import {
   createAtom,
   useAtom,
   // useCreateAtom,
   useSelector,
 } from '@tanstack/react-store'
+import ReactDOM from 'react-dom/client'
 
 // Optionally, you can create atoms outside of React components at module scope
 const countAtom = createAtom(0)

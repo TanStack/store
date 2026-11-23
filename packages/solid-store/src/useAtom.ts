@@ -1,6 +1,6 @@
 import { useSelector } from './useSelector'
-import type { Accessor } from 'solid-js'
 import type { Atom } from '@tanstack/store'
+import type { Accessor } from 'solid-js'
 import type { UseSelectorOptions } from './useSelector'
 
 /**

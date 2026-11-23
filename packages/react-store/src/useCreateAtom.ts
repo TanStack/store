@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
 import { createAtom } from '@tanstack/store'
+import { useState } from 'react'
 import type { Atom, AtomOptions, ReadonlyAtom } from '@tanstack/store'
 
 /**

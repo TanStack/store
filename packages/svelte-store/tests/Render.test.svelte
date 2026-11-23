@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { untrack } from 'svelte'
   import { createStore } from '@tanstack/store'
+  import { untrack } from 'svelte'
   import { useSelector } from '../src/index.svelte.js'
 
   const store = createStore({
