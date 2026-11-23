@@ -8,7 +8,9 @@ import { publishStore } from './store-bus'
 
 <const/contextKey=input.key>
 
-<const/_build=(() => {
+// The content renders under `<if=bundle>` so Marko orders it after this const;
+// see <store-provider>.
+<const/bundle=(() => {
   const g = ($global ?? {}) as unknown as Record<string, unknown>
   // Shares the provider's "$owner" marker on purpose: a <store-provider> and a
   // <stream-store-provider> on the same key both write the same box, which is always a mistake,
@@ -23,7 +25,7 @@ import { publishStore } from './store-bus'
   }
   g[marker] = true
   if (!g[contextKey]) g[contextKey] = input.value()
-  return 0
+  return g[contextKey]
 })()>
 
 <lifecycle
@@ -44,4 +46,6 @@ import { publishStore } from './store-bus'
   }
 >
 
-<${input.content}/>
+<if=bundle>
+  <${input.content}/>
+</if>

@@ -8,7 +8,11 @@ import { publishStore } from './store-bus'
 
 <const/contextKey=input.key ?? '__tanstack_store_context'>
 
-<const/_park=(() => {
+// The content renders under `<if=bundle>` so Marko orders it after this const.
+// Since Marko 6.4.7 a client-created branch sets up before the values it
+// receives, so rendering the content directly could run a child
+// <store-context> before the bundle is on the shelf.
+<const/bundle=(() => {
   const g = ($global ?? {}) as unknown as Record<string, unknown>
   const marker = contextKey + '$owner'
   if (g[marker]) {
@@ -19,7 +23,9 @@ import { publishStore } from './store-bus'
     )
   }
   g[marker] = true
-  g[contextKey] = input.value()
+  const value = input.value()
+  g[contextKey] = value
+  return value
 })()>
 
 <lifecycle
@@ -36,4 +42,6 @@ import { publishStore } from './store-bus'
   }
 >
 
-<${input.content}/>
+<if=bundle>
+  <${input.content}/>
+</if>
