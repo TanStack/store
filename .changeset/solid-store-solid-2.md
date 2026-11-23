@@ -1,5 +1,5 @@
 ---
-'@tanstack/solid-store': minor
+'@tanstack/solid-store': major
 ---
 
 Support Solid 2. `@tanstack/solid-store` now requires `solid-js` 2 (`^2.0.0`); stay on 0.11.x for Solid 1.
