@@ -1,5 +1,13 @@
 # @tanstack/vue-store
 
+## 1.0.0-alpha.1
+
+### Major Changes
+
+- [#419](https://github.com/TanStack/store/pull/419) [`569f0a4`](https://github.com/TanStack/store/commit/569f0a43ac2a7b902ba2f600ced11f08b8d6e09f) - Remove the deprecated store hooks. Read state with `useSelector` (`injectSelector` in Angular) and update it through `store.actions` or `store.setState`.
+  - `useStore` and `injectStore` are removed. They were aliases for `useSelector` and `injectSelector`, so rename the calls.
+  - The experimental `_useStore` and `_injectStore` hooks are removed. Replace `const [value, actions] = _useStore(store, selector)` with `const value = useSelector(store, selector)` and `const actions = store.actions`. For a store without actions, call `store.setState` instead.
+
 ## 1.0.0-alpha.0
 
 ### Major Changes

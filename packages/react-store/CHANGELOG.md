@@ -1,5 +1,17 @@
 # @tanstack/react-store
 
+## 1.0.0-alpha.1
+
+### Major Changes
+
+- [#419](https://github.com/TanStack/store/pull/419) [`569f0a4`](https://github.com/TanStack/store/commit/569f0a43ac2a7b902ba2f600ced11f08b8d6e09f) - Remove the deprecated store hooks. Read state with `useSelector` (`injectSelector` in Angular) and update it through `store.actions` or `store.setState`.
+  - `useStore` and `injectStore` are removed. They were aliases for `useSelector` and `injectSelector`, so rename the calls.
+  - The experimental `_useStore` and `_injectStore` hooks are removed. Replace `const [value, actions] = _useStore(store, selector)` with `const value = useSelector(store, selector)` and `const actions = store.actions`. For a store without actions, call `store.setState` instead.
+
+### Patch Changes
+
+- [#391](https://github.com/TanStack/store/pull/391) [`9559024`](https://github.com/TanStack/store/commit/9559024ca1f5f2793c4059b8da6fcca1bd1199cf) - Mark React hooks and context modules as client boundaries so RSC bundlers do not link them against React's server-only entry. Core Store reexports remain available to Server Components, and ordinary SSR continues using the real hooks.
+
 ## 1.0.0-alpha.0
 
 ### Major Changes
