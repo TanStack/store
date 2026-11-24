@@ -69,6 +69,10 @@ export class ReadonlyStore<T> implements Omit<
     this.atom = createAtom(
       valueOrFn as T | ((prev?: NoInfer<T>) => T),
     ) as Atom<T>
+
+    // bind for safe destructuring
+    this.get = this.get.bind(this)
+    this.subscribe = this.subscribe.bind(this)
   }
   public get state() {
     return this.atom.get()
