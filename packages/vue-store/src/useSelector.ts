@@ -1,5 +1,5 @@
-import { onScopeDispose, readonly, shallowRef, toRaw } from 'vue-demi'
-import type { Ref } from 'vue-demi'
+import { onScopeDispose, shallowRef } from 'vue-demi'
+import type { ShallowRef } from 'vue-demi'
 
 export interface UseSelectorOptions<TSelected> {
   compare?: (a: TSelected, b: TSelected) => boolean
@@ -40,12 +40,12 @@ export function useSelector<TSource, TSelected = NoInfer<TSource>>(
   source: SelectionSource<TSource>,
   selector: (snapshot: TSource) => TSelected = (s) => s as unknown as TSelected,
   options?: UseSelectorOptions<TSelected>,
-): Readonly<Ref<TSelected>> {
+): Readonly<ShallowRef<TSelected>> {
   const compare = options?.compare ?? defaultCompare
-  const slice = shallowRef(selector(source.get())) as Ref<TSelected>
+  const slice = shallowRef(selector(source.get())) as ShallowRef<TSelected>
   const unsubscribe = source.subscribe((snapshot) => {
     const selected = selector(snapshot)
-    if (compare(toRaw(slice.value), selected)) {
+    if (compare(slice.value, selected)) {
       return
     }
     slice.value = selected
@@ -55,5 +55,5 @@ export function useSelector<TSource, TSelected = NoInfer<TSource>>(
     unsubscribe()
   })
 
-  return readonly(slice) as Readonly<Ref<TSelected>>
+  return slice as Readonly<ShallowRef<TSelected>>
 }
