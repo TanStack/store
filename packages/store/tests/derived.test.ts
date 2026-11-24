@@ -291,4 +291,18 @@ describe('Derived', () => {
       currentVal: 25,
     })
   })
+
+  test('get and subscribe should work when destructured', () => {
+    const count = createStore(1)
+    const { get, subscribe } = createStore(() => count.state * 2)
+    const fn = vi.fn()
+    const { unsubscribe } = subscribe(fn)
+
+    expect(get()).toBe(2)
+
+    count.setState(() => 2)
+    expect(fn).toHaveBeenCalledWith(4)
+
+    unsubscribe()
+  })
 })
