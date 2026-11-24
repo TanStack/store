@@ -1,16 +1,73 @@
 export function compareShallow<T>(objA: T, objB: T): boolean {
-  return _evaluate(objA, objB, { mode: 'shallow' }, new WeakMap())
+  return _evaluate(objA, objB, { mode: 'shallow' }, createSeen())
 }
 
 export function compareDeep<T>(objA: T, objB: T): boolean {
-  return _evaluate(objA, objB, { mode: 'deep' }, new WeakMap())
+  return _evaluate(objA, objB, { mode: 'deep' }, createSeen())
+}
+
+// Past this nesting depth, values are reported as unequal instead of recursing
+// further, so hostile or accidental deep nesting cannot overflow the stack.
+const MAX_DEPTH = 500
+
+const EQUAL = 0
+const NOT_EQUAL = -1
+
+// A pair that compared equal while assuming that some in-progress pairs above
+// it are equal. It is reused as equal until one of those pairs finishes.
+interface Provisional {
+  // the shallowest in-progress pair it depends on
+  lowest: number
+}
+
+// A pair that failed only because its comparison reached MAX_DEPTH. Reaching it
+// again at the same depth or deeper leaves no more room, so the failure is
+// reused there. Reaching it higher up compares it again.
+interface DepthLimited {
+  failedAt: number
+}
+
+// Each compared pair (a, b) has a state: its stack depth (a positive number)
+// while it is still being compared, EQUAL or NOT_EQUAL once it is final, or a
+// Provisional or DepthLimited result.
+type PairState = number | Provisional | DepthLimited
+type PairStates = Map<object, PairState>
+
+interface Seen {
+  pairs: Map<object, PairStates>
+  // depth of the pair being compared
+  depth: number
+  // shallowest in-progress pair the current comparison depends on
+  lowestAssumed: number
+  // incremented whenever a comparison stops at MAX_DEPTH
+  depthLimitHits: number
+  // provisional pairs, by the depth of the in-progress pair that decides them
+  pending: Array<Array<[PairStates, object, Provisional]> | undefined>
+}
+
+function createSeen(): Seen {
+  return {
+    pairs: new Map(),
+    depth: 0,
+    lowestAssumed: Infinity,
+    depthLimitHits: 0,
+    pending: [],
+  }
+}
+
+function addPending(
+  seen: Seen,
+  depth: number,
+  entry: [PairStates, object, Provisional],
+) {
+  ;(seen.pending[depth] ??= []).push(entry)
 }
 
 function _evaluate<T>(
   objA: T,
   objB: T,
   config: { mode: 'shallow' | 'deep' },
-  seen: WeakMap<object, WeakSet<object>>,
+  seen: Seen,
 ): boolean {
   if (Object.is(objA, objB)) {
     return true
@@ -25,20 +82,107 @@ function _evaluate<T>(
     return false
   }
 
-  // guards against circular references
-  if (config.mode === 'deep') {
-    let seenB = seen.get(objA as object)
-
-    if (seenB?.has(objB as object)) return true
-
-    if (!seenB) {
-      seenB = new WeakSet()
-      seen.set(objA as object, seenB)
-    }
-
-    seenB.add(objB as object)
+  if (config.mode === 'shallow') {
+    return _evaluateObjects(objA, objB, config, seen)
   }
 
+  let pairs = seen.pairs.get(objA)
+  const state = pairs?.get(objB)
+  if (state === EQUAL) return true
+  if (state === NOT_EQUAL) return false
+
+  // guards against circular references: a pair that is still being compared
+  // further up the stack is assumed equal, and so is a provisional pair. Either
+  // way, the current comparison now depends on the same in-progress pairs.
+  if (typeof state === 'number') {
+    seen.lowestAssumed = Math.min(seen.lowestAssumed, state)
+    return true
+  }
+  if (state && 'lowest' in state) {
+    seen.lowestAssumed = Math.min(seen.lowestAssumed, state.lowest)
+    return true
+  }
+
+  if (
+    seen.depth >= MAX_DEPTH ||
+    (state !== undefined && seen.depth + 1 >= state.failedAt)
+  ) {
+    seen.depthLimitHits++
+    return false
+  }
+
+  if (!pairs) {
+    pairs = new Map()
+    seen.pairs.set(objA, pairs)
+  }
+  const depth = ++seen.depth
+  pairs.set(objB, depth)
+  const outerLowestAssumed = seen.lowestAssumed
+  const depthLimitHitsBefore = seen.depthLimitHits
+  seen.lowestAssumed = Infinity
+  let result = false
+
+  try {
+    result = _evaluateObjects(objA, objB, config, seen)
+    return result
+  } finally {
+    seen.depth--
+    const innerLowestAssumed = seen.lowestAssumed
+    const assumedAbove = innerLowestAssumed < depth
+
+    // Provisional pairs below this one wait here until it finishes, because
+    // they may have assumed it is equal. If it fails, they are dropped. If it
+    // succeeds, they are final once every pair they assumed has finished, and
+    // otherwise they wait for the next pair up.
+    const dependents = seen.pending[depth]
+    seen.pending[depth] = undefined
+    if (dependents) {
+      for (const entry of dependents) {
+        const [states, b, provisional] = entry
+        if (!result) {
+          states.delete(b)
+          continue
+        }
+        // it also depends on whatever this pair assumed
+        provisional.lowest = Math.min(provisional.lowest, innerLowestAssumed)
+        if (provisional.lowest >= depth) states.set(b, EQUAL)
+        else addPending(seen, depth - 1, entry)
+      }
+    }
+
+    if (!result) {
+      // A failure is final only if it assumed nothing above this pair and did
+      // not stop at MAX_DEPTH. An assumption can make Set matching pick the
+      // wrong candidate, and the same pair may fit within MAX_DEPTH elsewhere.
+      if (assumedAbove) {
+        pairs.delete(objB)
+      } else if (seen.depthLimitHits !== depthLimitHitsBefore) {
+        pairs.set(objB, { failedAt: depth })
+      } else {
+        pairs.set(objB, NOT_EQUAL)
+      }
+    } else if (!assumedAbove) {
+      pairs.set(objB, EQUAL)
+    } else {
+      const provisional: Provisional = { lowest: innerLowestAssumed }
+      pairs.set(objB, provisional)
+      addPending(seen, depth - 1, [pairs, objB, provisional])
+    }
+
+    // assumptions about pairs above this one still apply to them
+    seen.lowestAssumed = Math.min(
+      outerLowestAssumed,
+      assumedAbove ? innerLowestAssumed : Infinity,
+    )
+  }
+}
+
+function _evaluateObjects<T>(
+  objA: T & object,
+  objB: T & object,
+  config: { mode: 'shallow' | 'deep' },
+  seen: Seen,
+): boolean {
   // guards against runtime cross type evaluation
   if (Object.getPrototypeOf(objA) !== Object.getPrototypeOf(objB)) {
     return false
@@ -84,9 +228,23 @@ function _evaluate<T>(
     if (objA.size !== objB.size) return false
 
     if (config.mode === 'deep') {
+      // Match each element of objA to its own element of objB, preferring the
+      // same reference. Taking the first deep-equal match is enough because
+      // deep equality is transitive.
+      const remaining = new Set(objB)
       for (const v of objA) {
-        if (![...objB].some((bv) => _evaluate(v, bv, config, seen)))
-          return false
+        if (remaining.delete(v)) continue
+        let match: unknown
+        let found = false
+        for (const other of remaining) {
+          if (_evaluate(v, other, config, seen)) {
+            match = other
+            found = true
+            break
+          }
+        }
+        if (!found) return false
+        remaining.delete(match)
       }
     }
 

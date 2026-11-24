@@ -420,6 +420,326 @@ describe('evaluate', () => {
       ).toEqual(true)
     })
 
+    it('should match each Set element at most once', () => {
+      expect(
+        compareDeep(
+          new Set([{ x: 1 }, { x: 1 }]),
+          new Set([{ x: 1 }, { x: 2 }]),
+        ),
+      ).toEqual(false)
+      expect(
+        compareDeep(
+          new Set([{ x: 1 }, { x: 2 }]),
+          new Set([{ x: 1 }, { x: 1 }]),
+        ),
+      ).toEqual(false)
+      expect(
+        compareDeep(
+          new Set([{ x: 2 }, { x: 1 }]),
+          new Set([{ x: 1 }, { x: 2 }]),
+        ),
+      ).toEqual(true)
+    })
+
+    it('should not remember failed Set element comparisons as equal', () => {
+      const p = { x: 1 }
+      const q = { x: 2 }
+
+      // While matching the Sets, `p` is first tried against `q2` and fails.
+      // That failed attempt must not make the later `p` vs `q2` check pass.
+      const q2 = { x: 2 }
+      const p2 = { x: 1 }
+
+      expect(
+        compareDeep([new Set([p, q]), p], [new Set([q2, p2]), q2]),
+      ).toEqual(false)
+    })
+
+    it('should drop provisional results when the ancestor they assumed fails', () => {
+      const build = (x: number) => {
+        const child: Record<string, unknown> = {}
+        const parent = { child, x }
+        child.parent = parent
+        return { parent, child }
+      }
+      const a = build(1)
+      const a2 = build(1)
+      const b = build(2)
+      const b2 = build(2)
+
+      // Matching the Sets first tries `a` against `b`. While that pair is in
+      // progress, `a.child` vs `b.child` is provisionally equal, and then the
+      // pair fails on `x`. The Sets still match (`a` with `a2`, `b2` with `b`),
+      // so the comparison goes on to `a.child` vs `b.child`, which must now
+      // fail because their parents differ.
+      expect(
+        compareDeep(
+          [new Set([a.parent, b2.parent]), a.child],
+          [new Set([b.parent, a2.parent]), b.child],
+        ),
+      ).toEqual(false)
+    })
+
+    it('should drop provisional results when any ancestor they assumed fails', () => {
+      const build = (x: number) => {
+        const child: Record<string, unknown> = {}
+        const parent = { child, x }
+        child.parent = parent
+        return { parent, child }
+      }
+      const a = build(1)
+      const a2 = build(1)
+      const b = build(2)
+      const b2 = build(2)
+      const left = [new Set([a.parent, b2.parent]), a.child]
+      const right = [new Set([b.parent, a2.parent]), b.child]
+      // Every child also points to its side's outer array, so the provisional
+      // result for `a.child` vs `b.child` depends on both the outer arrays and
+      // the failing parents.
+      a.child.outer = left
+      b2.child.outer = left
+      b.child.outer = right
+      a2.child.outer = right
+
+      expect(compareDeep(left, right)).toEqual(false)
+    })
+
+    it('should not finalize a provisional result while its ancestors are still in progress', () => {
+      // y -> x -> z -> back to x, and x also points back to y. While matching
+      // the Sets, `z` vs `z` is provisionally equal on the assumption that the
+      // `x` pair is equal, and the `x` pair assumes the `y` pair is equal. The
+      // `y` pair then fails, so `z` vs `z` must not be kept as equal.
+      const build = (value: number) => {
+        const z: Record<string, unknown> = {}
+        const x: Record<string, unknown> = { z }
+        const y = { k: x, value }
+        x.back = y
+        z.up = x
+        return { y, z }
+      }
+      const a = build(1)
+      const a2 = build(1)
+      const b = build(2)
+      const b2 = build(2)
+
+      expect(
+        compareDeep([new Set([a.y, b2.y]), a.z], [new Set([b.y, a2.y]), b.z]),
+      ).toEqual(false)
+    })
+
+    it('should not cache a failure that relied on an in-progress pair', () => {
+      // While `P` vs `Q` is in progress, Set matching pairs L's `{ parent: P }`
+      // with R's `{ parent: Q }` and then fails. That failure must not be
+      // reused once `P` vs `Q` is done, because L and R do match one to one.
+      const L = new Set<{ parent: unknown }>()
+      const R = new Set<{ parent: unknown }>()
+      const P = { s: L, x: 1 }
+      const Q = { x: 2, s: R }
+      L.add({ parent: P }).add({ parent: Q })
+      R.add({ parent: Q }).add({ parent: P })
+
+      expect(
+        compareDeep([new Set([P, Q]), L], [new Set([Q, { ...P }]), R]),
+      ).toEqual(true)
+    })
+
+    it('should match Sets of the same references in linear time', () => {
+      const items = Array.from({ length: 200000 }, (_, i) => ({ id: i }))
+      const reversed = new Set([...items].reverse())
+
+      // a scan per element would take on the order of 2 * 10^10 steps here
+      const start = performance.now()
+      expect(compareDeep(new Set(items), reversed)).toEqual(true)
+      expect(performance.now() - start).toBeLessThan(1000)
+    })
+
+    it('should match large Sets of objects in any order', () => {
+      const items = (n: number) =>
+        Array.from({ length: n }, (_, i) => ({ id: i, tags: [i % 3] }))
+
+      expect(
+        compareDeep(new Set(items(1000)), new Set(items(1000).reverse())),
+      ).toEqual(true)
+      const changed = items(1000).reverse()
+      changed[500] = { id: -1, tags: [0] }
+      expect(compareDeep(new Set(items(1000)), new Set(changed))).toEqual(false)
+    })
+
+    describe('shared children', () => {
+      // Each structure doubles its references per level, so 20 levels mean
+      // about a million comparisons if a pair is compared more than once.
+      const LEVELS = 20
+
+      // A node whose `value` getter counts reads. compareDeep reads it once per
+      // side each time it compares the node pair, so 2 reads mean the pair was
+      // compared once.
+      const createProbe = () => {
+        const probe = {
+          reads: 0,
+          node: (value: number, extra: Record<string, unknown> = {}) =>
+            Object.defineProperty(extra, 'value', {
+              enumerable: true,
+              get: () => {
+                probe.reads++
+                return value
+              },
+            }),
+        }
+        return probe
+      }
+
+      it('should compare a shared child only once', () => {
+        const probe = createProbe()
+        const build = () => {
+          let node: object = probe.node(1)
+          for (let i = 0; i < LEVELS; i++) node = { left: node, right: node }
+          return node
+        }
+
+        expect(compareDeep(build(), build())).toEqual(true)
+        expect(probe.reads).toEqual(2)
+      })
+
+      it('should compare a shared self-referencing child only once', () => {
+        const probe = createProbe()
+        const build = () => {
+          const leaf = probe.node(1)
+          leaf.self = leaf
+          let node: object = leaf
+          for (let i = 0; i < LEVELS; i++) node = { left: node, right: node }
+          return node
+        }
+
+        expect(compareDeep(build(), build())).toEqual(true)
+        expect(probe.reads).toEqual(2)
+      })
+
+      it('should compare shared children that point back to an ancestor only once', () => {
+        const probe = createProbe()
+        const build = (value: number) => {
+          const root: Record<string, unknown> = {}
+          let node: object = probe.node(value, { root })
+          for (let i = 0; i < LEVELS; i++) node = { left: node, right: node }
+          root.child = node
+          return root
+        }
+
+        expect(compareDeep(build(1), build(1))).toEqual(true)
+        expect(probe.reads).toEqual(2)
+
+        probe.reads = 0
+        expect(compareDeep(build(1), build(2))).toEqual(false)
+        expect(probe.reads).toEqual(2)
+      })
+
+      it('should not repeat failed comparisons of shared array children', () => {
+        const probe = createProbe()
+        const build = (value: number) => {
+          let node: object = probe.node(value)
+          for (let i = 0; i < LEVELS; i++) node = [{ c: node }, { c: node }]
+          return node
+        }
+
+        expect(compareDeep(build(1), build(2))).toEqual(false)
+        expect(probe.reads).toEqual(2)
+      })
+
+      it('should not repeat failed comparisons of shared Set children', () => {
+        const probe = createProbe()
+        const build = (value: number) => {
+          let node: Set<unknown> = new Set([probe.node(value)])
+          for (let i = 0; i < LEVELS; i++) {
+            node = new Set([
+              { c: node, t: 1 },
+              { c: node, t: 2 },
+            ])
+          }
+          return node
+        }
+
+        expect(compareDeep(build(1), build(2))).toEqual(false)
+        expect(probe.reads).toEqual(2)
+      })
+    })
+
+    describe('max depth', () => {
+      const nestedArrays = (depth: number) =>
+        JSON.parse('['.repeat(depth) + ']'.repeat(depth)) as unknown
+      const nestedObjects = (depth: number) =>
+        JSON.parse('{"a":'.repeat(depth) + '1' + '}'.repeat(depth)) as unknown
+
+      it('should compare values nested below the max depth', () => {
+        expect(compareDeep(nestedArrays(400), nestedArrays(400))).toEqual(true)
+        expect(compareDeep(nestedObjects(400), nestedObjects(400))).toEqual(
+          true,
+        )
+      })
+
+      it('should not cache a failure caused by the max depth', () => {
+        const wrap = (value: unknown, depth: number) => {
+          let node = value
+          for (let i = 0; i < depth; i++) node = { a: node }
+          return node
+        }
+        const shared = () => wrap(1, 10)
+        const sharedA = shared()
+        const sharedB = shared()
+        const deepA = wrap(sharedA, 495)
+        const e = { y: deepA, x: sharedA }
+        const c1 = { y: wrap(sharedB, 495), x: sharedB }
+        const c2 = { y: deepA, x: sharedB }
+
+        // `e` is first tried against `c1`, which reaches `sharedA` vs
+        // `sharedB` past the max depth and fails. `e` then matches `c2`, which
+        // compares the same pair near the top, where it fits.
+        expect(compareDeep(new Set([e, c1]), new Set([c1, c2]))).toEqual(true)
+      })
+
+      it('should not repeat comparisons that failed at the max depth', () => {
+        let reads = 0
+        const build = () => {
+          let node: Set<unknown> = new Set([{ value: 1 }])
+          for (let i = 0; i < 25; i++) {
+            const child = node
+            // `c` comes before `t`, so both candidates compare the child first
+            const wrapper = (t: number) =>
+              Object.assign(
+                Object.defineProperty({}, 'c', {
+                  enumerable: true,
+                  get: () => {
+                    reads++
+                    return child
+                  },
+                }),
+                { t },
+              )
+            node = new Set([wrapper(1), wrapper(2)])
+          }
+          // start deep enough that the chain reaches the max depth
+          let root: unknown = node
+          for (let i = 0; i < 470; i++) root = { a: root }
+          return root
+        }
+
+        expect(compareDeep(build(), build())).toEqual(false)
+        // each level would double the work if failures at the max depth were
+        // compared again at the same depth
+        expect(reads).toBeLessThan(1000)
+      })
+
+      it('should report values nested past the max depth as unequal instead of overflowing the stack', () => {
+        expect(() =>
+          compareDeep(nestedArrays(20000), nestedArrays(20000)),
+        ).not.toThrow()
+        expect(compareDeep(nestedArrays(20000), nestedArrays(20000))).toEqual(
+          false,
+        )
+        expect(compareDeep(nestedObjects(20000), nestedObjects(20000))).toEqual(
+          false,
+        )
+      })
+    })
+
     it('should test equality between File objects', () => {
       const file1 = new File(['hello'], 'hello.txt', {
         type: 'text/plain',
