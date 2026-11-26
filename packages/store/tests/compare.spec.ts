@@ -1,5 +1,10 @@
 import { describe, expect, it, vi } from 'vitest'
-import { compareDeep, compareShallow } from '../src/compare'
+import { compareDeep, compareShallow, createAtom } from '../src'
+
+const comparators = [
+  { name: 'compareShallow', compare: compareShallow },
+  { name: 'compareDeep', compare: compareDeep },
+]
 
 describe('evaluate', () => {
   it('should test equality between primitives', () => {
@@ -18,6 +23,45 @@ describe('evaluate', () => {
     const undefinedFalse = compareShallow(undefined, null)
     expect(undefinedFalse).toEqual(false)
   })
+
+  it.each(comparators)(
+    '$name compares regular expression patterns and flags',
+    ({ compare }) => {
+      expect(compare(/search/i, /search/i)).toBe(true)
+      expect(compare(/search/i, /replace/i)).toBe(false)
+      expect(compare(/search/i, /search/)).toBe(false)
+
+      // Matching advances lastIndex without changing the pattern or flags.
+      const used = /search/g
+      used.test('search')
+      expect(compare(used, /search/g)).toBe(true)
+
+      const taggedA = Object.assign(/search/, { tag: 'a' })
+      const taggedB = Object.assign(/search/, { tag: 'b' })
+      expect(compare(taggedA, taggedB)).toBe(false)
+    },
+  )
+
+  it.each(comparators)(
+    '$name updates an atom when its regular expression changes',
+    ({ compare }) => {
+      const atom = createAtom(/^before/, { compare })
+      const onChange = vi.fn()
+      const subscription = atom.subscribe(onChange)
+
+      try {
+        atom.set(/^before/)
+        expect(onChange).not.toHaveBeenCalled()
+
+        const next = /^after/
+        atom.set(next)
+        expect(atom.get()).toBe(next)
+        expect(onChange).toHaveBeenCalledExactlyOnceWith(next)
+      } finally {
+        subscription.unsubscribe()
+      }
+    },
+  )
 
   it('should return false for runtime cross-type comparisons', () => {
     expect(compareShallow<any>(new Date(), new Map())).toEqual(false)
