@@ -110,9 +110,13 @@ export function createAsyncAtom<T>(
   options?: AtomOptions<AsyncAtomState<T>>,
 ): ReadonlyAtom<AsyncAtomState<T>> {
   const ref: { current?: InternalAtom<AsyncAtomState<T>> } = {}
+  let currentInvocation: symbol
   const atom = createAtom<AsyncAtomState<T>>(() => {
+    const invocation = Symbol()
+    currentInvocation = invocation
     getValue().then(
       (data) => {
+        if (invocation !== currentInvocation) return
         const internalAtom = ref.current!
         if (internalAtom._update({ status: 'done', data })) {
           const subs = internalAtom.subs
@@ -124,6 +128,7 @@ export function createAsyncAtom<T>(
         }
       },
       (error) => {
+        if (invocation !== currentInvocation) return
         const internalAtom = ref.current!
         if (internalAtom._update({ status: 'error', error })) {
           const subs = internalAtom.subs
@@ -199,7 +204,10 @@ export function createAtom<T>(
     _update(getValue?: T | ((snapshot: T) => T)): boolean {
       const prevSub = activeSub
       const compare = options?.compare ?? Object.is
-      if (isComputed) {
+      // Concrete async results keep the dependencies collected by the getter.
+      const shouldTrackDeps =
+        isComputed && (getValue === undefined || typeof getValue === 'function')
+      if (shouldTrackDeps) {
         activeSub = atom
         ++cycle
         atom.depsTail = undefined
@@ -229,7 +237,9 @@ export function createAtom<T>(
         if (isComputed) {
           atom.flags &= ~RECURSED_CHECK
         }
-        purgeDeps(atom)
+        if (shouldTrackDeps) {
+          purgeDeps(atom)
+        }
       }
     },
   }
