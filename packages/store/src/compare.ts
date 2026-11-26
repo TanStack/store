@@ -109,6 +109,16 @@ function _evaluate<T>(
     )
   }
 
+  // A RegExp stores its pattern and flags outside its enumerable properties.
+  // Leave the mutable matching cursor (lastIndex) out of the comparison.
+  if (
+    objA instanceof RegExp &&
+    objB instanceof RegExp &&
+    (objA.source !== objB.source || objA.flags !== objB.flags)
+  ) {
+    return false
+  }
+
   const keysA = getOwnKeys(objA as object)
   const keysB = getOwnKeys(objB as object)
 
