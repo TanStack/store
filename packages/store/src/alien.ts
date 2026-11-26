@@ -57,62 +57,76 @@ export function createReactiveSystem({
     if (prevDep !== undefined && prevDep.dep === dep) {
       return
     }
-    const nextDep = prevDep !== undefined ? prevDep.nextDep : sub.deps
+    let nextDep = prevDep !== undefined ? prevDep.nextDep : sub.deps
+    const prevSub = dep.subsTail
     if (nextDep !== undefined && nextDep.dep === dep) {
       nextDep.version = version
       sub.depsTail = nextDep
-      return
-    }
-    const prevSub = dep.subsTail
-    if (
-      prevSub !== undefined &&
-      prevSub.version === version &&
-      prevSub.sub === sub
-    ) {
-      return
-    }
-    const newLink =
-      (sub.depsTail =
-      dep.subsTail =
-        {
-          version,
-          dep,
-          sub,
-          prevDep,
-          nextDep,
-          prevSub,
-          nextSub: undefined,
-        })
-    if (nextDep !== undefined) {
-      nextDep.prevDep = newLink
-    }
-    if (prevDep !== undefined) {
-      prevDep.nextDep = newLink
+      // A self pointer marks a retained link absent from the subscriber list.
+      if (nextDep.prevSub !== nextDep) {
+        return
+      }
     } else {
-      sub.deps = newLink
+      if (
+        prevSub !== undefined &&
+        prevSub.version === version &&
+        prevSub.sub === sub
+      ) {
+        return
+      }
+      const newLink = (sub.depsTail = {
+        version,
+        dep,
+        sub,
+        prevDep,
+        nextDep,
+        prevSub,
+        nextSub: undefined,
+      })
+      if (nextDep !== undefined) {
+        nextDep.prevDep = newLink
+      }
+      if (prevDep !== undefined) {
+        prevDep.nextDep = newLink
+      } else {
+        sub.deps = newLink
+      }
+      nextDep = newLink
     }
+    dep.subsTail = nextDep
+    nextDep.prevSub = prevSub
     if (prevSub !== undefined) {
-      prevSub.nextSub = newLink
+      prevSub.nextSub = nextDep
     } else {
-      dep.subs = newLink
+      dep.subs = nextDep
     }
   }
 
-  function unlink(link: Link, sub = link.sub): Link | undefined {
+  function unlink(
+    link: Link,
+    sub = link.sub,
+    keepDeps = false,
+  ): Link | undefined {
     const dep = link.dep
     const prevDep = link.prevDep
     const nextDep = link.nextDep
     const nextSub = link.nextSub
     const prevSub = link.prevSub
-    if (nextDep !== undefined) {
-      nextDep.prevDep = prevDep
-    } else {
-      sub.depsTail = prevDep
+    // Unobserved atoms retain their forward links for validation and reuse.
+    if (!keepDeps) {
+      if (nextDep !== undefined) {
+        nextDep.prevDep = prevDep
+      } else {
+        sub.depsTail = prevDep
+      }
+      if (prevDep !== undefined) {
+        prevDep.nextDep = nextDep
+      } else {
+        sub.deps = nextDep
+      }
     }
-    if (prevDep !== undefined) {
-      prevDep.nextDep = nextDep
-    } else {
-      sub.deps = nextDep
+    if (prevSub === link) {
+      return nextDep
     }
     if (nextSub !== undefined) {
       nextSub.prevSub = prevSub
@@ -124,6 +138,8 @@ export function createReactiveSystem({
     } else if ((dep.subs = nextSub) === undefined) {
       unwatched(dep)
     }
+    link.prevSub = link
+    link.nextSub = undefined
     return nextDep
   }
 
