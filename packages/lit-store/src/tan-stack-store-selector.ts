@@ -68,6 +68,7 @@ export class TanStackStoreSelector<
   #subscribedStore?: SelectionSource<TSource>
   #hasSelected = false
   #lastSelected?: TSelected
+  #connected = false
 
   constructor(
     host: ReactiveControllerHost,
@@ -86,9 +87,19 @@ export class TanStackStoreSelector<
     return this.#lastSelected
   }
 
+  hostConnected() {
+    this.#connected = true
+    this.#host.requestUpdate()
+  }
+
   hostUpdate() {
+    // An update can still run after the host is removed; do not subscribe then.
+    if (!this.#connected) return
     const store = this.#getStore()
-    if (store === this.#subscribedStore) return
+    if (store && store === this.#subscribedStore) {
+      this.#select(store.get())
+      return
+    }
     this.#unsubscribe?.()
     this.#subscribedStore = store
     if (!store) {
@@ -97,24 +108,26 @@ export class TanStackStoreSelector<
       this.#lastSelected = undefined
       return
     }
-    this.#lastSelected = this.#selector(store.get())
-    this.#hasSelected = true
+    this.#select(store.get())
     this.#unsubscribe = store.subscribe((value) => {
-      const next = this.#selector(value)
-      if (this.#hasSelected && this.#compare(this.#lastSelected!, next)) {
-        return
-      }
-      this.#lastSelected = next
-      this.#hasSelected = true
-      this.#host.requestUpdate()
+      if (this.#select(value)) this.#host.requestUpdate()
     }).unsubscribe
   }
 
   hostDisconnected() {
+    this.#connected = false
     this.#unsubscribe?.()
     this.#unsubscribe = undefined
     this.#subscribedStore = undefined
-    this.#hasSelected = false
-    this.#lastSelected = undefined
+  }
+
+  #select(value: TSource) {
+    const next = this.#selector(value)
+    if (this.#hasSelected && this.#compare(this.#lastSelected!, next)) {
+      return false
+    }
+    this.#lastSelected = next
+    this.#hasSelected = true
+    return true
   }
 }
