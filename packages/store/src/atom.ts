@@ -157,6 +157,7 @@ export function createAtom<T>(
 ): Atom<T> | ReadonlyAtom<T> {
   const isComputed = typeof valueOrFn === 'function'
   const getter = valueOrFn as (prev?: T) => T
+  let computedError: { error: unknown } | undefined
 
   // Create plain object atom
   const atom: InternalAtom<T> = {
@@ -179,14 +180,22 @@ export function createAtom<T>(
       const obs = toObserver(observerOrFn)
       const observed = { current: false }
       const e = effect(() => {
-        atom.get()
+        let value: T
+        try {
+          value = atom.get()
+        } catch (error) {
+          observed.current = true
+          activeSub = undefined
+          obs.error?.(error)
+          return
+        }
         if (!observed.current) {
           observed.current = true
         } else {
           // Observer reads must not become dependencies of the subscription.
           // The enclosing effect restores activeSub in its finally block.
           activeSub = undefined
-          obs.next?.(atom._snapshot)
+          obs.next?.(value)
         }
       })
 
@@ -213,17 +222,27 @@ export function createAtom<T>(
       }
       try {
         const oldValue = atom._snapshot
-        const newValue =
-          typeof getValue === 'function'
-            ? (getValue as (snapshot: T) => T)(oldValue)
-            : getValue === undefined && isComputed
-              ? getter(oldValue)
-              : getValue!
-        if (oldValue === undefined || !compare(oldValue, newValue)) {
-          atom._snapshot = newValue
-          return true
+        let newValue: T
+        if (getValue === undefined) {
+          try {
+            newValue = getter(oldValue)
+          } catch (error) {
+            computedError = { error }
+            return true
+          }
+        } else {
+          newValue =
+            typeof getValue === 'function'
+              ? (getValue as (snapshot: T) => T)(oldValue)
+              : getValue
         }
-        return false
+        const changed = oldValue === undefined || !compare(oldValue, newValue)
+        if (changed) {
+          atom._snapshot = newValue
+        }
+        const recovered = computedError !== undefined
+        computedError = undefined
+        return changed || recovered
       } finally {
         activeSub = prevSub
         if (isComputed) {
@@ -250,6 +269,9 @@ export function createAtom<T>(
       }
       if (activeSub !== undefined) {
         link(atom, activeSub, cycle)
+      }
+      if (computedError !== undefined) {
+        throw computedError.error
       }
       return atom._snapshot
     }
