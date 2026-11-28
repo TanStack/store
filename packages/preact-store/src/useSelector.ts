@@ -22,7 +22,10 @@ type StoreRef = {
 
 type SelectionSource<T> = {
   get: () => T
-  subscribe: (listener: (value: T) => void) => {
+  subscribe: (
+    listener: (value: T) => void,
+    onError?: (error: unknown) => void,
+  ) => {
     unsubscribe: () => void
   }
 }
@@ -135,7 +138,10 @@ export function useSelector<TSource, TSelected = NoInfer<TSource>>(
 
   const subscribe = useCallback(
     (handleStoreChange: () => void) => {
-      const { unsubscribe } = source.subscribe(handleStoreChange)
+      const { unsubscribe } = source.subscribe(
+        handleStoreChange,
+        handleStoreChange,
+      )
       return unsubscribe
     },
     [source],

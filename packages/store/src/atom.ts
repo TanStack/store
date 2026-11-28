@@ -176,8 +176,11 @@ export function createAtom<T>(
       return atom._snapshot
     },
 
-    subscribe(observerOrFn: Observer<T> | ((value: T) => void)) {
-      const obs = toObserver(observerOrFn)
+    subscribe(
+      observerOrFn: Observer<T> | ((value: T) => void),
+      onError?: Observer<T>['error'],
+    ) {
+      const obs = toObserver(observerOrFn, onError)
       const observed = { current: false }
       const e = effect(() => {
         let value: T

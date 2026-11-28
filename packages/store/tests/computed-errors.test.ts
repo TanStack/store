@@ -1,5 +1,5 @@
 import { describe, expect, test, vi } from 'vitest'
-import { createAtom } from '../src'
+import { createAtom, createStore } from '../src'
 
 function setup(initialValue = 1) {
   const input = createAtom(initialValue)
@@ -29,6 +29,27 @@ describe('computed atom errors', () => {
       subscription.unsubscribe()
     }
   })
+
+  test.each(['atom', 'store'])(
+    'reports getter errors to a separate callback for a computed %s',
+    (sourceType) => {
+      const { input, getter, error } = setup()
+      const source =
+        sourceType === 'atom' ? createAtom(getter) : createStore(getter)
+      const next = vi.fn()
+      const onError = vi.fn()
+      const subscription = source.subscribe(next, onError)
+      try {
+        input.set(-1)
+        expect(onError).toHaveBeenCalledExactlyOnceWith(error)
+        expect(next).not.toHaveBeenCalled()
+        input.set(2)
+        expect(next).toHaveBeenCalledExactlyOnceWith(4)
+      } finally {
+        subscription.unsubscribe()
+      }
+    },
+  )
 
   test('notifies subscribers again even when a computed dependency recovers to the same value', () => {
     const { input, computed, error } = setup()
