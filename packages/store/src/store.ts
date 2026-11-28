@@ -51,8 +51,9 @@ export class Store<T, TActions extends StoreActionMap = never> {
   }
   public subscribe(
     observerOrFn: Observer<T> | ((value: T) => void),
+    error?: Observer<T>['error'],
   ): Subscription {
-    return this.atom.subscribe(toObserver(observerOrFn))
+    return this.atom.subscribe(toObserver(observerOrFn, error))
   }
 }
 
@@ -78,8 +79,9 @@ export class ReadonlyStore<T> implements Omit<
   }
   public subscribe(
     observerOrFn: Observer<T> | ((value: T) => void),
+    error?: Observer<T>['error'],
   ): Subscription {
-    return this.atom.subscribe(toObserver(observerOrFn))
+    return this.atom.subscribe(toObserver(observerOrFn, error))
   }
 }
 

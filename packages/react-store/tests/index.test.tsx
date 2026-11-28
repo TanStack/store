@@ -1,4 +1,4 @@
-import { Suspense, startTransition, use, useState } from 'react'
+import { Component, Suspense, startTransition, use, useState } from 'react'
 import {
   act,
   fireEvent,
@@ -19,6 +19,7 @@ import {
   useSelector,
   useStore,
 } from '../src/index'
+import type { ReactNode } from 'react'
 
 const user = userEvent.setup()
 
@@ -89,6 +90,58 @@ describe('atom hooks', () => {
     await user.click(getByText('Update'))
 
     await waitFor(() => expect(getByText('Value: 4')).toBeInTheDocument())
+  })
+
+  it('useSelector still accepts a callback-only source', () => {
+    const atom = createAtom(0)
+    const source = {
+      get: atom.get,
+      subscribe: (listener: (value: number) => void) =>
+        atom.subscribe((value) => listener(value)),
+    }
+    const { result } = renderHook(() => useSelector(source))
+
+    expect(result.current).toBe(0)
+    act(() => atom.set(1))
+    expect(result.current).toBe(1)
+  })
+
+  it('notifies the error boundary when a mounted computed selector starts throwing', () => {
+    const input = createAtom(1)
+    const computed = createAtom(() => {
+      const value = input.get()
+      if (value < 0) throw new Error('negative input')
+      return value
+    })
+
+    class Boundary extends Component<{ children: ReactNode }> {
+      state = { message: null as string | null }
+
+      static getDerivedStateFromError(error: Error) {
+        return { message: error.message }
+      }
+
+      render() {
+        return this.state.message ?? this.props.children
+      }
+    }
+
+    function Selected() {
+      return <p>Value: {useSelector(computed)}</p>
+    }
+
+    const { getByText, queryByText } = render(
+      <Boundary>
+        <Selected />
+      </Boundary>,
+      { onCaughtError: () => {} },
+    )
+    expect(getByText('Value: 1')).toBeInTheDocument()
+
+    act(() => input.set(-1))
+
+    expect(getByText('negative input')).toBeInTheDocument()
+    expect(queryByText('Value: 1')).not.toBeInTheDocument()
   })
 
   it('useSelector respects custom compare', async () => {

@@ -1,6 +1,6 @@
 import { act, render, renderHook, waitFor } from '@testing-library/preact'
 import { userEvent } from '@testing-library/user-event'
-import { useCallback } from 'preact/hooks'
+import { useCallback, useErrorBoundary } from 'preact/hooks'
 import { describe, expect, it, test, vi } from 'vitest'
 import { createAtom, createStore } from '@tanstack/store'
 import {
@@ -83,6 +83,32 @@ describe('atom hooks', () => {
     await user.click(getByText('Update'))
 
     await waitFor(() => expect(getByText('Value: 4')).toBeInTheDocument())
+  })
+
+  it('notifies the error boundary when a mounted computed selector starts throwing', () => {
+    const input = createAtom(1)
+    const computed = createAtom(() => {
+      const value = input.get()
+      if (value < 0) throw new Error('negative input')
+      return value
+    })
+
+    function Selected() {
+      return <p>Value: {useSelector(computed)}</p>
+    }
+
+    function Boundary() {
+      const [error] = useErrorBoundary()
+      return error ? <p>{(error as Error).message}</p> : <Selected />
+    }
+
+    const { getByText, queryByText } = render(<Boundary />)
+    expect(getByText('Value: 1')).toBeInTheDocument()
+
+    act(() => input.set(-1))
+
+    expect(getByText('negative input')).toBeInTheDocument()
+    expect(queryByText('Value: 1')).not.toBeInTheDocument()
   })
 
   it('useSelector respects custom compare', async () => {
